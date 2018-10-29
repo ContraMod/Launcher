@@ -1,4 +1,4 @@
-п»їusing System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -41,6 +41,7 @@ namespace Contra
             DefaultPics.TabStop = false;
             QSCheckBox.TabStop = false;
             WinCheckBox.TabStop = false;
+            buttonVPNstart.TabStop = false;
             VPNMoreButton.TabStop = false;
             radioFlag_GB.TabStop = false;
             radioFlag_RU.TabStop = false;
@@ -58,15 +59,15 @@ namespace Contra
             }
             else if (Globals.RU_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРёР·РІРµСЃС‚РЅРѕ";
+                Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестно";
             }
             else if (Globals.UA_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРІС–РґРѕРјРѕ";
+                Properties.Settings.Default.IP_Label = "ContraVPN IP: невідомо";
             }
             else if (Globals.BG_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРёР·РІРµСЃС‚РµРЅ";
+                Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестен";
             }
             else if (Globals.DE_Checked == true)
             {
@@ -207,15 +208,15 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Р’С‹ СѓСЃС‚Р°РЅРѕРІРёР»Рё Contra РІ РЅРµРїСЂР°РІРёР»СЊРЅСѓСЋ РїР°РїРєСѓ. РЈСЃС‚Р°РЅРѕРІРёС‚Рµ РµРіРѕ РІ РїР°РїРєСѓ Zero Hour, РєРѕС‚РѕСЂР°СЏ СЃРѕРґРµСЂР¶РёС‚ С„Р°Р№Р» \"generals.exe\".", "РћС€РёР±РєР°");
+                    MessageBox.Show("Вы установили Contra в неправильную папку. Установите его в папку Zero Hour, которая содержит файл \"generals.exe\".", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Р’Рё РІСЃС‚Р°РЅРѕРІРёР»Рё Contra Сѓ РЅРµРїСЂР°РІРёР»СЊРЅС–Р№ РїР°РїС†С–. Р’СЃС‚Р°РЅРѕРІС–С‚СЊ С†Рµ РІ РїР°РїРєСѓ Zero Hour, СЏРєР° РјС–СЃС‚РёС‚СЊ \"generals.exe\".", "РџРѕРјРёР»РєР°");
+                    MessageBox.Show("Ви встановили Contra у неправильній папці. Встановіть це в папку Zero Hour, яка містить \"generals.exe\".", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("РРЅСЃС‚Р°Р»РёСЂР°Р»Рё СЃС‚Рµ Contra РІ РіСЂРµС€РЅР°С‚Р° РїР°РїРєР°. РРЅСЃС‚Р°Р»РёСЂР°Р№С‚Рµ РІ Zero Hour РїР°РїРєР°С‚Р°, РєРѕСЏС‚Рѕ СЃСЉРґСЉСЂР¶Р° \"generals.exe\".", "Р“СЂРµС€РєР°");
+                    MessageBox.Show("Инсталирали сте Contra в грешната папка. Инсталирайте в Zero Hour папката, която съдържа \"generals.exe\".", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -363,19 +364,19 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Р¤Р°Р№Р»С‹ РјРѕРґР° РЅРµ РјРѕРіСѓС‚ Р±С‹С‚СЊ РІС‹РіСЂСѓР¶РµРЅС‹, С‚Р°Рє РєР°Рє РѕРЅРё РІ РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ World Builder. Р•СЃР»Рё РІС‹ С…РѕС‚РёС‚Рµ РІС‹РіСЂСѓР·РёС‚СЊ С„Р°Р№Р»С‹ РјРѕРґР°, Р·Р°РєСЂРѕР№С‚Рµ World Builder Рё СЃРЅРѕРІР° Р·Р°РїСѓСЃС‚РёС‚Рµ Р»Р°СѓРЅС‡РµСЂ. Р—Р°РєСЂС‹С‚РёРµ Р»Р°СѓРЅС‡РµСЂР° РІ Р»СЋР±РѕРј СЃР»СѓС‡Р°Рµ.", "РћС€РёР±РєР°");
+                    MessageBox.Show("Файлы мода не могут быть выгружены, так как они в настоящее время используются World Builder. Если вы хотите выгрузить файлы мода, закройте World Builder и снова запустите лаунчер. Закрытие лаунчера в любом случае.", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Р¤Р°Р№Р»Рё РјРѕРґСѓ РЅРµ РјРѕРіР»Рё Р±СѓС‚Рё СЂРѕР·РІР°РЅС‚Р°Р¶РµРЅС–, РѕСЃРєС–Р»СЊРєРё РІРѕРЅРё РІ РґР°РЅРёР№ С‡Р°СЃ РІРёРєРѕСЂРёСЃС‚РѕРІСѓСЋС‚СЊСЃСЏ World Builder. РЇРєС‰Рѕ РІРё С…РѕС‡РµС‚Рµ Р·Р°РІР°РЅС‚Р°Р¶РёС‚Рё С„Р°Р№Р»Рё РјРѕРґСѓ, Р·Р°РєСЂРёР№С‚Рµ World Builder С– Р·РЅРѕРІСѓ Р·Р°РїСѓСЃС‚С–С‚СЊ Р»Р°СѓРЅС‡РµСЂ. Р—Р°РєСЂРёС‚С‚СЏ Р»Р°СѓРЅС‡РµСЂР° РІ Р±СѓРґСЊ-СЏРєРѕРјСѓ РІРёРїР°РґРєСѓ.", "РџРѕРјРёР»РєР°");
+                    MessageBox.Show("Файли моду не могли бути розвантажені, оскільки вони в даний час використовуються World Builder. Якщо ви хочете завантажити файли моду, закрийте World Builder і знову запустіть лаунчер. Закриття лаунчера в будь-якому випадку.", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("Contra С„Р°Р№Р»РѕРІРµС‚Рµ РЅРµ РјРѕР¶Р°С…Р° РґР° Р±СЉРґР°С‚ РґРµР°РєС‚РёРІРёСЂР°РЅРё, С‚СЉР№ РєР°С‚Рѕ СЃРµ РёР·РїРѕР»Р·РІР°С‚ РѕС‚ World Builder. РђРєРѕ РёСЃРєР°С‚Рµ РґР° РґРµР°РєС‚РёРІРёСЂР°С‚Рµ Contra, Р·Р°С‚РІРѕСЂРµС‚Рµ World Builder Рё СЃС‚Р°СЂС‚РёСЂР°Р№С‚Рµ launcher-Р° РѕС‚РЅРѕРІРѕ.", "Р“СЂРµС€РєР°");
+                    MessageBox.Show("Contra файловете не можаха да бъдат деактивирани, тъй като се използват от World Builder. Ако искате да деактивирате Contra, затворете World Builder и стартирайте launcher-а отново.", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("Mod dateien konnten nicht entladen werden, da sie momentan im World Builder benutzt werden. Falls du die mod dateien entladen wilst, schlieРЇe den World Builder und starte den Launcher erneut. SchlieРЇt den Launcher sowieso.", "Fehler");
+                    MessageBox.Show("Mod dateien konnten nicht entladen werden, da sie momentan im World Builder benutzt werden. Falls du die mod dateien entladen wilst, schlieЯe den World Builder und starte den Launcher erneut. SchlieЯt den Launcher sowieso.", "Fehler");
                 }
             }
             else
@@ -508,19 +509,19 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("РќР°СЃС‚СЂРѕР№РєРё РіРѕР»РѕСЃРѕРІРѕРіРѕ РєР°РЅР°Р»Р° Рё Gentool РјРѕРіСѓС‚ Р·Р°РіСЂСѓР¶Р°С‚СЊСЃСЏ РЅРµРїСЂР°РІРёР»СЊРЅРѕ, С‚Р°Рє РєР°Рє World Builder СѓР¶Рµ Р·Р°РїСѓС‰РµРЅ. Р—Р°РїСѓСЃРє Contra РІ Р»СЋР±РѕРј СЃР»СѓС‡Р°Рµ.", "РћС€РёР±РєР°");
+                    MessageBox.Show("Настройки голосового канала и Gentool могут загружаться неправильно, так как World Builder уже запущен. Запуск Contra в любом случае.", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Р“РѕР»РѕСЃРё СЋРЅС–С‚С–РІ С‚Р° Gentool РјРѕР¶СѓС‚СЊ Р·Р°РІР°РЅС‚Р°Р¶СѓРІР°С‚РёСЃСЏ РЅРµ РїСЂР°РІРёР»СЊРЅРѕ, РѕСЃРєС–Р»СЊРєРё World Builder РІР¶Рµ РїСЂР°С†СЋС”. Р—Р°РїСѓСЃРє Contra РІ Р±СѓРґСЊ-СЏРєРѕРјСѓ РІРёРїР°РґРєСѓ.", "РџРѕРјРёР»РєР°");
+                    MessageBox.Show("Голоси юнітів та Gentool можуть завантажуватися не правильно, оскільки World Builder вже працює. Запуск Contra в будь-якому випадку.", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("Р•Р·РёРєСЉС‚, РЅР° РєРѕР№С‚Рѕ РіРѕРІРѕСЂСЏС‚ РµРґРёРЅРёС†РёС‚Рµ Рё Gentool РјРѕР¶Рµ РґР° РЅРµ Р·Р°СЂРµРґСЏС‚ РїСЂР°РІРёР»РЅРѕ, С‚СЉР№ РєР°С‚Рѕ World Builder Рµ СЃС‚Р°СЂС‚РёСЂР°РЅ. Contra С‰Рµ СЃС‚Р°СЂС‚РёСЂР° РІСЉРїСЂРµРєРё С‚РѕРІР°.", "Р“СЂРµС€РєР°");
+                    MessageBox.Show("Езикът, на който говорят единиците и Gentool може да не заредят правилно, тъй като World Builder е стартиран. Contra ще стартира въпреки това.", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("Einheit Sprach PrРґferenzen und Gentool laden eventuell nicht korrekt, weil der World Builder schon lРґuft. Contra wird ohnehin gestartet.", "Fehler");
+                    MessageBox.Show("Einheit Sprach Prдferenzen und Gentool laden eventuell nicht korrekt, weil der World Builder schon lдuft. Contra wird ohnehin gestartet.", "Fehler");
                 }
             }
         }
@@ -877,18 +878,18 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    labelVpnStatus.Text = "Р’С‹РєР».";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРёР·РІРµСЃС‚РЅРѕ";
+                    labelVpnStatus.Text = "Выкл.";
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестно";
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    labelVpnStatus.Text = "Р’РёРјРє.";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРІС–РґРѕРјРѕ";
+                    labelVpnStatus.Text = "Вимк.";
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: невідомо";
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    labelVpnStatus.Text = "РР·РєР».";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРёР·РІРµСЃС‚РµРЅ";
+                    labelVpnStatus.Text = "Изкл.";
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестен";
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -935,15 +936,15 @@ namespace Contra
             }
             else if (Globals.RU_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРёР·РІРµСЃС‚РЅРѕ";
+                Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестно";
             }
             else if (Globals.UA_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРІС–РґРѕРјРѕ";
+                Properties.Settings.Default.IP_Label = "ContraVPN IP: невідомо";
             }
             else if (Globals.BG_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРёР·РІРµСЃС‚РµРЅ";
+                Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестен";
             }
             else if (Globals.DE_Checked == true)
             {
@@ -1096,21 +1097,21 @@ namespace Contra
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        playersOnlineLabel.Text = "ContraVPN РІС‹РєР»СЋС‡РµРЅРѕ";
-                        labelVpnStatus.Text = "Р’С‹РєР».";
-                        Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРёР·РІРµСЃС‚РЅРѕ";
+                        playersOnlineLabel.Text = "ContraVPN выключено";
+                        labelVpnStatus.Text = "Выкл.";
+                        Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестно";
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        playersOnlineLabel.Text = "ContraVPN РІРёРјРєРЅРµРЅРѕ";
-                        labelVpnStatus.Text = "Р’РёРјРє.";
-                        Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРІС–РґРѕРјРѕ";
+                        playersOnlineLabel.Text = "ContraVPN вимкнено";
+                        labelVpnStatus.Text = "Вимк.";
+                        Properties.Settings.Default.IP_Label = "ContraVPN IP: невідомо";
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        playersOnlineLabel.Text = "ContraVPN РёР·РєР»СЋС‡РµРЅ";
-                        labelVpnStatus.Text = "РР·РєР».";
-                        Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРёР·РІРµСЃС‚РµРЅ";
+                        playersOnlineLabel.Text = "ContraVPN изключен";
+                        labelVpnStatus.Text = "Изкл.";
+                        Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестен";
                     }
                     else if (Globals.DE_Checked == true)
                     {
@@ -1137,21 +1138,21 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    playersOnlineLabel.Text = "ContraVPN РІС‹РєР»СЋС‡РµРЅРѕ";
-                    labelVpnStatus.Text = "Р’С‹РєР».";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРёР·РІРµСЃС‚РЅРѕ";
+                    playersOnlineLabel.Text = "ContraVPN выключено";
+                    labelVpnStatus.Text = "Выкл.";
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестно";
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    playersOnlineLabel.Text = "ContraVPN РІРёРјРєРЅРµРЅРѕ";
-                    labelVpnStatus.Text = "Р’РёРјРє.";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРІС–РґРѕРјРѕ";
+                    playersOnlineLabel.Text = "ContraVPN вимкнено";
+                    labelVpnStatus.Text = "Вимк.";
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: невідомо";
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    playersOnlineLabel.Text = "ContraVPN РёР·РєР»СЋС‡РµРЅ";
-                    labelVpnStatus.Text = "РР·РєР».";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРёР·РІРµСЃС‚РµРЅ";
+                    playersOnlineLabel.Text = "ContraVPN изключен";
+                    labelVpnStatus.Text = "Изкл.";
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестен";
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -1165,9 +1166,14 @@ namespace Contra
 
         public static void addFirewallExceptions()
         {
-            List<string> exes = new List<string>
+            Dictionary<string, string> exes = new Dictionary<string, string>
                         {
-                            "game.dat", "Contra_Launcher.exe", @"contra\vpn\" + Globals.userOS + @"\tinc.exe", @"contra\vpn\" + Globals.userOS + @"\tincd.exe"
+                            {"game.dat","udp"},
+                            {"Contra_Launcher.exe","tcp"},
+                            {@"contra\vpn\" + Globals.userOS + @"\tinc.exe","tcp"},
+                            {@"contra\vpn\" + Globals.userOS + @"\tinc.exe","udp"},
+                            {@"contra\vpn\" + Globals.userOS + @"\tincd.exe","tcp"},
+                            {@"contra\vpn\" + Globals.userOS + @"\tincd.exe","udp"}
                         };
             Process netsh = new Process();
             netsh.StartInfo.FileName = "netsh.exe";
@@ -1176,13 +1182,14 @@ namespace Contra
             netsh.StartInfo.RedirectStandardOutput = true;
             netsh.StartInfo.RedirectStandardError = true;
             netsh.StartInfo.CreateNoWindow = true;
-            foreach (string exe in exes)
+            foreach (KeyValuePair<string,string> exe in exes)
             {
-                string ExeWithoutExtension = exe;
-                int index = exe.LastIndexOf(".");
+                string ExeWithoutExtension = exe.Key;
+                string Protocol = exe.Value;
+                int index = exe.Key.LastIndexOf(".");
                 if (index > 0)
                 {
-                    ExeWithoutExtension = exe.Substring(0, index);
+                    ExeWithoutExtension = exe.Key.Substring(0, index);
                 }
 
                 netsh.StartInfo.Arguments = "advfirewall firewall show rule name=" + "\"Contra - " + ExeWithoutExtension + "\"";
@@ -1190,7 +1197,7 @@ namespace Contra
                 netsh.WaitForExit();
                 if (netsh.ExitCode != 0)
                 {
-                    netsh.StartInfo.Arguments = "advfirewall firewall add rule name=" + "\"Contra - " + ExeWithoutExtension + "\"" + " dir=in action=allow program=" + "\"" + Environment.CurrentDirectory + @"\" + exe + "\"" + " enable=yes";
+                    netsh.StartInfo.Arguments = "advfirewall firewall add rule name=" + "\"Contra - " + ExeWithoutExtension + "\"" + " dir=in action=allow program=" + "\"" + Environment.CurrentDirectory + @"\" + exe.Key + "\"" + " protocol=" + Protocol + " enable=yes";
                     netsh.Start();
                     netsh.WaitForExit();
                 }
@@ -1212,15 +1219,15 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    playersOnlineLabel.Text = "Р—Р°РіСЂСѓР·РєР°...";
+                    playersOnlineLabel.Text = "Загрузка...";
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    playersOnlineLabel.Text = "Р—Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ...";
+                    playersOnlineLabel.Text = "Завантаження...";
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    playersOnlineLabel.Text = "Р—Р°СЂРµР¶РґР° СЃРµ...";
+                    playersOnlineLabel.Text = "Зарежда се...";
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -1248,15 +1255,15 @@ namespace Contra
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        labelVpnStatus.Text = "Р’РєР».";
+                        labelVpnStatus.Text = "Вкл.";
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        labelVpnStatus.Text = "Р’РІС–РјРє.";
+                        labelVpnStatus.Text = "Ввімк.";
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        labelVpnStatus.Text = "Р’РєР».";
+                        labelVpnStatus.Text = "Вкл.";
                     }
                     else if (Globals.DE_Checked == true)
                     {
@@ -1273,15 +1280,15 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("РќРµ СѓРґР°РµС‚СЃСЏ Р·Р°РїСѓСЃС‚РёС‚СЊ ContraVPN, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РїР°РїРєР° \"contra\\vpn\" РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!", "РћС€РёР±РєР°");
+                    MessageBox.Show("Не удается запустить ContraVPN, потому что папка \"contra\\vpn\" не существует!", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("РќРµ РІРґР°С”С‚СЊСЃСЏ Р·Р°РїСѓСЃС‚РёС‚Рё ContraVPN, РѕСЃРєС–Р»СЊРєРё РїР°РїРєР° \"contra\\vpn\" РЅРµ С–СЃРЅСѓС”!", "РџРѕРјРёР»РєР°");
+                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки папка \"contra\\vpn\" не існує!", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("ContraVPN РЅРµ РјРѕР¶Р° РґР° СЃРµ СЃС‚Р°СЂС‚РёСЂР°, Р·Р°С‰РѕС‚Рѕ \"contra\\vpn\" РїР°РїРєР°С‚Р° РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР°!", "Р“СЂРµС€РєР°");
+                    MessageBox.Show("ContraVPN не можа да се стартира, защото \"contra\\vpn\" папката не съществува!", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -1296,15 +1303,15 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("РќРµ СѓРґР°РµС‚СЃСЏ Р·Р°РїСѓСЃС‚РёС‚СЊ ContraVPN, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РїР°РїРєР° \"" + Globals.userOS + "\" РЅРµ РЅР°Р№РґРµРЅР°.", "РћС€РёР±РєР°");
+                    MessageBox.Show("Не удается запустить ContraVPN, потому что папка \"" + Globals.userOS + "\" не найдена.", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("РќРµ РІРґР°С”С‚СЊСЃСЏ Р·Р°РїСѓСЃС‚РёС‚Рё ContraVPN, РѕСЃРєС–Р»СЊРєРё РїР°РїРєР° \"" + Globals.userOS + "\" РЅРµ Р·РЅР°Р№РґРµРЅРѕ.", "РџРѕРјРёР»РєР°");
+                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки папка \"" + Globals.userOS + "\" не знайдено.", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("ContraVPN РЅРµ РјРѕР¶Р° РґР° СЃРµ СЃС‚Р°СЂС‚РёСЂР°, Р·Р°С‰РѕС‚Рѕ РїР°РїРєР°С‚Р° \"" + Globals.userOS + "\" РЅРµ Р±РµС€Рµ РЅР°РјРµСЂРµРЅР°.", "Р“СЂРµС€РєР°");
+                    MessageBox.Show("ContraVPN не можа да се стартира, защото папката \"" + Globals.userOS + "\" не беше намерена.", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -1319,15 +1326,15 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("РќРµ СѓРґР°РµС‚СЃСЏ Р·Р°РїСѓСЃС‚РёС‚СЊ ContraVPN, РїРѕС‚РѕРјСѓ С‡С‚Рѕ С„Р°Р№Р» \"tincd.exe\" РЅРµ РЅР°Р№РґРµРЅ.", "РћС€РёР±РєР°");
+                    MessageBox.Show("Не удается запустить ContraVPN, потому что файл \"tincd.exe\" не найден.", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("РќРµ РІРґР°С”С‚СЊСЃСЏ Р·Р°РїСѓСЃС‚РёС‚Рё ContraVPN, РѕСЃРєС–Р»СЊРєРё С„Р°Р№Р» \"tincd.exe\" РЅРµ Р·РЅР°Р№РґРµРЅРѕ.", "РџРѕРјРёР»РєР°");
+                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки файл \"tincd.exe\" не знайдено.", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("ContraVPN РЅРµ РјРѕР¶Р° РґР° СЃРµ СЃС‚Р°СЂС‚РёСЂР°, Р·Р°С‰РѕС‚Рѕ С„Р°Р№Р»СЉС‚ \"tincd.exe\" РЅРµ Р±РµС€Рµ РЅР°РјРµСЂРµРЅ.", "Р“СЂРµС€РєР°");
+                    MessageBox.Show("ContraVPN не можа да се стартира, защото файлът \"tincd.exe\" не беше намерен.", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -1342,15 +1349,15 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("РќРµ СѓРґР°РµС‚СЃСЏ Р·Р°РїСѓСЃС‚РёС‚СЊ ContraVPN, РїРѕС‚РѕРјСѓ С‡С‚Рѕ С„Р°Р№Р» \"tinc.conf\" РЅРµ РЅР°Р№РґРµРЅ. РЈР±РµРґРёС‚РµСЃСЊ, С‡С‚Рѕ РІС‹ СЃРЅР°С‡Р°Р»Р° СѓРєР°Р·Р°Р»Рё СЃСЃС‹Р»РєСѓ РЅР° РїСЂРёРіР»Р°С€РµРЅРёРµ (РїРµСЂРµР№РґРёС‚Рµ РІ В«РќР°СЃС‚СЂРѕР№РєРё VPNВ» > В«РџСЂРёРіР»Р°С€РµРЅРёРµВ»).", "РћС€РёР±РєР°");
+                    MessageBox.Show("Не удается запустить ContraVPN, потому что файл \"tinc.conf\" не найден. Убедитесь, что вы сначала указали ссылку на приглашение (перейдите в «Настройки VPN» > «Приглашение»).", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("РќРµ РІРґР°С”С‚СЊСЃСЏ Р·Р°РїСѓСЃС‚РёС‚Рё ContraVPN, РѕСЃРєС–Р»СЊРєРё С„Р°Р№Р» \"tinc.conf\" РЅРµ Р·РЅР°Р№РґРµРЅРѕ. РЎРїРѕС‡Р°С‚РєСѓ РїРµСЂРµРєРѕРЅР°Р№С‚РµСЃСЏ, С‰Рѕ РІРё РІРІРµР»Рё РїРѕСЃРёР»Р°РЅРЅСЏ РЅР° Р·Р°РїСЂРѕС€РµРЅРЅСЏ (РїРµСЂРµР№РґС–С‚СЊ РґРѕ РЅР°Р»Р°С€С‚СѓРІР°РЅСЊ VPN > Р—Р°РїСЂРѕС€РµРЅРЅСЏ).", "РџРѕРјРёР»РєР°");
+                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки файл \"tinc.conf\" не знайдено. Спочатку переконайтеся, що ви ввели посилання на запрошення (перейдіть до налаштувань VPN > Запрошення).", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("ContraVPN РЅРµ РјРѕР¶Р° РґР° СЃРµ СЃС‚Р°СЂС‚РёСЂР°, Р·Р°С‰РѕС‚Рѕ С„Р°Р№Р»СЉС‚ \"tinc.conf\" РЅРµ Р±РµС€Рµ РЅР°РјРµСЂРµРЅ. РЈРІРµСЂРµС‚Рµ СЃРµ, С‡Рµ СЃС‚Рµ РІСЉРІРµР»Рё РєР»СЋС‡Р° СЃРё Р·Р° РїРѕРєР°РЅР° (РѕС‚РёРґРµС‚Рµ РІСЉРІ VPN РќР°СЃС‚СЂРѕР№РєРё > РџРѕРєР°РЅР°).", "Р“СЂРµС€РєР°");
+                    MessageBox.Show("ContraVPN не можа да се стартира, защото файлът \"tinc.conf\" не беше намерен. Уверете се, че сте въвели ключа си за покана (отидете във VPN Настройки > Покана).", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -1374,15 +1381,15 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    playersOnlineLabel.Text = "Р—Р°РіСЂСѓР·РєР°...";
+                    playersOnlineLabel.Text = "Загрузка...";
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    playersOnlineLabel.Text = "Р—Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ...";
+                    playersOnlineLabel.Text = "Завантаження...";
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    playersOnlineLabel.Text = "Р—Р°СЂРµР¶РґР° СЃРµ...";
+                    playersOnlineLabel.Text = "Зарежда се...";
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -1410,15 +1417,15 @@ namespace Contra
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        labelVpnStatus.Text = "Р’РєР».";
+                        labelVpnStatus.Text = "Вкл.";
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        labelVpnStatus.Text = "Р’РІС–РјРє.";
+                        labelVpnStatus.Text = "Ввімк.";
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        labelVpnStatus.Text = "Р’РєР».";
+                        labelVpnStatus.Text = "Вкл.";
                     }
                     else if (Globals.DE_Checked == true)
                     {
@@ -1435,15 +1442,15 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("РќРµ СѓРґР°РµС‚СЃСЏ Р·Р°РїСѓСЃС‚РёС‚СЊ ContraVPN, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РїР°РїРєР° \"contra\\vpn\" РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!", "РћС€РёР±РєР°");
+                    MessageBox.Show("Не удается запустить ContraVPN, потому что папка \"contra\\vpn\" не существует!", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("РќРµ РІРґР°С”С‚СЊСЃСЏ Р·Р°РїСѓСЃС‚РёС‚Рё ContraVPN, РѕСЃРєС–Р»СЊРєРё РїР°РїРєР° \"contra\\vpn\" РЅРµ С–СЃРЅСѓС”!", "РџРѕРјРёР»РєР°");
+                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки папка \"contra\\vpn\" не існує!", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("ContraVPN РЅРµ РјРѕР¶Р° РґР° СЃРµ СЃС‚Р°СЂС‚РёСЂР°, Р·Р°С‰РѕС‚Рѕ \"contra\\vpn\" РїР°РїРєР°С‚Р° РЅРµ СЃСЉС‰РµСЃС‚РІСѓРІР°!", "Р“СЂРµС€РєР°");
+                    MessageBox.Show("ContraVPN не можа да се стартира, защото \"contra\\vpn\" папката не съществува!", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -1458,15 +1465,15 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("РќРµ СѓРґР°РµС‚СЃСЏ Р·Р°РїСѓСЃС‚РёС‚СЊ ContraVPN, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РїР°РїРєР° \"" + Globals.userOS + "\" РЅРµ РЅР°Р№РґРµРЅР°.", "РћС€РёР±РєР°");
+                    MessageBox.Show("Не удается запустить ContraVPN, потому что папка \"" + Globals.userOS + "\" не найдена.", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("РќРµ РІРґР°С”С‚СЊСЃСЏ Р·Р°РїСѓСЃС‚РёС‚Рё ContraVPN, РѕСЃРєС–Р»СЊРєРё РїР°РїРєР° \"" + Globals.userOS + "\" РЅРµ Р·РЅР°Р№РґРµРЅРѕ.", "РџРѕРјРёР»РєР°");
+                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки папка \"" + Globals.userOS + "\" не знайдено.", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("ContraVPN РЅРµ РјРѕР¶Р° РґР° СЃРµ СЃС‚Р°СЂС‚РёСЂР°, Р·Р°С‰РѕС‚Рѕ РїР°РїРєР°С‚Р° \"" + Globals.userOS + "\" РЅРµ Р±РµС€Рµ РЅР°РјРµСЂРµРЅР°.", "Р“СЂРµС€РєР°");
+                    MessageBox.Show("ContraVPN не можа да се стартира, защото папката \"" + Globals.userOS + "\" не беше намерена.", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -1481,15 +1488,15 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("РќРµ СѓРґР°РµС‚СЃСЏ Р·Р°РїСѓСЃС‚РёС‚СЊ ContraVPN, РїРѕС‚РѕРјСѓ С‡С‚Рѕ С„Р°Р№Р» \"tincd.exe\" РЅРµ РЅР°Р№РґРµРЅ.", "РћС€РёР±РєР°");
+                    MessageBox.Show("Не удается запустить ContraVPN, потому что файл \"tincd.exe\" не найден.", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("РќРµ РІРґР°С”С‚СЊСЃСЏ Р·Р°РїСѓСЃС‚РёС‚Рё ContraVPN, РѕСЃРєС–Р»СЊРєРё С„Р°Р№Р» \"tincd.exe\" РЅРµ Р·РЅР°Р№РґРµРЅРѕ.", "РџРѕРјРёР»РєР°");
+                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки файл \"tincd.exe\" не знайдено.", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("ContraVPN РЅРµ РјРѕР¶Р° РґР° СЃРµ СЃС‚Р°СЂС‚РёСЂР°, Р·Р°С‰РѕС‚Рѕ С„Р°Р№Р»СЉС‚ \"tincd.exe\" РЅРµ Р±РµС€Рµ РЅР°РјРµСЂРµРЅ.", "Р“СЂРµС€РєР°");
+                    MessageBox.Show("ContraVPN не можа да се стартира, защото файлът \"tincd.exe\" не беше намерен.", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -1504,15 +1511,15 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("РќРµ СѓРґР°РµС‚СЃСЏ Р·Р°РїСѓСЃС‚РёС‚СЊ ContraVPN, РїРѕС‚РѕРјСѓ С‡С‚Рѕ С„Р°Р№Р» \"tinc.conf\" РЅРµ РЅР°Р№РґРµРЅ. РЈР±РµРґРёС‚РµСЃСЊ, С‡С‚Рѕ РІС‹ СЃРЅР°С‡Р°Р»Р° СѓРєР°Р·Р°Р»Рё СЃСЃС‹Р»РєСѓ РЅР° РїСЂРёРіР»Р°С€РµРЅРёРµ (РїРµСЂРµР№РґРёС‚Рµ РІ В«РќР°СЃС‚СЂРѕР№РєРё VPNВ» > В«РџСЂРёРіР»Р°С€РµРЅРёРµВ»).", "РћС€РёР±РєР°");
+                    MessageBox.Show("Не удается запустить ContraVPN, потому что файл \"tinc.conf\" не найден. Убедитесь, что вы сначала указали ссылку на приглашение (перейдите в «Настройки VPN» > «Приглашение»).", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("РќРµ РІРґР°С”С‚СЊСЃСЏ Р·Р°РїСѓСЃС‚РёС‚Рё ContraVPN, РѕСЃРєС–Р»СЊРєРё С„Р°Р№Р» \"tinc.conf\" РЅРµ Р·РЅР°Р№РґРµРЅРѕ. РЎРїРѕС‡Р°С‚РєСѓ РїРµСЂРµРєРѕРЅР°Р№С‚РµСЃСЏ, С‰Рѕ РІРё РІРІРµР»Рё РїРѕСЃРёР»Р°РЅРЅСЏ РЅР° Р·Р°РїСЂРѕС€РµРЅРЅСЏ (РїРµСЂРµР№РґС–С‚СЊ РґРѕ РЅР°Р»Р°С€С‚СѓРІР°РЅСЊ VPN > Р—Р°РїСЂРѕС€РµРЅРЅСЏ).", "РџРѕРјРёР»РєР°");
+                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки файл \"tinc.conf\" не знайдено. Спочатку переконайтеся, що ви ввели посилання на запрошення (перейдіть до налаштувань VPN > Запрошення).", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("ContraVPN РЅРµ РјРѕР¶Р° РґР° СЃРµ СЃС‚Р°СЂС‚РёСЂР°, Р·Р°С‰РѕС‚Рѕ С„Р°Р№Р»СЉС‚ \"tinc.conf\" РЅРµ Р±РµС€Рµ РЅР°РјРµСЂРµРЅ. РЈРІРµСЂРµС‚Рµ СЃРµ, С‡Рµ СЃС‚Рµ РІСЉРІРµР»Рё РєР»СЋС‡Р° СЃРё Р·Р° РїРѕРєР°РЅР° (РѕС‚РёРґРµС‚Рµ РІСЉРІ VPN РќР°СЃС‚СЂРѕР№РєРё > РџРѕРєР°РЅР°).", "Р“СЂРµС€РєР°");
+                    MessageBox.Show("ContraVPN не можа да се стартира, защото файлът \"tinc.conf\" не беше намерен. Уверете се, че сте въвели ключа си за покана (отидете във VPN Настройки > Покана).", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -1711,7 +1718,7 @@ namespace Contra
                     radioFlag_RU.Checked = true;
                     if (directoryCount <= 1)
                     {
-                        MessageBox.Show("Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ РІ Contra 009 Final! РџРѕСЃРєРѕР»СЊРєСѓ СЌС‚Рѕ Р’Р°С€ РїРµСЂРІС‹Р№ Р·Р°РїСѓСЃРє СЌС‚РѕРіРѕ Р»Р°СѓРЅС‡РµСЂР°, РјС‹ С…РѕС‚РёРј СЃРѕРѕР±С‰РёС‚СЊ Р’Р°Рј Рѕ С‚РѕРј, С‡С‚Рѕ Сѓ Р’Р°СЃ РµСЃС‚СЊ РЅРѕРІР°СЏ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РёРіСЂР°С‚СЊ РІ Contra РѕРЅР»Р°Р№РЅ С‡РµСЂРµР· ContraVPN! РњС‹ РЅР°СЃС‚РѕСЏС‚РµР»СЊРЅРѕ СЂРµРєРѕРјРµРЅРґСѓРµРј Р’Р°Рј РїСЂРёСЃРѕРµРґРµРЅРёС‚СЊСЃСЏ Рє РЅР°С€РµР№ РіСЂСѓРїРїРµ Discord.");
+                        MessageBox.Show("Добро пожаловать в Contra 009 Final! Поскольку это Ваш первый запуск этого лаунчера, мы хотим сообщить Вам о том, что у Вас есть новая возможность играть в Contra онлайн через ContraVPN! Мы настоятельно рекомендуем Вам присоедениться к нашей группе Discord.");
                     }
                 }
                 else if (getCurrentCulture() == "uk-UA")
@@ -1719,7 +1726,7 @@ namespace Contra
                     radioFlag_UA.Checked = true;
                     if (directoryCount <= 1)
                     {
-                        MessageBox.Show("Р›Р°СЃРєР°РІРѕ РїСЂРѕСЃРёРјРѕ РґРѕ Contra 009 Final! РћСЃРєС–Р»СЊРєРё С†Рµ Р’Р°С€ РїРµСЂС€РёР№ Р·Р°РїСѓСЃРє С†СЊРѕРіРѕ Р»Р°СѓРЅС‡РµСЂР°, РјРё С…РѕС‡РµРјРѕ РїРѕРІС–РґРѕРјРёС‚Рё Р’Р°СЃ РїСЂРѕ С‚Рµ, С‰Рѕ Сѓ Р’Р°СЃ С” РЅРѕРІР° РјРѕР¶Р»РёРІС–СЃС‚СЊ РІС–РґС‚РІРѕСЂРёС‚Рё Contra РѕРЅР»Р°Р№РЅ С‡РµСЂРµР· ContraVPN! РњРё РјР°РєСЃРёРјР°Р»СЊРЅРѕ СЂРµРєРѕРјРµРЅРґСѓС”РјРѕ Р’Р°Рј РїСЂРёС”РґРЅР°С‚РёСЃСЏ РґРѕ РЅР°С€РѕС— СЃРїС–Р»СЊРЅРѕС‚Рё Discord.");
+                        MessageBox.Show("Ласкаво просимо до Contra 009 Final! Оскільки це Ваш перший запуск цього лаунчера, ми хочемо повідомити Вас про те, що у Вас є нова можливість відтворити Contra онлайн через ContraVPN! Ми максимально рекомендуємо Вам приєднатися до нашої спільноти Discord.");
                     }
                 }
                 else if (getCurrentCulture() == "bg-BG")
@@ -1727,7 +1734,7 @@ namespace Contra
                     radioFlag_BG.Checked = true;
                     if (directoryCount <= 1)
                     {
-                        MessageBox.Show("Р”РѕР±СЂРµ РґРѕС€Р»Рё РІ Contra 009 Final! РўСЉР№ РєР°С‚Рѕ С‚РѕРІР° Рµ РїСЉСЂРІРѕС‚Рѕ Р’Рё СЃС‚Р°СЂС‚РёСЂР°РЅРµ РЅР° Contra, Р±РёС…РјРµ РёСЃРєР°Р»Рё РґР° Р·РЅР°РµС‚Рµ, С‡Рµ РёРјР°С‚Рµ РЅРѕРІР° РІСЉР·РјРѕР¶РЅРѕСЃС‚ РґР° РёРіСЂР°РµС‚Рµ Contra РѕРЅР»Р°Р№РЅ С‡СЂРµР· ContraVPN! РЎРёР»РЅРѕ РїСЂРµРїРѕСЂСЉС‡РІР°РјРµ РґР° СЃРµ РїСЂРёСЃСЉРµРґРёРЅРёС‚Рµ РєСЉРј РЅР°С€Р°С‚Р° Discord РѕР±С‰РЅРѕСЃС‚! Р•РµРµ... С‚Рѕ Рё Р±СЉР»РіР°СЂСЃРєРё РёРјР°Р»Рѕ Р±Рµ! ;)");
+                        MessageBox.Show("Добре дошли в Contra 009 Final! Тъй като това е първото Ви стартиране на Contra, бихме искали да знаете, че имате нова възможност да играете Contra онлайн чрез ContraVPN! Силно препоръчваме да се присъедините към нашата Discord общност! Еее... то и български имало бе! ;)");
                     }
                 }
                 else if (getCurrentCulture() == "de-DE")
@@ -1735,7 +1742,7 @@ namespace Contra
                     radioFlag_DE.Checked = true;
                     if (directoryCount <= 1)
                     {
-                        MessageBox.Show("Wilkommen zu Contra 009 Final! Da du diesen launcher zum ersten mal ausfСЊhrst wollten wir dich wissen lassen, dass du eine neue MС†glichkeit hast Contra online zu spielen СЊber ContraVPN! Wir empfehlen dir unserem Discord Server beizutreten.");
+                        MessageBox.Show("Wilkommen zu Contra 009 Final! Da du diesen launcher zum ersten mal ausfьhrst wollten wir dich wissen lassen, dass du eine neue Mцglichkeit hast Contra online zu spielen ьber ContraVPN! Wir empfehlen dir unserem Discord Server beizutreten.");
                     }
                 }
                 else
@@ -1924,32 +1931,32 @@ namespace Contra
             Globals.UA_Checked = false;
             Globals.DE_Checked = false;
             Globals.RU_Checked = true;
-            toolTip1.SetToolTip(RadioLocQuotes, "Р®РЅРёС‚С‹ РІСЃРµС… С‚СЂРµС… С„СЂР°РєС†РёР№ Р±СѓРґСѓС‚ СЂР°Р·РіРѕРІР°СЂРёРІР°С‚СЊ РЅР° Р°РЅРіР»РёР№СЃРєРѕРј.");
-            toolTip1.SetToolTip(RadioOrigQuotes, "Р®РЅРёС‚С‹ РєР°Р¶РґРѕР№ С„СЂР°РєС†РёРё Р±СѓРґСѓС‚ СЂР°Р·РіРѕРІР°СЂРёРІР°С‚СЊ РЅР° РёС… СЂРѕРґРЅРѕРј СЏР·С‹РєРµ.");
-            toolTip1.SetToolTip(RadioEN, "РђРЅРіР»РёР№СЃРєРёР№ СЏР·С‹Рє.");
-            toolTip1.SetToolTip(RadioRU, "Р СѓСЃСЃРєРёР№ СЏР·С‹Рє.");
-            toolTip1.SetToolTip(MNew, "Р’РєР»СЋС‡РёС‚СЊ РЅРѕРІС‹Рµ СЃР°СѓРЅРґС‚СЂРµРєРё.");
-            toolTip1.SetToolTip(MStandard, "Р’РєР»СЋС‡РёС‚СЊ СЃС‚Р°РЅРґР°СЂС‚РЅС‹Рµ СЃР°СѓРЅРґС‚СЂРµРєРё Zero Hour.");
-            toolTip1.SetToolTip(DefaultPics, "Р’РєР»СЋС‡РёС‚СЊ РїРѕСЂС‚СЂРµС‚С‹ Р“РµРЅРµСЂР°Р»РѕРІ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ.");
-            toolTip1.SetToolTip(GoofyPics, "Р’РєР»СЋС‡РёС‚СЊ СЃРјРµС€РЅС‹Рµ РїРѕСЂС‚СЂРµС‚С‹ Р“РµРЅРµСЂР°Р»РѕРІ.");
-            toolTip1.SetToolTip(WinCheckBox, "Р—Р°РїСѓСЃРє Contra РІ СЂРµР¶РёРјРµ РѕРєРЅР° РІРјРµСЃС‚Рѕ РїРѕР»РЅРѕСЌРєСЂР°РЅРЅРѕРіРѕ.");
-            toolTip1.SetToolTip(QSCheckBox, "РћС‚РєР»СЋС‡Р°РµС‚ РёРЅС‚СЂРѕ Рё С€РµР»РјР°РїСѓ (РёРіСЂР° Р·Р°РїСѓСЃРєР°РµС‚СЃСЏ Р±С‹СЃС‚СЂРµРµ).");
-            toolTip1.SetToolTip(refreshOnlinePlayersBtn, "РћР±РЅРѕРІРёС‚СЊ РёРіСЂРѕРєРѕРІ РѕРЅР»Р°Р№РЅ.");
-            toolTip1.SetToolTip(whoIsOnline, "РџРѕРєР°Р·Р°С‚СЊ, РєС‚Рѕ РІ СЃРµС‚Рё.");
-            toolTip1.SetToolTip(vpn_start, "РћС‚РєСЂС‹С‚СЊ/Р—Р°РєСЂС‹С‚СЊ ContraVPN.");
-            RadioLocQuotes.Text = "РђРЅРіР».";
-            RadioOrigQuotes.Text = "Р РѕРґРЅС‹Рµ";
-            MNew.Text = "РќРѕРІР°СЏ";
+            toolTip1.SetToolTip(RadioLocQuotes, "Юниты всех трех фракций будут разговаривать на английском.");
+            toolTip1.SetToolTip(RadioOrigQuotes, "Юниты каждой фракции будут разговаривать на их родном языке.");
+            toolTip1.SetToolTip(RadioEN, "Английский язык.");
+            toolTip1.SetToolTip(RadioRU, "Русский язык.");
+            toolTip1.SetToolTip(MNew, "Включить новые саундтреки.");
+            toolTip1.SetToolTip(MStandard, "Включить стандартные саундтреки Zero Hour.");
+            toolTip1.SetToolTip(DefaultPics, "Включить портреты Генералов по умолчанию.");
+            toolTip1.SetToolTip(GoofyPics, "Включить смешные портреты Генералов.");
+            toolTip1.SetToolTip(WinCheckBox, "Запуск Contra в режиме окна вместо полноэкранного.");
+            toolTip1.SetToolTip(QSCheckBox, "Отключает интро и шелмапу (игра запускается быстрее).");
+            toolTip1.SetToolTip(refreshOnlinePlayersBtn, "Обновить игроков онлайн.");
+            toolTip1.SetToolTip(whoIsOnline, "Показать, кто в сети.");
+            toolTip1.SetToolTip(vpn_start, "Открыть/Закрыть ContraVPN.");
+            RadioLocQuotes.Text = "Англ.";
+            RadioOrigQuotes.Text = "Родные";
+            MNew.Text = "Новая";
             MStandard.Text = "ZH";
-            WinCheckBox.Text = "Р РµР¶РёРј РѕРєРЅР°"; WinCheckBox.Left = 254;
-            QSCheckBox.Text = "Р‘С‹СЃС‚СЂ. СЃС‚Р°СЂС‚"; QSCheckBox.Left = 254;
-            RadioEN.Text = "РђРЅРіР».";
-            RadioRU.Text = "Р СѓСЃСЃРєРёР№";
-            DefaultPics.Text = "РџРѕ СѓРјРѕР»С‡.";
-            GoofyPics.Text = "РЎРјРµС€РЅС‹Рµ";
-            moreOptions.Text = "Р‘РѕР»СЊС€Рµ РѕРїС†РёР№";
-            versionLabel.Text = "Contra Project Team 2018 - Р’РµСЂСЃРёСЏ 009 Р¤РёРЅР°Р» - Launcher: " + Application.ProductVersion;
-            vpnSettingsLabel.Text = "РќР°СЃС‚СЂРѕР№РєРё VPN";
+            WinCheckBox.Text = "Режим окна"; WinCheckBox.Left = 254;
+            QSCheckBox.Text = "Быстр. старт"; QSCheckBox.Left = 254;
+            RadioEN.Text = "Англ.";
+            RadioRU.Text = "Русский";
+            DefaultPics.Text = "По умолч.";
+            GoofyPics.Text = "Смешные";
+            moreOptions.Text = "Больше опций";
+            versionLabel.Text = "Contra Project Team 2018 - Версия 009 Финал - Launcher: " + Application.ProductVersion;
+            vpnSettingsLabel.Text = "Настройки VPN";
             //verLabel.Text = "Launcher version: " + Application.ProductVersion;
 
             string tincd = "tincd.exe";
@@ -1959,19 +1966,19 @@ namespace Contra
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
                 refreshOnlinePlayersBtn.Show();
                 whoIsOnline.Show();
-                labelVpnStatus.Text = "Р’РєР».";
+                labelVpnStatus.Text = "Вкл.";
                 refreshOnlinePlayersBtn.PerformClick();
             }
             else vpnIP();
             if (tincdByName.Length > 0) //if tinc is already running
             {
-                labelVpnStatus.Text = "Р’РєР».";
+                labelVpnStatus.Text = "Вкл.";
                 refreshOnlinePlayersBtn.PerformClick();
             }
             if (tincdByName.Length == 0) //if tinc is not running
             {
-                playersOnlineLabel.Text = "ContraVPN РІС‹РєР»СЋС‡РµРЅРѕ";
-                labelVpnStatus.Text = "Р’С‹РєР»."; ;
+                playersOnlineLabel.Text = "ContraVPN выключено";
+                labelVpnStatus.Text = "Выкл."; ;
             }
 
             //Load MOTD
@@ -1997,32 +2004,32 @@ namespace Contra
             Globals.BG_Checked = false;
             Globals.DE_Checked = false;
             Globals.UA_Checked = true;
-            toolTip1.SetToolTip(RadioLocQuotes, "Р®РЅС–С‚Рё РІСЃС–С… С‚СЂСЊРѕС… С„СЂР°РєС†С–Р№ СЂРѕР·РјРѕРІР»СЏС‚РёРјСѓС‚СЊ Р°РЅРіР»С–Р№СЃСЊРєРѕСЋ.");
-            toolTip1.SetToolTip(RadioOrigQuotes, "Р®РЅС–С‚Рё РєРѕР¶РЅРѕС— С„СЂР°РєС†С–С— СЂРѕР·РјРѕРІР»СЏС‚РёРјСѓС‚СЊ С—С…РЅСЊРѕСЋ СЂС–РґРЅРѕСЋ РјРѕРІРѕСЋ.");
-            toolTip1.SetToolTip(RadioEN, "РђРЅРіР»С–Р№СЃСЊРєР° РјРѕРІР°.");
-            toolTip1.SetToolTip(RadioRU, "Р РѕСЃС–Р№СЃСЊРєР° РјРѕРІР°.");
-            toolTip1.SetToolTip(MNew, "Р’РёРєРѕСЂРёСЃС‚РѕРІСѓР№С‚Рµ РЅРѕРІС– СЃР°СѓРЅРґС‚СЂРµРєРё.");
-            toolTip1.SetToolTip(MStandard, "Р’РёРєРѕСЂРёСЃС‚РѕРІСѓР№С‚Рµ СЃС‚Р°РЅРґР°СЂС‚РЅС– СЃР°СѓРЅРґС‚СЂРµРєРё Zero Hour.");
-            toolTip1.SetToolTip(DefaultPics, "Р’РёРєРѕСЂРёСЃС‚РѕРІСѓР№С‚Рµ РїРѕСЂС‚СЂРµС‚Рё Р“РµРЅРµСЂР°Р»С–РІ Р·Р° Р·Р°РјРѕРІС‡СѓРІР°РЅРЅСЏРј.");
-            toolTip1.SetToolTip(GoofyPics, "Р’РёРєРѕСЂРёСЃС‚РѕРІСѓР№С‚Рµ СЃРјС–С€РЅС– РїРѕСЂС‚СЂРµС‚Рё Р“РµРЅРµСЂР°Р»С–РІ.");
-            toolTip1.SetToolTip(WinCheckBox, "Р—Р°РїСѓСЃРєР°С” Contra Сѓ РІС–РєРѕРЅРЅРѕРјСѓ СЂРµР¶РёРјС– Р·Р°РјС–СЃС‚СЊ РїРѕРІРЅРѕРµРєСЂР°РЅРЅРѕРіРѕ.");
-            toolTip1.SetToolTip(QSCheckBox, "Р’РёРјРёРєР°С” С–РЅС‚СЂРѕ С– С€РµР»РјР°РїСѓ (РіСЂР° Р·Р°РїСѓСЃРєР°С”С‚СЊСЃСЏ С€РІРёРґС€Рµ).");
-            toolTip1.SetToolTip(refreshOnlinePlayersBtn, "РћРЅРѕРІРёС‚Рё РіСЂР°РІС†С–РІ РѕРЅР»Р°Р№РЅ.");
-            toolTip1.SetToolTip(whoIsOnline, "РџРѕРєР°Р·Р°С‚Рё, С…С‚Рѕ РІ РјРµСЂРµР¶С–.");
-            toolTip1.SetToolTip(vpn_start, "Р’С–РґРєСЂРёС‚Рё/Р·Р°РєСЂРёС‚Рё ContraVPN.");
-            RadioLocQuotes.Text = "РђРЅРіР».";
-            RadioOrigQuotes.Text = "Р С–РґРЅС–";
-            MNew.Text = "РќРѕРІР°";
+            toolTip1.SetToolTip(RadioLocQuotes, "Юніти всіх трьох фракцій розмовлятимуть англійською.");
+            toolTip1.SetToolTip(RadioOrigQuotes, "Юніти кожної фракції розмовлятимуть їхньою рідною мовою.");
+            toolTip1.SetToolTip(RadioEN, "Англійська мова.");
+            toolTip1.SetToolTip(RadioRU, "Російська мова.");
+            toolTip1.SetToolTip(MNew, "Використовуйте нові саундтреки.");
+            toolTip1.SetToolTip(MStandard, "Використовуйте стандартні саундтреки Zero Hour.");
+            toolTip1.SetToolTip(DefaultPics, "Використовуйте портрети Генералів за замовчуванням.");
+            toolTip1.SetToolTip(GoofyPics, "Використовуйте смішні портрети Генералів.");
+            toolTip1.SetToolTip(WinCheckBox, "Запускає Contra у віконному режимі замість повноекранного.");
+            toolTip1.SetToolTip(QSCheckBox, "Вимикає інтро і шелмапу (гра запускається швидше).");
+            toolTip1.SetToolTip(refreshOnlinePlayersBtn, "Оновити гравців онлайн.");
+            toolTip1.SetToolTip(whoIsOnline, "Показати, хто в мережі.");
+            toolTip1.SetToolTip(vpn_start, "Відкрити/закрити ContraVPN.");
+            RadioLocQuotes.Text = "Англ.";
+            RadioOrigQuotes.Text = "Рідні";
+            MNew.Text = "Нова";
             MStandard.Text = "ZH";
-            WinCheckBox.Text = "Р’С–РєРѕРЅРЅРёР№";
-            QSCheckBox.Text = "РЁРІ. СЃС‚Р°СЂС‚";
-            RadioEN.Text = "РђРЅРіР».";
-            RadioRU.Text = "Р РѕСЃ.";
-            DefaultPics.Text = "Р—Р° Р·Р°РјРѕРІС‡.";
-            GoofyPics.Text = "РЎРјС–С€РЅС–";
-            moreOptions.Text = "Р‘С–Р»СЊС€Рµ РѕРїС†С–Р№";
-            versionLabel.Text = "Contra Project Team 2018 - Р’РµСЂСЃС–СЏ 009 Р¤С–РЅР°Р» - Launcher: " + Application.ProductVersion;
-            vpnSettingsLabel.Text = "РќР°СЃС‚СЂРѕР№РєРё VPN";
+            WinCheckBox.Text = "Віконний";
+            QSCheckBox.Text = "Шв. старт";
+            RadioEN.Text = "Англ.";
+            RadioRU.Text = "Рос.";
+            DefaultPics.Text = "За замовч.";
+            GoofyPics.Text = "Смішні";
+            moreOptions.Text = "Більше опцій";
+            versionLabel.Text = "Contra Project Team 2018 - Версія 009 Фінал - Launcher: " + Application.ProductVersion;
+            vpnSettingsLabel.Text = "Настройки VPN";
             //verLabel.Text = "Launcher version: " + Application.ProductVersion;
 
             string tincd = "tincd.exe";
@@ -2032,19 +2039,19 @@ namespace Contra
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
                 refreshOnlinePlayersBtn.Show();
                 whoIsOnline.Show();
-                labelVpnStatus.Text = "Р’РІС–РјРє.";
+                labelVpnStatus.Text = "Ввімк.";
                 refreshOnlinePlayersBtn.PerformClick();
             }
             else vpnIP();
             if (tincdByName.Length > 0) //if tinc is already running
             {
-                labelVpnStatus.Text = "Р’РІС–РјРє.";
+                labelVpnStatus.Text = "Ввімк.";
                 refreshOnlinePlayersBtn.PerformClick();
             }
             if (tincdByName.Length == 0) //if tinc is not running
             {
-                playersOnlineLabel.Text = "ContraVPN РІРёРјРєРЅРµРЅРѕ";
-                labelVpnStatus.Text = "Р’РёРјРє.";
+                playersOnlineLabel.Text = "ContraVPN вимкнено";
+                labelVpnStatus.Text = "Вимк.";
             }
 
             //Load MOTD
@@ -2070,33 +2077,33 @@ namespace Contra
             Globals.UA_Checked = false;
             Globals.DE_Checked = false;
             Globals.BG_Checked = true;
-            toolTip1.SetToolTip(RadioLocQuotes, "Р•РґРёРЅРёС†РёС‚Рµ РЅР° С‚СЂРёС‚Рµ С„СЂР°РєС†РёРё С‰Рµ РіРѕРІРѕСЂСЏС‚ РЅР° Р°РЅРіР»РёР№СЃРєРё.");
-            toolTip1.SetToolTip(RadioOrigQuotes, "Р•РґРёРЅРёС†РёС‚Рµ РЅР° С‚СЂРёС‚Рµ С„СЂР°РєС†РёРё С‰Рµ РіРѕРІРѕСЂСЏС‚ РЅР° С‚РµС…РЅРёСЏ СЂРѕРґРµРЅ РµР·РёРє.");
-            toolTip1.SetToolTip(RadioEN, "РђРЅРіР»РёР№СЃРєРё РµР·РёРє РІ РёРіСЂР°С‚Р°.");
-            toolTip1.SetToolTip(RadioRU, "Р СѓСЃРєРё РµР·РёРє РІ РёРіСЂР°С‚Р°.");
-            toolTip1.SetToolTip(MNew, "РР·РїРѕР»Р·РІР°Р№С‚Рµ РЅРѕРІР°С‚Р° РјСѓР·РёРєР°.");
-            toolTip1.SetToolTip(MStandard, "РР·РїРѕР»Р·РІР°Р№С‚Рµ СЃС‚Р°РЅРґР°СЂС‚РЅР°С‚Р° РјСѓР·РёРєР° РІ Zero Hour.");
-            toolTip1.SetToolTip(DefaultPics, "РР·РїРѕР»Р·РІР°Р№С‚Рµ РѕСЂРёРіРёРЅР°Р»РЅРёС‚Рµ РіРµРЅРµСЂР°Р»СЃРєРё РїРѕСЂС‚СЂРµС‚Рё.");
-            toolTip1.SetToolTip(GoofyPics, "РР·РїРѕР»Р·РІР°Р№С‚Рµ Р·Р°Р±Р°РІРЅРёС‚Рµ РіРµРЅРµСЂР°Р»СЃРєРё РїРѕСЂС‚СЂРµС‚Рё.");
-            toolTip1.SetToolTip(WinCheckBox, "РЎС‚Р°СЂС‚РёСЂР° Contra РІ РЅРѕРІ РїСЂРѕР·РѕСЂРµС† РІРјРµСЃС‚Рѕ РЅР° С†СЏР» РµРєСЂР°РЅ.");
-            toolTip1.SetToolTip(QSCheckBox, "РР·РєР»СЋС‡РІР° РёРЅС‚СЂРѕС‚Рѕ Рё Р°РЅРёРјРёСЂР°РЅР°С‚Р° РєР°СЂС‚Р° (С€РµР»РјР°РїР°). РРіСЂР°С‚Р° СЃС‚Р°СЂС‚РёСЂР° РїРѕ-Р±СЉСЂР·Рѕ.");
-            toolTip1.SetToolTip(refreshOnlinePlayersBtn, "РћР±РЅРѕРІРё.");
-            toolTip1.SetToolTip(whoIsOnline, "РџРѕРєР°Р¶Рё РєРѕРё РёРіСЂР°С‡Рё СЃР° РЅР° Р»РёРЅРёСЏ.");
-            toolTip1.SetToolTip(vpn_start, "Р’РєР»СЋС‡Рё/РёР·РєР»СЋС‡Рё ContraVPN.");
-            RadioLocQuotes.Text = "РђРЅРіР».";
-            RadioOrigQuotes.Text = "Р РѕРґРЅРё";
-            MNew.Text = "РќРѕРІР°";
+            toolTip1.SetToolTip(RadioLocQuotes, "Единиците на трите фракции ще говорят на английски.");
+            toolTip1.SetToolTip(RadioOrigQuotes, "Единиците на трите фракции ще говорят на техния роден език.");
+            toolTip1.SetToolTip(RadioEN, "Английски език в играта.");
+            toolTip1.SetToolTip(RadioRU, "Руски език в играта.");
+            toolTip1.SetToolTip(MNew, "Използвайте новата музика.");
+            toolTip1.SetToolTip(MStandard, "Използвайте стандартната музика в Zero Hour.");
+            toolTip1.SetToolTip(DefaultPics, "Използвайте оригиналните генералски портрети.");
+            toolTip1.SetToolTip(GoofyPics, "Използвайте забавните генералски портрети.");
+            toolTip1.SetToolTip(WinCheckBox, "Стартира Contra в нов прозорец вместо на цял екран.");
+            toolTip1.SetToolTip(QSCheckBox, "Изключва интрото и анимираната карта (шелмапа). Играта стартира по-бързо.");
+            toolTip1.SetToolTip(refreshOnlinePlayersBtn, "Обнови.");
+            toolTip1.SetToolTip(whoIsOnline, "Покажи кои играчи са на линия.");
+            toolTip1.SetToolTip(vpn_start, "Включи/изключи ContraVPN.");
+            RadioLocQuotes.Text = "Англ.";
+            RadioOrigQuotes.Text = "Родни";
+            MNew.Text = "Нова";
             MStandard.Text = "ZH";
-            WinCheckBox.Text = "Р’ РїСЂРѕР·РѕСЂРµС†"; WinCheckBox.Left = 267;
-            QSCheckBox.Text = "Р‘СЉСЂР· СЃС‚Р°СЂС‚"; QSCheckBox.Left = 267;
-            RadioEN.Text = "РђРЅРіР».";
-            RadioRU.Text = "Р СѓСЃРєРё";
-            DefaultPics.Text = "РџРѕ РїРѕРґСЂ.";
-            GoofyPics.Text = "Р—Р°Р±Р°РІРЅРё";
-            moreOptions.Text = "Р”РѕРї. РћРїС†РёРё";
-            versionLabel.Text = "Contra Р•РєРёРї 2018 - Р’РµСЂСЃРёСЏ 009 Final - Launcher: " + Application.ProductVersion;
-            vpnSettingsLabel.Text = "VPN РќР°СЃС‚СЂРѕР№РєРё";
-            //verLabel.Text = "Р’РµСЂСЃРёСЏ РЅР° Р»Р°СѓРЅС‡РµСЂР°: " + Application.ProductVersion;
+            WinCheckBox.Text = "В прозорец"; WinCheckBox.Left = 267;
+            QSCheckBox.Text = "Бърз старт"; QSCheckBox.Left = 267;
+            RadioEN.Text = "Англ.";
+            RadioRU.Text = "Руски";
+            DefaultPics.Text = "По подр.";
+            GoofyPics.Text = "Забавни";
+            moreOptions.Text = "Доп. Опции";
+            versionLabel.Text = "Contra Екип 2018 - Версия 009 Final - Launcher: " + Application.ProductVersion;
+            vpnSettingsLabel.Text = "VPN Настройки";
+            //verLabel.Text = "Версия на лаунчера: " + Application.ProductVersion;
 
             string tincd = "tincd.exe";
             Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
@@ -2105,19 +2112,19 @@ namespace Contra
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
                 refreshOnlinePlayersBtn.Show();
                 whoIsOnline.Show();
-                labelVpnStatus.Text = "Р’РєР».";
+                labelVpnStatus.Text = "Вкл.";
                 refreshOnlinePlayersBtn.PerformClick();
             }
             else vpnIP();
             if (tincdByName.Length > 0) //if tinc is already running
             {
-                labelVpnStatus.Text = "Р’РєР».";
+                labelVpnStatus.Text = "Вкл.";
                 refreshOnlinePlayersBtn.PerformClick();
             }
             if (tincdByName.Length == 0) //if tinc is not running
             {
-                playersOnlineLabel.Text = "ContraVPN РёР·РєР»СЋС‡РµРЅ";
-                labelVpnStatus.Text = "РР·РєР».";
+                playersOnlineLabel.Text = "ContraVPN изключен";
+                labelVpnStatus.Text = "Изкл.";
             }
 
             //Load MOTD
@@ -2155,7 +2162,7 @@ namespace Contra
             toolTip1.SetToolTip(QSCheckBox, "Deaktiviert das Intro und die shellmap (Spiel startet schneller).");
             toolTip1.SetToolTip(refreshOnlinePlayersBtn, "Aktualisiere Spieler die online sind.");
             toolTip1.SetToolTip(whoIsOnline, "Anzeigen wer online ist.");
-            toolTip1.SetToolTip(vpn_start, "Starte/SchlieРЇe ContraVPN.");
+            toolTip1.SetToolTip(vpn_start, "Starte/SchlieЯe ContraVPN.");
             voicespanel.Left = 260;
             voicespanel.Size = new Size(95, 61);
             RadioLocQuotes.Text = "Englisch"; RadioLocQuotes.Left = 0;
@@ -2256,19 +2263,7 @@ namespace Contra
             button17.BackgroundImage = (System.Drawing.Image)(Properties.Resources.min);
         }
 
-        //        public static string playersOnlineLabel_PassFromForm1;
-
-        //public string LabelText
-        //{
-        //    get
-        //    {
-        //        return this.playersOnlineLabel.Text;
-        //    }
-        //    set
-        //    {
-        //        this.playersOnlineLabel.Text = value;
-        //    }
-        //}
+//        public static string playersOnlineLabel_PassFromForm1;
 
         private void asd()
         {
@@ -2318,22 +2313,20 @@ namespace Contra
 
                     Globals.playersOnlineLabel = "Players online: " + s2.ToString();
                     playersOnlineLabel.Text = Globals.playersOnlineLabel;
-                    //onlinePlayersForm frm2 = new onlinePlayersForm();
-                    //frm2.LabelText = this.playersOnlineLabel.Text;
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    Globals.playersOnlineLabel = "РРіСЂРѕРєРё РѕРЅР»Р°Р№РЅ: " + s2.ToString();
+                    Globals.playersOnlineLabel = "Игроки онлайн: " + s2.ToString();
                     playersOnlineLabel.Text = Globals.playersOnlineLabel;
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    Globals.playersOnlineLabel = "Р“СЂР°РІС†С– РІ РјРµСЂРµР¶С–: " + s2.ToString();
+                    Globals.playersOnlineLabel = "Гравці в мережі: " + s2.ToString();
                     playersOnlineLabel.Text = Globals.playersOnlineLabel;
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    Globals.playersOnlineLabel = "РРіСЂР°С‡Рё РЅР° Р»РёРЅРёСЏ: " + s2.ToString();
+                    Globals.playersOnlineLabel = "Играчи на линия: " + s2.ToString();
                     playersOnlineLabel.Text = Globals.playersOnlineLabel;
                 }
                 else if (Globals.DE_Checked == true)
@@ -2395,17 +2388,17 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    Globals.playersOnlineLabel = "РРіСЂРѕРєРё РѕРЅР»Р°Р№РЅ: " + s2.ToString();
+                    Globals.playersOnlineLabel = "Игроки онлайн: " + s2.ToString();
                     playersOnlineLabel.Text = Globals.playersOnlineLabel;
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    Globals.playersOnlineLabel = "Р“СЂР°РІС†С– РІ РјРµСЂРµР¶С–: " + s2.ToString();
+                    Globals.playersOnlineLabel = "Гравці в мережі: " + s2.ToString();
                     playersOnlineLabel.Text = Globals.playersOnlineLabel;
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    Globals.playersOnlineLabel = "РРіСЂР°С‡Рё РЅР° Р»РёРЅРёСЏ: " + s2.ToString();
+                    Globals.playersOnlineLabel = "Играчи на линия: " + s2.ToString();
                     playersOnlineLabel.Text = Globals.playersOnlineLabel;
                 }
                 else if (Globals.DE_Checked == true)
@@ -2431,22 +2424,22 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    playersOnlineLabel.Text = "Р—Р°РіСЂСѓР·РєР°...";
+                    playersOnlineLabel.Text = "Загрузка...";
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    playersOnlineLabel.Text = "Р—Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ...";
+                    playersOnlineLabel.Text = "Завантаження...";
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    playersOnlineLabel.Text = "Р—Р°СЂРµР¶РґР° СЃРµ...";
+                    playersOnlineLabel.Text = "Зарежда се...";
                 }
                 else if (Globals.DE_Checked == true)
                 {
                     playersOnlineLabel.Text = "Lade...";
                 }
             }
-            //            asd();
+//            asd();
             timer1.Enabled = true; //Enable timer. Implementation is inside timer1_Tick()
         }
 
@@ -2536,7 +2529,7 @@ namespace Contra
 
                                 stopDialog = true;
                                 adapterInstalled = true;
-                                MessageBox.Show("Р’СЃРµ СЃРґРµР»Р°РЅРѕ! РќРѕРІС‹Р№ Р°РґР°РїС‚РµСЂ С‚РµРїРµСЂСЊ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ ContraVPN!");
+                                MessageBox.Show("Все сделано! Новый адаптер теперь используется ContraVPN!");
                             }
                             else if (dialogResult == DialogResult.No)
                             {
@@ -2560,7 +2553,7 @@ namespace Contra
 
                                 stopDialog = true;
                                 adapterInstalled = true;
-                                MessageBox.Show("Р’СЃРµ Р·СЂРѕР±Р»РµРЅРѕ! РќРѕРІРёР№ Р°РґР°РїС‚РµСЂ С‚РµРїРµСЂ РІРёРєРѕСЂРёСЃС‚РѕРІСѓС”С‚СЊСЃСЏ ContraVPN!");
+                                MessageBox.Show("Все зроблено! Новий адаптер тепер використовується ContraVPN!");
                             }
                             else if (dialogResult == DialogResult.No)
                             {
@@ -2569,7 +2562,7 @@ namespace Contra
                         }
                         else if (Globals.BG_Checked == true)
                         {
-                            DialogResult dialogResult = MessageBox.Show("Р–РµР»Р°РµС‚Рµ Р»Рё РґР° РёР·РїРѕР»Р·РІР°С‚Рµ " + adapter.Name + " Р·Р° ContraVPN?", "РР·Р±РµСЂРµС‚Рµ Р°РґР°РїС‚РµСЂ", MessageBoxButtons.YesNo);
+                            DialogResult dialogResult = MessageBox.Show("Желаете ли да използвате " + adapter.Name + " за ContraVPN?", "Изберете адаптер", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.Yes)
                             {
                                 Process netsh = new Process();
@@ -2584,7 +2577,7 @@ namespace Contra
 
                                 stopDialog = true;
                                 adapterInstalled = true;
-                                MessageBox.Show("Р“РѕС‚РѕРІРѕ! РќРѕРІРёСЏС‚ Р°РґР°РїС‚РµСЂ РІРµС‡Рµ СЃРµ РїРѕР»Р·РІР° РѕС‚ ContraVPN!");
+                                MessageBox.Show("Готово! Новият адаптер вече се ползва от ContraVPN!");
                             }
                             else if (dialogResult == DialogResult.No)
                             {
@@ -2677,18 +2670,18 @@ namespace Contra
                             //}
                             //else if (Globals.RU_Checked == true)
                             //{
-                            //    playersOnlineLabel.Text = "ContraVPN РІС‹РєР»СЋС‡РµРЅРѕ";
-                            //    labelVpnStatus.Text = "Р’С‹РєР».";
+                            //    playersOnlineLabel.Text = "ContraVPN выключено";
+                            //    labelVpnStatus.Text = "Выкл.";
                             //}
                             //else if (Globals.UA_Checked == true)
                             //{
-                            //    playersOnlineLabel.Text = "ContraVPN РІРёРјРєРЅРµРЅРѕ";
-                            //    labelVpnStatus.Text = "Р’РёРјРє.";
+                            //    playersOnlineLabel.Text = "ContraVPN вимкнено";
+                            //    labelVpnStatus.Text = "Вимк.";
                             //}
                             //else if (Globals.BG_Checked == true)
                             //{
-                            //    playersOnlineLabel.Text = "ContraVPN РёР·РєР»СЋС‡РµРЅ";
-                            //    labelVpnStatus.Text = "РР·РєР».";
+                            //    playersOnlineLabel.Text = "ContraVPN изключен";
+                            //    labelVpnStatus.Text = "Изкл.";
                             //}
                             //else if (Globals.DE_Checked == true)
                             //{
@@ -2729,15 +2722,15 @@ namespace Contra
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        MessageBox.Show("РќРµС‚ СЃРІРѕР±РѕРґРЅРѕРіРѕ СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕРіРѕ Р°РґР°РїС‚РµСЂР° TAP-Windows V9. Р—Р°РїСѓСЃРє СѓСЃС‚Р°РЅРѕРІРєРё...");
+                        MessageBox.Show("Нет свободного установленого адаптера TAP-Windows V9. Запуск установки...");
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        MessageBox.Show("РќРµРјР°С” РІС–Р»СЊРЅРѕРіРѕ РІСЃС‚Р°РЅРѕРІР»РµРЅРѕРіРѕ TAP-Windows Adapter V9. Р—Р°РїСѓСЃРє СѓСЃС‚Р°РЅРѕРІРєРё...");
+                        MessageBox.Show("Немає вільного встановленого TAP-Windows Adapter V9. Запуск установки...");
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        MessageBox.Show("Р›РёРїСЃРІР° СЃРІРѕР±РѕРґРµРЅ TAP-Windows Adapter V9. РЎС‚Р°СЂС‚РёСЂР°РЅРµ РЅР° РёРЅСЃС‚Р°Р»Р°С†РёСЏС‚Р°...");
+                        MessageBox.Show("Липсва свободен TAP-Windows Adapter V9. Стартиране на инсталацията...");
                     }
                     else if (Globals.DE_Checked == true)
                     {
@@ -2770,7 +2763,7 @@ namespace Contra
                     {
                         if (adapter.ExitCode == 0)
                         {
-                            MessageBox.Show("Р‘С‹Р» СѓСЃС‚Р°РЅРѕРІР»РµРЅ РЅРѕРІС‹Р№ Р°РґР°РїС‚РµСЂ TAP-Windows V9. РўРµРїРµСЂСЊ РІС‹ РјРѕР¶РµС‚Рµ СЂР°Р·СЂРµС€РёС‚СЊ РµРіРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ ContraVPN (РІС‹Р±РёСЂР°СЏ \"Р”Р°\" РІ РїРµСЂРІРѕРј РґРёР°Р»РѕРіРѕРІРѕРј СЃРѕРѕР±С‰РµРЅРёРё).", "РђРґР°РїС‚РµСЂ СѓСЃС‚Р°РЅРѕРІР»РµРЅ");
+                            MessageBox.Show("Был установлен новый адаптер TAP-Windows V9. Теперь вы можете разрешить его использовать ContraVPN (выбирая \"Да\" в первом диалоговом сообщении).", "Адаптер установлен");
                             adapterInstalled = true;
                             DisplayDnsConfiguration();
                         }
@@ -2783,7 +2776,7 @@ namespace Contra
                     {
                         if (adapter.ExitCode == 0)
                         {
-                            MessageBox.Show("Р‘СѓРІ РІСЃС‚Р°РЅРѕРІР»РµРЅРёР№ РЅРѕРІРёР№ TAP-Windows Adapter V9. РўРµРїРµСЂ РІРё РјРѕР¶РµС‚Рµ РґРѕР·РІРѕР»РёС‚Рё Р№РѕРіРѕ РІРёРєРѕСЂРёСЃС‚РѕРІСѓРІР°С‚Рё ContraVPN (РІРёР±СЂР°РІС€Рё \"РўР°Рє\" Сѓ РїРµСЂС€РѕРјСѓ РґС–Р°Р»РѕРіРѕРІРѕРјСѓ РІС–РєРЅС–).", "РђРґР°РїС‚РµСЂ СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ");
+                            MessageBox.Show("Був встановлений новий TAP-Windows Adapter V9. Тепер ви можете дозволити його використовувати ContraVPN (вибравши \"Так\" у першому діалоговому вікні).", "Адаптер установлено");
                             adapterInstalled = true;
                             DisplayDnsConfiguration();
                         }
@@ -2796,20 +2789,20 @@ namespace Contra
                     {
                         if (adapter.ExitCode == 0)
                         {
-                            MessageBox.Show("РќРѕРІ TAP-Windows Adapter V9 Р±РµС€Рµ РёРЅСЃС‚Р°Р»РёСЂР°РЅ. РЎРµРіР° РјРѕР¶РµС‚Рµ РїРѕР·РІРѕР»РёС‚Рµ С‚РѕР№ РґР° Р±СЉРґРµ РёР·РїРѕР»Р·РІР°РЅ РѕС‚ ContraVPN (РёР·Р±РёСЂР°Р№РєРё \"Р”Р°\" РЅР° РїСЉСЂРІРѕС‚Рѕ СЃСЉРѕР±С‰РµРЅРёРµ)", "РђРґР°РїС‚РµСЂСЉС‚ Рµ РёРЅСЃС‚Р°Р»РёСЂР°РЅ");
+                            MessageBox.Show("Нов TAP-Windows Adapter V9 беше инсталиран. Сега можете позволите той да бъде използван от ContraVPN (избирайки \"Да\" на първото съобщение)", "Адаптерът е инсталиран");
                             adapterInstalled = true;
                             DisplayDnsConfiguration();
                         }
                         else
                         {
-                            MessageBox.Show("РРЅСЃС‚Р°Р»Р°С†РёСЏС‚Р° РЅР° TAP-Windows Adapter V9 СЃРµ РїСЂРѕРІР°Р»Рё.", "Р“СЂРµС€РєР°");
+                            MessageBox.Show("Инсталацията на TAP-Windows Adapter V9 се провали.", "Грешка");
                         }
                     }
                     else if (Globals.DE_Checked == true)
                     {
                         if (adapter.ExitCode == 0)
                         {
-                            MessageBox.Show("Ein neuer TAP-Windows Adapter V9 wurde installiert. Du solltest ihm nicht erlauben von ContraVPN benutzt zu werden (WРґhle \"yes\" auf dem ersten dialog Fenster)", "Adapter installiert");
+                            MessageBox.Show("Ein neuer TAP-Windows Adapter V9 wurde installiert. Du solltest ihm nicht erlauben von ContraVPN benutzt zu werden (Wдhle \"yes\" auf dem ersten dialog Fenster)", "Adapter installiert");
                             adapterInstalled = true;
                             DisplayDnsConfiguration();
                         }
@@ -2917,15 +2910,15 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРёР·РІРµСЃС‚РЅРѕ";
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестно";
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРІС–РґРѕРјРѕ";
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: невідомо";
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: РЅРµРёР·РІРµСЃС‚РµРЅ";
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестен";
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -3007,15 +3000,15 @@ namespace Contra
             //    }
             //    else if (Globals.RU_Checked == true)
             //    {
-            //        MessageBox.Show(s_concat, "РљС‚Рѕ РІ СЃРµС‚Рё?");
+            //        MessageBox.Show(s_concat, "Кто в сети?");
             //    }
             //    else if (Globals.UA_Checked == true)
             //    {
-            //        MessageBox.Show(s_concat, "РҐС‚Рѕ РІ РјРµСЂРµР¶С–?");
+            //        MessageBox.Show(s_concat, "Хто в мережі?");
             //    }
             //    else if (Globals.BG_Checked == true)
             //    {
-            //        MessageBox.Show(s_concat, "РљРѕР№ Рµ РѕРЅР»Р°Р№РЅ?");
+            //        MessageBox.Show(s_concat, "Кой е онлайн?");
             //    }
             //    else if (Globals.DE_Checked == true)
             //    {
@@ -3039,15 +3032,15 @@ namespace Contra
             //        }
             //        else if (Globals.RU_Checked == true)
             //        {
-            //            playersOnlineLabel.Text = "РРіСЂРѕРєРё РѕРЅР»Р°Р№РЅ: " + s2.ToString();
+            //            playersOnlineLabel.Text = "Игроки онлайн: " + s2.ToString();
             //        }
             //        else if (Globals.UA_Checked == true)
             //        {
-            //            playersOnlineLabel.Text = "Р“СЂР°РІС†С– РІ РјРµСЂРµР¶С–: " + s2.ToString();
+            //            playersOnlineLabel.Text = "Гравці в мережі: " + s2.ToString();
             //        }
             //        else if (Globals.BG_Checked == true)
             //        {
-            //            playersOnlineLabel.Text = "РРіСЂР°С‡Рё РЅР° Р»РёРЅРёСЏ: " + s2.ToString();
+            //            playersOnlineLabel.Text = "Играчи на линия: " + s2.ToString();
             //        }
             //        else if (Globals.DE_Checked == true)
             //        {
