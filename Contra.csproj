@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DC31620A-C192-46E4-82D8-15D1D1823649}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Contra</RootNamespace>
+    <AssemblyName>Contra_Launcher</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ContraIco.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="eventargs.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Marquee.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Marquee.Designer.cs">
+      <DependentUpon>Marquee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="moreOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="moreOptionsForm.Designer.cs">
+      <DependentUpon>moreOptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="onlinePlayersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="onlinePlayersForm.Designer.cs">
+      <DependentUpon>onlinePlayersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="TransparentRichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TransparentRichTextBox.Designer.cs">
+      <DependentUpon>TransparentRichTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VPNForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VPNForm.Designer.cs">
+      <DependentUpon>VPNForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Form1.bg.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.ru.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.uk.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Globals.resx">
+      <DependentUpon>Globals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="moreOptionsForm.bg.resx">
+      <DependentUpon>moreOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="moreOptionsForm.resx">
+      <DependentUpon>moreOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="moreOptionsForm.ru.resx">
+      <DependentUpon>moreOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="moreOptionsForm.uk.resx">
+      <DependentUpon>moreOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="onlinePlayersForm.resx">
+      <DependentUpon>onlinePlayersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VPNForm.bg.resx">
+      <DependentUpon>VPNForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VPNForm.resx">
+      <DependentUpon>VPNForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VPNForm.ru.resx">
+      <DependentUpon>VPNForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VPNForm.uk.resx">
+      <DependentUpon>VPNForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ContraIco.ico" />
+    <None Include="Resources\playersOnline.jpg" />
+    <None Include="Resources\blackDot.png" />
+    <None Include="Resources\vpn_on_over.png" />
+    <None Include="Resources\vpn_on.png" />
+    <None Include="Resources\vpn_off_over.png" />
+    <None Include="Resources\vpn_off.png" />
+    <None Include="Resources\flag_de_tr.png" />
+    <None Include="Resources\flag_de.png" />
+    <None Include="Resources\vpnbg.jpg" />
+    <None Include="Resources\background.jpg" />
+    <None Include="Resources\btnOk2a.png" />
+    <None Include="Resources\btnOk1a.png" />
+    <None Include="Resources\btnOk3a.png" />
+    <None Include="Resources\btnOk3.png" />
+    <None Include="Resources\btnOk2.png" />
+    <None Include="Resources\btnOk1.png" />
+    <None Include="Resources\flag_gb_sel.png" />
+    <None Include="Resources\flag_gb_tr.png" />
+    <None Include="Resources\flag_bg_tr.png" />
+    <None Include="Resources\flag_ua_tr.png" />
+    <None Include="Resources\flag_ru_tr.png" />
+    <None Include="Resources\ppl_tr.png" />
+    <None Include="Resources\ppl.png" />
+    <None Include="Resources\refresh_tr.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\min11.png" />
+    <None Include="Resources\min.png" />
+    <None Include="Resources\exit11.png" />
+    <None Include="Resources\exit1.png" />
+    <None Include="Resources\invinp.png" />
+    <None Include="Resources\flag_gb.png" />
+    <None Include="Resources\flag_bg.png" />
+    <None Include="Resources\flag_ru.png" />
+    <None Include="Resources\flag_ua.png" />
+    <None Include="Resources\_button_config_tr.png" />
+    <None Include="Resources\_button_config.png" />
+    <None Include="Resources\_button_log_tr.png" />
+    <None Include="Resources\_button_log.png" />
+    <None Include="Resources\_button_console_tr.png" />
+    <None Include="Resources\_button_console.png" />
+    <None Include="Resources\_button_invite_tr.png" />
+    <None Include="Resources\_button_sm_highlight.png" />
+    <None Include="Resources\_button_invite.png" />
+    <None Include="Resources\_button_highlight.png" />
+    <None Include="Resources\_button_exit_text.png" />
+    <None Include="Resources\_button_exit.png" />
+    <None Include="Resources\button_launch_text.png" />
+    <None Include="Resources\button_launch.png" />
+    <None Include="Resources\_button_readme_text.png" />
+    <None Include="Resources\_button_readme.png" />
+    <None Include="Resources\_button_website_text.png" />
+    <None Include="Resources\_button_website.png" />
+    <None Include="Resources\_button_discord_text.png" />
+    <None Include="Resources\_button_discord.png" />
+    <None Include="Resources\button_help_text.png" />
+    <None Include="Resources\_button_help.png" />
+    <None Include="Resources\button_moddb_text.png" />
+    <None Include="Resources\button_moddb.png" />
+    <None Include="Resources\button_wb_text.png" />
+    <None Include="Resources\button_wb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="bn\Contra Launcher.resources">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Satellite</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
