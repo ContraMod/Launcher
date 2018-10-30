@@ -148,7 +148,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button17.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="button18.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -178,7 +178,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button18.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="LangFilterCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -190,10 +190,10 @@
     <value>NoControl</value>
   </data>
   <data name="LangFilterCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 184</value>
+    <value>46, 205</value>
   </data>
   <data name="LangFilterCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+    <value>121, 22</value>
   </data>
   <data name="LangFilterCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>54</value>
@@ -211,7 +211,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;LangFilterCheckBox.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="FogCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -223,10 +223,10 @@
     <value>NoControl</value>
   </data>
   <data name="FogCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 156</value>
+    <value>46, 145</value>
   </data>
   <data name="FogCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 22</value>
+    <value>93, 22</value>
   </data>
   <data name="FogCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>53</value>
@@ -244,7 +244,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;FogCheckBox.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="comboBox1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 15px</value>
@@ -310,7 +310,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="labelResolution.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -340,7 +340,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelResolution.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="resOkButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -436,7 +436,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;resOkButton.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <metadata name="toolTip3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -463,6 +463,36 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="HeatEffectsCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HeatEffectsCheckBox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Calibri, 15px, style=Bold</value>
+  </data>
+  <data name="HeatEffectsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 175</value>
+  </data>
+  <data name="HeatEffectsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 22</value>
+  </data>
+  <data name="HeatEffectsCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="HeatEffectsCheckBox.Text" xml:space="preserve">
+    <value>Heat Effects</value>
+  </data>
+  <data name="&gt;&gt;HeatEffectsCheckBox.Name" xml:space="preserve">
+    <value>HeatEffectsCheckBox</value>
+  </data>
+  <data name="&gt;&gt;HeatEffectsCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HeatEffectsCheckBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;HeatEffectsCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

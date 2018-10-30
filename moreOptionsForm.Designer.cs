@@ -39,6 +39,7 @@
             this.resOkButton = new System.Windows.Forms.Button();
             this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
             this.button1 = new System.Windows.Forms.Button();
+            this.HeatEffectsCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // button17
@@ -143,12 +144,21 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // HeatEffectsCheckBox
+            // 
+            resources.ApplyResources(this.HeatEffectsCheckBox, "HeatEffectsCheckBox");
+            this.HeatEffectsCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.HeatEffectsCheckBox.ForeColor = System.Drawing.Color.White;
+            this.HeatEffectsCheckBox.Name = "HeatEffectsCheckBox";
+            this.HeatEffectsCheckBox.UseVisualStyleBackColor = false;
+            // 
             // moreOptionsForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = global::Contra.Properties.Resources.vpnbg;
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
+            this.Controls.Add(this.HeatEffectsCheckBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.resOkButton);
             this.Controls.Add(this.labelResolution);
@@ -177,5 +187,6 @@
         private System.Windows.Forms.Button resOkButton;
         private System.Windows.Forms.ToolTip toolTip3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox HeatEffectsCheckBox;
     }
 }
