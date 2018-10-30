@@ -125,7 +125,26 @@ namespace Contra
         void wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             //Show a message when the download has completed
-            MessageBox.Show("Your application is now up-to-date!\n\nThe application will now restart!", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (Globals.GB_Checked == true)
+            {
+                MessageBox.Show("Your application is now up-to-date!\n\nThe application will now restart!", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (Globals.RU_Checked == true)
+            {
+                MessageBox.Show("Ваше приложение теперь обновлено!\n\nПриложение будет перезагружено!", "Обновление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (Globals.UA_Checked == true)
+            {
+                MessageBox.Show("Ваша готова до оновлення!\n\nПрограма буде перезавантажена!", "Оновлення завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (Globals.BG_Checked == true)
+            {
+                MessageBox.Show("Приложението е вече обновено!\n\nСега ще се рестартира!", "Обновяването е завършено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (Globals.DE_Checked == true)
+            {
+                MessageBox.Show("Ihr Programm ist jetzt auf dem neuesten Stand!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             Application.Restart();
         }
 
@@ -146,7 +165,26 @@ namespace Contra
             //If there is a new version, call the DownloadUpdate method
             if (newVersion != Application.ProductVersion)
             {
-                MessageBox.Show("Contra Launcher version " + versionText2 + " is available! Click OK to update and restart!", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("Contra Launcher version " + versionText2 + " is available! Click OK to update and restart!", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Версия Contra Launcher " + versionText2 + " доступна! Нажмите «ОК», чтобы обновить и перезапустить!", "Доступно обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Версія Contra Launcher " + versionText2 + " доступна! Натисніть кнопку ОК, щоб оновити та перезапустити!", "Доступне оновлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Contra Launcher версия " + versionText2 + " е достъпна! Щракнете OK, за да обновите и рестартирате!", "Достъпна е актуализация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Contra Launcher version " + versionText2 + " ist verfьgbar! Klicke OK zum aktualisieren und neu starten!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
                 DownloadUpdate();
             }
         }
@@ -1166,15 +1204,15 @@ namespace Contra
 
         public static void addFirewallExceptions()
         {
-            Dictionary<string, string> exes = new Dictionary<string, string>
-                        {
-                            {"game.dat","udp"},
-                            {"Contra_Launcher.exe","tcp"},
-                            {@"contra\vpn\" + Globals.userOS + @"\tinc.exe","tcp"},
-                            {@"contra\vpn\" + Globals.userOS + @"\tinc.exe","udp"},
-                            {@"contra\vpn\" + Globals.userOS + @"\tincd.exe","tcp"},
-                            {@"contra\vpn\" + Globals.userOS + @"\tincd.exe","udp"}
-                        };
+            List<KeyValuePair<string, string>> exes = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("game.dat", "udp"),
+                new KeyValuePair<string, string>("Contra_Launcher.exe", "tcp"),
+                new KeyValuePair<string, string>(@"contra\vpn\" + Globals.userOS + @"\tinc.exe", "tcp"),
+                new KeyValuePair<string, string>(@"contra\vpn\" + Globals.userOS + @"\tinc.exe", "udp"),
+                new KeyValuePair<string, string>(@"contra\vpn\" + Globals.userOS + @"\tincd.exe", "tcp"),
+                new KeyValuePair<string, string>(@"contra\vpn\" + Globals.userOS + @"\tincd.exe", "udp")
+            };
             Process netsh = new Process();
             netsh.StartInfo.FileName = "netsh.exe";
             netsh.StartInfo.UseShellExecute = false;
@@ -1681,19 +1719,19 @@ namespace Contra
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        MessageBox.Show("Options.ini not found, therefore the game will not start!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Файл \"Options.ini\" не найден, поэтому игра не запустится!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        MessageBox.Show("Options.ini not found, therefore the game will not start!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Файл Options.ini не знайдений, отже гра не розпочнеться!", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        MessageBox.Show("Options.ini not found, therefore the game will not start!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Options.ini не беше намерен, следователно играта няма да се стартира!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else if (Globals.DE_Checked == true)
                     {
-                        MessageBox.Show("Options.ini not found, therefore the game will not start!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Options.ini nicht gefunden, daher startet das Spiel nicht!", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
@@ -1776,6 +1814,10 @@ namespace Contra
                             {
                                 File.WriteAllText(userDataLeafName() + "Skirmish.ini", File.ReadAllText(userDataLeafName() + "Skirmish.ini").Replace("SuperweaponRestrict = No", "SuperweaponRestrict = Yes"));
                             }
+                            else if (text.Contains("SuperweaponRestrict = no"))
+                            {
+                                File.WriteAllText(userDataLeafName() + "Skirmish.ini", File.ReadAllText(userDataLeafName() + "Skirmish.ini").Replace("SuperweaponRestrict = no", "SuperweaponRestrict = Yes"));
+                            }
                             else
                             {
                                 //
@@ -1790,35 +1832,9 @@ namespace Contra
                             {
                                 File.WriteAllText(myDocPath + "Skirmish.ini", File.ReadAllText(myDocPath + "Skirmish.ini").Replace("SuperweaponRestrict = No", "SuperweaponRestrict = Yes"));
                             }
-                            else
+                            else if (text.Contains("SuperweaponRestrict = no"))
                             {
-                                //
-                            }
-                        }
-                    }
-
-                    //Disable Heat Effects on first run to prevent black screen issue.
-                    if (Directory.Exists(userDataLeafName()))
-                    {
-                        string text = File.ReadAllText(userDataLeafName() + "Options.ini");
-                        {
-                            if (text.Contains("HeatEffects = Yes"))
-                            {
-                                File.WriteAllText(userDataLeafName() + "Options.ini", File.ReadAllText(userDataLeafName() + "Options.ini").Replace("HeatEffects = Yes", "HeatEffects = No"));
-                            }
-                            else
-                            {
-                                //
-                            }
-                        }
-                    }
-                    else if (Directory.Exists(myDocPath))
-                    {
-                        string text = File.ReadAllText(myDocPath + "Options.ini");
-                        {
-                            if (text.Contains("HeatEffects = Yes"))
-                            {
-                                File.WriteAllText(myDocPath + "Options.ini", File.ReadAllText(myDocPath + "Options.ini").Replace("HeatEffects = Yes", "HeatEffects = No"));
+                                File.WriteAllText(myDocPath + "Skirmish.ini", File.ReadAllText(myDocPath + "Skirmish.ini").Replace("SuperweaponRestrict = no", "SuperweaponRestrict = Yes"));
                             }
                             else
                             {
@@ -2544,7 +2560,7 @@ namespace Contra
                         }
                         else if (Globals.RU_Checked == true)
                         {
-                            DialogResult dialogResult = MessageBox.Show("Use existing adapter " + adapter.Name + " for ContraVPN?", "Choose Adapter", MessageBoxButtons.YesNo);
+                            DialogResult dialogResult = MessageBox.Show("Использовать существующий адаптер " + adapter.Name + " для ContraVPN?", "Выберите адаптер", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.Yes)
                             {
                                 Process netsh = new Process();
@@ -2568,7 +2584,7 @@ namespace Contra
                         }
                         else if (Globals.UA_Checked == true)
                         {
-                            DialogResult dialogResult = MessageBox.Show("Use existing adapter " + adapter.Name + " for ContraVPN?", "Choose Adapter", MessageBoxButtons.YesNo);
+                            DialogResult dialogResult = MessageBox.Show("Використовувати існуючий адаптер " + adapter.Name + " для ContraVPN?", "Виберіть адептер", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.Yes)
                             {
                                 Process netsh = new Process();
@@ -2616,7 +2632,7 @@ namespace Contra
                         }
                         else if (Globals.DE_Checked == true)
                         {
-                            DialogResult dialogResult = MessageBox.Show("Use existing adapter " + adapter.Name + " for ContraVPN?", "Choose Adapter", MessageBoxButtons.YesNo);
+                            DialogResult dialogResult = MessageBox.Show("Bereits vorhandenen Adapter " + adapter.Name + " fьr ContraVPN benutzen?", "Wдhle Adapter", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.Yes)
                             {
                                 Process netsh = new Process();
@@ -2799,7 +2815,7 @@ namespace Contra
                         }
                         else
                         {
-                            MessageBox.Show("TAP-Windows Adapter V9 installation failed.", "Adapter Install Failed");
+                            MessageBox.Show("Не удалось установить TAP-Windows Adapter V9.", "Не удалось установить адаптер");
                         }
                     }
                     else if (Globals.UA_Checked == true)
@@ -2812,7 +2828,7 @@ namespace Contra
                         }
                         else
                         {
-                            MessageBox.Show("TAP-Windows Adapter V9 installation failed.", "Adapter Install Failed");
+                            MessageBox.Show("Не вдалося встановити TAP-Windows Adapter V9.", "Не вдалося встановити адаптер");
                         }
                     }
                     else if (Globals.BG_Checked == true)
@@ -2838,7 +2854,7 @@ namespace Contra
                         }
                         else
                         {
-                            MessageBox.Show("TAP-Windows Adapter V9 installation failed.", "Adapter Install Failed");
+                            MessageBox.Show("TAP-Windows Adapter V9 Installation gescheitert.", "Adapter Installation gescheitert");
                         }
                     }
                 }
@@ -2915,19 +2931,19 @@ namespace Contra
                         }
                         else if (Globals.RU_Checked == true)
                         {
-                            MessageBox.Show("Options.ini not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Файл \"Options.ini\" не найден!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else if (Globals.UA_Checked == true)
                         {
-                            MessageBox.Show("Options.ini not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Файл Options.ini не знайдений!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else if (Globals.BG_Checked == true)
                         {
-                            MessageBox.Show("Options.ini not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Options.ini не беше намерен!", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else if (Globals.DE_Checked == true)
                         {
-                            MessageBox.Show("Options.ini not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Options.ini nicht gefunden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }

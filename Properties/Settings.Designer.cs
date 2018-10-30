@@ -394,5 +394,17 @@ namespace Contra.Properties {
                 this["UpgradeRequired"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HeatEffects {
+            get {
+                return ((bool)(this["HeatEffects"]));
+            }
+            set {
+                this["HeatEffects"] = value;
+            }
+        }
     }
 }

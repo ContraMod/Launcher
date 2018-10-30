@@ -151,6 +151,7 @@
             this.HeatEffectsCheckBox.ForeColor = System.Drawing.Color.White;
             this.HeatEffectsCheckBox.Name = "HeatEffectsCheckBox";
             this.HeatEffectsCheckBox.UseVisualStyleBackColor = false;
+            this.HeatEffectsCheckBox.CheckedChanged += new System.EventHandler(this.HeatEffectsCheckBox_CheckedChanged);
             // 
             // moreOptionsForm
             // 

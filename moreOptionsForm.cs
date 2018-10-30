@@ -29,39 +29,103 @@ namespace Contra
             {
                 toolTip3.SetToolTip(FogCheckBox, "Toggle fog (depth of field) effects on/off.\nThis effect adds a color layer at the top of the screen, depending on the map.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Disabling the language filter will show bad words written by players in chat.");
+                toolTip3.SetToolTip(HeatEffectsCheckBox, "Heat effects are standard graphical effects from Zero Hour. The area near heat sources distorts.\nTurn this off if your screen randomly turns black while playing.");
             }
             else if (Globals.RU_Checked == true)
             {
                 toolTip3.SetToolTip(FogCheckBox, "Эффекты переключения тумана (глубина поля) вкл\\выкл.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Отключение языкового фильтра покажет плохие слова, написанные игроками в чате.");
+                toolTip3.SetToolTip(HeatEffectsCheckBox, "Heat effects are standard graphical effects from Zero Hour.\nTurn this off if your screen randomly turns black while playing.");
                 labelResolution.Text = "Разрешение экрана:";
                 FogCheckBox.Text = "Эффект тумана";
                 LangFilterCheckBox.Text = "Языковый фильтр";
+                HeatEffectsCheckBox.Text = "Heat effects";
             }
             else if (Globals.UA_Checked == true)
             {
                 toolTip3.SetToolTip(FogCheckBox, "Ефекти перемикання туману (глибина поля) вкл\\викл.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Вимкнення мовного фільтра покаже погані слова, написані гравцями в чаті.");
+                toolTip3.SetToolTip(HeatEffectsCheckBox, "Heat effects are standard graphical effects from Zero Hour.\nTurn this off if your screen randomly turns black while playing.");
                 labelResolution.Text = "Роздільна здатність:";
                 FogCheckBox.Text = "Ефект туману";
                 LangFilterCheckBox.Text = "Мовний фільтр";
+                HeatEffectsCheckBox.Text = "Heat effects";
             }
             else if (Globals.BG_Checked == true)
             {
                 toolTip3.SetToolTip(FogCheckBox, "Превключете ефекта \"дълбочина на рязкост\".\nТози ефект добавя цветен слой на върха на екрана, зависещ от атмосферата на картата. Например, мъгла.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Изключването на езиковия филтър ще спре да скрива лошите думи, написани от играчите.");
+                toolTip3.SetToolTip(HeatEffectsCheckBox, "Топлинните ефекти са стандартни графични ефекти в Zero Hour.\nИзключете ги, ако вашият екран става черен, докато играете.");
                 labelResolution.Text = "Резолюция:";
-                FogCheckBox.Text = "Ефект мъглявина";
+                FogCheckBox.Text = "Мъглявинен ефект";
                 LangFilterCheckBox.Text = "Езиков филтър";
+                HeatEffectsCheckBox.Text = "Топлинни ефекти";
             }
             else if (Globals.DE_Checked == true)
             {
                 toolTip3.SetToolTip(FogCheckBox, "Schalte Nebel (Tiefenschдrfe) Effekte An/Aus.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Das ausschalten vom Sprache Filter zeigt bцse Wцrter von anderen Spielern im Chat an.");
+                toolTip3.SetToolTip(HeatEffectsCheckBox, "Heat effects are standard graphical effects from Zero Hour.\nTurn this off if your screen randomly turns black while playing.");
                 labelResolution.Text = "Auflцsung:";
                 FogCheckBox.Text = "Nebel Effekte";
                 LangFilterCheckBox.Text = "Sprache Filter";
+                HeatEffectsCheckBox.Text = "Heat effects";
             }
+
+            //Read from Options.ini and check/uncheck Heat Effects checkbox depending on value there:
+            if (Directory.Exists(userDataLeafName()))
+            {
+                string text = File.ReadAllText(userDataLeafName() + "Options.ini");
+                {
+                    if (text.Contains("HeatEffects = No"))
+                    {
+                        HeatEffectsCheckBox.Checked = false;
+                    }
+                    else if (text.Contains("HeatEffects = no"))
+                    {
+                        HeatEffectsCheckBox.Checked = false;
+                    }
+                    else if (text.Contains("HeatEffects = Yes"))
+                    {
+                        HeatEffectsCheckBox.Checked = true;
+                    }
+                    else if (text.Contains("HeatEffects = yes"))
+                    {
+                        HeatEffectsCheckBox.Checked = true;
+                    }
+                    else
+                    {
+                        //
+                    }
+                }
+            }
+            else if (Directory.Exists(myDocPath))
+            {
+                string text = File.ReadAllText(myDocPath + "Options.ini");
+                {
+                    if (text.Contains("HeatEffects = No"))
+                    {
+                        HeatEffectsCheckBox.Checked = false;
+                    }
+                    else if (text.Contains("HeatEffects = no"))
+                    {
+                        HeatEffectsCheckBox.Checked = false;
+                    }
+                    else if (text.Contains("HeatEffects = Yes"))
+                    {
+                        HeatEffectsCheckBox.Checked = true;
+                    }
+                    else if (text.Contains("HeatEffects = yes"))
+                    {
+                        HeatEffectsCheckBox.Checked = true;
+                    }
+                    else
+                    {
+                        //
+                    }
+                }
+            }
+
 
             //Get current resolution
             try
@@ -115,6 +179,7 @@ namespace Contra
                 comboBox1.Text = Properties.Settings.Default.Res;
 
                 FogCheckBox.Checked = Properties.Settings.Default.Fog;
+                //HeatEffectsCheckBox.Checked = Properties.Settings.Default.HeatEffects;
                 LangFilterCheckBox.Checked = Properties.Settings.Default.LangF;
             }
             catch
@@ -127,19 +192,19 @@ namespace Contra
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        MessageBox.Show("Options.ini not found! Could not load current resolution.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Файл \"Options.ini\" не найден! Не удалось загрузить текущее разрешение.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        MessageBox.Show("Options.ini not found! Could not load current resolution.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Файл Options.ini не знайдений! Не вдалося завантажити поточну роздільну здатність.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        MessageBox.Show("Options.ini not found! Could not load current resolution.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Options.ini не беше намерен! Не можа да се зареди текущата резолюция.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (Globals.DE_Checked == true)
                     {
-                        MessageBox.Show("Options.ini not found! Could not load current resolution.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Options.ini nicht gefunden! Aktuelle Auflцsung konnte nicht geladen werden.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -328,19 +393,19 @@ namespace Contra
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        MessageBox.Show("Options.ini not found! Could not set new resolution.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Файл \"Options.ini\" не найден! Не удалось установить новое разрешение.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        MessageBox.Show("Options.ini not found! Could not set new resolution.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Файл Options.ini не знайдений! Не вдалося встановити нову роздільну здатність.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        MessageBox.Show("Options.ini not found! Could not set new resolution.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Options.ini не беше намерен! Не можа да се приложи избраната резолюция.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (Globals.DE_Checked == true)
                     {
-                        MessageBox.Show("Options.ini not found! Could not set new resolution.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Options.ini nicht gefunden! Neue Auflцsung konnte nicht eingestellt werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -405,6 +470,94 @@ namespace Contra
             Process a = new Process();
             a.StartInfo.FileName = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra";
             a.Start();
+        }
+
+        private void HeatEffectsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!HeatEffectsCheckBox.Checked)
+            {
+                //Properties.Settings.Default.HeatEffects = false;
+                //Properties.Settings.Default.Save();
+                //Disable Heat Effects. Fixes black screen issue.
+                if (Directory.Exists(userDataLeafName()))
+                {
+                    string text = File.ReadAllText(userDataLeafName() + "Options.ini");
+                    {
+                        if (text.Contains("HeatEffects = Yes"))
+                        {
+                            File.WriteAllText(userDataLeafName() + "Options.ini", File.ReadAllText(userDataLeafName() + "Options.ini").Replace("HeatEffects = Yes", "HeatEffects = No"));
+                        }
+                        else if (text.Contains("HeatEffects = yes"))
+                        {
+                            File.WriteAllText(userDataLeafName() + "Options.ini", File.ReadAllText(userDataLeafName() + "Options.ini").Replace("HeatEffects = yes", "HeatEffects = No"));
+                        }
+                        else
+                        {
+                            //
+                        }
+                    }
+                }
+                else if (Directory.Exists(myDocPath))
+                {
+                    string text = File.ReadAllText(myDocPath + "Options.ini");
+                    {
+                        if (text.Contains("HeatEffects = Yes"))
+                        {
+                            File.WriteAllText(myDocPath + "Options.ini", File.ReadAllText(myDocPath + "Options.ini").Replace("HeatEffects = Yes", "HeatEffects = No"));
+                        }
+                        else if (text.Contains("HeatEffects = yes"))
+                        {
+                            File.WriteAllText(myDocPath + "Options.ini", File.ReadAllText(myDocPath + "Options.ini").Replace("HeatEffects = yes", "HeatEffects = No"));
+                        }
+                        else
+                        {
+                            //
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //Properties.Settings.Default.HeatEffects = true;
+                //Properties.Settings.Default.Save();
+                //Disable Heat Effects. Fixes black screen issue.
+                if (Directory.Exists(userDataLeafName()))
+                {
+                    string text = File.ReadAllText(userDataLeafName() + "Options.ini");
+                    {
+                        if (text.Contains("HeatEffects = No"))
+                        {
+                            File.WriteAllText(userDataLeafName() + "Options.ini", File.ReadAllText(userDataLeafName() + "Options.ini").Replace("HeatEffects = No", "HeatEffects = Yes"));
+                        }
+                        else if (text.Contains("HeatEffects = no"))
+                        {
+                            File.WriteAllText(userDataLeafName() + "Options.ini", File.ReadAllText(userDataLeafName() + "Options.ini").Replace("HeatEffects = no", "HeatEffects = Yes"));
+                        }
+                        else
+                        {
+                            //
+                        }
+                    }
+                }
+                else if (Directory.Exists(myDocPath))
+                {
+                    string text = File.ReadAllText(myDocPath + "Options.ini");
+                    {
+                        if (text.Contains("HeatEffects = No"))
+                        {
+                            File.WriteAllText(myDocPath + "Options.ini", File.ReadAllText(myDocPath + "Options.ini").Replace("HeatEffects = No", "HeatEffects = Yes"));
+                        }
+                        else if (text.Contains("HeatEffects = no"))
+                        {
+                            File.WriteAllText(myDocPath + "Options.ini", File.ReadAllText(myDocPath + "Options.ini").Replace("HeatEffects = no", "HeatEffects = Yes"));
+                        }
+                        else
+                        {
+                            //
+                        }
+                    }
+                }
+            }
         }
     }
 }

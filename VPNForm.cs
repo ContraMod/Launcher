@@ -44,7 +44,7 @@ namespace Contra
                 toolTip2.SetToolTip(UPnPCheckBox, "Поиск локальных устройств UPnP-IGD, это может улучшить связь, если в вашем маршрутизаторе будет включено UPnP.\nНужна поддержка miniupnpc (tinc, что распространяется Contra, это не официально).");
                 toolTip2.SetToolTip(AutoConnectCheckBox, "Автоматическая установка мета-соеденения с другими узлами.\nПозволяет сохранять связь с другими игроками, даже если узел ContraVPN выключен.\nРаботает только с узлами, которые имеют открытые порты.");
                 toolTip2.SetToolTip(showConsoleCheckBox, "Включение/выключение отображения консоли при запуске VPN.");
-                toolTip2.SetToolTip(labelPort, "The port number on which this tinc is listening for incoming connections, defaults to 655.\nWe suggest you port forward the chosen TCP/UDP port for optimum connectivity.\nIf this is set to zero, the port will be randomly assigned by the system.");
+                toolTip2.SetToolTip(labelPort, "Номер порта, на котором этот \"tinc\" прослушивает входящие соединения, по умолчанию равен 655.\nМы предлагаем вам перенаправить выбранный порт TCP/UDP для оптимального подключения.\nЕсли это значение равно нулю, порт будет произвольно назначен системой.");
                 labelInvite.Text = "Пригласить";
                 labelConsole.Text = "Консоль";
                 labelMonitor.Text = "Регистр";
@@ -59,7 +59,7 @@ namespace Contra
                 toolTip2.SetToolTip(UPnPCheckBox, "Пошук локальних пристроїв UPnP-IGD, це може покращити зв*язок, якщо у вашому маршрутизаторі буде ввімкнено UPnP.\nПотрібна підтримка miniupnpc (tinc, що розповсюджується Contra, це не офіційно).");
                 toolTip2.SetToolTip(AutoConnectCheckBox, "Автоматично встановлювати мета-з*єднання з іншими вузлами.\nЦе дозволяє зберігати зв*язок з іншими гравцями, навіть якщо ContraVPN вузол знижується.\nПрацює тільки з вузлами, котрі мають відкриті порти.");
                 toolTip2.SetToolTip(showConsoleCheckBox, "Увімкнути/вимкнути показ консолі під час запуску VPN.");
-                toolTip2.SetToolTip(labelPort, "The port number on which this tinc is listening for incoming connections, defaults to 655.\nWe suggest you port forward the chosen TCP/UDP port for optimum connectivity.\nIf this is set to zero, the port will be randomly assigned by the system.");
+                toolTip2.SetToolTip(labelPort, "Номер порту, на який це tinc прослуховує вхідні з'єднання, за умовчанням - 655.\nМи пропонуємо вам порту перенаправляти вибраний порт TCP/UDP для оптимального підключення.\nЯкщо цей параметр встановлений до нуля, порт буде випадково призначено системою.");
                 labelInvite.Text = "Запросити";
                 labelConsole.Text = "Консоль";
                 labelMonitor.Text = "Регістр";
@@ -89,7 +89,7 @@ namespace Contra
                 toolTip2.SetToolTip(UPnPCheckBox, "Suche nach lokalen UPnP-IGD Gerдten (Dies verbessert die Verbindung fall UPnP auf deinem Router aktiviert ist.)\nErfordert miniupnpc support (Tinc verteilt von Contra hat dies die offizielle Version nicht).");
                 toolTip2.SetToolTip(AutoConnectCheckBox, "Erstelle automatisch Meta-Verbindungen zu anderen Knoten.\nDies ermцglicht es Ihnen die Verbindung zu anderen Spielern beizubehalten, selbst wenn der Contravpn-Knoten ausfдllt.\nFunktioniert nur mit Knoten die offene Ports haben.");
                 toolTip2.SetToolTip(showConsoleCheckBox, "Umschalten an/aus Zeigt die Konsole an wenn VPN gestartet wird.");
-                toolTip2.SetToolTip(labelPort, "The port number on which this tinc is listening for incoming connections, defaults to 655.\nWe suggest you port forward the chosen TCP/UDP port for optimum connectivity.\nIf this is set to zero, the port will be randomly assigned by the system.");
+                toolTip2.SetToolTip(labelPort, "Die port Nummer auf der tinc nach eingehenden Verbindungen sucht ist standardmдЯig auf 655 eingestellt.\nWir empfehlen dir, den ausgewдhlten TCP/UDP-Port fьr die optimale Verbindung weiterzuleiten.\nWenn dies auf Null gesetzt ist, wird der Port vom System zufдllig zugewiesen.");
                 labelInvite.Text = "Einladung";
                 labelConsole.Text = "Konsole";
                 labelMonitor.Text = "Debug Log";
