@@ -502,23 +502,23 @@ namespace Contra
             {
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("Unit voice preferences and Gentool may not load correctly since World Builder is already running. Starting Contra anyway.", "Error");
+                    MessageBox.Show("Unit voice preferences may not load correctly since World Builder is already running. Starting Contra anyway.", "Error");
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Настройки голосового канала и Gentool могут загружаться неправильно, так как World Builder уже запущен. Запуск Contra в любом случае.", "Ошибка");
+                    MessageBox.Show("Настройки голосового канала могут загружаться неправильно, так как World Builder уже запущен. Запуск Contra в любом случае.", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Голоси юнітів та Gentool можуть завантажуватися не правильно, оскільки World Builder вже працює. Запуск Contra в будь-якому випадку.", "Помилка");
+                    MessageBox.Show("Голоси юнітів можуть завантажуватися не правильно, оскільки World Builder вже працює. Запуск Contra в будь-якому випадку.", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("Езикът, на който говорят единиците и Gentool може да не заредят правилно, тъй като World Builder е стартиран. Contra ще стартира въпреки това.", "Грешка");
+                    MessageBox.Show("Езикът, на който говорят единиците може да не заредят правилно, тъй като World Builder е стартиран. Contra ще стартира въпреки това.", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("Einheit Sprach Prдferenzen und Gentool laden eventuell nicht korrekt, weil der World Builder schon lдuft. Contra wird ohnehin gestartet.", "Fehler");
+                    MessageBox.Show("Einheit Sprach Prдferenzen laden eventuell nicht korrekt, weil der World Builder schon lдuft. Contra wird ohnehin gestartet.", "Fehler");
                 }
             }
         }
