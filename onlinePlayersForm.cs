@@ -137,15 +137,8 @@ namespace Contra
                     onlinePlayers.Close();
                     if (Globals.GB_Checked == true)
                     {
-                        Globals.playersOnlineLabel = "Players online2: " + s2.ToString();
+                        Globals.playersOnlineLabel = "Players online: " + s2.ToString();
                         playersOnlineLabel.Text = Globals.playersOnlineLabel;
-                        //Form1 frm1 = new Form1();
-                        //frm1.LabelText = this.playersOnlineLabel.Text;
-
-                        //playersOnlineLabel.Text = "Players online: " + s2.ToString();
-                        //playersOnlineLabel_PassFromForm2 = playersOnlineLabel.Text; // "Players online: " + s2.ToString();
-                        //Form1 Form1 = new Form1();
-                        //playersOnlineLabel.Text = Form1.playersOnlineLabel_PassFromForm1; // "Players online: " + s2.ToString();
                     }
                     else if (Globals.RU_Checked == true)
                     {

@@ -447,38 +447,6 @@ namespace Contra
                         File.Move(big, ctr);
                     }
                 }
-                //if (File.Exists("!Contra009Beta2.big"))
-                //{
-                //    File.Move("!Contra009Beta2.big", "!Contra009Beta2.ctr");
-                //}
-                //if (File.Exists("!Contra009Beta2VOrig.big"))
-                //{
-                //    File.Move("!Contra009Beta2VOrig.big", "!Contra009Beta2VOrig.ctr");
-                //}
-                //if (File.Exists("!Contra009Beta2VLoc.big"))
-                //{
-                //    File.Move("!Contra009Beta2VLoc.big", "!Contra009Beta2VLoc.ctr");
-                //}
-                //if (File.Exists("!Contra009Beta2EN.big"))
-                //{
-                //    File.Move("!Contra009Beta2EN.big", "!Contra009Beta2EN.ctr");
-                //}
-                //if (File.Exists("!Contra009Beta2RU.big"))
-                //{
-                //    File.Move("!Contra009Beta2RU.big", "!Contra009Beta2RU.ctr");
-                //}
-                //if (File.Exists("!Contra009Beta2MNew.big"))
-                //{
-                //    File.Move("!Contra009Beta2MNew.big", "!Contra009Beta2MNew.ctr");
-                //}
-                //if (File.Exists("!!Contra009Final_FogOff.big"))
-                //{
-                //    File.Move("!!Contra009Final_FogOff.big", "!!Contra009Final_FogOff.ctr");
-                //}
-                //if (File.Exists("!!Contra009Final_FunnyGenPics.big"))
-                //{
-                //    File.Move("!!Contra009Final_FunnyGenPics.big", "!!Contra009Final_FunnyGenPics.ctr");
-                //}
                 if ((File.Exists("langdata1.dat")))
                 {
                     File.Move("langdata1.dat", "langdata.dat");
@@ -487,15 +455,6 @@ namespace Contra
                 {
                     Directory.Move(@"Data\Scripts1", @"Data\Scripts");
                 }
-                //if (File.Exists("Install_Final.bmp") && File.Exists("Install_Final_ZHC.bmp"))
-                //{
-                //    File.Move("Install_Final.bmp", "Install_Final_Contra.bmp");
-                //    File.Move("Install_Final_ZHC.bmp", "Install_Final.bmp");
-                //}
-                //if (File.Exists("Install_Final_Contra.bmp") && File.Exists("Install_Final_ZHC.bmp"))
-                //{
-                //    File.Move("Install_Final_ZHC.bmp", "Install_Final.bmp");
-                //}
 
                 if (File.Exists("Install_Final_ZH.bmp"))
                 {
@@ -621,22 +580,15 @@ namespace Contra
                 {
                     Directory.Move(@"Data\Scripts", @"Data\Scripts1");
                 }
-                //if (File.Exists("Install_Final_Contra.bmp") && File.Exists("Install_Final_ZHC.bmp") && File.Exists("Install_Final.bmp"))
-                //{
-                //    File.Move("Install_Final.bmp", "Install_Final_ZHC.bmp");
-                //    File.Move("Install_Final_Contra.bmp", "Install_Final.bmp");
-                //}
-                //if (File.Exists("Install_Final_Contra.bmp") && File.Exists("Install_Final.bmp"))
-                //{
-                //    File.Move("Install_Final.bmp", "Install_Final_ZHC.bmp");
-                //    File.Move("Install_Final_Contra.bmp", "Install_Final.bmp");
-                //}
                 if (File.Exists("Install_Final.bmp") && (File.Exists("Install_Final_Contra.bmp")))
                 {
                     try
                     {
                         File.SetAttributes("Install_Final.bmp", FileAttributes.Normal);
-                        File.SetAttributes("Install_Final_ZH.bmp", FileAttributes.Normal);
+                        if (File.Exists("Install_Final_ZH"))
+                        {
+                            File.SetAttributes("Install_Final_ZH.bmp", FileAttributes.Normal);
+                        }
                         File.SetAttributes("Install_Final_Contra.bmp", FileAttributes.Normal);
                         File.Copy("Install_Final.bmp", "Install_Final_ZH.bmp", true);
                         File.Copy("Install_Final_Contra.bmp", "Install_Final.bmp", true);
@@ -1711,7 +1663,7 @@ namespace Contra
             //Show warning if Options.ini isn't found and the user is running Windows 8 or more recent.
             if (IsWindows8OrNewer() == true)
             {
-                if (!File.Exists(userDataLeafName() + "Options.ini") || (!File.Exists(myDocPath + "Options.ini")))
+                if (!File.Exists(userDataLeafName() + "Options.ini") && (!File.Exists(myDocPath + "Options.ini")))
                 {
                     if (Globals.GB_Checked == true)
                     {

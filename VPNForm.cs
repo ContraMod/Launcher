@@ -110,8 +110,8 @@ namespace Contra
             //Append AutoConnect line to tinc.conf if missing.
             if ((File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf")) && ((File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf").Contains("AutoConnect")) == false))
             {
-                string AppendUPnP = Environment.NewLine + "AutoConnect = no";
-                File.AppendAllText(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf", AppendUPnP);
+                string AppendAC = Environment.NewLine + "AutoConnect = yes";
+                File.AppendAllText(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf", AppendAC);
             }
 
             //Read from tinc.conf and check/uncheck our checkboxes depending on content:
