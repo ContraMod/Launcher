@@ -43,15 +43,13 @@ namespace Contra
             WinCheckBox.TabStop = false;
             //buttonVPNstart.TabStop = false;
             VPNMoreButton.TabStop = false;
-            radioFlag_GB.TabStop = false;
-            radioFlag_RU.TabStop = false;
-            radioFlag_UA.TabStop = false;
-            radioFlag_BG.TabStop = false;
-            refreshOnlinePlayersBtn.TabStop = false;
+            RadioFlag_GB.TabStop = false;
+            RadioFlag_RU.TabStop = false;
+            RadioFlag_UA.TabStop = false;
+            RadioFlag_BG.TabStop = false;
             vpn_start.FlatAppearance.MouseOverBackColor = Color.Transparent;
             vpn_start.FlatAppearance.MouseDownBackColor = Color.Transparent;
             vpn_start.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
-            refreshOnlinePlayersBtn.Hide();
             whoIsOnline.Hide();
             if (Globals.GB_Checked == true)
             {
@@ -98,15 +96,15 @@ namespace Contra
                 }
             }
 
-            //Load DiscordRPC.dll
-            if (File.Exists((@"contra\DiscordRPC.dll")))
-            {
-                //Assembly assembly = Assembly.LoadFrom("DiscordRPC.dll");
-                Assembly assembly = Assembly.LoadFrom(@"contra\DiscordRPC.dll");
-                Type type = assembly.GetType("DiscordRPC.Program");
-                object instance = Activator.CreateInstance(type);
-                MethodInfo[] methods = type.GetMethods();
-            }
+            ////Load DiscordRPC.dll
+            //if (File.Exists((@"contra\DiscordRPC.dll")))
+            //{
+            //    //Assembly assembly = Assembly.LoadFrom("DiscordRPC.dll");
+            //    Assembly assembly = Assembly.LoadFrom(@"contra\DiscordRPC.dll");
+            //    Type type = assembly.GetType("DiscordRPC.Program");
+            //    object instance = Activator.CreateInstance(type);
+            //    MethodInfo[] methods = type.GetMethods();
+            //}
         }
 
         string newVersion = "";
@@ -844,11 +842,11 @@ namespace Contra
             WinCheckBox.Checked = Properties.Settings.Default.Windowed;
             DefaultPics.Checked = Properties.Settings.Default.GenPicDef;
             GoofyPics.Checked = Properties.Settings.Default.GenPicGoo;
-            radioFlag_GB.Checked = Properties.Settings.Default.Flag_GB;
-            radioFlag_RU.Checked = Properties.Settings.Default.Flag_RU;
-            radioFlag_UA.Checked = Properties.Settings.Default.Flag_UA;
-            radioFlag_BG.Checked = Properties.Settings.Default.Flag_BG;
-            radioFlag_DE.Checked = Properties.Settings.Default.Flag_DE;
+            RadioFlag_GB.Checked = Properties.Settings.Default.Flag_GB;
+            RadioFlag_RU.Checked = Properties.Settings.Default.Flag_RU;
+            RadioFlag_UA.Checked = Properties.Settings.Default.Flag_UA;
+            RadioFlag_BG.Checked = Properties.Settings.Default.Flag_BG;
+            RadioFlag_DE.Checked = Properties.Settings.Default.Flag_DE;
             AutoScaleMode = AutoScaleMode.Dpi;
 
             string tincd = "tincd.exe";
@@ -902,11 +900,11 @@ namespace Contra
             Properties.Settings.Default.Windowed = WinCheckBox.Checked;
             Properties.Settings.Default.GenPicDef = DefaultPics.Checked;
             Properties.Settings.Default.GenPicGoo = GoofyPics.Checked;
-            Properties.Settings.Default.Flag_GB = radioFlag_GB.Checked;
-            Properties.Settings.Default.Flag_RU = radioFlag_RU.Checked;
-            Properties.Settings.Default.Flag_UA = radioFlag_UA.Checked;
-            Properties.Settings.Default.Flag_BG = radioFlag_BG.Checked;
-            Properties.Settings.Default.Flag_DE = radioFlag_DE.Checked;
+            Properties.Settings.Default.Flag_GB = RadioFlag_GB.Checked;
+            Properties.Settings.Default.Flag_RU = RadioFlag_RU.Checked;
+            Properties.Settings.Default.Flag_UA = RadioFlag_UA.Checked;
+            Properties.Settings.Default.Flag_BG = RadioFlag_BG.Checked;
+            Properties.Settings.Default.Flag_DE = RadioFlag_DE.Checked;
             Properties.Settings.Default.Save();
 
             delTmpChunk();
@@ -1077,7 +1075,6 @@ namespace Contra
                 this.Invoke(new MethodInvoker(delegate
                 {
                     vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off);
-                    refreshOnlinePlayersBtn.Hide();
                     whoIsOnline.Hide();
                     if (Globals.GB_Checked == true)
                     {
@@ -1118,7 +1115,6 @@ namespace Contra
         {
             {
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off);
-                refreshOnlinePlayersBtn.Hide();
                 whoIsOnline.Hide();
                 if (Globals.GB_Checked == true)
                 {
@@ -1196,6 +1192,23 @@ namespace Contra
 
         public void StartVPN()
         {
+            Process netsh = new Process();
+            netsh.StartInfo.FileName = "netsh.exe";
+            netsh.StartInfo.UseShellExecute = false;
+            netsh.StartInfo.RedirectStandardInput = true;
+            netsh.StartInfo.RedirectStandardOutput = true;
+            netsh.StartInfo.RedirectStandardError = true;
+            netsh.StartInfo.CreateNoWindow = true;
+            netsh.StartInfo.Arguments = "interface show interface ContraVPN";
+            netsh.Start();
+            string Output = netsh.StandardOutput.ReadToEnd();
+            //MessageBox.Show(Output);
+            if (Output.Contains("Administrative state: Disabled") == true)
+            {
+                netsh.StartInfo.Arguments = "interface set interface ContraVPN enable";
+                netsh.Start();
+            }
+
             Process tinc = new Process();
             tinc.StartInfo.Arguments = "--no-detach --config=\"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\" --debug=3 --pidfile=\"" + Environment.CurrentDirectory + "\\contra\\vpn\\tinc.pid\" --option=AddressFamily=ipv4 --option=Interface=ContraVPN";
             tinc.StartInfo.FileName = Globals.userOS + @"\tincd.exe";
@@ -1237,7 +1250,6 @@ namespace Contra
                 if (tincdByName.Length > 0)
                 {
                     vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                    refreshOnlinePlayersBtn.Show();
                     whoIsOnline.Show();
                     if (Globals.GB_Checked == true)
                     {
@@ -1259,7 +1271,7 @@ namespace Contra
                     {
                         labelVpnStatus.Text = "An";
                     }
-                    refreshOnlinePlayersBtn.PerformClick();
+                    openPlayersListTimer.Start();
                 }
             }
             else if (!Directory.Exists(@"contra\vpn"))
@@ -1358,6 +1370,23 @@ namespace Contra
 
         public void StartVPN_NoWindow()
         {
+            Process netsh = new Process();
+            netsh.StartInfo.FileName = "netsh.exe";
+            netsh.StartInfo.UseShellExecute = false;
+            netsh.StartInfo.RedirectStandardInput = true;
+            netsh.StartInfo.RedirectStandardOutput = true;
+            netsh.StartInfo.RedirectStandardError = true;
+            netsh.StartInfo.CreateNoWindow = true;
+            netsh.StartInfo.Arguments = "interface show interface ContraVPN";
+            netsh.Start();
+            string Output = netsh.StandardOutput.ReadToEnd();
+            //MessageBox.Show(Output);
+            if (Output.Contains("Administrative state: Disabled") == true)
+            {
+                netsh.StartInfo.Arguments = "interface set interface ContraVPN enable";
+                netsh.Start();
+            }
+
             Process tinc = new Process();
             tinc.StartInfo.Arguments = "--no-detach --config=\"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\" --debug=3 --pidfile=\"" + Environment.CurrentDirectory + "\\contra\\vpn\\tinc.pid\" --logfile=\"" + Environment.CurrentDirectory + "\\contra\vpn\\tinc.log\" --option=AddressFamily=ipv4 --option=Interface=ContraVPN";
             tinc.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tincd.exe";
@@ -1399,7 +1428,6 @@ namespace Contra
                 if (tincdByName.Length > 0)
                 {
                     vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                    refreshOnlinePlayersBtn.Show();
                     whoIsOnline.Show();
                     if (Globals.GB_Checked == true)
                     {
@@ -1421,7 +1449,7 @@ namespace Contra
                     {
                         labelVpnStatus.Text = "An";
                     }
-                    refreshOnlinePlayersBtn.PerformClick();
+                    openPlayersListTimer.Start();
                 }
             }
             else if (!Directory.Exists(@"contra\vpn"))
@@ -1596,12 +1624,16 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
+                    byte[] bytes = Encoding.Default.GetBytes(txtFile);
+                    txtFile = Encoding.UTF8.GetString(bytes);
                     string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-RU: ") + 9);
                     string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
                     ThreadHelperClass.SetText(this, MOTD, MOTDText2);
                 }
                 else if (Globals.UA_Checked == true)
                 {
+                    byte[] bytes = Encoding.Default.GetBytes(txtFile);
+                    txtFile = Encoding.UTF8.GetString(bytes);
                     string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-UA: ") + 9);
                     string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
                     ThreadHelperClass.SetText(this, MOTD, MOTDText2);
@@ -1616,6 +1648,8 @@ namespace Contra
                 }
                 else if (Globals.DE_Checked == true)
                 {
+                    byte[] bytes = Encoding.Default.GetBytes(txtFile);
+                    txtFile = Encoding.UTF8.GetString(bytes);
                     string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-DE: ") + 9);
                     string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
                     ThreadHelperClass.SetText(this, MOTD, MOTDText2);
@@ -1697,7 +1731,7 @@ namespace Contra
                 //Show message on first run.
                 if (getCurrentCulture() == "en-US")
                 {
-                    radioFlag_GB.Checked = true;
+                    RadioFlag_GB.Checked = true;
                     if (directoryCount <= 1)
                     {
                         MessageBox.Show("Welcome to Contra 009 Final! Since this is your first time running this launcher, we would like to let you know that you have a new opportunity to play Contra online via ContraVPN! We highly recommend you to join our Discord community!");
@@ -1705,7 +1739,7 @@ namespace Contra
                 }
                 else if (getCurrentCulture() == "ru-RU")
                 {
-                    radioFlag_RU.Checked = true;
+                    RadioFlag_RU.Checked = true;
                     if (directoryCount <= 1)
                     {
                         MessageBox.Show("Добро пожаловать в Contra 009 Final! Поскольку это Ваш первый запуск этого лаунчера, мы хотим сообщить Вам о том, что у Вас есть новая возможность играть в Contra онлайн через ContraVPN! Мы настоятельно рекомендуем Вам присоедениться к нашей группе Discord.");
@@ -1713,7 +1747,7 @@ namespace Contra
                 }
                 else if (getCurrentCulture() == "uk-UA")
                 {
-                    radioFlag_UA.Checked = true;
+                    RadioFlag_UA.Checked = true;
                     if (directoryCount <= 1)
                     {
                         MessageBox.Show("Ласкаво просимо до Contra 009 Final! Оскільки це Ваш перший запуск цього лаунчера, ми хочемо повідомити Вас про те, що у Вас є нова можливість відтворити Contra онлайн через ContraVPN! Ми максимально рекомендуємо Вам приєднатися до нашої спільноти Discord.");
@@ -1721,7 +1755,7 @@ namespace Contra
                 }
                 else if (getCurrentCulture() == "bg-BG")
                 {
-                    radioFlag_BG.Checked = true;
+                    RadioFlag_BG.Checked = true;
                     if (directoryCount <= 1)
                     {
                         MessageBox.Show("Добре дошли в Contra 009 Final! Тъй като това е първото Ви стартиране на Contra, бихме искали да знаете, че имате нова възможност да играете Contra онлайн чрез ContraVPN! Силно препоръчваме да се присъедините към нашата Discord общност! Еее... то и български имало бе! ;)");
@@ -1729,7 +1763,7 @@ namespace Contra
                 }
                 else if (getCurrentCulture() == "de-DE")
                 {
-                    radioFlag_DE.Checked = true;
+                    RadioFlag_DE.Checked = true;
                     if (directoryCount <= 1)
                     {
                         MessageBox.Show("Wilkommen zu Contra 009 Final! Da du diesen launcher zum ersten mal ausfьhrst wollten wir dich wissen lassen, dass du eine neue Mцglichkeit hast Contra online zu spielen ьber ContraVPN! Wir empfehlen dir unserem Discord Server beizutreten.");
@@ -1737,7 +1771,7 @@ namespace Contra
                 }
                 else
                 {
-                    radioFlag_GB.Checked = true;
+                    RadioFlag_GB.Checked = true;
                     if (directoryCount <= 1)
                     {
                         MessageBox.Show("Welcome to Contra 009 Final! Since this is your first time running this launcher, we would like to let you know that you have a new opportunity to play Contra online via ContraVPN! We highly recommend you to join our Discord community!");
@@ -1857,7 +1891,7 @@ namespace Contra
             }
         }
 
-        private void radioFlag_GB_CheckedChanged(object sender, EventArgs e)
+        private void RadioFlag_GB_CheckedChanged(object sender, EventArgs e)
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
@@ -1878,7 +1912,6 @@ namespace Contra
             toolTip1.SetToolTip(GoofyPics, "Use funny general portraits.");
             toolTip1.SetToolTip(WinCheckBox, "Starts Contra in a window instead of full screen.");
             toolTip1.SetToolTip(QSCheckBox, "Disables intro and shellmap (game starts up faster).");
-            toolTip1.SetToolTip(refreshOnlinePlayersBtn, "Refresh online players.");
             toolTip1.SetToolTip(whoIsOnline, "Show who is online.");
             toolTip1.SetToolTip(vpn_start, "Start/close ContraVPN.");
             //verLabel.Text = "Launcher version: " + Application.ProductVersion;
@@ -1889,16 +1922,15 @@ namespace Contra
             if (tincdByName.Length > 0 && wait == false) //if tinc is already running
             {
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                refreshOnlinePlayersBtn.Show();
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "On";
-                refreshOnlinePlayersBtn.PerformClick();
             }
             else vpnIP();
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "On";
-                refreshOnlinePlayersBtn.PerformClick();
+                //refreshOnlinePlayersBtn.PerformClick();
+                playersOnlineLabel.Text = "Online, Go play!";
             }
             if (tincdByName.Length == 0) //if tinc is not running
             {
@@ -1918,7 +1950,7 @@ namespace Contra
             catch { }
         }
 
-        private void radioFlag_RU_CheckedChanged(object sender, EventArgs e)
+        private void RadioFlag_RU_CheckedChanged(object sender, EventArgs e)
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
@@ -1939,7 +1971,6 @@ namespace Contra
             toolTip1.SetToolTip(GoofyPics, "Включить смешные портреты Генералов.");
             toolTip1.SetToolTip(WinCheckBox, "Запуск Contra в режиме окна вместо полноэкранного.");
             toolTip1.SetToolTip(QSCheckBox, "Отключает интро и шелмапу (игра запускается быстрее).");
-            toolTip1.SetToolTip(refreshOnlinePlayersBtn, "Обновить игроков онлайн.");
             toolTip1.SetToolTip(whoIsOnline, "Показать, кто в сети.");
             toolTip1.SetToolTip(vpn_start, "Открыть/Закрыть ContraVPN.");
             RadioLocQuotes.Text = "Англ.";
@@ -1962,16 +1993,15 @@ namespace Contra
             if (tincdByName.Length > 0 && wait == false) //if tinc is already running
             {
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                refreshOnlinePlayersBtn.Show();
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "Вкл.";
-                refreshOnlinePlayersBtn.PerformClick();
             }
             else vpnIP();
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "Вкл.";
-                refreshOnlinePlayersBtn.PerformClick();
+                //refreshOnlinePlayersBtn.PerformClick();
+                playersOnlineLabel.Text = "Онлайн!";
             }
             if (tincdByName.Length == 0) //if tinc is not running
             {
@@ -1991,7 +2021,7 @@ namespace Contra
             catch { }
         }
 
-        private void radioFlag_UA_CheckedChanged(object sender, EventArgs e)
+        private void RadioFlag_UA_CheckedChanged(object sender, EventArgs e)
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("uk-UA");
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
@@ -2012,7 +2042,6 @@ namespace Contra
             toolTip1.SetToolTip(GoofyPics, "Використовуйте смішні портрети Генералів.");
             toolTip1.SetToolTip(WinCheckBox, "Запускає Contra у віконному режимі замість повноекранного.");
             toolTip1.SetToolTip(QSCheckBox, "Вимикає інтро і шелмапу (гра запускається швидше).");
-            toolTip1.SetToolTip(refreshOnlinePlayersBtn, "Оновити гравців онлайн.");
             toolTip1.SetToolTip(whoIsOnline, "Показати, хто в мережі.");
             toolTip1.SetToolTip(vpn_start, "Відкрити/закрити ContraVPN.");
             RadioLocQuotes.Text = "Англ.";
@@ -2035,16 +2064,15 @@ namespace Contra
             if (tincdByName.Length > 0 && wait == false) //if tinc is already running
             {
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                refreshOnlinePlayersBtn.Show();
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "Ввімк.";
-                refreshOnlinePlayersBtn.PerformClick();
             }
             else vpnIP();
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "Ввімк.";
-                refreshOnlinePlayersBtn.PerformClick();
+                //refreshOnlinePlayersBtn.PerformClick();
+                playersOnlineLabel.Text = "В мережі!";
             }
             if (tincdByName.Length == 0) //if tinc is not running
             {
@@ -2064,7 +2092,7 @@ namespace Contra
             catch { }
         }
 
-        private void radioFlag_BG_CheckedChanged(object sender, EventArgs e)
+        private void RadioFlag_BG_CheckedChanged(object sender, EventArgs e)
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("bg-BG");
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
@@ -2085,7 +2113,6 @@ namespace Contra
             toolTip1.SetToolTip(GoofyPics, "Използвайте забавните генералски портрети.");
             toolTip1.SetToolTip(WinCheckBox, "Стартира Contra в нов прозорец вместо на цял екран.");
             toolTip1.SetToolTip(QSCheckBox, "Изключва интрото и анимираната карта (шелмапа). Играта стартира по-бързо.");
-            toolTip1.SetToolTip(refreshOnlinePlayersBtn, "Обнови.");
             toolTip1.SetToolTip(whoIsOnline, "Покажи кои играчи са на линия.");
             toolTip1.SetToolTip(vpn_start, "Включи/изключи ContraVPN.");
             RadioLocQuotes.Text = "Англ.";
@@ -2108,16 +2135,15 @@ namespace Contra
             if (tincdByName.Length > 0 && wait == false) //if tinc is already running
             {
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                refreshOnlinePlayersBtn.Show();
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "Вкл.";
-                refreshOnlinePlayersBtn.PerformClick();
             }
             else vpnIP();
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "Вкл.";
-                refreshOnlinePlayersBtn.PerformClick();
+                //refreshOnlinePlayersBtn.PerformClick();
+                playersOnlineLabel.Text = "На линия!"; ;
             }
             if (tincdByName.Length == 0) //if tinc is not running
             {
@@ -2137,7 +2163,7 @@ namespace Contra
             catch { }
         }
 
-        private void radioFlag_DE_CheckedChanged(object sender, EventArgs e)
+        private void RadioFlag_DE_CheckedChanged(object sender, EventArgs e)
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("de-DE");
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
@@ -2158,7 +2184,6 @@ namespace Contra
             toolTip1.SetToolTip(GoofyPics, "Verwende lustige General Portraits.");
             toolTip1.SetToolTip(WinCheckBox, "Startet Contra in einem Fenster anstatt im Vollbild.");
             toolTip1.SetToolTip(QSCheckBox, "Deaktiviert das Intro und die shellmap (Spiel startet schneller).");
-            toolTip1.SetToolTip(refreshOnlinePlayersBtn, "Aktualisiere Spieler die online sind.");
             toolTip1.SetToolTip(whoIsOnline, "Anzeigen wer online ist.");
             toolTip1.SetToolTip(vpn_start, "Starte/SchlieЯe ContraVPN.");
             voicespanel.Left = 260;
@@ -2183,16 +2208,15 @@ namespace Contra
             if (tincdByName.Length > 0 && wait == false) //if tinc is already running
             {
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                refreshOnlinePlayersBtn.Show();
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "An";
-                refreshOnlinePlayersBtn.PerformClick();
             }
             else vpnIP();
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "An";
-                refreshOnlinePlayersBtn.PerformClick();
+                //refreshOnlinePlayersBtn.PerformClick();
+                playersOnlineLabel.Text = "Online!";
             }
             if (tincdByName.Length == 0) //if tinc is not running
             {
@@ -2263,84 +2287,84 @@ namespace Contra
 
 //        public static string playersOnlineLabel_PassFromForm1;
 
-        private void asd()
-        {
-            Process onlinePlayers = new Process();
-            onlinePlayers.StartInfo.Arguments = "--config=\"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\" --pidfile=\"" + Environment.CurrentDirectory + "\\contra\\vpn\\tinc.pid\"";
-            onlinePlayers.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tinc.exe";
-            onlinePlayers.StartInfo.UseShellExecute = false;
-            onlinePlayers.StartInfo.RedirectStandardInput = true;
-            onlinePlayers.StartInfo.RedirectStandardOutput = true;
-            onlinePlayers.StartInfo.CreateNoWindow = true;
-            onlinePlayers.Start();
-            onlinePlayers.StandardInput.WriteLine("dump reachable nodes");
-            onlinePlayers.StandardInput.Flush();
-            onlinePlayers.StandardInput.Close();
-            string s = onlinePlayers.StandardOutput.ReadToEnd();
-            if (s.Contains("id") == true)
-            {
-                int s2 = Regex.Matches(s, "id").Count;
-                if (s.Contains("ctrvpntest") == true)
-                {
-                    s2 -= 1;
-                }
-                if (s.Contains("contravpn") == true)
-                {
-                    s2 -= 1;
-                }
-                //                s2 -= 1; //excluding local user
+        //private void asd()
+        //{
+        //    Process onlinePlayers = new Process();
+        //    onlinePlayers.StartInfo.Arguments = "--config=\"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\" --pidfile=\"" + Environment.CurrentDirectory + "\\contra\\vpn\\tinc.pid\"";
+        //    onlinePlayers.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tinc.exe";
+        //    onlinePlayers.StartInfo.UseShellExecute = false;
+        //    onlinePlayers.StartInfo.RedirectStandardInput = true;
+        //    onlinePlayers.StartInfo.RedirectStandardOutput = true;
+        //    onlinePlayers.StartInfo.CreateNoWindow = true;
+        //    onlinePlayers.Start();
+        //    onlinePlayers.StandardInput.WriteLine("dump reachable nodes");
+        //    onlinePlayers.StandardInput.Flush();
+        //    onlinePlayers.StandardInput.Close();
+        //    string s = onlinePlayers.StandardOutput.ReadToEnd();
+        //    if (s.Contains("id") == true)
+        //    {
+        //        int s2 = Regex.Matches(s, "id").Count;
+        //        if (s.Contains("ctrvpntest") == true)
+        //        {
+        //            s2 -= 1;
+        //        }
+        //        if (s.Contains("contravpn") == true)
+        //        {
+        //            s2 -= 1;
+        //        }
+        //        //                s2 -= 1; //excluding local user
 
-                onlinePlayers.WaitForExit();
-                onlinePlayers.Close();
-                vpnIP();
+        //        onlinePlayers.WaitForExit();
+        //        onlinePlayers.Close();
+        //        vpnIP();
 
-                if (Globals.GB_Checked == true)
-                {
-                    //foreach (Form onlinePlayersForm1 in Application.OpenForms)
-                    //{
-                    //    if (onlinePlayersForm1 is onlinePlayersForm)
-                    //    {
-                    //        playersOnlineLabel_PassFromForm1 = playersOnlineLabel.Text; // "Players online: " + s2.ToString();
-                    //        onlinePlayersForm onlinePlayersForm = new onlinePlayersForm();
-                    //        //Globals.playersOnlineLabel = "Players online: " + s2.ToString();
-                    //        //playersOnlineLabel.Text = Globals.playersOnlineLabel;
-                    //        playersOnlineLabel.Text = onlinePlayersForm.playersOnlineLabel_PassFromForm2;
-                    //    }
-                    //    else playersOnlineLabel.Text = "Players online: " + s2.ToString();
-                    //}
+        //        if (Globals.GB_Checked == true)
+        //        {
+        //            //foreach (Form onlinePlayersForm1 in Application.OpenForms)
+        //            //{
+        //            //    if (onlinePlayersForm1 is onlinePlayersForm)
+        //            //    {
+        //            //        playersOnlineLabel_PassFromForm1 = playersOnlineLabel.Text; // "Players online: " + s2.ToString();
+        //            //        onlinePlayersForm onlinePlayersForm = new onlinePlayersForm();
+        //            //        //Globals.playersOnlineLabel = "Players online: " + s2.ToString();
+        //            //        //playersOnlineLabel.Text = Globals.playersOnlineLabel;
+        //            //        playersOnlineLabel.Text = onlinePlayersForm.playersOnlineLabel_PassFromForm2;
+        //            //    }
+        //            //    else playersOnlineLabel.Text = "Players online: " + s2.ToString();
+        //            //}
 
-                    Globals.playersOnlineLabel = "Players online: " + s2.ToString();
-                    playersOnlineLabel.Text = Globals.playersOnlineLabel;
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    Globals.playersOnlineLabel = "Игроки онлайн: " + s2.ToString();
-                    playersOnlineLabel.Text = Globals.playersOnlineLabel;
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    Globals.playersOnlineLabel = "Гравці в мережі: " + s2.ToString();
-                    playersOnlineLabel.Text = Globals.playersOnlineLabel;
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    Globals.playersOnlineLabel = "Играчи на линия: " + s2.ToString();
-                    playersOnlineLabel.Text = Globals.playersOnlineLabel;
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    Globals.playersOnlineLabel = "Spieler online: " + s2.ToString();
-                    playersOnlineLabel.Text = Globals.playersOnlineLabel;
-                }
-            }
-        }
+        //            Globals.playersOnlineLabel = "Players online: " + s2.ToString();
+        //            playersOnlineLabel.Text = Globals.playersOnlineLabel;
+        //        }
+        //        else if (Globals.RU_Checked == true)
+        //        {
+        //            Globals.playersOnlineLabel = "Игроки онлайн: " + s2.ToString();
+        //            playersOnlineLabel.Text = Globals.playersOnlineLabel;
+        //        }
+        //        else if (Globals.UA_Checked == true)
+        //        {
+        //            Globals.playersOnlineLabel = "Гравці в мережі: " + s2.ToString();
+        //            playersOnlineLabel.Text = Globals.playersOnlineLabel;
+        //        }
+        //        else if (Globals.BG_Checked == true)
+        //        {
+        //            Globals.playersOnlineLabel = "Играчи на линия: " + s2.ToString();
+        //            playersOnlineLabel.Text = Globals.playersOnlineLabel;
+        //        }
+        //        else if (Globals.DE_Checked == true)
+        //        {
+        //            Globals.playersOnlineLabel = "Spieler online: " + s2.ToString();
+        //            playersOnlineLabel.Text = Globals.playersOnlineLabel;
+        //        }
+        //    }
+        //}
 
         //Timer, waiting for reachable nodes to appear.
-        private void timer1_Tick(object sender, EventArgs e)
+        private void openPlayersListTimer_Tick(object sender, EventArgs e)
         {
-            timer1.Enabled = false;
+            openPlayersListTimer.Enabled = false;
 
-            timer1.Interval = 1000;
+            openPlayersListTimer.Interval = 1000;
             Process onlinePlayers = new Process();
             onlinePlayers.StartInfo.Arguments = "--config=\"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\" --pidfile=\"" + Environment.CurrentDirectory + "\\contra\\vpn\\tinc.pid\"";
             onlinePlayers.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tinc.exe";
@@ -2355,15 +2379,15 @@ namespace Contra
             string s = onlinePlayers.StandardOutput.ReadToEnd();
             if (s.Contains("id") == true)
             {
-                int s2 = Regex.Matches(s, "id").Count;
-                if (s.Contains("ctrvpntest") == true)
-                {
-                    s2 -= 1;
-                }
-                if (s.Contains("contravpn") == true)
-                {
-                    s2 -= 1;
-                }
+                //int s2 = Regex.Matches(s, "id").Count;
+                //if (s.Contains("ctrvpntest") == true)
+                //{
+                //    s2 -= 1;
+                //}
+                //if (s.Contains("contravpn") == true)
+                //{
+                //    s2 -= 1;
+                //}
                 //                s2 -= 1; //excluding local user
 
                 if (Globals.GB_Checked == true)
@@ -2381,28 +2405,38 @@ namespace Contra
                     //    else playersOnlineLabel.Text = "Players online: " + s2.ToString();
                     //}
 
-                    Globals.playersOnlineLabel = "Players online: " + s2.ToString();
-                    playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                    //Globals.playersOnlineLabel = "Players online: " + s2.ToString();
+                    //playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                    playersOnlineLabel.Text = "Online, Go play!";
+                    whoIsOnline.PerformClick();
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    Globals.playersOnlineLabel = "Игроки онлайн: " + s2.ToString();
-                    playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                    //Globals.playersOnlineLabel = "Игроки онлайн: " + s2.ToString();
+                    //playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                    playersOnlineLabel.Text = "Онлайн!";
+                    whoIsOnline.PerformClick();
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    Globals.playersOnlineLabel = "Гравці в мережі: " + s2.ToString();
-                    playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                    //Globals.playersOnlineLabel = "Гравці в мережі: " + s2.ToString();
+                    //playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                    playersOnlineLabel.Text = "В мережі!";
+                    whoIsOnline.PerformClick();
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    Globals.playersOnlineLabel = "Играчи на линия: " + s2.ToString();
-                    playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                    //Globals.playersOnlineLabel = "Играчи на линия: " + s2.ToString();
+                    //playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                    playersOnlineLabel.Text = "На линия!";
+                    whoIsOnline.PerformClick();
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    Globals.playersOnlineLabel = "Spieler online: " + s2.ToString();
-                    playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                    //Globals.playersOnlineLabel = "Spieler online: " + s2.ToString();
+                    //playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                    playersOnlineLabel.Text = "Online!";
+                    whoIsOnline.PerformClick();
                 }
                 onlinePlayers.WaitForExit();
                 onlinePlayers.Close();
@@ -2438,27 +2472,7 @@ namespace Contra
                 }
             }
 //            asd();
-            timer1.Enabled = true; //Enable timer. Implementation is inside timer1_Tick()
-        }
-
-        private void onlinePlayersBtn_MouseDown(object sender, MouseEventArgs e)
-        {
-            refreshOnlinePlayersBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources.refresh);
-            refreshOnlinePlayersBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
-        }
-
-        private void onlinePlayersBtn_MouseEnter(object sender, EventArgs e)
-        {
-            refreshOnlinePlayersBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources.refresh_tr);
-            refreshOnlinePlayersBtn.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            refreshOnlinePlayersBtn.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            refreshOnlinePlayersBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
-        }
-
-        private void onlinePlayersBtn_MouseLeave(object sender, EventArgs e)
-        {
-            refreshOnlinePlayersBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources.refresh);
-            refreshOnlinePlayersBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+            openPlayersListTimer.Enabled = true; //Enable timer. Implementation is inside timer1_Tick()
         }
 
         public static void DisplayDnsConfiguration()
@@ -2641,7 +2655,7 @@ namespace Contra
                 {
                     string tincd = "tincd.exe";
                     Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-                    if (tincdByName.Length > 0)
+                    if (tincdByName.Length > 0) //if tinc is running but we are clicking button again to turn it off
                     {
                         Process[] vpnprocesses = Process.GetProcessesByName("tincd");
                         foreach (Process vpnprocess in vpnprocesses)
@@ -2651,41 +2665,26 @@ namespace Contra
                             vpnprocess.Dispose();
 
                             vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off);
-                            refreshOnlinePlayersBtn.Hide();
                             whoIsOnline.Hide();
                             foreach (Form onlinePlayersForm in Application.OpenForms)
                             {
                                 if (onlinePlayersForm is onlinePlayersForm)
                                 {
                                     onlinePlayersForm.Close();
+
+                                    if (onlinePlayersForm.WindowState == FormWindowState.Normal)
+                                    {
+                                        Properties.Settings.Default.playersOnlineWindowLocation = onlinePlayersForm.Location;
+                                    }
+                                    else
+                                    {
+                                        Properties.Settings.Default.playersOnlineWindowLocation = onlinePlayersForm.RestoreBounds.Location;
+                                    }
+                                    Properties.Settings.Default.Save();
+
                                     return;
                                 }
                             }
-                            //if (Globals.GB_Checked == true)
-                            //{
-                            //    playersOnlineLabel.Text = "ContraVPN disabled";
-                            //    labelVpnStatus.Text = "Off";
-                            //}
-                            //else if (Globals.RU_Checked == true)
-                            //{
-                            //    playersOnlineLabel.Text = "ContraVPN выключено";
-                            //    labelVpnStatus.Text = "Выкл.";
-                            //}
-                            //else if (Globals.UA_Checked == true)
-                            //{
-                            //    playersOnlineLabel.Text = "ContraVPN вимкнено";
-                            //    labelVpnStatus.Text = "Вимк.";
-                            //}
-                            //else if (Globals.BG_Checked == true)
-                            //{
-                            //    playersOnlineLabel.Text = "ContraVPN изключен";
-                            //    labelVpnStatus.Text = "Изкл.";
-                            //}
-                            //else if (Globals.DE_Checked == true)
-                            //{
-                            //    playersOnlineLabel.Text = "ContraVPN deaktiviert";
-                            //    labelVpnStatus.Text = "Aus";
-                            //}
                             return;
                         }
                     }
@@ -2694,12 +2693,10 @@ namespace Contra
                         if (Properties.Settings.Default.ShowConsole == true && Properties.Settings.Default.adapterExists == true)
                         {
                             StartVPN();
-                            //  vpnIP();
                         }
                         else if (Properties.Settings.Default.adapterExists == true)
                         {
                             StartVPN_NoWindow();
-                            //   vpnIP();
                         }
                     }
                 }
@@ -2819,22 +2816,32 @@ namespace Contra
 
         private static void vpnIP()
         {
-            Process ipconfig = new Process();
-            ipconfig.StartInfo.FileName = "ipconfig"; //"cmd.exe";
-            ipconfig.StartInfo.UseShellExecute = false;
-            ipconfig.StartInfo.RedirectStandardInput = true;
-            ipconfig.StartInfo.RedirectStandardOutput = true;
-            ipconfig.StartInfo.CreateNoWindow = true;
-            ipconfig.Start();
-            //            ipconfig.StandardInput.WriteLine("ipconfig");
-            ipconfig.StandardInput.Flush();
-            ipconfig.StandardInput.Close();
-            string s = ipconfig.StandardOutput.ReadToEnd();
+            //Process ipconfig = new Process();
+            //ipconfig.StartInfo.FileName = "ipconfig"; //"cmd.exe";
+            //ipconfig.StartInfo.UseShellExecute = false;
+            //ipconfig.StartInfo.RedirectStandardInput = true;
+            //ipconfig.StartInfo.RedirectStandardOutput = true;
+            //ipconfig.StartInfo.CreateNoWindow = true;
+            //ipconfig.Start();
+            //ipconfig.StandardInput.Flush();
+            //ipconfig.StandardInput.Close();
+            //string s = ipconfig.StandardOutput.ReadToEnd();
+
+            Process netsh = new Process();
+            netsh.StartInfo.FileName = "netsh.exe";
+            netsh.StartInfo.UseShellExecute = false;
+            netsh.StartInfo.RedirectStandardInput = true;
+            netsh.StartInfo.RedirectStandardOutput = true;
+            netsh.StartInfo.RedirectStandardError = true;
+            netsh.StartInfo.CreateNoWindow = true;
+            netsh.StartInfo.Arguments = "interface ip show addresses ContraVPN";
+            netsh.Start();
+            string s = netsh.StandardOutput.ReadToEnd();
             if (s.Contains("10.10.10.") == true)
             {
-                //shows everything ipconfig                    MessageBox.Show(s);
-                ipconfig.WaitForExit();
-                ipconfig.Close();
+                //MessageBox.Show(s);
+                netsh.WaitForExit();
+                netsh.Close();
                 try
                 {
                     if (File.Exists(userDataLeafName() + "Options.ini") || (File.Exists(myDocPath + "Options.ini")))
@@ -2845,13 +2852,14 @@ namespace Contra
                         {
                             while ((line = file.ReadLine()) != null)
                             {
-                                if (line.Contains("10.10.10."))
+                                if (line.Contains("IP Address:") && (line.Contains("10.10.10.")))
                                 {
                                     found.Add(line);
                                     s = line;
                                     s = s.Substring(s.IndexOf(':') + 1);
+                                    s = s.Trim();
                                     Properties.Settings.Default.IP_Label = "ContraVPN IP: " + s;
-                                    //                                                     MessageBox.Show(s); //shows tincIP
+                                    //MessageBox.Show(s); //shows tincIP
                                 }
                             }
                         }
@@ -2948,108 +2956,6 @@ namespace Contra
                 }
             }
             new onlinePlayersForm().Show();
-
-            //string tincd = "tincd.exe";
-            //Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-            //if (tincdByName.Length > 0) //if tincd is already running
-            //{
-            //    Process onlinePlayers = new Process();
-            //    onlinePlayers.StartInfo.Arguments = "--config=\"" + Environment.CurrentDirectory + "\\contra\vpn\" --pidfile=\"" + Environment.CurrentDirectory + "\\contra\\vpn\\tinc.pid\"";
-            //    onlinePlayers.StartInfo.FileName = Environment.CurrentDirectory + @"\contravpn\" + Globals.userOS + @"\tinc.exe";
-            //    onlinePlayers.StartInfo.UseShellExecute = false;
-            //    onlinePlayers.StartInfo.RedirectStandardInput = true;
-            //    onlinePlayers.StartInfo.RedirectStandardOutput = true;
-            //    onlinePlayers.StartInfo.CreateNoWindow = true;
-            //    onlinePlayers.Start();
-            //    onlinePlayers.StandardInput.WriteLine("dump reachable nodes");
-            //    onlinePlayers.StandardInput.Flush();
-            //    onlinePlayers.StandardInput.Close();
-            //    string s = onlinePlayers.StandardOutput.ReadToEnd();
-            //    //                MessageBox.Show(s);
-
-            //    string s_concat = "";
-            //    Regex pattern = new Regex(@"([^\s]+) id");
-
-            //    foreach (var match in pattern.Matches(s))
-            //    {
-            //        string matchString = match.ToString();
-            //        //             string result = rgx.Replace(matchString, "");
-            //        //matchString = matchString.Replace("contravpn", "");
-            //        //matchString = matchString.Replace("ctrvpntest9", "");
-            //        //              matchString = Regex.Replace(matchString, pattern2, "");
-            //        if (!matchString.Contains("contravpn") && (!matchString.Contains("ctrvpntest9")))
-            //        {
-            //            s_concat += matchString;
-            //        }
-            //    }
-            //    //     s_concat = s_concat.Replace("  ", "\n");
-            //    //    s_concat = s_concat.Replace(" ", "");
-            //    //              s_concat = s_concat.Replace("  ", "\n");
-            //    s_concat = s_concat.Replace("id", "\n");
-            //    s_concat = s_concat.Replace("predatorbg", "PredatoR");
-            //    s_concat = s_concat.Replace("ggpersun", "GG`PeRSuN^");
-            //    s_concat = s_concat.Replace("armanis", "Armanis");
-            //    s_concat = s_concat.Replace("maelstrom", "Maelstrom");
-            //    s_concat = s_concat.Replace("wwb2", "WWB2");
-            //    s_concat = s_concat.Replace("kinomoto", "Hyperion Heights");
-            //    if (Globals.GB_Checked == true)
-            //    {
-            //        MessageBox.Show(s_concat, "Who is online?");
-            //    }
-            //    else if (Globals.RU_Checked == true)
-            //    {
-            //        MessageBox.Show(s_concat, "Кто в сети?");
-            //    }
-            //    else if (Globals.UA_Checked == true)
-            //    {
-            //        MessageBox.Show(s_concat, "Хто в мережі?");
-            //    }
-            //    else if (Globals.BG_Checked == true)
-            //    {
-            //        MessageBox.Show(s_concat, "Кой е онлайн?");
-            //    }
-            //    else if (Globals.DE_Checked == true)
-            //    {
-            //        MessageBox.Show(s_concat, "Wer ist online?");
-            //    }
-
-            //    if (s.Contains("id") == true)
-            //    {
-            //        int s2 = Regex.Matches(s, "id").Count;
-            //        if (s.Contains("ctrvpntest") == true)
-            //        {
-            //            s2 -= 1;
-            //        }
-            //        if (s.Contains("contravpn") == true)
-            //        {
-            //            s2 -= 1;
-            //        }
-            //        if (Globals.GB_Checked == true)
-            //        {
-            //            playersOnlineLabel.Text = "Players online: " + s2.ToString();
-            //        }
-            //        else if (Globals.RU_Checked == true)
-            //        {
-            //            playersOnlineLabel.Text = "Игроки онлайн: " + s2.ToString();
-            //        }
-            //        else if (Globals.UA_Checked == true)
-            //        {
-            //            playersOnlineLabel.Text = "Гравці в мережі: " + s2.ToString();
-            //        }
-            //        else if (Globals.BG_Checked == true)
-            //        {
-            //            playersOnlineLabel.Text = "Играчи на линия: " + s2.ToString();
-            //        }
-            //        else if (Globals.DE_Checked == true)
-            //        {
-            //            playersOnlineLabel.Text = "Spieler online: " + s2.ToString();
-            //        }
-            //        onlinePlayers.WaitForExit();
-            //        onlinePlayers.Close();
-            //    }
-            //}
-
-
         }
 
         private void whoIsOnline_MouseDown(object sender, MouseEventArgs e)
@@ -3072,50 +2978,50 @@ namespace Contra
             whoIsOnline.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
 
-        private void radioFlag_GB_MouseEnter(object sender, EventArgs e)
+        private void RadioFlag_GB_MouseEnter(object sender, EventArgs e)
         {
-            radioFlag_GB.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_gb_tr);
+            RadioFlag_GB.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_gb_tr);
         }
-        private void radioFlag_GB_MouseLeave(object sender, EventArgs e)
+        private void RadioFlag_GB_MouseLeave(object sender, EventArgs e)
         {
-            radioFlag_GB.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_gb);
-        }
-
-        private void radioFlag_RU_MouseEnter(object sender, EventArgs e)
-        {
-            radioFlag_RU.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_ru_tr);
-        }
-        private void radioFlag_RU_MouseLeave(object sender, EventArgs e)
-        {
-            radioFlag_RU.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_ru);
+            RadioFlag_GB.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_gb);
         }
 
-        private void radioFlag_UA_MouseEnter(object sender, EventArgs e)
+        private void RadioFlag_RU_MouseEnter(object sender, EventArgs e)
         {
-            radioFlag_UA.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_ua_tr);
+            RadioFlag_RU.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_ru_tr);
         }
-        private void radioFlag_UA_MouseLeave(object sender, EventArgs e)
+        private void RadioFlag_RU_MouseLeave(object sender, EventArgs e)
         {
-            radioFlag_UA.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_ua);
-        }
-
-        private void radioFlag_BG_MouseEnter(object sender, EventArgs e)
-        {
-            radioFlag_BG.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_bg_tr);
-        }
-        private void radioFlag_BG_MouseLeave(object sender, EventArgs e)
-        {
-            radioFlag_BG.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_bg);
+            RadioFlag_RU.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_ru);
         }
 
-        private void radioFlag_DE_MouseEnter(object sender, EventArgs e)
+        private void RadioFlag_UA_MouseEnter(object sender, EventArgs e)
         {
-            radioFlag_DE.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_de_tr);
+            RadioFlag_UA.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_ua_tr);
+        }
+        private void RadioFlag_UA_MouseLeave(object sender, EventArgs e)
+        {
+            RadioFlag_UA.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_ua);
         }
 
-        private void radioFlag_DE_MouseLeave(object sender, EventArgs e)
+        private void RadioFlag_BG_MouseEnter(object sender, EventArgs e)
         {
-            radioFlag_DE.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_de);
+            RadioFlag_BG.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_bg_tr);
+        }
+        private void RadioFlag_BG_MouseLeave(object sender, EventArgs e)
+        {
+            RadioFlag_BG.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_bg);
+        }
+
+        private void RadioFlag_DE_MouseEnter(object sender, EventArgs e)
+        {
+            RadioFlag_DE.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_de_tr);
+        }
+
+        private void RadioFlag_DE_MouseLeave(object sender, EventArgs e)
+        {
+            RadioFlag_DE.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_de);
         }
 
         private void vpn_start_MouseDown(object sender, MouseEventArgs e)
@@ -3128,7 +3034,7 @@ namespace Contra
             Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
             if (tincdByName.Length == 0)
             {
-                timer1.Interval = 5000;
+                openPlayersListTimer.Interval = 1000;
             }
         }
 

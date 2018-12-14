@@ -136,7 +136,7 @@
     <value>No</value>
   </data>
   <data name="RadioEN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 22</value>
+    <value>73, 22</value>
   </data>
   <data name="RadioEN.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -169,7 +169,7 @@
     <value>3, 33</value>
   </data>
   <data name="RadioRU.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 22</value>
+    <value>76, 22</value>
   </data>
   <data name="RadioRU.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -202,7 +202,7 @@
     <value>4, 33</value>
   </data>
   <data name="RadioOrigQuotes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 22</value>
+    <value>70, 22</value>
   </data>
   <data name="RadioOrigQuotes.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -235,7 +235,7 @@
     <value>4, 7</value>
   </data>
   <data name="RadioLocQuotes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 22</value>
+    <value>73, 22</value>
   </data>
   <data name="RadioLocQuotes.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -268,7 +268,7 @@
     <value>4, 7</value>
   </data>
   <data name="MNew.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 22</value>
+    <value>58, 22</value>
   </data>
   <data name="MNew.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -301,7 +301,7 @@
     <value>269, 430</value>
   </data>
   <data name="QSCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 22</value>
+    <value>94, 22</value>
   </data>
   <data name="QSCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -319,7 +319,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;QSCheckBox.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <data name="MStandard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -334,7 +334,7 @@
     <value>4, 33</value>
   </data>
   <data name="MStandard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 22</value>
+    <value>84, 22</value>
   </data>
   <data name="MStandard.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -367,7 +367,7 @@
     <value>269, 411</value>
   </data>
   <data name="WinCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 22</value>
+    <value>99, 22</value>
   </data>
   <data name="WinCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -385,7 +385,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;WinCheckBox.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>11</value>
   </data>
   <data name="DefaultPics.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -400,7 +400,7 @@
     <value>3, 7</value>
   </data>
   <data name="DefaultPics.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 22</value>
+    <value>75, 22</value>
   </data>
   <data name="DefaultPics.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -433,7 +433,7 @@
     <value>3, 33</value>
   </data>
   <data name="GoofyPics.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 22</value>
+    <value>67, 22</value>
   </data>
   <data name="GoofyPics.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -472,7 +472,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;voicespanel.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>12</value>
   </data>
   <data name="languagepanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>441, 212</value>
@@ -493,7 +493,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;languagepanel.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>13</value>
   </data>
   <data name="musicpanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>275, 306</value>
@@ -514,7 +514,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;musicpanel.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>15</value>
   </data>
   <data name="portraitspanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>441, 306</value>
@@ -535,7 +535,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;portraitspanel.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>14</value>
   </data>
   <data name="versionLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 13px, style=Bold</value>
@@ -568,7 +568,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;versionLabel.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="VPNMoreButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -598,7 +598,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;VPNMoreButton.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="helpbutton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -628,7 +628,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;helpbutton.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>16</value>
   </data>
   <data name="buttonChat.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -658,7 +658,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonChat.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>17</value>
   </data>
   <data name="button18.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -688,7 +688,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button18.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>18</value>
   </data>
   <data name="button17.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -718,7 +718,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button17.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>19</value>
   </data>
   <data name="websitebutton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -748,7 +748,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;websitebutton.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>20</value>
   </data>
   <data name="button2.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -778,7 +778,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button2.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>21</value>
   </data>
   <data name="button3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -808,7 +808,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>22</value>
   </data>
   <data name="button6.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -838,7 +838,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button6.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>23</value>
   </data>
   <data name="button5.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -868,7 +868,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button5.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>24</value>
   </data>
   <data name="button1.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -898,174 +898,174 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>25</value>
   </data>
-  <data name="radioFlag_GB.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+  <data name="RadioFlag_GB.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
-  <data name="radioFlag_GB.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+  <data name="RadioFlag_GB.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="radioFlag_GB.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="RadioFlag_GB.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="radioFlag_GB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="RadioFlag_GB.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="radioFlag_GB.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="RadioFlag_GB.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="radioFlag_GB.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="RadioFlag_GB.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 17</value>
   </data>
-  <data name="radioFlag_GB.TabIndex" type="System.Int32, mscorlib">
+  <data name="RadioFlag_GB.TabIndex" type="System.Int32, mscorlib">
     <value>50</value>
   </data>
-  <data name="&gt;&gt;radioFlag_GB.Name" xml:space="preserve">
-    <value>radioFlag_GB</value>
+  <data name="&gt;&gt;RadioFlag_GB.Name" xml:space="preserve">
+    <value>RadioFlag_GB</value>
   </data>
-  <data name="&gt;&gt;radioFlag_GB.Type" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_GB.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;radioFlag_GB.Parent" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_GB.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="&gt;&gt;radioFlag_GB.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_GB.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
   <data name="panel1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="radioFlag_DE.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+  <data name="RadioFlag_DE.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
-  <data name="radioFlag_DE.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+  <data name="RadioFlag_DE.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="radioFlag_DE.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="RadioFlag_DE.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="radioFlag_DE.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="RadioFlag_DE.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="radioFlag_DE.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="RadioFlag_DE.Location" type="System.Drawing.Point, System.Drawing">
     <value>119, 3</value>
   </data>
-  <data name="radioFlag_DE.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="RadioFlag_DE.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 17</value>
   </data>
-  <data name="radioFlag_DE.TabIndex" type="System.Int32, mscorlib">
+  <data name="RadioFlag_DE.TabIndex" type="System.Int32, mscorlib">
     <value>54</value>
   </data>
-  <data name="&gt;&gt;radioFlag_DE.Name" xml:space="preserve">
-    <value>radioFlag_DE</value>
+  <data name="&gt;&gt;RadioFlag_DE.Name" xml:space="preserve">
+    <value>RadioFlag_DE</value>
   </data>
-  <data name="&gt;&gt;radioFlag_DE.Type" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_DE.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;radioFlag_DE.Parent" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_DE.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="&gt;&gt;radioFlag_DE.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_DE.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="radioFlag_BG.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+  <data name="RadioFlag_BG.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
-  <data name="radioFlag_BG.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+  <data name="RadioFlag_BG.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="radioFlag_BG.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="RadioFlag_BG.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="radioFlag_BG.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="RadioFlag_BG.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="radioFlag_BG.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="RadioFlag_BG.Location" type="System.Drawing.Point, System.Drawing">
     <value>90, 3</value>
   </data>
-  <data name="radioFlag_BG.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="RadioFlag_BG.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 17</value>
   </data>
-  <data name="radioFlag_BG.TabIndex" type="System.Int32, mscorlib">
+  <data name="RadioFlag_BG.TabIndex" type="System.Int32, mscorlib">
     <value>53</value>
   </data>
-  <data name="&gt;&gt;radioFlag_BG.Name" xml:space="preserve">
-    <value>radioFlag_BG</value>
+  <data name="&gt;&gt;RadioFlag_BG.Name" xml:space="preserve">
+    <value>RadioFlag_BG</value>
   </data>
-  <data name="&gt;&gt;radioFlag_BG.Type" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_BG.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;radioFlag_BG.Parent" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_BG.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="&gt;&gt;radioFlag_BG.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_BG.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="radioFlag_UA.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+  <data name="RadioFlag_UA.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
-  <data name="radioFlag_UA.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+  <data name="RadioFlag_UA.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="radioFlag_UA.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="RadioFlag_UA.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="radioFlag_UA.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="RadioFlag_UA.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="radioFlag_UA.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="RadioFlag_UA.Location" type="System.Drawing.Point, System.Drawing">
     <value>61, 3</value>
   </data>
-  <data name="radioFlag_UA.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="RadioFlag_UA.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 17</value>
   </data>
-  <data name="radioFlag_UA.TabIndex" type="System.Int32, mscorlib">
+  <data name="RadioFlag_UA.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
   </data>
-  <data name="&gt;&gt;radioFlag_UA.Name" xml:space="preserve">
-    <value>radioFlag_UA</value>
+  <data name="&gt;&gt;RadioFlag_UA.Name" xml:space="preserve">
+    <value>RadioFlag_UA</value>
   </data>
-  <data name="&gt;&gt;radioFlag_UA.Type" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_UA.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;radioFlag_UA.Parent" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_UA.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="&gt;&gt;radioFlag_UA.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_UA.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="radioFlag_RU.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+  <data name="RadioFlag_RU.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
-  <data name="radioFlag_RU.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+  <data name="RadioFlag_RU.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="radioFlag_RU.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+  <data name="RadioFlag_RU.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="radioFlag_RU.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="RadioFlag_RU.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="radioFlag_RU.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="RadioFlag_RU.Location" type="System.Drawing.Point, System.Drawing">
     <value>32, 3</value>
   </data>
-  <data name="radioFlag_RU.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="RadioFlag_RU.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 17</value>
   </data>
-  <data name="radioFlag_RU.TabIndex" type="System.Int32, mscorlib">
+  <data name="RadioFlag_RU.TabIndex" type="System.Int32, mscorlib">
     <value>51</value>
   </data>
-  <data name="&gt;&gt;radioFlag_RU.Name" xml:space="preserve">
-    <value>radioFlag_RU</value>
+  <data name="&gt;&gt;RadioFlag_RU.Name" xml:space="preserve">
+    <value>RadioFlag_RU</value>
   </data>
-  <data name="&gt;&gt;radioFlag_RU.Type" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_RU.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;radioFlag_RU.Parent" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_RU.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="&gt;&gt;radioFlag_RU.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;RadioFlag_RU.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
@@ -1087,7 +1087,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>21, 17</value>
@@ -1123,36 +1123,6 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;moreOptions.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="refreshOnlinePlayersBtn.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="refreshOnlinePlayersBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="refreshOnlinePlayersBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="refreshOnlinePlayersBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 120</value>
-  </data>
-  <data name="refreshOnlinePlayersBtn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 32</value>
-  </data>
-  <data name="refreshOnlinePlayersBtn.TabIndex" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="&gt;&gt;refreshOnlinePlayersBtn.Name" xml:space="preserve">
-    <value>refreshOnlinePlayersBtn</value>
-  </data>
-  <data name="&gt;&gt;refreshOnlinePlayersBtn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;refreshOnlinePlayersBtn.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;refreshOnlinePlayersBtn.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
   <data name="playersOnlineLabel.AutoSize" type="System.Boolean, mscorlib">
@@ -1261,7 +1231,7 @@
     <value>NoControl</value>
   </data>
   <data name="whoIsOnline.Location" type="System.Drawing.Point, System.Drawing">
-    <value>214, 120</value>
+    <value>205, 120</value>
   </data>
   <data name="whoIsOnline.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 32</value>
@@ -1314,7 +1284,7 @@
   <data name="&gt;&gt;vpnSettingsLabel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="openPlayersListTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>118, 17</value>
   </metadata>
   <data name="MOTD.Font" type="System.Drawing.Font, System.Drawing">
@@ -1450,10 +1420,10 @@
   <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;timer1.Name" xml:space="preserve">
-    <value>timer1</value>
+  <data name="&gt;&gt;openPlayersListTimer.Name" xml:space="preserve">
+    <value>openPlayersListTimer</value>
   </data>
-  <data name="&gt;&gt;timer1.Type" xml:space="preserve">
+  <data name="&gt;&gt;openPlayersListTimer.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

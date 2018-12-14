@@ -16,6 +16,29 @@ namespace Contra
         public onlinePlayersForm()
         {
             InitializeComponent();
+            IP_Label.Text = Properties.Settings.Default.IP_Label;
+            refreshTimer.Enabled = true;
+
+            if (Globals.GB_Checked == true)
+            {
+                toolTip1.SetToolTip(refreshOnlinePlayersBtn, "Refresh online players");
+            }
+            else if (Globals.RU_Checked == true)
+            {
+                toolTip1.SetToolTip(refreshOnlinePlayersBtn, "Обновить игроков онлайн");
+            }
+            else if (Globals.UA_Checked == true)
+            {
+                toolTip1.SetToolTip(refreshOnlinePlayersBtn, "Оновити гравців онлайн");
+            }
+            else if (Globals.BG_Checked == true)
+            {
+                toolTip1.SetToolTip(refreshOnlinePlayersBtn, "Обнови");
+            }
+            else if (Globals.DE_Checked == true)
+            {
+                toolTip1.SetToolTip(refreshOnlinePlayersBtn, "Aktualisiere Spieler die online sind");
+            }
         }
 
         //**********DRAG FORM CODE START**********
@@ -40,17 +63,17 @@ namespace Contra
 
 //        public static string playersOnlineLabel_PassFromForm2;
 
-        public string LabelText
-        {
-            get
-            {
-                return this.playersOnlineLabel.Text;
-            }
-            set
-            {
-                this.playersOnlineLabel.Text = value;
-            }
-        }
+        //public string LabelText
+        //{
+        //    get
+        //    {
+        //        return this.playersOnlineLabel.Text;
+        //    }
+        //    set
+        //    {
+        //        this.playersOnlineLabel.Text = value;
+        //    }
+        //}
 
         private void refreshOnlinePlayers()
         { 
@@ -92,12 +115,6 @@ namespace Contra
                 }
 
                 s_concat = s_concat.Replace(" id", "\n");
-                s_concat = s_concat.Replace("predatorbg", "PredatoR");
-                s_concat = s_concat.Replace("ggpersun", "GG`PeRSuN^");
-                s_concat = s_concat.Replace("armanis", "Armanis");
-                s_concat = s_concat.Replace("maelstrom", "Maelstrom");
-                s_concat = s_concat.Replace("wwb2", "WWB2");
-                s_concat = s_concat.Replace("kinomoto", "Hyperion Heights");
 
                 s_concat = s_concat.Remove(s_concat.Length - 3);
 
@@ -197,8 +214,20 @@ namespace Contra
             OnApplicationExit(sender, e);
         }
 
+        int i = 0;
+        private void refreshTimer_Tick(object sender, EventArgs e) //refresh 4 times, each 2.5 sec
+        {
+            refreshOnlinePlayersBtn.PerformClick();
+            i++;
+            if (i == 4)
+            {
+                refreshTimer.Enabled = false;
+            }
+        }
+
         private void refreshOnlinePlayersBtn_Click(object sender, EventArgs e)
         {
+            IP_Label.Text = Properties.Settings.Default.IP_Label;
             string tincd = "tincd.exe";
             Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
             if (tincdByName.Length > 0) //if tincd is already running
@@ -232,6 +261,12 @@ namespace Contra
         }
 
         private void onlinePlayersBtn_MouseDown(object sender, MouseEventArgs e)
+        {
+            refreshOnlinePlayersBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources.refresh2);
+            refreshOnlinePlayersBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+
+        private void refreshOnlinePlayersBtn_MouseUp(object sender, MouseEventArgs e)
         {
             refreshOnlinePlayersBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources.refresh);
             refreshOnlinePlayersBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);

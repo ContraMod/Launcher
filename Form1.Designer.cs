@@ -56,21 +56,20 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.radioFlag_GB = new System.Windows.Forms.RadioButton();
+            this.RadioFlag_GB = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.radioFlag_DE = new System.Windows.Forms.RadioButton();
-            this.radioFlag_BG = new System.Windows.Forms.RadioButton();
-            this.radioFlag_UA = new System.Windows.Forms.RadioButton();
-            this.radioFlag_RU = new System.Windows.Forms.RadioButton();
+            this.RadioFlag_DE = new System.Windows.Forms.RadioButton();
+            this.RadioFlag_BG = new System.Windows.Forms.RadioButton();
+            this.RadioFlag_UA = new System.Windows.Forms.RadioButton();
+            this.RadioFlag_RU = new System.Windows.Forms.RadioButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.moreOptions = new System.Windows.Forms.Label();
-            this.refreshOnlinePlayersBtn = new System.Windows.Forms.Button();
             this.playersOnlineLabel = new System.Windows.Forms.Label();
             this.vpn_start = new System.Windows.Forms.Button();
             this.labelVpnStatus = new System.Windows.Forms.Label();
             this.whoIsOnline = new System.Windows.Forms.Button();
             this.vpnSettingsLabel = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.openPlayersListTimer = new System.Windows.Forms.Timer(this.components);
             this.MOTD = new Contra.Marquee();
             this.voicespanel.SuspendLayout();
             this.languagepanel.SuspendLayout();
@@ -391,101 +390,101 @@
             this.button1.MouseEnter += new System.EventHandler(this.button1_MouseEnter);
             this.button1.MouseLeave += new System.EventHandler(this.button1_MouseLeave);
             // 
-            // radioFlag_GB
+            // RadioFlag_GB
             // 
-            resources.ApplyResources(this.radioFlag_GB, "radioFlag_GB");
-            this.radioFlag_GB.BackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_GB.BackgroundImage = global::Contra.Properties.Resources.flag_gb;
-            this.radioFlag_GB.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.radioFlag_GB.FlatAppearance.BorderSize = 0;
-            this.radioFlag_GB.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_GB.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_GB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_GB.Name = "radioFlag_GB";
-            this.radioFlag_GB.TabStop = true;
-            this.radioFlag_GB.UseVisualStyleBackColor = false;
-            this.radioFlag_GB.CheckedChanged += new System.EventHandler(this.radioFlag_GB_CheckedChanged);
-            this.radioFlag_GB.MouseEnter += new System.EventHandler(this.radioFlag_GB_MouseEnter);
-            this.radioFlag_GB.MouseLeave += new System.EventHandler(this.radioFlag_GB_MouseLeave);
+            resources.ApplyResources(this.RadioFlag_GB, "RadioFlag_GB");
+            this.RadioFlag_GB.BackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_GB.BackgroundImage = global::Contra.Properties.Resources.flag_gb;
+            this.RadioFlag_GB.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RadioFlag_GB.FlatAppearance.BorderSize = 0;
+            this.RadioFlag_GB.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_GB.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_GB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_GB.Name = "RadioFlag_GB";
+            this.RadioFlag_GB.TabStop = true;
+            this.RadioFlag_GB.UseVisualStyleBackColor = false;
+            this.RadioFlag_GB.CheckedChanged += new System.EventHandler(this.RadioFlag_GB_CheckedChanged);
+            this.RadioFlag_GB.MouseEnter += new System.EventHandler(this.RadioFlag_GB_MouseEnter);
+            this.RadioFlag_GB.MouseLeave += new System.EventHandler(this.RadioFlag_GB_MouseLeave);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Controls.Add(this.radioFlag_DE);
-            this.panel1.Controls.Add(this.radioFlag_BG);
-            this.panel1.Controls.Add(this.radioFlag_UA);
-            this.panel1.Controls.Add(this.radioFlag_RU);
-            this.panel1.Controls.Add(this.radioFlag_GB);
+            this.panel1.Controls.Add(this.RadioFlag_DE);
+            this.panel1.Controls.Add(this.RadioFlag_BG);
+            this.panel1.Controls.Add(this.RadioFlag_UA);
+            this.panel1.Controls.Add(this.RadioFlag_RU);
+            this.panel1.Controls.Add(this.RadioFlag_GB);
             this.panel1.Name = "panel1";
             // 
-            // radioFlag_DE
+            // RadioFlag_DE
             // 
-            resources.ApplyResources(this.radioFlag_DE, "radioFlag_DE");
-            this.radioFlag_DE.BackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_DE.BackgroundImage = global::Contra.Properties.Resources.flag_de;
-            this.radioFlag_DE.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.radioFlag_DE.FlatAppearance.BorderSize = 0;
-            this.radioFlag_DE.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_DE.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_DE.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_DE.Name = "radioFlag_DE";
-            this.radioFlag_DE.TabStop = true;
-            this.radioFlag_DE.UseVisualStyleBackColor = false;
-            this.radioFlag_DE.CheckedChanged += new System.EventHandler(this.radioFlag_DE_CheckedChanged);
-            this.radioFlag_DE.MouseEnter += new System.EventHandler(this.radioFlag_DE_MouseEnter);
-            this.radioFlag_DE.MouseLeave += new System.EventHandler(this.radioFlag_DE_MouseLeave);
+            resources.ApplyResources(this.RadioFlag_DE, "RadioFlag_DE");
+            this.RadioFlag_DE.BackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_DE.BackgroundImage = global::Contra.Properties.Resources.flag_de;
+            this.RadioFlag_DE.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RadioFlag_DE.FlatAppearance.BorderSize = 0;
+            this.RadioFlag_DE.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_DE.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_DE.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_DE.Name = "RadioFlag_DE";
+            this.RadioFlag_DE.TabStop = true;
+            this.RadioFlag_DE.UseVisualStyleBackColor = false;
+            this.RadioFlag_DE.CheckedChanged += new System.EventHandler(this.RadioFlag_DE_CheckedChanged);
+            this.RadioFlag_DE.MouseEnter += new System.EventHandler(this.RadioFlag_DE_MouseEnter);
+            this.RadioFlag_DE.MouseLeave += new System.EventHandler(this.RadioFlag_DE_MouseLeave);
             // 
-            // radioFlag_BG
+            // RadioFlag_BG
             // 
-            resources.ApplyResources(this.radioFlag_BG, "radioFlag_BG");
-            this.radioFlag_BG.BackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_BG.BackgroundImage = global::Contra.Properties.Resources.flag_bg;
-            this.radioFlag_BG.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.radioFlag_BG.FlatAppearance.BorderSize = 0;
-            this.radioFlag_BG.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_BG.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_BG.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_BG.Name = "radioFlag_BG";
-            this.radioFlag_BG.TabStop = true;
-            this.radioFlag_BG.UseVisualStyleBackColor = false;
-            this.radioFlag_BG.CheckedChanged += new System.EventHandler(this.radioFlag_BG_CheckedChanged);
-            this.radioFlag_BG.MouseEnter += new System.EventHandler(this.radioFlag_BG_MouseEnter);
-            this.radioFlag_BG.MouseLeave += new System.EventHandler(this.radioFlag_BG_MouseLeave);
+            resources.ApplyResources(this.RadioFlag_BG, "RadioFlag_BG");
+            this.RadioFlag_BG.BackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_BG.BackgroundImage = global::Contra.Properties.Resources.flag_bg;
+            this.RadioFlag_BG.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RadioFlag_BG.FlatAppearance.BorderSize = 0;
+            this.RadioFlag_BG.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_BG.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_BG.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_BG.Name = "RadioFlag_BG";
+            this.RadioFlag_BG.TabStop = true;
+            this.RadioFlag_BG.UseVisualStyleBackColor = false;
+            this.RadioFlag_BG.CheckedChanged += new System.EventHandler(this.RadioFlag_BG_CheckedChanged);
+            this.RadioFlag_BG.MouseEnter += new System.EventHandler(this.RadioFlag_BG_MouseEnter);
+            this.RadioFlag_BG.MouseLeave += new System.EventHandler(this.RadioFlag_BG_MouseLeave);
             // 
-            // radioFlag_UA
+            // RadioFlag_UA
             // 
-            resources.ApplyResources(this.radioFlag_UA, "radioFlag_UA");
-            this.radioFlag_UA.BackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_UA.BackgroundImage = global::Contra.Properties.Resources.flag_ua;
-            this.radioFlag_UA.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.radioFlag_UA.FlatAppearance.BorderSize = 0;
-            this.radioFlag_UA.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_UA.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_UA.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_UA.Name = "radioFlag_UA";
-            this.radioFlag_UA.TabStop = true;
-            this.radioFlag_UA.UseVisualStyleBackColor = false;
-            this.radioFlag_UA.CheckedChanged += new System.EventHandler(this.radioFlag_UA_CheckedChanged);
-            this.radioFlag_UA.MouseEnter += new System.EventHandler(this.radioFlag_UA_MouseEnter);
-            this.radioFlag_UA.MouseLeave += new System.EventHandler(this.radioFlag_UA_MouseLeave);
+            resources.ApplyResources(this.RadioFlag_UA, "RadioFlag_UA");
+            this.RadioFlag_UA.BackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_UA.BackgroundImage = global::Contra.Properties.Resources.flag_ua;
+            this.RadioFlag_UA.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RadioFlag_UA.FlatAppearance.BorderSize = 0;
+            this.RadioFlag_UA.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_UA.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_UA.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_UA.Name = "RadioFlag_UA";
+            this.RadioFlag_UA.TabStop = true;
+            this.RadioFlag_UA.UseVisualStyleBackColor = false;
+            this.RadioFlag_UA.CheckedChanged += new System.EventHandler(this.RadioFlag_UA_CheckedChanged);
+            this.RadioFlag_UA.MouseEnter += new System.EventHandler(this.RadioFlag_UA_MouseEnter);
+            this.RadioFlag_UA.MouseLeave += new System.EventHandler(this.RadioFlag_UA_MouseLeave);
             // 
-            // radioFlag_RU
+            // RadioFlag_RU
             // 
-            resources.ApplyResources(this.radioFlag_RU, "radioFlag_RU");
-            this.radioFlag_RU.BackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_RU.BackgroundImage = global::Contra.Properties.Resources.flag_ru;
-            this.radioFlag_RU.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.radioFlag_RU.FlatAppearance.BorderSize = 0;
-            this.radioFlag_RU.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_RU.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_RU.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.radioFlag_RU.Name = "radioFlag_RU";
-            this.radioFlag_RU.TabStop = true;
-            this.radioFlag_RU.UseVisualStyleBackColor = false;
-            this.radioFlag_RU.CheckedChanged += new System.EventHandler(this.radioFlag_RU_CheckedChanged);
-            this.radioFlag_RU.MouseEnter += new System.EventHandler(this.radioFlag_RU_MouseEnter);
-            this.radioFlag_RU.MouseLeave += new System.EventHandler(this.radioFlag_RU_MouseLeave);
+            resources.ApplyResources(this.RadioFlag_RU, "RadioFlag_RU");
+            this.RadioFlag_RU.BackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_RU.BackgroundImage = global::Contra.Properties.Resources.flag_ru;
+            this.RadioFlag_RU.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RadioFlag_RU.FlatAppearance.BorderSize = 0;
+            this.RadioFlag_RU.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_RU.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_RU.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.RadioFlag_RU.Name = "RadioFlag_RU";
+            this.RadioFlag_RU.TabStop = true;
+            this.RadioFlag_RU.UseVisualStyleBackColor = false;
+            this.RadioFlag_RU.CheckedChanged += new System.EventHandler(this.RadioFlag_RU_CheckedChanged);
+            this.RadioFlag_RU.MouseEnter += new System.EventHandler(this.RadioFlag_RU_MouseEnter);
+            this.RadioFlag_RU.MouseLeave += new System.EventHandler(this.RadioFlag_RU_MouseLeave);
             // 
             // toolTip1
             // 
@@ -504,20 +503,6 @@
             this.moreOptions.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Resolution_MouseDown);
             this.moreOptions.MouseEnter += new System.EventHandler(this.Resolution_MouseEnter);
             this.moreOptions.MouseLeave += new System.EventHandler(this.Resolution_MouseLeave);
-            // 
-            // refreshOnlinePlayersBtn
-            // 
-            this.refreshOnlinePlayersBtn.BackColor = System.Drawing.Color.Transparent;
-            this.refreshOnlinePlayersBtn.BackgroundImage = global::Contra.Properties.Resources.refresh;
-            resources.ApplyResources(this.refreshOnlinePlayersBtn, "refreshOnlinePlayersBtn");
-            this.refreshOnlinePlayersBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.refreshOnlinePlayersBtn.FlatAppearance.BorderSize = 0;
-            this.refreshOnlinePlayersBtn.Name = "refreshOnlinePlayersBtn";
-            this.refreshOnlinePlayersBtn.UseVisualStyleBackColor = false;
-            this.refreshOnlinePlayersBtn.Click += new System.EventHandler(this.onlinePlayersBtn_Click);
-            this.refreshOnlinePlayersBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.onlinePlayersBtn_MouseDown);
-            this.refreshOnlinePlayersBtn.MouseEnter += new System.EventHandler(this.onlinePlayersBtn_MouseEnter);
-            this.refreshOnlinePlayersBtn.MouseLeave += new System.EventHandler(this.onlinePlayersBtn_MouseLeave);
             // 
             // playersOnlineLabel
             // 
@@ -568,10 +553,10 @@
             this.vpnSettingsLabel.ForeColor = System.Drawing.Color.White;
             this.vpnSettingsLabel.Name = "vpnSettingsLabel";
             // 
-            // timer1
+            // openPlayersListTimer
             // 
-            this.timer1.Interval = 5000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.openPlayersListTimer.Interval = 1000;
+            this.openPlayersListTimer.Tick += new System.EventHandler(this.openPlayersListTimer_Tick);
             // 
             // MOTD
             // 
@@ -594,7 +579,6 @@
             this.Controls.Add(this.labelVpnStatus);
             this.Controls.Add(this.vpn_start);
             this.Controls.Add(this.playersOnlineLabel);
-            this.Controls.Add(this.refreshOnlinePlayersBtn);
             this.Controls.Add(this.moreOptions);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.versionLabel);
@@ -665,22 +649,21 @@
         private System.Windows.Forms.Panel portraitspanel;
         private System.Windows.Forms.Button VPNMoreButton;
         private System.Windows.Forms.Label versionLabel;
-        private System.Windows.Forms.RadioButton radioFlag_GB;
+        private System.Windows.Forms.RadioButton RadioFlag_GB;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton radioFlag_BG;
-        private System.Windows.Forms.RadioButton radioFlag_UA;
-        private System.Windows.Forms.RadioButton radioFlag_RU;
+        private System.Windows.Forms.RadioButton RadioFlag_BG;
+        private System.Windows.Forms.RadioButton RadioFlag_UA;
+        private System.Windows.Forms.RadioButton RadioFlag_RU;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label moreOptions;
-        private System.Windows.Forms.Button refreshOnlinePlayersBtn;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label playersOnlineLabel;
+        private System.Windows.Forms.Timer openPlayersListTimer;
         private System.Windows.Forms.Button vpn_start;
         private System.Windows.Forms.Label labelVpnStatus;
         private System.Windows.Forms.Button whoIsOnline;
         private System.Windows.Forms.Label vpnSettingsLabel;
-        private System.Windows.Forms.RadioButton radioFlag_DE;
+        private System.Windows.Forms.RadioButton RadioFlag_DE;
         private Marquee MOTD;
+        public System.Windows.Forms.Label playersOnlineLabel;
     }
 }
 

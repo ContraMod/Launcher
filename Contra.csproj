@@ -188,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ContraIco.ico" />
+    <None Include="Resources\refresh2.png" />
     <None Include="Resources\playersOnline.jpg" />
     <None Include="Resources\blackDot.png" />
     <None Include="Resources\vpn_on_over.png" />

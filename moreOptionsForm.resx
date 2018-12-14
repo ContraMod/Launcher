@@ -148,7 +148,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button17.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="button18.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -178,7 +178,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button18.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="LangFilterCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -193,7 +193,7 @@
     <value>46, 205</value>
   </data>
   <data name="LangFilterCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 22</value>
+    <value>124, 22</value>
   </data>
   <data name="LangFilterCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>54</value>
@@ -211,7 +211,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;LangFilterCheckBox.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="FogCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -226,7 +226,7 @@
     <value>46, 145</value>
   </data>
   <data name="FogCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>93, 22</value>
+    <value>96, 22</value>
   </data>
   <data name="FogCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>53</value>
@@ -244,7 +244,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;FogCheckBox.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="comboBox1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 15px</value>
@@ -310,7 +310,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboBox1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="labelResolution.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -340,7 +340,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelResolution.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="resOkButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -389,20 +389,19 @@
         XTesb3QPLh88M+QwdP6m681Lt7xuXbu94vbgcOjwnZHokdE77DtTd1PuvriXeW/h/sYH6AdFD6UeVjxS
         fNTws+7PbaOWo6fHXMf6Hwc/vj/OGn/2S8Yv7ycKnpCfVEyqTDZPmU2dmnafvvF05dOJZ+nPFmYKf5X+
         tfa5zvMffnP8rX82YnbiBf/Fp99LXsq/PPRq2aueuYC5R69TXy/MF72Rf3P4LeNt37vwd5MLWe+x7ys/
-        6H7o/ujz8cGn1E+f/gUDmPP8usTo0wAAAAlwSFlzAAAevAAAHrwB7kRN9wAAAtRJREFUWEfNmMtuEzEU
-        hiuSFGjSe0jakKBApBYJgWAHXYHEAgUJIXERC3awKItSxGVByxvknXiPLvsk5vyeOcyx8W0uSF38mhl7
-        HH/z+/jYztL52e8Z6ZC0uGAC02wJcD+/HqmTb5/VyffjRnT641hV0S9qB318/0bdmQ4V2AC4ePdyrr58
-        +lAb8pQ+UKsGIMNd67UBuNCA8ycHCpBvXzxTr+ZP6+k5ta+g19QGuj3pK8BtXm2ZgIB8eG9P7a51DI3o
-        mWXXyWe8cx1azzQS2rWeZR3fc7tBr6Ph/ICrBAgJUAOQ6x3vjAlkstFRY5IN6YKyy9BmkLtXCtBwTgKK
-        j9EOJgDGwHl4TcDHB2pOcg2xc1gDLruGOMU9fqccIDkSijtnvCbGmy8O40NsTZIygHhXdsxuhq/LFBpQ
-        FiIFoJVmfLO4LuCEOsXkySAKkAKay7O6MOBdSjOO+KoKaToXA0xxUAJaaURDJsLHJoXPvXIOOmB2qAyK
-        Opo4UYphlzGIRI2VxBGDj7CS2HlOTJoduoeaA/w3NoMxCMBRADAKxvARB0OzOg4o1t6UNdgFnR6Dxdpt
-        ppm22vINsdwcBAGRxIU0FH9cntPS8qAJmW0WPIBY6qoA/nWsQUBzkvBaTGkmGVDuduyYqwHKDjYGqD8o
-        AFjUuVYRVwy60kzEQUD4ZrDhOIMKB8uuzYOuLw9iu4UhpjTDnWKHPCZN8iuenbPWBmocUDiIRM3bd8BN
-        SbfImSkW/bzj0LHAFcOyLJvZ7uEeU3k0BvWWKT9fwLkZ/eA+beFv5k7CRR8Et/VDyp2LCQk4aJinGfck
-        yQ9NTgfFMMdcqgLI67LbQTrRPdi/oYY0vFsrlCRzbdO1L4RnWV/lfrvbVkFRHxv2ZuE+weEssHalpVY6
-        l7S6y/9DLfpdKe6jKOtdbql14gAkH9wP+/RVGo6gGBD3zUPGALM+AblK4r8+LvSfR38AWYH9qJhNvcAA
-        AAAASUVORK5CYII=
+        6H7o/ujz8cGn1E+f/gUDmPP8usTo0wAAAAlwSFlzAAAevAAAHrwB7kRN9wAAAplJREFUWEfNmM1uEzEQ
+        xxFpCjTpB21o2pCgQCSKhEBwA04gcUBBQkh8iAM3OIQDH2rhQMsb5J36Hhx5EvMf25OddWbt3U0q9fBT
+        dsZez0/jrDfthX9/T0dgAqbnDHIakeDk9+FXc3z0zRz//L4UTn7V44/n88d35u6wa8iNBKcfXo/Njy+f
+        FpY8YUTRKki5a+0VEpxawfGzJ4Yk3796Yd6Mny/Gy3q89dwZdKzc1SuNvCDx6P5ts7/RzNEThGMSGr9O
+        bDp6gv0g1uD7dttNK1csuI4FiaD4TJDHlTl9FBhs4ROEkmVwgq57lQRzSEEx13YQBVKCKXHe3rzgUwgC
+        bYtVhBjDXSaBlESMaoK4IRcnsJJBQY1Yd9NbHBStSlgwzarHxZlgcMycleAA0MMTimRw3o3FBe+VeEhK
+        oHcwJeji8oKaZEl52UWNebm6goHMHmJC5lRQSBOTFAvSQU2SiuBjeQ4yovCeR+ZUvEQMFqrUQRLsRQRL
+        g0KaFJPJzZMWRIEQVSKCJiXRxBgnuGK2FxbEYhJbHHkLrrXiZeDvoCpI56AUY1KCs+4gb8G1VrwM+kPC
+        rzo8xVKMUQUFM0GGcj6vScRYuqCdg4WLBDOyJzVGLUFCkyNy81CgWFAXCtltFZ2DLIijhQvQL+Q+GPhP
+        iqOSKGAJY48mFKILig7S2SflhuAWbhwCimmsULAETkTf7j7yyS3mgiRInRvhxgP8Qr7pY8qHRZm0LL81
+        mLwc0Y0K0qvOLzbXQR/HBNMUC3JO7yC+gw8Pbpgutnd7DYekZwd0BBTL8TrstBJgzlYo+ABy9LfAxuWG
+        WWtetLRWz4JGwHy+falhNuFBkiw46cDcymEyC9J1fvFlIOWIMO9iklwH5EaC5/ifR6ej/1mB/aidAtpA
+        AAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="resOkButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
@@ -436,35 +435,11 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;resOkButton.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <metadata name="toolTip3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 241</value>
-  </data>
-  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="button1.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>button1</value>
-  </data>
-  <data name="&gt;&gt;button1.Name" xml:space="preserve">
-    <value>button1</value>
-  </data>
-  <data name="&gt;&gt;button1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="HeatEffectsCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -475,7 +450,7 @@
     <value>46, 175</value>
   </data>
   <data name="HeatEffectsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 22</value>
+    <value>103, 22</value>
   </data>
   <data name="HeatEffectsCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>59</value>

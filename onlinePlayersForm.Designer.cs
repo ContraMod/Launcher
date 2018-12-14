@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(onlinePlayersForm));
             this.onlinePlayersTextBox = new System.Windows.Forms.RichTextBox();
             this.button17 = new System.Windows.Forms.Button();
@@ -36,6 +37,9 @@
             this.onlinePlayersLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.playersOnlineLabel = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.IP_Label = new System.Windows.Forms.Label();
+            this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,7 +102,7 @@
             this.refreshOnlinePlayersBtn.FlatAppearance.BorderSize = 0;
             this.refreshOnlinePlayersBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refreshOnlinePlayersBtn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.refreshOnlinePlayersBtn.Location = new System.Drawing.Point(178, 39);
+            this.refreshOnlinePlayersBtn.Location = new System.Drawing.Point(163, 39);
             this.refreshOnlinePlayersBtn.Name = "refreshOnlinePlayersBtn";
             this.refreshOnlinePlayersBtn.Size = new System.Drawing.Size(32, 32);
             this.refreshOnlinePlayersBtn.TabIndex = 56;
@@ -107,6 +111,7 @@
             this.refreshOnlinePlayersBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.onlinePlayersBtn_MouseDown);
             this.refreshOnlinePlayersBtn.MouseEnter += new System.EventHandler(this.onlinePlayersBtn_MouseEnter);
             this.refreshOnlinePlayersBtn.MouseLeave += new System.EventHandler(this.onlinePlayersBtn_MouseLeave);
+            this.refreshOnlinePlayersBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.refreshOnlinePlayersBtn_MouseUp);
             // 
             // onlinePlayersLabel
             // 
@@ -138,17 +143,42 @@
             this.playersOnlineLabel.Font = new System.Drawing.Font("Calibri", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.playersOnlineLabel.ForeColor = System.Drawing.Color.White;
             this.playersOnlineLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.playersOnlineLabel.Location = new System.Drawing.Point(18, 50);
+            this.playersOnlineLabel.Location = new System.Drawing.Point(18, 48);
             this.playersOnlineLabel.Name = "playersOnlineLabel";
             this.playersOnlineLabel.Size = new System.Drawing.Size(100, 18);
             this.playersOnlineLabel.TabIndex = 59;
             this.playersOnlineLabel.Text = "Players online:";
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.AutoPopDelay = 5000;
+            this.toolTip1.InitialDelay = 50;
+            this.toolTip1.ReshowDelay = 100;
+            // 
+            // IP_Label
+            // 
+            this.IP_Label.AutoSize = true;
+            this.IP_Label.BackColor = System.Drawing.Color.Transparent;
+            this.IP_Label.Font = new System.Drawing.Font("Calibri", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.IP_Label.ForeColor = System.Drawing.Color.White;
+            this.IP_Label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.IP_Label.Location = new System.Drawing.Point(18, 23);
+            this.IP_Label.Name = "IP_Label";
+            this.IP_Label.Size = new System.Drawing.Size(156, 18);
+            this.IP_Label.TabIndex = 60;
+            this.IP_Label.Text = "ContraVPN IP: unknown";
+            // 
+            // refreshTimer
+            // 
+            this.refreshTimer.Interval = 2500;
+            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
             // 
             // onlinePlayersForm
             // 
             this.BackgroundImage = global::Contra.Properties.Resources.playersOnline;
             this.ClientSize = new System.Drawing.Size(300, 600);
             this.ControlBox = false;
+            this.Controls.Add(this.IP_Label);
             this.Controls.Add(this.playersOnlineLabel);
             this.Controls.Add(this.refreshOnlinePlayersBtn);
             this.Controls.Add(this.panel1);
@@ -180,7 +210,8 @@
         private System.Windows.Forms.Label onlinePlayersLabel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label playersOnlineLabel;
-
-
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label IP_Label;
+        private System.Windows.Forms.Timer refreshTimer;
     }
 }

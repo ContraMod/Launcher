@@ -465,13 +465,6 @@ namespace Contra
             resOkButton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Process a = new Process();
-            a.StartInfo.FileName = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra";
-            a.Start();
-        }
-
         private void HeatEffectsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (!HeatEffectsCheckBox.Checked)
