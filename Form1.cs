@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
-using System.Timers;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Reflection;
 
 namespace Contra
 {
@@ -2364,7 +2358,7 @@ namespace Contra
         {
             openPlayersListTimer.Enabled = false;
 
-            openPlayersListTimer.Interval = 1000;
+            //openPlayersListTimer.Interval = 1000;
             Process onlinePlayers = new Process();
             onlinePlayers.StartInfo.Arguments = "--config=\"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\" --pidfile=\"" + Environment.CurrentDirectory + "\\contra\\vpn\\tinc.pid\"";
             onlinePlayers.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tinc.exe";
@@ -2408,72 +2402,68 @@ namespace Contra
                     //Globals.playersOnlineLabel = "Players online: " + s2.ToString();
                     //playersOnlineLabel.Text = Globals.playersOnlineLabel;
                     playersOnlineLabel.Text = "Online, Go play!";
-                    whoIsOnline.PerformClick();
                 }
                 else if (Globals.RU_Checked == true)
                 {
                     //Globals.playersOnlineLabel = "Игроки онлайн: " + s2.ToString();
                     //playersOnlineLabel.Text = Globals.playersOnlineLabel;
                     playersOnlineLabel.Text = "Онлайн!";
-                    whoIsOnline.PerformClick();
                 }
                 else if (Globals.UA_Checked == true)
                 {
                     //Globals.playersOnlineLabel = "Гравці в мережі: " + s2.ToString();
                     //playersOnlineLabel.Text = Globals.playersOnlineLabel;
                     playersOnlineLabel.Text = "В мережі!";
-                    whoIsOnline.PerformClick();
                 }
                 else if (Globals.BG_Checked == true)
                 {
                     //Globals.playersOnlineLabel = "Играчи на линия: " + s2.ToString();
                     //playersOnlineLabel.Text = Globals.playersOnlineLabel;
                     playersOnlineLabel.Text = "На линия!";
-                    whoIsOnline.PerformClick();
                 }
                 else if (Globals.DE_Checked == true)
                 {
                     //Globals.playersOnlineLabel = "Spieler online: " + s2.ToString();
                     //playersOnlineLabel.Text = Globals.playersOnlineLabel;
                     playersOnlineLabel.Text = "Online!";
-                    whoIsOnline.PerformClick();
                 }
+                whoIsOnline.PerformClick();
                 onlinePlayers.WaitForExit();
                 onlinePlayers.Close();
                 vpnIP();
             }
         }
 
-        private void onlinePlayersBtn_Click(object sender, EventArgs e)
-        {
-            string tincd = "tincd.exe";
-            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-            if (tincdByName.Length > 0)
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Loading...";
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Загрузка...";
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Завантаження...";
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Зарежда се...";
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Lade...";
-                }
-            }
-//            asd();
-            openPlayersListTimer.Enabled = true; //Enable timer. Implementation is inside timer1_Tick()
-        }
+//        private void onlinePlayersBtn_Click(object sender, EventArgs e)
+//        {
+//            string tincd = "tincd.exe";
+//            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
+//            if (tincdByName.Length > 0)
+//            {
+//                if (Globals.GB_Checked == true)
+//                {
+//                    playersOnlineLabel.Text = "Loading...";
+//                }
+//                else if (Globals.RU_Checked == true)
+//                {
+//                    playersOnlineLabel.Text = "Загрузка...";
+//                }
+//                else if (Globals.UA_Checked == true)
+//                {
+//                    playersOnlineLabel.Text = "Завантаження...";
+//                }
+//                else if (Globals.BG_Checked == true)
+//                {
+//                    playersOnlineLabel.Text = "Зарежда се...";
+//                }
+//                else if (Globals.DE_Checked == true)
+//                {
+//                    playersOnlineLabel.Text = "Lade...";
+//                }
+//            }
+////            asd();
+//            openPlayersListTimer.Enabled = true; //Enable timer. Implementation is inside openPlayersListTimer_Tick()
+//        }
 
         public static void DisplayDnsConfiguration()
         {
@@ -2816,17 +2806,6 @@ namespace Contra
 
         private static void vpnIP()
         {
-            //Process ipconfig = new Process();
-            //ipconfig.StartInfo.FileName = "ipconfig"; //"cmd.exe";
-            //ipconfig.StartInfo.UseShellExecute = false;
-            //ipconfig.StartInfo.RedirectStandardInput = true;
-            //ipconfig.StartInfo.RedirectStandardOutput = true;
-            //ipconfig.StartInfo.CreateNoWindow = true;
-            //ipconfig.Start();
-            //ipconfig.StandardInput.Flush();
-            //ipconfig.StandardInput.Close();
-            //string s = ipconfig.StandardOutput.ReadToEnd();
-
             Process netsh = new Process();
             netsh.StartInfo.FileName = "netsh.exe";
             netsh.StartInfo.UseShellExecute = false;
@@ -3030,12 +3009,12 @@ namespace Contra
             vpn_start.ForeColor = SystemColors.ButtonHighlight;
             vpn_start.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
 
-            string tincd = "tincd.exe";
-            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-            if (tincdByName.Length == 0)
-            {
-                openPlayersListTimer.Interval = 1000;
-            }
+            //string tincd = "tincd.exe";
+            //Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
+            //if (tincdByName.Length == 0)
+            //{
+            //    openPlayersListTimer.Interval = 1000;
+            //}
         }
 
         private void vpn_start_MouseEnter(object sender, EventArgs e)
