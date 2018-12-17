@@ -512,6 +512,9 @@ namespace Contra
 
         private void buttonVPNinvOK_Click(object sender, EventArgs e)
         {
+            //Create vpnconfig folder.
+            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig");
+
             Process tinc = new Process();
             tinc.StartInfo.Arguments = "--batch --force --config=\"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\" join " + invkeytextBox.Text;
             //if (invkeytextBox.Text.StartsWith("contra.nsupdate.info"))

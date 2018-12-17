@@ -70,6 +70,7 @@
             this.whoIsOnline = new System.Windows.Forms.Button();
             this.vpnSettingsLabel = new System.Windows.Forms.Label();
             this.openPlayersListTimer = new System.Windows.Forms.Timer(this.components);
+            this.refreshVpnIpTimer = new System.Windows.Forms.Timer(this.components);
             this.MOTD = new Contra.Marquee();
             this.voicespanel.SuspendLayout();
             this.languagepanel.SuspendLayout();
@@ -558,6 +559,11 @@
             this.openPlayersListTimer.Interval = 1000;
             this.openPlayersListTimer.Tick += new System.EventHandler(this.openPlayersListTimer_Tick);
             // 
+            // refreshVpnIpTimer
+            // 
+            this.refreshVpnIpTimer.Interval = 2500;
+            this.refreshVpnIpTimer.Tick += new System.EventHandler(this.refreshVpnIpTimer_Tick);
+            // 
             // MOTD
             // 
             this.MOTD.BackColor = System.Drawing.Color.Transparent;
@@ -656,7 +662,6 @@
         private System.Windows.Forms.RadioButton RadioFlag_RU;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label moreOptions;
-        private System.Windows.Forms.Timer openPlayersListTimer;
         private System.Windows.Forms.Button vpn_start;
         private System.Windows.Forms.Label labelVpnStatus;
         private System.Windows.Forms.Button whoIsOnline;
@@ -664,6 +669,8 @@
         private System.Windows.Forms.RadioButton RadioFlag_DE;
         private Marquee MOTD;
         public System.Windows.Forms.Label playersOnlineLabel;
+        private System.Windows.Forms.Timer openPlayersListTimer;
+        private System.Windows.Forms.Timer refreshVpnIpTimer;
     }
 }
 

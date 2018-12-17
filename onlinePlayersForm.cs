@@ -76,6 +76,7 @@ namespace Contra
             Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
             if (tincdByName.Length > 0) //if tincd is already running
             {
+                IP_Label.Text = Properties.Settings.Default.IP_Label;
                 Process onlinePlayers = new Process();
                 onlinePlayers.StartInfo.Arguments = "--config=\"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\" --pidfile=\"" + Environment.CurrentDirectory + "\\contra\\vpn\\tinc.pid\"";
                 onlinePlayers.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tinc.exe";
@@ -218,6 +219,7 @@ namespace Contra
             {
                 refreshTimer.Enabled = false;
             }
+            //MessageBox.Show("timer 2 ticked");
         }
 
         private void refreshOnlinePlayersBtn_Click(object sender, EventArgs e)

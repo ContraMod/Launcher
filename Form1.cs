@@ -1245,6 +1245,7 @@ namespace Contra
                 {
                     vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
                     whoIsOnline.Show();
+                    openPlayersListTimer.Enabled = true;
                     if (Globals.GB_Checked == true)
                     {
                         labelVpnStatus.Text = "On";
@@ -1265,14 +1266,13 @@ namespace Contra
                     {
                         labelVpnStatus.Text = "An";
                     }
-                    openPlayersListTimer.Start();
                 }
             }
             else if (!Directory.Exists(@"contra\vpn"))
             {
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("Cannot start ContraVPN because \"contra\\vpn\" folder does not exist!", "Error");
+                    MessageBox.Show("Cannot start ContraVPN because the \"vpn\" folder within the \"contra\" folder was not found!\nObtain these from the 009 Final archive.", "Error");
                 }
                 else if (Globals.RU_Checked == true)
                 {
@@ -1284,7 +1284,7 @@ namespace Contra
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("ContraVPN не можа да се стартира, защото \"contra\\vpn\" папката не съществува!", "Грешка");
+                    MessageBox.Show("ContraVPN не можа да се стартира, защото \"contra\\vpn\" папката не беше намерена!\nРазархивирайте тези папки от 009 Final архива.", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -1423,6 +1423,7 @@ namespace Contra
                 {
                     vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
                     whoIsOnline.Show();
+                    openPlayersListTimer.Enabled = true;
                     if (Globals.GB_Checked == true)
                     {
                         labelVpnStatus.Text = "On";
@@ -1443,14 +1444,13 @@ namespace Contra
                     {
                         labelVpnStatus.Text = "An";
                     }
-                    openPlayersListTimer.Start();
                 }
             }
             else if (!Directory.Exists(@"contra\vpn"))
             {
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("Cannot start ContraVPN because \"contra\\vpn\" folder does not exist!", "Error");
+                    MessageBox.Show("Cannot start ContraVPN because the \"vpn\" folder within the \"contra\" folder was not found!\nObtain these from the 009 Final archive.", "Error");
                 }
                 else if (Globals.RU_Checked == true)
                 {
@@ -1462,7 +1462,7 @@ namespace Contra
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("ContraVPN не можа да се стартира, защото \"contra\\vpn\" папката не съществува!", "Грешка");
+                    MessageBox.Show("ContraVPN не можа да се стартира, защото \"contra\\vpn\" папката не беше намерена!\nРазархивирайте тези папки от 009 Final архива.", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -1721,6 +1721,9 @@ namespace Contra
                 //If there are older Contra config folders, this means Contra Launcher has been
                 //ran before on this PC, so in this case, we skip first run welcome message.
                 int directoryCount = System.IO.Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra").Length;
+
+                //Create vpnconfig folder.
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig");
 
                 //Show message on first run.
                 if (getCurrentCulture() == "en-US")
@@ -2279,7 +2282,7 @@ namespace Contra
             button17.BackgroundImage = (System.Drawing.Image)(Properties.Resources.min);
         }
 
-//        public static string playersOnlineLabel_PassFromForm1;
+        //        public static string playersOnlineLabel_PassFromForm1;
 
         //private void asd()
         //{
@@ -2353,11 +2356,9 @@ namespace Contra
         //    }
         //}
 
-        //Timer, waiting for reachable nodes to appear.
         private void openPlayersListTimer_Tick(object sender, EventArgs e)
         {
             openPlayersListTimer.Enabled = false;
-
             //openPlayersListTimer.Interval = 1000;
             Process onlinePlayers = new Process();
             onlinePlayers.StartInfo.Arguments = "--config=\"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\" --pidfile=\"" + Environment.CurrentDirectory + "\\contra\\vpn\\tinc.pid\"";
@@ -2386,84 +2387,73 @@ namespace Contra
 
                 if (Globals.GB_Checked == true)
                 {
-                    //foreach (Form onlinePlayersForm1 in Application.OpenForms)
-                    //{
-                    //    if (onlinePlayersForm1 is onlinePlayersForm)
-                    //    {
-                    //        playersOnlineLabel_PassFromForm1 = playersOnlineLabel.Text; // "Players online: " + s2.ToString();
-                    //        onlinePlayersForm onlinePlayersForm = new onlinePlayersForm();
-                    //        //Globals.playersOnlineLabel = "Players online: " + s2.ToString();
-                    //        //playersOnlineLabel.Text = Globals.playersOnlineLabel;
-                    //        playersOnlineLabel.Text = onlinePlayersForm.playersOnlineLabel_PassFromForm2;
-                    //    }
-                    //    else playersOnlineLabel.Text = "Players online: " + s2.ToString();
-                    //}
-
-                    //Globals.playersOnlineLabel = "Players online: " + s2.ToString();
-                    //playersOnlineLabel.Text = Globals.playersOnlineLabel;
                     playersOnlineLabel.Text = "Online, Go play!";
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    //Globals.playersOnlineLabel = "Игроки онлайн: " + s2.ToString();
-                    //playersOnlineLabel.Text = Globals.playersOnlineLabel;
                     playersOnlineLabel.Text = "Онлайн!";
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    //Globals.playersOnlineLabel = "Гравці в мережі: " + s2.ToString();
-                    //playersOnlineLabel.Text = Globals.playersOnlineLabel;
                     playersOnlineLabel.Text = "В мережі!";
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    //Globals.playersOnlineLabel = "Играчи на линия: " + s2.ToString();
-                    //playersOnlineLabel.Text = Globals.playersOnlineLabel;
                     playersOnlineLabel.Text = "На линия!";
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    //Globals.playersOnlineLabel = "Spieler online: " + s2.ToString();
-                    //playersOnlineLabel.Text = Globals.playersOnlineLabel;
                     playersOnlineLabel.Text = "Online!";
                 }
                 whoIsOnline.PerformClick();
                 onlinePlayers.WaitForExit();
                 onlinePlayers.Close();
                 vpnIP();
+                refreshVpnIpTimer.Enabled = true;
             }
         }
 
-//        private void onlinePlayersBtn_Click(object sender, EventArgs e)
-//        {
-//            string tincd = "tincd.exe";
-//            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-//            if (tincdByName.Length > 0)
-//            {
-//                if (Globals.GB_Checked == true)
-//                {
-//                    playersOnlineLabel.Text = "Loading...";
-//                }
-//                else if (Globals.RU_Checked == true)
-//                {
-//                    playersOnlineLabel.Text = "Загрузка...";
-//                }
-//                else if (Globals.UA_Checked == true)
-//                {
-//                    playersOnlineLabel.Text = "Завантаження...";
-//                }
-//                else if (Globals.BG_Checked == true)
-//                {
-//                    playersOnlineLabel.Text = "Зарежда се...";
-//                }
-//                else if (Globals.DE_Checked == true)
-//                {
-//                    playersOnlineLabel.Text = "Lade...";
-//                }
-//            }
-////            asd();
-//            openPlayersListTimer.Enabled = true; //Enable timer. Implementation is inside openPlayersListTimer_Tick()
-//        }
+        int i = 0;
+        private void refreshVpnIpTimer_Tick(object sender, EventArgs e) //refresh VPN IP four times
+        {
+            vpnIP();
+            i++;
+            if (i == 4)
+            {
+                refreshVpnIpTimer.Enabled = false;
+            }
+        }
+
+        //        private void onlinePlayersBtn_Click(object sender, EventArgs e)
+        //        {
+        //            string tincd = "tincd.exe";
+        //            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
+        //            if (tincdByName.Length > 0)
+        //            {
+        //                if (Globals.GB_Checked == true)
+        //                {
+        //                    playersOnlineLabel.Text = "Loading...";
+        //                }
+        //                else if (Globals.RU_Checked == true)
+        //                {
+        //                    playersOnlineLabel.Text = "Загрузка...";
+        //                }
+        //                else if (Globals.UA_Checked == true)
+        //                {
+        //                    playersOnlineLabel.Text = "Завантаження...";
+        //                }
+        //                else if (Globals.BG_Checked == true)
+        //                {
+        //                    playersOnlineLabel.Text = "Зарежда се...";
+        //                }
+        //                else if (Globals.DE_Checked == true)
+        //                {
+        //                    playersOnlineLabel.Text = "Lade...";
+        //                }
+        //            }
+        ////            asd();
+        //            openPlayersListTimer.Enabled = true; //Enable timer. Implementation is inside openPlayersListTimer_Tick()
+        //        }
 
         public static void DisplayDnsConfiguration()
         {

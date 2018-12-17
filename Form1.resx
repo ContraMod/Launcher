@@ -1285,7 +1285,10 @@
     <value>1</value>
   </data>
   <metadata name="openPlayersListTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>118, 17</value>
+    <value>134, 17</value>
+  </metadata>
+  <metadata name="refreshVpnIpTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>335, 17</value>
   </metadata>
   <data name="MOTD.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 15px, style=Bold</value>
@@ -1424,6 +1427,12 @@
     <value>openPlayersListTimer</value>
   </data>
   <data name="&gt;&gt;openPlayersListTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;refreshVpnIpTimer.Name" xml:space="preserve">
+    <value>refreshVpnIpTimer</value>
+  </data>
+  <data name="&gt;&gt;refreshVpnIpTimer.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
