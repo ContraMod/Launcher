@@ -136,7 +136,7 @@
     <value>No</value>
   </data>
   <data name="RadioEN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 22</value>
+    <value>70, 22</value>
   </data>
   <data name="RadioEN.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -169,7 +169,7 @@
     <value>3, 33</value>
   </data>
   <data name="RadioRU.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 22</value>
+    <value>73, 22</value>
   </data>
   <data name="RadioRU.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -202,7 +202,7 @@
     <value>4, 33</value>
   </data>
   <data name="RadioOrigQuotes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 22</value>
+    <value>67, 22</value>
   </data>
   <data name="RadioOrigQuotes.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -235,7 +235,7 @@
     <value>4, 7</value>
   </data>
   <data name="RadioLocQuotes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 22</value>
+    <value>70, 22</value>
   </data>
   <data name="RadioLocQuotes.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -268,7 +268,7 @@
     <value>4, 7</value>
   </data>
   <data name="MNew.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 22</value>
+    <value>55, 22</value>
   </data>
   <data name="MNew.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -301,7 +301,7 @@
     <value>269, 430</value>
   </data>
   <data name="QSCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 22</value>
+    <value>91, 22</value>
   </data>
   <data name="QSCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -334,7 +334,7 @@
     <value>4, 33</value>
   </data>
   <data name="MStandard.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 22</value>
+    <value>81, 22</value>
   </data>
   <data name="MStandard.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -367,7 +367,7 @@
     <value>269, 411</value>
   </data>
   <data name="WinCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 22</value>
+    <value>96, 22</value>
   </data>
   <data name="WinCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -400,7 +400,7 @@
     <value>3, 7</value>
   </data>
   <data name="DefaultPics.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 22</value>
+    <value>72, 22</value>
   </data>
   <data name="DefaultPics.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -433,7 +433,7 @@
     <value>3, 33</value>
   </data>
   <data name="GoofyPics.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 22</value>
+    <value>64, 22</value>
   </data>
   <data name="GoofyPics.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1404,6 +1404,9 @@
         AAAAD/4HAA//DwAP//8AD///AA///wAP//8AD///AA///wAP//8AD///AAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>800, 600</value>

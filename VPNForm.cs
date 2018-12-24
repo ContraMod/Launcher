@@ -243,7 +243,7 @@ namespace Contra
         }
 
         //Form1 Form1_Instance = new Form1();
-        Form1 form1;
+        //Form1 form1;
         public VPNForm(Form1 form1)
         {
             //form1 = frm;

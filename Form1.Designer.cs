@@ -556,7 +556,7 @@
             // 
             // openPlayersListTimer
             // 
-            this.openPlayersListTimer.Interval = 1000;
+            this.openPlayersListTimer.Interval = 7500;
             this.openPlayersListTimer.Tick += new System.EventHandler(this.openPlayersListTimer_Tick);
             // 
             // refreshVpnIpTimer

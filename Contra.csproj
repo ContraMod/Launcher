@@ -116,18 +116,6 @@
     <Compile Include="VPNForm.Designer.cs">
       <DependentUpon>VPNForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.bg.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.ru.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.uk.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Globals.resx">
       <DependentUpon>Globals.cs</DependentUpon>
     </EmbeddedResource>
@@ -135,16 +123,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="moreOptionsForm.bg.resx">
-      <DependentUpon>moreOptionsForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="moreOptionsForm.resx">
-      <DependentUpon>moreOptionsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="moreOptionsForm.ru.resx">
-      <DependentUpon>moreOptionsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="moreOptionsForm.uk.resx">
       <DependentUpon>moreOptionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -155,16 +134,7 @@
     <EmbeddedResource Include="onlinePlayersForm.resx">
       <DependentUpon>onlinePlayersForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VPNForm.bg.resx">
-      <DependentUpon>VPNForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="VPNForm.resx">
-      <DependentUpon>VPNForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VPNForm.ru.resx">
-      <DependentUpon>VPNForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VPNForm.uk.resx">
       <DependentUpon>VPNForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest">
