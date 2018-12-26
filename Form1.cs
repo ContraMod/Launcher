@@ -1930,7 +1930,7 @@ namespace Contra
             {
                 labelVpnStatus.Text = "On";
                 //refreshOnlinePlayersBtn.PerformClick();
-                playersOnlineLabel.Text = "Online, Go play!";
+                playersOnlineLabel.Text = "Online!";
             }
             if (tincdByName.Length == 0) //if tinc is not running
             {
@@ -2377,7 +2377,7 @@ namespace Contra
             {
                 if (Globals.GB_Checked == true)
                 {
-                    playersOnlineLabel.Text = "Online, Go play!";
+                    playersOnlineLabel.Text = "Online!";
                 }
                 else if (Globals.RU_Checked == true)
                 {
@@ -2434,7 +2434,7 @@ namespace Contra
 
                 if (Globals.GB_Checked == true)
                 {
-                    playersOnlineLabel.Text = "Online, Go play!";
+                    playersOnlineLabel.Text = "Online!";
                 }
                 else if (Globals.RU_Checked == true)
                 {
@@ -2539,7 +2539,7 @@ namespace Contra
                                 netsh.StartInfo.RedirectStandardOutput = true;
                                 netsh.StartInfo.RedirectStandardError = true;
                                 netsh.StartInfo.CreateNoWindow = true;
-                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"contra\\vpn\"";
+                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"ContraVPN\"";
                                 netsh.Start();
 
                                 stopDialog = true;
@@ -2563,7 +2563,7 @@ namespace Contra
                                 netsh.StartInfo.RedirectStandardOutput = true;
                                 netsh.StartInfo.RedirectStandardError = true;
                                 netsh.StartInfo.CreateNoWindow = true;
-                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"contra\\vpn\"";
+                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"ContraVPN\"";
                                 netsh.Start();
 
                                 stopDialog = true;
@@ -2587,7 +2587,7 @@ namespace Contra
                                 netsh.StartInfo.RedirectStandardOutput = true;
                                 netsh.StartInfo.RedirectStandardError = true;
                                 netsh.StartInfo.CreateNoWindow = true;
-                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"contra\\vpn\"";
+                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"ContraVPN\"";
                                 netsh.Start();
 
                                 stopDialog = true;
@@ -2611,7 +2611,7 @@ namespace Contra
                                 netsh.StartInfo.RedirectStandardOutput = true;
                                 netsh.StartInfo.RedirectStandardError = true;
                                 netsh.StartInfo.CreateNoWindow = true;
-                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"contra\\vpn\"";
+                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"ContraVPN\"";
                                 netsh.Start();
 
                                 stopDialog = true;
@@ -2635,7 +2635,7 @@ namespace Contra
                                 netsh.StartInfo.RedirectStandardOutput = true;
                                 netsh.StartInfo.RedirectStandardError = true;
                                 netsh.StartInfo.CreateNoWindow = true;
-                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"contra\\vpn\"";
+                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"ContraVPN\"";
                                 netsh.Start();
 
                                 stopDialog = true;
