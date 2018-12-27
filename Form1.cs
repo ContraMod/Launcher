@@ -105,13 +105,17 @@ namespace Contra
 
         public void DownloadUpdate()
         {
-            //URL of the updated file
-            string url = "https://github.com/ThePredatorBG/contra-launcher/raw/master/Contra/bin/Release/Contra_Launcher.exe";
+            try
+            {
+                //URL of the updated file
+                string url = "https://github.com/ThePredatorBG/contra-launcher/raw/master/Contra/bin/Release/Contra_Launcher.exe";
 
-            //Declare new WebClient object
-            WebClient wc = new WebClient();
-            wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted);
-            wc.DownloadFileAsync(new Uri(url), Application.StartupPath + "/ContraLauncher(1).exe");
+                //Declare new WebClient object
+                WebClient wc = new WebClient();
+                wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted);
+                wc.DownloadFileAsync(new Uri(url), Application.StartupPath + "/Contra_Launcher(1).exe");
+            }
+            catch { }
         }
 
         void wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
@@ -143,42 +147,46 @@ namespace Contra
         //Create method to check for an update
         public void GetUpdate()
         {
-            //Declare new WebClient object
-            WebClient wc = new WebClient();
-            string textFile = wc.DownloadString("https://gist.githubusercontent.com/ThePredatorBG/65e9e36d85c5def6adf7a0a5c73fb15a/raw/gistfile1.txt");
-            string versionText = textFile.Substring(textFile.LastIndexOf("Version: ") + 9);
-            string versionText2 = versionText.Substring(0, versionText.IndexOf("#"));
-            //    ThreadHelperClass.SetText(this, verLabel, versionText2); //setting verLabel to latest ver - unused
-            newVersion = versionText2;
-
-            //verLabel.Text = verLabel.Text + Application.ProductVersion;
-            //verLabel.Text = verLabel.Text + newVersion;
-
-            //If there is a new version, call the DownloadUpdate method
-            if (newVersion != Application.ProductVersion)
+            try
             {
-                if (Globals.GB_Checked == true)
+                //Declare new WebClient object
+                WebClient wc = new WebClient();
+                string textFile = wc.DownloadString("https://gist.githubusercontent.com/ThePredatorBG/65e9e36d85c5def6adf7a0a5c73fb15a/raw/gistfile1.txt");
+                string versionText = textFile.Substring(textFile.LastIndexOf("Version: ") + 9);
+                string versionText2 = versionText.Substring(0, versionText.IndexOf("#"));
+                //    ThreadHelperClass.SetText(this, verLabel, versionText2); //setting verLabel to latest ver - unused
+                newVersion = versionText2;
+
+                //verLabel.Text = verLabel.Text + Application.ProductVersion;
+                //verLabel.Text = verLabel.Text + newVersion;
+
+                //If there is a new version, call the DownloadUpdate method
+                if (newVersion != Application.ProductVersion)
                 {
-                    MessageBox.Show("Contra Launcher version " + versionText2 + " is available! Click OK to update and restart!", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (Globals.GB_Checked == true)
+                    {
+                        MessageBox.Show("Contra Launcher version " + versionText2 + " is available! Click OK to update and restart!", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (Globals.RU_Checked == true)
+                    {
+                        MessageBox.Show("Версия Contra Launcher " + versionText2 + " доступна! Нажмите «ОК», чтобы обновить и перезапустить!", "Доступно обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (Globals.UA_Checked == true)
+                    {
+                        MessageBox.Show("Версія Contra Launcher " + versionText2 + " доступна! Натисніть кнопку ОК, щоб оновити та перезапустити!", "Доступне оновлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (Globals.BG_Checked == true)
+                    {
+                        MessageBox.Show("Contra Launcher версия " + versionText2 + " е достъпна! Щракнете OK, за да обновите и рестартирате!", "Достъпна е актуализация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        MessageBox.Show("Contra Launcher version " + versionText2 + " ist verfьgbar! Klicke OK zum aktualisieren und neu starten!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    DownloadUpdate();
                 }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Версия Contra Launcher " + versionText2 + " доступна! Нажмите «ОК», чтобы обновить и перезапустить!", "Доступно обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Версія Contra Launcher " + versionText2 + " доступна! Натисніть кнопку ОК, щоб оновити та перезапустити!", "Доступне оновлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("Contra Launcher версия " + versionText2 + " е достъпна! Щракнете OK, за да обновите и рестартирате!", "Достъпна е актуализация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("Contra Launcher version " + versionText2 + " ist verfьgbar! Klicke OK zum aktualisieren und neu starten!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                DownloadUpdate();
             }
+            catch { }
         }
 
         public static string userDataLeafName()
@@ -424,12 +432,12 @@ namespace Contra
                 {
                     "!!Contra009Final_FogOff.big",
                     "!!Contra009Final_FunnyGenPics.big",
-                    "!Contra009Beta2.big",
-                    "!Contra009Beta2VOrig.big",
-                    "!Contra009Beta2VLoc.big",
-                    "!Contra009Beta2MNew.big",
-                    "!Contra009Beta2EN.big",
-                    "!Contra009Beta2RU.big",
+                    "!Contra009Final.big",
+                    "!Contra009Final_NatVO.big",
+                    "!Contra009Final_EngVO.big",
+                    "!Contra009Final_NewMusic.big",
+                    "!Contra009Final_EN.big",
+                    "!Contra009Final_RU.big",
                 };
                 foreach (string big in bigs)
                 {
@@ -520,29 +528,29 @@ namespace Contra
             renameBigToCtr();
             try
             {
-                if (File.Exists("!Contra009Beta2.ctr"))
+                if (File.Exists("!Contra009Final.ctr"))
                 {
-                    File.Move("!Contra009Beta2.ctr", "!Contra009Beta2.big");
+                    File.Move("!Contra009Final.ctr", "!Contra009Final.big");
                 }
-                if ((RadioOrigQuotes.Checked) && (File.Exists("!Contra009Beta2VOrig.ctr")))
+                if ((RadioOrigQuotes.Checked) && (File.Exists("!Contra009Final_NatVO.ctr")))
                 {
-                    File.Move("!Contra009Beta2VOrig.ctr", "!Contra009Beta2VOrig.big");
+                    File.Move("!Contra009Final_NatVO.ctr", "!Contra009Final_NatVO.big");
                 }
-                if ((RadioLocQuotes.Checked) && (File.Exists("!Contra009Beta2VLoc.ctr")))
+                if ((RadioLocQuotes.Checked) && (File.Exists("!Contra009Final_EngVO.ctr")))
                 {
-                    File.Move("!Contra009Beta2VLoc.ctr", "!Contra009Beta2VLoc.big");
+                    File.Move("!Contra009Final_EngVO.ctr", "!Contra009Final_EngVO.big");
                 }
-                if ((RadioEN.Checked) && (File.Exists("!Contra009Beta2EN.ctr")))
+                if ((RadioEN.Checked) && (File.Exists("!Contra009Final_EN.ctr")))
                 {
-                    File.Move("!Contra009Beta2EN.ctr", "!Contra009Beta2EN.big");
+                    File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
                 }
-                if ((RadioRU.Checked) && (File.Exists("!Contra009Beta2RU.ctr")))
+                if ((RadioRU.Checked) && (File.Exists("!Contra009Final_RU.ctr")))
                 {
-                    File.Move("!Contra009Beta2RU.ctr", "!Contra009Beta2RU.big");
+                    File.Move("!Contra009Final_RU.ctr", "!Contra009Final_RU.big");
                 }
-                if ((MNew.Checked) && (File.Exists("!Contra009Beta2MNew.ctr")))
+                if ((MNew.Checked) && (File.Exists("!Contra009Final_NewMusic.ctr")))
                 {
-                    File.Move("!Contra009Beta2MNew.ctr", "!Contra009Beta2MNew.big");
+                    File.Move("!Contra009Final_NewMusic.ctr", "!Contra009Final_NewMusic.big");
                 }
                 if ((Properties.Settings.Default.Fog == false) && (File.Exists("!!Contra009Final_FogOff.ctr")))
                 {
@@ -732,29 +740,29 @@ namespace Contra
         }
         private void button6_Click(object sender, EventArgs e) //WorldBuilder
         {
-            if (File.Exists("!Contra009Beta2.ctr"))
+            if (File.Exists("!Contra009Final.ctr"))
             {
-                File.Move("!Contra009Beta2.ctr", "!Contra009Beta2.big");
+                File.Move("!Contra009Final.ctr", "!Contra009Final.big");
             }
-            else if (File.Exists(@"..\!Contra009Beta2.ctr"))
+            else if (File.Exists(@"..\!Contra009Final.ctr"))
             {
-                File.Move(@"..\!Contra009Beta2.ctr", @"..\!Contra009Beta2.big");
+                File.Move(@"..\!Contra009Final.ctr", @"..\!Contra009Final.big");
             }
-            if (File.Exists("!Contra009Beta2EN.ctr"))
+            if (File.Exists("!Contra009Final_EN.ctr"))
             {
-                File.Move("!Contra009Beta2EN.ctr", "!Contra009Beta2EN.big");
+                File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
             }
-            else if (File.Exists(@"..\!Contra009Beta2EN.ctr"))
+            else if (File.Exists(@"..\!Contra009Final_EN.ctr"))
             {
-                File.Move(@"..\!Contra009Beta2EN.ctr", @"..\!Contra009Beta2EN.big");
+                File.Move(@"..\!Contra009Final_EN.ctr", @"..\!Contra009Final_EN.big");
             }
-            if (File.Exists("!Contra009Beta2VLoc.ctr"))
+            if (File.Exists("!Contra009Final_EngVO.ctr"))
             {
-                File.Move("!Contra009Beta2VLoc.ctr", "!Contra009Beta2VLoc.big");
+                File.Move("!Contra009Final_EngVO.ctr", "!Contra009Final_EngVO.big");
             }
-            else if (File.Exists(@"..\!Contra009Beta2VLoc.ctr"))
+            else if (File.Exists(@"..\!Contra009Final_EngVO.ctr"))
             {
-                File.Move(@"..\!Contra009Beta2VLoc.ctr", @"..\!Contra009Beta2VLoc.big");
+                File.Move(@"..\!Contra009Final_EngVO.ctr", @"..\!Contra009Final_EngVO.big");
             }
             Process wb = new Process();
             wb.StartInfo.Verb = "runas";
@@ -1600,58 +1608,62 @@ namespace Contra
         // a thread-safe call on the TextBox control. 
         private void ThreadProcSafe()
         {
-            using (WebClient client = new WebClient())
+            try
             {
-                if (downloadTextFile == false)
+                using (WebClient client = new WebClient())
                 {
-                    //Check for launcher update once per launch.
-                    if (seekForUpdate == true)
+                    if (downloadTextFile == false)
                     {
-                        seekForUpdate = false;
-                        GetUpdate();
+                        //Check for launcher update once per launch.
+                        if (seekForUpdate == true)
+                        {
+                            seekForUpdate = false;
+                            GetUpdate();
+                        }
+                        downloadTextFile = true;
                     }
-                    downloadTextFile = true;
-                }
-                string txtFile = client.DownloadString("https://gist.githubusercontent.com/ThePredatorBG/65e9e36d85c5def6adf7a0a5c73fb15a/raw/gistfile1.txt");
-                if (Globals.GB_Checked == true)
-                {
-                    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-EN: ") + 9);
-                    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    byte[] bytes = Encoding.Default.GetBytes(txtFile);
-                    txtFile = Encoding.UTF8.GetString(bytes);
-                    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-RU: ") + 9);
-                    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    byte[] bytes = Encoding.Default.GetBytes(txtFile);
-                    txtFile = Encoding.UTF8.GetString(bytes);
-                    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-UA: ") + 9);
-                    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    byte[] bytes = Encoding.Default.GetBytes(txtFile);
-                    txtFile = Encoding.UTF8.GetString(bytes);
-                    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-BG: ") + 9);
-                    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    byte[] bytes = Encoding.Default.GetBytes(txtFile);
-                    txtFile = Encoding.UTF8.GetString(bytes);
-                    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-DE: ") + 9);
-                    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
+                    string txtFile = client.DownloadString("https://gist.githubusercontent.com/ThePredatorBG/65e9e36d85c5def6adf7a0a5c73fb15a/raw/gistfile1.txt");
+                    if (Globals.GB_Checked == true)
+                    {
+                        string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-EN: ") + 9);
+                        string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
+                        ThreadHelperClass.SetText(this, MOTD, MOTDText2);
+                    }
+                    else if (Globals.RU_Checked == true)
+                    {
+                        byte[] bytes = Encoding.Default.GetBytes(txtFile);
+                        txtFile = Encoding.UTF8.GetString(bytes);
+                        string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-RU: ") + 9);
+                        string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
+                        ThreadHelperClass.SetText(this, MOTD, MOTDText2);
+                    }
+                    else if (Globals.UA_Checked == true)
+                    {
+                        byte[] bytes = Encoding.Default.GetBytes(txtFile);
+                        txtFile = Encoding.UTF8.GetString(bytes);
+                        string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-UA: ") + 9);
+                        string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
+                        ThreadHelperClass.SetText(this, MOTD, MOTDText2);
+                    }
+                    else if (Globals.BG_Checked == true)
+                    {
+                        byte[] bytes = Encoding.Default.GetBytes(txtFile);
+                        txtFile = Encoding.UTF8.GetString(bytes);
+                        string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-BG: ") + 9);
+                        string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
+                        ThreadHelperClass.SetText(this, MOTD, MOTDText2);
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        byte[] bytes = Encoding.Default.GetBytes(txtFile);
+                        txtFile = Encoding.UTF8.GetString(bytes);
+                        string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-DE: ") + 9);
+                        string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
+                        ThreadHelperClass.SetText(this, MOTD, MOTDText2);
+                    }
                 }
             }
+            catch { }
         }
 
         private void Form1_Shown(object sender, EventArgs e)

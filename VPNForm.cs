@@ -512,148 +512,174 @@ namespace Contra
 
         private void buttonVPNinvOK_Click(object sender, EventArgs e)
         {
-            //Create vpnconfig folder.
-            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig");
-
-            Process tinc = new Process();
-            tinc.StartInfo.Arguments = "--batch --force --config=\"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\" join " + invkeytextBox.Text;
-            //if (invkeytextBox.Text.StartsWith("contra.nsupdate.info"))
-            if (Regex.IsMatch(invkeytextBox.Text, @"^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])(:(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(/)|/)(.*)$"))
+            try
             {
-                tinc.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tinc.exe";
-                tinc.StartInfo.UseShellExecute = false;
-                tinc.StartInfo.RedirectStandardOutput = true;
-                tinc.StartInfo.RedirectStandardError = true;
-                tinc.StartInfo.CreateNoWindow = true;
-                //                "tinc".Replace("\"", "");
-                tinc.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"contra\vpn\");
+                //Create vpnconfig folder.
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig");
 
-                if (File.Exists(@"contra\vpn\" + Globals.userOS + @"\tinc.exe"))
+                Process tinc = new Process();
+                tinc.StartInfo.Arguments = "--batch --force --config=\"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\" join " + invkeytextBox.Text;
+                //if (invkeytextBox.Text.StartsWith("contra.nsupdate.info"))
+                if (Regex.IsMatch(invkeytextBox.Text, @"^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])(:(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(/)|/)(.*)$"))
                 {
-                    tinc.Start();
-                    string s = tinc.StandardError.ReadToEnd();
-                    string s2 = tinc.StandardOutput.ReadToEnd();
-                    if (s.Contains("accepted") || s2.Contains("accepted") == true)
-                    {
-                        if (Globals.GB_Checked == true)
-                        {
-                            MessageBox.Show("Invitation successfully accepted!");
-                        }
-                        else if (Globals.RU_Checked == true)
-                        {
-                            MessageBox.Show("Приглашение успешно принято!");
-                        }
-                        else if (Globals.UA_Checked == true)
-                        {
-                            MessageBox.Show("Запрошення успішно прийнято!");
-                        }
-                        else if (Globals.BG_Checked == true)
-                        {
-                            MessageBox.Show("Поканата е приета успешно!");
-                        }
-                        else if (Globals.DE_Checked == true)
-                        {
-                            MessageBox.Show("Einladung erfolgreich akzeptiert.");
-                        }
+                    tinc.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tinc.exe";
+                    tinc.StartInfo.UseShellExecute = false;
+                    tinc.StartInfo.RedirectStandardOutput = true;
+                    tinc.StartInfo.RedirectStandardError = true;
+                    tinc.StartInfo.CreateNoWindow = true;
+                    //                "tinc".Replace("\"", "");
+                    tinc.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"contra\vpn\");
 
-                        //Turn UPnP on.
-                        if ((File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf")) && ((File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf").Contains("UPnP")) == false))
+                    if (File.Exists(@"contra\vpn\" + Globals.userOS + @"\tinc.exe"))
+                    {
+                        tinc.Start();
+                        string s = tinc.StandardError.ReadToEnd();
+                        string s2 = tinc.StandardOutput.ReadToEnd();
+                        if (s.Contains("accepted") || s2.Contains("accepted") == true)
                         {
-                            string AppendUPnP = Environment.NewLine + "UPnP = yes";
-                            File.AppendAllText(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf", AppendUPnP);
-                        }
-                        else if ((File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf")) && ((File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf").Contains("UPnP = no")) == true))
-                        {
-                            string text = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf");
-                            text = text.Replace("UPnP = no", "UPnP = yes");
-                            File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf", text);
+                            if (Globals.GB_Checked == true)
+                            {
+                                MessageBox.Show("Invitation successfully accepted!");
+                            }
+                            else if (Globals.RU_Checked == true)
+                            {
+                                MessageBox.Show("Приглашение успешно принято!");
+                            }
+                            else if (Globals.UA_Checked == true)
+                            {
+                                MessageBox.Show("Запрошення успішно прийнято!");
+                            }
+                            else if (Globals.BG_Checked == true)
+                            {
+                                MessageBox.Show("Поканата е приета успешно!");
+                            }
+                            else if (Globals.DE_Checked == true)
+                            {
+                                MessageBox.Show("Einladung erfolgreich akzeptiert.");
+                            }
+
+                            //Turn UPnP on.
+                            if ((File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf")) && ((File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf").Contains("UPnP")) == false))
+                            {
+                                string AppendUPnP = Environment.NewLine + "UPnP = yes";
+                                File.AppendAllText(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf", AppendUPnP);
+                            }
+                            else if ((File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf")) && ((File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf").Contains("UPnP = no")) == true))
+                            {
+                                string text = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf");
+                                text = text.Replace("UPnP = no", "UPnP = yes");
+                                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\\tinc.conf", text);
+                            }
+                            else
+                            {
+                                //
+                            }
                         }
                         else
                         {
-                            //
+                            if (Globals.GB_Checked == true)
+                            {
+                                MessageBox.Show("Invitation cancelled or invalid.\nMake sure this invite link is correct, has not been used already or expired.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else if (Globals.RU_Checked == true)
+                            {
+                                MessageBox.Show("Приглашение отменено.\nУбедитесь, что ключ приглашения действителен, не используется или его срок действия не истек.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else if (Globals.UA_Checked == true)
+                            {
+                                MessageBox.Show("Запрошення скасовано.\nПереконайтеся, що цей ключ запрошення дійсний, чи ще не використовується або його термін дії не минув.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else if (Globals.BG_Checked == true)
+                            {
+                                MessageBox.Show("Поканата беше отказана или невалидна.\nУбедете се, че вашият ключ е правилен, не е вече използван, или не е изтекъл.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else if (Globals.DE_Checked == true)
+                            {
+                                MessageBox.Show("Einladung abgebrochen.\nStelle sicher, dass der Invite key gьltig ist, noch nicht benutzt wurde und noch nicht abgelaufen ist.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            //if (!File.Exists(@"contravpn\tinc.conf"))
+                            //{
+                            //    try
+                            //    {
+                            //        Directory.Delete("tinc" + @"\" + "contravpn");
+                            //    }
+                            //    catch
+                            //    {
+
+                            //    }
+                            //}
                         }
+                        InvitePanel.Visible = false;
                     }
                     else
                     {
                         if (Globals.GB_Checked == true)
                         {
-                            MessageBox.Show("Invitation cancelled or invalid.\nMake sure this invite link is correct, has not been used already or expired.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("\"contravpn\" directory not found.", "Error");
                         }
                         else if (Globals.RU_Checked == true)
                         {
-                            MessageBox.Show("Приглашение отменено.\nУбедитесь, что ключ приглашения действителен, не используется или его срок действия не истек.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Каталог \"contravpn\" не найден.", "Ошибка");
                         }
                         else if (Globals.UA_Checked == true)
                         {
-                            MessageBox.Show("Запрошення скасовано.\nПереконайтеся, що цей ключ запрошення дійсний, чи ще не використовується або його термін дії не минув.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Каталог \"contravpn\" не знайдено.", "Помилка");
                         }
                         else if (Globals.BG_Checked == true)
                         {
-                            MessageBox.Show("Поканата беше отказана или невалидна.\nУбедете се, че вашият ключ е правилен, не е вече използван, или не е изтекъл.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("\"contravpn\" директорията не беше намерена.", "Грешка");
                         }
                         else if (Globals.DE_Checked == true)
                         {
-                            MessageBox.Show("Einladung abgebrochen.\nStelle sicher, dass der Invite key gьltig ist, noch nicht benutzt wurde und noch nicht abgelaufen ist.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Der \"contravpn\" Ordner existiert noch nicht!", "Fehler");
                         }
-                        //if (!File.Exists(@"contravpn\tinc.conf"))
-                        //{
-                        //    try
-                        //    {
-                        //        Directory.Delete("tinc" + @"\" + "contravpn");
-                        //    }
-                        //    catch
-                        //    {
-
-                        //    }
-                        //}
                     }
-                    InvitePanel.Visible = false;
                 }
                 else
                 {
-                    if (Globals.GB_Checked == true)
+                    if (Globals.GB_Checked == true) //(getCurrentCulture() == "en-US")
                     {
-                        MessageBox.Show("\"contravpn\" directory not found.", "Error");
+                        MessageBox.Show("Invalid input.", "Error");
                     }
-                    else if (Globals.RU_Checked == true)
+                    else if (Globals.RU_Checked == true) //(getCurrentCulture() == "ru-RU")
                     {
-                        MessageBox.Show("Каталог \"contravpn\" не найден.", "Ошибка");
+                        MessageBox.Show("Неправильные данные.", "Ошибка");
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        MessageBox.Show("Каталог \"contravpn\" не знайдено.", "Помилка");
+                        MessageBox.Show("Неправильні дані.", "Помилка");
                     }
-                    else if (Globals.BG_Checked == true)
+                    else if (Globals.BG_Checked == true) //(getCurrentCulture() == "bg-BG")
                     {
-                        MessageBox.Show("\"contravpn\" директорията не беше намерена.", "Грешка");
+                        MessageBox.Show("Невалиден вход.", "Грешка");
                     }
-                    else if (Globals.DE_Checked == true)
+                    else if (Globals.DE_Checked == true) //(getCurrentCulture() == "bg-BG")
                     {
-                        MessageBox.Show("Der \"contravpn\" Ordner existiert noch nicht!", "Fehler");
+                        MessageBox.Show("Ungьltige Eingabe.", "Fehler");
                     }
                 }
             }
-            else
+            catch
             {
-                if (Globals.GB_Checked == true) //(getCurrentCulture() == "en-US")
+                if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("Invalid input.", "Error");
+                    MessageBox.Show("Something went wrong. Possible causes: tinc timed out.", "Error");
                 }
-                else if (Globals.RU_Checked == true) //(getCurrentCulture() == "ru-RU")
+                else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Неправильные данные.", "Ошибка");
+                    MessageBox.Show("Ошибка.", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Неправильні дані.", "Помилка");
+                    MessageBox.Show("Помилка.", "Помилка");
                 }
-                else if (Globals.BG_Checked == true) //(getCurrentCulture() == "bg-BG")
+                else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("Невалиден вход.", "Грешка");
+                    MessageBox.Show("Възникна грешка. Възможни причини: tinc не отговаря.", "Грешка");
                 }
-                else if (Globals.DE_Checked == true) //(getCurrentCulture() == "bg-BG")
+                else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("Ungьltige Eingabe.", "Fehler");
+                    MessageBox.Show("Fehler.", "Fehler");
                 }
             }
         }
