@@ -1157,6 +1157,8 @@ namespace Contra
             List<KeyValuePair<string, string>> exes = new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>("game.dat", "udp"),
+                new KeyValuePair<string, string>("generals.exe", "tcp"),
+                new KeyValuePair<string, string>("generals.exe", "udp"),
                 new KeyValuePair<string, string>("Contra_Launcher.exe", "tcp"),
                 new KeyValuePair<string, string>(@"contra\vpn\" + Globals.userOS + @"\tinc.exe", "tcp"),
                 new KeyValuePair<string, string>(@"contra\vpn\" + Globals.userOS + @"\tinc.exe", "udp"),
