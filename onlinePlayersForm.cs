@@ -71,110 +71,114 @@ namespace Contra
         //}
 
         private void refreshOnlinePlayers()
-        { 
-            string tincd = "tincd.exe";
-            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-            if (tincdByName.Length > 0) //if tincd is already running
+        {
+            try
             {
-                IP_Label.Text = Properties.Settings.Default.IP_Label;
-                Process onlinePlayers = new Process();
-                onlinePlayers.StartInfo.Arguments = "--config=\"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\" --pidfile=\"" + Environment.CurrentDirectory + "\\contra\\vpn\\tinc.pid\"";
-                onlinePlayers.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tinc.exe";
-                onlinePlayers.StartInfo.UseShellExecute = false;
-                onlinePlayers.StartInfo.RedirectStandardInput = true;
-                onlinePlayers.StartInfo.RedirectStandardOutput = true;
-                onlinePlayers.StartInfo.CreateNoWindow = true;
-                onlinePlayers.Start();
-                onlinePlayers.StandardInput.WriteLine("dump reachable nodes");
-                onlinePlayers.StandardInput.Flush();
-                onlinePlayers.StandardInput.Close();
-                string s = onlinePlayers.StandardOutput.ReadToEnd();
-                //                MessageBox.Show(s);
-
-                string s_concat = string.Empty;
-                Regex pattern = new Regex(@"([^\s]+) id");
-
-                bool first = true;
-                foreach (var match in pattern.Matches(s))
+                string tincd = "tincd.exe";
+                Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
+                if (tincdByName.Length > 0) //if tincd is already running
                 {
-                    if (first)
+                    IP_Label.Text = Properties.Settings.Default.IP_Label;
+                    Process onlinePlayers = new Process();
+                    onlinePlayers.StartInfo.Arguments = "--config=\"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\" --pidfile=\"" + Environment.CurrentDirectory + "\\contra\\vpn\\tinc.pid\"";
+                    onlinePlayers.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tinc.exe";
+                    onlinePlayers.StartInfo.UseShellExecute = false;
+                    onlinePlayers.StartInfo.RedirectStandardInput = true;
+                    onlinePlayers.StartInfo.RedirectStandardOutput = true;
+                    onlinePlayers.StartInfo.CreateNoWindow = true;
+                    onlinePlayers.Start();
+                    onlinePlayers.StandardInput.WriteLine("dump reachable nodes");
+                    onlinePlayers.StandardInput.Flush();
+                    onlinePlayers.StandardInput.Close();
+                    string s = onlinePlayers.StandardOutput.ReadToEnd();
+                    //                MessageBox.Show(s);
+
+                    string s_concat = string.Empty;
+                    Regex pattern = new Regex(@"([^\s]+) id");
+
+                    bool first = true;
+                    foreach (var match in pattern.Matches(s))
                     {
-                        s_concat = s_concat + "- ";
-                        first = false;
+                        if (first)
+                        {
+                            s_concat = s_concat + "- ";
+                            first = false;
+                        }
+                        string matchString = match.ToString();
+                        if (!matchString.Contains("contravpn") && (!matchString.Contains("ctrvpntest9")))
+                        {
+                            s_concat += matchString;
+                            s_concat = s_concat + "\r- ";
+                        }
                     }
-                    string matchString = match.ToString();
-                    if (!matchString.Contains("contravpn") && (!matchString.Contains("ctrvpntest9")))
-                    {
-                        s_concat += matchString;
-                        s_concat = s_concat + "\r- ";
-                    }
-                }
 
-                s_concat = s_concat.Replace(" id", "\n");
+                    s_concat = s_concat.Replace(" id", "\n");
 
-                s_concat = s_concat.Remove(s_concat.Length - 3);
+                    s_concat = s_concat.Remove(s_concat.Length - 3);
 
-                if (Globals.GB_Checked == true)
-                {
-                    onlinePlayersLabel.Text = s_concat;
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    onlinePlayersLabel.Text = s_concat;
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    onlinePlayersLabel.Text = s_concat;
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    onlinePlayersLabel.Text = s_concat;
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    onlinePlayersLabel.Text = s_concat;
-                }
-
-                if (s.Contains("id") == true)
-                {
-                    int s2 = Regex.Matches(s, "id").Count;
-                    if (s.Contains("ctrvpntest") == true)
-                    {
-                        s2 -= 1;
-                    }
-                    if (s.Contains("contravpn") == true)
-                    {
-                        s2 -= 1;
-                    }
-                    onlinePlayers.WaitForExit();
-                    onlinePlayers.Close();
                     if (Globals.GB_Checked == true)
                     {
-                        Globals.playersOnlineLabel = "Players online: " + s2.ToString();
-                        playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                        onlinePlayersLabel.Text = s_concat;
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        Globals.playersOnlineLabel = "Игроки онлайн: " + s2.ToString();
-                        playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                        onlinePlayersLabel.Text = s_concat;
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        Globals.playersOnlineLabel = "Гравці в мережі: " + s2.ToString();
-                        playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                        onlinePlayersLabel.Text = s_concat;
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        Globals.playersOnlineLabel = "Играчи на линия: " + s2.ToString();
-                        playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                        onlinePlayersLabel.Text = s_concat;
                     }
                     else if (Globals.DE_Checked == true)
                     {
-                        Globals.playersOnlineLabel = "Spieler online: " + s2.ToString();
-                        playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                        onlinePlayersLabel.Text = s_concat;
+                    }
+
+                    if (s.Contains("id") == true)
+                    {
+                        int s2 = Regex.Matches(s, "id").Count;
+                        if (s.Contains("ctrvpntest") == true)
+                        {
+                            s2 -= 1;
+                        }
+                        if (s.Contains("contravpn") == true)
+                        {
+                            s2 -= 1;
+                        }
+                        onlinePlayers.WaitForExit();
+                        onlinePlayers.Close();
+                        if (Globals.GB_Checked == true)
+                        {
+                            Globals.playersOnlineLabel = "Players online: " + s2.ToString();
+                            playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                        }
+                        else if (Globals.RU_Checked == true)
+                        {
+                            Globals.playersOnlineLabel = "Игроки онлайн: " + s2.ToString();
+                            playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                        }
+                        else if (Globals.UA_Checked == true)
+                        {
+                            Globals.playersOnlineLabel = "Гравці в мережі: " + s2.ToString();
+                            playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                        }
+                        else if (Globals.BG_Checked == true)
+                        {
+                            Globals.playersOnlineLabel = "Играчи на линия: " + s2.ToString();
+                            playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                        }
+                        else if (Globals.DE_Checked == true)
+                        {
+                            Globals.playersOnlineLabel = "Spieler online: " + s2.ToString();
+                            playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                        }
                     }
                 }
             }
+            catch { }
         }
 
         private void onlinePlayersForm_Load(object sender, EventArgs e)
