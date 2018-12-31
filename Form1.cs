@@ -1218,7 +1218,7 @@ namespace Contra
             tinc.StartInfo.FileName = Globals.userOS + @"\tincd.exe";
             tinc.StartInfo.UseShellExecute = true;
             tinc.StartInfo.WorkingDirectory = Environment.CurrentDirectory + @"\contra\vpn";
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\tinc.conf") && (File.Exists(@"contra\vpn\" + Globals.userOS + @"\tincd.exe")))
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\tinc.conf") && (File.Exists(@"contra\vpn\" + Globals.userOS + @"\tincd.exe")) && (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn")))
             {
                 if (Globals.GB_Checked == true)
                 {
@@ -1299,7 +1299,7 @@ namespace Contra
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("ContraVPN kann nicht starten, weil \"vpn\" Mappe innerhalb die \"contra\" Mappe wurde nicht gefunden im " + Environment.CurrentDirectory + "\nErhalt diese von 009 Final Archiv.", "Fehler");
+                    MessageBox.Show("ContraVPN kann nicht starten, weil der ordner \"vpn\" im \"contra\" ist nicht im " + Environment.CurrentDirectory + " gefunden.\nErhalt diese von 009 Final Archiv.", "Fehler");
                 }
             }
             else if (!Directory.Exists(@"contra\vpn\" + Globals.userOS))
@@ -1369,6 +1369,29 @@ namespace Contra
                 else if (Globals.DE_Checked == true)
                 {
                     MessageBox.Show("ContraVPN kann nicht gestartet werden, weil die \"tinc.conf\" datei nicht gefunden wurde. Stelle sicher, dass du deinen invite link zuerst eingegeben hast (gehe zu VPN Einstellungen > Einladung).", "Fehler");
+                }
+            }
+            else if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn"))
+            {
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("Cannot start ContraVPN because the \"contravpn\" host file was not found in " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Error");
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Не удается запустить ContraVPN, поскольку файл хоста \"contravpn\" не найден в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Ошибка");
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Неможливо запустити ContraVPN, тому що файл хоста \"contravpn\" не знайдено у " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Помилка");
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("ContraVPN не можа да се стартира, защото хост файлът \"contravpn\" не беше открит в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Грешка");
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("ContraVPN kann nicht starten, weil \"contravpn\" datei wurde nicht gefunden im " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Fehler");
                 }
             }
         }
@@ -1398,7 +1421,7 @@ namespace Contra
             tinc.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tincd.exe";
             tinc.StartInfo.UseShellExecute = false;
             tinc.StartInfo.CreateNoWindow = true;
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\tinc.conf") && (File.Exists(@"contra\vpn\" + Globals.userOS + @"\tincd.exe")))
+            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\tinc.conf") && (File.Exists(@"contra\vpn\" + Globals.userOS + @"\tincd.exe")) && (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn")))
             {
                 if (Globals.GB_Checked == true)
                 {
@@ -1479,7 +1502,7 @@ namespace Contra
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("ContraVPN kann nicht starten, weil \"vpn\" Mappe innerhalb die \"contra\" Mappe wurde nicht gefunden im " + Environment.CurrentDirectory + "\nErhalt diese von 009 Final Archiv.", "Fehler");
+                    MessageBox.Show("ContraVPN kann nicht starten, weil der ordner \"vpn\" im \"contra\" ist nicht im " + Environment.CurrentDirectory + " gefunden.\nErhalt diese von 009 Final Archiv.", "Fehler");
                 }
             }
             else if (!Directory.Exists(@"contra\vpn\" + Globals.userOS))
@@ -1549,6 +1572,29 @@ namespace Contra
                 else if (Globals.DE_Checked == true)
                 {
                     MessageBox.Show("ContraVPN kann nicht gestartet werden, weil die \"tinc.conf\" datei nicht gefunden wurde. Stelle sicher, dass du deinen invite link zuerst eingegeben hast (gehe zu VPN Einstellungen > Einladung).", "Fehler");
+                }
+            }
+            else if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn"))
+            {
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("Cannot start ContraVPN because the \"contravpn\" host file was not found in " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Error");
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Не удается запустить ContraVPN, поскольку файл хоста \"contravpn\" не найден в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Ошибка");
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Неможливо запустити ContraVPN, тому що файл хоста \"contravpn\" не знайдено у " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Помилка");
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("ContraVPN не можа да се стартира, защото хост файлът \"contravpn\" не беше открит в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Грешка");
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("ContraVPN kann nicht starten, weil \"contravpn\" datei wurde nicht gefunden im " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Fehler");
                 }
             }
         }
@@ -2733,63 +2779,11 @@ namespace Contra
                     {
                         if (Properties.Settings.Default.ShowConsole == true && Properties.Settings.Default.adapterExists == true)
                         {
-                            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn"))
-                            {
-                                StartVPN();
-                            }
-                            else
-                            {
-                                if (Globals.GB_Checked == true)
-                                {
-                                    MessageBox.Show("Cannot start ContraVPN because the \"contravpn\" host file was not found in " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Error");
-                                }
-                                else if (Globals.RU_Checked == true)
-                                {
-                                    MessageBox.Show("Не удается запустить ContraVPN, поскольку файл хоста \"contravpn\" не найден в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Ошибка");
-                                }
-                                else if (Globals.UA_Checked == true)
-                                {
-                                    MessageBox.Show("Неможливо запустити ContraVPN, тому що файл хоста \"contravpn\" не знайдено у " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Помилка");
-                                }
-                                else if (Globals.BG_Checked == true)
-                                {
-                                    MessageBox.Show("ContraVPN не можа да се стартира, защото хост файлът \"contravpn\" не беше открит в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Грешка");
-                                }
-                                else if (Globals.DE_Checked == true)
-                                {
-                                    MessageBox.Show("ContraVPN kann nicht starten, weil \"contravpn\" datei wurde nicht gefunden im " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Fehler");
-                                }
-                            }
+                            StartVPN();
                         }
                         else if (Properties.Settings.Default.adapterExists == true)
                         {
-                            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn"))
-                            {
-                                StartVPN_NoWindow();
-                            }
-                            else
-                            {
-                                if (Globals.GB_Checked == true)
-                                {
-                                    MessageBox.Show("Cannot start ContraVPN because the \"contravpn\" host file was not found in " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Error");
-                                }
-                                else if (Globals.RU_Checked == true)
-                                {
-                                    MessageBox.Show("Не удается запустить ContraVPN, поскольку файл хоста \"contravpn\" не найден в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Ошибка");
-                                }
-                                else if (Globals.UA_Checked == true)
-                                {
-                                    MessageBox.Show("Неможливо запустити ContraVPN, тому що файл хоста \"contravpn\" не знайдено у " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Помилка");
-                                }
-                                else if (Globals.BG_Checked == true)
-                                {
-                                    MessageBox.Show("ContraVPN не можа да се стартира, защото хост файлът \"contravpn\" не беше открит в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Грешка");
-                                }
-                                else if (Globals.DE_Checked == true)
-                                {
-                                    MessageBox.Show("ContraVPN kann nicht starten, weil \"contravpn\" datei wurde nicht gefunden im " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Fehler");
-                                }
-                            }
+                            StartVPN_NoWindow();
                         }
                     }
                 }
