@@ -108,7 +108,7 @@ namespace Contra
             try
             {
                 //URL of the updated file
-                string url = "https://github.com/ThePredatorBG/contra-launcher/raw/master/Contra/bin/Release/Contra_Launcher.exe";
+                string url = "https://github.com/ThePredatorBG/contra-launcher/raw/master/bin/Release/Contra_Launcher.exe";
 
                 //Declare new WebClient object
                 WebClient wc = new WebClient();
