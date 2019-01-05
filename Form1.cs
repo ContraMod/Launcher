@@ -192,10 +192,21 @@ namespace Contra
         public static string userDataLeafName()
         {
             var o = string.Empty;
-            var userDataRegistryPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Electronic Arts\EA Games\Command and Conquer Generals Zero Hour");
-            if (userDataRegistryPath != null)
+            if (Globals.userOS == "32")
             {
-                o = userDataRegistryPath.GetValue("UserDataLeafName") as string;
+                var userDataRegistryPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Electronic Arts\EA Games\Command and Conquer Generals Zero Hour");
+                if (userDataRegistryPath != null)
+                {
+                    o = userDataRegistryPath.GetValue("UserDataLeafName") as string;
+                }
+            }
+            else if (Globals.userOS == "64")
+            {
+                var userDataRegistryPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Electronic Arts\EA Games\Command and Conquer Generals Zero Hour");
+                if (userDataRegistryPath != null)
+                {
+                    o = userDataRegistryPath.GetValue("UserDataLeafName") as string;
+                }
             }
             if (o != null)
             {
