@@ -315,6 +315,78 @@
   <data name="&gt;&gt;buttonVPNconsole.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <data name="&gt;&gt;labelEnterInvite.Name" xml:space="preserve">
+    <value>labelEnterInvite</value>
+  </data>
+  <data name="&gt;&gt;labelEnterInvite.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelEnterInvite.Parent" xml:space="preserve">
+    <value>InvitePanel</value>
+  </data>
+  <data name="&gt;&gt;labelEnterInvite.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;buttonVPNinvclose.Name" xml:space="preserve">
+    <value>buttonVPNinvclose</value>
+  </data>
+  <data name="&gt;&gt;buttonVPNinvclose.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonVPNinvclose.Parent" xml:space="preserve">
+    <value>InvitePanel</value>
+  </data>
+  <data name="&gt;&gt;buttonVPNinvclose.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;buttonVPNinvOK.Name" xml:space="preserve">
+    <value>buttonVPNinvOK</value>
+  </data>
+  <data name="&gt;&gt;buttonVPNinvOK.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonVPNinvOK.Parent" xml:space="preserve">
+    <value>InvitePanel</value>
+  </data>
+  <data name="&gt;&gt;buttonVPNinvOK.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;invkeytextBox.Name" xml:space="preserve">
+    <value>invkeytextBox</value>
+  </data>
+  <data name="&gt;&gt;invkeytextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;invkeytextBox.Parent" xml:space="preserve">
+    <value>InvitePanel</value>
+  </data>
+  <data name="&gt;&gt;invkeytextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="InvitePanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 135</value>
+  </data>
+  <data name="InvitePanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 100</value>
+  </data>
+  <data name="InvitePanel.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="InvitePanel.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;InvitePanel.Name" xml:space="preserve">
+    <value>InvitePanel</value>
+  </data>
+  <data name="&gt;&gt;InvitePanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InvitePanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;InvitePanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="labelEnterInvite.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -434,30 +506,6 @@
   </data>
   <data name="&gt;&gt;invkeytextBox.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="InvitePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>50, 135</value>
-  </data>
-  <data name="InvitePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 100</value>
-  </data>
-  <data name="InvitePanel.TabIndex" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="InvitePanel.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;InvitePanel.Name" xml:space="preserve">
-    <value>InvitePanel</value>
-  </data>
-  <data name="&gt;&gt;InvitePanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;InvitePanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;InvitePanel.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="labelInvite.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 15px, style=Bold</value>
@@ -714,6 +762,9 @@
   <data name="&gt;&gt;IP_Label.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="KillTincTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>120, 11</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -807,6 +858,12 @@
   </data>
   <data name="&gt;&gt;toolTip2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;KillTincTimer.Name" xml:space="preserve">
+    <value>KillTincTimer</value>
+  </data>
+  <data name="&gt;&gt;KillTincTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>VPNForm</value>

@@ -30,21 +30,21 @@ namespace Contra
             {
                 toolTip3.SetToolTip(FogCheckBox, "Эффекты переключения тумана (глубина поля) вкл\\выкл.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Отключение языкового фильтра покажет плохие слова, написанные игроками в чате.");
-                toolTip3.SetToolTip(HeatEffectsCheckBox, "Heat effects are standard graphical effects from Zero Hour.\nTurn this off if your screen randomly turns black while playing.");
+                toolTip3.SetToolTip(HeatEffectsCheckBox, "Тепловые эффекты - это стандартные графические эффекты от Zero Hour. Выключите это, если ваш экран случайно становится черным во время игры.");
                 labelResolution.Text = "Разрешение экрана:";
                 FogCheckBox.Text = "Эффект тумана";
                 LangFilterCheckBox.Text = "Языковый фильтр";
-                HeatEffectsCheckBox.Text = "Heat effects";
+                HeatEffectsCheckBox.Text = "Тепловые эффекты";
             }
             else if (Globals.UA_Checked == true)
             {
                 toolTip3.SetToolTip(FogCheckBox, "Ефекти перемикання туману (глибина поля) вкл\\викл.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Вимкнення мовного фільтра покаже погані слова, написані гравцями в чаті.");
-                toolTip3.SetToolTip(HeatEffectsCheckBox, "Heat effects are standard graphical effects from Zero Hour.\nTurn this off if your screen randomly turns black while playing.");
+                toolTip3.SetToolTip(HeatEffectsCheckBox, "Теплові ефекти є стандартними графічними ефектами від нульового часу. Вимкніть цю функцію, якщо екран у випадковому режимі стане чорним під час відтворення.");
                 labelResolution.Text = "Роздільна здатність:";
                 FogCheckBox.Text = "Ефект туману";
                 LangFilterCheckBox.Text = "Мовний фільтр";
-                HeatEffectsCheckBox.Text = "Heat effects";
+                HeatEffectsCheckBox.Text = "Теплові ефекти";
             }
             else if (Globals.BG_Checked == true)
             {
@@ -60,11 +60,11 @@ namespace Contra
             {
                 toolTip3.SetToolTip(FogCheckBox, "Schalte Nebel (Tiefenschдrfe) Effekte An/Aus.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Das ausschalten vom Sprache Filter zeigt bцse Wцrter von anderen Spielern im Chat an.");
-                toolTip3.SetToolTip(HeatEffectsCheckBox, "Heat effects are standard graphical effects from Zero Hour.\nTurn this off if your screen randomly turns black while playing.");
+                toolTip3.SetToolTip(HeatEffectsCheckBox, "Wärmeeffekte sind standardmäßige grafische Effekte von Zero Hour. Deaktivieren Sie diese Option, wenn der Bildschirm während des Spiels zufällig schwarz wird.");
                 labelResolution.Text = "Auflцsung:";
                 FogCheckBox.Text = "Nebel Effekte";
                 LangFilterCheckBox.Text = "Sprache Filter";
-                HeatEffectsCheckBox.Text = "Heat effects";
+                HeatEffectsCheckBox.Text = "Wärmeeffekte";
             }
 
             //Read from Options.ini and check/uncheck Heat Effects checkbox depending on value there:
@@ -123,7 +123,6 @@ namespace Contra
 
 
             //Get current resolution
-            try
             {
                 if (Directory.Exists(userDataLeafName()))
                 {
@@ -177,36 +176,34 @@ namespace Contra
                 //HeatEffectsCheckBox.Checked = Properties.Settings.Default.HeatEffects;
                 LangFilterCheckBox.Checked = Properties.Settings.Default.LangF;
             }
-            catch
+            if (!File.Exists(userDataLeafName() + "Options.ini") && (!File.Exists(myDocPath + "Options.ini")))
             {
-                if (!File.Exists(userDataLeafName() + "Options.ini") || (!File.Exists(myDocPath + "Options.ini")))
+                if (Globals.GB_Checked == true)
                 {
-                    if (Globals.GB_Checked == true)
-                    {
-                        MessageBox.Show("Options.ini not found! Could not load current resolution.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else if (Globals.RU_Checked == true)
-                    {
-                        MessageBox.Show("Файл \"Options.ini\" не найден! Не удалось загрузить текущее разрешение.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else if (Globals.UA_Checked == true)
-                    {
-                        MessageBox.Show("Файл Options.ini не знайдений! Не вдалося завантажити поточну роздільну здатність.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else if (Globals.BG_Checked == true)
-                    {
-                        MessageBox.Show("Options.ini не беше намерен! Не можа да се зареди текущата резолюция.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else if (Globals.DE_Checked == true)
-                    {
-                        MessageBox.Show("Options.ini nicht gefunden! Aktuelle Auflцsung konnte nicht geladen werden.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show("Options.ini not found! Could not load current resolution.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Файл \"Options.ini\" не найден! Не удалось загрузить текущее разрешение.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Файл Options.ini не знайдений! Не вдалося завантажити поточну роздільну здатність.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Options.ini не беше намерен! Не можа да се зареди текущата резолюция.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Options.ini nicht gefunden! Aktuelle Auflцsung konnte nicht geladen werden.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         public static string userDataLeafName()
         {
+            //o gets "Command and Conquer Generals Zero Hour Data" from registry. It varies depending on language
             var o = string.Empty;
             if (Globals.userOS == "32")
             {
@@ -276,143 +273,137 @@ namespace Contra
 
         private void resOkButton_Click(object sender, EventArgs e)
         {
-            try
+            if (Directory.Exists(userDataLeafName()))
             {
-                if (Directory.Exists(userDataLeafName()))
+                string text = File.ReadAllText(userDataLeafName() + "Options.ini");
                 {
-                    string text = File.ReadAllText(userDataLeafName() + "Options.ini");
+                    if (!Regex.IsMatch(comboBox1.Text, @"^[0-9]{3,4}x[0-9]{3,4}$")) //if selected res doesn't match valid input (input must match the regex)
                     {
-                        if (!Regex.IsMatch(comboBox1.Text, @"^[0-9]{3,4}x[0-9]{3,4}$")) //if selected res doesn't match valid input (input must match the regex)
+                        if (Globals.GB_Checked == true)
                         {
-                            if (Globals.GB_Checked == true)
-                            {
-                                MessageBox.Show("This resolution is not valid.", "Error");
-                            }
-                            else if (Globals.RU_Checked == true)
-                            {
-                                MessageBox.Show("Это разрешение экрана не является действительным.", "Ошибка");
-                            }
-                            else if (Globals.UA_Checked == true)
-                            {
-                                MessageBox.Show("Це розширення не є дійсним.", "Помилка");
-                            }
-                            else if (Globals.BG_Checked == true)
-                            {
-                                MessageBox.Show("Тази резолюция не е валидна.", "Грешка");
-                            }
-                            else if (Globals.DE_Checked == true)
-                            {
-                                MessageBox.Show("Diese Auflцsung ist nicht gьltig.", "Fehler");
-                            }
-                            //return;
+                            MessageBox.Show("This resolution is not valid.", "Error");
                         }
-                        else
+                        else if (Globals.RU_Checked == true)
                         {
-                            string fixedText = comboBox1.Text.Replace("x", " ");
-                            File.WriteAllText(userDataLeafName() + "Options.ini", Regex.Replace(File.ReadAllText(userDataLeafName() + "Options.ini"), "\r?\nResolution =.*", "\r\nResolution = " + fixedText + "\r"));
-                            if (Globals.GB_Checked == true)
-                            {
-                                MessageBox.Show("Resolution changed successfully!");
-                            }
-                            else if (Globals.RU_Checked == true)
-                            {
-                                MessageBox.Show("Разрешение экрана успешно изменено!");
-                            }
-                            else if (Globals.UA_Checked == true)
-                            {
-                                MessageBox.Show("Розширення успішно змінено!");
-                            }
-                            else if (Globals.BG_Checked == true)
-                            {
-                                MessageBox.Show("Резолюцията беше променена успешно!");
-                            }
-                            else if (Globals.DE_Checked == true)
-                            {
-                                MessageBox.Show("Auflцsung erfolgreich geдndert!");
-                            }
+                            MessageBox.Show("Это разрешение экрана не является действительным.", "Ошибка");
                         }
+                        else if (Globals.UA_Checked == true)
+                        {
+                            MessageBox.Show("Це розширення не є дійсним.", "Помилка");
+                        }
+                        else if (Globals.BG_Checked == true)
+                        {
+                            MessageBox.Show("Тази резолюция не е валидна.", "Грешка");
+                        }
+                        else if (Globals.DE_Checked == true)
+                        {
+                            MessageBox.Show("Diese Auflцsung ist nicht gьltig.", "Fehler");
+                        }
+                        //return;
                     }
-                }
-                else if (Directory.Exists(myDocPath))
-                {
-                    string text = File.ReadAllText(myDocPath + "Options.ini");
+                    else
                     {
-                        if (!Regex.IsMatch(comboBox1.Text, @"^[0-9]{3,4}x[0-9]{3,4}$")) //if selected res doesn't match valid input (input must match the regex)
+                        string fixedText = comboBox1.Text.Replace("x", " ");
+                        File.WriteAllText(userDataLeafName() + "Options.ini", Regex.Replace(File.ReadAllText(userDataLeafName() + "Options.ini"), "\r?\nResolution =.*", "\r\nResolution = " + fixedText + "\r"));
+                        if (Globals.GB_Checked == true)
                         {
-                            if (Globals.GB_Checked == true)
-                            {
-                                MessageBox.Show("This resolution is not valid.", "Error");
-                            }
-                            else if (Globals.RU_Checked == true)
-                            {
-                                MessageBox.Show("Это разрешение экрана не является действительным.", "Ошибка");
-                            }
-                            else if (Globals.UA_Checked == true)
-                            {
-                                MessageBox.Show("Це розширення не є дійсним.", "Помилка");
-                            }
-                            else if (Globals.BG_Checked == true)
-                            {
-                                MessageBox.Show("Тази резолюция не е валидна.", "Грешка");
-                            }
-                            else if (Globals.DE_Checked == true)
-                            {
-                                MessageBox.Show("Diese Auflцsung ist nicht gьltig.", "Fehler");
-                            }
-                            //return;
+                            MessageBox.Show("Resolution changed successfully!");
                         }
-                        else
+                        else if (Globals.RU_Checked == true)
                         {
-                            string fixedText = comboBox1.Text.Replace("x", " ");
-                            File.WriteAllText(myDocPath + "Options.ini", Regex.Replace(File.ReadAllText(myDocPath + "Options.ini"), "\r?\nResolution =.*", "\r\nResolution = " + fixedText + "\r\n"));
-                            if (Globals.GB_Checked == true)
-                            {
-                                MessageBox.Show("Resolution changed successfully!");
-                            }
-                            else if (Globals.RU_Checked == true)
-                            {
-                                MessageBox.Show("Разрешение экрана успешно изменено!");
-                            }
-                            else if (Globals.UA_Checked == true)
-                            {
-                                MessageBox.Show("Розширення успішно змінено!");
-                            }
-                            else if (Globals.BG_Checked == true)
-                            {
-                                MessageBox.Show("Резолюцията беше променена успешно!");
-                            }
-                            else if (Globals.DE_Checked == true)
-                            {
-                                MessageBox.Show("Auflцsung erfolgreich geдndert!");
-                            }
+                            MessageBox.Show("Разрешение экрана успешно изменено!");
+                        }
+                        else if (Globals.UA_Checked == true)
+                        {
+                            MessageBox.Show("Розширення успішно змінено!");
+                        }
+                        else if (Globals.BG_Checked == true)
+                        {
+                            MessageBox.Show("Резолюцията беше променена успешно!");
+                        }
+                        else if (Globals.DE_Checked == true)
+                        {
+                            MessageBox.Show("Auflцsung erfolgreich geдndert!");
                         }
                     }
                 }
             }
-            catch
+            else if (Directory.Exists(myDocPath))
             {
-                if (!File.Exists(userDataLeafName() + "Options.ini") || (!File.Exists(myDocPath + "Options.ini")))
+                string text = File.ReadAllText(myDocPath + "Options.ini");
                 {
-                    if (Globals.GB_Checked == true)
+                    if (!Regex.IsMatch(comboBox1.Text, @"^[0-9]{3,4}x[0-9]{3,4}$")) //if selected res doesn't match valid input (input must match the regex)
                     {
-                        MessageBox.Show("Options.ini not found! Could not set new resolution.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (Globals.GB_Checked == true)
+                        {
+                            MessageBox.Show("This resolution is not valid.", "Error");
+                        }
+                        else if (Globals.RU_Checked == true)
+                        {
+                            MessageBox.Show("Это разрешение экрана не является действительным.", "Ошибка");
+                        }
+                        else if (Globals.UA_Checked == true)
+                        {
+                            MessageBox.Show("Це розширення не є дійсним.", "Помилка");
+                        }
+                        else if (Globals.BG_Checked == true)
+                        {
+                            MessageBox.Show("Тази резолюция не е валидна.", "Грешка");
+                        }
+                        else if (Globals.DE_Checked == true)
+                        {
+                            MessageBox.Show("Diese Auflцsung ist nicht gьltig.", "Fehler");
+                        }
+                        //return;
                     }
-                    else if (Globals.RU_Checked == true)
+                    else
                     {
-                        MessageBox.Show("Файл \"Options.ini\" не найден! Не удалось установить новое разрешение.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        string fixedText = comboBox1.Text.Replace("x", " ");
+                        File.WriteAllText(myDocPath + "Options.ini", Regex.Replace(File.ReadAllText(myDocPath + "Options.ini"), "\r?\nResolution =.*", "\r\nResolution = " + fixedText + "\r\n"));
+                        if (Globals.GB_Checked == true)
+                        {
+                            MessageBox.Show("Resolution changed successfully!");
+                        }
+                        else if (Globals.RU_Checked == true)
+                        {
+                            MessageBox.Show("Разрешение экрана успешно изменено!");
+                        }
+                        else if (Globals.UA_Checked == true)
+                        {
+                            MessageBox.Show("Розширення успішно змінено!");
+                        }
+                        else if (Globals.BG_Checked == true)
+                        {
+                            MessageBox.Show("Резолюцията беше променена успешно!");
+                        }
+                        else if (Globals.DE_Checked == true)
+                        {
+                            MessageBox.Show("Auflцsung erfolgreich geдndert!");
+                        }
                     }
-                    else if (Globals.UA_Checked == true)
-                    {
-                        MessageBox.Show("Файл Options.ini не знайдений! Не вдалося встановити нову роздільну здатність.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else if (Globals.BG_Checked == true)
-                    {
-                        MessageBox.Show("Options.ini не беше намерен! Не можа да се приложи избраната резолюция.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else if (Globals.DE_Checked == true)
-                    {
-                        MessageBox.Show("Options.ini nicht gefunden! Neue Auflцsung konnte nicht eingestellt werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                }
+            }
+            if (!File.Exists(userDataLeafName() + "Options.ini") && (!File.Exists(myDocPath + "Options.ini")))
+            {
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("Options.ini not found! Could not set new resolution.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Файл \"Options.ini\" не найден! Не удалось установить новое разрешение.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Файл Options.ini не знайдений! Не вдалося встановити нову роздільну здатність.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Options.ini не беше намерен! Не можа да се приложи избраната резолюция.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Options.ini nicht gefunden! Neue Auflцsung konnte nicht eingestellt werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

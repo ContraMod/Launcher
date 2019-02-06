@@ -1309,7 +1309,7 @@
     <value>MOTD</value>
   </data>
   <data name="&gt;&gt;MOTD.Type" xml:space="preserve">
-    <value>Contra.Marquee, Contra_Launcher, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Contra.Marquee, Contra_Launcher, Version=1.0.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;MOTD.Parent" xml:space="preserve">
     <value>$this</value>

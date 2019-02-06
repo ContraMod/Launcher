@@ -36,6 +36,9 @@ namespace Contra
             }
         }
 
+        string vpnconfig = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn";
+
+
         //**********DRAG FORM CODE START**********
         const int WM_NCLBUTTONDBLCLK = 0xA3;
         protected override void WndProc(ref Message m)
@@ -80,7 +83,7 @@ namespace Contra
                 {
                     IP_Label.Text = Properties.Settings.Default.IP_Label;
                     Process onlinePlayers = new Process();
-                    onlinePlayers.StartInfo.Arguments = "--config=\"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn\" --pidfile=\"" + Environment.CurrentDirectory + "\\contra\\vpn\\tinc.pid\"";
+                    onlinePlayers.StartInfo.Arguments = "--config=\"" + vpnconfig + "\" --pidfile=\"" + vpnconfig + "\\tinc.pid\"";
                     onlinePlayers.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tinc.exe";
                     onlinePlayers.StartInfo.UseShellExecute = false;
                     onlinePlayers.StartInfo.RedirectStandardInput = true;

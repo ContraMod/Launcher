@@ -51,6 +51,7 @@
             this.portOkButton = new System.Windows.Forms.Button();
             this.showConsoleCheckBox = new System.Windows.Forms.CheckBox();
             this.IP_Label = new System.Windows.Forms.Label();
+            this.KillTincTimer = new System.Windows.Forms.Timer(this.components);
             this.InvitePanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -267,6 +268,11 @@
             this.IP_Label.ForeColor = System.Drawing.Color.White;
             this.IP_Label.Name = "IP_Label";
             // 
+            // KillTincTimer
+            // 
+            this.KillTincTimer.Interval = 10000;
+            this.KillTincTimer.Tick += new System.EventHandler(this.KillTincTimer_Tick);
+            // 
             // VPNForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -325,5 +331,6 @@
         private System.Windows.Forms.Button portOkButton;
         private System.Windows.Forms.CheckBox showConsoleCheckBox;
         private System.Windows.Forms.Label IP_Label;
+        private System.Windows.Forms.Timer KillTincTimer;
     }
 }
