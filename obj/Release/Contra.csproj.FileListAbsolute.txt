@@ -12,3 +12,17 @@
 /tmp/a/obj/Release/Contra.csproj.CoreCompileInputs.cache
 /tmp/a/obj/Release/Contra_Launcher.exe
 /tmp/a/obj/Release/Contra_Launcher.pdb
+/tmp/contra-launcher/obj/Release/Contra.csprojAssemblyReference.cache
+/tmp/contra-launcher/obj/Release/Contra.Globals.resources
+/tmp/contra-launcher/obj/Release/Contra.Form1.resources
+/tmp/contra-launcher/obj/Release/Contra.moreOptionsForm.resources
+/tmp/contra-launcher/obj/Release/Contra.Properties.Resources.resources
+/tmp/contra-launcher/obj/Release/Contra.onlinePlayersForm.resources
+/tmp/contra-launcher/obj/Release/Contra.VPNForm.resources
+/tmp/contra-launcher/obj/Release/Contra.csproj.GenerateResource.cache
+/tmp/contra-launcher/obj/Release/Contra.csproj.CoreCompileInputs.cache
+/tmp/contra-launcher/obj/Release/Contra_Launcher.exe
+/tmp/contra-launcher/obj/Release/Contra_Launcher.pdb
+/tmp/contra-launcher/bin/Release/Contra_Launcher.exe.config
+/tmp/contra-launcher/bin/Release/Contra_Launcher.exe
+/tmp/contra-launcher/bin/Release/Contra_Launcher.pdb

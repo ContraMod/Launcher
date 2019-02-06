@@ -119,9 +119,7 @@ namespace Contra
             try
             {
                 //URL of the updated file
-                // string url = "http://github.com/ThePredatorBG/contra-launcher/raw/master/bin/Release/Contra_Launcher.exe"; //test location
-                string url = "https://github.com/ThePredatorBG/contra-launcher/raw/master/Contra/bin/Release/Contra_Launcher.exe"; //proper location
-                //string url = "https://media.moddb.com/cache/images/articles/1/263/262580/crop_120x90/logo.jpg"; //test png
+                string url = "https://github.com/ThePredatorBG/contra-launcher/blob/master/bin/Release/Contra_Launcher.exe";
 
                 //Declare new WebClient object
                 WebClient wc = new WebClient();
