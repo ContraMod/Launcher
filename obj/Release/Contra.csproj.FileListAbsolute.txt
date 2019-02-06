@@ -1,56 +1,14 @@
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.Globals.resources
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.Form1.resources
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.moreOptionsForm.resources
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.Properties.Resources.resources
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.VPNForm.resources
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.Form1.bg.resources
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.Form1.ru.resources
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.Form1.uk.resources
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.moreOptionsForm.bg.resources
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.moreOptionsForm.ru.resources
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.moreOptionsForm.uk.resources
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.VPNForm.bg.resources
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.VPNForm.ru.resources
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.VPNForm.uk.resources
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.csproj.GenerateResource.Cache
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.onlinePlayersForm.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\bin\Release\Contra_Launcher.exe.config
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\bin\Release\Contra_Launcher.exe
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\bin\Release\Contra_Launcher.pdb
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\bin\Release\bg\Contra_Launcher.resources.dll
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\bin\Release\ru\Contra_Launcher.resources.dll
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\bin\Release\uk\Contra_Launcher.resources.dll
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.csprojResolveAssemblyReference.cache
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.Globals.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.Form1.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.moreOptionsForm.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.Properties.Resources.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.onlinePlayersForm.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.VPNForm.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.Form1.bg.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.Form1.ru.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.Form1.uk.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.moreOptionsForm.bg.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.moreOptionsForm.ru.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.moreOptionsForm.uk.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.VPNForm.bg.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.VPNForm.ru.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.VPNForm.uk.resources
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.csproj.GenerateResource.Cache
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\bg\Contra_Launcher.resources.dll
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\ru\Contra_Launcher.resources.dll
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\uk\Contra_Launcher.resources.dll
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra_Launcher.exe
-C:\Users\ACER\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra_Launcher.pdb
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\bin\Release\Contra_Launcher.exe.config
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra_Launcher.exe
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra_Launcher.pdb
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\bin\Release\Contra_Launcher.exe
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\bin\Release\Contra_Launcher.pdb
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\bin\Release\bg\Contra_Launcher.resources.dll
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\bin\Release\ru\Contra_Launcher.resources.dll
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\bin\Release\uk\Contra_Launcher.resources.dll
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\Contra.csprojResolveAssemblyReference.cache
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\bg\Contra_Launcher.resources.dll
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\ru\Contra_Launcher.resources.dll
-C:\Users\Bat Vlado\Documents\Visual Studio 2012\Projects\Contra\obj\Release\uk\Contra_Launcher.resources.dll
+/tmp/a/bin/Release/Contra_Launcher.exe.config
+/tmp/a/bin/Release/Contra_Launcher.exe
+/tmp/a/bin/Release/Contra_Launcher.pdb
+/tmp/a/obj/Release/Contra.csprojAssemblyReference.cache
+/tmp/a/obj/Release/Contra.Globals.resources
+/tmp/a/obj/Release/Contra.Form1.resources
+/tmp/a/obj/Release/Contra.moreOptionsForm.resources
+/tmp/a/obj/Release/Contra.Properties.Resources.resources
+/tmp/a/obj/Release/Contra.onlinePlayersForm.resources
+/tmp/a/obj/Release/Contra.VPNForm.resources
+/tmp/a/obj/Release/Contra.csproj.GenerateResource.cache
+/tmp/a/obj/Release/Contra.csproj.CoreCompileInputs.cache
+/tmp/a/obj/Release/Contra_Launcher.exe
+/tmp/a/obj/Release/Contra_Launcher.pdb
