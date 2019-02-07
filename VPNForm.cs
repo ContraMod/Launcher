@@ -267,6 +267,33 @@ namespace Contra
 
         public void EnterInvKey()
         {
+            Process url = new Process();
+            url.StartInfo.FileName = "explorer.exe";
+            url.StartInfo.Arguments = "https://discord.gg/RPvgWh5";
+            if (url.ExitCode != 0)
+            {
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("Could not open address. You need to request an invite key by visiting our Discord's #vpn channel. You can go there by clicking on the Discord button in the main launcher window or typing https://discord.gg/RPvgWh5 in your browser's address bar.");
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Не удалось открыть адрес. Вам необходимо запросить ключ приглашения, посетив наш канал Discord #vpn. Вы можете перейти туда, нажав кнопку Discord в главном окне лаунчера или введя https://discord.gg/RPvgWh5 в адресной строке браузера.");
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Не вдалося відкрити адресу. Необхідно запросити ключ запрошення, відвідавши канал #contravpn нашого Discord. Ви можете перейти туди, натиснувши кнопку Discord в головному вікні лаунчеру або ввівши https://discord.gg/RPvgWh5 у адресний рядок браузера.");
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Адресът не можа да се отвори. Трябва да поискате покана във #vpn канала ни в Discord. Можете да отидете там като щракнете на Discord бутона в главния прозорец на launcher-a или като напишете https://discord.gg/RPvgWh5 в адресното поле на вашия интернет браузър.");
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Adresse konnte nicht geöffnet werden. Sie müssen einen Einladungsschlüssel anfordern, besuchen sie die #vpn-Kanal von Discord, um es zu kriegen. Sie können dorthin gehen, entweder bei klicken die Schaltfläche Discord im Hauptfenster des Launcher, oder mit adresse https://discord.gg/RPvgWh5 in die Adressleiste Ihres Browsers eingeben.");
+                }
+            }
+
             if (File.Exists(vpnconfig + "\\tinc.conf"))
             {
                 if (Globals.GB_Checked == true)
@@ -318,17 +345,13 @@ namespace Contra
                     {
                         try
                         {
-                            Process.Start("explorer.exe", "https://discord.gg/RPvgWh5");
+                            url.Start();
                         }
                         catch
                         {
                             Process.Start("IExplore.exe", "https://discord.gg/RPvgWh5");
                         }
                         discordVisited = true;
-                    }
-                    else
-                    {
-                        //nothing
                     }
                 }
                 catch

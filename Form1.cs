@@ -460,10 +460,6 @@ namespace Contra
                     MessageBox.Show("Mod dateien konnten nicht entladen werden, da sie momentan im World Builder benutzt werden. Falls du die mod dateien entladen wilst, schlieЯe den World Builder und starte den Launcher erneut. SchlieЯt den Launcher sowieso.", "Fehler");
                 }
             }
-            else
-            {
-                //nothing
-            }
             OnApplicationExit(sender, e);
         }
 
