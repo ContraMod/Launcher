@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -700,25 +700,31 @@ namespace Contra
             websitebutton.ForeColor = SystemColors.ButtonHighlight;
             websitebutton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
-        private void websitebutton_Click(object sender, EventArgs e)
+        internal static bool Url_open(string url)
         {
             try
             {
+                Process.Start(url);
+                return true;
+            }
+            catch
+            {
                 try
                 {
-                    Process.Start("explorer.exe", "https://contra.cncguild.net/oldsite/Eng/index.php");
+                    Process.Start("IExplore.exe", url);
+                    return true;
                 }
-                catch
+                catch (Exception ex)
                 {
-                    Process.Start("IExplore.exe", "https://contra.cncguild.net/oldsite/Eng/index.php");
+                    MessageBox.Show("Could not use your default browser to open URL:\n" + url + "\n\n" + ex.Message, "Opening link failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
             }
         }
-
+        private void websitebutton_Click(object sender, EventArgs e)
+        {
+            Url_open("https://contra.cncguild.net/oldsite/Eng/index.php");
+        }
         private void button5_MouseEnter(object sender, EventArgs e)
         {
             button5.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_moddb_text);
@@ -740,21 +746,7 @@ namespace Contra
 
         private void button5_Click(object sender, EventArgs e) //ModDBButton
         {
-            try
-            {
-                try
-                {
-                    Process.Start("explorer.exe", "https://www.moddb.com/mods/contra");
-                }
-                catch
-                {
-                    Process.Start("IExplore.exe", "https://www.moddb.com/mods/contra");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
-            }
+            Url_open("https://www.moddb.com/mods/contra");
         }
 
         private void button3_MouseEnter(object sender, EventArgs e)
@@ -1054,40 +1046,12 @@ namespace Contra
 
         private void buttonChat_Click(object sender, EventArgs e)
         {
-            try
-            {
-                try
-                {
-                    Process.Start("explorer.exe", "https://discordapp.com/invite/015E6KXXHmdWFXCtt");
-                }
-                catch
-                {
-                    Process.Start("IExplore.exe", "https://discordapp.com/invite/015E6KXXHmdWFXCtt");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
-            }
+            Url_open("https://discordapp.com/invite/015E6KXXHmdWFXCtt");
         }
 
         private void helpbutton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                try
-                {
-                    Process.Start("explorer.exe", "https://contra.cncguild.net/oldsite/Eng/trouble.php");
-                }
-                catch
-                {
-                    Process.Start("IExplore.exe", "https://contra.cncguild.net/oldsite/Eng/trouble.php");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
-            }
+            Url_open("https://contra.cncguild.net/oldsite/Eng/trouble.php");
         }
 
         private void helpbutton_MouseDown_1(object sender, MouseEventArgs e)

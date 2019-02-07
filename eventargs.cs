@@ -1,6 +1,0 @@
-﻿namespace Contra
-{
-    class eventargs
-    {
-    }
-}
