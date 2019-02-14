@@ -638,7 +638,7 @@ namespace Contra
                                 File.WriteAllText(vpnconfig + "\\tinc.conf", text);
                             }
                         }
-                        else if (s3.Contains("invitation cancelled") || s3.Contains("invalid key" || s3.Contains("Invalid inv"))
+                        else if (s3.Contains("invitation cancelled") || s3.Contains("invalid key") || s3.Contains("Invalid inv"))
                         {
                             if (Globals.GB_Checked == true)
                             {
