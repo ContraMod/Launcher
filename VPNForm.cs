@@ -601,7 +601,8 @@ namespace Contra
                         tinc.Start();
                         string s = tinc.StandardError.ReadToEnd();
                         string s2 = tinc.StandardOutput.ReadToEnd();
-                        if (s.Contains("accepted") || s2.Contains("accepted") == true)
+                        string s3 = s + s2;
+                        if (s3.Contains("accepted"))
                         {
                             if (Globals.GB_Checked == true)
                             {
@@ -636,12 +637,8 @@ namespace Contra
                                 text = text.Replace("UPnP = no", "UPnP = yes");
                                 File.WriteAllText(vpnconfig + "\\tinc.conf", text);
                             }
-                            else
-                            {
-                                //
-                            }
                         }
-                        else if (s.Contains("invitation cancelled") || s2.Contains("invitation cancelled") == true)
+                        else if (s3.Contains("invitation cancelled") || s3.Contains("invalid key" || s3.Contains("Invalid inv"))
                         {
                             if (Globals.GB_Checked == true)
                             {
@@ -666,7 +663,14 @@ namespace Contra
                         }
                         else
                         {
-                            MessageBox.Show(s);
+                            if (string.IsNullOrEmpty(s))
+                            {
+                                MessageBox.Show(s2);
+                            }
+                            else
+                            {
+                                MessageBox.Show(s);
+                            }
                         }
                         InvitePanel.Visible = false;
                     }
