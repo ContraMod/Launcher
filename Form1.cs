@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ComponentModel;
 using System.Drawing;
 using System.Text;
@@ -114,19 +115,16 @@ namespace Contra
 
         string newVersion = "";
 
-        public void DownloadUpdate()
+        public void DownloadUpdate(string exe_url)
         {
             try
             {
-                //URL of the updated file
-                string url = "https://github.com/ThePredatorBG/contra-launcher/raw/master/bin/Release/Contra_Launcher.exe";
-
                 //Declare new WebClient object
                 WebClient wc = new WebClient();
                 // wc.Headers.Add("User-Agent", "Mozilla/4.0 (compatible; MSIE 8.0)");
                 wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted);
                 //wc.DownloadFileAsync(new Uri(url), Application.StartupPath + "/Contra_Launcher_New.png");
-                wc.DownloadFileAsync(new Uri(url), Application.StartupPath + "/Contra_Launcher_New.exe");
+                wc.DownloadFileAsync(new Uri(exe_url), Application.StartupPath + "/Contra_Launcher_New.exe");
                 //  while (wc.IsBusy) { }
             }
             catch { }
@@ -177,20 +175,15 @@ namespace Contra
         }
 
         //Create method to check for an update
-        public void GetUpdate()
+        public void GetUpdate(string motd, string exe_url)
         {
             try
             {
                 //Declare new WebClient object
                 WebClient wc = new WebClient();
-                string textFile = wc.DownloadString("https://github.com/ThePredatorBG/contra-launcher/raw/master/Version.txt");
-                string versionText = textFile.Substring(textFile.LastIndexOf("Version: ") + 9);
+                string versionText = motd.Substring(motd.LastIndexOf("Version: ") + 9);
                 string versionText2 = versionText.Substring(0, versionText.IndexOf("#"));
-                //    ThreadHelperClass.SetText(this, verLabel, versionText2); //setting verLabel to latest ver - unused
                 newVersion = versionText2;
-
-                //verLabel.Text = verLabel.Text + Application.ProductVersion;
-                //verLabel.Text = verLabel.Text + newVersion;
 
                 //If there is a new version, call the DownloadUpdate method
                 if (newVersion != Application.ProductVersion)
@@ -215,7 +208,7 @@ namespace Contra
                     {
                         MessageBox.Show("Contra Launcher version " + versionText2 + " ist verfьgbar! Klicke OK zum aktualisieren und neu starten!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    DownloadUpdate();
+                    DownloadUpdate(exe_url);
                 }
             }
             catch { }
@@ -1694,55 +1687,39 @@ namespace Contra
             {
                 using (WebClient client = new WebClient())
                 {
+                    //URL of MOTD with Version string
+                    string motd = client.DownloadString("https://github.com/ThePredatorBG/contra-launcher/raw/master/Version.txt");
+                    //URL of the updated file
+                    string exe_url = "https://github.com/ThePredatorBG/contra-launcher/raw/master/bin/Release/Contra_Launcher.exe";
+
                     if (downloadTextFile == false)
                     {
                         //Check for launcher update once per launch.
                         if (seekForUpdate == true)
                         {
                             seekForUpdate = false;
-                            GetUpdate();
+                            GetUpdate(motd, exe_url);
                         }
                         downloadTextFile = true;
                     }
-                    //string txtFile = client.DownloadString("https://gist.githubusercontent.com/ThePredatorBG/65e9e36d85c5def6adf7a0a5c73fb15a/raw/gistfile1.txt");
-                    //if (Globals.GB_Checked == true)
-                    //{
-                    //    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-EN: ") + 9);
-                    //    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                    //    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
-                    //}
-                    //else if (Globals.RU_Checked == true)
-                    //{
-                    //    byte[] bytes = Encoding.Default.GetBytes(txtFile);
-                    //    txtFile = Encoding.UTF8.GetString(bytes);
-                    //    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-RU: ") + 9);
-                    //    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                    //    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
-                    //}
-                    //else if (Globals.UA_Checked == true)
-                    //{
-                    //    byte[] bytes = Encoding.Default.GetBytes(txtFile);
-                    //    txtFile = Encoding.UTF8.GetString(bytes);
-                    //    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-UA: ") + 9);
-                    //    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                    //    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
-                    //}
-                    //else if (Globals.BG_Checked == true)
-                    //{
-                    //    byte[] bytes = Encoding.Default.GetBytes(txtFile);
-                    //    txtFile = Encoding.UTF8.GetString(bytes);
-                    //    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-BG: ") + 9);
-                    //    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                    //    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
-                    //}
-                    //else if (Globals.DE_Checked == true)
-                    //{
-                    //    byte[] bytes = Encoding.Default.GetBytes(txtFile);
-                    //    txtFile = Encoding.UTF8.GetString(bytes);
-                    //    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-DE: ") + 9);
-                    //    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                    //    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
-                    //}
+                    void SetMOTD(string prefix)
+                    {
+                        byte[] bytes = Encoding.Default.GetBytes(motd);
+                        motd = Encoding.UTF8.GetString(bytes);
+                        string MOTDText = motd.Substring(motd.LastIndexOf(prefix) + 9);
+                        string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
+                        ThreadHelperClass.SetText(this, MOTD, MOTDText2);
+                    }
+
+                    var motd_lang = new Dictionary<string, bool>
+                    {
+                        {"MOTD-EN: ", Globals.GB_Checked},
+                        {"MOTD-RU: ", Globals.RU_Checked},
+                        {"MOTD-UA: ", Globals.UA_Checked},
+                        {"MOTD-BG: ", Globals.BG_Checked},
+                        {"MOTD-DE: ", Globals.DE_Checked},
+                    };
+                    SetMOTD(motd_lang.Single(l => l.Value).Key);
                 }
             }
             catch { }
@@ -1750,41 +1727,6 @@ namespace Contra
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            //Message of the Day
-            //try
-            //{
-            //    using (WebClient client = new WebClient())
-            //    {
-            //        if (Globals.GB_Checked == true)
-            //        {
-            //            //MOTD.Text = client.DownloadString("https://gist.githubusercontent.com/ThePredatorBG/d7af1184eb6a7a90b62e8277ada4b1dd/raw/090a6dc5c6ecd0aa20db1654cce831ecf6c5828a/gistfile1.txt");
-            //        }
-            //        else if (Globals.RU_Checked == true)
-            //        {
-            //            //MOTD.Text = client.DownloadString("https://gist.githubusercontent.com/ThePredatorBG/d7af1184eb6a7a90b62e8277ada4b1dd/raw/090a6dc5c6ecd0aa20db1654cce831ecf6c5828a/gistfile1.txt");
-            //        }
-            //        else if (Globals.UA_Checked == true)
-            //        {
-            //            //MOTD.Text = client.DownloadString("https://gist.githubusercontent.com/ThePredatorBG/d7af1184eb6a7a90b62e8277ada4b1dd/raw/090a6dc5c6ecd0aa20db1654cce831ecf6c5828a/gistfile1.txt");
-            //        }
-            //        else if (Globals.BG_Checked == true)
-            //        {
-            //            //string myString = client.DownloadString("https://gist.githubusercontent.com/ThePredatorBG/cec510b72d5b232df3ed2c9e01276af5/raw/1458a1c51077ae2e8ffc927a0324d5de723d558e/gistfile1.txt");
-            //            //byte[] bytes = Encoding.Default.GetBytes(myString);
-            //            //myString = Encoding.UTF8.GetString(bytes);
-            //            //MOTD.Text = myString;
-            //        }
-            //        else if (Globals.DE_Checked == true)
-            //        {
-            //            //MOTD.Text = client.DownloadString("https://gist.githubusercontent.com/ThePredatorBG/d7af1184eb6a7a90b62e8277ada4b1dd/raw/090a6dc5c6ecd0aa20db1654cce831ecf6c5828a/gistfile1.txt");
-            //        }
-            //    }
-            //}
-            //catch
-            //{
-
-            //}
-
             //Show warning if Options.ini isn't found and the user is running Windows 7 or more recent.
             if (IsWindows7OrNewer() == true)
             {
