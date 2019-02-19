@@ -119,7 +119,7 @@ namespace Contra
             try
             {
                 //URL of the updated file
-                string url = "https://github.com/ThePredatorBG/contra-launcher/blob/master/bin/Release/Contra_Launcher.exe";
+                string url = "https://github.com/ThePredatorBG/contra-launcher/raw/master/bin/Release/Contra_Launcher.exe";
 
                 //Declare new WebClient object
                 WebClient wc = new WebClient();
@@ -183,8 +183,7 @@ namespace Contra
             {
                 //Declare new WebClient object
                 WebClient wc = new WebClient();
-                string textFile = wc.DownloadString("https://gist.githubusercontent.com/ThePredatorBG/3bf63b4eb22f996980a1ab2b73cf7ec8/raw");
-                //string textFile = wc.DownloadString("https://gist.githubusercontent.com/ThePredatorBG/65e9e36d85c5def6adf7a0a5c73fb15a/raw/gistfile1.txt");
+                string textFile = wc.DownloadString("https://github.com/ThePredatorBG/contra-launcher/raw/master/Version.txt");
                 string versionText = textFile.Substring(textFile.LastIndexOf("Version: ") + 9);
                 string versionText2 = versionText.Substring(0, versionText.IndexOf("#"));
                 //    ThreadHelperClass.SetText(this, verLabel, versionText2); //setting verLabel to latest ver - unused
@@ -1705,45 +1704,45 @@ namespace Contra
                         }
                         downloadTextFile = true;
                     }
-                    string txtFile = client.DownloadString("https://gist.githubusercontent.com/ThePredatorBG/65e9e36d85c5def6adf7a0a5c73fb15a/raw/gistfile1.txt");
-                    if (Globals.GB_Checked == true)
-                    {
-                        string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-EN: ") + 9);
-                        string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                        ThreadHelperClass.SetText(this, MOTD, MOTDText2);
-                    }
-                    else if (Globals.RU_Checked == true)
-                    {
-                        byte[] bytes = Encoding.Default.GetBytes(txtFile);
-                        txtFile = Encoding.UTF8.GetString(bytes);
-                        string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-RU: ") + 9);
-                        string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                        ThreadHelperClass.SetText(this, MOTD, MOTDText2);
-                    }
-                    else if (Globals.UA_Checked == true)
-                    {
-                        byte[] bytes = Encoding.Default.GetBytes(txtFile);
-                        txtFile = Encoding.UTF8.GetString(bytes);
-                        string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-UA: ") + 9);
-                        string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                        ThreadHelperClass.SetText(this, MOTD, MOTDText2);
-                    }
-                    else if (Globals.BG_Checked == true)
-                    {
-                        byte[] bytes = Encoding.Default.GetBytes(txtFile);
-                        txtFile = Encoding.UTF8.GetString(bytes);
-                        string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-BG: ") + 9);
-                        string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                        ThreadHelperClass.SetText(this, MOTD, MOTDText2);
-                    }
-                    else if (Globals.DE_Checked == true)
-                    {
-                        byte[] bytes = Encoding.Default.GetBytes(txtFile);
-                        txtFile = Encoding.UTF8.GetString(bytes);
-                        string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-DE: ") + 9);
-                        string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
-                        ThreadHelperClass.SetText(this, MOTD, MOTDText2);
-                    }
+                    //string txtFile = client.DownloadString("https://gist.githubusercontent.com/ThePredatorBG/65e9e36d85c5def6adf7a0a5c73fb15a/raw/gistfile1.txt");
+                    //if (Globals.GB_Checked == true)
+                    //{
+                    //    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-EN: ") + 9);
+                    //    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
+                    //    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
+                    //}
+                    //else if (Globals.RU_Checked == true)
+                    //{
+                    //    byte[] bytes = Encoding.Default.GetBytes(txtFile);
+                    //    txtFile = Encoding.UTF8.GetString(bytes);
+                    //    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-RU: ") + 9);
+                    //    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
+                    //    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
+                    //}
+                    //else if (Globals.UA_Checked == true)
+                    //{
+                    //    byte[] bytes = Encoding.Default.GetBytes(txtFile);
+                    //    txtFile = Encoding.UTF8.GetString(bytes);
+                    //    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-UA: ") + 9);
+                    //    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
+                    //    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
+                    //}
+                    //else if (Globals.BG_Checked == true)
+                    //{
+                    //    byte[] bytes = Encoding.Default.GetBytes(txtFile);
+                    //    txtFile = Encoding.UTF8.GetString(bytes);
+                    //    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-BG: ") + 9);
+                    //    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
+                    //    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
+                    //}
+                    //else if (Globals.DE_Checked == true)
+                    //{
+                    //    byte[] bytes = Encoding.Default.GetBytes(txtFile);
+                    //    txtFile = Encoding.UTF8.GetString(bytes);
+                    //    string MOTDText = txtFile.Substring(txtFile.LastIndexOf("MOTD-DE: ") + 9);
+                    //    string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("#"));
+                    //    ThreadHelperClass.SetText(this, MOTD, MOTDText2);
+                    //}
                 }
             }
             catch { }

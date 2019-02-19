@@ -1,0 +1,6 @@
+Version: 1.0.0.3#
+MOTD-BG: Добре дошли във версия 009 Final! Ще се видим онлайн в ContraVPN (настройте го сега)!#
+MOTD-EN: Welcome! We hope you enjoy 009 Final! See you online via ContraVPN, let's see how many we are!#
+MOTD-RU: Добро пожаловать! Надеемся, вам понравится 009 Final! Увидимся онлайн через ContraVPN!#
+MOTD-UA: Ласкаво просимо! Ми сподіваємося, вам сподобається 009 Final! Побачимось онлайн через ContraVPN!#
+MOTD-DE: Willkommen! Wir hoffen dass 009 Final dir gefällt. Wir sehen uns online via ContraVPN.#
