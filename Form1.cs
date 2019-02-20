@@ -1688,9 +1688,9 @@ namespace Contra
                 using (WebClient client = new WebClient())
                 {
                     //URL of MOTD with Version string
-                    string motd = client.DownloadString("https://github.com/ThePredatorBG/contra-launcher/raw/master/Version.txt");
+                    string motd = client.DownloadString("https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/Version.txt");
                     //URL of the updated file
-                    string exe_url = "https://github.com/ThePredatorBG/contra-launcher/raw/master/bin/Release/Contra_Launcher.exe";
+                    string exe_url = "https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/bin/Release/Contra_Launcher.exe";
 
                     if (downloadTextFile == false)
                     {
