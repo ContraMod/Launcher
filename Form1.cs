@@ -93,7 +93,7 @@ namespace Contra
             }
 
             //This renames the original file so any shortcut works and names it accordingly after the update
-            if (File.Exists(Application.StartupPath + "/Contra_Launcher_ToDelete.exe"))
+            if (File.Exists(Application.StartupPath + "/Contra_Launcher_ToDelete.exe") && (applyNewLauncher == true))
             {
                 File.SetAttributes("Contra_Launcher_ToDelete.exe", FileAttributes.Normal);
                 File.Delete(Application.StartupPath + "/Contra_Launcher_ToDelete.exe");
@@ -129,9 +129,10 @@ namespace Contra
                 newVersion = versionText2;
 
                 //If there is a new version, call the DownloadUpdate method
-                int newVersionInt = int.Parse(newVersion);
-                int productVersionInt = int.Parse(Application.ProductVersion);
-                if (newVersionInt > productVersionInt)
+                if (newVersion != Application.ProductVersion)
+                //int newVersionInt = int.Parse(newVersion);
+                //int productVersionInt = int.Parse(Application.ProductVersion);
+                //if (newVersionInt > productVersionInt)
                 {
                     if (Globals.GB_Checked == true)
                     {
@@ -168,7 +169,7 @@ namespace Contra
                 wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted);
                 //wc.DownloadFileAsync(new Uri(exe_url), Application.StartupPath + "/Contra_Launcher_New.exe");
 
-                //append version number to downloaded file's name
+                //download the new file and append version number to its name
                 wc.DownloadFileAsync(new Uri(exe_url), Application.StartupPath + "/Contra_Launcher_" + versionText2 + ".exe");
 
                 //  while (wc.IsBusy) { }
@@ -176,13 +177,41 @@ namespace Contra
             catch { }
         }
 
+        bool applyNewLauncher = false;
+
         void wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             // display completion status.
             if (e.Error != null)
+            {
                 MessageBox.Show(e.Error.Message);
+                applyNewLauncher = false;
+                return;
+            }
             else
-                MessageBox.Show("Download Completed!!!");
+            {
+                applyNewLauncher = true;
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("Download completed!!!");
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Скачивание завершено!!!");
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Завантаження завершено!!!");
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Изтеглянето е успешно!!!");
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Download abgeschlossen!!!");
+                }
+            }
 
             //Show a message when the download has completed
             if (Globals.GB_Checked == true)
@@ -3103,10 +3132,15 @@ namespace Contra
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             //This renames the original file so any shortcut works and names it accordingly after the update
-            if (File.Exists(Application.StartupPath + "/Contra_Launcher_" + versionText2 + ".exe"))
+            if (File.Exists(Application.StartupPath + "/Contra_Launcher_" + versionText2 + ".exe") && (applyNewLauncher == true))
             {
                 File.Move(Application.StartupPath + "/Contra_Launcher.exe", Application.StartupPath + "/Contra_Launcher_ToDelete.exe");
                 File.Move(Application.StartupPath + "/Contra_Launcher_" + versionText2 + ".exe", Application.StartupPath + "/Contra_Launcher.exe");
+            }
+            //If updating has failed, clear the 0KB file
+            if (File.Exists(Application.StartupPath + "/Contra_Launcher_" + versionText2 + ".exe") && (applyNewLauncher == false))
+            {
+                File.Delete(Application.StartupPath + "/Contra_Launcher_" + versionText2 + ".exe");
             }
             //if (File.Exists(Application.StartupPath + "/Contra_Launcher_New.exe"))
             //{
