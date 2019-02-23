@@ -115,16 +115,62 @@ namespace Contra
 
         string newVersion = "";
 
+        string versionText2;
+
+        //Create method to check for an update
+        public void GetUpdate(string motd, string exe_url)
+        {
+            try
+            {
+                //Declare new WebClient object
+                WebClient wc = new WebClient();
+                string versionText = motd.Substring(motd.LastIndexOf("Version: ") + 9);
+                versionText2 = versionText.Substring(0, versionText.IndexOf("#"));
+                newVersion = versionText2;
+
+                //If there is a new version, call the DownloadUpdate method
+                int newVersionInt = int.Parse(newVersion);
+                int productVersionInt = int.Parse(Application.ProductVersion);
+                if (newVersionInt > productVersionInt)
+                {
+                    if (Globals.GB_Checked == true)
+                    {
+                        MessageBox.Show("Contra Launcher version " + versionText2 + " is available! Click OK to update and restart!", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (Globals.RU_Checked == true)
+                    {
+                        MessageBox.Show("Версия Contra Launcher " + versionText2 + " доступна! Нажмите «ОК», чтобы обновить и перезапустить!", "Доступно обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (Globals.UA_Checked == true)
+                    {
+                        MessageBox.Show("Версія Contra Launcher " + versionText2 + " доступна! Натисніть кнопку ОК, щоб оновити та перезапустити!", "Доступне оновлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (Globals.BG_Checked == true)
+                    {
+                        MessageBox.Show("Contra Launcher версия " + versionText2 + " е достъпна! Щракнете OK, за да обновите и рестартирате!", "Достъпна е актуализация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        MessageBox.Show("Contra Launcher version " + versionText2 + " ist verfьgbar! Klicke OK zum aktualisieren und neu starten!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    DownloadUpdate(exe_url);
+                }
+            }
+            catch { }
+        }
+
         public void DownloadUpdate(string exe_url)
         {
             try
             {
                 //Declare new WebClient object
                 WebClient wc = new WebClient();
-                // wc.Headers.Add("User-Agent", "Mozilla/4.0 (compatible; MSIE 8.0)");
                 wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted);
-                //wc.DownloadFileAsync(new Uri(url), Application.StartupPath + "/Contra_Launcher_New.png");
-                wc.DownloadFileAsync(new Uri(exe_url), Application.StartupPath + "/Contra_Launcher_New.exe");
+                //wc.DownloadFileAsync(new Uri(exe_url), Application.StartupPath + "/Contra_Launcher_New.exe");
+
+                //append version number to downloaded file's name
+                wc.DownloadFileAsync(new Uri(exe_url), Application.StartupPath + "/Contra_Launcher_" + versionText2 + ".exe");
+
                 //  while (wc.IsBusy) { }
             }
             catch { }
@@ -159,59 +205,7 @@ namespace Contra
             {
                 MessageBox.Show("Ihr Programm ist jetzt auf dem neuesten Stand!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            //            WaitNSeconds(5);
-
             Application.Restart();
-        }
-
-        private void WaitNSeconds(int segundos)
-        {
-            if (segundos < 1) return;
-            DateTime _desired = DateTime.Now.AddSeconds(segundos);
-            while (DateTime.Now < _desired)
-            {
-                System.Windows.Forms.Application.DoEvents();
-            }
-        }
-
-        //Create method to check for an update
-        public void GetUpdate(string motd, string exe_url)
-        {
-            try
-            {
-                //Declare new WebClient object
-                WebClient wc = new WebClient();
-                string versionText = motd.Substring(motd.LastIndexOf("Version: ") + 9);
-                string versionText2 = versionText.Substring(0, versionText.IndexOf("#"));
-                newVersion = versionText2;
-
-                //If there is a new version, call the DownloadUpdate method
-                if (newVersion != Application.ProductVersion)
-                {
-                    if (Globals.GB_Checked == true)
-                    {
-                        MessageBox.Show("Contra Launcher version " + versionText2 + " is available! Click OK to update and restart!", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (Globals.RU_Checked == true)
-                    {
-                        MessageBox.Show("Версия Contra Launcher " + versionText2 + " доступна! Нажмите «ОК», чтобы обновить и перезапустить!", "Доступно обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (Globals.UA_Checked == true)
-                    {
-                        MessageBox.Show("Версія Contra Launcher " + versionText2 + " доступна! Натисніть кнопку ОК, щоб оновити та перезапустити!", "Доступне оновлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (Globals.BG_Checked == true)
-                    {
-                        MessageBox.Show("Contra Launcher версия " + versionText2 + " е достъпна! Щракнете OK, за да обновите и рестартирате!", "Достъпна е актуализация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (Globals.DE_Checked == true)
-                    {
-                        MessageBox.Show("Contra Launcher version " + versionText2 + " ist verfьgbar! Klicke OK zum aktualisieren und neu starten!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    DownloadUpdate(exe_url);
-                }
-            }
-            catch { }
         }
 
         public static string userDataLeafName()
@@ -325,10 +319,10 @@ namespace Contra
                 {
                     generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
                 }
-                else if (File.Exists(@"..\generals.exe"))
-                {
-                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\generals.exe");
-                }
+                //else if (File.Exists(@"..\generals.exe"))
+                //{
+                //    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\generals.exe");
+                //}
                 generals.Start();
             }
             catch
@@ -348,10 +342,10 @@ namespace Contra
                 {
                     generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
                 }
-                else if (File.Exists(@"..\generals.exe"))
-                {
-                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\generals.exe");
-                }
+                //else if (File.Exists(@"..\generals.exe"))
+                //{
+                //    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\generals.exe");
+                //}
                 generals.Start();
             }
             catch
@@ -371,10 +365,10 @@ namespace Contra
                 {
                     generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
                 }
-                else if (File.Exists(@"..\generals.exe"))
-                {
-                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\generals.exe");
-                }
+                //else if (File.Exists(@"..\generals.exe"))
+                //{
+                //    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\generals.exe");
+                //}
                 generals.Start();
             }
             catch
@@ -394,10 +388,10 @@ namespace Contra
                 {
                     generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
                 }
-                else if (File.Exists(@"..\generals.exe"))
-                {
-                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\generals.exe");
-                }
+                //else if (File.Exists(@"..\generals.exe"))
+                //{
+                //    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\generals.exe");
+                //}
                 generals.Start();
             }
             catch
@@ -793,30 +787,42 @@ namespace Contra
         }
         private void button6_Click(object sender, EventArgs e) //WorldBuilder
         {
+            if (File.Exists("!!Contra009Final_Patch1.ctr"))
+            {
+                File.Move("!!Contra009Final_Patch1.ctr", "!!Contra009Final_Patch1.big");
+            }
+            if (File.Exists("!!Contra009Final_Patch1_EN.ctr"))
+            {
+                File.Move("!!Contra009Final_Patch1_EN.ctr", "!!Contra009Final_Patch1_EN.big");
+            }
+            if (File.Exists("!!Contra009Final_Patch1_EngVO.ctr"))
+            {
+                File.Move("!!Contra009Final_Patch1_EngVO.ctr", "!!Contra009Final_Patch1_EngVO.big");
+            }
             if (File.Exists("!Contra009Final.ctr"))
             {
                 File.Move("!Contra009Final.ctr", "!Contra009Final.big");
             }
-            else if (File.Exists(@"..\!Contra009Final.ctr"))
-            {
-                File.Move(@"..\!Contra009Final.ctr", @"..\!Contra009Final.big");
-            }
+            //else if (File.Exists(@"..\!Contra009Final.ctr"))
+            //{
+            //    File.Move(@"..\!Contra009Final.ctr", @"..\!Contra009Final.big");
+            //}
             if (File.Exists("!Contra009Final_EN.ctr"))
             {
                 File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
             }
-            else if (File.Exists(@"..\!Contra009Final_EN.ctr"))
-            {
-                File.Move(@"..\!Contra009Final_EN.ctr", @"..\!Contra009Final_EN.big");
-            }
+            //else if (File.Exists(@"..\!Contra009Final_EN.ctr"))
+            //{
+            //    File.Move(@"..\!Contra009Final_EN.ctr", @"..\!Contra009Final_EN.big");
+            //}
             if (File.Exists("!Contra009Final_EngVO.ctr"))
             {
                 File.Move("!Contra009Final_EngVO.ctr", "!Contra009Final_EngVO.big");
             }
-            else if (File.Exists(@"..\!Contra009Final_EngVO.ctr"))
-            {
-                File.Move(@"..\!Contra009Final_EngVO.ctr", @"..\!Contra009Final_EngVO.big");
-            }
+            //else if (File.Exists(@"..\!Contra009Final_EngVO.ctr"))
+            //{
+            //    File.Move(@"..\!Contra009Final_EngVO.ctr", @"..\!Contra009Final_EngVO.big");
+            //}
             Process wb = new Process();
             wb.StartInfo.Verb = "runas";
             try
@@ -827,24 +833,24 @@ namespace Contra
                     wb.StartInfo.WorkingDirectory = Path.GetDirectoryName("WorldBuilder_Ctr.exe");
                     wb.Start();
                 }
-                else if (File.Exists(@"..\WorldBuilder_Ctr.exe"))
-                {
-                    wb.StartInfo.FileName = "WorldBuilder_Ctr.exe";
-                    wb.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\WorldBuilder_Ctr.exe");
-                    wb.Start();
-                }
+                //else if (File.Exists(@"..\WorldBuilder_Ctr.exe"))
+                //{
+                //    wb.StartInfo.FileName = "WorldBuilder_Ctr.exe";
+                //    wb.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\WorldBuilder_Ctr.exe");
+                //    wb.Start();
+                //}
                 else if (File.Exists("WorldBuilder.exe"))
                 {
                     wb.StartInfo.FileName = "WorldBuilder.exe";
                     wb.StartInfo.WorkingDirectory = Path.GetDirectoryName("WorldBuilder.exe");
                     wb.Start();
                 }
-                else if (File.Exists(@"..\WorldBuilder.exe"))
-                {
-                    wb.StartInfo.FileName = "WorldBuilder.exe";
-                    wb.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\WorldBuilder.exe");
-                    wb.Start();
-                }
+                //else if (File.Exists(@"..\WorldBuilder.exe"))
+                //{
+                //    wb.StartInfo.FileName = "WorldBuilder.exe";
+                //    wb.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\WorldBuilder.exe");
+                //    wb.Start();
+                //}
             }
             catch (Exception ex)
             {
@@ -1689,6 +1695,7 @@ namespace Contra
                 {
                     //URL of MOTD with Version string
                     string motd = client.DownloadString("https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/Version.txt");
+                    //checkIfSuccessful();
                     //URL of the updated file
                     string exe_url = "https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/bin/Release/Contra_Launcher.exe";
 
@@ -1723,6 +1730,31 @@ namespace Contra
                 }
             }
             catch { }
+        }
+
+        private void checkIfSuccessful()
+        {
+            //Create a web request with the specified URL
+            string path = @"https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/Versiona.txt";
+            WebRequest myWebRequest = WebRequest.Create(path);
+
+            //Senda a web request and wait for response.
+            try
+            {
+                WebResponse objwebResponse = myWebRequest.GetResponse();
+                Stream stream = objwebResponse.GetResponseStream();
+
+            }
+            catch (WebException ex)
+            {
+                //if (((HttpWebResponse)(ex.Response)).StatusCode == HttpStatusCode.NotFound)
+                //{
+                //    throw new FileNotFoundException(ex.Message);
+                //}
+                MessageBox.Show(ex.ToString());
+            }
+
+            //MessageBox.Show(msg);
         }
 
         private void Form1_Shown(object sender, EventArgs e)
@@ -3071,11 +3103,16 @@ namespace Contra
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             //This renames the original file so any shortcut works and names it accordingly after the update
-            if (File.Exists(Application.StartupPath + "/Contra_Launcher_New.exe"))
+            if (File.Exists(Application.StartupPath + "/Contra_Launcher_" + versionText2 + ".exe"))
             {
                 File.Move(Application.StartupPath + "/Contra_Launcher.exe", Application.StartupPath + "/Contra_Launcher_ToDelete.exe");
-                File.Move(Application.StartupPath + "/Contra_Launcher_New.exe", Application.StartupPath + "/Contra_Launcher.exe");
+                File.Move(Application.StartupPath + "/Contra_Launcher_" + versionText2 + ".exe", Application.StartupPath + "/Contra_Launcher.exe");
             }
+            //if (File.Exists(Application.StartupPath + "/Contra_Launcher_New.exe"))
+            //{
+            //    File.Move(Application.StartupPath + "/Contra_Launcher.exe", Application.StartupPath + "/Contra_Launcher_ToDelete.exe");
+            //    File.Move(Application.StartupPath + "/Contra_Launcher_New.exe", Application.StartupPath + "/Contra_Launcher.exe");
+            //}
         }
     }
 }
