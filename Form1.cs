@@ -188,30 +188,8 @@ namespace Contra
                 applyNewLauncher = false;
                 return;
             }
-            else
-            {
-                applyNewLauncher = true;
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("Download completed!!!");
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Скачивание завершено!!!");
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Завантаження завершено!!!");
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("Изтеглянето е успешно!!!");
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("Download abgeschlossen!!!");
-                }
-            }
+
+            applyNewLauncher = true;
 
             //Show a message when the download has completed
             if (Globals.GB_Checked == true)
@@ -1724,7 +1702,6 @@ namespace Contra
                 {
                     //URL of MOTD with Version string
                     string motd = client.DownloadString("https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/Version.txt");
-                    //checkIfSuccessful();
                     //URL of the updated file
                     string exe_url = "https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/bin/Release/Contra_Launcher.exe";
 
@@ -1759,31 +1736,6 @@ namespace Contra
                 }
             }
             catch { }
-        }
-
-        private void checkIfSuccessful()
-        {
-            //Create a web request with the specified URL
-            string path = @"https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/Versiona.txt";
-            WebRequest myWebRequest = WebRequest.Create(path);
-
-            //Senda a web request and wait for response.
-            try
-            {
-                WebResponse objwebResponse = myWebRequest.GetResponse();
-                Stream stream = objwebResponse.GetResponseStream();
-
-            }
-            catch (WebException ex)
-            {
-                //if (((HttpWebResponse)(ex.Response)).StatusCode == HttpStatusCode.NotFound)
-                //{
-                //    throw new FileNotFoundException(ex.Message);
-                //}
-                MessageBox.Show(ex.ToString());
-            }
-
-            //MessageBox.Show(msg);
         }
 
         private void Form1_Shown(object sender, EventArgs e)
