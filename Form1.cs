@@ -1930,6 +1930,12 @@ namespace Contra
 
         private void VPNMoreButton_Click(object sender, EventArgs e)
         {
+            CheckRegistryPathForWine();
+            if (UserOnWine == true)
+            {
+                return;
+            }
+
             foreach (Form VPNForm in Application.OpenForms)
             {
                 if (VPNForm is VPNForm)
@@ -1940,13 +1946,6 @@ namespace Contra
                 }
             }
             new VPNForm().Show();
-            //            vpnIP();
-
-            //    VPNForm VPNForm = new VPNForm();
-            //    if (VPNForm == null)
-            //    {
-            //       VPNForm.Show();
-            //   }
         }
 
         private void VPNMoreButton_MouseEnter(object sender, EventArgs e)
@@ -2015,7 +2014,6 @@ namespace Contra
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "On";
             }
-            else vpnIP();
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "On";
@@ -2090,7 +2088,6 @@ namespace Contra
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "Вкл.";
             }
-            else vpnIP();
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "Вкл.";
@@ -2165,7 +2162,6 @@ namespace Contra
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "Ввімк.";
             }
-            else vpnIP();
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "Ввімк.";
@@ -2240,7 +2236,6 @@ namespace Contra
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "Вкл.";
             }
-            else vpnIP();
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "Вкл.";
@@ -2317,7 +2312,6 @@ namespace Contra
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "An";
             }
-            else vpnIP();
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "An";
@@ -2699,8 +2693,33 @@ namespace Contra
             }
         }
 
+        bool UserOnWine;
+
+        public void CheckRegistryPathForWine()
+        {
+            RegistryKey r;
+
+            try
+            {
+                r = Registry.LocalMachine.OpenSubKey(@"Software\Wine");
+
+                if (r != null)
+                {
+                    MessageBox.Show("We've detected you're running launcher on Wine, Play-on-Linux or similar.\nVPN functionality disabled, please use native TincVPN 1.1+ on your system manually\nto connect as wine will need to use native tap adapters provided by your kernel to work.\n\nPlease visit #support channel on our discord for help with this.");
+                    UserOnWine = true;
+                }
+            }
+            catch { }
+        }
+
         private void vpn_start_Click(object sender, EventArgs e)
         {
+            CheckRegistryPathForWine();
+            if (UserOnWine == true)
+            {
+                return;
+            }
+
             string tincd1 = "tincd.exe";
             Process[] tincdByName1 = Process.GetProcessesByName(tincd1.Substring(0, tincd1.LastIndexOf('.')));
             if (tincdByName1.Length == 0)
