@@ -8,7 +8,7 @@ Launcher for [Contra](http://www.moddb.com/mods/contra) 009 Final with TincVPN s
 
 ## Compiling
 
-Solution tested with Visual Studio 2012 Express with .NET 4.0 target but VS2017 should work too.
+Solution tested with Visual Studio 2017 Community with .NET 4.0 target.
 
 # How to use
 
