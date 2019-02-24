@@ -630,6 +630,22 @@ namespace Contra
                 }
                 if (Directory.Exists(@"Data\Scripts"))
                 {
+                    int scripts = Directory.GetFiles(@"Data\Scripts").Length;
+                    if (scripts == 0)
+                    {
+                        Directory.Delete(@"Data\Scripts");
+                    }
+                }
+                if (Directory.Exists(@"Data\Scripts1"))
+                {
+                    int scripts1 = Directory.GetFiles(@"Data\Scripts1").Length;
+                    if (scripts1 == 0)
+                    {
+                        Directory.Delete(@"Data\Scripts1");
+                    }
+                }
+                if (Directory.Exists(@"Data\Scripts"))
+                {
                     Directory.Move(@"Data\Scripts", @"Data\Scripts1");
                 }
                 if (File.Exists("Install_Final.bmp") && (File.Exists("Install_Final_Contra.bmp")))
@@ -1776,7 +1792,7 @@ namespace Contra
                 //Create vpnconfig folder.
                 Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig");
 
-                int directoryCount = System.IO.Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra").Length;
+                int directoryCount = Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra").Length;
 
                 //Show message on first run.
                 if (getCurrentCulture() == "en-US")
@@ -1829,7 +1845,7 @@ namespace Contra
                 }
 
                 //Delete old Contra config folders
-                System.IO.DirectoryInfo di = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra");
+                DirectoryInfo di = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra");
 
                 foreach (DirectoryInfo dir in di.EnumerateDirectories())
                 {
