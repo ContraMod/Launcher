@@ -1023,6 +1023,26 @@ namespace Contra
                 Properties.Settings.Default.IP_Label = "ContraVPN IP: unbekannt";
             }
 
+            foreach (Form onlinePlayersForm in Application.OpenForms)
+            {
+                if (onlinePlayersForm is onlinePlayersForm)
+                {
+                    onlinePlayersForm.Close();
+
+                    if (onlinePlayersForm.WindowState == FormWindowState.Normal)
+                    {
+                        Properties.Settings.Default.playersOnlineWindowLocation = onlinePlayersForm.Location;
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.playersOnlineWindowLocation = onlinePlayersForm.RestoreBounds.Location;
+                    }
+                    Properties.Settings.Default.Save();
+
+                    this.Close();
+                }
+            }
+
             this.Close();
         }
 
@@ -2499,11 +2519,19 @@ namespace Contra
         }
 
         int i = 0;
-        private void refreshVpnIpTimer_Tick(object sender, EventArgs e) //refresh VPN IP four times
+        private void refreshVpnIpTimer_Tick(object sender, EventArgs e) //refresh VPN IP five times
         {
             vpnIP();
             i++;
+            if (i == 3)
+            {
+                refreshVpnIpTimer.Interval = 5000;
+            }
             if (i == 4)
+            {
+                refreshVpnIpTimer.Interval = 10000;
+            }
+            if (i == 5)
             {
                 refreshVpnIpTimer.Enabled = false;
             }
