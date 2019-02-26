@@ -469,23 +469,23 @@ namespace Contra
             {
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("The \"contra\vpn\" folder does not exist yet!", "Error");
+                    MessageBox.Show("The \"contra\\vpn\" folder does not exist yet!", "Error");
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Папка \"contra\vpn\" еще не существует!", "Ошибка");
+                    MessageBox.Show("Папка \"contra\\vpn\" еще не существует!", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Папка \"contra\vpn\" ще не існує!", "Помилка");
+                    MessageBox.Show("Папка \"contra\\vpn\" ще не існує!", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("\"contra\vpn\" папката още не съществува!", "Грешка");
+                    MessageBox.Show("\"contra\\vpn\" папката още не съществува!", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("Der \"contra\vpn\" Ordner existiert noch nicht!", "Fehler");
+                    MessageBox.Show("Der \"contra\\vpn\" Ordner existiert noch nicht!", "Fehler");
                 }
             }
         }
@@ -678,23 +678,23 @@ namespace Contra
                     {
                         if (Globals.GB_Checked == true)
                         {
-                            MessageBox.Show("\"contra\vpn\" directory not found.", "Error");
+                            MessageBox.Show("\"contra\\vpn\" directory not found.", "Error");
                         }
                         else if (Globals.RU_Checked == true)
                         {
-                            MessageBox.Show("Каталог \"contra\vpn\" не найден.", "Ошибка");
+                            MessageBox.Show("Каталог \"contra\\vpn\" не найден.", "Ошибка");
                         }
                         else if (Globals.UA_Checked == true)
                         {
-                            MessageBox.Show("Каталог \"contra\vpn\" не знайдено.", "Помилка");
+                            MessageBox.Show("Каталог \"contra\\vpn\" не знайдено.", "Помилка");
                         }
                         else if (Globals.BG_Checked == true)
                         {
-                            MessageBox.Show("\"contra\vpn\" директорията не беше намерена.", "Грешка");
+                            MessageBox.Show("\"contra\\vpn\" директорията не беше намерена.", "Грешка");
                         }
                         else if (Globals.DE_Checked == true)
                         {
-                            MessageBox.Show("Der \"contra\vpn\" Ordner existiert noch nicht!", "Fehler");
+                            MessageBox.Show("Der \"contra\\vpn\" Ordner existiert noch nicht!", "Fehler");
                         }
                     }
                 }
