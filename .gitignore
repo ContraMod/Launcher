@@ -28,6 +28,7 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 #[Bb]in/
+[Bb]in/[Rr]elease/[Cc]ontra
 [Oo]bj/
 [Ll]og/
 *.exe.config

@@ -3,6 +3,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Contra
 {
@@ -94,91 +96,46 @@ namespace Contra
                     onlinePlayers.StandardInput.Flush();
                     onlinePlayers.StandardInput.Close();
                     string s = onlinePlayers.StandardOutput.ReadToEnd();
-                    //                MessageBox.Show(s);
 
+                    // Match up to first whitespace then go to next line
+                    Regex pattern = new Regex(@"^\S+", RegexOptions.Multiline);
                     string s_concat = string.Empty;
-                    Regex pattern = new Regex(@"([^\s]+) id");
-
                     bool first = true;
+
                     foreach (var match in pattern.Matches(s))
                     {
                         if (first)
                         {
-                            s_concat = s_concat + "- ";
+                            s_concat = s_concat.TrimEnd('_') + "- ";
                             first = false;
                         }
                         string matchString = match.ToString();
                         if (!matchString.Contains("contravpn") && (!matchString.Contains("ctrvpntest9")))
                         {
                             s_concat += matchString;
-                            s_concat = s_concat + "\r- ";
+                            s_concat = s_concat.TrimEnd('_') + Environment.NewLine + "- ";
                         }
                     }
 
-                    s_concat = s_concat.Replace(" id", "\n");
+                    // Remove newline and dash from result string
+                    s_concat = s_concat.Remove(s_concat.Length - Environment.NewLine.Length - 2);
+                    onlinePlayersLabel.Text = s_concat;
 
-                    s_concat = s_concat.Remove(s_concat.Length - 3);
+                    // We count all newlines and add one for the first name that's online
+                    int s2 = Regex.Matches(s_concat, Environment.NewLine).Count + 1;
+                    onlinePlayers.WaitForExit();
+                    onlinePlayers.Close();
 
-                    if (Globals.GB_Checked == true)
+                    var labelLang = new Dictionary<string, bool>
                     {
-                        onlinePlayersLabel.Text = s_concat;
-                    }
-                    else if (Globals.RU_Checked == true)
-                    {
-                        onlinePlayersLabel.Text = s_concat;
-                    }
-                    else if (Globals.UA_Checked == true)
-                    {
-                        onlinePlayersLabel.Text = s_concat;
-                    }
-                    else if (Globals.BG_Checked == true)
-                    {
-                        onlinePlayersLabel.Text = s_concat;
-                    }
-                    else if (Globals.DE_Checked == true)
-                    {
-                        onlinePlayersLabel.Text = s_concat;
-                    }
-
-                    if (s.Contains("id") == true)
-                    {
-                        int s2 = Regex.Matches(s, "id").Count;
-                        if (s.Contains("ctrvpntest") == true)
-                        {
-                            s2 -= 1;
-                        }
-                        if (s.Contains("contravpn") == true)
-                        {
-                            s2 -= 1;
-                        }
-                        onlinePlayers.WaitForExit();
-                        onlinePlayers.Close();
-                        if (Globals.GB_Checked == true)
-                        {
-                            Globals.playersOnlineLabel = "Players online: " + s2.ToString();
-                            playersOnlineLabel.Text = Globals.playersOnlineLabel;
-                        }
-                        else if (Globals.RU_Checked == true)
-                        {
-                            Globals.playersOnlineLabel = "Игроки онлайн: " + s2.ToString();
-                            playersOnlineLabel.Text = Globals.playersOnlineLabel;
-                        }
-                        else if (Globals.UA_Checked == true)
-                        {
-                            Globals.playersOnlineLabel = "Гравці в мережі: " + s2.ToString();
-                            playersOnlineLabel.Text = Globals.playersOnlineLabel;
-                        }
-                        else if (Globals.BG_Checked == true)
-                        {
-                            Globals.playersOnlineLabel = "Играчи на линия: " + s2.ToString();
-                            playersOnlineLabel.Text = Globals.playersOnlineLabel;
-                        }
-                        else if (Globals.DE_Checked == true)
-                        {
-                            Globals.playersOnlineLabel = "Spieler online: " + s2.ToString();
-                            playersOnlineLabel.Text = Globals.playersOnlineLabel;
-                        }
-                    }
+                        {$"Players online: {s2}",   Globals.GB_Checked},
+                        {$"Игроки онлайн: {s2}",    Globals.RU_Checked},
+                        {$"Гравці в мережі: {s2}",  Globals.UA_Checked},
+                        {$"Играчи на линия: {s2}",  Globals.BG_Checked},
+                        {$"Spieler online: {s2}",   Globals.DE_Checked},
+                    };
+                    Globals.playersOnlineLabel = labelLang.Single(l => l.Value).Key;
+                    playersOnlineLabel.Text = Globals.playersOnlineLabel;
                 }
             }
             catch { }
