@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.ComponentModel;
 using System.Drawing;
@@ -1228,46 +1229,53 @@ namespace Contra
             }
         }
 
-        public static void addFirewallExceptions()
+        public static void setFirewallExcemption(string exePath)
         {
-            List<KeyValuePair<string, string>> exes = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string>("game.dat", "udp"),
-                new KeyValuePair<string, string>("generals.exe", "tcp"),
-                new KeyValuePair<string, string>("generals.exe", "udp"),
-                new KeyValuePair<string, string>("Contra_Launcher.exe", "tcp"),
-                new KeyValuePair<string, string>(@"contra\vpn\" + Globals.userOS + @"\tinc.exe", "tcp"),
-                new KeyValuePair<string, string>(@"contra\vpn\" + Globals.userOS + @"\tinc.exe", "udp"),
-                new KeyValuePair<string, string>(@"contra\vpn\" + Globals.userOS + @"\tincd.exe", "tcp"),
-                new KeyValuePair<string, string>(@"contra\vpn\" + Globals.userOS + @"\tincd.exe", "udp")
-            };
-            Process netsh = new Process();
-            netsh.StartInfo.FileName = "netsh.exe";
-            netsh.StartInfo.UseShellExecute = false;
-            netsh.StartInfo.RedirectStandardInput = true;
-            netsh.StartInfo.RedirectStandardOutput = true;
-            netsh.StartInfo.RedirectStandardError = true;
-            netsh.StartInfo.CreateNoWindow = true;
-            foreach (KeyValuePair<string, string> exe in exes)
-            {
-                string ExeWithoutExtension = exe.Key;
-                string Protocol = exe.Value;
-                int index = exe.Key.LastIndexOf(".");
-                if (index > 0)
-                {
-                    ExeWithoutExtension = exe.Key.Substring(0, index);
-                }
+            // Full path in rule name is ugly, let's only show filename instead
+            string ExeWithoutPath = exePath;
+            int idx = exePath.LastIndexOf(@"\");
+            if (idx != -1) ExeWithoutPath = exePath.Substring(idx + 1);
 
-                netsh.StartInfo.Arguments = "advfirewall firewall show rule name=" + "\"Contra - " + ExeWithoutExtension + "\"";
+            // Check if rule with same name exists
+            var netsh = new Process();
+            netsh.StartInfo.FileName = "netsh.exe";
+            netsh.StartInfo.CreateNoWindow = true;
+            netsh.StartInfo.UseShellExecute = false;
+            netsh.StartInfo.Arguments = $"advfirewall firewall show rule name=\"Contra - \"{ExeWithoutPath}\"";
+            netsh.Start();
+            netsh.WaitForExit();
+
+            // Add new firewall excemption rule if missing
+            if (netsh.ExitCode != 0)
+            {
+                netsh.StartInfo.Arguments = $"advfirewall firewall add rule name=\"Contra - {ExeWithoutPath}\" dir=in action=allow program=\"{Environment.CurrentDirectory}\\{exePath}\" protocol=tcp enable=yes";
                 netsh.Start();
+
+                Process netsh2 = new Process();
+                netsh2.StartInfo = netsh.StartInfo;
+                netsh2.StartInfo.Arguments = $"advfirewall firewall add rule name=\"Contra - {ExeWithoutPath}\" dir=in action=allow program=\"{Environment.CurrentDirectory}\\{exePath}\" protocol=udp enable=yes";
+                netsh2.Start();
+
                 netsh.WaitForExit();
-                if (netsh.ExitCode != 0)
-                {
-                    netsh.StartInfo.Arguments = "advfirewall firewall add rule name=" + "\"Contra - " + ExeWithoutExtension + "\"" + " dir=in action=allow program=" + "\"" + Environment.CurrentDirectory + @"\" + exe.Key + "\"" + " protocol=" + Protocol + " enable=yes";
-                    netsh.Start();
-                    netsh.WaitForExit();
-                }
+                netsh2.WaitForExit();
             }
+        }
+
+        public static void checkFirewallExceptions()
+        {
+            // All executables which need listening ports open
+            ReadOnlyCollection<string> exes = Array.AsReadOnly(new[] {
+                "game.dat",
+                "generals.exe",
+                "contra\\vpn\\" + Globals.userOS + "\\tinc.exe",
+                "contra\\vpn\\" + Globals.userOS + "\\tinc.exe",
+                "contra\\vpn\\" + Globals.userOS + "\\tincd.exe",
+                "contra\\vpn\\" + Globals.userOS + "\\tincd.exe",
+            });
+
+            // Check if all files exist first before attempting to add any rules
+            bool allFilesExist = exes.All(file => File.Exists(Environment.CurrentDirectory + @"\" + file));
+            if (allFilesExist) foreach (string exe in exes) setFirewallExcemption(exe);
         }
 
         public void StartVPN()
@@ -1921,7 +1929,7 @@ namespace Contra
                 }
 
                 //Add Firewall exceptions.
-                addFirewallExceptions();
+                checkFirewallExceptions();
 
                 Properties.Settings.Default.FirstRun = false;
                 Properties.Settings.Default.Save();
@@ -2720,6 +2728,7 @@ namespace Contra
                 return;
             }
 
+            checkFirewallExceptions();
             string tincd1 = "tincd.exe";
             Process[] tincdByName1 = Process.GetProcessesByName(tincd1.Substring(0, tincd1.LastIndexOf('.')));
             if (tincdByName1.Length == 0)
