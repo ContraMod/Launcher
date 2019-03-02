@@ -1814,17 +1814,17 @@ namespace Contra
 
             if (Properties.Settings.Default.FirstRun)
             {
-                //If there are older Contra config folders, this means Contra Launcher has been
-                //ran before on this PC, so in this case, we skip first run welcome message.
 
                 //Create vpnconfig folder.
                 Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig");
 
+                //If there are older Contra config folders, this means Contra Launcher has been
+                //ran before on this PC, so in this case, we skip first run welcome message.
+                int directoryCount = Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra").Length;
+
                 //Zero Hour has a 'DeleteFile("Data\INI\INIZH.big");' line in GameEngine::init with no condition whatsoever (will always try to delete it if exists)
                 //an identical copy of this file exists in root ZH folder so we can safely delete it before ZH runs to prevent unwanted crashes
                 File.Delete(@"Data\INI\INIZH.big");
-
-                int directoryCount = Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra").Length;
 
                 //Show message on first run.
                 if (getCurrentCulture() == "en-US")
