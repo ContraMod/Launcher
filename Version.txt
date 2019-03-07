@@ -2,5 +2,5 @@ Version: 1.0.0.3#
 MOTD-EN: Official 2v2 Tournament starting soon! See Discord for details.#
 MOTD-RU: Официальный турнир 2х2 скоро начнется! Смотрите Discord для деталей.#
 MOTD-UA: Офіційний турнір 2v2 починається незабаром! Дивіться Discord для деталей.#
-MOTD-BG: Официален турнир 2v2 започва скоро! Вижте Discord за подробности.#
+MOTD-BG: Официален турнир 2v2 започва скоро! Вижте Discord за повече подробности.#
 MOTD-DE: Offizielles 2v2 Turnier startet bald! Weitere Informationen finden Sie im Discord.#
