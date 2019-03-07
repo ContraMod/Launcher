@@ -1,6 +1,6 @@
 Version: 1.0.0.3#
-MOTD-BG: Добре дошли във версия 009 Final! Ще се видим онлайн в ContraVPN (настройте го сега)!#
-MOTD-EN: Welcome! We hope you enjoy 009 Final! See you online via ContraVPN, let's see how many we are!#
-MOTD-RU: Добро пожаловать! Надеемся, вам понравится 009 Final! Увидимся онлайн через ContraVPN!#
-MOTD-UA: Ласкаво просимо! Ми сподіваємося, вам сподобається 009 Final! Побачимось онлайн через ContraVPN!#
-MOTD-DE: Willkommen! Wir hoffen dass 009 Final dir gefällt. Wir sehen uns online via ContraVPN.#
+MOTD-EN: Official 2v2 Tournament starting soon! See Discord for details.#
+MOTD-RU: Официальный турнир 2х2 скоро начнется! Смотрите Discord для деталей.#
+MOTD-UA: Офіційний турнір 2v2 починається незабаром! Дивіться Discord для деталей.#
+MOTD-BG: Официален турнир 2v2 започва скоро! Вижте Discord за подробности.#
+MOTD-DE: Offizielles 2v2 Turnier startet bald! Weitere Informationen finden Sie im Discord.#
