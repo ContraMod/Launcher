@@ -6,6 +6,8 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Contra
 {
@@ -130,6 +132,7 @@ namespace Contra
         }
 
         string vpnconfig = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn";
+        string vpnbinloc = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS;
 
         bool discordVisited = false;
 
@@ -186,7 +189,7 @@ namespace Contra
                         return regKey.GetValue("InstallLocation").ToString();
                     }
                 }
-                catch { }
+                catch (Exception ex) { Console.Error.WriteLine(ex); }
             }
             return "";
         }
@@ -400,36 +403,23 @@ namespace Contra
         {
             Process tinc = new Process();
             tinc.StartInfo.Arguments = "--config=\"" + vpnconfig + "\" --pidfile=\"" + vpnconfig + "\\tinc.pid\"";
-            tinc.StartInfo.FileName = Globals.userOS + @"\tinc.exe";
+            tinc.StartInfo.FileName = vpnbinloc + @"\tinc.exe";
             tinc.StartInfo.WorkingDirectory = Environment.CurrentDirectory + @"\contra\vpn";
-            if (Directory.Exists(Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS)  && (File.Exists(vpnconfig + "\\tinc.conf")))
+
+            if (!File.Exists(vpnconfig + @"\tinc.conf"))
             {
-                tinc.Start();
+                var confnotexist_lang = new Dictionary<string, bool>
+                    {
+                        {"The \"tinc.conf\" file does not exist yet. Most commands will not execute.", Globals.GB_Checked},
+                        {"Файл \"tinc.conf\" еще не существует. Большинство команд не будут выполняться.", Globals.RU_Checked},
+                        {"Файл \"tinc.conf\" ще не існує. Більшість команд не виконуватимуться.", Globals.UA_Checked},
+                        {"Файлът \"tinc.conf\" още не съществува. Повечето команди няма да се изпълнят.", Globals.BG_Checked},
+                        {"\"tinc.conf\" existiert noch nicht. Die meisten Befehle kцnnen nicht ausgefьhrt werden..", Globals.DE_Checked},
+                    };
+                MessageBox.Show(confnotexist_lang.Single(l => l.Value).Key);
             }
-            else
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("The \"tinc.conf\" file does not exist yet. Most commands will not execute.");
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Файл \"tinc.conf\" еще не существует. Большинство команд не будут выполняться.");
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Файл \"tinc.conf\" ще не існує. Більшість команд не виконуватимуться.");
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("Файлът \"tinc.conf\" още не съществува. Повечето команди няма да се изпълнят.");
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("\"tinc.conf\" existiert noch nicht. Die meisten Befehle kцnnen nicht ausgefьhrt werden..");
-                }
-                tinc.Start();
-            }
+
+            if (File.Exists(vpnbinloc + @"\tinc.exe") && File.Exists(vpnbinloc + @"\tincd.exe")) tinc.Start();
         }
 
         public void OpenDebugLog()
@@ -588,14 +578,14 @@ namespace Contra
                 //if (invkeytextBox.Text.StartsWith("contra.nsupdate.info"))
                 if (Regex.IsMatch(invkeytextBox.Text, @"^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])(:(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(/)|/)(.*)$"))
                 {
-                    tinc.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tinc.exe";
+                    tinc.StartInfo.FileName = vpnbinloc + @"\tinc.exe";
                     tinc.StartInfo.UseShellExecute = false;
                     tinc.StartInfo.RedirectStandardOutput = true;
                     tinc.StartInfo.RedirectStandardError = true;
                     tinc.StartInfo.CreateNoWindow = true;
                     tinc.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"contra\vpn\");
 
-                    if (File.Exists(@"contra\vpn\" + Globals.userOS + @"\tinc.exe"))
+                    if (File.Exists(vpnbinloc + @"\tinc.exe"))
                     {
                         KillTincTimer.Enabled = true; //kill tinc after 10 sec in case it stops responding
                         tinc.Start();
@@ -783,40 +773,33 @@ namespace Contra
 
             Process tinc = new Process();
             tinc.StartInfo.Arguments = "--config=\"" + vpnconfig + "\"";
-            tinc.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tinc.exe";
+            tinc.StartInfo.FileName = vpnbinloc + @"\tinc.exe";
             tinc.StartInfo.UseShellExecute = false;
             tinc.StartInfo.RedirectStandardInput = true;
             tinc.StartInfo.RedirectStandardOutput = true;
             tinc.StartInfo.CreateNoWindow = true;
-            tinc.Start();
-            tinc.StandardInput.WriteLine("set ListenAddress * " + portTextBox.Text);
-            tinc.StandardInput.Flush();
-            tinc.StandardInput.Close();
-            tinc.WaitForExit();
-            tinc.Close();
+            try
+            {
+                tinc.Start();
+                tinc.StandardInput.WriteLine("set ListenAddress * " + portTextBox.Text);
+                tinc.StandardInput.Flush();
+                tinc.StandardInput.Close();
+                tinc.WaitForExit();
 
-            if (Globals.GB_Checked == true)
-            {
-                MessageBox.Show("Listening port changed!");
+                var portchanged_lang = new Dictionary<string, bool>
+                    {
+                        {"Listening port changed!", Globals.GB_Checked},
+                        {"Порт изменен!", Globals.RU_Checked},
+                        {"Порт змінений!", Globals.UA_Checked},
+                        {"Портът е успешно променен!", Globals.BG_Checked},
+                        {"Port geдndert!", Globals.DE_Checked},
+                    };
+                MessageBox.Show(portchanged_lang.Single(l => l.Value).Key);
+                Properties.Settings.Default.PortNumber = portTextBox.Text;
+                Properties.Settings.Default.Save();
+            } catch (System.ComponentModel.Win32Exception ex) {
+                MessageBox.Show(ex.Message, "tinc.exe", MessageBoxButtons.OK ,MessageBoxIcon.Error);
             }
-            else if (Globals.RU_Checked == true)
-            {
-                MessageBox.Show("Порт изменен!");
-            }
-            else if (Globals.UA_Checked == true)
-            {
-                MessageBox.Show("Порт змінений!");
-            }
-            else if (Globals.BG_Checked == true)
-            {
-                MessageBox.Show("Портът е успешно променен!");
-            }
-            else if (Globals.DE_Checked == true)
-            {
-                MessageBox.Show("Port geдndert!");
-            }
-            Properties.Settings.Default.PortNumber = portTextBox.Text;
-            Properties.Settings.Default.Save();
         }
 
         private void VPNForm_Load(object sender, EventArgs e)

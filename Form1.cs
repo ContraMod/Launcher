@@ -158,7 +158,7 @@ namespace Contra
                     DownloadUpdate(exe_url);
                 }
             }
-            catch { }
+            catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
         public void DownloadUpdate(string exe_url)
@@ -175,7 +175,7 @@ namespace Contra
 
                 //  while (wc.IsBusy) { }
             }
-            catch { }
+            catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
         bool applyNewLauncher = false;
@@ -662,7 +662,7 @@ namespace Contra
                         File.Copy("Install_Final.bmp", "Install_Final_ZH.bmp", true);
                         File.Copy("Install_Final_Contra.bmp", "Install_Final.bmp", true);
                     }
-                    catch { }
+                    catch (Exception ex) { Console.Error.WriteLine(ex); }
                 }
                 if (WinCheckBox.Checked && QSCheckBox.Checked)
                 {
@@ -1779,7 +1779,7 @@ namespace Contra
                     SetMOTD(motd_lang.Single(l => l.Value).Key);
                 }
             }
-            catch { }
+            catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
         private void Form1_Shown(object sender, EventArgs e)
@@ -2047,7 +2047,7 @@ namespace Contra
                     demoThread.Start();
                 }
             }
-            catch { }
+            catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
         private void RadioFlag_RU_CheckedChanged(object sender, EventArgs e)
@@ -2121,7 +2121,7 @@ namespace Contra
                     demoThread.Start();
                 }
             }
-            catch { }
+            catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
         private void RadioFlag_UA_CheckedChanged(object sender, EventArgs e)
@@ -2195,7 +2195,7 @@ namespace Contra
                     demoThread.Start();
                 }
             }
-            catch { }
+            catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
         private void RadioFlag_BG_CheckedChanged(object sender, EventArgs e)
@@ -2269,7 +2269,7 @@ namespace Contra
                     demoThread.Start();
                 }
             }
-            catch { }
+            catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
         private void RadioFlag_DE_CheckedChanged(object sender, EventArgs e)
@@ -2345,7 +2345,7 @@ namespace Contra
                     demoThread.Start();
                 }
             }
-            catch { }
+            catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
         private void Resolution_Click(object sender, EventArgs e)
@@ -2721,7 +2721,7 @@ namespace Contra
                     UserOnWine = true;
                 }
             }
-            catch { }
+            catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
         private void vpn_start_Click(object sender, EventArgs e)
@@ -2918,102 +2918,57 @@ namespace Contra
             netsh.StartInfo.RedirectStandardError = true;
             netsh.StartInfo.CreateNoWindow = true;
             netsh.StartInfo.Arguments = "interface ip show addresses ContraVPN";
-            netsh.Start();
-            string s = netsh.StandardOutput.ReadToEnd();
-            if (s.Contains("10.10.10.") == true)
+            try
             {
-                //MessageBox.Show(s);
+                netsh.Start();
                 netsh.WaitForExit();
-                netsh.Close();
-                try
+                // Match vpn DHCP pool range 10.10.10.[11-254]
+                string ip = Regex.Match(netsh.StandardOutput.ReadToEnd(), "10.10.10.(1[1-9]|[2-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4])?\r?\n").Value.Trim();
+
+                if (!string.IsNullOrWhiteSpace(ip))
                 {
-                    if (File.Exists(userDataLeafName() + "Options.ini") || (File.Exists(myDocPath + "Options.ini")))
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: " + ip;
+                    void writeIPAddress(string path)
                     {
-                        List<string> found = new List<string>();
-                        string line;
-                        using (StringReader file = new StringReader(s))
-                        {
-                            while ((line = file.ReadLine()) != null)
-                            {
-                                if (line.Contains("IP Address:") && (line.Contains("10.10.10.")))
-                                {
-                                    found.Add(line);
-                                    s = line;
-                                    s = s.Substring(s.IndexOf(':') + 1);
-                                    s = s.Trim();
-                                    Properties.Settings.Default.IP_Label = "ContraVPN IP: " + s;
-                                    //MessageBox.Show(s); //shows tincIP
-                                }
-                            }
-                        }
+                        File.WriteAllText(path, Regex.Replace(File.ReadAllText(path), "^IPAddress.*\\S+", $"IPAddress = {ip}", RegexOptions.Multiline));
                     }
-                    if (Directory.Exists(userDataLeafName()))
+                    if (File.Exists(userDataLeafName() + "Options.ini"))
                     {
-                        string text = File.ReadAllText(userDataLeafName() + "Options.ini");
-                        if (!text.Contains("10.10.10."))
-                        {
-                            File.WriteAllText(userDataLeafName() + "Options.ini", Regex.Replace(File.ReadAllText(userDataLeafName() + "Options.ini"), "\r?\nIPAddress =.*", "\r\nIPAddress =" + s + "\r\n"));
-                        }
+                        writeIPAddress(userDataLeafName() + "Options.ini");
                     }
-                    else if (Directory.Exists(myDocPath))
+                    else if (File.Exists(myDocPath + "Options.ini"))
                     {
-                        string text = File.ReadAllText(myDocPath + "Options.ini");
-                        if (!text.Contains("10.10.10."))
+                        writeIPAddress(myDocPath + "Options.ini");
+                    }
+                    else
+                    {
+                        var cannotsaveip_lang = new Dictionary<string, bool>
                         {
-                            File.WriteAllText(myDocPath + "Options.ini", Regex.Replace(File.ReadAllText(myDocPath + "Options.ini"), "\r?\nIPAddress =.*", "\r\nIPAddress =" + s + "\r\n"));
-                        }
+                            {"Options.ini not found!\nCannot write IPAddress.", Globals.GB_Checked},
+                            {"Файл Options.ini не найден!\nНевозможно записать IPAddress.", Globals.RU_Checked},
+                            {"Файл Options.ini не знайдений!\nНеможливо написати IPAddress.", Globals.UA_Checked},
+                            {"Options.ini не беше намерен!\nНе може запише IPAddress.", Globals.BG_Checked},
+                            {"Options.ini nicht gefunden!\nIPAddress kann nicht geschrieben werden.", Globals.DE_Checked},
+                        };
+                        //Too spammy
+                        //MessageBox.Show(cannotsaveip_lang.Single(l => l.Value).Key, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Console.Error.WriteLine(cannotsaveip_lang.Single(l => l.Value).Key);
                     }
                 }
-                catch
+                else
                 {
-                    if (!File.Exists(userDataLeafName() + "Options.ini") || (!File.Exists(myDocPath + "Options.ini")))
+                    var iplabel_lang = new Dictionary<string, bool>
                     {
-                        if (Globals.GB_Checked == true)
-                        {
-                            MessageBox.Show("Options.ini not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else if (Globals.RU_Checked == true)
-                        {
-                            MessageBox.Show("Файл \"Options.ini\" не найден!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else if (Globals.UA_Checked == true)
-                        {
-                            MessageBox.Show("Файл Options.ini не знайдений!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else if (Globals.BG_Checked == true)
-                        {
-                            MessageBox.Show("Options.ini не беше намерен!", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else if (Globals.DE_Checked == true)
-                        {
-                            MessageBox.Show("Options.ini nicht gefunden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
+                        {"Not compatible", Globals.GB_Checked},
+                        {"несовместимый", Globals.RU_Checked},
+                        {"несумісні", Globals.UA_Checked},
+                        {"несъвместим", Globals.BG_Checked},
+                        {"Nicht Kompatibel", Globals.DE_Checked},
+                    };
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: " + iplabel_lang.Single(l => l.Value).Key;
                 }
             }
-            else
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: unknown";
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестно";
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: невідомо";
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестен";
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: unbekannt";
-                }
-            }
+            catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
         private void whoIsOnline_Click(object sender, EventArgs e)

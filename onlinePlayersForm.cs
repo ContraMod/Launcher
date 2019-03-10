@@ -138,7 +138,7 @@ namespace Contra
                     playersOnlineLabel.Text = Globals.playersOnlineLabel;
                 }
             }
-            catch { }
+            catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
         private void onlinePlayersForm_Load(object sender, EventArgs e)
