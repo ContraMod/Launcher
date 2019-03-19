@@ -1,6 +1,6 @@
 Version: 1.0.0.3#
-MOTD-EN: 2v2 Tournament started! Round 1 ends Sunday 17th March.#
-MOTD-RU: 2v2 турнир начался! Раунд 1 заканчивается воскресенье 17-го марта.#
-MOTD-UA: 2v2 турнір розпочався! Раунд 1 закінчується неділю 17-го березня.#
-MOTD-BG: 2v2 турнир започна! Кръг 1 приключва в неделя 17 март.#
-MOTD-DE: 2v2 Turnier hat begonnen! Runde 1 endet am Sonntag 17. März.#
+MOTD-EN: 2v2 Tournament started! Round 2 ends Sunday 24th March.#
+MOTD-RU: 2v2 турнир начался! Раунд 2 заканчивается воскресенье 24-го марта.#
+MOTD-UA: 2v2 турнір розпочався! Раунд 2 закінчується неділю 24-го березня.#
+MOTD-BG: 2v2 турнир започна! Кръг 2 приключва в неделя 24 март.#
+MOTD-DE: 2v2 Turnier hat begonnen! Runde 2 endet am Sonntag 24. März.#
