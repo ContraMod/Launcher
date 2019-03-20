@@ -584,42 +584,42 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Camera height changed!");
+                    MessageBox.Show("Высота камеры изменена!");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Camera height changed!");
+                    MessageBox.Show("Висота камери змінилася!");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("Camera height changed!");
+                    MessageBox.Show("Височината на камерата е променена!");
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("Camera height changed!");
+                    MessageBox.Show("Kamerahöhe geändert!");
                 }
             }
             else
             {
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("!!!GameData.big not found!");
+                    MessageBox.Show("\"!!!GameData.big\" file not found!");
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("!!!GameData.big not found!");
+                    MessageBox.Show("Файл \"!!!GameData.big\" не найден!");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("!!!GameData.big not found!");
+                    MessageBox.Show("Файл \"!!!GameData.big\" не знайдений!");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("!!!GameData.big not found!");
+                    MessageBox.Show("Файлът \"!!!GameData.big\" не беше намерен!");
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("!!!GameData.big not found!");
+                    MessageBox.Show("\"!!!GameData.big\" nicht gefunden!");
                 }
             }
         }
@@ -641,7 +641,7 @@ namespace Contra
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        var result = MessageBox.Show("Gentool versions above 6.2 do not allow custom camera height for mods in LAN lobby.\n\nDo you still want to set camera height?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        var result = MessageBox.Show("Версии Gentool выше 6.2 не позволяют настраивать высоту камеры для модов в лобби локальной сети.\n\nВы все еще хотите установить высоту камеры?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (result == DialogResult.Yes)
                         {
                             changeCamHeight();
@@ -649,7 +649,7 @@ namespace Contra
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        var result = MessageBox.Show("Gentool versions above 6.2 do not allow custom camera height for mods in LAN lobby.\n\nDo you still want to set camera height?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        var result = MessageBox.Show("Версії Gentool вище 6.2 не дозволяють налаштувати висоту камер для модів у лобі LAN.\n\nВи все ще бажаєте встановити висоту камери?", "Застереження", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (result == DialogResult.Yes)
                         {
                             changeCamHeight();
@@ -657,7 +657,7 @@ namespace Contra
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        var result = MessageBox.Show("Gentool versions above 6.2 do not allow custom camera height for mods in LAN lobby.\n\nDo you still want to set camera height?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        var result = MessageBox.Show("Gentool версиите над 6.2 не позволяват персонализирана височина на камерата за модове в LAN лобито.\n\nВсе още ли искате да я промените?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (result == DialogResult.Yes)
                         {
                             changeCamHeight();
@@ -665,7 +665,7 @@ namespace Contra
                     }
                     else if (Globals.DE_Checked == true)
                     {
-                        var result = MessageBox.Show("Gentool versions above 6.2 do not allow custom camera height for mods in LAN lobby.\n\nDo you still want to set camera height?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        var result = MessageBox.Show("Gentool-Versionen über 6.2 erlauben keine benutzerdefinierte Kamerahöhe für Mods in der LAN-Lobby.\n\nMöchten Sie die Kamerahöhe noch einstellen?", "Warnung", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (result == DialogResult.Yes)
                         {
                             changeCamHeight();
