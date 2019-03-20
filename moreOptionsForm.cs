@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
+using System.Text;
 
 namespace Contra
 {
@@ -30,21 +31,23 @@ namespace Contra
             {
                 toolTip3.SetToolTip(FogCheckBox, "Эффекты переключения тумана (глубина поля) вкл\\выкл.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Отключение языкового фильтра покажет плохие слова, написанные игроками в чате.");
-                toolTip3.SetToolTip(HeatEffectsCheckBox, "Тепловые эффекты - это стандартные графические эффекты от Zero Hour. Выключите это, если ваш экран случайно становится черным во время игры.");
+                toolTip3.SetToolTip(HeatEffectsCheckBox, "Тепловые эффекты - это стандартные графические эффекты от Zero Hour.\nВыключите это, если ваш экран случайно становится черным во время игры.");
                 labelResolution.Text = "Разрешение экрана:";
                 FogCheckBox.Text = "Эффект тумана";
                 LangFilterCheckBox.Text = "Языковый фильтр";
                 HeatEffectsCheckBox.Text = "Тепловые эффекты";
+                camHeightLabel.Text = "Высота камеры: ?";
             }
             else if (Globals.UA_Checked == true)
             {
                 toolTip3.SetToolTip(FogCheckBox, "Ефекти перемикання туману (глибина поля) вкл\\викл.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Вимкнення мовного фільтра покаже погані слова, написані гравцями в чаті.");
-                toolTip3.SetToolTip(HeatEffectsCheckBox, "Теплові ефекти є стандартними графічними ефектами від нульового часу. Вимкніть цю функцію, якщо екран у випадковому режимі стане чорним під час відтворення.");
+                toolTip3.SetToolTip(HeatEffectsCheckBox, "Теплові ефекти є стандартними графічними ефектами від нульового часу.\nВимкніть цю функцію, якщо екран у випадковому режимі стане чорним під час відтворення.");
                 labelResolution.Text = "Роздільна здатність:";
                 FogCheckBox.Text = "Ефект туману";
                 LangFilterCheckBox.Text = "Мовний фільтр";
                 HeatEffectsCheckBox.Text = "Теплові ефекти";
+                camHeightLabel.Text = "Висота камери: ?";
             }
             else if (Globals.BG_Checked == true)
             {
@@ -55,16 +58,18 @@ namespace Contra
                 FogCheckBox.Text = "Мъглявинен ефект";
                 LangFilterCheckBox.Text = "Езиков филтър";
                 HeatEffectsCheckBox.Text = "Топлинни ефекти";
+                camHeightLabel.Text = "Височина на камерата: ?";
             }
             else if (Globals.DE_Checked == true)
             {
                 toolTip3.SetToolTip(FogCheckBox, "Schalte Nebel (Tiefenschдrfe) Effekte An/Aus.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Das ausschalten vom Sprache Filter zeigt bцse Wцrter von anderen Spielern im Chat an.");
-                toolTip3.SetToolTip(HeatEffectsCheckBox, "Wärmeeffekte sind standardmäßige grafische Effekte von Zero Hour. Deaktivieren Sie diese Option, wenn der Bildschirm während des Spiels zufällig schwarz wird.");
+                toolTip3.SetToolTip(HeatEffectsCheckBox, "Wärmeeffekte sind standardmäßige grafische Effekte von Zero Hour.\nDeaktivieren Sie diese Option, wenn der Bildschirm während des Spiels zufällig schwarz wird.");
                 labelResolution.Text = "Auflцsung:";
                 FogCheckBox.Text = "Nebel Effekte";
                 LangFilterCheckBox.Text = "Sprache Filter";
                 HeatEffectsCheckBox.Text = "Wärmeeffekte";
+                camHeightLabel.Text = "Kamerahöhe: ?";
             }
 
             //Read from Options.ini and check/uncheck Heat Effects checkbox depending on value there:
@@ -547,6 +552,151 @@ namespace Contra
                         }
                     }
                 }
+            }
+        }
+
+        private void changeCamHeight()
+        {
+            if (File.Exists("!!!GameData.big")) //(File.Exists("!!!GameData.ctr"))
+            {
+                //File.Move("!!!GameData.ctr", "!!!GameData.big");
+                Encoding encoding = Encoding.GetEncoding("windows-1252");
+                var regex = Regex.Replace(File.ReadAllText("!!!GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + camTrackBar.Value + ".0" + " ;350.0\r\n");
+                string read = File.ReadAllText("!!!GameData.big", encoding);
+                File.WriteAllText("!!!GameData.big", regex, encoding);
+
+                if (camTrackBar.Value > 500)
+                {
+                    var regex2 = Regex.Replace(File.ReadAllText("!!!GameData.big"), "  DrawEntireTerrain = No\r?\n", "  DrawEntireTerrain = Yes\r\n");
+                    string read2 = File.ReadAllText("!!!GameData.big", encoding);
+                    File.WriteAllText("!!!GameData.big", regex2, encoding);
+                }
+                else
+                {
+                    var regex2 = Regex.Replace(File.ReadAllText("!!!GameData.big"), "  DrawEntireTerrain = Yes\r?\n", "  DrawEntireTerrain = No\r\n");
+                    string read2 = File.ReadAllText("!!!GameData.big", encoding);
+                    File.WriteAllText("!!!GameData.big", regex2, encoding);
+                }
+
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("Camera height changed!");
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Camera height changed!");
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Camera height changed!");
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Camera height changed!");
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Camera height changed!");
+                }
+            }
+            else
+            {
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("!!!GameData.big not found!");
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("!!!GameData.big not found!");
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("!!!GameData.big not found!");
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("!!!GameData.big not found!");
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("!!!GameData.big not found!");
+                }
+            }
+        }
+
+        private void camOkButton_Click(object sender, EventArgs e)
+        {
+            if (File.Exists("d3d8.cfg"))
+            {
+                string cfgText = File.ReadAllText("d3d8.cfg");
+                if (!cfgText.Contains("5.8")) //if user isn't on ver 6.2
+                {
+                    if (Globals.GB_Checked == true)
+                    {
+                        var result = MessageBox.Show("Gentool versions above 6.2 do not allow custom camera height for mods in LAN lobby.\n\nDo you still want to set camera height?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (result == DialogResult.Yes)
+                        {
+                            changeCamHeight();
+                        }
+                    }
+                    else if (Globals.RU_Checked == true)
+                    {
+                        var result = MessageBox.Show("Gentool versions above 6.2 do not allow custom camera height for mods in LAN lobby.\n\nDo you still want to set camera height?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (result == DialogResult.Yes)
+                        {
+                            changeCamHeight();
+                        }
+                    }
+                    else if (Globals.UA_Checked == true)
+                    {
+                        var result = MessageBox.Show("Gentool versions above 6.2 do not allow custom camera height for mods in LAN lobby.\n\nDo you still want to set camera height?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (result == DialogResult.Yes)
+                        {
+                            changeCamHeight();
+                        }
+                    }
+                    else if (Globals.BG_Checked == true)
+                    {
+                        var result = MessageBox.Show("Gentool versions above 6.2 do not allow custom camera height for mods in LAN lobby.\n\nDo you still want to set camera height?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (result == DialogResult.Yes)
+                        {
+                            changeCamHeight();
+                        }
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        var result = MessageBox.Show("Gentool versions above 6.2 do not allow custom camera height for mods in LAN lobby.\n\nDo you still want to set camera height?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (result == DialogResult.Yes)
+                        {
+                            changeCamHeight();
+                        }
+                    }
+                }
+            }
+            else changeCamHeight();
+        }
+
+        private void camTrackBar_Scroll(object sender, EventArgs e)
+        {
+            if (Globals.GB_Checked == true)
+            {
+                camHeightLabel.Text = "Camera Height: " + camTrackBar.Value.ToString() + ".0";
+            }
+            else if (Globals.RU_Checked == true)
+            {
+                camHeightLabel.Text = "Высота камеры: " + camTrackBar.Value.ToString() + ".0";
+            }
+            else if (Globals.UA_Checked == true)
+            {
+                camHeightLabel.Text = "Висота камери: " + camTrackBar.Value.ToString() + ".0";
+            }
+            else if (Globals.BG_Checked == true)
+            {
+                camHeightLabel.Text = "Височина на камерата: " + camTrackBar.Value.ToString() + ".0";
+            }
+            else if (Globals.DE_Checked == true)
+            {
+                camHeightLabel.Text = "Kamerahöhe: " + camTrackBar.Value.ToString() + ".0";
             }
         }
     }

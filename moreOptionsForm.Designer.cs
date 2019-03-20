@@ -39,6 +39,9 @@ namespace Contra
             this.resOkButton = new System.Windows.Forms.Button();
             this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
             this.HeatEffectsCheckBox = new System.Windows.Forms.CheckBox();
+            this.camOkButton = new System.Windows.Forms.Button();
+            this.camTrackBar = new Contra.TrackBar();
+            this.camHeightLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button17
@@ -145,12 +148,44 @@ namespace Contra
             this.HeatEffectsCheckBox.UseVisualStyleBackColor = false;
             this.HeatEffectsCheckBox.CheckedChanged += new System.EventHandler(this.HeatEffectsCheckBox_CheckedChanged);
             // 
+            // camOkButton
+            // 
+            this.camOkButton.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.camOkButton, "camOkButton");
+            this.camOkButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.camOkButton.FlatAppearance.BorderSize = 0;
+            this.camOkButton.ForeColor = System.Drawing.Color.White;
+            this.camOkButton.Name = "camOkButton";
+            this.camOkButton.UseVisualStyleBackColor = false;
+            this.camOkButton.Click += new System.EventHandler(this.camOkButton_Click);
+            // 
+            // camTrackBar
+            // 
+            this.camTrackBar.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.camTrackBar, "camTrackBar");
+            this.camTrackBar.Maximum = 1000;
+            this.camTrackBar.Minimum = 392;
+            this.camTrackBar.Name = "camTrackBar";
+            this.camTrackBar.TabStop = true;
+            this.camTrackBar.Value = 392;
+            this.camTrackBar.Scroll += new System.EventHandler(this.camTrackBar_Scroll);
+            // 
+            // camHeightLabel
+            // 
+            resources.ApplyResources(this.camHeightLabel, "camHeightLabel");
+            this.camHeightLabel.BackColor = System.Drawing.Color.Transparent;
+            this.camHeightLabel.ForeColor = System.Drawing.Color.White;
+            this.camHeightLabel.Name = "camHeightLabel";
+            // 
             // moreOptionsForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = global::Contra.Properties.Resources.vpnbg;
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
+            this.Controls.Add(this.camHeightLabel);
+            this.Controls.Add(this.camTrackBar);
+            this.Controls.Add(this.camOkButton);
             this.Controls.Add(this.HeatEffectsCheckBox);
             this.Controls.Add(this.resOkButton);
             this.Controls.Add(this.labelResolution);
@@ -179,5 +214,8 @@ namespace Contra
         private System.Windows.Forms.Button resOkButton;
         private System.Windows.Forms.ToolTip toolTip3;
         private System.Windows.Forms.CheckBox HeatEffectsCheckBox;
+        private System.Windows.Forms.Button camOkButton;
+        private TrackBar camTrackBar;
+        private System.Windows.Forms.Label camHeightLabel;
     }
 }
