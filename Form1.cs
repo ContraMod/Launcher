@@ -1942,6 +1942,31 @@ namespace Contra
                 Properties.Settings.Default.FirstRun = false;
                 Properties.Settings.Default.Save();
             }
+
+            //Show warning if the base mod isn't found.
+            if (!File.Exists("!Contra009Final.ctr") && !File.Exists("!Contra009Final.big"))
+            {
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("\"!Contra009Final.ctr\" is missing!\nPlease, install 009 Final first, or the mod will not start!\nIt is common for people to install the patch, but not the base mod.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("\"!Contra009Final.ctr\" отсутствует!\nПожалуйста, сначала установите 009 Final, или мод не запустится!\nЛюди обычно устанавливают патч, но не базовый мод.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("\"!Contra009Final.ctr\" відсутня!\nБудь ласка, спочатку встановіть 009 Final, або мод не запуститься!\nЛюди звичайно встановлюють патч, але не базовий мод.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("\"!Contra009Final.ctr\" не беше намерен!\nМоля, първо инсталирайте 009 Final, или модът няма да стартира!\nЧесто хората инсталират само последния пач, но не и базовия мод.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("\"!Contra009Final.ctr\" wird vermisst!\nBitte installieren Sie zuerst 009 Final, oder der mod startet nicht!\nEs ist üblich, dass Leute den Patch installieren, nicht aber den Basemod.", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         private void VPNMoreButton_Click(object sender, EventArgs e)
