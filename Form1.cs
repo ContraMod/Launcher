@@ -664,6 +664,13 @@ namespace Contra
                     }
                     catch (Exception ex) { Console.Error.WriteLine(ex); }
                 }
+
+                //Disable cyrillic letters, enable German umlauts.
+                if (File.Exists("GermanZH.big") && File.Exists("GenArial.ttf"))
+                {
+                    File.Move("GenArial.ttf", "GenArial_.ttf");
+                }
+
                 if (WinCheckBox.Checked && QSCheckBox.Checked)
                 {
                     isWbRunning();
