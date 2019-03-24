@@ -5,6 +5,8 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+using Microsoft.Win32;
 
 namespace Contra
 {
@@ -61,19 +63,101 @@ namespace Contra
         }
         //**********DRAG FORM CODE END**********
 
-//        public static string playersOnlineLabel_PassFromForm2;
 
-        //public string LabelText
-        //{
-        //    get
-        //    {
-        //        return this.playersOnlineLabel.Text;
-        //    }
-        //    set
-        //    {
-        //        this.playersOnlineLabel.Text = value;
-        //    }
-        //}
+        public static string userDataLeafName()
+        {
+            //o gets "Command and Conquer Generals Zero Hour Data" from registry. It varies depending on language
+            var o = string.Empty;
+            if (Globals.userOS == "32")
+            {
+                var userDataRegistryPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Electronic Arts\EA Games\Command and Conquer Generals Zero Hour");
+                if (userDataRegistryPath != null)
+                {
+                    o = userDataRegistryPath.GetValue("UserDataLeafName") as string;
+                }
+            }
+            else if (Globals.userOS == "64")
+            {
+                var userDataRegistryPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Electronic Arts\EA Games\Command and Conquer Generals Zero Hour");
+                if (userDataRegistryPath != null)
+                {
+                    o = userDataRegistryPath.GetValue("UserDataLeafName") as string;
+                }
+            }
+            if (o != null)
+            {
+                return System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\" + o + @"\";
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static string myDocPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Command and Conquer Generals Zero Hour Data\";
+
+        private static void vpnIP()
+        {
+            Process netsh = new Process();
+            netsh.StartInfo.FileName = "netsh.exe";
+            netsh.StartInfo.UseShellExecute = false;
+            netsh.StartInfo.RedirectStandardInput = true;
+            netsh.StartInfo.RedirectStandardOutput = true;
+            netsh.StartInfo.RedirectStandardError = true;
+            netsh.StartInfo.CreateNoWindow = true;
+            netsh.StartInfo.Arguments = "interface ip show addresses ContraVPN";
+            try
+            {
+                netsh.Start();
+                netsh.WaitForExit();
+                // Match vpn DHCP pool range 10.10.10.[11-254]
+                string ip = Regex.Match(netsh.StandardOutput.ReadToEnd(), "10.10.10.(1[1-9]|[2-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4])?\r?\n").Value.Trim();
+
+                if (!string.IsNullOrWhiteSpace(ip))
+                {
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: " + ip;
+                    void writeIPAddress(string path)
+                    {
+                        File.WriteAllText(path, Regex.Replace(File.ReadAllText(path), "^IPAddress.*\\S+", $"IPAddress = {ip}", RegexOptions.Multiline));
+                    }
+                    if (File.Exists(userDataLeafName() + "Options.ini"))
+                    {
+                        writeIPAddress(userDataLeafName() + "Options.ini");
+                    }
+                    else if (File.Exists(myDocPath + "Options.ini"))
+                    {
+                        writeIPAddress(myDocPath + "Options.ini");
+                    }
+                    else
+                    {
+                        var cannotsaveip_lang = new Dictionary<string, bool>
+                        {
+                            {"Options.ini not found!\nCannot write IPAddress.", Globals.GB_Checked},
+                            {"Файл Options.ini не найден!\nНевозможно записать IPAddress.", Globals.RU_Checked},
+                            {"Файл Options.ini не знайдений!\nНеможливо написати IPAddress.", Globals.UA_Checked},
+                            {"Options.ini не беше намерен!\nНе може запише IPAddress.", Globals.BG_Checked},
+                            {"Options.ini nicht gefunden!\nIPAddress kann nicht geschrieben werden.", Globals.DE_Checked},
+                        };
+                        //Too spammy
+                        //MessageBox.Show(cannotsaveip_lang.Single(l => l.Value).Key, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Console.Error.WriteLine(cannotsaveip_lang.Single(l => l.Value).Key);
+                    }
+                }
+                else
+                {
+                    var iplabel_lang = new Dictionary<string, bool>
+                    {
+                        {"Not compatible", Globals.GB_Checked},
+                        {"несовместимый", Globals.RU_Checked},
+                        {"несумісні", Globals.UA_Checked},
+                        {"несъвместим", Globals.BG_Checked},
+                        {"Nicht Kompatibel", Globals.DE_Checked},
+                    };
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: " + iplabel_lang.Single(l => l.Value).Key;
+                }
+            }
+            catch (Exception ex) { Console.Error.WriteLine(ex); }
+        }
 
         private void refreshOnlinePlayers()
         {
@@ -136,6 +220,7 @@ namespace Contra
                     };
                     Globals.playersOnlineLabel = labelLang.Single(l => l.Value).Key;
                     playersOnlineLabel.Text = Globals.playersOnlineLabel;
+                    vpnIP();
                 }
             }
             catch (Exception ex) { Console.Error.WriteLine(ex); }
