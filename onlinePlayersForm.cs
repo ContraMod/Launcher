@@ -260,15 +260,22 @@ namespace Contra
         }
 
         int i = 0;
-        private void refreshTimer_Tick(object sender, EventArgs e) //refresh 4 times, each 2.5 sec
+        private void refreshTimer_Tick(object sender, EventArgs e) //refresh five times
         {
             refreshOnlinePlayersBtn.PerformClick();
             i++;
+            if (i == 3)
+            {
+                refreshTimer.Interval = 5000;
+            }
             if (i == 4)
+            {
+                refreshTimer.Interval = 10000;
+            }
+            if (i == 5)
             {
                 refreshTimer.Enabled = false;
             }
-            //MessageBox.Show("timer 2 ticked");
         }
 
         private void refreshOnlinePlayersBtn_Click(object sender, EventArgs e)
