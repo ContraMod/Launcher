@@ -1,5 +1,5 @@
 Version: 1.0.0.3#
-MOTD-EN: 2v2 Tournament started! Round 3 ends Sunday 31th March.#
+MOTD-EN: 2v2 Tournament started! Round 3 ends Sunday 31st March.#
 MOTD-RU: 2v2 турнир начался! Раунд 3 заканчивается воскресенье 31-го марта.#
 MOTD-UA: 2v2 турнір розпочався! Раунд 3 закінчується неділю 31-го березня.#
 MOTD-BG: 2v2 турнир започна! Кръг 3 приключва в неделя 31 март.#
