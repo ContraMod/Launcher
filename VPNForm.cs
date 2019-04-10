@@ -107,7 +107,7 @@ namespace Contra
             //Append AutoConnect line to tinc.conf if missing.
             if ((File.Exists(vpnconfig + "\\tinc.conf")) && ((File.ReadAllText(vpnconfig + "\\tinc.conf").Contains("AutoConnect")) == false))
             {
-                string AppendAC = Environment.NewLine + "AutoConnect = yes";
+                string AppendAC = Environment.NewLine + "AutoConnect = no";
                 File.AppendAllText(vpnconfig + "\\tinc.conf", AppendAC);
             }
 

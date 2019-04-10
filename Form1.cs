@@ -1852,6 +1852,17 @@ namespace Contra
                 }
                 catch { }
 
+                //Set AutoConnect to "no".
+                if ((File.Exists(vpnconfig + "\\tinc.conf")))
+                {
+                    string tincconf = File.ReadAllText(vpnconfig + "\\tinc.conf");
+                    if (tincconf.Contains("AutoConnect = yes"))
+                    {
+                        tincconf = tincconf.Replace("AutoConnect = yes", "AutoConnect = no");
+                        File.WriteAllText(vpnconfig + "\\tinc.conf", tincconf);
+                    }
+                }
+
                 //Show message on first run.
                 if (getCurrentCulture() == "en-US")
                 {
