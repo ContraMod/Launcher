@@ -338,14 +338,16 @@ namespace Contra
             {
                 Process generals = new Process();
                 generals.StartInfo.FileName = "generals.exe";
+                generals.EnableRaisingEvents = true;
+                generals.Exited += (sender, e) =>
+                {
+                    this.WindowState = FormWindowState.Normal;
+                };
                 if (File.Exists("generals.exe"))
                 {
                     generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
                 }
-                //else if (File.Exists(@"..\generals.exe"))
-                //{
-                //    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\generals.exe");
-                //}
+                this.WindowState = FormWindowState.Minimized;
                 generals.Start();
             }
             catch
@@ -360,15 +362,17 @@ namespace Contra
             {
                 Process generals = new Process();
                 generals.StartInfo.FileName = "generals.exe";
-                generals.StartInfo.Arguments = "-quickstart";
+                generals.StartInfo.Arguments = "-quickstart -nologo";
+                generals.EnableRaisingEvents = true;
+                generals.Exited += (sender, e) =>
+                {
+                    this.WindowState = FormWindowState.Normal;
+                };
                 if (File.Exists("generals.exe"))
                 {
                     generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
                 }
-                //else if (File.Exists(@"..\generals.exe"))
-                //{
-                //    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\generals.exe");
-                //}
+                this.WindowState = FormWindowState.Minimized;
                 generals.Start();
             }
             catch
@@ -384,14 +388,16 @@ namespace Contra
                 Process generals = new Process();
                 generals.StartInfo.FileName = "generals.exe";
                 generals.StartInfo.Arguments = "-win";
+                generals.EnableRaisingEvents = true;
+                generals.Exited += (sender, e) =>
+                {
+                    this.WindowState = FormWindowState.Normal;
+                };
                 if (File.Exists("generals.exe"))
                 {
                     generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
                 }
-                //else if (File.Exists(@"..\generals.exe"))
-                //{
-                //    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\generals.exe");
-                //}
+                this.WindowState = FormWindowState.Minimized;
                 generals.Start();
             }
             catch
@@ -406,15 +412,17 @@ namespace Contra
             {
                 Process generals = new Process();
                 generals.StartInfo.FileName = "generals.exe";
-                generals.StartInfo.Arguments = "-win -quickstart";
+                generals.StartInfo.Arguments = "-win -quickstart -nologo";
+                generals.EnableRaisingEvents = true;
+                generals.Exited += (sender, e) =>
+                {
+                    this.WindowState = FormWindowState.Normal;
+                };
                 if (File.Exists("generals.exe"))
                 {
                     generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
                 }
-                //else if (File.Exists(@"..\generals.exe"))
-                //{
-                //    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\generals.exe");
-                //}
+                this.WindowState = FormWindowState.Minimized;
                 generals.Start();
             }
             catch
