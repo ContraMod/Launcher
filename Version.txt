@@ -1,6 +1,6 @@
 Version: 1.0.0.3#
-MOTD-EN: 2v2 Tournament started! Final round ends Sunday 7th April.#
-MOTD-RU: 2v2 турнир начался! Финальный раунд заканчивается воскресенье 7 апреля.#
-MOTD-UA: 2v2 турнір розпочався! Фінальний раунд закінчується неділю 7 квітня.#
-MOTD-BG: 2v2 турнир започна! Финалният кръг приключва в неделя 7 април.#
-MOTD-DE: 2v2 Turnier hat begonnen! Letzte Runde endet am Sonntag 7. April.#
+MOTD-EN: We are aware of current VPN instability and are testing new a VPN solution for Patch 2. Apply for Beta VPN on our Discord!#
+MOTD-RU: Мы знаем о текущей нестабильности VPN и тестируем новый VPN для Patch 2. Скачайте Beta VPN с нашего Diskord!#
+MOTD-UA: Ми знаємо про поточну нестабільність VPN і тестуємо нові VPN для Patch 2. Завантажте Beta VPN з нашого Discord!#
+MOTD-BG: Ние знаем за текущата нестабилност на VPN и тестваме нови VPN за Patch 2. Изтеглете Beta VPN от нашия Discord!#
+MOTD-DE: Wir kennen die aktuelle VPN-Instabilität und testen derzeit ein neues VPN für Patch 2. Laden Sie Beta VPN von unserer Discord herunter!#
