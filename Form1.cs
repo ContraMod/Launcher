@@ -486,6 +486,11 @@ namespace Contra
             {
                 List<string> bigs = new List<string>
                 {
+                    "!!!Contra009Final_Patch2_GameData.big",
+                    "!!!Contra009Final_Patch2.big",
+                    "!!!Contra009Final_Patch2_RU.big",
+                    "!!!Contra009Final_Patch2_EN.big",
+                    "!!!Contra009Final_Patch2_EngVO.big",
                     "!!Contra009Final_Patch1.big",
                     "!!Contra009Final_Patch1_RU.big",
                     "!!Contra009Final_Patch1_EN.big",
@@ -585,6 +590,19 @@ namespace Contra
 
         private void button1_Click(object sender, EventArgs e) //LaunchButton
         {
+            //Enable custom camera height with GenTool
+            if (File.Exists("d3d8.cfg"))
+            {
+                string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big");
+                string defaultHeightValue = "MaxCameraHeight = 392";
+                if (!read.Contains(defaultHeightValue))
+                {
+                    string cfgText = File.ReadAllText("d3d8.cfg");
+                    cfgText.Replace("pitch=37", "pitch=36");
+                    File.WriteAllText("d3d8.cfg", cfgText);
+                }
+            }
+
             renameBigToCtr();
             try
             {
@@ -595,6 +613,14 @@ namespace Contra
                 if (File.Exists("!!Contra009Final_Patch1.ctr"))
                 {
                     File.Move("!!Contra009Final_Patch1.ctr", "!!Contra009Final_Patch1.big");
+                }
+                if (File.Exists("!!!Contra009Final_Patch2.ctr"))
+                {
+                    File.Move("!!!Contra009Final_Patch2.ctr", "!!!Contra009Final_Patch2.big");
+                }
+                if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
+                {
+                    File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
                 }
                 if ((RadioOrigQuotes.Checked) && (File.Exists("!Contra009Final_NatVO.ctr")))
                 {
@@ -608,6 +634,10 @@ namespace Contra
                 {
                     File.Move("!!Contra009Final_Patch1_EngVO.ctr", "!!Contra009Final_Patch1_EngVO.big");
                 }
+                if ((RadioLocQuotes.Checked) && (File.Exists("!!!Contra009Final_Patch2_EngVO.ctr")))
+                {
+                    File.Move("!!!Contra009Final_Patch2_EngVO.ctr", "!!!Contra009Final_Patch2_EngVO.big");
+                }
                 if ((RadioEN.Checked) && (File.Exists("!Contra009Final_EN.ctr")))
                 {
                     File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
@@ -616,6 +646,10 @@ namespace Contra
                 {
                     File.Move("!!Contra009Final_Patch1_EN.ctr", "!!Contra009Final_Patch1_EN.big");
                 }
+                if ((RadioEN.Checked) && (File.Exists("!!!Contra009Final_Patch2_EN.ctr")))
+                {
+                    File.Move("!!!Contra009Final_Patch2_EN.ctr", "!!!Contra009Final_Patch2_EN.big");
+                }
                 if ((RadioRU.Checked) && (File.Exists("!Contra009Final_RU.ctr")))
                 {
                     File.Move("!Contra009Final_RU.ctr", "!Contra009Final_RU.big");
@@ -623,6 +657,10 @@ namespace Contra
                 if ((RadioRU.Checked) && (File.Exists("!!Contra009Final_Patch1_RU.ctr")))
                 {
                     File.Move("!!Contra009Final_Patch1_RU.ctr", "!!Contra009Final_Patch1_RU.big");
+                }
+                if ((RadioRU.Checked) && (File.Exists("!!!Contra009Final_Patch2_RU.ctr")))
+                {
+                    File.Move("!!!Contra009Final_Patch2_RU.ctr", "!!!Contra009Final_Patch@_RU.big");
                 }
                 if ((MNew.Checked) && (File.Exists("!Contra009Final_NewMusic.ctr")))
                 {
@@ -2420,6 +2458,12 @@ namespace Contra
 
         private void Resolution_Click(object sender, EventArgs e)
         {
+            //Enable GameData so that we can show current camera height in Options
+            if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
+            {
+                File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
+            }
+
             if (File.Exists(userDataLeafName() + "Options.ini") || (File.Exists(myDocPath + "Options.ini")))
             {
                 foreach (Form moreOptionsForm in Application.OpenForms)

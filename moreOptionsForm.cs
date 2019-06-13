@@ -127,6 +127,52 @@ namespace Contra
             }
 
 
+            //Get current camera height
+            if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
+            {
+                string s = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big");
+                List<string> found = new List<string>();
+                string line;
+                using (StringReader file = new StringReader(s))
+                {
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        if (line.Contains(" MaxCameraHeight ="))
+                        {
+                            found.Add(line);
+                            line = line.Substring(0, line.IndexOf(".") + 1);
+                            line = Regex.Replace(line, @"[^\d]", "");
+                            if (Globals.GB_Checked == true)
+                            {
+                                camHeightLabel.Text = "Camera Height: " + camTrackBar.Value.ToString() + ".0";
+                                camTrackBar.Value = Convert.ToInt32(line);
+                            }
+                            else if (Globals.RU_Checked == true)
+                            {
+                                camHeightLabel.Text = "Высота камеры: " + camTrackBar.Value.ToString() + ".0";
+                                camTrackBar.Value = Convert.ToInt32(line);
+                            }
+                            else if (Globals.UA_Checked == true)
+                            {
+                                camHeightLabel.Text = "Висота камери: " + camTrackBar.Value.ToString() + ".0";
+                                camTrackBar.Value = Convert.ToInt32(line);
+                            }
+                            else if (Globals.BG_Checked == true)
+                            {
+                                camHeightLabel.Text = "Височина на камерата: " + camTrackBar.Value.ToString() + ".0";
+                                camTrackBar.Value = Convert.ToInt32(line);
+                            }
+                            else if (Globals.DE_Checked == true)
+                            {
+                                camHeightLabel.Text = "Kamerahöhe: " + camTrackBar.Value.ToString() + ".0";
+                                camTrackBar.Value = Convert.ToInt32(line);
+                            }
+                        }
+                    }
+                }
+            }
+
+
             //Get current resolution
             {
                 if (Directory.Exists(userDataLeafName()))
@@ -557,25 +603,24 @@ namespace Contra
 
         private void changeCamHeight()
         {
-            if (File.Exists("!!!GameData.big")) //(File.Exists("!!!GameData.ctr"))
+            if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
             {
-                //File.Move("!!!GameData.ctr", "!!!GameData.big");
                 Encoding encoding = Encoding.GetEncoding("windows-1252");
-                var regex = Regex.Replace(File.ReadAllText("!!!GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + camTrackBar.Value + ".0" + " ;350.0\r\n");
-                string read = File.ReadAllText("!!!GameData.big", encoding);
-                File.WriteAllText("!!!GameData.big", regex, encoding);
+                var regex = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + camTrackBar.Value + ".0" + " ;350.0\r\n");
+                string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big", encoding);
+                File.WriteAllText("!!!Contra009Final_Patch2_GameData.big", regex, encoding);
 
                 if (camTrackBar.Value > 500)
                 {
-                    var regex2 = Regex.Replace(File.ReadAllText("!!!GameData.big"), "  DrawEntireTerrain = No\r?\n", "  DrawEntireTerrain = Yes\r\n");
-                    string read2 = File.ReadAllText("!!!GameData.big", encoding);
-                    File.WriteAllText("!!!GameData.big", regex2, encoding);
+                    var regex2 = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  DrawEntireTerrain = No\r?\n", "  DrawEntireTerrain = Yes\r\n");
+                    string read2 = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big", encoding);
+                    File.WriteAllText("!!!Contra009Final_Patch2_GameData.big", regex2, encoding);
                 }
                 else
                 {
-                    var regex2 = Regex.Replace(File.ReadAllText("!!!GameData.big"), "  DrawEntireTerrain = Yes\r?\n", "  DrawEntireTerrain = No\r\n");
-                    string read2 = File.ReadAllText("!!!GameData.big", encoding);
-                    File.WriteAllText("!!!GameData.big", regex2, encoding);
+                    var regex2 = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  DrawEntireTerrain = Yes\r?\n", "  DrawEntireTerrain = No\r\n");
+                    string read2 = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big", encoding);
+                    File.WriteAllText("!!!Contra009Final_Patch2_GameData.big", regex2, encoding);
                 }
 
                 if (Globals.GB_Checked == true)
@@ -603,23 +648,23 @@ namespace Contra
             {
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("\"!!!GameData.big\" file not found!");
+                    MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" file not found!");
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Файл \"!!!GameData.big\" не найден!");
+                    MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не найден!");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Файл \"!!!GameData.big\" не знайдений!");
+                    MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не знайдений!");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("Файлът \"!!!GameData.big\" не беше намерен!");
+                    MessageBox.Show("Файлът \"!!!Contra009Final_Patch2_GameData.big\" не беше намерен!");
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("\"!!!GameData.big\" nicht gefunden!");
+                    MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" nicht gefunden!");
                 }
             }
         }
@@ -629,49 +674,52 @@ namespace Contra
             if (File.Exists("d3d8.cfg"))
             {
                 string cfgText = File.ReadAllText("d3d8.cfg");
-                if (!cfgText.Contains("5.8")) //if user isn't on ver 6.2
-                {
-                    if (Globals.GB_Checked == true)
-                    {
-                        var result = MessageBox.Show("Gentool versions above 6.2 do not allow custom camera height for mods in LAN lobby.\n\nDo you still want to set camera height?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                        if (result == DialogResult.Yes)
-                        {
-                            changeCamHeight();
-                        }
-                    }
-                    else if (Globals.RU_Checked == true)
-                    {
-                        var result = MessageBox.Show("Версии Gentool выше 6.2 не позволяют настраивать высоту камеры для модов в лобби локальной сети.\n\nВы все еще хотите установить высоту камеры?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                        if (result == DialogResult.Yes)
-                        {
-                            changeCamHeight();
-                        }
-                    }
-                    else if (Globals.UA_Checked == true)
-                    {
-                        var result = MessageBox.Show("Версії Gentool вище 6.2 не дозволяють налаштувати висоту камер для модів у лобі LAN.\n\nВи все ще бажаєте встановити висоту камери?", "Застереження", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                        if (result == DialogResult.Yes)
-                        {
-                            changeCamHeight();
-                        }
-                    }
-                    else if (Globals.BG_Checked == true)
-                    {
-                        var result = MessageBox.Show("Gentool версиите над 6.2 не позволяват персонализирана височина на камерата за модове в LAN лобито.\n\nВсе още ли искате да я промените?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                        if (result == DialogResult.Yes)
-                        {
-                            changeCamHeight();
-                        }
-                    }
-                    else if (Globals.DE_Checked == true)
-                    {
-                        var result = MessageBox.Show("Gentool-Versionen über 6.2 erlauben keine benutzerdefinierte Kamerahöhe für Mods in der LAN-Lobby.\n\nMöchten Sie die Kamerahöhe noch einstellen?", "Warnung", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                        if (result == DialogResult.Yes)
-                        {
-                            changeCamHeight();
-                        }
-                    }
-                }
+                string newText = cfgText.Replace("pitch=37", "pitch=36");
+                File.WriteAllText("d3d8.cfg", newText);
+                changeCamHeight();
+                //if (!cfgText.Contains("5.8")) //if user isn't on ver 6.2
+                //{
+                //    if (Globals.GB_Checked == true)
+                //    {
+                //        var result = MessageBox.Show("Gentool versions above 6.2 do not allow custom camera height for mods in LAN lobby.\n\nDo you still want to set camera height?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                //        if (result == DialogResult.Yes)
+                //        {
+                //            changeCamHeight();
+                //        }
+                //    }
+                //    else if (Globals.RU_Checked == true)
+                //    {
+                //        var result = MessageBox.Show("Версии Gentool выше 6.2 не позволяют настраивать высоту камеры для модов в лобби локальной сети.\n\nВы все еще хотите установить высоту камеры?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                //        if (result == DialogResult.Yes)
+                //        {
+                //            changeCamHeight();
+                //        }
+                //    }
+                //    else if (Globals.UA_Checked == true)
+                //    {
+                //        var result = MessageBox.Show("Версії Gentool вище 6.2 не дозволяють налаштувати висоту камер для модів у лобі LAN.\n\nВи все ще бажаєте встановити висоту камери?", "Застереження", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                //        if (result == DialogResult.Yes)
+                //        {
+                //            changeCamHeight();
+                //        }
+                //    }
+                //    else if (Globals.BG_Checked == true)
+                //    {
+                //        var result = MessageBox.Show("Gentool версиите над 6.2 не позволяват персонализирана височина на камерата за модове в LAN лобито.\n\nВсе още ли искате да я промените?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                //        if (result == DialogResult.Yes)
+                //        {
+                //            changeCamHeight();
+                //        }
+                //    }
+                //    else if (Globals.DE_Checked == true)
+                //    {
+                //        var result = MessageBox.Show("Gentool-Versionen über 6.2 erlauben keine benutzerdefinierte Kamerahöhe für Mods in der LAN-Lobby.\n\nMöchten Sie die Kamerahöhe noch einstellen?", "Warnung", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                //        if (result == DialogResult.Yes)
+                //        {
+                //            changeCamHeight();
+                //        }
+                //    }
+                //}
             }
             else changeCamHeight();
         }
