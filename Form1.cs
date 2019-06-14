@@ -593,12 +593,16 @@ namespace Contra
             //Enable custom camera height with GenTool
             if (File.Exists("d3d8.cfg"))
             {
+                if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
+                {
+                    File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
+                }
                 string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big");
                 string defaultHeightValue = "MaxCameraHeight = 392";
                 if (!read.Contains(defaultHeightValue))
                 {
                     string cfgText = File.ReadAllText("d3d8.cfg");
-                    cfgText.Replace("pitch=37", "pitch=36");
+                    cfgText = Regex.Replace(cfgText, "pitch=.*", "pitch=36");
                     File.WriteAllText("d3d8.cfg", cfgText);
                 }
             }
@@ -879,38 +883,50 @@ namespace Contra
         }
         private void button6_Click(object sender, EventArgs e) //WorldBuilder
         {
+            if (File.Exists("!Contra009Final.ctr"))
+            {
+                File.Move("!Contra009Final.ctr", "!Contra009Final.big");
+            }
             if (File.Exists("!!Contra009Final_Patch1.ctr"))
             {
                 File.Move("!!Contra009Final_Patch1.ctr", "!!Contra009Final_Patch1.big");
+            }
+            if (File.Exists("!!!Contra009Final_Patch2.ctr"))
+            {
+                File.Move("!!!Contra009Final_Patch2.ctr", "!!!Contra009Final_Patch2.big");
+            }
+            if (File.Exists("!Contra009Final_EN.ctr"))
+            {
+                File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
             }
             if (File.Exists("!!Contra009Final_Patch1_EN.ctr"))
             {
                 File.Move("!!Contra009Final_Patch1_EN.ctr", "!!Contra009Final_Patch1_EN.big");
             }
+            if (File.Exists("!!!Contra009Final_Patch2_EN.ctr"))
+            {
+                File.Move("!!!Contra009Final_Patch2_EN.ctr", "!!!Contra009Final_Patch2_EN.big");
+            }
+            if (File.Exists("!Contra009Final_EngVO.ctr"))
+            {
+                File.Move("!Contra009Final_EngVO.ctr", "!Contra009Final_EngVO.big");
+            }
             if (File.Exists("!!Contra009Final_Patch1_EngVO.ctr"))
             {
                 File.Move("!!Contra009Final_Patch1_EngVO.ctr", "!!Contra009Final_Patch1_EngVO.big");
             }
-            if (File.Exists("!Contra009Final.ctr"))
+            if (File.Exists("!!!Contra009Final_Patch2_EngVO.ctr"))
             {
-                File.Move("!Contra009Final.ctr", "!Contra009Final.big");
+                File.Move("!!!Contra009Final_Patch2_EngVO.ctr", "!!!Contra009Final_Patch2_EngVO.big");
             }
             //else if (File.Exists(@"..\!Contra009Final.ctr"))
             //{
             //    File.Move(@"..\!Contra009Final.ctr", @"..\!Contra009Final.big");
             //}
-            if (File.Exists("!Contra009Final_EN.ctr"))
-            {
-                File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
-            }
             //else if (File.Exists(@"..\!Contra009Final_EN.ctr"))
             //{
             //    File.Move(@"..\!Contra009Final_EN.ctr", @"..\!Contra009Final_EN.big");
             //}
-            if (File.Exists("!Contra009Final_EngVO.ctr"))
-            {
-                File.Move("!Contra009Final_EngVO.ctr", "!Contra009Final_EngVO.big");
-            }
             //else if (File.Exists(@"..\!Contra009Final_EngVO.ctr"))
             //{
             //    File.Move(@"..\!Contra009Final_EngVO.ctr", @"..\!Contra009Final_EngVO.big");

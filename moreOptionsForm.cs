@@ -610,7 +610,7 @@ namespace Contra
                 string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big", encoding);
                 File.WriteAllText("!!!Contra009Final_Patch2_GameData.big", regex, encoding);
 
-                if (camTrackBar.Value > 500)
+                if (camTrackBar.Value > 392)
                 {
                     var regex2 = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  DrawEntireTerrain = No\r?\n", "  DrawEntireTerrain = Yes\r\n");
                     string read2 = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big", encoding);
@@ -671,57 +671,50 @@ namespace Contra
 
         private void camOkButton_Click(object sender, EventArgs e)
         {
-            if (File.Exists("d3d8.cfg"))
-            {
-                string cfgText = File.ReadAllText("d3d8.cfg");
-                string newText = cfgText.Replace("pitch=37", "pitch=36");
-                File.WriteAllText("d3d8.cfg", newText);
-                changeCamHeight();
-                //if (!cfgText.Contains("5.8")) //if user isn't on ver 6.2
-                //{
-                //    if (Globals.GB_Checked == true)
-                //    {
-                //        var result = MessageBox.Show("Gentool versions above 6.2 do not allow custom camera height for mods in LAN lobby.\n\nDo you still want to set camera height?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                //        if (result == DialogResult.Yes)
-                //        {
-                //            changeCamHeight();
-                //        }
-                //    }
-                //    else if (Globals.RU_Checked == true)
-                //    {
-                //        var result = MessageBox.Show("Версии Gentool выше 6.2 не позволяют настраивать высоту камеры для модов в лобби локальной сети.\n\nВы все еще хотите установить высоту камеры?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                //        if (result == DialogResult.Yes)
-                //        {
-                //            changeCamHeight();
-                //        }
-                //    }
-                //    else if (Globals.UA_Checked == true)
-                //    {
-                //        var result = MessageBox.Show("Версії Gentool вище 6.2 не дозволяють налаштувати висоту камер для модів у лобі LAN.\n\nВи все ще бажаєте встановити висоту камери?", "Застереження", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                //        if (result == DialogResult.Yes)
-                //        {
-                //            changeCamHeight();
-                //        }
-                //    }
-                //    else if (Globals.BG_Checked == true)
-                //    {
-                //        var result = MessageBox.Show("Gentool версиите над 6.2 не позволяват персонализирана височина на камерата за модове в LAN лобито.\n\nВсе още ли искате да я промените?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                //        if (result == DialogResult.Yes)
-                //        {
-                //            changeCamHeight();
-                //        }
-                //    }
-                //    else if (Globals.DE_Checked == true)
-                //    {
-                //        var result = MessageBox.Show("Gentool-Versionen über 6.2 erlauben keine benutzerdefinierte Kamerahöhe für Mods in der LAN-Lobby.\n\nMöchten Sie die Kamerahöhe noch einstellen?", "Warnung", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                //        if (result == DialogResult.Yes)
-                //        {
-                //            changeCamHeight();
-                //        }
-                //    }
-                //}
-            }
-            else changeCamHeight();
+            changeCamHeight();
+            //if (!cfgText.Contains("5.8")) //if user isn't on ver 6.2
+            //{
+            //    if (Globals.GB_Checked == true)
+            //    {
+            //        var result = MessageBox.Show("Gentool versions above 6.2 do not allow custom camera height for mods in LAN lobby.\n\nDo you still want to set camera height?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            //        if (result == DialogResult.Yes)
+            //        {
+            //            changeCamHeight();
+            //        }
+            //    }
+            //    else if (Globals.RU_Checked == true)
+            //    {
+            //        var result = MessageBox.Show("Версии Gentool выше 6.2 не позволяют настраивать высоту камеры для модов в лобби локальной сети.\n\nВы все еще хотите установить высоту камеры?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            //        if (result == DialogResult.Yes)
+            //        {
+            //            changeCamHeight();
+            //        }
+            //    }
+            //    else if (Globals.UA_Checked == true)
+            //    {
+            //        var result = MessageBox.Show("Версії Gentool вище 6.2 не дозволяють налаштувати висоту камер для модів у лобі LAN.\n\nВи все ще бажаєте встановити висоту камери?", "Застереження", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            //        if (result == DialogResult.Yes)
+            //        {
+            //            changeCamHeight();
+            //        }
+            //    }
+            //    else if (Globals.BG_Checked == true)
+            //    {
+            //        var result = MessageBox.Show("Gentool версиите над 6.2 не позволяват персонализирана височина на камерата за модове в LAN лобито.\n\nВсе още ли искате да я промените?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            //        if (result == DialogResult.Yes)
+            //        {
+            //            changeCamHeight();
+            //        }
+            //    }
+            //    else if (Globals.DE_Checked == true)
+            //    {
+            //        var result = MessageBox.Show("Gentool-Versionen über 6.2 erlauben keine benutzerdefinierte Kamerahöhe für Mods in der LAN-Lobby.\n\nMöchten Sie die Kamerahöhe noch einstellen?", "Warnung", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            //        if (result == DialogResult.Yes)
+            //        {
+            //            changeCamHeight();
+            //        }
+            //    }
+            //}
         }
 
         private void camTrackBar_Scroll(object sender, EventArgs e)
