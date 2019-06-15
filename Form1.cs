@@ -298,23 +298,23 @@ namespace Contra
             {
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("You have installed Contra in the wrong folder. Install it in the Zero Hour folder which contains the \"generals.exe\".", "Error");
+                    MessageBox.Show("You have installed Contra in the wrong folder. Install it in the Zero Hour folder which contains the \"generals.exe\". It's very often the parent folder.", "Error");
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Вы установили Contra в неправильную папку. Установите его в папку Zero Hour, которая содержит файл \"generals.exe\".", "Ошибка");
+                    MessageBox.Show("Вы установили Contra в неправильную папку. Установите его в папку Zero Hour, которая содержит файл \"generals.exe\". Это очень часто предыдущая папка.", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Ви встановили Contra у неправильній папці. Встановіть це в папку Zero Hour, яка містить \"generals.exe\".", "Помилка");
+                    MessageBox.Show("Ви встановили Contra у неправильній папці. Встановіть це в папку Zero Hour, яка містить \"generals.exe\". Це дуже часто попередня папка.", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("Инсталирали сте Contra в грешната папка. Инсталирайте в Zero Hour папката, която съдържа \"generals.exe\".", "Грешка");
+                    MessageBox.Show("Инсталирали сте Contra в грешната папка. Инсталирайте в Zero Hour папката, която съдържа \"generals.exe\". Обикновено това е предишната папка.", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("Du hast Contra im falschen ordner installiert. Installiere es in dem Zero Hour ordner in dem die \"generals.exe\" ist.", "Fehler");
+                    MessageBox.Show("Du hast Contra im falschen ordner installiert. Installiere es in dem Zero Hour ordner in dem die \"generals.exe\" ist. Es ist sehr oft der übergeordnete Ordner.", "Fehler");
                 }
             }
         }
@@ -480,6 +480,78 @@ namespace Contra
             OnApplicationExit(sender, e);
         }
 
+        private static void DeleteDuplicateFiles()
+        {
+            if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr") && File.Exists("!!!Contra009Final_Patch2_GameData.big"))
+            {
+                File.Delete("!!!Contra009Final_Patch2_GameData.big");
+            }
+            if (File.Exists("!!!Contra009Final_Patch2.ctr") && File.Exists("!!!Contra009Final_Patch2.big"))
+            {
+                File.Delete("!!!Contra009Final_Patch2.big");
+            }
+            if (File.Exists("!!!Contra009Final_Patch2_RU.ctr") && File.Exists("!!!Contra009Final_Patch2_RU.big"))
+            {
+                File.Delete("!!!Contra009Final_Patch2_RU.big");
+            }
+            if (File.Exists("!!!Contra009Final_Patch2_EN.ctr") && File.Exists("!!!Contra009Final_Patch2_EN.big"))
+            {
+                File.Delete("!!!Contra009Final_Patch2_EN.big");
+            }
+            if (File.Exists("!!!Contra009Final_Patch2_EngVO.ctr") && File.Exists("!!!Contra009Final_Patch2_EngVO.big"))
+            {
+                File.Delete("!!!Contra009Final_Patch2_EngVO.big");
+            }
+            if (File.Exists("!!Contra009Final_Patch1.ctr") && File.Exists("!!Contra009Final_Patch1.big"))
+            {
+                File.Delete("!!Contra009Final_Patch1.big");
+            }
+            if (File.Exists("!!Contra009Final_Patch1_RU.ctr") && File.Exists("!!Contra009Final_Patch1_RU.big"))
+            {
+                File.Delete("!!Contra009Final_Patch1_RU.big");
+            }
+            if (File.Exists("!!Contra009Final_Patch1_EN.ctr") && File.Exists("!!Contra009Final_Patch1_EN.big"))
+            {
+                File.Delete("!!Contra009Final_Patch1_EN.big");
+            }
+            if (File.Exists("!!Contra009Final_Patch1_EngVO.ctr") && File.Exists("!!Contra009Final_Patch1_EngVO.big"))
+            {
+                File.Delete("!!Contra009Final_Patch1_EngVO.big");
+            }
+            if (File.Exists("!!Contra009Final_FogOff.ctr") && File.Exists("!!Contra009Final_FogOff.big"))
+            {
+                File.Delete("!!Contra009Final_FogOff.big");
+            }
+            if (File.Exists("!!Contra009Final_FunnyGenPics.ctr") && File.Exists("!!Contra009Final_FunnyGenPics.big"))
+            {
+                File.Delete("!!Contra009Final_FunnyGenPics.big");
+            }
+            if (File.Exists("!Contra009Final.ctr") && File.Exists("!Contra009Final.big"))
+            {
+                File.Delete("!Contra009Final.big");
+            }
+            if (File.Exists("!Contra009Final_NatVO.ctr") && File.Exists("!Contra009Final_NatVO.big"))
+            {
+                File.Delete("!Contra009Final_NatVO.big");
+            }
+            if (File.Exists("!Contra009Final_EngVO.ctr") && File.Exists("!Contra009Final_EngVO.big"))
+            {
+                File.Delete("!Contra009Final_EngVO.big");
+            }
+            if (File.Exists("!Contra009Final_NewMusic.ctr") && File.Exists("!Contra009Final_NewMusic.big"))
+            {
+                File.Delete("!Contra009Final_NewMusic.big");
+            }
+            if (File.Exists("!Contra009Final_EN.ctr") && File.Exists("!Contra009Final_EN.big"))
+            {
+                File.Delete("!Contra009Final_EN.big");
+            }
+            if (File.Exists("!Contra009Final_RU.ctr") && File.Exists("!Contra009Final_RU.big"))
+            {
+                File.Delete("!Contra009Final_RU.big");
+            }
+        }
+
         private static void renameBigToCtr()
         {
             try
@@ -590,23 +662,7 @@ namespace Contra
 
         private void button1_Click(object sender, EventArgs e) //LaunchButton
         {
-            //Enable custom camera height with GenTool
-            if (File.Exists("d3d8.cfg"))
-            {
-                if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
-                {
-                    File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
-                }
-                string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big");
-                string defaultHeightValue = "MaxCameraHeight = 392";
-                if (!read.Contains(defaultHeightValue))
-                {
-                    string cfgText = File.ReadAllText("d3d8.cfg");
-                    cfgText = Regex.Replace(cfgText, "pitch=.*", "pitch=36");
-                    File.WriteAllText("d3d8.cfg", cfgText);
-                }
-            }
-
+            DeleteDuplicateFiles();
             renameBigToCtr();
             try
             {
@@ -734,6 +790,23 @@ namespace Contra
                 if (File.Exists("GermanZH.big") && File.Exists("GenArial.ttf"))
                 {
                     File.Move("GenArial.ttf", "GenArial_.ttf");
+                }
+
+                //Enable custom camera height with GenTool
+                if (File.Exists("d3d8.cfg"))
+                {
+                    if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
+                    {
+                        File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
+                    }
+                    string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big");
+                    string defaultHeightValue = "MaxCameraHeight = 392";
+                    if (!read.Contains(defaultHeightValue))
+                    {
+                        string cfgText = File.ReadAllText("d3d8.cfg");
+                        cfgText = Regex.Replace(cfgText, "pitch=.*", "pitch=36");
+                        File.WriteAllText("d3d8.cfg", cfgText);
+                    }
                 }
 
                 if (WinCheckBox.Checked && QSCheckBox.Checked)
@@ -883,6 +956,8 @@ namespace Contra
         }
         private void button6_Click(object sender, EventArgs e) //WorldBuilder
         {
+            DeleteDuplicateFiles();
+
             if (File.Exists("!Contra009Final.ctr"))
             {
                 File.Move("!Contra009Final.ctr", "!Contra009Final.big");
@@ -919,18 +994,6 @@ namespace Contra
             {
                 File.Move("!!!Contra009Final_Patch2_EngVO.ctr", "!!!Contra009Final_Patch2_EngVO.big");
             }
-            //else if (File.Exists(@"..\!Contra009Final.ctr"))
-            //{
-            //    File.Move(@"..\!Contra009Final.ctr", @"..\!Contra009Final.big");
-            //}
-            //else if (File.Exists(@"..\!Contra009Final_EN.ctr"))
-            //{
-            //    File.Move(@"..\!Contra009Final_EN.ctr", @"..\!Contra009Final_EN.big");
-            //}
-            //else if (File.Exists(@"..\!Contra009Final_EngVO.ctr"))
-            //{
-            //    File.Move(@"..\!Contra009Final_EngVO.ctr", @"..\!Contra009Final_EngVO.big");
-            //}
             Process wb = new Process();
             wb.StartInfo.Verb = "runas";
             try
@@ -941,24 +1004,12 @@ namespace Contra
                     wb.StartInfo.WorkingDirectory = Path.GetDirectoryName("WorldBuilder_Ctr.exe");
                     wb.Start();
                 }
-                //else if (File.Exists(@"..\WorldBuilder_Ctr.exe"))
-                //{
-                //    wb.StartInfo.FileName = "WorldBuilder_Ctr.exe";
-                //    wb.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\WorldBuilder_Ctr.exe");
-                //    wb.Start();
-                //}
                 else if (File.Exists("WorldBuilder.exe"))
                 {
                     wb.StartInfo.FileName = "WorldBuilder.exe";
                     wb.StartInfo.WorkingDirectory = Path.GetDirectoryName("WorldBuilder.exe");
                     wb.Start();
                 }
-                //else if (File.Exists(@"..\WorldBuilder.exe"))
-                //{
-                //    wb.StartInfo.FileName = "WorldBuilder.exe";
-                //    wb.StartInfo.WorkingDirectory = Path.GetDirectoryName(@"..\WorldBuilder.exe");
-                //    wb.Start();
-                //}
             }
             catch (Exception ex)
             {
@@ -1058,6 +1109,7 @@ namespace Contra
 
         private void OnApplicationExit(object sender, EventArgs e) //AppExit
         {
+            DeleteDuplicateFiles();
             renameBigToCtr();
             Properties.Settings.Default.LangEN = RadioEN.Checked;
             Properties.Settings.Default.LangRU = RadioRU.Checked;
@@ -2472,8 +2524,13 @@ namespace Contra
             catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
-        private void Resolution_Click(object sender, EventArgs e)
+        private void Resolution_Click(object sender, EventArgs e) //Opens More Options form
         {
+            //Delete duplicate GameData if such exists
+            if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr") && File.Exists("!!!Contra009Final_Patch2_GameData.big"))
+            {
+                File.Delete("!!!Contra009Final_Patch2_GameData.big");
+            }
             //Enable GameData so that we can show current camera height in Options
             if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
             {
