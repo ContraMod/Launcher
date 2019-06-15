@@ -331,106 +331,6 @@ namespace Contra
             }
         }
 
-        public static string StartGenerals;
-        private void StartFile(string FileName)
-        {
-            try
-            {
-                Process generals = new Process();
-                generals.StartInfo.FileName = "generals.exe";
-                generals.EnableRaisingEvents = true;
-                generals.Exited += (sender, e) =>
-                {
-                    this.WindowState = FormWindowState.Normal;
-                };
-                if (File.Exists("generals.exe"))
-                {
-                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
-                }
-                this.WindowState = FormWindowState.Minimized;
-                generals.Start();
-            }
-            catch
-            {
-                checkInstallDir();
-            }
-        }
-
-        private void StartFileQS(string FileName)
-        {
-            try
-            {
-                Process generals = new Process();
-                generals.StartInfo.FileName = "generals.exe";
-                generals.StartInfo.Arguments = "-quickstart -nologo";
-                generals.EnableRaisingEvents = true;
-                generals.Exited += (sender, e) =>
-                {
-                    this.WindowState = FormWindowState.Normal;
-                };
-                if (File.Exists("generals.exe"))
-                {
-                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
-                }
-                this.WindowState = FormWindowState.Minimized;
-                generals.Start();
-            }
-            catch
-            {
-                checkInstallDir();
-            }
-        }
-
-        private void StartFileWin(string FileName)
-        {
-            try
-            {
-                Process generals = new Process();
-                generals.StartInfo.FileName = "generals.exe";
-                generals.StartInfo.Arguments = "-win";
-                generals.EnableRaisingEvents = true;
-                generals.Exited += (sender, e) =>
-                {
-                    this.WindowState = FormWindowState.Normal;
-                };
-                if (File.Exists("generals.exe"))
-                {
-                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
-                }
-                this.WindowState = FormWindowState.Minimized;
-                generals.Start();
-            }
-            catch
-            {
-                checkInstallDir();
-            }
-        }
-
-        private void StartFileWinQS(string FileName)
-        {
-            try
-            {
-                Process generals = new Process();
-                generals.StartInfo.FileName = "generals.exe";
-                generals.StartInfo.Arguments = "-win -quickstart -nologo";
-                generals.EnableRaisingEvents = true;
-                generals.Exited += (sender, e) =>
-                {
-                    this.WindowState = FormWindowState.Normal;
-                };
-                if (File.Exists("generals.exe"))
-                {
-                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
-                }
-                this.WindowState = FormWindowState.Minimized;
-                generals.Start();
-            }
-            catch
-            {
-                checkInstallDir();
-            }
-        }
-
         private void button2_MouseEnter(object sender, EventArgs e)
         {
             button2.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_exit_text);
@@ -549,6 +449,10 @@ namespace Contra
             if (File.Exists("!Contra009Final_RU.ctr") && File.Exists("!Contra009Final_RU.big"))
             {
                 File.Delete("!Contra009Final_RU.big");
+            }
+            if (File.Exists("langdata.dat") && File.Exists("langdata1.dat"))
+            {
+                File.Delete("langdata1.dat");
             }
         }
 
@@ -720,7 +624,7 @@ namespace Contra
                 }
                 if ((RadioRU.Checked) && (File.Exists("!!!Contra009Final_Patch2_RU.ctr")))
                 {
-                    File.Move("!!!Contra009Final_Patch2_RU.ctr", "!!!Contra009Final_Patch@_RU.big");
+                    File.Move("!!!Contra009Final_Patch2_RU.ctr", "!!!Contra009Final_Patch2_RU.big");
                 }
                 if ((MNew.Checked) && (File.Exists("!Contra009Final_NewMusic.ctr")))
                 {
@@ -793,12 +697,10 @@ namespace Contra
                 }
 
                 //Enable custom camera height with GenTool
-                if (File.Exists("d3d8.cfg"))
+                if (File.Exists("d3d8.cfg") && File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
                 {
-                    if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
-                    {
-                        File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
-                    }
+                    File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
+
                     string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big");
                     string defaultHeightValue = "MaxCameraHeight = 392";
                     if (!read.Contains(defaultHeightValue))
@@ -809,25 +711,45 @@ namespace Contra
                     }
                 }
 
-                if (WinCheckBox.Checked && QSCheckBox.Checked)
+                //Start Generals
+                isWbRunning();
+                try
                 {
-                    isWbRunning();
-                    this.StartFileWinQS(StartGenerals);
+                    if (File.Exists("generals.exe"))
+                    {
+                        Process generals = new Process();
+                        generals.StartInfo.FileName = "generals.exe";
+
+                        if (WinCheckBox.Checked == false && QSCheckBox.Checked == false)
+                        {
+                            //no start arguments
+                        }
+                        else if (QSCheckBox.Checked && WinCheckBox.Checked == false)
+                        {
+                            generals.StartInfo.Arguments = "-quickstart -nologo";
+                        }
+                        else if (WinCheckBox.Checked && QSCheckBox.Checked)
+                        {
+                            generals.StartInfo.Arguments = "-win -quickstart -nologo";
+                        }
+                        else //if (WinCheckBox.Checked && QSCheckBox.Checked == false)
+                        {
+                            generals.StartInfo.Arguments = "-win";
+                        }
+
+                        generals.EnableRaisingEvents = true;
+                        generals.Exited += (sender1, e1) =>
+                        {
+                            this.WindowState = FormWindowState.Normal;
+                        };
+                        generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
+                        this.WindowState = FormWindowState.Minimized;
+                        generals.Start();
+                    }
                 }
-                if (QSCheckBox.Checked && WinCheckBox.Checked == false)
+                catch
                 {
-                    isWbRunning();
-                    this.StartFileQS(StartGenerals);
-                }
-                if (WinCheckBox.Checked && QSCheckBox.Checked == false)
-                {
-                    isWbRunning();
-                    this.StartFileWin(StartGenerals);
-                }
-                if (WinCheckBox.Checked == false && QSCheckBox.Checked == false)
-                {
-                    isWbRunning();
-                    this.StartFile(StartGenerals);
+                    checkInstallDir();
                 }
             }
             catch (Exception ex)

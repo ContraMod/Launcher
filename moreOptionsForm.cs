@@ -648,23 +648,23 @@ namespace Contra
             {
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" file not found!");
+                    MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" file not found!", "Error");
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не найден!");
+                    MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не найден!", "Ошибка");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не знайдений!");
+                    MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не знайдений!", "Помилка");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("Файлът \"!!!Contra009Final_Patch2_GameData.big\" не беше намерен!");
+                    MessageBox.Show("Файлът \"!!!Contra009Final_Patch2_GameData.big\" не беше намерен!", "Грешка");
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" nicht gefunden!");
+                    MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" nicht gefunden!", "Fehler");
                 }
             }
         }
