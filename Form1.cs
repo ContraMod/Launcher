@@ -294,28 +294,25 @@ namespace Contra
 
         private void checkInstallDir()
         {
-            if (!Environment.CurrentDirectory.Contains("generals.exe"))
+            if (Globals.GB_Checked == true)
             {
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("You have installed Contra in the wrong folder. Install it in the Zero Hour folder which contains the \"generals.exe\". It's very often the parent folder.", "Error");
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Вы установили Contra в неправильную папку. Установите его в папку Zero Hour, которая содержит файл \"generals.exe\". Это очень часто предыдущая папка.", "Ошибка");
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Ви встановили Contra у неправильній папці. Встановіть це в папку Zero Hour, яка містить \"generals.exe\". Це дуже часто попередня папка.", "Помилка");
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("Инсталирали сте Contra в грешната папка. Инсталирайте в Zero Hour папката, която съдържа \"generals.exe\". Обикновено това е предишната папка.", "Грешка");
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("Du hast Contra im falschen ordner installiert. Installiere es in dem Zero Hour ordner in dem die \"generals.exe\" ist. Es ist sehr oft der übergeordnete Ordner.", "Fehler");
-                }
+                MessageBox.Show("You have installed Contra in the wrong folder. Install it in the Zero Hour folder which contains the \"generals.exe\". It's very often the parent folder.", "Error");
+            }
+            else if (Globals.RU_Checked == true)
+            {
+                MessageBox.Show("Вы установили Contra в неправильную папку. Установите его в папку Zero Hour, которая содержит файл \"generals.exe\". Это очень часто предыдущая папка.", "Ошибка");
+            }
+            else if (Globals.UA_Checked == true)
+            {
+                MessageBox.Show("Ви встановили Contra у неправильній папці. Встановіть це в папку Zero Hour, яка містить \"generals.exe\". Це дуже часто попередня папка.", "Помилка");
+            }
+            else if (Globals.BG_Checked == true)
+            {
+                MessageBox.Show("Инсталирали сте Contra в грешната папка. Инсталирайте в Zero Hour папката, която съдържа \"generals.exe\". Обикновено това е предишната папка.", "Грешка");
+            }
+            else if (Globals.DE_Checked == true)
+            {
+                MessageBox.Show("Du hast Contra im falschen ordner installiert. Installiere es in dem Zero Hour ordner in dem die \"generals.exe\" ist. Es ist sehr oft der übergeordnete Ordner.", "Fehler");
             }
         }
 
@@ -712,42 +709,39 @@ namespace Contra
                 }
 
                 //Start Generals
-                isWbRunning();
-                try
+                if (File.Exists("generals.exe"))
                 {
-                    if (File.Exists("generals.exe"))
+                    isWbRunning();
+                    Process generals = new Process();
+                    generals.StartInfo.FileName = "generals.exe";
+
+                    if (WinCheckBox.Checked == false && QSCheckBox.Checked == false)
                     {
-                        Process generals = new Process();
-                        generals.StartInfo.FileName = "generals.exe";
-
-                        if (WinCheckBox.Checked == false && QSCheckBox.Checked == false)
-                        {
-                            //no start arguments
-                        }
-                        else if (QSCheckBox.Checked && WinCheckBox.Checked == false)
-                        {
-                            generals.StartInfo.Arguments = "-quickstart -nologo";
-                        }
-                        else if (WinCheckBox.Checked && QSCheckBox.Checked)
-                        {
-                            generals.StartInfo.Arguments = "-win -quickstart -nologo";
-                        }
-                        else //if (WinCheckBox.Checked && QSCheckBox.Checked == false)
-                        {
-                            generals.StartInfo.Arguments = "-win";
-                        }
-
-                        generals.EnableRaisingEvents = true;
-                        generals.Exited += (sender1, e1) =>
-                        {
-                            this.WindowState = FormWindowState.Normal;
-                        };
-                        generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
-                        this.WindowState = FormWindowState.Minimized;
-                        generals.Start();
+                        //no start arguments
                     }
+                    else if (QSCheckBox.Checked && WinCheckBox.Checked == false)
+                    {
+                        generals.StartInfo.Arguments = "-quickstart -nologo";
+                    }
+                    else if (WinCheckBox.Checked && QSCheckBox.Checked)
+                    {
+                        generals.StartInfo.Arguments = "-win -quickstart -nologo";
+                    }
+                    else //if (WinCheckBox.Checked && QSCheckBox.Checked == false)
+                    {
+                        generals.StartInfo.Arguments = "-win";
+                    }
+
+                    generals.EnableRaisingEvents = true;
+                    generals.Exited += (sender1, e1) =>
+                    {
+                        this.WindowState = FormWindowState.Normal;
+                    };
+                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
+                    this.WindowState = FormWindowState.Minimized;
+                    generals.Start();
                 }
-                catch
+                else
                 {
                     checkInstallDir();
                 }
