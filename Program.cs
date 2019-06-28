@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
 
 namespace Contra
 {
@@ -18,11 +19,14 @@ namespace Contra
 
             mutex = new Mutex(true, appName, out createdNew);
 
-            if (!createdNew)
+            if (!File.Exists(Application.StartupPath + @"\Contra_Launcher_ToDelete.exe"))
             {
-                //app is already running! Exiting the application
-                MessageBox.Show("Contra Launcher is already running!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                if (!createdNew)
+                {
+                    //app is already running! Exiting the application
+                    MessageBox.Show("Contra Launcher is already running!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

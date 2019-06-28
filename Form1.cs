@@ -93,13 +93,6 @@ namespace Contra
                 }
             }
 
-            //This renames the original file so any shortcut works and names it accordingly after the update
-            if (File.Exists(Application.StartupPath + "/Contra_Launcher_ToDelete.exe") && (applyNewLauncher == true))
-            {
-                File.SetAttributes("Contra_Launcher_ToDelete.exe", FileAttributes.Normal);
-                File.Delete(Application.StartupPath + "/Contra_Launcher_ToDelete.exe");
-            }
-
             ////Load DiscordRPC.dll
             //if (File.Exists((@"contra\DiscordRPC.dll")))
             //{
@@ -1798,8 +1791,12 @@ namespace Contra
                 {
                     //URL of MOTD with Version string
                     string motd = client.DownloadString("https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/Version.txt");
+                    //string motd = client.DownloadString("https://github.com/ThePredatorBG/contra-launcher/blob/master/VersionTEST"); //test version.txt
+
                     //URL of the updated file
                     string exe_url = "https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/bin/Release/Contra_Launcher.exe";
+                    //string exe_url = "https://github.com/ThePredatorBG/contra-launcher/raw/master/Contra_Launcher.exe"; //test exe
+
 
                     if (downloadTextFile == false)
                     {
@@ -1836,6 +1833,14 @@ namespace Contra
 
         private void Form1_Shown(object sender, EventArgs e)
         {
+            //This renames the original file so any shortcut works and names it accordingly after the update
+//            if (File.Exists(Application.StartupPath + "/Contra_Launcher_ToDelete.exe") && (applyNewLauncher == true))
+            if (File.Exists(Application.StartupPath + @"\Contra_Launcher_ToDelete.exe"))
+            {
+                File.SetAttributes("Contra_Launcher_ToDelete.exe", FileAttributes.Normal);
+                File.Delete(Application.StartupPath + @"\Contra_Launcher_ToDelete.exe");
+            }
+
             //Show warning if Options.ini isn't found and the user is running Windows 7 or more recent.
             if (IsWindows7OrNewer() == true)
             {
@@ -3218,16 +3223,18 @@ namespace Contra
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             //This renames the original file so any shortcut works and names it accordingly after the update
-            if (File.Exists(Application.StartupPath + "/Contra_Launcher_" + versionText2 + ".exe") && (applyNewLauncher == true))
+            if (File.Exists(Application.StartupPath + @"\Contra_Launcher_" + versionText2 + ".exe") && (applyNewLauncher == true))
             {
-                File.Move(Application.StartupPath + "/Contra_Launcher.exe", Application.StartupPath + "/Contra_Launcher_ToDelete.exe");
-                File.Move(Application.StartupPath + "/Contra_Launcher_" + versionText2 + ".exe", Application.StartupPath + "/Contra_Launcher.exe");
+                File.Move(Application.StartupPath + @"\Contra_Launcher.exe", Application.StartupPath + @"\Contra_Launcher_ToDelete.exe");
+                File.Move(Application.StartupPath + @"\Contra_Launcher_" + versionText2 + ".exe", Application.StartupPath + @"\Contra_Launcher.exe");
             }
             //If updating has failed, clear the 0KB file
-            if (File.Exists(Application.StartupPath + "/Contra_Launcher_" + versionText2 + ".exe") && (applyNewLauncher == false))
+            if (File.Exists(Application.StartupPath + @"\Contra_Launcher_" + versionText2 + ".exe") && (applyNewLauncher == false))
             {
-                File.Delete(Application.StartupPath + "/Contra_Launcher_" + versionText2 + ".exe");
+                File.Delete(Application.StartupPath + @"\Contra_Launcher_" + versionText2 + ".exe");
             }
+
+
             //if (File.Exists(Application.StartupPath + "/Contra_Launcher_New.exe"))
             //{
             //    File.Move(Application.StartupPath + "/Contra_Launcher.exe", Application.StartupPath + "/Contra_Launcher_ToDelete.exe");
