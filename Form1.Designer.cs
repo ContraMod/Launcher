@@ -71,12 +71,20 @@ namespace Contra
             this.vpnSettingsLabel = new System.Windows.Forms.Label();
             this.openPlayersListTimer = new System.Windows.Forms.Timer(this.components);
             this.refreshVpnIpTimer = new System.Windows.Forms.Timer(this.components);
+            this.PatchDLProgressBar = new System.Windows.Forms.ProgressBar();
+            this.PatchDLPanel = new System.Windows.Forms.Panel();
+            this.CancelModDLBtn = new System.Windows.Forms.Button();
+            this.ModDLLabel = new System.Windows.Forms.Label();
             this.MOTD = new Contra.Marquee();
+            this.ModDLFileSizeLabel = new System.Windows.Forms.Label();
+            this.DLPercentLabel = new System.Windows.Forms.Label();
+            this.ModDLCurrentFileLabel = new System.Windows.Forms.Label();
             this.voicespanel.SuspendLayout();
             this.languagepanel.SuspendLayout();
             this.musicpanel.SuspendLayout();
             this.portraitspanel.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.PatchDLPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // RadioEN
@@ -557,12 +565,48 @@ namespace Contra
             // openPlayersListTimer
             // 
             this.openPlayersListTimer.Interval = 7500;
-            this.openPlayersListTimer.Tick += new System.EventHandler(this.openPlayersListTimer_Tick);
+            this.openPlayersListTimer.Tick += new System.EventHandler(this.OpenPlayersListTimer_Tick);
             // 
             // refreshVpnIpTimer
             // 
             this.refreshVpnIpTimer.Interval = 2500;
-            this.refreshVpnIpTimer.Tick += new System.EventHandler(this.refreshVpnIpTimer_Tick);
+            this.refreshVpnIpTimer.Tick += new System.EventHandler(this.RefreshVpnIpTimer_Tick);
+            // 
+            // PatchDLProgressBar
+            // 
+            resources.ApplyResources(this.PatchDLProgressBar, "PatchDLProgressBar");
+            this.PatchDLProgressBar.Name = "PatchDLProgressBar";
+            // 
+            // PatchDLPanel
+            // 
+            this.PatchDLPanel.BackColor = System.Drawing.Color.White;
+            this.PatchDLPanel.BackgroundImage = global::Contra.Properties.Resources.vpnbg;
+            this.PatchDLPanel.Controls.Add(this.ModDLCurrentFileLabel);
+            this.PatchDLPanel.Controls.Add(this.DLPercentLabel);
+            this.PatchDLPanel.Controls.Add(this.ModDLFileSizeLabel);
+            this.PatchDLPanel.Controls.Add(this.CancelModDLBtn);
+            this.PatchDLPanel.Controls.Add(this.ModDLLabel);
+            this.PatchDLPanel.Controls.Add(this.PatchDLProgressBar);
+            resources.ApplyResources(this.PatchDLPanel, "PatchDLPanel");
+            this.PatchDLPanel.Name = "PatchDLPanel";
+            // 
+            // CancelModDLBtn
+            // 
+            this.CancelModDLBtn.BackColor = System.Drawing.Color.Transparent;
+            this.CancelModDLBtn.BackgroundImage = global::Contra.Properties.Resources.btnOk1;
+            this.CancelModDLBtn.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.CancelModDLBtn, "CancelModDLBtn");
+            this.CancelModDLBtn.ForeColor = System.Drawing.Color.White;
+            this.CancelModDLBtn.Name = "CancelModDLBtn";
+            this.CancelModDLBtn.UseVisualStyleBackColor = false;
+            this.CancelModDLBtn.Click += new System.EventHandler(this.CancelModDLBtn_Click);
+            // 
+            // ModDLLabel
+            // 
+            resources.ApplyResources(this.ModDLLabel, "ModDLLabel");
+            this.ModDLLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ModDLLabel.ForeColor = System.Drawing.Color.White;
+            this.ModDLLabel.Name = "ModDLLabel";
             // 
             // MOTD
             // 
@@ -573,12 +617,34 @@ namespace Contra
             this.MOTD.Speed = 1;
             this.MOTD.yOffset = 0;
             // 
+            // ModDLFileSizeLabel
+            // 
+            resources.ApplyResources(this.ModDLFileSizeLabel, "ModDLFileSizeLabel");
+            this.ModDLFileSizeLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ModDLFileSizeLabel.ForeColor = System.Drawing.Color.White;
+            this.ModDLFileSizeLabel.Name = "ModDLFileSizeLabel";
+            // 
+            // DLPercentLabel
+            // 
+            resources.ApplyResources(this.DLPercentLabel, "DLPercentLabel");
+            this.DLPercentLabel.BackColor = System.Drawing.Color.Transparent;
+            this.DLPercentLabel.ForeColor = System.Drawing.Color.White;
+            this.DLPercentLabel.Name = "DLPercentLabel";
+            // 
+            // ModDLCurrentFileLabel
+            // 
+            resources.ApplyResources(this.ModDLCurrentFileLabel, "ModDLCurrentFileLabel");
+            this.ModDLCurrentFileLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ModDLCurrentFileLabel.ForeColor = System.Drawing.Color.White;
+            this.ModDLCurrentFileLabel.Name = "ModDLCurrentFileLabel";
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = global::Contra.Properties.Resources.background;
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
+            this.Controls.Add(this.PatchDLPanel);
             this.Controls.Add(this.MOTD);
             this.Controls.Add(this.vpnSettingsLabel);
             this.Controls.Add(this.whoIsOnline);
@@ -623,6 +689,8 @@ namespace Contra
             this.portraitspanel.ResumeLayout(false);
             this.portraitspanel.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.PatchDLPanel.ResumeLayout(false);
+            this.PatchDLPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -672,6 +740,13 @@ namespace Contra
         public System.Windows.Forms.Label playersOnlineLabel;
         private System.Windows.Forms.Timer openPlayersListTimer;
         private System.Windows.Forms.Timer refreshVpnIpTimer;
+        private System.Windows.Forms.ProgressBar PatchDLProgressBar;
+        private System.Windows.Forms.Panel PatchDLPanel;
+        private System.Windows.Forms.Label ModDLLabel;
+        private System.Windows.Forms.Button CancelModDLBtn;
+        private System.Windows.Forms.Label ModDLFileSizeLabel;
+        private System.Windows.Forms.Label DLPercentLabel;
+        private System.Windows.Forms.Label ModDLCurrentFileLabel;
     }
 }
 

@@ -73,9 +73,9 @@ namespace Contra
             }
 
             //Read from Options.ini and check/uncheck Heat Effects checkbox depending on value there:
-            if (Directory.Exists(userDataLeafName()))
+            if (Directory.Exists(UserDataLeafName()))
             {
-                string text = File.ReadAllText(userDataLeafName() + "Options.ini");
+                string text = File.ReadAllText(UserDataLeafName() + "Options.ini");
                 {
                     if (text.Contains("HeatEffects = No"))
                     {
@@ -175,9 +175,9 @@ namespace Contra
 
             //Get current resolution
             {
-                if (Directory.Exists(userDataLeafName()))
+                if (Directory.Exists(UserDataLeafName()))
                 {
-                    string s = File.ReadAllText(userDataLeafName() + "Options.ini");
+                    string s = File.ReadAllText(UserDataLeafName() + "Options.ini");
                     List<string> found = new List<string>();
                     string line;
                     using (StringReader file = new StringReader(s))
@@ -227,7 +227,7 @@ namespace Contra
                 //HeatEffectsCheckBox.Checked = Properties.Settings.Default.HeatEffects;
                 LangFilterCheckBox.Checked = Properties.Settings.Default.LangF;
             }
-            if (!File.Exists(userDataLeafName() + "Options.ini") && (!File.Exists(myDocPath + "Options.ini")))
+            if (!File.Exists(UserDataLeafName() + "Options.ini") && (!File.Exists(myDocPath + "Options.ini")))
             {
                 if (Globals.GB_Checked == true)
                 {
@@ -252,7 +252,7 @@ namespace Contra
             }
         }
 
-        public static string userDataLeafName()
+        public static string UserDataLeafName()
         {
             //o gets "Command and Conquer Generals Zero Hour Data" from registry. It varies depending on language
             var o = string.Empty;
@@ -324,9 +324,9 @@ namespace Contra
 
         private void resOkButton_Click(object sender, EventArgs e)
         {
-            if (Directory.Exists(userDataLeafName()))
+            if (Directory.Exists(UserDataLeafName()))
             {
-                string text = File.ReadAllText(userDataLeafName() + "Options.ini");
+                string text = File.ReadAllText(UserDataLeafName() + "Options.ini");
                 {
                     if (!Regex.IsMatch(comboBox1.Text, @"^[0-9]{3,4}x[0-9]{3,4}$")) //if selected res doesn't match valid input (input must match the regex)
                     {
@@ -355,7 +355,7 @@ namespace Contra
                     else
                     {
                         string fixedText = comboBox1.Text.Replace("x", " ");
-                        File.WriteAllText(userDataLeafName() + "Options.ini", Regex.Replace(File.ReadAllText(userDataLeafName() + "Options.ini"), "\r?\nResolution =.*", "\r\nResolution = " + fixedText + "\r"));
+                        File.WriteAllText(UserDataLeafName() + "Options.ini", Regex.Replace(File.ReadAllText(UserDataLeafName() + "Options.ini"), "\r?\nResolution =.*", "\r\nResolution = " + fixedText + "\r"));
                         if (Globals.GB_Checked == true)
                         {
                             MessageBox.Show("Resolution changed successfully!");
@@ -434,7 +434,7 @@ namespace Contra
                     }
                 }
             }
-            if (!File.Exists(userDataLeafName() + "Options.ini") && (!File.Exists(myDocPath + "Options.ini")))
+            if (!File.Exists(UserDataLeafName() + "Options.ini") && (!File.Exists(myDocPath + "Options.ini")))
             {
                 if (Globals.GB_Checked == true)
                 {
@@ -520,17 +520,17 @@ namespace Contra
                 //Properties.Settings.Default.HeatEffects = false;
                 //Properties.Settings.Default.Save();
                 //Disable Heat Effects. Fixes black screen issue.
-                if (Directory.Exists(userDataLeafName()))
+                if (Directory.Exists(UserDataLeafName()))
                 {
-                    string text = File.ReadAllText(userDataLeafName() + "Options.ini");
+                    string text = File.ReadAllText(UserDataLeafName() + "Options.ini");
                     {
                         if (text.Contains("HeatEffects = Yes"))
                         {
-                            File.WriteAllText(userDataLeafName() + "Options.ini", File.ReadAllText(userDataLeafName() + "Options.ini").Replace("HeatEffects = Yes", "HeatEffects = No"));
+                            File.WriteAllText(UserDataLeafName() + "Options.ini", File.ReadAllText(UserDataLeafName() + "Options.ini").Replace("HeatEffects = Yes", "HeatEffects = No"));
                         }
                         else if (text.Contains("HeatEffects = yes"))
                         {
-                            File.WriteAllText(userDataLeafName() + "Options.ini", File.ReadAllText(userDataLeafName() + "Options.ini").Replace("HeatEffects = yes", "HeatEffects = No"));
+                            File.WriteAllText(UserDataLeafName() + "Options.ini", File.ReadAllText(UserDataLeafName() + "Options.ini").Replace("HeatEffects = yes", "HeatEffects = No"));
                         }
                         else
                         {
@@ -562,17 +562,17 @@ namespace Contra
                 //Properties.Settings.Default.HeatEffects = true;
                 //Properties.Settings.Default.Save();
                 //Disable Heat Effects. Fixes black screen issue.
-                if (Directory.Exists(userDataLeafName()))
+                if (Directory.Exists(UserDataLeafName()))
                 {
-                    string text = File.ReadAllText(userDataLeafName() + "Options.ini");
+                    string text = File.ReadAllText(UserDataLeafName() + "Options.ini");
                     {
                         if (text.Contains("HeatEffects = No"))
                         {
-                            File.WriteAllText(userDataLeafName() + "Options.ini", File.ReadAllText(userDataLeafName() + "Options.ini").Replace("HeatEffects = No", "HeatEffects = Yes"));
+                            File.WriteAllText(UserDataLeafName() + "Options.ini", File.ReadAllText(UserDataLeafName() + "Options.ini").Replace("HeatEffects = No", "HeatEffects = Yes"));
                         }
                         else if (text.Contains("HeatEffects = no"))
                         {
-                            File.WriteAllText(userDataLeafName() + "Options.ini", File.ReadAllText(userDataLeafName() + "Options.ini").Replace("HeatEffects = no", "HeatEffects = Yes"));
+                            File.WriteAllText(UserDataLeafName() + "Options.ini", File.ReadAllText(UserDataLeafName() + "Options.ini").Replace("HeatEffects = no", "HeatEffects = Yes"));
                         }
                         else
                         {
@@ -601,7 +601,7 @@ namespace Contra
             }
         }
 
-        private void changeCamHeight()
+        private void ChangeCamHeight()
         {
             if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
             {
@@ -625,23 +625,23 @@ namespace Contra
 
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("Camera height changed!");
+                    MessageBox.Show("Camera height changed!\n\nNOTE: High camera height values may decrease performance.");
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Высота камеры изменена!");
+                    MessageBox.Show("Высота камеры изменена!\n\nЗаметка. Высокие значения высоты камеры могут снизить производительность.");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Висота камери змінилася!");
+                    MessageBox.Show("Висота камери змінилася!\n\nПримітка. Високі значення висоти камери можуть знизити продуктивність.");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("Височината на камерата е променена!");
+                    MessageBox.Show("Височината на камерата е променена!\n\nЗабележка: Високите стойности на камерата могат да намалят производителността.");
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("Kamerahöhe geändert!");
+                    MessageBox.Show("Kamerahöhe geändert!\n\nHinweis: Hohe Kamerahöhen können die Leistung beeinträchtigen.");
                 }
             }
             else
@@ -671,7 +671,7 @@ namespace Contra
 
         private void camOkButton_Click(object sender, EventArgs e)
         {
-            changeCamHeight();
+            ChangeCamHeight();
             //if (!cfgText.Contains("5.8")) //if user isn't on ver 6.2
             //{
             //    if (Globals.GB_Checked == true)
