@@ -114,6 +114,7 @@ namespace Contra
 
         string versionText;
         int modVersionLocalInt;
+        bool patch1Found, patch2Found;
 
         //Create method to check for an update
         public void GetModUpdate(string motd, string patch_url)
@@ -138,16 +139,32 @@ namespace Contra
                 {
                     if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
                     {
+                        patch2Found = true;
+                    }
+                    if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
+                    {
+                        patch1Found = true;
+                    }
+                    if (patch1Found == true && patch2Found == true)
+                    {
                         modVersionLocalInt = 2;
                     }
-                    else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
-                    {
-                        modVersionLocalInt = 1;
-                    }
-                    else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
-                    {
-                        modVersionLocalInt = 0;
-                    }
+                    //if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
+                    //{
+                    //    modVersionLocalInt = 2;
+                    //}
+                    //else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && !File.Exists("!!Contra009Final_Patch1.big") || !File.Exists("!!Contra009Final_Patch1.ctr"))
+                    //{
+                    //    modVersionLocalInt = 0;
+                    //}
+                    //else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
+                    //{
+                    //    modVersionLocalInt = 1;
+                    //}
+                    //else //if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
+                    //{
+                    //    modVersionLocalInt = 0;
+                    //}
                 }
 
                 //Download new mod version if local one is outdated and launcher is up to date
@@ -243,8 +260,9 @@ namespace Contra
         WebClient wcMod = new WebClient();
         Int64 bytes_total;
         long s1;
-        string patch2FileName = "!Contra006music-TD.zip";
-        string patch3FileName = "!Contra006music-TD.zip";
+        //        string patch1FileName = "Contra009FinalPatch1.zip";
+        string patchFileName;// = "!Contra006music-TD.zip";
+//        string patch1and2FileName = "Contra009FinalPatch1&2.zip";
 
         public void DownloadModUpdate(string patch_url)
         {
@@ -253,15 +271,40 @@ namespace Contra
                 wcMod.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadPatchCompleted);
                 wcMod.DownloadProgressChanged += wc_DownloadProgressChanged;
 
-                //Download the patch zip file depending on user's needs
-                if (modVersionLocalInt == 1) //If user has Patch 1, download Patch 2 zip
+                //Download one patch at a time
+                if (modVersionLocalInt != 2) //If user doesn't have the latest patch
                 {
-                    currentFile = patch2FileName;
-                    wcMod.OpenRead(patch_url + patch2FileName);
+                    if (patch1Found == false)
+                    {
+                        patchFileName = "Contra009FinalPatch1.zip";
+                    }
+                    else if (patch2Found == false)
+                    {
+                        patchFileName = "Contra009FinalPatch2.zip";
+                    }
+                    currentFile = patchFileName;
+                    wcMod.OpenRead(patch_url + patchFileName);
                     bytes_total = Convert.ToInt64(wcMod.ResponseHeaders["Content-Length"]);
 
-                    wcMod.DownloadFileAsync(new Uri(patch_url + patch2FileName), Application.StartupPath + @"\" + patch2FileName);
+                    wcMod.DownloadFileAsync(new Uri(patch_url + patchFileName), Application.StartupPath + @"\" + patchFileName);
                 }
+                //Download the patch zip file depending on user's needs
+                //if (modVersionLocalInt == 1) //If user has Patch 1, download Patch 2 zip
+                //{
+                //    currentFile = patchFileName;
+                //    wcMod.OpenRead(patch_url + patchFileName);
+                //    bytes_total = Convert.ToInt64(wcMod.ResponseHeaders["Content-Length"]);
+
+                //    wcMod.DownloadFileAsync(new Uri(patch_url + patchFileName), Application.StartupPath + @"\" + patchFileName);
+                //}
+                //else if (modVersionLocalInt == 0) //If user has no patches, download Patch 1 + 2 zip
+                //{
+                //    currentFile = patch1and2FileName;
+                //    wcMod.OpenRead(patch_url + patch1and2FileName);
+                //    bytes_total = Convert.ToInt64(wcMod.ResponseHeaders["Content-Length"]);
+
+                //    wcMod.DownloadFileAsync(new Uri(patch_url + patch1and2FileName), Application.StartupPath + @"\" + patch1and2FileName);
+                //}
                 PatchDLPanel.Show();
 
                 //  while (wc.IsBusy) { }
@@ -289,7 +332,7 @@ namespace Contra
             if (e.Cancelled)
             {
                 // delete the partially-downloaded file
-                File.Delete(patch2FileName);
+                File.Delete(patchFileName);
                 return;
             }
 
@@ -302,35 +345,49 @@ namespace Contra
 
             //Extract patch zip
             string extractPath = Application.StartupPath;
-            if (modVersionLocalInt == 1) //If user has Patch 1, download Patch 2 zip
+            string zipPath = Application.StartupPath + @"\" + patchFileName;
+            //ZipArchiveExtensions.ExtractToDirectory(zipPath, extractPath, true);
+            if (patchFileName == "Contra009FinalPatch1.zip") //Delete the following files because overwriting does not work
             {
-                string zipPath = Application.StartupPath + @"\Contra009FinalPatch2.zip";
-                System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
-                File.Delete("Contra009FinalPatch2.zip");
+                try
+                {
+                    File.Delete("GenArial.tff");
+                }
+                catch { }
             }
+            else if (patchFileName == "Contra009FinalPatch2.zip") //Delete the following files because overwriting does not work
+            {
+                try
+                {
+                    Directory.Delete("contra");
+                }
+                catch { }
+            }
+            System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
+            File.Delete(patchFileName);
 
-            //Show a message when the download has completed
+            //Show a message when the patch download has completed
             if (Globals.GB_Checked == true)
             {
-                MessageBox.Show("Contra is now up-to-date!\n\nThe application will now restart!", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("A new patch has been downloaded!\n\nThe application will now restart!", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (Globals.RU_Checked == true)
             {
-                MessageBox.Show("Ваше приложение теперь обновлено!\n\nПриложение будет перезагружено!", "Обновление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Новый патч был загружен!\n\nПриложение будет перезагружено!", "Обновление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (Globals.UA_Checked == true)
             {
-                MessageBox.Show("Ваша готова до оновлення!\n\nПрограма буде перезавантажена!", "Оновлення завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Новий виправлення завантажено!\n\nПрограма буде перезавантажена!", "Оновлення завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (Globals.BG_Checked == true)
             {
-                MessageBox.Show("Приложението е вече обновено!\n\nСега ще се рестартира!", "Обновяването е завършено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Нов пач беше изтеглен!\n\nСега ще се рестартира!", "Обновяването е завършено", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (Globals.DE_Checked == true)
             {
-                MessageBox.Show("Ihr Programm ist jetzt auf dem neuesten Stand!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Ein neuer Patch wurde heruntergeladen!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            ////        Application.Restart();
+            Application.Restart();
         }
 
         public void DownloadUpdate(string exe_url)
@@ -364,7 +421,7 @@ namespace Contra
 
             applyNewLauncher = true;
 
-            //Show a message when the download has completed
+            //Show a message when the launcher download has completed
             if (Globals.GB_Checked == true)
             {
                 MessageBox.Show("Your application is now up-to-date!\n\nThe application will now restart!", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -873,13 +930,16 @@ namespace Contra
                         File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
                     }
 
-                    string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big");
-                    string defaultHeightValue = "MaxCameraHeight = 392";
-                    if (!read.Contains(defaultHeightValue))
+                    if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
                     {
-                        string cfgText = File.ReadAllText("d3d8.cfg");
-                        cfgText = Regex.Replace(cfgText, "pitch=.*", "pitch=36");
-                        File.WriteAllText("d3d8.cfg", cfgText);
+                        string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big");
+                        string defaultHeightValue = "MaxCameraHeight = 392";
+                        if (!read.Contains(defaultHeightValue))
+                        {
+                            string cfgText = File.ReadAllText("d3d8.cfg");
+                            cfgText = Regex.Replace(cfgText, "pitch=.*", "pitch=36");
+                            File.WriteAllText("d3d8.cfg", cfgText);
+                        }
                     }
                 }
 
@@ -1980,7 +2040,7 @@ namespace Contra
                  //   string exe_url = "https://github.com/ThePredatorBG/contra-launcher/raw/master/Contra_Launcher.exe"; //test exe
 
                     //URL of patch files
-                    string patch_url = "http://contra.cncguild.net/Downloads/";
+                    string patch_url = "http://contra.cncguild.net/Downloads/Launcher/";
 
 
                     if (downloadTextFile == false)
@@ -2296,14 +2356,14 @@ namespace Contra
             toolTip1.SetToolTip(QSCheckBox, "Disables intro and shellmap (game starts up faster).");
             toolTip1.SetToolTip(whoIsOnline, "Show who is online.");
             toolTip1.SetToolTip(vpn_start, "Start/close ContraVPN.");
-            currentFileLabel = "Current file: ";
+            currentFileLabel = "File: ";
             ModDLLabel.Text = "Download progress: ";
-            if ((File.Exists("!!!Contra009Final_Patch2.big")) || (File.Exists("!!!Contra009Final_Patch2.ctr")))
+            if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
             {
                 verString = " Patch 2";
                 yearString = "2019";
             }
-            else if ((File.Exists("!!Contra009Final_Patch1.big")) || (File.Exists("!!Contra009Final_Patch1.ctr")))
+            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
             {
                 verString = " Patch 1";
                 yearString = "2019";
@@ -2376,9 +2436,14 @@ namespace Contra
             DefaultPics.Text = "По умолч.";
             GoofyPics.Text = "Смешные";
             moreOptions.Text = "Больше опций";
-            currentFileLabel = "Текущий файл: ";
+            currentFileLabel = "Файл: ";
             ModDLLabel.Text = "Прогресс загрузки: ";
-            if ((File.Exists("!!Contra009Final_Patch1.big")) || (File.Exists("!!Contra009Final_Patch1.ctr")))
+            if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
+            {
+                verString = " Патч 2";
+                yearString = "2019";
+            }
+            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
             {
                 verString = " Патч 1";
                 yearString = "2019";
@@ -2452,9 +2517,14 @@ namespace Contra
             DefaultPics.Text = "За замовч.";
             GoofyPics.Text = "Смішні";
             moreOptions.Text = "Більше опцій";
-            currentFileLabel = "Поточний файл: ";
+            currentFileLabel = "Файл: ";
             ModDLLabel.Text = "Прогрес завантаження: ";
-            if ((File.Exists("!!Contra009Final_Patch1.big")) || (File.Exists("!!Contra009Final_Patch1.ctr")))
+            if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
+            {
+                verString = " Патч 2";
+                yearString = "2019";
+            }
+            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
             {
                 verString = " Патч 1";
                 yearString = "2019";
@@ -2528,9 +2598,14 @@ namespace Contra
             DefaultPics.Text = "По подр.";
             GoofyPics.Text = "Забавни";
             moreOptions.Text = "Доп. Опции";
-            currentFileLabel = "Текущ файл: ";
-            ModDLLabel.Text = "Прогрес на изтеглянето: ";
-            if ((File.Exists("!!Contra009Final_Patch1.big")) || (File.Exists("!!Contra009Final_Patch1.ctr")))
+            currentFileLabel = "Файл: ";
+            ModDLLabel.Text = "Прогрес на изтегляне: ";
+            if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
+            {
+                verString = " Пач 2";
+                yearString = "2019";
+            }
+            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
             {
                 verString = " Пач 1";
                 yearString = "2019";
@@ -2606,9 +2681,14 @@ namespace Contra
             DefaultPics.Text = "Standard";
             GoofyPics.Text = "Lustig";
             moreOptions.Text = "Einstellungen";
-            currentFileLabel = "Aktuelle Datei: ";
+            currentFileLabel = "Datei: ";
             ModDLLabel.Text = "Downloadfortschritt: ";
-            if ((File.Exists("!!Contra009Final_Patch1.big")) || (File.Exists("!!Contra009Final_Patch1.ctr")))
+            if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
+            {
+                verString = " Patch 2";
+                yearString = "2019";
+            }
+            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
             {
                 verString = " Patch 1";
                 yearString = "2019";

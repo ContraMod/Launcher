@@ -936,6 +936,75 @@
   <data name="panel1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
+  <data name="&gt;&gt;RadioFlag_DE.Name" xml:space="preserve">
+    <value>RadioFlag_DE</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_DE.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_DE.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_DE.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_BG.Name" xml:space="preserve">
+    <value>RadioFlag_BG</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_BG.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_BG.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_BG.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_UA.Name" xml:space="preserve">
+    <value>RadioFlag_UA</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_UA.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_UA.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_UA.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_RU.Name" xml:space="preserve">
+    <value>RadioFlag_RU</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_RU.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_RU.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_RU.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>45, 46</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 22</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
   <data name="RadioFlag_DE.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -1067,27 +1136,6 @@
   </data>
   <data name="&gt;&gt;RadioFlag_RU.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>45, 46</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 22</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>8</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>21, 17</value>
@@ -1327,13 +1375,13 @@
     <value>25, 138</value>
   </data>
   <data name="ModDLCurrentFileLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 18</value>
+    <value>38, 18</value>
   </data>
   <data name="ModDLCurrentFileLabel.TabIndex" type="System.Int32, mscorlib">
     <value>70</value>
   </data>
   <data name="ModDLCurrentFileLabel.Text" xml:space="preserve">
-    <value>Current file: </value>
+    <value>File: </value>
   </data>
   <data name="&gt;&gt;ModDLCurrentFileLabel.Name" xml:space="preserve">
     <value>ModDLCurrentFileLabel</value>
@@ -1357,7 +1405,7 @@
     <value>NoControl</value>
   </data>
   <data name="DLPercentLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>157, 70</value>
+    <value>169, 70</value>
   </data>
   <data name="DLPercentLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 18</value>
@@ -1513,7 +1561,7 @@
     <value>MOTD</value>
   </data>
   <data name="&gt;&gt;MOTD.Type" xml:space="preserve">
-    <value>Contra.Marquee, Contra_Launcher, Version=1.0.0.4, Culture=neutral, PublicKeyToken=null</value>
+    <value>Contra.Marquee, Contra_Launcher, Version=1.0.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;MOTD.Parent" xml:space="preserve">
     <value>$this</value>

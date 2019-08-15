@@ -73,12 +73,12 @@ namespace Contra
             this.refreshVpnIpTimer = new System.Windows.Forms.Timer(this.components);
             this.PatchDLProgressBar = new System.Windows.Forms.ProgressBar();
             this.PatchDLPanel = new System.Windows.Forms.Panel();
+            this.ModDLCurrentFileLabel = new System.Windows.Forms.Label();
+            this.DLPercentLabel = new System.Windows.Forms.Label();
+            this.ModDLFileSizeLabel = new System.Windows.Forms.Label();
             this.CancelModDLBtn = new System.Windows.Forms.Button();
             this.ModDLLabel = new System.Windows.Forms.Label();
             this.MOTD = new Contra.Marquee();
-            this.ModDLFileSizeLabel = new System.Windows.Forms.Label();
-            this.DLPercentLabel = new System.Windows.Forms.Label();
-            this.ModDLCurrentFileLabel = new System.Windows.Forms.Label();
             this.voicespanel.SuspendLayout();
             this.languagepanel.SuspendLayout();
             this.musicpanel.SuspendLayout();
@@ -590,6 +590,27 @@ namespace Contra
             resources.ApplyResources(this.PatchDLPanel, "PatchDLPanel");
             this.PatchDLPanel.Name = "PatchDLPanel";
             // 
+            // ModDLCurrentFileLabel
+            // 
+            resources.ApplyResources(this.ModDLCurrentFileLabel, "ModDLCurrentFileLabel");
+            this.ModDLCurrentFileLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ModDLCurrentFileLabel.ForeColor = System.Drawing.Color.White;
+            this.ModDLCurrentFileLabel.Name = "ModDLCurrentFileLabel";
+            // 
+            // DLPercentLabel
+            // 
+            resources.ApplyResources(this.DLPercentLabel, "DLPercentLabel");
+            this.DLPercentLabel.BackColor = System.Drawing.Color.Transparent;
+            this.DLPercentLabel.ForeColor = System.Drawing.Color.White;
+            this.DLPercentLabel.Name = "DLPercentLabel";
+            // 
+            // ModDLFileSizeLabel
+            // 
+            resources.ApplyResources(this.ModDLFileSizeLabel, "ModDLFileSizeLabel");
+            this.ModDLFileSizeLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ModDLFileSizeLabel.ForeColor = System.Drawing.Color.White;
+            this.ModDLFileSizeLabel.Name = "ModDLFileSizeLabel";
+            // 
             // CancelModDLBtn
             // 
             this.CancelModDLBtn.BackColor = System.Drawing.Color.Transparent;
@@ -616,27 +637,6 @@ namespace Contra
             this.MOTD.Name = "MOTD";
             this.MOTD.Speed = 1;
             this.MOTD.yOffset = 0;
-            // 
-            // ModDLFileSizeLabel
-            // 
-            resources.ApplyResources(this.ModDLFileSizeLabel, "ModDLFileSizeLabel");
-            this.ModDLFileSizeLabel.BackColor = System.Drawing.Color.Transparent;
-            this.ModDLFileSizeLabel.ForeColor = System.Drawing.Color.White;
-            this.ModDLFileSizeLabel.Name = "ModDLFileSizeLabel";
-            // 
-            // DLPercentLabel
-            // 
-            resources.ApplyResources(this.DLPercentLabel, "DLPercentLabel");
-            this.DLPercentLabel.BackColor = System.Drawing.Color.Transparent;
-            this.DLPercentLabel.ForeColor = System.Drawing.Color.White;
-            this.DLPercentLabel.Name = "DLPercentLabel";
-            // 
-            // ModDLCurrentFileLabel
-            // 
-            resources.ApplyResources(this.ModDLCurrentFileLabel, "ModDLCurrentFileLabel");
-            this.ModDLCurrentFileLabel.BackColor = System.Drawing.Color.Transparent;
-            this.ModDLCurrentFileLabel.ForeColor = System.Drawing.Color.White;
-            this.ModDLCurrentFileLabel.Name = "ModDLCurrentFileLabel";
             // 
             // Form1
             // 
