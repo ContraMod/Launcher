@@ -112,7 +112,7 @@ namespace Contra
 
         string newVersion = "";
 
-        string versionText;
+        string versionText = "";
         int modVersionLocalInt;
         bool patch1Found, patch2Found;
 
@@ -131,7 +131,7 @@ namespace Contra
                 int modVersionActualInt = int.Parse(modVersionActual);
 
                 //Get mod version text
-                string modVersionText = motd.Substring(motd.LastIndexOf("Mod Version Text: ") + 18);
+                string modVersionText = motd.Substring(motd.LastIndexOf("Mod Version Text: ") + 18); //The latest patch name
                 modVersionText = modVersionText.Substring(0, modVersionText.IndexOf("#"));
 
                 //Determine current mod version
@@ -149,22 +149,6 @@ namespace Contra
                     {
                         modVersionLocalInt = 2;
                     }
-                    //if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
-                    //{
-                    //    modVersionLocalInt = 2;
-                    //}
-                    //else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && !File.Exists("!!Contra009Final_Patch1.big") || !File.Exists("!!Contra009Final_Patch1.ctr"))
-                    //{
-                    //    modVersionLocalInt = 0;
-                    //}
-                    //else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
-                    //{
-                    //    modVersionLocalInt = 1;
-                    //}
-                    //else //if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
-                    //{
-                    //    modVersionLocalInt = 0;
-                    //}
                 }
 
                 //Download new mod version if local one is outdated and launcher is up to date
@@ -172,23 +156,23 @@ namespace Contra
                 {
                     if (Globals.GB_Checked == true)
                     {
-                        MessageBox.Show("Contra version " + modVersionText + " is available! Click OK to update!", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Contra is not up to date. Latest version is " + modVersionText + "! Click OK to update!", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        MessageBox.Show("Версия Contra " + modVersionText + " доступна! Нажмите «ОК», чтобы обновить!", "Доступно обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Contra должна быть обновлена. Последняя версия " + modVersionText + "! Нажмите «ОК», чтобы обновить!", "Доступно обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        MessageBox.Show("Версія Contra " + modVersionText + " доступна! Натисніть кнопку ОК, щоб оновити!", "Доступне оновлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Contra повинна бути оновлена. Остання версія " + modVersionText + "! Натисніть кнопку ОК, щоб оновити!", "Доступне оновлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        MessageBox.Show("Contra версия " + modVersionText + " е достъпна! Щракнете OK, за да обновите!", "Достъпна е актуализация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Contra трябва да бъде обновена. Последната версия е " + modVersionText + "! Щракнете OK, за да обновите!", "Достъпна е актуализация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else if (Globals.DE_Checked == true)
                     {
-                        MessageBox.Show("Contra version " + modVersionText + " ist verfьgbar! Klicke OK zum aktualisieren!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Contra muss aktualisiert werden. Die neueste Version ist " + modVersionText + "! Klicke OK zum aktualisieren!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     DownloadModUpdate(patch_url);
                 }
@@ -260,9 +244,7 @@ namespace Contra
         WebClient wcMod = new WebClient();
         Int64 bytes_total;
         long s1;
-        //        string patch1FileName = "Contra009FinalPatch1.zip";
-        string patchFileName;// = "!Contra006music-TD.zip";
-//        string patch1and2FileName = "Contra009FinalPatch1&2.zip";
+        string patchFileName;
 
         public void DownloadModUpdate(string patch_url)
         {
@@ -282,34 +264,63 @@ namespace Contra
                     {
                         patchFileName = "Contra009FinalPatch2.zip";
                     }
+                    CheckIfFileIsAvailable(patch_url);
                     currentFile = patchFileName;
                     wcMod.OpenRead(patch_url + patchFileName);
                     bytes_total = Convert.ToInt64(wcMod.ResponseHeaders["Content-Length"]);
 
                     wcMod.DownloadFileAsync(new Uri(patch_url + patchFileName), Application.StartupPath + @"\" + patchFileName);
                 }
-                //Download the patch zip file depending on user's needs
-                //if (modVersionLocalInt == 1) //If user has Patch 1, download Patch 2 zip
-                //{
-                //    currentFile = patchFileName;
-                //    wcMod.OpenRead(patch_url + patchFileName);
-                //    bytes_total = Convert.ToInt64(wcMod.ResponseHeaders["Content-Length"]);
-
-                //    wcMod.DownloadFileAsync(new Uri(patch_url + patchFileName), Application.StartupPath + @"\" + patchFileName);
-                //}
-                //else if (modVersionLocalInt == 0) //If user has no patches, download Patch 1 + 2 zip
-                //{
-                //    currentFile = patch1and2FileName;
-                //    wcMod.OpenRead(patch_url + patch1and2FileName);
-                //    bytes_total = Convert.ToInt64(wcMod.ResponseHeaders["Content-Length"]);
-
-                //    wcMod.DownloadFileAsync(new Uri(patch_url + patch1and2FileName), Application.StartupPath + @"\" + patch1and2FileName);
-                //}
                 PatchDLPanel.Show();
 
                 //  while (wc.IsBusy) { }
             }
             catch (Exception ex) { Console.Error.WriteLine(ex); }
+        }
+
+        public void CheckIfFileIsAvailable(string patch_url)
+        {
+            var url = patch_url + patchFileName;
+            HttpWebResponse response = null;
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                /* A WebException will be thrown if the status of the response is not `200 OK` */
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("The file is currently unavailable. Try again later or download it from: www.moddb.com/mods/contra/downloads", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Файл в данный момент недоступен. Попробуйте позже или загрузите его с: www.moddb.com/mods/contra/downloads", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Файл наразі недоступний. Повторіть спробу пізніше або завантажте його з: www.moddb.com/mods/contra/downloads", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Понастоящем файлът не е налице. Опитайте отново по-късно или го изтеглете от: www.moddb.com/mods/contra/downloads", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Die Datei ist derzeit nicht verfügbar. Versuchen Sie es später noch einmal oder laden Sie es von folgender Adresse herunter: www.moddb.com/mods/contra/downloads", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            finally
+            {
+                // Don't forget to close your response.
+                if (response != null)
+                {
+                    response.Close();
+                }
+            }
         }
 
         private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -327,7 +338,7 @@ namespace Contra
         void wc_DownloadPatchCompleted(object sender, AsyncCompletedEventArgs e)
         {
             PatchDLPanel.Hide();
-            //TO-DO: update version string
+            //TO-DO: update version string? Currently handled by forced launcher restart
 
             if (e.Cancelled)
             {
@@ -346,24 +357,19 @@ namespace Contra
             //Extract patch zip
             string extractPath = Application.StartupPath;
             string zipPath = Application.StartupPath + @"\" + patchFileName;
-            //ZipArchiveExtensions.ExtractToDirectory(zipPath, extractPath, true);
-            if (patchFileName == "Contra009FinalPatch1.zip") //Delete the following files because overwriting does not work
+            if (patchFileName == "Contra009FinalPatch2.zip") //If the current patch installed is patch 2
             {
                 try
                 {
-                    File.Delete("GenArial.tff");
+                    Directory.Delete("contra"); //Delete old contra folder containing tinc vpn scripts
                 }
                 catch { }
             }
-            else if (patchFileName == "Contra009FinalPatch2.zip") //Delete the following files because overwriting does not work
+            try //To prevent crash
             {
-                try
-                {
-                    Directory.Delete("contra");
-                }
-                catch { }
+                System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
             }
-            System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
+            catch { }
             File.Delete(patchFileName);
 
             //Show a message when the patch download has completed
