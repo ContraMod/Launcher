@@ -137,7 +137,7 @@ namespace Contra
                 //Determine current mod version
                 if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
                 {
-                    if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
+                    if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && File.Exists("!!!Contra009Final_Patch2_GameData.big") || File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
                     {
                         patch2Found = true;
                     }
@@ -154,27 +154,53 @@ namespace Contra
                 //Download new mod version if local one is outdated and launcher is up to date
                 if ((modVersionLocalInt < modVersionActualInt) && (newVersion == Application.ProductVersion))
                 {
-                    if (Globals.GB_Checked == true)
+                    if (patch1Found == false)
                     {
-                        MessageBox.Show("Contra is not up to date. Latest version is " + modVersionText + "! Click OK to update!", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (Globals.GB_Checked == true)
+                        {
+                            MessageBox.Show("Contra is not up to date. An old patch is missing and needs to be downloaded! Click OK to update!", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (Globals.RU_Checked == true)
+                        {
+                            MessageBox.Show("Contra должна быть обновлена. Старый патч отсутствует и должен быть загружен! Нажмите «ОК», чтобы обновить!", "Доступно обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (Globals.UA_Checked == true)
+                        {
+                            MessageBox.Show("Contra повинна бути оновлена. Старий патч відсутній і його потрібно завантажити! Натисніть кнопку ОК, щоб оновити!", "Доступне оновлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (Globals.BG_Checked == true)
+                        {
+                            MessageBox.Show("Contra трябва да бъде обновена. Стар пач липсва и трябва да бъде изтеглен! Щракнете OK, за да обновите!", "Достъпна е актуализация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (Globals.DE_Checked == true)
+                        {
+                            MessageBox.Show("Contra muss aktualisiert werden. Ein alter Patch fehlt und muss heruntergeladen werden! Klicke OK zum aktualisieren!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
-                    else if (Globals.RU_Checked == true)
+                    else if (patch2Found == false)
                     {
-                        MessageBox.Show("Contra должна быть обновлена. Последняя версия " + modVersionText + "! Нажмите «ОК», чтобы обновить!", "Доступно обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (Globals.GB_Checked == true)
+                        {
+                            MessageBox.Show("Contra is not up to date. The latest version which will be downloaded now is " + modVersionText + "! Click OK to update!", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (Globals.RU_Checked == true)
+                        {
+                            MessageBox.Show("Contra должна быть обновлена. Последняя версия " + modVersionText + "! Нажмите «ОК», чтобы обновить!", "Доступно обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (Globals.UA_Checked == true)
+                        {
+                            MessageBox.Show("Contra повинна бути оновлена. Остання версія " + modVersionText + "! Натисніть кнопку ОК, щоб оновити!", "Доступне оновлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (Globals.BG_Checked == true)
+                        {
+                            MessageBox.Show("Contra трябва да бъде обновена. Последната версия е " + modVersionText + "! Щракнете OK, за да обновите!", "Достъпна е актуализация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (Globals.DE_Checked == true)
+                        {
+                            MessageBox.Show("Contra muss aktualisiert werden. Die neueste Version ist " + modVersionText + "! Klicke OK zum aktualisieren!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
-                    else if (Globals.UA_Checked == true)
-                    {
-                        MessageBox.Show("Contra повинна бути оновлена. Остання версія " + modVersionText + "! Натисніть кнопку ОК, щоб оновити!", "Доступне оновлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (Globals.BG_Checked == true)
-                    {
-                        MessageBox.Show("Contra трябва да бъде обновена. Последната версия е " + modVersionText + "! Щракнете OK, за да обновите!", "Достъпна е актуализация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (Globals.DE_Checked == true)
-                    {
-                        MessageBox.Show("Contra muss aktualisiert werden. Die neueste Version ist " + modVersionText + "! Klicke OK zum aktualisieren!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    DownloadModUpdate(patch_url);
+                        DownloadModUpdate(patch_url);
                 }
 
                 //Get launcher version
@@ -630,6 +656,10 @@ namespace Contra
             {
                 File.Delete("!!!Contra009Final_Patch2_EN.big");
             }
+            if (File.Exists("!!!Contra009Final_Patch2_NatVO.ctr") && File.Exists("!!!Contra009Final_Patch2_NatVO.big"))
+            {
+                File.Delete("!!!Contra009Final_Patch2_NatVO.big");
+            }
             if (File.Exists("!!!Contra009Final_Patch2_EngVO.ctr") && File.Exists("!!!Contra009Final_Patch2_EngVO.big"))
             {
                 File.Delete("!!!Contra009Final_Patch2_EngVO.big");
@@ -698,6 +728,7 @@ namespace Contra
                     "!!!Contra009Final_Patch2.big",
                     "!!!Contra009Final_Patch2_RU.big",
                     "!!!Contra009Final_Patch2_EN.big",
+                    "!!!Contra009Final_Patch2_NatVO.big",
                     "!!!Contra009Final_Patch2_EngVO.big",
                     "!!Contra009Final_Patch1.big",
                     "!!Contra009Final_Patch1_RU.big",
@@ -802,22 +833,30 @@ namespace Contra
             RenameBigToCtr();
             try
             {
-                if (File.Exists("!Contra009Final.ctr"))
+                //if (File.Exists("!Contra009Final.ctr"))
+                //{
+                //    File.Move("!Contra009Final.ctr", "!Contra009Final.big");
+                //}
+                //if (File.Exists("!!Contra009Final_Patch1.ctr"))
+                //{
+                //    File.Move("!!Contra009Final_Patch1.ctr", "!!Contra009Final_Patch1.big");
+                //}
+                //if (File.Exists("!!!Contra009Final_Patch2.ctr"))
+                //{
+                //    File.Move("!!!Contra009Final_Patch2.ctr", "!!!Contra009Final_Patch2.big");
+                //}
+                //if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
+                //{
+                //    File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
+                //}
+                try
                 {
                     File.Move("!Contra009Final.ctr", "!Contra009Final.big");
-                }
-                if (File.Exists("!!Contra009Final_Patch1.ctr"))
-                {
                     File.Move("!!Contra009Final_Patch1.ctr", "!!Contra009Final_Patch1.big");
-                }
-                if (File.Exists("!!!Contra009Final_Patch2.ctr"))
-                {
                     File.Move("!!!Contra009Final_Patch2.ctr", "!!!Contra009Final_Patch2.big");
-                }
-                if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
-                {
                     File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
                 }
+                catch { }
                 if ((RadioOrigQuotes.Checked) && (File.Exists("!Contra009Final_NatVO.ctr")))
                 {
                     File.Move("!Contra009Final_NatVO.ctr", "!Contra009Final_NatVO.big");
@@ -829,6 +868,10 @@ namespace Contra
                 if ((RadioLocQuotes.Checked) && (File.Exists("!!Contra009Final_Patch1_EngVO.ctr")))
                 {
                     File.Move("!!Contra009Final_Patch1_EngVO.ctr", "!!Contra009Final_Patch1_EngVO.big");
+                }
+                if ((RadioOrigQuotes.Checked) && (File.Exists("!!!Contra009Final_Patch2_NatVO.ctr")))
+                {
+                    File.Move("!!!Contra009Final_Patch2_NatVO.ctr", "!!!Contra009Final_Patch2_NatVO.big");
                 }
                 if ((RadioLocQuotes.Checked) && (File.Exists("!!!Contra009Final_Patch2_EngVO.ctr")))
                 {
@@ -1115,42 +1158,55 @@ namespace Contra
         {
             DeleteDuplicateFiles();
 
-            if (File.Exists("!Contra009Final.ctr"))
+            //if (File.Exists("!Contra009Final.ctr"))
+            //{
+            //    File.Move("!Contra009Final.ctr", "!Contra009Final.big");
+            //}
+            //if (File.Exists("!!Contra009Final_Patch1.ctr"))
+            //{
+            //    File.Move("!!Contra009Final_Patch1.ctr", "!!Contra009Final_Patch1.big");
+            //}
+            //if (File.Exists("!!!Contra009Final_Patch2.ctr"))
+            //{
+            //    File.Move("!!!Contra009Final_Patch2.ctr", "!!!Contra009Final_Patch2.big");
+            //}
+            //if (File.Exists("!Contra009Final_EN.ctr"))
+            //{
+            //    File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
+            //}
+            //if (File.Exists("!!Contra009Final_Patch1_EN.ctr"))
+            //{
+            //    File.Move("!!Contra009Final_Patch1_EN.ctr", "!!Contra009Final_Patch1_EN.big");
+            //}
+            //if (File.Exists("!!!Contra009Final_Patch2_EN.ctr"))
+            //{
+            //    File.Move("!!!Contra009Final_Patch2_EN.ctr", "!!!Contra009Final_Patch2_EN.big");
+            //}
+            //if (File.Exists("!Contra009Final_EngVO.ctr"))
+            //{
+            //    File.Move("!Contra009Final_EngVO.ctr", "!Contra009Final_EngVO.big");
+            //}
+            //if (File.Exists("!!Contra009Final_Patch1_EngVO.ctr"))
+            //{
+            //    File.Move("!!Contra009Final_Patch1_EngVO.ctr", "!!Contra009Final_Patch1_EngVO.big");
+            //}
+            //if (File.Exists("!!!Contra009Final_Patch2_EngVO.ctr"))
+            //{
+            //    File.Move("!!!Contra009Final_Patch2_EngVO.ctr", "!!!Contra009Final_Patch2_EngVO.big");
+            //}
+            try
             {
                 File.Move("!Contra009Final.ctr", "!Contra009Final.big");
-            }
-            if (File.Exists("!!Contra009Final_Patch1.ctr"))
-            {
                 File.Move("!!Contra009Final_Patch1.ctr", "!!Contra009Final_Patch1.big");
-            }
-            if (File.Exists("!!!Contra009Final_Patch2.ctr"))
-            {
                 File.Move("!!!Contra009Final_Patch2.ctr", "!!!Contra009Final_Patch2.big");
-            }
-            if (File.Exists("!Contra009Final_EN.ctr"))
-            {
                 File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
-            }
-            if (File.Exists("!!Contra009Final_Patch1_EN.ctr"))
-            {
                 File.Move("!!Contra009Final_Patch1_EN.ctr", "!!Contra009Final_Patch1_EN.big");
-            }
-            if (File.Exists("!!!Contra009Final_Patch2_EN.ctr"))
-            {
                 File.Move("!!!Contra009Final_Patch2_EN.ctr", "!!!Contra009Final_Patch2_EN.big");
-            }
-            if (File.Exists("!Contra009Final_EngVO.ctr"))
-            {
                 File.Move("!Contra009Final_EngVO.ctr", "!Contra009Final_EngVO.big");
-            }
-            if (File.Exists("!!Contra009Final_Patch1_EngVO.ctr"))
-            {
                 File.Move("!!Contra009Final_Patch1_EngVO.ctr", "!!Contra009Final_Patch1_EngVO.big");
-            }
-            if (File.Exists("!!!Contra009Final_Patch2_EngVO.ctr"))
-            {
                 File.Move("!!!Contra009Final_Patch2_EngVO.ctr", "!!!Contra009Final_Patch2_EngVO.big");
             }
+            catch { }
             Process wb = new Process();
             wb.StartInfo.Verb = "runas";
             try

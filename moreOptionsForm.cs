@@ -26,12 +26,14 @@ namespace Contra
                 toolTip3.SetToolTip(FogCheckBox, "Toggle fog (depth of field) effects on/off.\nThis effect adds a color layer at the top of the screen, depending on the map.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Disabling the language filter will show bad words written by players in chat.");
                 toolTip3.SetToolTip(HeatEffectsCheckBox, "Heat effects are standard graphical effects from Zero Hour. The area near heat sources distorts.\nTurn this off if your screen randomly turns black while playing.");
+                toolTip3.SetToolTip(camHeightLabel, "The camera height setting changes the default and maximum player view distance in-game.\nThe higher this value is, the further away the view will be.");
             }
             else if (Globals.RU_Checked == true)
             {
                 toolTip3.SetToolTip(FogCheckBox, "Эффекты переключения тумана (глубина поля) вкл\\выкл.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Отключение языкового фильтра покажет плохие слова, написанные игроками в чате.");
                 toolTip3.SetToolTip(HeatEffectsCheckBox, "Тепловые эффекты - это стандартные графические эффекты от Zero Hour.\nВыключите это, если ваш экран случайно становится черным во время игры.");
+                toolTip3.SetToolTip(camHeightLabel, "Настройка высоты камеры изменяет стандартное и максимальное расстояние поле зрения игрока.\nЧем выше это значение, тем дальше будет поле зрения.");
                 labelResolution.Text = "Разрешение экрана:";
                 FogCheckBox.Text = "Эффект тумана";
                 LangFilterCheckBox.Text = "Языковый фильтр";
@@ -43,6 +45,7 @@ namespace Contra
                 toolTip3.SetToolTip(FogCheckBox, "Ефекти перемикання туману (глибина поля) вкл\\викл.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Вимкнення мовного фільтра покаже погані слова, написані гравцями в чаті.");
                 toolTip3.SetToolTip(HeatEffectsCheckBox, "Теплові ефекти є стандартними графічними ефектами від нульового часу.\nВимкніть цю функцію, якщо екран у випадковому режимі стане чорним під час відтворення.");
+                toolTip3.SetToolTip(camHeightLabel, "Налаштування висоти камери змінює стандартне і максимальна відстань поле зору гравця.\nЧем вище це значення, тим далі буде поле зору.");
                 labelResolution.Text = "Роздільна здатність:";
                 FogCheckBox.Text = "Ефект туману";
                 LangFilterCheckBox.Text = "Мовний фільтр";
@@ -54,6 +57,7 @@ namespace Contra
                 toolTip3.SetToolTip(FogCheckBox, "Превключете ефекта \"дълбочина на рязкост\".\nТози ефект добавя цветен слой на върха на екрана, зависещ от атмосферата на картата. Например, мъгла.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Изключването на езиковия филтър ще спре да скрива лошите думи, написани от играчите.");
                 toolTip3.SetToolTip(HeatEffectsCheckBox, "Топлинните ефекти са стандартни графични ефекти в Zero Hour.\nИзключете ги, ако вашият екран става черен, докато играете.");
+                toolTip3.SetToolTip(camHeightLabel, "Настройката за височина на камерата променя стандартното и максималното разстояние на изглед на играча.\nКолкото по-висока е тази стойност, толкова по-далеч ще бъде изгледът.");
                 labelResolution.Text = "Резолюция:";
                 FogCheckBox.Text = "Мъглявинен ефект";
                 LangFilterCheckBox.Text = "Езиков филтър";
@@ -65,6 +69,7 @@ namespace Contra
                 toolTip3.SetToolTip(FogCheckBox, "Schalte Nebel (Tiefenschдrfe) Effekte An/Aus.");
                 toolTip3.SetToolTip(LangFilterCheckBox, "Das ausschalten vom Sprache Filter zeigt bцse Wцrter von anderen Spielern im Chat an.");
                 toolTip3.SetToolTip(HeatEffectsCheckBox, "Wärmeeffekte sind standardmäßige grafische Effekte von Zero Hour.\nDeaktivieren Sie diese Option, wenn der Bildschirm während des Spiels zufällig schwarz wird.");
+                toolTip3.SetToolTip(camHeightLabel, "Mit der Einstellung für die Kamerahöhe werden die Standard- und die maximale Anzeigedistanz des Players geändert.\nJe höher dieser Wert ist, desto weiter entfernt ist die Ansicht.");
                 labelResolution.Text = "Auflцsung:";
                 FogCheckBox.Text = "Nebel Effekte";
                 LangFilterCheckBox.Text = "Sprache Filter";
