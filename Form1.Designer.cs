@@ -79,6 +79,7 @@ namespace Contra
             this.CancelModDLBtn = new System.Windows.Forms.Button();
             this.ModDLLabel = new System.Windows.Forms.Label();
             this.MOTD = new Contra.Marquee();
+            this.disableVPNBtnChangeTimer = new System.Windows.Forms.Timer(this.components);
             this.voicespanel.SuspendLayout();
             this.languagepanel.SuspendLayout();
             this.musicpanel.SuspendLayout();
@@ -638,6 +639,10 @@ namespace Contra
             this.MOTD.Speed = 1;
             this.MOTD.yOffset = 0;
             // 
+            // disableVPNBtnChangeTimer
+            // 
+            this.disableVPNBtnChangeTimer.Tick += new System.EventHandler(this.disableVPNBtnChangeTimer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -747,6 +752,7 @@ namespace Contra
         private System.Windows.Forms.Label ModDLFileSizeLabel;
         private System.Windows.Forms.Label DLPercentLabel;
         private System.Windows.Forms.Label ModDLCurrentFileLabel;
+        private System.Windows.Forms.Timer disableVPNBtnChangeTimer;
     }
 }
 

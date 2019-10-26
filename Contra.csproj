@@ -135,6 +135,7 @@
     <Compile Include="VPNForm.Designer.cs">
       <DependentUpon>VPNForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ZT.cs" />
     <EmbeddedResource Include="Globals.resx">
       <DependentUpon>Globals.cs</DependentUpon>
     </EmbeddedResource>

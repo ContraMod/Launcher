@@ -152,7 +152,7 @@ namespace Contra
                 }
 
                 //Download new mod version if local one is outdated and launcher is up to date
-                if ((modVersionLocalInt < modVersionActualInt) && (newVersion == Application.ProductVersion))
+                if ((modVersionLocalInt < modVersionActualInt) && (newVersion == Application.ProductVersion) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
                 {
                     if (patch1Found == false)
                     {
@@ -751,7 +751,7 @@ namespace Contra
                         File.Move(big, ctr);
                     }
                 }
-                if ((File.Exists("langdata1.dat")))
+                if (File.Exists("langdata1.dat"))
                 {
                     File.Move("langdata1.dat", "langdata.dat");
                 }
@@ -1282,7 +1282,7 @@ namespace Contra
             RadioFlag_DE.Checked = Properties.Settings.Default.Flag_DE;
             AutoScaleMode = AutoScaleMode.Dpi;
 
-            string tincd = "tincd.exe";
+            string tincd = "zerotier-one_x" + Globals.userOS + ".exe";
             Process[] tincdsByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
             if (tincdsByName.Length > 0)
             {
@@ -1343,11 +1343,11 @@ namespace Contra
 
             DelTmpChunk();
 
-            Process[] vpnprocesses = Process.GetProcessesByName("tincd");
+            Process[] vpnprocesses = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
             foreach (Process vpnprocess in vpnprocesses)
             {
                 vpnprocess.Kill();
-//                vpnprocess.WaitForExit();
+//               vpnprocess.WaitForExit();
 //                vpnprocess.Dispose();
                 //vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off);
                 //labelVpnStatus.Text = "Off";
@@ -1625,6 +1625,221 @@ namespace Contra
             // Check if all files exist first before attempting to add any rules
             bool allFilesExist = exes.All(file => File.Exists(Environment.CurrentDirectory + @"\" + file));
             if (allFilesExist) foreach (string exe in exes) SetFirewallExcemption(exe);
+        }
+
+        public void StartZT()
+        {
+            //Process netsh = new Process();
+            //netsh.StartInfo.FileName = "netsh.exe";
+            //netsh.StartInfo.UseShellExecute = false;
+            //netsh.StartInfo.RedirectStandardInput = true;
+            //netsh.StartInfo.RedirectStandardOutput = true;
+            //netsh.StartInfo.RedirectStandardError = true;
+            //netsh.StartInfo.CreateNoWindow = true;
+            //netsh.StartInfo.Arguments = "interface show interface ContraVPN";
+            //netsh.Start();
+            //string Output = netsh.StandardOutput.ReadToEnd();
+            ////MessageBox.Show(Output);
+            //if (Output.Contains("Administrative state: Disabled") == true)
+            //{
+            //    netsh.StartInfo.Arguments = "interface set interface ContraVPN enable";
+            //    netsh.Start();
+            //}
+
+            Process ztDaemon = new Process();
+            ztDaemon.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
+            ztDaemon.StartInfo.FileName = ztDaemon.StartInfo.WorkingDirectory + @"\zt-daemon.cmd"; //@"\zerotier-one_x" + Globals.userOS + ".exe";
+            ztDaemon.StartInfo.UseShellExecute = true;
+        //    if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\tinc.conf") && (File.Exists(@"contra\vpn\" + Globals.userOS + @"\tincd.exe")) && (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn")))
+         //   {
+                if (Globals.GB_Checked == true)
+                {
+                    playersOnlineLabel.Text = "Loading...";
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    playersOnlineLabel.Text = "Загрузка...";
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    playersOnlineLabel.Text = "Завантаження...";
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    playersOnlineLabel.Text = "Зарежда се...";
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    playersOnlineLabel.Text = "Lade...";
+                }
+            ztDaemon.Start();
+
+            ////check when zt exe gets turned off
+            //Process ztExe = new Process();
+            //string ztExeString = @"\zerotier-one_x" + Globals.userOS + ".exe";
+            //ztExe.StartInfo.FileName = ztExeString;
+            //ztExe.EnableRaisingEvents = true;
+            //ztExe.Exited += (sender, e) =>
+            //    {
+            //        VpnOff();
+            //    };
+
+            //check when zt daemon gets turned off
+            ztDaemon.EnableRaisingEvents = true;
+            ztDaemon.Exited += (sender, e) =>
+            {
+                VpnOff();
+            };
+
+            Process ztExe = new Process();
+            string ztExeString = @"\zerotier-one_x" + Globals.userOS + ".exe";
+            ztExe.StartInfo.FileName = ztExeString;
+            //    string tincd = "tincd.exe";
+            Process[] ztExeByName = Process.GetProcessesByName(ztExeString.Substring(0, ztExeString.LastIndexOf('.')));
+            //if (ztExeByName.Length > 0)
+            //{
+            disableVPNBtnChangeTimer.Enabled = true;
+                vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
+                //               whoIsOnline.Show();
+                //                openPlayersListTimer.Enabled = true;
+                //openPlayersList();
+                if (Globals.GB_Checked == true)
+                {
+                    labelVpnStatus.Text = "On";
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    labelVpnStatus.Text = "Вкл.";
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    labelVpnStatus.Text = "Ввімк.";
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    labelVpnStatus.Text = "Вкл.";
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    labelVpnStatus.Text = "An";
+                }
+                //      }
+            //}
+            //else if (!Directory.Exists(@"contra\vpn"))
+            //{
+            //    if (Globals.GB_Checked == true)
+            //    {
+            //        MessageBox.Show("Cannot start ContraVPN because the \"vpn\" folder within the \"contra\" folder was not found in " + Environment.CurrentDirectory + "\nObtain these from the 009 Final archive.", "Error");
+            //    }
+            //    else if (Globals.RU_Checked == true)
+            //    {
+            //        MessageBox.Show("Не удается запустить ContraVPN, поскольку папка «vpn» в папке «contra» не найдена в " + Environment.CurrentDirectory + "\nПолучить их можно из архива 009 Final.", "Ошибка");
+            //    }
+            //    else if (Globals.UA_Checked == true)
+            //    {
+            //        MessageBox.Show("Не вдається запустити ContraVPN, оскільки папка \"vpn\" в папці \"contra\" не знайдена в " + Environment.CurrentDirectory + "\nОтримати їх можна з архіву 009 Final.", "Помилка");
+            //    }
+            //    else if (Globals.BG_Checked == true)
+            //    {
+            //        MessageBox.Show("ContraVPN не можа да се стартира, защото \"vpn\" папката в \"contra\" папката не беше намерена в " + Environment.CurrentDirectory + "\nРазархивирайте тези папки от 009 Final архива.", "Грешка");
+            //    }
+            //    else if (Globals.DE_Checked == true)
+            //    {
+            //        MessageBox.Show("ContraVPN kann nicht starten, weil der ordner \"vpn\" im \"contra\" ist nicht im " + Environment.CurrentDirectory + " gefunden.\nErhalt diese von 009 Final Archiv.", "Fehler");
+            //    }
+            //}
+            //else if (!Directory.Exists(@"contra\vpn\" + Globals.userOS))
+            //{
+            //    if (Globals.GB_Checked == true)
+            //    {
+            //        MessageBox.Show("Cannot start ContraVPN because \"" + Globals.userOS + "\" folder was not found in\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Error");
+            //    }
+            //    else if (Globals.RU_Checked == true)
+            //    {
+            //        MessageBox.Show("Не удается запустить ContraVPN, потому что папка \"" + Globals.userOS + "\" не найдена в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Ошибка");
+            //    }
+            //    else if (Globals.UA_Checked == true)
+            //    {
+            //        MessageBox.Show("Не вдається запустити ContraVPN, оскільки папка \"" + Globals.userOS + "\" не знайдено в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Помилка");
+            //    }
+            //    else if (Globals.BG_Checked == true)
+            //    {
+            //        MessageBox.Show("ContraVPN не можа да се стартира, защото папката \"" + Globals.userOS + "\" не беше намерена в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Грешка");
+            //    }
+            //    else if (Globals.DE_Checked == true)
+            //    {
+            //        MessageBox.Show("ContraVPN kann nicht gestartet werden, weil die \"" + Globals.userOS + "\" ordner nicht gefunden wurde im " + Environment.CurrentDirectory + "\\contra\\vpn\\", "Fehler");
+            //    }
+            //}
+            //else if (!File.Exists(@"contra\vpn\" + Globals.userOS + @"\tincd.exe"))
+            //{
+            //    if (Globals.GB_Checked == true)
+            //    {
+            //        MessageBox.Show("Cannot start ContraVPN because \"tincd.exe\" file was not found in\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Error");
+            //    }
+            //    else if (Globals.RU_Checked == true)
+            //    {
+            //        MessageBox.Show("Не удается запустить ContraVPN, потому что файл \"tincd.exe\" не найден в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Ошибка");
+            //    }
+            //    else if (Globals.UA_Checked == true)
+            //    {
+            //        MessageBox.Show("Не вдається запустити ContraVPN, оскільки файл \"tincd.exe\" не знайдено в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Помилка");
+            //    }
+            //    else if (Globals.BG_Checked == true)
+            //    {
+            //        MessageBox.Show("ContraVPN не можа да се стартира, защото файлът \"tincd.exe\" не беше намерен в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Грешка");
+            //    }
+            //    else if (Globals.DE_Checked == true)
+            //    {
+            //        MessageBox.Show("ContraVPN kann nicht gestartet werden, weil die \"tincd.exe\" datei nicht gefunden wurde im " + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Fehler");
+            //    }
+            //}
+            //else if (Directory.Exists(@"contra\vpn") && (!File.Exists(vpnconfig + "\\tinc.conf")))
+            //{
+            //    if (Globals.GB_Checked == true)
+            //    {
+            //        MessageBox.Show("Cannot start ContraVPN because \"tinc.conf\" file was not found. Make sure you have entered your invitation link first (go to VPN Settings > Invite).", "Error");
+            //    }
+            //    else if (Globals.RU_Checked == true)
+            //    {
+            //        MessageBox.Show("Не удается запустить ContraVPN, потому что файл \"tinc.conf\" не найден. Убедитесь, что вы сначала указали ссылку на приглашение (перейдите в «Настройки VPN» > «Приглашение»).", "Ошибка");
+            //    }
+            //    else if (Globals.UA_Checked == true)
+            //    {
+            //        MessageBox.Show("Не вдається запустити ContraVPN, оскільки файл \"tinc.conf\" не знайдено. Спочатку переконайтеся, що ви ввели посилання на запрошення (перейдіть до налаштувань VPN > Запрошення).", "Помилка");
+            //    }
+            //    else if (Globals.BG_Checked == true)
+            //    {
+            //        MessageBox.Show("ContraVPN не можа да се стартира, защото файлът \"tinc.conf\" не беше намерен. Уверете се, че сте въвели ключа си за покана (отидете във VPN Настройки > Покана).", "Грешка");
+            //    }
+            //    else if (Globals.DE_Checked == true)
+            //    {
+            //        MessageBox.Show("ContraVPN kann nicht gestartet werden, weil die \"tinc.conf\" datei nicht gefunden wurde. Stelle sicher, dass du deinen invite link zuerst eingegeben hast (gehe zu VPN Einstellungen > Einladung).", "Fehler");
+            //    }
+            //}
+            //else if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn"))
+            //{
+            //    if (Globals.GB_Checked == true)
+            //    {
+            //        MessageBox.Show("Cannot start ContraVPN because the \"contravpn\" host file was not found in " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Error");
+            //    }
+            //    else if (Globals.RU_Checked == true)
+            //    {
+            //        MessageBox.Show("Не удается запустить ContraVPN, поскольку файл хоста \"contravpn\" не найден в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Ошибка");
+            //    }
+            //    else if (Globals.UA_Checked == true)
+            //    {
+            //        MessageBox.Show("Неможливо запустити ContraVPN, тому що файл хоста \"contravpn\" не знайдено у " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Помилка");
+            //    }
+            //    else if (Globals.BG_Checked == true)
+            //    {
+            //        MessageBox.Show("ContraVPN не можа да се стартира, защото хост файлът \"contravpn\" не беше открит в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Грешка");
+            //    }
+            //    else if (Globals.DE_Checked == true)
+            //    {
+            //        MessageBox.Show("ContraVPN kann nicht starten, weil \"contravpn\" datei wurde nicht gefunden im " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Fehler");
+            //    }
+            //}
         }
 
         public void StartVPN()
@@ -2345,15 +2560,44 @@ namespace Contra
                     MessageBox.Show("\"!Contra009Final.ctr\" wird vermisst!\nBitte installieren Sie zuerst 009 Final, oder der mod startet nicht!\nEs ist üblich, dass Leute den Patch installieren, nicht aber den Basemod.", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+
+            //Show warning if there are .ini files in Data\INI.
+            if (Directory.GetFiles(Environment.CurrentDirectory + @"\Data\INI", "*.ini").Length == 0)
+            {
+                //no .ini files
+            }
+            else
+            {
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("Found .ini files in the Data\\INI directory. They may corrupt the mod or cause mismatch online.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Найдены файлы .ini в каталоге Data\\INI. Они могут повредить мод или вызвать несоответствие в сети.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Знайдено файли .ini в каталозі Data\\INI. Вони можуть пошкодити мод або призвести до невідповідності в Інтернеті.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Намерени .ini файлове в директорията Data\\INI. Те могат да повредят мода или да причинят несъответствие онлайн.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Es wurden INI-Dateien im Verzeichnis \"Data\\INI\" gefunden. Sie können den Mod beschädigen oder online zu Unstimmigkeiten führen.", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         private void VPNMoreButton_Click(object sender, EventArgs e)
         {
-            CheckRegistryPathForWine();
-            if (UserOnWine == true)
-            {
-                return;
-            }
+            //CheckRegistryPathForWine();
+            //if (UserOnWine == true)
+            //{
+            //    return;
+            //}
 
             foreach (Form VPNForm in Application.OpenForms)
             {
@@ -2420,17 +2664,27 @@ namespace Contra
             toolTip1.SetToolTip(vpn_start, "Start/close ContraVPN.");
             currentFileLabel = "File: ";
             ModDLLabel.Text = "Download progress: ";
-            if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
+            if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
             {
-                verString = " Patch 2";
+                verString = "009 Final Patch 2";
                 yearString = "2019";
             }
-            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
+            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
             {
-                verString = " Patch 1";
+                verString = "009 Final Patch 1";
                 yearString = "2019";
             }
-            versionLabel.Text = "Contra Project Team " + yearString + " - Version 009 Final" + verString + " - Launcher: " + Application.ProductVersion;
+            else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
+            {
+                verString = "009 Final";
+                yearString = "2018";
+            }
+            else
+            {
+                verString = "???";
+                yearString = "2018";
+            }
+            versionLabel.Text = "Contra Project Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
 
             string tincd = "tincd.exe";
             Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
@@ -3158,53 +3412,59 @@ namespace Contra
             }
         }
 
-        bool UserOnWine;
+        //bool UserOnWine;
 
-        public void CheckRegistryPathForWine()
-        {
-            RegistryKey r;
+        //public void CheckRegistryPathForWine()
+        //{
+        //    RegistryKey r;
 
-            try
-            {
-                r = Registry.LocalMachine.OpenSubKey(@"Software\Wine");
+        //    try
+        //    {
+        //        r = Registry.LocalMachine.OpenSubKey(@"Software\Wine");
 
-                if (r != null)
-                {
-                    MessageBox.Show("We've detected you're running launcher on Wine, Play-on-Linux or similar.\nVPN functionality disabled, please use native TincVPN 1.1+ on your system manually\nto connect as wine will need to use native tap adapters provided by your kernel to work.\n\nPlease visit #support channel on our discord for help with this.");
-                    UserOnWine = true;
-                }
-            }
-            catch (Exception ex) { Console.Error.WriteLine(ex); }
-        }
+        //        if (r != null)
+        //        {
+        //            MessageBox.Show("We've detected you're running launcher on Wine, Play-on-Linux or similar.\nVPN functionality disabled, please use native TincVPN 1.1+ on your system manually\nto connect as wine will need to use native tap adapters provided by your kernel to work.\n\nPlease visit #support channel on our discord for help with this.");
+        //            UserOnWine = true;
+        //        }
+        //    }
+        //    catch (Exception ex) { Console.Error.WriteLine(ex); }
+        //}
 
         private void vpn_start_Click(object sender, EventArgs e)
         {
-            CheckRegistryPathForWine();
-            if (UserOnWine == true)
+            string tincd = "zerotier-one_x" + Globals.userOS + ".exe";
+            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
+            //CheckRegistryPathForWine();
+            //if (UserOnWine == true)
+            //{
+            //    return;
+            //}
+            if (tincdByName.Length == 0)
             {
-                return;
+                var instance = new ZT();
+                instance.CheckZTInstall("https://download.zerotier.com/dist/ZeroTier%20One.msi");
             }
 
-            CheckFirewallExceptions();
-            string tincd1 = "tincd.exe";
-            Process[] tincdByName1 = Process.GetProcessesByName(tincd1.Substring(0, tincd1.LastIndexOf('.')));
-            if (tincdByName1.Length == 0)
+            if (Globals.ZTReady == 4)
             {
-                DisplayDnsConfiguration();
-            }
 
-            //check if adapter is installed
+                CheckFirewallExceptions(); // needs to be reworked for zt
+                                           //string ztx64 = "zerotier-one_x64.exe";
+                                           //string ztx86 = "zerotier-one_x86.exe";
 
-            if (Properties.Settings.Default.adapterExists == true)
-            {
-                //MessageBox.Show("The adapter already exists!");
-                try //check if tincd is running or not
+                //Process[] ztx64ByName = Process.GetProcessesByName(ztx64.Substring(0, ztx64.LastIndexOf('.')));
+                //if (ztx64ByName.Length == 0)
+                //{
+                //    DisplayDnsConfiguration();
+                //}
+
+                try //check if zt is running or not
                 {
-                    string tincd = "tincd.exe";
-                    Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-                    if (tincdByName.Length > 0) //if tinc is running but we are clicking button again to turn it off
+
+                    if (tincdByName.Length > 0) //if zt is running but we are clicking button again to turn it off
                     {
-                        Process[] vpnprocesses = Process.GetProcessesByName("tincd");
+                        Process[] vpnprocesses = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
                         foreach (Process vpnprocess in vpnprocesses)
                         {
                             vpnprocess.Kill();
@@ -3237,128 +3497,178 @@ namespace Contra
                     }
                     else
                     {
-                        if (Properties.Settings.Default.ShowConsole == true && Properties.Settings.Default.adapterExists == true)
-                        {
-                            StartVPN();
-                        }
-                        else if (Properties.Settings.Default.adapterExists == true)
-                        {
-                            StartVPN_NoWindow();
-                        }
+                        StartZT();
                     }
                 }
-                catch (Exception ex)
-                {
-                    VpnOffNoCond();
-                    MessageBox.Show(ex.Message, "Error");
-                }
+                catch { }
             }
-            //else if (adapterInstalled == false || Properties.Settings.Default.adapterExists == false) //if (Properties.Settings.Default.stopDialog == false)
-            else if (adapterInstalled == false) //if (Properties.Settings.Default.stopDialog == false)
-            {
-                try
-                {
-                    if (Globals.GB_Checked == true)
-                    {
-                        MessageBox.Show("There is no free TAP-Windows Adapter V9 installed. Starting setup...");
-                    }
-                    else if (Globals.RU_Checked == true)
-                    {
-                        MessageBox.Show("Нет свободного установленого адаптера TAP-Windows V9. Запуск установки...");
-                    }
-                    else if (Globals.UA_Checked == true)
-                    {
-                        MessageBox.Show("Немає вільного встановленого TAP-Windows Adapter V9. Запуск установки...");
-                    }
-                    else if (Globals.BG_Checked == true)
-                    {
-                        MessageBox.Show("Липсва свободен TAP-Windows Adapter V9. Стартиране на инсталацията...");
-                    }
-                    else if (Globals.DE_Checked == true)
-                    {
-                        MessageBox.Show("Free TAP-Windows Adapter V9 ist nicht installiert. Starte Installation...");
-                    }
-                    string path = Path.GetDirectoryName(Application.ExecutablePath);
-                    Process adapter = new Process();
 
-                    adapter.StartInfo.FileName = "\"" + path + @"\contra\vpn\" + Globals.userOS + @"\devcon.exe" + "\"";
-                    adapter.StartInfo.Arguments = " install " + "\"" + path + @"\contra\vpn\" + Globals.userOS + @"\OemWin2k.inf" + "\"" + " tap0901";
-                    adapter.StartInfo.UseShellExecute = false;
-                    adapter.StartInfo.RedirectStandardInput = true;
-                    adapter.StartInfo.CreateNoWindow = true;
-                    adapter.Start();
-                    adapter.WaitForExit();
-                    if (Globals.GB_Checked == true)
-                    {
-                        if (adapter.ExitCode == 0)
-                        {
-                            MessageBox.Show("A new TAP-Windows Adapter V9 has been installed. You may now allow it to be used by ContraVPN (selecting \"Yes\" on the first dialog message).", "Adapter Installed");
-                            adapterInstalled = true;
-                            DisplayDnsConfiguration();
-                        }
-                        else
-                        {
-                            MessageBox.Show("TAP-Windows Adapter V9 installation failed.", "Adapter Install Failed");
-                        }
-                    }
-                    else if (Globals.RU_Checked == true)
-                    {
-                        if (adapter.ExitCode == 0)
-                        {
-                            MessageBox.Show("Был установлен новый адаптер TAP-Windows V9. Теперь вы можете разрешить его использовать ContraVPN (выбирая \"Да\" в первом диалоговом сообщении).", "Адаптер установлен");
-                            adapterInstalled = true;
-                            DisplayDnsConfiguration();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Не удалось установить TAP-Windows Adapter V9.", "Не удалось установить адаптер");
-                        }
-                    }
-                    else if (Globals.UA_Checked == true)
-                    {
-                        if (adapter.ExitCode == 0)
-                        {
-                            MessageBox.Show("Був встановлений новий TAP-Windows Adapter V9. Тепер ви можете дозволити його використовувати ContraVPN (вибравши \"Так\" у першому діалоговому вікні).", "Адаптер установлено");
-                            adapterInstalled = true;
-                            DisplayDnsConfiguration();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Не вдалося встановити TAP-Windows Adapter V9.", "Не вдалося встановити адаптер");
-                        }
-                    }
-                    else if (Globals.BG_Checked == true)
-                    {
-                        if (adapter.ExitCode == 0)
-                        {
-                            MessageBox.Show("Нов TAP-Windows Adapter V9 беше инсталиран. Сега можете позволите той да бъде използван от ContraVPN (избирайки \"Да\" на първото съобщение)", "Адаптерът е инсталиран");
-                            adapterInstalled = true;
-                            DisplayDnsConfiguration();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Инсталацията на TAP-Windows Adapter V9 се провали.", "Грешка");
-                        }
-                    }
-                    else if (Globals.DE_Checked == true)
-                    {
-                        if (adapter.ExitCode == 0)
-                        {
-                            MessageBox.Show("Ein neuer TAP-Windows Adapter V9 wurde installiert. Du solltest ihm nicht erlauben von ContraVPN benutzt zu werden (Wдhle \"yes\" auf dem ersten dialog Fenster)", "Adapter installiert");
-                            adapterInstalled = true;
-                            DisplayDnsConfiguration();
-                        }
-                        else
-                        {
-                            MessageBox.Show("TAP-Windows Adapter V9 Installation gescheitert.", "Adapter Installation gescheitert");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
+            //check if adapter is installed
+
+            //if (Properties.Settings.Default.adapterExists == true)
+            //{
+            //    //MessageBox.Show("The adapter already exists!");
+            //    try //check if tincd is running or not
+            //    {
+            //        string tincd = "tincd.exe";
+            //        Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
+            //        if (tincdByName.Length > 0) //if tinc is running but we are clicking button again to turn it off
+            //        {
+            //            Process[] vpnprocesses = Process.GetProcessesByName("tincd");
+            //            foreach (Process vpnprocess in vpnprocesses)
+            //            {
+            //                vpnprocess.Kill();
+            //                vpnprocess.WaitForExit();
+            //                vpnprocess.Dispose();
+
+            //                vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off);
+            //                whoIsOnline.Hide();
+            //                foreach (Form onlinePlayersForm in Application.OpenForms)
+            //                {
+            //                    if (onlinePlayersForm is onlinePlayersForm)
+            //                    {
+            //                        onlinePlayersForm.Close();
+
+            //                        if (onlinePlayersForm.WindowState == FormWindowState.Normal)
+            //                        {
+            //                            Properties.Settings.Default.playersOnlineWindowLocation = onlinePlayersForm.Location;
+            //                        }
+            //                        else
+            //                        {
+            //                            Properties.Settings.Default.playersOnlineWindowLocation = onlinePlayersForm.RestoreBounds.Location;
+            //                        }
+            //                        Properties.Settings.Default.Save();
+
+            //                        return;
+            //                    }
+            //                }
+            //                return;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            if (Properties.Settings.Default.ShowConsole == true && Properties.Settings.Default.adapterExists == true)
+            //            {
+            //                StartVPN();
+            //            }
+            //            else if (Properties.Settings.Default.adapterExists == true)
+            //            {
+            //                StartVPN_NoWindow();
+            //            }
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        VpnOffNoCond();
+            //        MessageBox.Show(ex.Message, "Error");
+            //    }
+            //}
+            ////else if (adapterInstalled == false || Properties.Settings.Default.adapterExists == false) //if (Properties.Settings.Default.stopDialog == false)
+            //else if (adapterInstalled == false) //if (Properties.Settings.Default.stopDialog == false)
+            //{
+            //    try
+            //    {
+            //        if (Globals.GB_Checked == true)
+            //        {
+            //            MessageBox.Show("There is no free TAP-Windows Adapter V9 installed. Starting setup...");
+            //        }
+            //        else if (Globals.RU_Checked == true)
+            //        {
+            //            MessageBox.Show("Нет свободного установленого адаптера TAP-Windows V9. Запуск установки...");
+            //        }
+            //        else if (Globals.UA_Checked == true)
+            //        {
+            //            MessageBox.Show("Немає вільного встановленого TAP-Windows Adapter V9. Запуск установки...");
+            //        }
+            //        else if (Globals.BG_Checked == true)
+            //        {
+            //            MessageBox.Show("Липсва свободен TAP-Windows Adapter V9. Стартиране на инсталацията...");
+            //        }
+            //        else if (Globals.DE_Checked == true)
+            //        {
+            //            MessageBox.Show("Free TAP-Windows Adapter V9 ist nicht installiert. Starte Installation...");
+            //        }
+            //        string path = Path.GetDirectoryName(Application.ExecutablePath);
+            //        Process adapter = new Process();
+
+            //        adapter.StartInfo.FileName = "\"" + path + @"\contra\vpn\" + Globals.userOS + @"\devcon.exe" + "\"";
+            //        adapter.StartInfo.Arguments = " install " + "\"" + path + @"\contra\vpn\" + Globals.userOS + @"\OemWin2k.inf" + "\"" + " tap0901";
+            //        adapter.StartInfo.UseShellExecute = false;
+            //        adapter.StartInfo.RedirectStandardInput = true;
+            //        adapter.StartInfo.CreateNoWindow = true;
+            //        adapter.Start();
+            //        adapter.WaitForExit();
+            //        if (Globals.GB_Checked == true)
+            //        {
+            //            if (adapter.ExitCode == 0)
+            //            {
+            //                MessageBox.Show("A new TAP-Windows Adapter V9 has been installed. You may now allow it to be used by ContraVPN (selecting \"Yes\" on the first dialog message).", "Adapter Installed");
+            //                adapterInstalled = true;
+            //                DisplayDnsConfiguration();
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("TAP-Windows Adapter V9 installation failed.", "Adapter Install Failed");
+            //            }
+            //        }
+            //        else if (Globals.RU_Checked == true)
+            //        {
+            //            if (adapter.ExitCode == 0)
+            //            {
+            //                MessageBox.Show("Был установлен новый адаптер TAP-Windows V9. Теперь вы можете разрешить его использовать ContraVPN (выбирая \"Да\" в первом диалоговом сообщении).", "Адаптер установлен");
+            //                adapterInstalled = true;
+            //                DisplayDnsConfiguration();
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("Не удалось установить TAP-Windows Adapter V9.", "Не удалось установить адаптер");
+            //            }
+            //        }
+            //        else if (Globals.UA_Checked == true)
+            //        {
+            //            if (adapter.ExitCode == 0)
+            //            {
+            //                MessageBox.Show("Був встановлений новий TAP-Windows Adapter V9. Тепер ви можете дозволити його використовувати ContraVPN (вибравши \"Так\" у першому діалоговому вікні).", "Адаптер установлено");
+            //                adapterInstalled = true;
+            //                DisplayDnsConfiguration();
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("Не вдалося встановити TAP-Windows Adapter V9.", "Не вдалося встановити адаптер");
+            //            }
+            //        }
+            //        else if (Globals.BG_Checked == true)
+            //        {
+            //            if (adapter.ExitCode == 0)
+            //            {
+            //                MessageBox.Show("Нов TAP-Windows Adapter V9 беше инсталиран. Сега можете позволите той да бъде използван от ContraVPN (избирайки \"Да\" на първото съобщение)", "Адаптерът е инсталиран");
+            //                adapterInstalled = true;
+            //                DisplayDnsConfiguration();
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("Инсталацията на TAP-Windows Adapter V9 се провали.", "Грешка");
+            //            }
+            //        }
+            //        else if (Globals.DE_Checked == true)
+            //        {
+            //            if (adapter.ExitCode == 0)
+            //            {
+            //                MessageBox.Show("Ein neuer TAP-Windows Adapter V9 wurde installiert. Du solltest ihm nicht erlauben von ContraVPN benutzt zu werden (Wдhle \"yes\" auf dem ersten dialog Fenster)", "Adapter installiert");
+            //                adapterInstalled = true;
+            //                DisplayDnsConfiguration();
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("TAP-Windows Adapter V9 Installation gescheitert.", "Adapter Installation gescheitert");
+            //            }
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show(ex.Message);
+            //    }
+            //}
         }
 
         private static void VpnIP()
@@ -3531,9 +3841,9 @@ namespace Contra
 
         private void vpn_start_MouseEnter(object sender, EventArgs e)
         {
-            string tincd = "tincd.exe";
+            string tincd = "zerotier-one_x" + Globals.userOS +".exe";
             Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-            if (tincdByName.Length > 0)
+            if (tincdByName.Length > 0 && Globals.ZTReady == 4)
             {
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on_over);
                 vpn_start.ForeColor = SystemColors.ButtonHighlight;
@@ -3549,15 +3859,15 @@ namespace Contra
 
         private void vpn_start_MouseLeave(object sender, EventArgs e)
         {
-            string tincd = "tincd.exe";
+            string tincd = "zerotier-one_x" + Globals.userOS + ".exe";
             Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-            if (tincdByName.Length > 0)
+            if (tincdByName.Length > 0 && Globals.ZTReady == 4)
             {
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
                 vpn_start.ForeColor = SystemColors.ButtonHighlight;
                 vpn_start.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
             }
-            else
+            else if (disableVPNBtnChangeTimer.Enabled == false)
             {
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off);
                 vpn_start.ForeColor = SystemColors.ButtonHighlight;
@@ -3585,6 +3895,11 @@ namespace Contra
             //    File.Move(Application.StartupPath + "/Contra_Launcher.exe", Application.StartupPath + "/Contra_Launcher_ToDelete.exe");
             //    File.Move(Application.StartupPath + "/Contra_Launcher_New.exe", Application.StartupPath + "/Contra_Launcher.exe");
             //}
+        }
+
+        private void disableVPNBtnChangeTimer_Tick(object sender, EventArgs e)
+        {
+            disableVPNBtnChangeTimer.Enabled = false;
         }
 
         private void CancelModDLBtn_Click(object sender, EventArgs e)
