@@ -40,46 +40,7 @@ namespace Contra
 
                 //  while (wc.IsBusy) { }
 
-                //Package downloaded but not installed
-                if (File.Exists(ZTFileName) && (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt")))
-                {
-                    InstallZTPackage();
-                }
-                else
-                {
-                    Globals.ZTReady += 1;
-                }
-
-                //ZT Driver missing - TODO new condition
-                if (File.Exists(ZTFileName) && (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt")))
-                {
-                    InstallZTDriver();
-                }
-                else
-                {
-                    Globals.ZTReady += 1;
-                }
-
-                //ZT Files missing in LocalAppData
-                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config"))
-                {
-                    MoveZTFiles();
-                }
-                else
-                {
-                    Globals.ZTReady += 1;
-                }
-
-                //ZT Network not joined
-                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\networks.d") ||
-                    Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\networks.d").Length == 0)
-                {
-                    JoinZTNetwork();
-                }
-                else
-                {
-                    Globals.ZTReady += 1;
-                }
+                CheckZTInstallSteps();
             }
             catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
@@ -138,7 +99,11 @@ namespace Contra
             //          Application.Restart();
 
 
+            CheckZTInstallSteps();
+        }
 
+        public void CheckZTInstallSteps()
+        {
             //Package downloaded but not installed
             if (File.Exists(ZTFileName) && (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt")))
             {
@@ -149,8 +114,13 @@ namespace Contra
                 Globals.ZTReady += 1;
             }
 
-            //ZT Driver missing - TODO new condition
-            if (File.Exists(ZTFileName) && (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt")))
+            //ZT Driver missing
+            System.Management.SelectQuery query = new System.Management.SelectQuery("Win32_SystemDriver");
+            query.Condition = "Name = 'zttap300'"; //"DisplayName = 'Zerotier One Virtual Port'";
+            System.Management.ManagementObjectSearcher searcher = new System.Management.ManagementObjectSearcher(query);
+            var drivers = searcher.Get();
+
+            if (drivers.Count == 0)
             {
                 InstallZTDriver();
             }
@@ -171,7 +141,7 @@ namespace Contra
 
             //ZT Network not joined
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\networks.d") ||
-                Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\networks.d").Length == 0)
+                Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\networks.d").Length < 2)
             {
                 JoinZTNetwork();
             }
@@ -243,40 +213,6 @@ namespace Contra
                     File.Copy(file_name, Path.Combine(configTargetPath, file_name.Substring(configSourcePath.Length)));
                 }
                 Globals.ZTReady += 1;
-
-
-                //if (!File.Exists(targetPath + "zerotier-one_x64.exe"))
-                //{
-                //    File.Move(sourcePath + "zerotier-one_x64.exe", targetPath + "zerotier-one_x64.exe");
-                //}
-                //if (!File.Exists(targetPath + "zerotier-one_x86.exe"))
-                //{
-                //    File.Move(sourcePath + "zerotier-one_x86.exe", targetPath + "zerotier-one_x86.exe");
-                //}
-                //if (!File.Exists(targetPath + "zt-cli.cmd"))
-                //{
-                //    File.Move(sourcePath + "zt-cli.cmd", targetPath + "zt-cli.cmd");
-                //}
-                //if (!File.Exists(targetPath + "zt-daemon.cmd"))
-                //{
-                //    File.Move(sourcePath + "zt-daemon.cmd", targetPath + "zt-daemon.cmd");
-                //}
-                //if (!File.Exists(targetPath + "zt-join-network.cmd"))
-                //{
-                //    File.Move(sourcePath + "zt-join-network.cmd", targetPath + "zt-join-network.cmd");
-                //}
-                //if (!File.Exists(targetPath + "zt-leave-network.cmd"))
-                //{
-                //    File.Move(sourcePath + "zt-leave-network.cmd", targetPath + "zt-leave-network.cmd");
-                //}
-                //if (!File.Exists(targetPath + "zt-peers.cmd"))
-                //{
-                //    File.Move(sourcePath + "zt-peers.cmd", targetPath + "zt-peers.cmd");
-                //}
-                //if (!Directory.Exists(targetPath + "config"))
-                //{
-                //    Directory.Move(sourcePath + "config", targetPath + "config");
-                //}
             }
             catch (Exception ex)
             {
@@ -290,32 +226,31 @@ namespace Contra
 
             Process ztDaemon = new Process();
             ztDaemon.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
-            ztDaemon.StartInfo.FileName = ztDaemon.StartInfo.WorkingDirectory + @"\zt-daemon.cmd";
+            ztDaemon.StartInfo.FileName = ztDaemon.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
+            ztDaemon.StartInfo.Arguments = "-C \"config\"";
             ztDaemon.StartInfo.UseShellExecute = false;
             ztDaemon.StartInfo.CreateNoWindow = true;
             ztDaemon.Start();
 
             Process ztJoinNetwork = new Process();
             ztJoinNetwork.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
-            ztJoinNetwork.StartInfo.FileName = ztJoinNetwork.StartInfo.WorkingDirectory + @"\zt-join-network.cmd";
+            ztJoinNetwork.StartInfo.FileName = ztJoinNetwork.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
+            ztJoinNetwork.StartInfo.Arguments = "-q -D\"config\" join 8cc55dfcea100100";
+            //ztJoinNetwork.StartInfo.RedirectStandardInput = true;
+            ztJoinNetwork.StartInfo.RedirectStandardOutput = true;
+            //ztJoinNetwork.StartInfo.RedirectStandardError = true;
+
             ztJoinNetwork.StartInfo.UseShellExecute = false;
             ztJoinNetwork.StartInfo.CreateNoWindow = true;
             ztJoinNetwork.Start();
-
-            ztJoinNetwork.WaitForExit();
-            //foreach (Process vpnprocess in vpnprocesses)
-            //{
-            //    ztDaemon.Kill();
-            //    ztDaemon.WaitForExit();
-            //    ztDaemon.Dispose();
-            //}
-
-            //ztJoinNetwork.WaitForExit();
-            //ztDaemon.Kill();
-            //ztDaemon.WaitForExit();
-            //ztDaemon.Dispose();
-
-            Globals.ZTReady += 1;
+            string Output = ztJoinNetwork.StandardOutput.ReadToEnd();
+            //MessageBox.Show(Output);
+            if (Output.Contains("OK"))
+            {
+                Globals.ZTReady += 1;
+                ztDaemon.Kill();
+                ztJoinNetwork.Kill();
+            }
         }
 
         public void CheckIfFileIsAvailable(string ZTURL)

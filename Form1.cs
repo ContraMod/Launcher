@@ -1648,11 +1648,14 @@ namespace Contra
 
             Process ztDaemon = new Process();
             ztDaemon.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
-            ztDaemon.StartInfo.FileName = ztDaemon.StartInfo.WorkingDirectory + @"\zt-daemon.cmd"; //@"\zerotier-one_x" + Globals.userOS + ".exe";
-            ztDaemon.StartInfo.UseShellExecute = true;
-        //    if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\tinc.conf") && (File.Exists(@"contra\vpn\" + Globals.userOS + @"\tincd.exe")) && (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn")))
-         //   {
-                if (Globals.GB_Checked == true)
+            ztDaemon.StartInfo.FileName = ztDaemon.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS; //@"\zt-daemon.cmd"; //@"\zerotier-one_x" + Globals.userOS + ".exe";
+            ztDaemon.StartInfo.Arguments = "-C \"config\"";
+            ztDaemon.StartInfo.UseShellExecute = false;
+            ztDaemon.StartInfo.CreateNoWindow = true;
+
+            //    if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\tinc.conf") && (File.Exists(@"contra\vpn\" + Globals.userOS + @"\tincd.exe")) && (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn")))
+            //   {
+            if (Globals.GB_Checked == true)
                 {
                     playersOnlineLabel.Text = "Loading...";
                 }
@@ -3873,6 +3876,7 @@ namespace Contra
                 vpn_start.ForeColor = SystemColors.ButtonHighlight;
                 vpn_start.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
             }
+            //MessageBox.Show(Globals.ZTReady.ToString());
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
