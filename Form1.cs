@@ -3811,7 +3811,7 @@ namespace Contra
             {
                 ztExe.Start();
                 ip = ztExe.StandardOutput.ReadToEnd();
-                ip = Regex.Match(ip, "100.100.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4]).([1-9][1-9][0-9]|[0-9]+|[0-4][0-9]|25[0-4])").Value.Trim();
+                ip = Regex.Match(ip, "100.100.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-5][0-4]).([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-5][0-4])[^/]*").Value.Trim();
                 ztExe.WaitForExit();
                 //MessageBox.Show(ip);
 
@@ -4179,13 +4179,67 @@ namespace Contra
 
         private void ZTNukeBtn_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Are you sure you want to uninstall ContraVPN?", "Uninstall ContraVPN?", MessageBoxButtons.YesNo);
+            string dialogMsg = null;
+            string dialogTitle = null;
+
+            if (Globals.GB_Checked == true)
+            {
+                dialogMsg = "Are you sure you want to uninstall ContraVPN?";
+                dialogTitle = "Uninstall ContraVPN?";
+            }
+            else if (Globals.RU_Checked == true)
+            {
+                dialogMsg = "Вы уверены, что хотите удалить ContraVPN?";
+                dialogTitle = "Удалить ContraVPN?";
+            }
+            else if (Globals.UA_Checked == true)
+            {
+                dialogMsg = "Ви впевнені, що хочете видалити ContraVPN?";
+                dialogTitle = "Видалити ContraVPN??";
+            }
+            else if (Globals.BG_Checked == true)
+            {
+                dialogMsg = "Сигурни ли сте, че искате да деинсталирате ContraVPN?";
+                dialogTitle = "Деинсталирай ContraVPN?";
+            }
+            else if (Globals.DE_Checked == true)
+            {
+                dialogMsg = "Möchten Sie ContraVPN wirklich deinstallieren?";
+                dialogTitle = "Deinstallieren Sie ContraVPN?";
+            }
+
+            DialogResult dialogResult = MessageBox.Show(dialogMsg, dialogTitle, MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 var instance = new ZT();
                 instance.LeaveZTNetwork();
-
-                //MessageBox.Show("All done! The new adapter is now in use by ContraVPN!");
+                if (Globals.LeaveSuccessful == true)
+                {
+                    instance.UninstallZTDriver();
+                    if (Globals.ZTDriverUninstallSuccessful == true)
+                    {
+                        if (Globals.GB_Checked == true)
+                        {
+                            MessageBox.Show("ContraVPN has been successfully uninstalled!", "VPN uninstalled!");
+                        }
+                        else if (Globals.RU_Checked == true)
+                        {
+                            MessageBox.Show("ContraVPN был успешно удален!", "VPN удален!");
+                        }
+                        else if (Globals.UA_Checked == true)
+                        {
+                            MessageBox.Show("ContraVPN успішно видалено!", "Видалено VPN!");
+                        }
+                        else if (Globals.BG_Checked == true)
+                        {
+                            MessageBox.Show("ContraVPN беше деинсталиран успешно!", "VPN деинсталиран!");
+                        }
+                        else if (Globals.DE_Checked == true)
+                        {
+                            MessageBox.Show("ContraVPN wurde erfolgreich deinstalliert!", "VPN deinstalliert!");
+                        }
+                    }
+                }
             }
             //else if (dialogResult == DialogResult.No)
             //{

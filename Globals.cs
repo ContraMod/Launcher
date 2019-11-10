@@ -10,5 +10,7 @@ namespace Contra
         public static string userOS;
         public static string playersOnlineLabel;
         public static int ZTReady = 0; // Integer checking if all 4 ZT installation steps are done. If ZTReady == 4, ZT is installed successfully
+        public static bool LeaveSuccessful = false;
+        public static bool ZTDriverUninstallSuccessful = false;
     }
 }

@@ -185,7 +185,8 @@ namespace Contra
             cmd.StartInfo.UseShellExecute = false;
             cmd.Start();
 
-            cmd.StandardInput.WriteLine("pnputil /i /a \"$PWD\\config\\tap-windows\\x" + Globals.userOS + "\\zttap300.inf\"");
+            cmd.StandardInput.WriteLine("pnputil -i -a \"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\tap-windows\x" + Globals.userOS + "\\zttap300.inf\"");
+            //cmd.StandardInput.WriteLine("pnputil /i /a \"$PWD\\config\\tap-windows\\x" + Globals.userOS + "\\zttap300.inf\"");
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
             cmd.WaitForExit();
@@ -270,20 +271,56 @@ namespace Contra
             ztDaemon.StartInfo.CreateNoWindow = true;
             ztDaemon.Start();
 
-            Process ztJoinNetwork = new Process();
-            ztJoinNetwork.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
-            ztJoinNetwork.StartInfo.FileName = ztJoinNetwork.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
-            ztJoinNetwork.StartInfo.Arguments = "-q -D\"config\" leave 8cc55dfcea100100";
-            ztJoinNetwork.StartInfo.RedirectStandardOutput = true;
-            ztJoinNetwork.StartInfo.UseShellExecute = false;
-            ztJoinNetwork.StartInfo.CreateNoWindow = true;
-            ztJoinNetwork.Start();
-            string Output = ztJoinNetwork.StandardOutput.ReadToEnd();
+            Process ztLeaveNetwork = new Process();
+            ztLeaveNetwork.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
+            ztLeaveNetwork.StartInfo.FileName = ztLeaveNetwork.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
+            ztLeaveNetwork.StartInfo.Arguments = "-q -D\"config\" leave 8cc55dfcea100100";
+            ztLeaveNetwork.StartInfo.RedirectStandardOutput = true;
+            ztLeaveNetwork.StartInfo.UseShellExecute = false;
+            ztLeaveNetwork.StartInfo.CreateNoWindow = true;
+            ztLeaveNetwork.Start();
+            string Output = ztLeaveNetwork.StandardOutput.ReadToEnd();
             if (Output.Contains("OK"))
             {
                 ztDaemon.Kill();
-                ztJoinNetwork.Kill();
+                ztLeaveNetwork.Kill();
+                Globals.LeaveSuccessful = true;
             }
+        }
+
+        public void UninstallZTDriver()
+        {
+            string infName = null;
+            System.Management.ManagementObjectSearcher objSearcher = new System.Management.ManagementObjectSearcher("Select * from Win32_PnPSignedDriver Where DeviceName = 'Zerotier One Virtual Port'");
+            System.Management.ManagementObjectCollection objCollection = objSearcher.Get();
+            foreach (System.Management.ManagementObject obj in objCollection)
+            {
+                infName = String.Format("{0}", obj["InfName"]);
+                //MessageBox.Show(infName);
+            }
+
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            //cmd.StartInfo.FileName = "pnputil.exe";
+            //cmd.StartInfo.FileName = @"C:\windows\system32\windowspowershell\v1.0\powershell.exe";
+            //cmd.StartInfo.Arguments = ("pnputil /f /d \"$PWD\\config\\tap-windows\\x" + Globals.userOS + "\\zttap300.inf\"");
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+
+            string Output = cmd.StandardOutput.ReadToEnd();
+
+            cmd.StandardInput.WriteLine("pnputil -f -d " + infName);
+
+            if (Output.Contains("Driver package deleted successfully."))
+            {
+                Globals.ZTDriverUninstallSuccessful = true;
+            }
+
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
         }
 
         public void CheckIfFileIsAvailable(string ZTURL)
