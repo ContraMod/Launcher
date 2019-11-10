@@ -44,6 +44,12 @@ namespace Contra
             RadioFlag_RU.TabStop = false;
             RadioFlag_UA.TabStop = false;
             RadioFlag_BG.TabStop = false;
+            RadioFlag_DE.TabStop = false;
+            vpn_start.TabStop = false;
+            ZTConsoleBtn.TabStop = false;
+            ZTConfigBtn.TabStop = false;
+            ZTNukeBtn.TabStop = false;
+            DonateBtn.TabStop = false;
             vpn_start.FlatAppearance.MouseOverBackColor = Color.Transparent;
             vpn_start.FlatAppearance.MouseDownBackColor = Color.Transparent;
             vpn_start.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
@@ -115,6 +121,8 @@ namespace Contra
         string versionText = "";
         int modVersionLocalInt;
         bool patch1Found, patch2Found;
+
+        bool ztStartFail = false;
 
         //Create method to check for an update
         public void GetModUpdate(string motd, string patch_url)
@@ -684,6 +692,10 @@ namespace Contra
             {
                 File.Delete("!!Contra009Final_FogOff.big");
             }
+            if (File.Exists("!!Contra009Final_WaterEffectsOff.ctr") && File.Exists("!!Contra009Final_WaterEffectsOff.big"))
+            {
+                File.Delete("!!Contra009Final_WaterEffectsOff.big");
+            }
             if (File.Exists("!!Contra009Final_FunnyGenPics.ctr") && File.Exists("!!Contra009Final_FunnyGenPics.big"))
             {
                 File.Delete("!!Contra009Final_FunnyGenPics.big");
@@ -716,6 +728,10 @@ namespace Contra
             {
                 File.Delete("langdata1.dat");
             }
+            if (File.Exists("dbghelp.dll") && File.Exists("dbghelp1.dll"))
+            {
+                File.Delete("dbghelp1.dll");
+            }
         }
 
         private static void RenameBigToCtr()
@@ -735,6 +751,7 @@ namespace Contra
                     "!!Contra009Final_Patch1_EN.big",
                     "!!Contra009Final_Patch1_EngVO.big",
                     "!!Contra009Final_FogOff.big",
+                    "!!Contra009Final_WaterEffectsOff.big",
                     "!!Contra009Final_FunnyGenPics.big",
                     "!Contra009Final.big",
                     "!Contra009Final_NatVO.big",
@@ -759,6 +776,8 @@ namespace Contra
                 {
                     Directory.Move(@"Data\Scripts1", @"Data\Scripts");
                 }
+
+                File.Move("dbghelp1.dll", "dbghelp.dll");
 
                 if (File.Exists("Install_Final_ZH.bmp"))
                 {
@@ -855,6 +874,8 @@ namespace Contra
                     File.Move("!!Contra009Final_Patch1.ctr", "!!Contra009Final_Patch1.big");
                     File.Move("!!!Contra009Final_Patch2.ctr", "!!!Contra009Final_Patch2.big");
                     File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
+
+                    File.Move("dbghelp.dll", "dbghelp1.dll");
                 }
                 catch { }
                 if ((RadioOrigQuotes.Checked) && (File.Exists("!Contra009Final_NatVO.ctr")))
@@ -912,6 +933,14 @@ namespace Contra
                 else if ((Properties.Settings.Default.Fog == true) && (File.Exists("!!Contra009Final_FogOff.big")))
                 {
                     File.Move("!!Contra009Final_FogOff.big", "!!Contra009Final_FogOff.ctr");
+                }
+                if ((Properties.Settings.Default.WaterEffects == false) && (File.Exists("!!Contra009Final_WaterEffectsOff.ctr")))
+                {
+                    File.Move("!!Contra009Final_WaterEffectsOff.ctr", "!!Contra009Final_WaterEffectsOff.big");
+                }
+                else if ((Properties.Settings.Default.WaterEffects == true) && (File.Exists("!!Contra009Final_WaterEffectsOff.big")))
+                {
+                    File.Move("!!Contra009Final_WaterEffectsOff.big", "!!Contra009Final_WaterEffectsOff.ctr");
                 }
                 if ((GoofyPics.Checked) && (File.Exists("!!Contra009Final_FunnyGenPics.ctr")))
                 {
@@ -1282,16 +1311,26 @@ namespace Contra
             RadioFlag_DE.Checked = Properties.Settings.Default.Flag_DE;
             AutoScaleMode = AutoScaleMode.Dpi;
 
-            string tincd = "zerotier-one_x" + Globals.userOS + ".exe";
-            Process[] tincdsByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-            if (tincdsByName.Length > 0)
+            string ztExe = "zerotier-one_x" + Globals.userOS + ".exe";
+            Process[] ztExesByName = Process.GetProcessesByName(ztExe.Substring(0, ztExe.LastIndexOf('.')));
+            if (ztExesByName.Length > 0)
             {
-                foreach (Process tincdByName in tincdsByName)
+                try
                 {
-                    tincdByName.Kill();
-                    tincdByName.WaitForExit();
-                    tincdByName.Dispose();
+                    foreach (Process ztExeByName in ztExesByName)
+                    {
+                        ztExeByName.Kill();
+                        ztExeByName.WaitForExit();
+                        ztExeByName.Dispose();
+                    }
                 }
+                catch //(Exception ex)
+                {
+                    ztStartFail = true;
+                    //MessageBox.Show(ex.ToString());
+                    //string a = ex.ToString();
+                }
+
                 if (Globals.GB_Checked == true)
                 {
                     Properties.Settings.Default.IP_Label = "ContraVPN IP: unknown";
@@ -1344,14 +1383,21 @@ namespace Contra
             DelTmpChunk();
 
             Process[] vpnprocesses = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
-            foreach (Process vpnprocess in vpnprocesses)
+            try
             {
-                vpnprocess.Kill();
-//               vpnprocess.WaitForExit();
-//                vpnprocess.Dispose();
-                //vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off);
-                //labelVpnStatus.Text = "Off";
+                foreach (Process vpnprocess in vpnprocesses)
+                {
+                    vpnprocess.Kill();
+                    //vpnprocess.WaitForExit();
+                    //vpnprocess.Dispose();
+
+                    //vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off);
+                    //labelVpnStatus.Text = "Off";
+                }
             }
+            catch {}
+            //catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+
             if (Globals.GB_Checked == true)
             {
                 Properties.Settings.Default.IP_Label = "ContraVPN IP: unknown";
@@ -1675,7 +1721,8 @@ namespace Contra
                 {
                     playersOnlineLabel.Text = "Lade...";
                 }
-            ztDaemon.Start();
+                ztDaemon.Start();
+            ZT_IP();
 
             ////check when zt exe gets turned off
             //Process ztExe = new Process();
@@ -1694,11 +1741,13 @@ namespace Contra
                 VpnOff();
             };
 
-            Process ztExe = new Process();
-            string ztExeString = @"\zerotier-one_x" + Globals.userOS + ".exe";
-            ztExe.StartInfo.FileName = ztExeString;
-            //    string tincd = "tincd.exe";
-            Process[] ztExeByName = Process.GetProcessesByName(ztExeString.Substring(0, ztExeString.LastIndexOf('.')));
+            //Process ztExe = new Process();
+            //string ztExeString = @"\zerotier-one_x" + Globals.userOS + ".exe";
+            //ztExe.StartInfo.FileName = ztExeString;
+            ////    string tincd = "tincd.exe";
+            //Process[] ztExeByName = Process.GetProcessesByName(ztExeString.Substring(0, ztExeString.LastIndexOf('.')));
+            //Process[] ztExeByName = Process.GetProcessesByName(@"\zerotier-one_x" + Globals.userOS + ".exe");
+
             //if (ztExeByName.Length > 0)
             //{
             disableVPNBtnChangeTimer.Enabled = true;
@@ -2359,7 +2408,7 @@ namespace Contra
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            PatchDLPanel.Hide();
+            //PatchDLPanel.Hide();
 
             //This renames the original file so any shortcut works and names it accordingly after the update
             // if (File.Exists(Application.StartupPath + "/Contra_Launcher_ToDelete.exe") && (applyNewLauncher == true))
@@ -2565,33 +2614,37 @@ namespace Contra
             }
 
             //Show warning if there are .ini files in Data\INI.
-            if (Directory.GetFiles(Environment.CurrentDirectory + @"\Data\INI", "*.ini").Length == 0)
+            try
             {
-                //no .ini files
+                if (Directory.GetFiles(Environment.CurrentDirectory + @"\Data\INI", "*.ini").Length == 0)
+                {
+                    //no .ini files
+                }
+                else
+                {
+                    if (Globals.GB_Checked == true)
+                    {
+                        MessageBox.Show("Found .ini files in the Data\\INI directory. They may corrupt the mod or cause mismatch online.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else if (Globals.RU_Checked == true)
+                    {
+                        MessageBox.Show("Найдены файлы .ini в каталоге Data\\INI. Они могут повредить мод или вызвать несоответствие в сети.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else if (Globals.UA_Checked == true)
+                    {
+                        MessageBox.Show("Знайдено файли .ini в каталозі Data\\INI. Вони можуть пошкодити мод або призвести до невідповідності в Інтернеті.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else if (Globals.BG_Checked == true)
+                    {
+                        MessageBox.Show("Намерени .ini файлове в директорията Data\\INI. Те могат да повредят мода или да причинят несъответствие онлайн.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        MessageBox.Show("Es wurden INI-Dateien im Verzeichnis \"Data\\INI\" gefunden. Sie können den Mod beschädigen oder online zu Unstimmigkeiten führen.", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
             }
-            else
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("Found .ini files in the Data\\INI directory. They may corrupt the mod or cause mismatch online.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Найдены файлы .ini в каталоге Data\\INI. Они могут повредить мод или вызвать несоответствие в сети.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Знайдено файли .ini в каталозі Data\\INI. Вони можуть пошкодити мод або призвести до невідповідності в Інтернеті.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("Намерени .ini файлове в директорията Data\\INI. Те могат да повредят мода или да причинят несъответствие онлайн.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("Es wurden INI-Dateien im Verzeichnis \"Data\\INI\" gefunden. Sie können den Mod beschädigen oder online zu Unstimmigkeiten führen.", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
+            catch { }
         }
 
         private void VPNMoreButton_Click(object sender, EventArgs e)
@@ -3436,25 +3489,53 @@ namespace Contra
 
         private void vpn_start_Click(object sender, EventArgs e)
         {
-            string tincd = "zerotier-one_x" + Globals.userOS + ".exe";
-            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
+            //if (ztStartFail == true)
+            //{
+            //    if (Globals.GB_Checked == true)
+            //    {
+            //        MessageBox.Show("There was a problem starting ZT process!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    else if (Globals.RU_Checked == true)
+            //    {
+            //        MessageBox.Show("Файл \"Options.ini\" не найден!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    else if (Globals.UA_Checked == true)
+            //    {
+            //        MessageBox.Show("Файл Options.ini не знайдений!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    else if (Globals.BG_Checked == true)
+            //    {
+            //        MessageBox.Show("Options.ini не беше намерен!", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    else if (Globals.DE_Checked == true)
+            //    {
+            //        MessageBox.Show("Options.ini nicht gefunden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+
+            //string tincd = "zerotier-one_x" + Globals.userOS + ".exe";
+            //Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
+            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
             //CheckRegistryPathForWine();
             //if (UserOnWine == true)
             //{
             //    return;
             //}
-            if (tincdByName.Length == 0)
+            if (ztExeByName.Length == 0)
             {
                 var instance = new ZT();
                 instance.CheckZTInstall("https://download.zerotier.com/dist/ZeroTier%20One.msi");
             }
 
+            //MessageBox.Show(Globals.ZTReady.ToString());
+
             if (Globals.ZTReady == 4)
             {
+                //StartZT();
 
-                CheckFirewallExceptions(); // needs to be reworked for zt
-                                           //string ztx64 = "zerotier-one_x64.exe";
-                                           //string ztx86 = "zerotier-one_x86.exe";
+                //CheckFirewallExceptions(); // needs to be reworked for zt
+                //string ztx64 = "zerotier-one_x64.exe";
+                //string ztx86 = "zerotier-one_x86.exe";
 
                 //Process[] ztx64ByName = Process.GetProcessesByName(ztx64.Substring(0, ztx64.LastIndexOf('.')));
                 //if (ztx64ByName.Length == 0)
@@ -3465,7 +3546,7 @@ namespace Contra
                 try //check if zt is running or not
                 {
 
-                    if (tincdByName.Length > 0) //if zt is running but we are clicking button again to turn it off
+                    if (ztExeByName.Length > 0) //if zt is running but we are clicking button again to turn it off
                     {
                         Process[] vpnprocesses = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
                         foreach (Process vpnprocess in vpnprocesses)
@@ -3672,6 +3753,67 @@ namespace Contra
             //        MessageBox.Show(ex.Message);
             //    }
             //}
+        }
+
+        private static void ZT_IP()
+        {
+            Process ztExe = new Process();
+            ztExe.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
+            ztExe.StartInfo.FileName = ztExe.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
+            ztExe.StartInfo.Arguments = "./zt-cli listnetworks";
+            ztExe.StartInfo.UseShellExecute = false;
+            ztExe.StartInfo.CreateNoWindow = true;
+            ztExe.StartInfo.RedirectStandardOutput = true;
+            try
+            {
+                ztExe.Start();
+                ztExe.WaitForExit();
+                string ip = Regex.Match(ztExe.StandardOutput.ReadToEnd(), $"{{NetworkID}}.*100.100.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4]).([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4])").Value.Trim();
+
+                if (!string.IsNullOrWhiteSpace(ip))
+                {
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: " + ip;
+                    void writeIPAddress(string path)
+                    {
+                        File.WriteAllText(path, Regex.Replace(File.ReadAllText(path), "^IPAddress.*\\S+", $"IPAddress = {ip}", RegexOptions.Multiline));
+                    }
+                    if (File.Exists(UserDataLeafName() + "Options.ini"))
+                    {
+                        writeIPAddress(UserDataLeafName() + "Options.ini");
+                    }
+                    else if (File.Exists(myDocPath + "Options.ini"))
+                    {
+                        writeIPAddress(myDocPath + "Options.ini");
+                    }
+                    else
+                    {
+                        var cannotsaveip_lang = new Dictionary<string, bool>
+                        {
+                            {"Options.ini not found!\nCannot write IPAddress.", Globals.GB_Checked == true},
+                            {"Файл Options.ini не найден!\nНевозможно записать IPAddress.", Globals.RU_Checked},
+                            {"Файл Options.ini не знайдений!\nНеможливо написати IPAddress.", Globals.UA_Checked},
+                            {"Options.ini не беше намерен!\nНе може запише IPAddress.", Globals.BG_Checked},
+                            {"Options.ini nicht gefunden!\nIPAddress kann nicht geschrieben werden.", Globals.DE_Checked},
+                        };
+                        //Too spammy
+                        //MessageBox.Show(cannotsaveip_lang.Single(l => l.Value).Key, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Console.Error.WriteLine(cannotsaveip_lang.Single(l => l.Value).Key);
+                    }
+                }
+                else
+                {
+                    var iplabel_lang = new Dictionary<string, bool>
+                    {
+                        {"Not compatible", Globals.GB_Checked},
+                        {"несовместимый", Globals.RU_Checked},
+                        {"несумісні", Globals.UA_Checked},
+                        {"несъвместим", Globals.BG_Checked},
+                        {"Nicht Kompatibel", Globals.DE_Checked},
+                    };
+                    Properties.Settings.Default.IP_Label = "ContraVPN IP: " + iplabel_lang.Single(l => l.Value).Key;
+                }
+            }
+            catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
         private static void VpnIP()
@@ -3904,6 +4046,109 @@ namespace Contra
         private void disableVPNBtnChangeTimer_Tick(object sender, EventArgs e)
         {
             disableVPNBtnChangeTimer.Enabled = false;
+        }
+
+        private void ZTConsoleBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //string strCmdText = Path.Combine(Directory.GetCurrentDirectory(), "Start.ps1");
+                var process = new Process();
+                //process.StartInfo.UseShellExecute = false;
+                //process.StartInfo.RedirectStandardOutput = true;
+                //process.StartInfo.Verb = "runas";
+                process.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
+                process.StartInfo.FileName = @"C:\windows\system32\windowspowershell\v1.0\powershell.exe";
+                process.StartInfo.Arguments = "-noexit $Host.UI.RawUI.WindowTitle = 'ZeroTier Console'; Write-Host 'Enter ./zt-cli help for available options.'";
+                //process.StartInfo.Arguments = "-noexit cd 'C:\\Users\\Bat Vlado\\AppData\\Local\\Contra\\vpnconfig\\zt\\CommonAppDataFolder\\ZeroTier\\One'";
+                //process.StartInfo.Arguments = "-NoProfile -ExecutionPolicy Bypass -Command \"Start-Process PowerShell -Verb runAs -ArgumentList '-NoExit','cd '\"C:\\Users\\Bat Vlado\\AppData\\Local\\Contra\\vpnconfig\\zt\\CommonAppDataFolder\\ZeroTier\\One\"''\"";
+
+                process.Start();
+                //string s = process.StandardOutput.ReadToEnd();
+                //MessageBox.Show(s);
+
+                //process.WaitForExit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+
+        private void ZTConsoleBtn_MouseDown(object sender, MouseEventArgs e)
+        {
+            ZTConsoleBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_sm_highlight_s);
+            ZTConsoleBtn.ForeColor = SystemColors.ButtonHighlight;
+            ZTConsoleBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+        private void ZTConsoleBtn_MouseEnter(object sender, EventArgs e)
+        {
+            ZTConsoleBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_console_s_tr);
+            ZTConsoleBtn.ForeColor = SystemColors.ButtonHighlight;
+            ZTConsoleBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+        private void ZTConsoleBtn_MouseLeave(object sender, EventArgs e)
+        {
+            ZTConsoleBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_console_s);
+            ZTConsoleBtn.ForeColor = SystemColors.ButtonHighlight;
+            ZTConsoleBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+
+        private void ZTConfigBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("notepad.exe", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\local.conf");
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+
+        private void ZTConfigBtn_MouseDown(object sender, MouseEventArgs e)
+        {
+            ZTConfigBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_sm_highlight_s);
+            ZTConfigBtn.ForeColor = SystemColors.ButtonHighlight;
+            ZTConfigBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+        private void ZTConfigBtn_MouseEnter(object sender, EventArgs e)
+        {
+            ZTConfigBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_config_s_tr);
+            ZTConfigBtn.ForeColor = SystemColors.ButtonHighlight;
+            ZTConfigBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+        private void ZTConfigBtn_MouseLeave(object sender, EventArgs e)
+        {
+            ZTConfigBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_config_s);
+            ZTConfigBtn.ForeColor = SystemColors.ButtonHighlight;
+            ZTConfigBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+
+        private void ZTNukeBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ZTNukeBtn_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void ZTNukeBtn_MouseEnter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ZTNukeBtn_MouseLeave(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DonateBtn_Click(object sender, EventArgs e)
+        {
+            Url_open("https://www.paypal.com/paypalme2/Contramod");
         }
 
         private void CancelModDLBtn_Click(object sender, EventArgs e)

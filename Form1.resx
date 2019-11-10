@@ -319,7 +319,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;QSCheckBox.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>15</value>
   </data>
   <data name="MStandard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -385,7 +385,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;WinCheckBox.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>16</value>
   </data>
   <data name="DefaultPics.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -472,7 +472,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;voicespanel.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>17</value>
   </data>
   <data name="languagepanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>441, 212</value>
@@ -493,7 +493,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;languagepanel.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>18</value>
   </data>
   <data name="musicpanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>275, 306</value>
@@ -514,7 +514,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;musicpanel.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>20</value>
   </data>
   <data name="portraitspanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>441, 306</value>
@@ -535,7 +535,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;portraitspanel.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>19</value>
   </data>
   <data name="versionLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 13px, style=Bold</value>
@@ -568,7 +568,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;versionLabel.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>13</value>
   </data>
   <data name="VPNMoreButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -580,13 +580,16 @@
     <value>NoControl</value>
   </data>
   <data name="VPNMoreButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 168</value>
+    <value>601, 60</value>
   </data>
   <data name="VPNMoreButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 47</value>
   </data>
   <data name="VPNMoreButton.TabIndex" type="System.Int32, mscorlib">
     <value>44</value>
+  </data>
+  <data name="VPNMoreButton.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;VPNMoreButton.Name" xml:space="preserve">
     <value>VPNMoreButton</value>
@@ -598,7 +601,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;VPNMoreButton.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>14</value>
   </data>
   <data name="helpbutton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -628,7 +631,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;helpbutton.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>21</value>
   </data>
   <data name="buttonChat.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -658,7 +661,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonChat.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>22</value>
   </data>
   <data name="button18.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -688,7 +691,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button18.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>23</value>
   </data>
   <data name="button17.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -718,7 +721,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button17.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>24</value>
   </data>
   <data name="websitebutton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -748,7 +751,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;websitebutton.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>25</value>
   </data>
   <data name="button2.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -778,7 +781,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button2.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>26</value>
   </data>
   <data name="button3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -808,7 +811,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>27</value>
   </data>
   <data name="button6.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -838,7 +841,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button6.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>28</value>
   </data>
   <data name="button5.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -868,7 +871,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button5.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>29</value>
   </data>
   <data name="button1.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -898,7 +901,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>30</value>
   </data>
   <data name="RadioFlag_GB.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -935,6 +938,75 @@
   </data>
   <data name="panel1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_DE.Name" xml:space="preserve">
+    <value>RadioFlag_DE</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_DE.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_DE.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_DE.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_BG.Name" xml:space="preserve">
+    <value>RadioFlag_BG</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_BG.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_BG.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_BG.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_UA.Name" xml:space="preserve">
+    <value>RadioFlag_UA</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_UA.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_UA.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_UA.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_RU.Name" xml:space="preserve">
+    <value>RadioFlag_RU</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_RU.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_RU.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;RadioFlag_RU.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>45, 46</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 22</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>12</value>
   </data>
   <data name="RadioFlag_DE.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -1068,27 +1140,6 @@
   <data name="&gt;&gt;RadioFlag_RU.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>45, 46</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 22</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>21, 17</value>
   </metadata>
@@ -1123,7 +1174,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;moreOptions.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>11</value>
   </data>
   <data name="playersOnlineLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1135,7 +1186,7 @@
     <value>NoControl</value>
   </data>
   <data name="playersOnlineLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 127</value>
+    <value>482, 19</value>
   </data>
   <data name="playersOnlineLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 18</value>
@@ -1156,7 +1207,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;playersOnlineLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>10</value>
   </data>
   <data name="vpn_start.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -1168,7 +1219,7 @@
     <value>NoControl</value>
   </data>
   <data name="vpn_start.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 168</value>
+    <value>72, 185</value>
   </data>
   <data name="vpn_start.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 47</value>
@@ -1186,7 +1237,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;vpn_start.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>9</value>
   </data>
   <data name="labelVpnStatus.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 15px, style=Bold</value>
@@ -1195,7 +1246,7 @@
     <value>NoControl</value>
   </data>
   <data name="labelVpnStatus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>40, 218</value>
+    <value>51, 235</value>
   </data>
   <data name="labelVpnStatus.Size" type="System.Drawing.Size, System.Drawing">
     <value>97, 18</value>
@@ -1209,6 +1260,9 @@
   <data name="labelVpnStatus.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
+  <data name="labelVpnStatus.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;labelVpnStatus.Name" xml:space="preserve">
     <value>labelVpnStatus</value>
   </data>
@@ -1219,7 +1273,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelVpnStatus.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>8</value>
   </data>
   <data name="whoIsOnline.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -1231,7 +1285,7 @@
     <value>NoControl</value>
   </data>
   <data name="whoIsOnline.Location" type="System.Drawing.Point, System.Drawing">
-    <value>205, 120</value>
+    <value>645, 12</value>
   </data>
   <data name="whoIsOnline.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 32</value>
@@ -1249,7 +1303,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;whoIsOnline.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>7</value>
   </data>
   <data name="vpnSettingsLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 15px, style=Bold</value>
@@ -1258,7 +1312,7 @@
     <value>NoControl</value>
   </data>
   <data name="vpnSettingsLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>126, 218</value>
+    <value>566, 110</value>
   </data>
   <data name="vpnSettingsLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 18</value>
@@ -1272,6 +1326,9 @@
   <data name="vpnSettingsLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
   </data>
+  <data name="vpnSettingsLabel.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;vpnSettingsLabel.Name" xml:space="preserve">
     <value>vpnSettingsLabel</value>
   </data>
@@ -1282,7 +1339,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;vpnSettingsLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>6</value>
   </data>
   <metadata name="openPlayersListTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>134, 17</value>
@@ -1313,6 +1370,90 @@
   </data>
   <data name="&gt;&gt;PatchDLProgressBar.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="&gt;&gt;ModDLCurrentFileLabel.Name" xml:space="preserve">
+    <value>ModDLCurrentFileLabel</value>
+  </data>
+  <data name="&gt;&gt;ModDLCurrentFileLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ModDLCurrentFileLabel.Parent" xml:space="preserve">
+    <value>PatchDLPanel</value>
+  </data>
+  <data name="&gt;&gt;ModDLCurrentFileLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;DLPercentLabel.Name" xml:space="preserve">
+    <value>DLPercentLabel</value>
+  </data>
+  <data name="&gt;&gt;DLPercentLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DLPercentLabel.Parent" xml:space="preserve">
+    <value>PatchDLPanel</value>
+  </data>
+  <data name="&gt;&gt;DLPercentLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ModDLFileSizeLabel.Name" xml:space="preserve">
+    <value>ModDLFileSizeLabel</value>
+  </data>
+  <data name="&gt;&gt;ModDLFileSizeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ModDLFileSizeLabel.Parent" xml:space="preserve">
+    <value>PatchDLPanel</value>
+  </data>
+  <data name="&gt;&gt;ModDLFileSizeLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;CancelModDLBtn.Name" xml:space="preserve">
+    <value>CancelModDLBtn</value>
+  </data>
+  <data name="&gt;&gt;CancelModDLBtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CancelModDLBtn.Parent" xml:space="preserve">
+    <value>PatchDLPanel</value>
+  </data>
+  <data name="&gt;&gt;CancelModDLBtn.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;ModDLLabel.Name" xml:space="preserve">
+    <value>ModDLLabel</value>
+  </data>
+  <data name="&gt;&gt;ModDLLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ModDLLabel.Parent" xml:space="preserve">
+    <value>PatchDLPanel</value>
+  </data>
+  <data name="&gt;&gt;ModDLLabel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="PatchDLPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>247, 147</value>
+  </data>
+  <data name="PatchDLPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 300</value>
+  </data>
+  <data name="PatchDLPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <data name="PatchDLPanel.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;PatchDLPanel.Name" xml:space="preserve">
+    <value>PatchDLPanel</value>
+  </data>
+  <data name="&gt;&gt;PatchDLPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PatchDLPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PatchDLPanel.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="ModDLCurrentFileLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1419,6 +1560,9 @@
   <data name="CancelModDLBtn.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 10.4px</value>
   </data>
+  <data name="CancelModDLBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="CancelModDLBtn.Location" type="System.Drawing.Point, System.Drawing">
     <value>115, 245</value>
   </data>
@@ -1449,6 +1593,9 @@
   <data name="ModDLLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 15px, style=Bold</value>
   </data>
+  <data name="ModDLLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="ModDLLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 70</value>
   </data>
@@ -1473,25 +1620,127 @@
   <data name="&gt;&gt;ModDLLabel.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="PatchDLPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>247, 147</value>
+  <metadata name="disableVPNBtnChangeTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>487, 17</value>
+  </metadata>
+  <data name="ZTConfigBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
   </data>
-  <data name="PatchDLPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 300</value>
+  <data name="ZTConfigBtn.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 20pt</value>
   </data>
-  <data name="PatchDLPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>66</value>
+  <data name="ZTConfigBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;PatchDLPanel.Name" xml:space="preserve">
-    <value>PatchDLPanel</value>
+  <data name="ZTConfigBtn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>122, 217</value>
   </data>
-  <data name="&gt;&gt;PatchDLPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="ZTConfigBtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 30</value>
   </data>
-  <data name="&gt;&gt;PatchDLPanel.Parent" xml:space="preserve">
+  <data name="ZTConfigBtn.TabIndex" type="System.Int32, mscorlib">
+    <value>67</value>
+  </data>
+  <data name="&gt;&gt;ZTConfigBtn.Name" xml:space="preserve">
+    <value>ZTConfigBtn</value>
+  </data>
+  <data name="&gt;&gt;ZTConfigBtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ZTConfigBtn.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;PatchDLPanel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ZTConfigBtn.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="ZTConsoleBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="ZTConsoleBtn.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 20pt</value>
+  </data>
+  <data name="ZTConsoleBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ZTConsoleBtn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>122, 171</value>
+  </data>
+  <data name="ZTConsoleBtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 30</value>
+  </data>
+  <data name="ZTConsoleBtn.TabIndex" type="System.Int32, mscorlib">
+    <value>68</value>
+  </data>
+  <data name="&gt;&gt;ZTConsoleBtn.Name" xml:space="preserve">
+    <value>ZTConsoleBtn</value>
+  </data>
+  <data name="&gt;&gt;ZTConsoleBtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ZTConsoleBtn.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ZTConsoleBtn.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ZTNukeBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="ZTNukeBtn.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 20pt</value>
+  </data>
+  <data name="ZTNukeBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ZTNukeBtn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>41, 171</value>
+  </data>
+  <data name="ZTNukeBtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 30</value>
+  </data>
+  <data name="ZTNukeBtn.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="&gt;&gt;ZTNukeBtn.Name" xml:space="preserve">
+    <value>ZTNukeBtn</value>
+  </data>
+  <data name="&gt;&gt;ZTNukeBtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ZTNukeBtn.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ZTNukeBtn.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="DonateBtn.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="DonateBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="DonateBtn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="DonateBtn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>671, 185</value>
+  </data>
+  <data name="DonateBtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 47</value>
+  </data>
+  <data name="DonateBtn.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="&gt;&gt;DonateBtn.Name" xml:space="preserve">
+    <value>DonateBtn</value>
+  </data>
+  <data name="&gt;&gt;DonateBtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DonateBtn.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;DonateBtn.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="MOTD.Font" type="System.Drawing.Font, System.Drawing">
@@ -1519,11 +1768,8 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MOTD.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>5</value>
   </data>
-  <metadata name="disableVPNBtnChangeTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>487, 17</value>
-  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

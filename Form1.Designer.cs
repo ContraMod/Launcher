@@ -78,8 +78,12 @@ namespace Contra
             this.ModDLFileSizeLabel = new System.Windows.Forms.Label();
             this.CancelModDLBtn = new System.Windows.Forms.Button();
             this.ModDLLabel = new System.Windows.Forms.Label();
-            this.MOTD = new Contra.Marquee();
             this.disableVPNBtnChangeTimer = new System.Windows.Forms.Timer(this.components);
+            this.ZTConfigBtn = new System.Windows.Forms.Button();
+            this.ZTConsoleBtn = new System.Windows.Forms.Button();
+            this.ZTNukeBtn = new System.Windows.Forms.Button();
+            this.DonateBtn = new System.Windows.Forms.Button();
+            this.MOTD = new Contra.Marquee();
             this.voicespanel.SuspendLayout();
             this.languagepanel.SuspendLayout();
             this.musicpanel.SuspendLayout();
@@ -630,6 +634,72 @@ namespace Contra
             this.ModDLLabel.ForeColor = System.Drawing.Color.White;
             this.ModDLLabel.Name = "ModDLLabel";
             // 
+            // disableVPNBtnChangeTimer
+            // 
+            this.disableVPNBtnChangeTimer.Tick += new System.EventHandler(this.disableVPNBtnChangeTimer_Tick);
+            // 
+            // ZTConfigBtn
+            // 
+            this.ZTConfigBtn.BackColor = System.Drawing.Color.Transparent;
+            this.ZTConfigBtn.BackgroundImage = global::Contra.Properties.Resources._button_config_s;
+            this.ZTConfigBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ZTConfigBtn.FlatAppearance.BorderSize = 0;
+            this.ZTConfigBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ZTConfigBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ZTConfigBtn, "ZTConfigBtn");
+            this.ZTConfigBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ZTConfigBtn.Name = "ZTConfigBtn";
+            this.ZTConfigBtn.UseVisualStyleBackColor = false;
+            this.ZTConfigBtn.Click += new System.EventHandler(this.ZTConfigBtn_Click);
+            this.ZTConfigBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ZTConfigBtn_MouseDown);
+            this.ZTConfigBtn.MouseEnter += new System.EventHandler(this.ZTConfigBtn_MouseEnter);
+            this.ZTConfigBtn.MouseLeave += new System.EventHandler(this.ZTConfigBtn_MouseLeave);
+            // 
+            // ZTConsoleBtn
+            // 
+            this.ZTConsoleBtn.BackColor = System.Drawing.Color.Transparent;
+            this.ZTConsoleBtn.BackgroundImage = global::Contra.Properties.Resources._button_console_s;
+            this.ZTConsoleBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ZTConsoleBtn.FlatAppearance.BorderSize = 0;
+            this.ZTConsoleBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ZTConsoleBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ZTConsoleBtn, "ZTConsoleBtn");
+            this.ZTConsoleBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ZTConsoleBtn.Name = "ZTConsoleBtn";
+            this.ZTConsoleBtn.UseVisualStyleBackColor = false;
+            this.ZTConsoleBtn.Click += new System.EventHandler(this.ZTConsoleBtn_Click);
+            this.ZTConsoleBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ZTConsoleBtn_MouseDown);
+            this.ZTConsoleBtn.MouseEnter += new System.EventHandler(this.ZTConsoleBtn_MouseEnter);
+            this.ZTConsoleBtn.MouseLeave += new System.EventHandler(this.ZTConsoleBtn_MouseLeave);
+            // 
+            // ZTNukeBtn
+            // 
+            this.ZTNukeBtn.BackColor = System.Drawing.Color.Transparent;
+            this.ZTNukeBtn.BackgroundImage = global::Contra.Properties.Resources._button_console_s;
+            this.ZTNukeBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ZTNukeBtn.FlatAppearance.BorderSize = 0;
+            this.ZTNukeBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ZTNukeBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ZTNukeBtn, "ZTNukeBtn");
+            this.ZTNukeBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ZTNukeBtn.Name = "ZTNukeBtn";
+            this.ZTNukeBtn.UseVisualStyleBackColor = false;
+            this.ZTNukeBtn.Click += new System.EventHandler(this.ZTNukeBtn_Click);
+            this.ZTNukeBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ZTNukeBtn_MouseDown);
+            this.ZTNukeBtn.MouseEnter += new System.EventHandler(this.ZTNukeBtn_MouseEnter);
+            this.ZTNukeBtn.MouseLeave += new System.EventHandler(this.ZTNukeBtn_MouseLeave);
+            // 
+            // DonateBtn
+            // 
+            this.DonateBtn.BackColor = System.Drawing.Color.Transparent;
+            this.DonateBtn.BackgroundImage = global::Contra.Properties.Resources.donate;
+            resources.ApplyResources(this.DonateBtn, "DonateBtn");
+            this.DonateBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DonateBtn.FlatAppearance.BorderSize = 0;
+            this.DonateBtn.Name = "DonateBtn";
+            this.DonateBtn.UseVisualStyleBackColor = false;
+            this.DonateBtn.Click += new System.EventHandler(this.DonateBtn_Click);
+            // 
             // MOTD
             // 
             this.MOTD.BackColor = System.Drawing.Color.Transparent;
@@ -639,16 +709,16 @@ namespace Contra
             this.MOTD.Speed = 1;
             this.MOTD.yOffset = 0;
             // 
-            // disableVPNBtnChangeTimer
-            // 
-            this.disableVPNBtnChangeTimer.Tick += new System.EventHandler(this.disableVPNBtnChangeTimer_Tick);
-            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = global::Contra.Properties.Resources.background;
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
+            this.Controls.Add(this.DonateBtn);
+            this.Controls.Add(this.ZTNukeBtn);
+            this.Controls.Add(this.ZTConsoleBtn);
+            this.Controls.Add(this.ZTConfigBtn);
             this.Controls.Add(this.PatchDLPanel);
             this.Controls.Add(this.MOTD);
             this.Controls.Add(this.vpnSettingsLabel);
@@ -753,6 +823,10 @@ namespace Contra
         private System.Windows.Forms.Label DLPercentLabel;
         private System.Windows.Forms.Label ModDLCurrentFileLabel;
         private System.Windows.Forms.Timer disableVPNBtnChangeTimer;
+        private System.Windows.Forms.Button ZTConfigBtn;
+        private System.Windows.Forms.Button ZTConsoleBtn;
+        private System.Windows.Forms.Button ZTNukeBtn;
+        private System.Windows.Forms.Button DonateBtn;
     }
 }
 

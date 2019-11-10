@@ -27,6 +27,7 @@ namespace Contra
                 toolTip3.SetToolTip(LangFilterCheckBox, "Disabling the language filter will show bad words written by players in chat.");
                 toolTip3.SetToolTip(HeatEffectsCheckBox, "Heat effects are standard graphical effects from Zero Hour. The area near heat sources distorts.\nTurn this off if your screen randomly turns black while playing.");
                 toolTip3.SetToolTip(camHeightLabel, "The camera height setting changes the default and maximum player view distance in-game.\nThe higher this value is, the further away the view will be.");
+                toolTip3.SetToolTip(WaterEffectsCheckBox, "Toggle water effects on/off.\nThis effect simulates water reflection.");
             }
             else if (Globals.RU_Checked == true)
             {
@@ -34,11 +35,13 @@ namespace Contra
                 toolTip3.SetToolTip(LangFilterCheckBox, "Отключение языкового фильтра покажет плохие слова, написанные игроками в чате.");
                 toolTip3.SetToolTip(HeatEffectsCheckBox, "Тепловые эффекты - это стандартные графические эффекты от Zero Hour.\nВыключите это, если ваш экран случайно становится черным во время игры.");
                 toolTip3.SetToolTip(camHeightLabel, "Настройка высоты камеры изменяет стандартное и максимальное расстояние поле зрения игрока.\nЧем выше это значение, тем дальше будет поле зрения.");
+                toolTip3.SetToolTip(WaterEffectsCheckBox, "Эффекты переключения отражение воды вкл\\выкл.");
                 labelResolution.Text = "Разрешение экрана:";
                 FogCheckBox.Text = "Эффект тумана";
                 LangFilterCheckBox.Text = "Языковый фильтр";
                 HeatEffectsCheckBox.Text = "Тепловые эффекты";
                 camHeightLabel.Text = "Высота камеры: ?";
+                WaterEffectsCheckBox.Text = "Эффект воды";
             }
             else if (Globals.UA_Checked == true)
             {
@@ -46,11 +49,13 @@ namespace Contra
                 toolTip3.SetToolTip(LangFilterCheckBox, "Вимкнення мовного фільтра покаже погані слова, написані гравцями в чаті.");
                 toolTip3.SetToolTip(HeatEffectsCheckBox, "Теплові ефекти є стандартними графічними ефектами від нульового часу.\nВимкніть цю функцію, якщо екран у випадковому режимі стане чорним під час відтворення.");
                 toolTip3.SetToolTip(camHeightLabel, "Налаштування висоти камери змінює стандартне і максимальна відстань поле зору гравця.\nЧем вище це значення, тим далі буде поле зору.");
+                toolTip3.SetToolTip(WaterEffectsCheckBox, "Ефекти перемикання відображення води вкл\\викл.");
                 labelResolution.Text = "Роздільна здатність:";
                 FogCheckBox.Text = "Ефект туману";
                 LangFilterCheckBox.Text = "Мовний фільтр";
                 HeatEffectsCheckBox.Text = "Теплові ефекти";
                 camHeightLabel.Text = "Висота камери: ?";
+                WaterEffectsCheckBox.Text = "Водний ефект";
             }
             else if (Globals.BG_Checked == true)
             {
@@ -58,11 +63,13 @@ namespace Contra
                 toolTip3.SetToolTip(LangFilterCheckBox, "Изключването на езиковия филтър ще спре да скрива лошите думи, написани от играчите.");
                 toolTip3.SetToolTip(HeatEffectsCheckBox, "Топлинните ефекти са стандартни графични ефекти в Zero Hour.\nИзключете ги, ако вашият екран става черен, докато играете.");
                 toolTip3.SetToolTip(camHeightLabel, "Настройката за височина на камерата променя стандартното и максималното разстояние на изглед на играча.\nКолкото по-висока е тази стойност, толкова по-далеч ще бъде изгледът.");
+                toolTip3.SetToolTip(WaterEffectsCheckBox, "Превключете водните ефекти (симулация на слънчево и облачно отражение).");
                 labelResolution.Text = "Резолюция:";
                 FogCheckBox.Text = "Мъглявинен ефект";
                 LangFilterCheckBox.Text = "Езиков филтър";
                 HeatEffectsCheckBox.Text = "Топлинни ефекти";
                 camHeightLabel.Text = "Височина на камерата: ?";
+                WaterEffectsCheckBox.Text = "Водни ефекти";
             }
             else if (Globals.DE_Checked == true)
             {
@@ -70,11 +77,13 @@ namespace Contra
                 toolTip3.SetToolTip(LangFilterCheckBox, "Das ausschalten vom Sprache Filter zeigt bцse Wцrter von anderen Spielern im Chat an.");
                 toolTip3.SetToolTip(HeatEffectsCheckBox, "Wärmeeffekte sind standardmäßige grafische Effekte von Zero Hour.\nDeaktivieren Sie diese Option, wenn der Bildschirm während des Spiels zufällig schwarz wird.");
                 toolTip3.SetToolTip(camHeightLabel, "Mit der Einstellung für die Kamerahöhe werden die Standard- und die maximale Anzeigedistanz des Players geändert.\nJe höher dieser Wert ist, desto weiter entfernt ist die Ansicht.");
+                toolTip3.SetToolTip(WaterEffectsCheckBox, "Schalte Wasser Reflexion Effekte An/Aus.");
                 labelResolution.Text = "Auflцsung:";
                 FogCheckBox.Text = "Nebel Effekte";
                 LangFilterCheckBox.Text = "Sprache Filter";
                 HeatEffectsCheckBox.Text = "Wärmeeffekte";
                 camHeightLabel.Text = "Kamerahöhe: ?";
+                WaterEffectsCheckBox.Text = "Wassereffekt";
             }
 
             //Read from Options.ini and check/uncheck Heat Effects checkbox depending on value there:
@@ -744,6 +753,17 @@ namespace Contra
             {
                 camHeightLabel.Text = "Kamerahöhe: " + camTrackBar.Value.ToString() + ".0";
             }
+        }
+
+        private void WaterEffectsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!WaterEffectsCheckBox.Checked)
+            {
+                Properties.Settings.Default.WaterEffects = false;
+                Properties.Settings.Default.Save();
+            }
+            else Properties.Settings.Default.WaterEffects = true;
+            Properties.Settings.Default.Save();
         }
     }
 }

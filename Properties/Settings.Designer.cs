@@ -406,5 +406,17 @@ namespace Contra.Properties {
                 this["HeatEffects"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool WaterEffects {
+            get {
+                return ((bool)(this["WaterEffects"]));
+            }
+            set {
+                this["WaterEffects"] = value;
+            }
+        }
     }
 }

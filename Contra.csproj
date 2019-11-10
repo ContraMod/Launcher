@@ -181,6 +181,13 @@
   <ItemGroup>
     <Content Include="ContraIco.ico" />
     <Content Include="LICENSE.txt" />
+    <None Include="Resources\_button_config_s_tr.png" />
+    <None Include="Resources\_button_console_s_tr.png" />
+    <None Include="Resources\_button_sm_highlight_s.png" />
+    <None Include="Resources\_button_config_s.png" />
+    <None Include="Resources\_button_console_s.png" />
+    <None Include="Resources\background.jpg" />
+    <None Include="Resources\donate.png" />
     <Content Include="Version.txt" />
     <None Include="README.md" />
     <None Include="Resources\refresh2.png" />
@@ -193,7 +200,6 @@
     <None Include="Resources\flag_de_tr.png" />
     <None Include="Resources\flag_de.png" />
     <None Include="Resources\vpnbg.jpg" />
-    <None Include="Resources\background.jpg" />
     <None Include="Resources\btnOk2a.png" />
     <None Include="Resources\btnOk1a.png" />
     <None Include="Resources\btnOk3a.png" />
@@ -270,12 +276,12 @@
   <ItemGroup>
     <PublishFile Include="bn\Contra Launcher.resources">
       <Visible>False</Visible>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Satellite</FileType>
     </PublishFile>
   </ItemGroup>

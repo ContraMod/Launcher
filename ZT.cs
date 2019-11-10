@@ -23,27 +23,31 @@ namespace Contra
 
             try
             {
-                ztDL.DownloadFileCompleted += new AsyncCompletedEventHandler(ztDL_DownloadCompleted);
-                //         ztDL.DownloadProgressChanged += ztDL_DownloadProgressChanged;
-
                 //Download ZT
                 if (!File.Exists(ZTFileName)) //If user doesn't have ZT
                 {
+                    ztDL.DownloadFileCompleted += new AsyncCompletedEventHandler(ztDL_DownloadCompleted);
+                    //         ztDL.DownloadProgressChanged += ztDL_DownloadProgressChanged;
+
                     CheckIfFileIsAvailable(ZTURL);
                     //             currentFile = ZTFileName;
                     ztDL.OpenRead(ZTURL);
                     //              bytes_total = Convert.ToInt64(ztDL.ResponseHeaders["Content-Length"]);
 
                     ztDL.DownloadFileAsync(new Uri(ZTURL), Application.StartupPath + @"\" + ZTFileName);
-                }
-                //         PatchDLPanel.Show();
 
-                //  while (wc.IsBusy) { }
+                    //         PatchDLPanel.Show();
+
+                    //  while (wc.IsBusy) { }
+                }
 
                 CheckZTInstallSteps();
             }
-            catch (Exception ex) { Console.Error.WriteLine(ex); }
+            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
         }
+
+            //        if (ztExeByName.Length != 0)
+            //{
 
         void ztDL_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
@@ -130,7 +134,8 @@ namespace Contra
             }
 
             //ZT Files missing in LocalAppData
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config"))
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\moons.d") ||
+                !File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\local.conf"))
             {
                 MoveZTFiles();
             }
@@ -212,12 +217,12 @@ namespace Contra
                 {
                     File.Copy(file_name, Path.Combine(configTargetPath, file_name.Substring(configSourcePath.Length)));
                 }
-                Globals.ZTReady += 1;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
+            Globals.ZTReady += 1;
         }
 
         public void JoinZTNetwork()
@@ -269,23 +274,23 @@ namespace Contra
                 /* A WebException will be thrown if the status of the response is not `200 OK` */
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("The file is currently unavailable. Try again later or download it from: www.moddb.com/mods/contra/downloads", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("The file is currently unavailable. Try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Файл в данный момент недоступен. Попробуйте позже или загрузите его с: www.moddb.com/mods/contra/downloads", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Файл в данный момент недоступен. Попробуйте позже.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Файл наразі недоступний. Повторіть спробу пізніше або завантажте його з: www.moddb.com/mods/contra/downloads", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Файл наразі недоступний. Повторіть спробу пізніше.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("Понастоящем файлът не е налице. Опитайте отново по-късно или го изтеглете от: www.moddb.com/mods/contra/downloads", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Понастоящем файлът не е налице. Опитайте отново по-късно.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("Die Datei ist derzeit nicht verfügbar. Versuchen Sie es später noch einmal oder laden Sie es von folgender Adresse herunter: www.moddb.com/mods/contra/downloads", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Die Datei ist derzeit nicht verfügbar. Versuchen Sie es später noch einmal.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             finally

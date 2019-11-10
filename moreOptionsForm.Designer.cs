@@ -42,6 +42,7 @@ namespace Contra
             this.camOkButton = new System.Windows.Forms.Button();
             this.camTrackBar = new Contra.TrackBar();
             this.camHeightLabel = new System.Windows.Forms.Label();
+            this.WaterEffectsCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // button17
@@ -167,7 +168,6 @@ namespace Contra
             this.camTrackBar.Minimum = 392;
             this.camTrackBar.Name = "camTrackBar";
             this.camTrackBar.TabStop = true;
-            this.camTrackBar.Value = 392;
             this.camTrackBar.Scroll += new System.EventHandler(this.camTrackBar_Scroll);
             // 
             // camHeightLabel
@@ -177,12 +177,24 @@ namespace Contra
             this.camHeightLabel.ForeColor = System.Drawing.Color.White;
             this.camHeightLabel.Name = "camHeightLabel";
             // 
+            // WaterEffectsCheckBox
+            // 
+            resources.ApplyResources(this.WaterEffectsCheckBox, "WaterEffectsCheckBox");
+            this.WaterEffectsCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.WaterEffectsCheckBox.Checked = true;
+            this.WaterEffectsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.WaterEffectsCheckBox.ForeColor = System.Drawing.Color.White;
+            this.WaterEffectsCheckBox.Name = "WaterEffectsCheckBox";
+            this.WaterEffectsCheckBox.UseVisualStyleBackColor = false;
+            this.WaterEffectsCheckBox.CheckedChanged += new System.EventHandler(this.WaterEffectsCheckBox_CheckedChanged);
+            // 
             // moreOptionsForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = global::Contra.Properties.Resources.vpnbg;
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
+            this.Controls.Add(this.WaterEffectsCheckBox);
             this.Controls.Add(this.camHeightLabel);
             this.Controls.Add(this.camTrackBar);
             this.Controls.Add(this.camOkButton);
@@ -217,5 +229,6 @@ namespace Contra
         private System.Windows.Forms.Button camOkButton;
         private TrackBar camTrackBar;
         private System.Windows.Forms.Label camHeightLabel;
+        private System.Windows.Forms.CheckBox WaterEffectsCheckBox;
     }
 }
