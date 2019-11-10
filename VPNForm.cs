@@ -26,7 +26,7 @@ namespace Contra
             AutoConnectCheckBox.TabStop = false;
             portTextBox.TabStop = false;
             portOkButton.TabStop = false;
-            IP_Label.Text = Properties.Settings.Default.IP_Label;
+            IP_Label1.Text = Properties.Settings.Default.IP_Label;
 
             if (Globals.GB_Checked == true)
             {
@@ -34,7 +34,7 @@ namespace Contra
                 toolTip2.SetToolTip(AutoConnectCheckBox, "Automatically set up meta connections to other nodes.\nThis allows you to retain connection with other players even if contravpn node goes down.\nOnly works with nodes that have open ports.");
                 toolTip2.SetToolTip(showConsoleCheckBox, "Toggle on/off showing console when starting VPN.");
                 toolTip2.SetToolTip(labelPort, "The port number on which this tinc is listening for incoming connections, defaults to 655.\nWe suggest you port forward the chosen TCP/UDP port for optimum connectivity.\nIf this is set to zero, the port will be randomly assigned by the system.");
-                IP_Label.Text = Properties.Settings.Default.IP_Label;
+                IP_Label1.Text = Properties.Settings.Default.IP_Label;
             }
             else if (Globals.RU_Checked == true)
             {
@@ -49,7 +49,7 @@ namespace Contra
                 buttonVPNinvclose.Text = "Закрыть";
                 labelPort.Text = "Порт:";
                 showConsoleCheckBox.Text = "Показать консоль";
-                IP_Label.Text = Properties.Settings.Default.IP_Label;
+                IP_Label1.Text = Properties.Settings.Default.IP_Label;
             }
             else if (Globals.UA_Checked == true)
             {
@@ -64,7 +64,7 @@ namespace Contra
                 buttonVPNinvclose.Text = "Закрити";
                 labelPort.Text = "Порт:";
                 showConsoleCheckBox.Text = "Показати консоль";
-                IP_Label.Text = Properties.Settings.Default.IP_Label;
+                IP_Label1.Text = Properties.Settings.Default.IP_Label;
             }
             else if (Globals.BG_Checked == true)
             {
@@ -79,7 +79,7 @@ namespace Contra
                 buttonVPNinvclose.Text = "Отказ";
                 labelPort.Text = "Порт:";
                 showConsoleCheckBox.Text = "Показване на конзолата";
-                IP_Label.Text = Properties.Settings.Default.IP_Label;
+                IP_Label1.Text = Properties.Settings.Default.IP_Label;
             }
             else if (Globals.DE_Checked == true)
             {
@@ -94,7 +94,7 @@ namespace Contra
                 buttonVPNinvclose.Text = "SchlieЯen";
                 labelPort.Text = "Port:";
                 showConsoleCheckBox.Text = "Konsole anzeigen";
-                IP_Label.Text = Properties.Settings.Default.IP_Label;
+                IP_Label1.Text = Properties.Settings.Default.IP_Label;
             }
 
             //Append UPnP line to tinc.conf if missing.

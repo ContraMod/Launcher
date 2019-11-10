@@ -50,7 +50,7 @@ namespace Contra
             this.labelPort = new System.Windows.Forms.Label();
             this.portOkButton = new System.Windows.Forms.Button();
             this.showConsoleCheckBox = new System.Windows.Forms.CheckBox();
-            this.IP_Label = new System.Windows.Forms.Label();
+            this.IP_Label1 = new System.Windows.Forms.Label();
             this.KillTincTimer = new System.Windows.Forms.Timer(this.components);
             this.InvitePanel.SuspendLayout();
             this.SuspendLayout();
@@ -261,12 +261,12 @@ namespace Contra
             this.showConsoleCheckBox.UseVisualStyleBackColor = false;
             this.showConsoleCheckBox.CheckedChanged += new System.EventHandler(this.showConsoleCheckBox_CheckedChanged);
             // 
-            // IP_Label
+            // IP_Label1
             // 
-            resources.ApplyResources(this.IP_Label, "IP_Label");
-            this.IP_Label.BackColor = System.Drawing.Color.Transparent;
-            this.IP_Label.ForeColor = System.Drawing.Color.White;
-            this.IP_Label.Name = "IP_Label";
+            resources.ApplyResources(this.IP_Label1, "IP_Label1");
+            this.IP_Label1.BackColor = System.Drawing.Color.Transparent;
+            this.IP_Label1.ForeColor = System.Drawing.Color.White;
+            this.IP_Label1.Name = "IP_Label1";
             // 
             // KillTincTimer
             // 
@@ -281,7 +281,7 @@ namespace Contra
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
             this.Controls.Add(this.InvitePanel);
-            this.Controls.Add(this.IP_Label);
+            this.Controls.Add(this.IP_Label1);
             this.Controls.Add(this.portOkButton);
             this.Controls.Add(this.labelPort);
             this.Controls.Add(this.portTextBox);
@@ -330,7 +330,7 @@ namespace Contra
         private System.Windows.Forms.TextBox portTextBox;
         private System.Windows.Forms.Button portOkButton;
         private System.Windows.Forms.CheckBox showConsoleCheckBox;
-        private System.Windows.Forms.Label IP_Label;
+        private System.Windows.Forms.Label IP_Label1;
         private System.Windows.Forms.Timer KillTincTimer;
     }
 }

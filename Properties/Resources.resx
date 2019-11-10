@@ -127,6 +127,9 @@
   <data name="refresh_tr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\refresh_tr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="exit1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\exit1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="_button_website_text" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\_button_website_text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -286,8 +289,8 @@
   <data name="_button_exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\_button_exit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_button_console_s" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\_button_console_s.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="trash1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\trash1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="invinp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\invinp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -298,8 +301,8 @@
   <data name="ppl_tr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ppl_tr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="exit1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\exit1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_button_console_s" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\_button_console_s.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_button_log_tr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\_button_log_tr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -307,13 +310,31 @@
   <data name="vpn_on_over" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\vpn_on_over.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_button_trash_tr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\_button_trash_tr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="playersOnline" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\playersOnline.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_button_sm_highlight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\_button_sm_highlight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="donate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\donate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_button_config_highlight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\_button_config_highlight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_button_console_highlight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\_button_console_highlight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_button_donate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\_button_donate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_button_donate_tr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\_button_donate_tr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_button_trash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\_button_trash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_button_vpn_highlight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\_button_vpn_highlight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

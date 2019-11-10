@@ -684,34 +684,34 @@
   <data name="&gt;&gt;showConsoleCheckBox.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
-  <data name="IP_Label.AutoSize" type="System.Boolean, mscorlib">
+  <data name="IP_Label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="IP_Label.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="IP_Label1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 15px, style=Bold</value>
   </data>
-  <data name="IP_Label.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="IP_Label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>30, 27</value>
   </data>
-  <data name="IP_Label.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="IP_Label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 18</value>
   </data>
-  <data name="IP_Label.TabIndex" type="System.Int32, mscorlib">
+  <data name="IP_Label1.TabIndex" type="System.Int32, mscorlib">
     <value>57</value>
   </data>
-  <data name="IP_Label.Text" xml:space="preserve">
+  <data name="IP_Label1.Text" xml:space="preserve">
     <value>ContraVPN IP: unknown</value>
   </data>
-  <data name="&gt;&gt;IP_Label.Name" xml:space="preserve">
-    <value>IP_Label</value>
+  <data name="&gt;&gt;IP_Label1.Name" xml:space="preserve">
+    <value>IP_Label1</value>
   </data>
-  <data name="&gt;&gt;IP_Label.Type" xml:space="preserve">
+  <data name="&gt;&gt;IP_Label1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;IP_Label.Parent" xml:space="preserve">
+  <data name="&gt;&gt;IP_Label1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;IP_Label.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;IP_Label1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <metadata name="KillTincTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

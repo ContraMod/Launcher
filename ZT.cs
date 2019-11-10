@@ -258,6 +258,34 @@ namespace Contra
             }
         }
 
+        public void LeaveZTNetwork()
+        {
+            Process[] vpnprocesses = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+
+            Process ztDaemon = new Process();
+            ztDaemon.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
+            ztDaemon.StartInfo.FileName = ztDaemon.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
+            ztDaemon.StartInfo.Arguments = "-C \"config\"";
+            ztDaemon.StartInfo.UseShellExecute = false;
+            ztDaemon.StartInfo.CreateNoWindow = true;
+            ztDaemon.Start();
+
+            Process ztJoinNetwork = new Process();
+            ztJoinNetwork.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
+            ztJoinNetwork.StartInfo.FileName = ztJoinNetwork.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
+            ztJoinNetwork.StartInfo.Arguments = "-q -D\"config\" leave 8cc55dfcea100100";
+            ztJoinNetwork.StartInfo.RedirectStandardOutput = true;
+            ztJoinNetwork.StartInfo.UseShellExecute = false;
+            ztJoinNetwork.StartInfo.CreateNoWindow = true;
+            ztJoinNetwork.Start();
+            string Output = ztJoinNetwork.StandardOutput.ReadToEnd();
+            if (Output.Contains("OK"))
+            {
+                ztDaemon.Kill();
+                ztJoinNetwork.Kill();
+            }
+        }
+
         public void CheckIfFileIsAvailable(string ZTURL)
         {
             var url = ZTURL;

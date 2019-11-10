@@ -240,6 +240,7 @@ namespace Contra
                 FogCheckBox.Checked = Properties.Settings.Default.Fog;
                 //HeatEffectsCheckBox.Checked = Properties.Settings.Default.HeatEffects;
                 LangFilterCheckBox.Checked = Properties.Settings.Default.LangF;
+                WaterEffectsCheckBox.Checked = Properties.Settings.Default.WaterEffects;
             }
             if (!File.Exists(UserDataLeafName() + "Options.ini") && (!File.Exists(myDocPath + "Options.ini")))
             {

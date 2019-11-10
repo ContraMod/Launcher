@@ -53,26 +53,28 @@ namespace Contra
             vpn_start.FlatAppearance.MouseOverBackColor = Color.Transparent;
             vpn_start.FlatAppearance.MouseDownBackColor = Color.Transparent;
             vpn_start.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+            DonateBtn.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            DonateBtn.FlatAppearance.MouseDownBackColor = Color.Transparent;
             whoIsOnline.Hide();
             if (Globals.GB_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: unknown";
+                IP_Label.Text = "IP: unknown";
             }
             else if (Globals.RU_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестно";
+                IP_Label.Text = "IP: неизвестно";
             }
             else if (Globals.UA_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: невідомо";
+                IP_Label.Text = "IP: невідомо";
             }
             else if (Globals.BG_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестен";
+                IP_Label.Text = "IP: неизвестен";
             }
             else if (Globals.DE_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: unbekannt";
+                IP_Label.Text = "IP: unbekannt";
             }
 
             //Determine OS bitness
@@ -123,6 +125,7 @@ namespace Contra
         bool patch1Found, patch2Found;
 
         bool ztStartFail = false;
+        string ip;
 
         //Create method to check for an update
         public void GetModUpdate(string motd, string patch_url)
@@ -728,9 +731,9 @@ namespace Contra
             {
                 File.Delete("langdata1.dat");
             }
-            if (File.Exists("dbghelp.dll") && File.Exists("dbghelp1.dll"))
+            if (File.Exists("dbghelp.dll") && File.Exists("dbghelp.ctr"))
             {
-                File.Delete("dbghelp1.dll");
+                File.Delete("dbghelp.ctr");
             }
         }
 
@@ -777,7 +780,7 @@ namespace Contra
                     Directory.Move(@"Data\Scripts1", @"Data\Scripts");
                 }
 
-                File.Move("dbghelp1.dll", "dbghelp.dll");
+                File.Move("dbghelp.ctr", "dbghelp.dll");
 
                 if (File.Exists("Install_Final_ZH.bmp"))
                 {
@@ -875,7 +878,7 @@ namespace Contra
                     File.Move("!!!Contra009Final_Patch2.ctr", "!!!Contra009Final_Patch2.big");
                     File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
 
-                    File.Move("dbghelp.dll", "dbghelp1.dll");
+                    File.Move("dbghelp.dll", "dbghelp.ctr");
                 }
                 catch { }
                 if ((RadioOrigQuotes.Checked) && (File.Exists("!Contra009Final_NatVO.ctr")))
@@ -1333,28 +1336,28 @@ namespace Contra
 
                 if (Globals.GB_Checked == true)
                 {
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: unknown";
+                    IP_Label.Text = "IP: unknown";
                     labelVpnStatus.Text = "Off";
                 }
                 else if (Globals.RU_Checked == true)
                 {
                     labelVpnStatus.Text = "Выкл.";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестно";
+                    IP_Label.Text = "IP: неизвестно";
                 }
                 else if (Globals.UA_Checked == true)
                 {
                     labelVpnStatus.Text = "Вимк.";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: невідомо";
+                    IP_Label.Text = "IP: невідомо";
                 }
                 else if (Globals.BG_Checked == true)
                 {
                     labelVpnStatus.Text = "Изкл.";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестен";
+                    IP_Label.Text = "IP: неизвестен";
                 }
                 else if (Globals.DE_Checked == true)
                 {
                     labelVpnStatus.Text = "Aus";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: unbekannt";
+                    IP_Label.Text = "IP: unbekannt";
                 }
             }
         }
@@ -1400,23 +1403,23 @@ namespace Contra
 
             if (Globals.GB_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: unknown";
+                IP_Label.Text = "IP: unknown";
             }
             else if (Globals.RU_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестно";
+                IP_Label.Text = "IP: неизвестно";
             }
             else if (Globals.UA_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: невідомо";
+                IP_Label.Text = "IP: невідомо";
             }
             else if (Globals.BG_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестен";
+                IP_Label.Text = "IP: неизвестен";
             }
             else if (Globals.DE_Checked == true)
             {
-                Properties.Settings.Default.IP_Label = "ContraVPN IP: unbekannt";
+                IP_Label.Text = "IP: unbekannt";
             }
 
             foreach (Form onlinePlayersForm in Application.OpenForms)
@@ -1554,31 +1557,31 @@ namespace Contra
                     {
                         playersOnlineLabel.Text = "ContraVPN disabled";
                         labelVpnStatus.Text = "Off";
-                        Properties.Settings.Default.IP_Label = "ContraVPN IP: unknown";
+                        Properties.Settings.Default.IP_Label = "IP: unknown";
                     }
                     else if (Globals.RU_Checked == true)
                     {
                         playersOnlineLabel.Text = "ContraVPN выключено";
                         labelVpnStatus.Text = "Выкл.";
-                        Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестно";
+                        Properties.Settings.Default.IP_Label = "IP: неизвестно";
                     }
                     else if (Globals.UA_Checked == true)
                     {
                         playersOnlineLabel.Text = "ContraVPN вимкнено";
                         labelVpnStatus.Text = "Вимк.";
-                        Properties.Settings.Default.IP_Label = "ContraVPN IP: невідомо";
+                        Properties.Settings.Default.IP_Label = "IP: невідомо";
                     }
                     else if (Globals.BG_Checked == true)
                     {
                         playersOnlineLabel.Text = "ContraVPN изключен";
                         labelVpnStatus.Text = "Изкл.";
-                        Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестен";
+                        Properties.Settings.Default.IP_Label = "IP: неизвестен";
                     }
                     else if (Globals.DE_Checked == true)
                     {
                         playersOnlineLabel.Text = "ContraVPN deaktiviert";
                         labelVpnStatus.Text = "Aus";
-                        Properties.Settings.Default.IP_Label = "ContraVPN IP: unbekannt";
+                        Properties.Settings.Default.IP_Label = "IP: unbekannt";
                     }
                 }));
                 return;
@@ -1594,31 +1597,31 @@ namespace Contra
                 {
                     playersOnlineLabel.Text = "ContraVPN disabled";
                     labelVpnStatus.Text = "Off";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: unknown";
+                    Properties.Settings.Default.IP_Label = "IP: unknown";
                 }
                 else if (Globals.RU_Checked == true)
                 {
                     playersOnlineLabel.Text = "ContraVPN выключено";
                     labelVpnStatus.Text = "Выкл.";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестно";
+                    Properties.Settings.Default.IP_Label = "IP: неизвестно";
                 }
                 else if (Globals.UA_Checked == true)
                 {
                     playersOnlineLabel.Text = "ContraVPN вимкнено";
                     labelVpnStatus.Text = "Вимк.";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: невідомо";
+                    Properties.Settings.Default.IP_Label = "IP: невідомо";
                 }
                 else if (Globals.BG_Checked == true)
                 {
                     playersOnlineLabel.Text = "ContraVPN изключен";
                     labelVpnStatus.Text = "Изкл.";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: неизвестен";
+                    Properties.Settings.Default.IP_Label = "IP: неизвестен";
                 }
                 else if (Globals.DE_Checked == true)
                 {
                     playersOnlineLabel.Text = "ContraVPN deaktiviert";
                     labelVpnStatus.Text = "Aus";
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: unbekannt";
+                    Properties.Settings.Default.IP_Label = "IP: unbekannt";
                 }
                 return;
             }
@@ -1723,6 +1726,7 @@ namespace Contra
                 }
                 ztDaemon.Start();
             ZT_IP();
+            refreshVpnIpTimer.Enabled = true;
 
             ////check when zt exe gets turned off
             //Process ztExe = new Process();
@@ -2718,6 +2722,7 @@ namespace Contra
             toolTip1.SetToolTip(QSCheckBox, "Disables intro and shellmap (game starts up faster).");
             toolTip1.SetToolTip(whoIsOnline, "Show who is online.");
             toolTip1.SetToolTip(vpn_start, "Start/close ContraVPN.");
+            toolTip1.SetToolTip(DonateBtn, "Make a donation.");
             currentFileLabel = "File: ";
             ModDLLabel.Text = "Download progress: ";
             if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
@@ -2742,24 +2747,26 @@ namespace Contra
             }
             versionLabel.Text = "Contra Project Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
 
-            string tincd = "tincd.exe";
-            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
+            Process[] tincdByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
             if (tincdByName.Length > 0 && wait == false) //if tinc is already running
             {
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "On";
+                IP_Label.Text = "IP: " + ip;
             }
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "On";
                 //refreshOnlinePlayersBtn.PerformClick();
                 playersOnlineLabel.Text = "Online!";
+                IP_Label.Text = "IP: " + ip;
             }
             if (tincdByName.Length == 0) //if tinc is not running
             {
                 playersOnlineLabel.Text = "ContraVPN disabled";
                 labelVpnStatus.Text = "Off";
+                IP_Label.Text = "IP: unknown";
             }
 
             //Load MOTD
@@ -2797,6 +2804,7 @@ namespace Contra
             toolTip1.SetToolTip(QSCheckBox, "Отключает интро и шелмапу (игра запускается быстрее).");
             toolTip1.SetToolTip(whoIsOnline, "Показать, кто в сети.");
             toolTip1.SetToolTip(vpn_start, "Открыть/Закрыть ContraVPN.");
+            toolTip1.SetToolTip(DonateBtn, "Дарить команду проекта.");
             RadioLocQuotes.Text = "Англ.";
             RadioOrigQuotes.Text = "Родные";
             MNew.Text = "Новая";
@@ -2823,24 +2831,26 @@ namespace Contra
             versionLabel.Text = "Contra Project Team " + yearString + " - Версия 009 Финал" + verString + " - Launcher: " + Application.ProductVersion;
             vpnSettingsLabel.Text = "Настройки VPN";
 
-            string tincd = "tincd.exe";
-            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
+            Process[] tincdByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
             if (tincdByName.Length > 0 && wait == false) //if tinc is already running
             {
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "Вкл.";
+                IP_Label.Text = "IP: " + ip;
             }
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "Вкл.";
                 //refreshOnlinePlayersBtn.PerformClick();
                 playersOnlineLabel.Text = "Онлайн!";
+                IP_Label.Text = "IP: " + ip;
             }
             if (tincdByName.Length == 0) //if tinc is not running
             {
                 playersOnlineLabel.Text = "ContraVPN выключено";
-                labelVpnStatus.Text = "Выкл."; ;
+                labelVpnStatus.Text = "Выкл.";
+                IP_Label.Text = "IP: неизвестно";
             }
 
             //Load MOTD
@@ -2878,6 +2888,7 @@ namespace Contra
             toolTip1.SetToolTip(QSCheckBox, "Вимикає інтро і шелмапу (гра запускається швидше).");
             toolTip1.SetToolTip(whoIsOnline, "Показати, хто в мережі.");
             toolTip1.SetToolTip(vpn_start, "Відкрити/закрити ContraVPN.");
+            toolTip1.SetToolTip(DonateBtn, "Дарить команду проекту.");
             RadioLocQuotes.Text = "Англ.";
             RadioOrigQuotes.Text = "Рідні";
             MNew.Text = "Нова";
@@ -2904,24 +2915,26 @@ namespace Contra
             versionLabel.Text = "Contra Project Team " + yearString + " - Версія 009 Фінал" + verString + " - Launcher: " + Application.ProductVersion;
             vpnSettingsLabel.Text = "Настройки VPN";
 
-            string tincd = "tincd.exe";
-            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
+            Process[] tincdByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
             if (tincdByName.Length > 0 && wait == false) //if tinc is already running
             {
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "Ввімк.";
+                IP_Label.Text = "IP: " + ip;
             }
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "Ввімк.";
                 //refreshOnlinePlayersBtn.PerformClick();
                 playersOnlineLabel.Text = "В мережі!";
+                IP_Label.Text = "IP: " + ip;
             }
             if (tincdByName.Length == 0) //if tinc is not running
             {
                 playersOnlineLabel.Text = "ContraVPN вимкнено";
                 labelVpnStatus.Text = "Вимк.";
+                IP_Label.Text = "IP: невідомо";
             }
 
             //Load MOTD
@@ -2959,6 +2972,7 @@ namespace Contra
             toolTip1.SetToolTip(QSCheckBox, "Изключва интрото и анимираната карта (шелмапа). Играта стартира по-бързо.");
             toolTip1.SetToolTip(whoIsOnline, "Покажи кои играчи са на линия.");
             toolTip1.SetToolTip(vpn_start, "Включи/изключи ContraVPN.");
+            toolTip1.SetToolTip(DonateBtn, "Направете дарение.");
             RadioLocQuotes.Text = "Англ.";
             RadioOrigQuotes.Text = "Родни";
             MNew.Text = "Нова";
@@ -2985,24 +2999,26 @@ namespace Contra
             versionLabel.Text = "Contra Екип " + yearString + " - Версия 009 Final" + verString + " - Launcher: " + Application.ProductVersion;
             vpnSettingsLabel.Text = "VPN Настройки";
 
-            string tincd = "tincd.exe";
-            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
+            Process[] tincdByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
             if (tincdByName.Length > 0 && wait == false) //if tinc is already running
             {
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "Вкл.";
+                IP_Label.Text = "IP: " + ip;
             }
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "Вкл.";
                 //refreshOnlinePlayersBtn.PerformClick();
-                playersOnlineLabel.Text = "На линия!"; ;
+                playersOnlineLabel.Text = "На линия!";
+                IP_Label.Text = "IP: " + ip;
             }
             if (tincdByName.Length == 0) //if tinc is not running
             {
                 playersOnlineLabel.Text = "ContraVPN изключен";
                 labelVpnStatus.Text = "Изкл.";
+                IP_Label.Text = "IP: неизвестен";
             }
 
             //Load MOTD
@@ -3040,6 +3056,7 @@ namespace Contra
             toolTip1.SetToolTip(QSCheckBox, "Deaktiviert das Intro und die shellmap (Spiel startet schneller).");
             toolTip1.SetToolTip(whoIsOnline, "Anzeigen wer online ist.");
             toolTip1.SetToolTip(vpn_start, "Starte/SchlieЯe ContraVPN.");
+            toolTip1.SetToolTip(DonateBtn, "Spende Geld an das Contra-Team.");
             voicespanel.Left = 260;
             voicespanel.Size = new Size(95, 61);
             RadioLocQuotes.Text = "Englisch"; RadioLocQuotes.Left = 0;
@@ -3068,24 +3085,26 @@ namespace Contra
             versionLabel.Text = "Contra Projekt Team " + yearString + " - Version 009 Final" + verString + " - Launcher: " + Application.ProductVersion;
             vpnSettingsLabel.Text = "VPN Einstellungen";
 
-            string tincd = "tincd.exe";
-            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
+            Process[] tincdByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
             if (tincdByName.Length > 0 && wait == false) //if tinc is already running
             {
                 vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
                 whoIsOnline.Show();
                 labelVpnStatus.Text = "An";
+                IP_Label.Text = "IP: " + ip;
             }
             if (tincdByName.Length > 0) //if tinc is already running
             {
                 labelVpnStatus.Text = "An";
                 //refreshOnlinePlayersBtn.PerformClick();
                 playersOnlineLabel.Text = "Online!";
+                IP_Label.Text = "IP: " + ip;
             }
             if (tincdByName.Length == 0) //if tinc is not running
             {
                 playersOnlineLabel.Text = "ContraVPN deaktiviert";
                 labelVpnStatus.Text = "Aus";
+                IP_Label.Text = "IP: unbekannt";
             }
 
             //Load MOTD
@@ -3225,7 +3244,7 @@ namespace Contra
                 whoIsOnline.PerformClick();
                 onlinePlayers.WaitForExit();
                 onlinePlayers.Close();
-                VpnIP();
+         //       VpnIP();
                 refreshVpnIpTimer.Enabled = true;
             }
         }
@@ -3282,7 +3301,7 @@ namespace Contra
                 whoIsOnline.PerformClick();
                 onlinePlayers.WaitForExit();
                 onlinePlayers.Close();
-                VpnIP();
+          //      VpnIP();
                 refreshVpnIpTimer.Enabled = true;
             }
         }
@@ -3290,7 +3309,7 @@ namespace Contra
         int i = 0;
         private void RefreshVpnIpTimer_Tick(object sender, EventArgs e) //refresh VPN IP five times
         {
-            VpnIP();
+            ZT_IP();// VpnIP();
             i++;
             if (i == 3)
             {
@@ -3555,6 +3574,27 @@ namespace Contra
                             vpnprocess.WaitForExit();
                             vpnprocess.Dispose();
 
+                            if (Globals.GB_Checked == true)
+                            {
+                                IP_Label.Text = "IP: unknown";
+                            }
+                            else if (Globals.RU_Checked == true)
+                            {
+                                IP_Label.Text = "IP: неизвестно";
+                            }
+                            else if (Globals.UA_Checked == true)
+                            {
+                                IP_Label.Text = "IP: невідомо";
+                            }
+                            else if (Globals.BG_Checked == true)
+                            {
+                                IP_Label.Text = "IP: неизвестен";
+                            }
+                            else if (Globals.DE_Checked == true)
+                            {
+                                IP_Label.Text = "IP: unbekannt";
+                            }
+
                             vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off);
                             whoIsOnline.Hide();
                             foreach (Form onlinePlayersForm in Application.OpenForms)
@@ -3755,87 +3795,31 @@ namespace Contra
             //}
         }
 
-        private static void ZT_IP()
+        private void ZT_IP()
         {
             Process ztExe = new Process();
             ztExe.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
-            ztExe.StartInfo.FileName = ztExe.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
+            //ztExe.StartInfo.FileName = ztExe.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
+            //ztExe.StartInfo.Arguments = "./zt-cli listnetworks";
+            ztExe.StartInfo.FileName = @"C:\windows\system32\windowspowershell\v1.0\powershell.exe";
             ztExe.StartInfo.Arguments = "./zt-cli listnetworks";
             ztExe.StartInfo.UseShellExecute = false;
             ztExe.StartInfo.CreateNoWindow = true;
             ztExe.StartInfo.RedirectStandardOutput = true;
+
             try
             {
                 ztExe.Start();
+                ip = ztExe.StandardOutput.ReadToEnd();
+                ip = Regex.Match(ip, "100.100.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4]).([1-9][1-9][0-9]|[0-9]+|[0-4][0-9]|25[0-4])").Value.Trim();
                 ztExe.WaitForExit();
-                string ip = Regex.Match(ztExe.StandardOutput.ReadToEnd(), $"{{NetworkID}}.*100.100.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4]).([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4])").Value.Trim();
+                //MessageBox.Show(ip);
 
                 if (!string.IsNullOrWhiteSpace(ip))
                 {
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: " + ip;
-                    void writeIPAddress(string path)
-                    {
-                        File.WriteAllText(path, Regex.Replace(File.ReadAllText(path), "^IPAddress.*\\S+", $"IPAddress = {ip}", RegexOptions.Multiline));
-                    }
-                    if (File.Exists(UserDataLeafName() + "Options.ini"))
-                    {
-                        writeIPAddress(UserDataLeafName() + "Options.ini");
-                    }
-                    else if (File.Exists(myDocPath + "Options.ini"))
-                    {
-                        writeIPAddress(myDocPath + "Options.ini");
-                    }
-                    else
-                    {
-                        var cannotsaveip_lang = new Dictionary<string, bool>
-                        {
-                            {"Options.ini not found!\nCannot write IPAddress.", Globals.GB_Checked == true},
-                            {"Файл Options.ini не найден!\nНевозможно записать IPAddress.", Globals.RU_Checked},
-                            {"Файл Options.ini не знайдений!\nНеможливо написати IPAddress.", Globals.UA_Checked},
-                            {"Options.ini не беше намерен!\nНе може запише IPAddress.", Globals.BG_Checked},
-                            {"Options.ini nicht gefunden!\nIPAddress kann nicht geschrieben werden.", Globals.DE_Checked},
-                        };
-                        //Too spammy
-                        //MessageBox.Show(cannotsaveip_lang.Single(l => l.Value).Key, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Console.Error.WriteLine(cannotsaveip_lang.Single(l => l.Value).Key);
-                    }
-                }
-                else
-                {
-                    var iplabel_lang = new Dictionary<string, bool>
-                    {
-                        {"Not compatible", Globals.GB_Checked},
-                        {"несовместимый", Globals.RU_Checked},
-                        {"несумісні", Globals.UA_Checked},
-                        {"несъвместим", Globals.BG_Checked},
-                        {"Nicht Kompatibel", Globals.DE_Checked},
-                    };
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: " + iplabel_lang.Single(l => l.Value).Key;
-                }
-            }
-            catch (Exception ex) { Console.Error.WriteLine(ex); }
-        }
-
-        private static void VpnIP()
-        {
-            Process netsh = new Process();
-            netsh.StartInfo.FileName = "netsh.exe";
-            netsh.StartInfo.UseShellExecute = false;
-            netsh.StartInfo.RedirectStandardInput = true;
-            netsh.StartInfo.RedirectStandardOutput = true;
-            netsh.StartInfo.RedirectStandardError = true;
-            netsh.StartInfo.CreateNoWindow = true;
-            netsh.StartInfo.Arguments = "interface ip show addresses ContraVPN";
-            try
-            {
-                netsh.Start();
-                netsh.WaitForExit();
-                // Match vpn DHCP pool range 10.10.10.[11-254]
-                string ip = Regex.Match(netsh.StandardOutput.ReadToEnd(), "10.10.10.(1[1-9]|[2-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4])?\r?\n").Value.Trim();
-
-                if (!string.IsNullOrWhiteSpace(ip))
-                {
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: " + ip;
+                    refreshVpnIpTimer.Enabled = false;
+                    //Properties.Settings.Default.IP_Label = "IP: " + ip;
+                    IP_Label.Text = "IP: " + ip;
                     void writeIPAddress(string path)
                     {
                         File.WriteAllText(path, Regex.Replace(File.ReadAllText(path), "^IPAddress.*\\S+", $"IPAddress = {ip}", RegexOptions.Multiline));
@@ -3860,24 +3844,91 @@ namespace Contra
                         };
                         //Too spammy
                         //MessageBox.Show(cannotsaveip_lang.Single(l => l.Value).Key, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Console.Error.WriteLine(cannotsaveip_lang.Single(l => l.Value).Key);
+                        //Console.Error.WriteLine(cannotsaveip_lang.Single(l => l.Value).Key);
                     }
                 }
                 else
                 {
+                    //MessageBox.Show(ip);
+                    //MessageBox.Show(Output);
+
                     var iplabel_lang = new Dictionary<string, bool>
                     {
-                        {"Not compatible", Globals.GB_Checked},
+                        {"not compatible", Globals.GB_Checked},
                         {"несовместимый", Globals.RU_Checked},
                         {"несумісні", Globals.UA_Checked},
                         {"несъвместим", Globals.BG_Checked},
                         {"Nicht Kompatibel", Globals.DE_Checked},
                     };
-                    Properties.Settings.Default.IP_Label = "ContraVPN IP: " + iplabel_lang.Single(l => l.Value).Key;
+                    //Properties.Settings.Default.IP_Label = "IP: " + iplabel_lang.Single(l => l.Value).Key;
+                    IP_Label.Text = "IP: " + iplabel_lang.Single(l => l.Value).Key;
                 }
             }
-            catch (Exception ex) { Console.Error.WriteLine(ex); }
+            catch { }// (Exception ex) { Console.Error.WriteLine(ex); }
         }
+
+        //private static void VpnIP()
+        //{
+        //    Process netsh = new Process();
+        //    netsh.StartInfo.FileName = "netsh.exe";
+        //    netsh.StartInfo.UseShellExecute = false;
+        //    netsh.StartInfo.RedirectStandardInput = true;
+        //    netsh.StartInfo.RedirectStandardOutput = true;
+        //    netsh.StartInfo.RedirectStandardError = true;
+        //    netsh.StartInfo.CreateNoWindow = true;
+        //    netsh.StartInfo.Arguments = "interface ip show addresses ContraVPN";
+        //    try
+        //    {
+        //        netsh.Start();
+        //        netsh.WaitForExit();
+        //        // Match vpn DHCP pool range 10.10.10.[11-254]
+        //        string ip = Regex.Match(netsh.StandardOutput.ReadToEnd(), "10.10.10.(1[1-9]|[2-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4])?\r?\n").Value.Trim();
+
+        //        if (!string.IsNullOrWhiteSpace(ip))
+        //        {
+        //            Properties.Settings.Default.IP_Label = "IP: " + ip;
+        //            void writeIPAddress(string path)
+        //            {
+        //                File.WriteAllText(path, Regex.Replace(File.ReadAllText(path), "^IPAddress.*\\S+", $"IPAddress = {ip}", RegexOptions.Multiline));
+        //            }
+        //            if (File.Exists(UserDataLeafName() + "Options.ini"))
+        //            {
+        //                writeIPAddress(UserDataLeafName() + "Options.ini");
+        //            }
+        //            else if (File.Exists(myDocPath + "Options.ini"))
+        //            {
+        //                writeIPAddress(myDocPath + "Options.ini");
+        //            }
+        //            else
+        //            {
+        //                var cannotsaveip_lang = new Dictionary<string, bool>
+        //                {
+        //                    {"Options.ini not found!\nCannot write IPAddress.", Globals.GB_Checked},
+        //                    {"Файл Options.ini не найден!\nНевозможно записать IPAddress.", Globals.RU_Checked},
+        //                    {"Файл Options.ini не знайдений!\nНеможливо написати IPAddress.", Globals.UA_Checked},
+        //                    {"Options.ini не беше намерен!\nНе може запише IPAddress.", Globals.BG_Checked},
+        //                    {"Options.ini nicht gefunden!\nIPAddress kann nicht geschrieben werden.", Globals.DE_Checked},
+        //                };
+        //                //Too spammy
+        //                //MessageBox.Show(cannotsaveip_lang.Single(l => l.Value).Key, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                Console.Error.WriteLine(cannotsaveip_lang.Single(l => l.Value).Key);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            var iplabel_lang = new Dictionary<string, bool>
+        //            {
+        //                {"Not compatible", Globals.GB_Checked},
+        //                {"несовместимый", Globals.RU_Checked},
+        //                {"несумісні", Globals.UA_Checked},
+        //                {"несъвместим", Globals.BG_Checked},
+        //                {"Nicht Kompatibel", Globals.DE_Checked},
+        //            };
+        //            Properties.Settings.Default.IP_Label = "IP: " + iplabel_lang.Single(l => l.Value).Key;
+        //        }
+        //    }
+        //    catch (Exception ex) { Console.Error.WriteLine(ex); }
+        //}
 
         private void whoIsOnline_Click(object sender, EventArgs e)
         {
@@ -3972,7 +4023,7 @@ namespace Contra
 
         private void vpn_start_MouseDown(object sender, MouseEventArgs e)
         {
-            vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_sm_highlight);
+            vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_vpn_highlight);
             vpn_start.ForeColor = SystemColors.ButtonHighlight;
             vpn_start.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
 
@@ -4077,7 +4128,7 @@ namespace Contra
 
         private void ZTConsoleBtn_MouseDown(object sender, MouseEventArgs e)
         {
-            ZTConsoleBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_sm_highlight_s);
+            ZTConsoleBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_console_highlight);
             ZTConsoleBtn.ForeColor = SystemColors.ButtonHighlight;
             ZTConsoleBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
@@ -4109,7 +4160,7 @@ namespace Contra
 
         private void ZTConfigBtn_MouseDown(object sender, MouseEventArgs e)
         {
-            ZTConfigBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_sm_highlight_s);
+            ZTConfigBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_config_highlight);
             ZTConfigBtn.ForeColor = SystemColors.ButtonHighlight;
             ZTConfigBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
@@ -4128,27 +4179,61 @@ namespace Contra
 
         private void ZTNukeBtn_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to uninstall ContraVPN?", "Uninstall ContraVPN?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                var instance = new ZT();
+                instance.LeaveZTNetwork();
 
+                //MessageBox.Show("All done! The new adapter is now in use by ContraVPN!");
+            }
+            //else if (dialogResult == DialogResult.No)
+            //{
+            //    //Properties.Settings.Default.adapterExists = false;
+            //}
         }
 
         private void ZTNukeBtn_MouseDown(object sender, MouseEventArgs e)
         {
-
+            ZTNukeBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_sm_highlight_s);
+            ZTNukeBtn.ForeColor = SystemColors.ButtonHighlight;
+            ZTNukeBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
-
         private void ZTNukeBtn_MouseEnter(object sender, EventArgs e)
         {
-
+            ZTNukeBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_trash_tr);
+            ZTNukeBtn.ForeColor = SystemColors.ButtonHighlight;
+            ZTNukeBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
-
         private void ZTNukeBtn_MouseLeave(object sender, EventArgs e)
         {
-
+            ZTNukeBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_trash);
+            ZTNukeBtn.ForeColor = SystemColors.ButtonHighlight;
+            ZTNukeBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
 
         private void DonateBtn_Click(object sender, EventArgs e)
         {
             Url_open("https://www.paypal.com/paypalme2/Contramod");
+        }
+
+        private void DonateBtn_MouseDown(object sender, MouseEventArgs e)
+        {
+            DonateBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_sm_highlight);
+            DonateBtn.ForeColor = SystemColors.ButtonHighlight;
+            DonateBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+        private void DonateBtn_MouseEnter(object sender, EventArgs e)
+        {
+            DonateBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_donate_tr);
+            DonateBtn.ForeColor = SystemColors.ButtonHighlight;
+            DonateBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+        private void DonateBtn_MouseLeave(object sender, EventArgs e)
+        {
+            DonateBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_donate);
+            DonateBtn.ForeColor = SystemColors.ButtonHighlight;
+            DonateBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
 
         private void CancelModDLBtn_Click(object sender, EventArgs e)

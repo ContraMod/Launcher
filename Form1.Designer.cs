@@ -84,6 +84,7 @@ namespace Contra
             this.ZTNukeBtn = new System.Windows.Forms.Button();
             this.DonateBtn = new System.Windows.Forms.Button();
             this.MOTD = new Contra.Marquee();
+            this.IP_Label = new System.Windows.Forms.Label();
             this.voicespanel.SuspendLayout();
             this.languagepanel.SuspendLayout();
             this.musicpanel.SuspendLayout();
@@ -675,12 +676,11 @@ namespace Contra
             // ZTNukeBtn
             // 
             this.ZTNukeBtn.BackColor = System.Drawing.Color.Transparent;
-            this.ZTNukeBtn.BackgroundImage = global::Contra.Properties.Resources._button_console_s;
+            resources.ApplyResources(this.ZTNukeBtn, "ZTNukeBtn");
             this.ZTNukeBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ZTNukeBtn.FlatAppearance.BorderSize = 0;
             this.ZTNukeBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.ZTNukeBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ZTNukeBtn, "ZTNukeBtn");
             this.ZTNukeBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ZTNukeBtn.Name = "ZTNukeBtn";
             this.ZTNukeBtn.UseVisualStyleBackColor = false;
@@ -692,13 +692,17 @@ namespace Contra
             // DonateBtn
             // 
             this.DonateBtn.BackColor = System.Drawing.Color.Transparent;
-            this.DonateBtn.BackgroundImage = global::Contra.Properties.Resources.donate;
-            resources.ApplyResources(this.DonateBtn, "DonateBtn");
+            this.DonateBtn.BackgroundImage = global::Contra.Properties.Resources._button_donate;
             this.DonateBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DonateBtn.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.DonateBtn, "DonateBtn");
+            this.DonateBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.DonateBtn.Name = "DonateBtn";
             this.DonateBtn.UseVisualStyleBackColor = false;
             this.DonateBtn.Click += new System.EventHandler(this.DonateBtn_Click);
+            this.DonateBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DonateBtn_MouseDown);
+            this.DonateBtn.MouseEnter += new System.EventHandler(this.DonateBtn_MouseEnter);
+            this.DonateBtn.MouseLeave += new System.EventHandler(this.DonateBtn_MouseLeave);
             // 
             // MOTD
             // 
@@ -709,12 +713,20 @@ namespace Contra
             this.MOTD.Speed = 1;
             this.MOTD.yOffset = 0;
             // 
+            // IP_Label
+            // 
+            resources.ApplyResources(this.IP_Label, "IP_Label");
+            this.IP_Label.BackColor = System.Drawing.Color.Transparent;
+            this.IP_Label.ForeColor = System.Drawing.Color.White;
+            this.IP_Label.Name = "IP_Label";
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = global::Contra.Properties.Resources.background;
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
+            this.Controls.Add(this.IP_Label);
             this.Controls.Add(this.DonateBtn);
             this.Controls.Add(this.ZTNukeBtn);
             this.Controls.Add(this.ZTConsoleBtn);
@@ -827,6 +839,7 @@ namespace Contra
         private System.Windows.Forms.Button ZTConsoleBtn;
         private System.Windows.Forms.Button ZTNukeBtn;
         private System.Windows.Forms.Button DonateBtn;
+        private System.Windows.Forms.Label IP_Label;
     }
 }
 

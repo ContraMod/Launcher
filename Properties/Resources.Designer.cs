@@ -73,6 +73,16 @@ namespace Contra.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _button_config_highlight {
+            get {
+                object obj = ResourceManager.GetObject("_button_config_highlight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _button_config_s {
             get {
                 object obj = ResourceManager.GetObject("_button_config_s", resourceCulture);
@@ -106,6 +116,16 @@ namespace Contra.Properties {
         internal static System.Drawing.Bitmap _button_console {
             get {
                 object obj = ResourceManager.GetObject("_button_console", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _button_console_highlight {
+            get {
+                object obj = ResourceManager.GetObject("_button_console_highlight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -156,6 +176,26 @@ namespace Contra.Properties {
         internal static System.Drawing.Bitmap _button_discord_text {
             get {
                 object obj = ResourceManager.GetObject("_button_discord_text", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _button_donate {
+            get {
+                object obj = ResourceManager.GetObject("_button_donate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _button_donate_tr {
+            get {
+                object obj = ResourceManager.GetObject("_button_donate_tr", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -333,6 +373,36 @@ namespace Contra.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _button_trash {
+            get {
+                object obj = ResourceManager.GetObject("_button_trash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _button_trash_tr {
+            get {
+                object obj = ResourceManager.GetObject("_button_trash_tr", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _button_vpn_highlight {
+            get {
+                object obj = ResourceManager.GetObject("_button_vpn_highlight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _button_wb {
             get {
                 object obj = ResourceManager.GetObject("_button_wb", resourceCulture);
@@ -446,16 +516,6 @@ namespace Contra.Properties {
         internal static System.Drawing.Bitmap btnOk3a {
             get {
                 object obj = ResourceManager.GetObject("btnOk3a", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap donate {
-            get {
-                object obj = ResourceManager.GetObject("donate", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -666,6 +726,16 @@ namespace Contra.Properties {
         internal static System.Drawing.Bitmap refresh2 {
             get {
                 object obj = ResourceManager.GetObject("refresh2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap trash1 {
+            get {
+                object obj = ResourceManager.GetObject("trash1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
