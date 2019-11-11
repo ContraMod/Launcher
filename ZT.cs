@@ -315,7 +315,6 @@ namespace Contra
                 catch { }
                 //ztDaemon.StandardInput.WriteLine("exit");
                 //ztLeaveNetwork.StandardInput.WriteLine("exit");
-                Globals.LeaveSuccessful = true;
             }
             else if (Output.Contains("404") || Output.Contains("failed"))
             {
@@ -348,6 +347,7 @@ namespace Contra
                     MessageBox.Show("Leaving ZT network failed. Perhaps you've already left the network.", "Network leave failed.");
                 }
             }
+            Globals.TriedToLeaveNetwork = true;
         }
 
         public void UninstallZTDriver()

@@ -4221,7 +4221,7 @@ namespace Contra
             {
                 var instance = new ZT();
                 instance.LeaveZTNetwork();
-                if (Globals.LeaveSuccessful == true)
+                if (Globals.TriedToLeaveNetwork == true)
                 {
                     instance.UninstallZTDriver();
                     if (Globals.ZTDriverUninstallSuccessful == true)
