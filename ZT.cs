@@ -119,12 +119,15 @@ namespace Contra
             }
 
             //ZT Driver missing
-            System.Management.SelectQuery query = new System.Management.SelectQuery("Win32_SystemDriver");
-            query.Condition = "Name = 'zttap300'"; //"DisplayName = 'Zerotier One Virtual Port'";
-            System.Management.ManagementObjectSearcher searcher = new System.Management.ManagementObjectSearcher(query);
-            var drivers = searcher.Get();
+            bool found = false;
+            System.Management.ManagementObjectSearcher objSearcher = new System.Management.ManagementObjectSearcher("Select * from Win32_PnPSignedDriver Where DeviceName = 'Zerotier One Virtual Port'");
+            System.Management.ManagementObjectCollection objCollection = objSearcher.Get();
+            foreach (System.Management.ManagementObject obj in objCollection)
+            {
+                found = true;
+            }
 
-            if (drivers.Count == 0)
+            if (found == false)
             {
                 InstallZTDriver();
             }
@@ -132,6 +135,20 @@ namespace Contra
             {
                 Globals.ZTReady += 1;
             }
+
+            //System.Management.SelectQuery query = new System.Management.SelectQuery("Win32_SystemDriver");
+            //query.Condition = "Name = 'zttap300'"; //"DisplayName = 'Zerotier One Virtual Port'";
+            //System.Management.ManagementObjectSearcher searcher = new System.Management.ManagementObjectSearcher(query);
+            //var drivers = searcher.Get();
+
+            //if (drivers.Count == 0)
+            //{
+            //    InstallZTDriver();
+            //}
+            //else
+            //{
+            //    Globals.ZTReady += 1;
+            //}
 
             //ZT Files missing in LocalAppData
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\moons.d") ||
@@ -269,6 +286,9 @@ namespace Contra
             ztDaemon.StartInfo.Arguments = "-C \"config\"";
             ztDaemon.StartInfo.UseShellExecute = false;
             ztDaemon.StartInfo.CreateNoWindow = true;
+
+            //ztDaemon.StartInfo.RedirectStandardInput = true;
+
             ztDaemon.Start();
 
             Process ztLeaveNetwork = new Process();
@@ -278,13 +298,55 @@ namespace Contra
             ztLeaveNetwork.StartInfo.RedirectStandardOutput = true;
             ztLeaveNetwork.StartInfo.UseShellExecute = false;
             ztLeaveNetwork.StartInfo.CreateNoWindow = true;
+
+            //ztLeaveNetwork.StartInfo.RedirectStandardInput = true;
+
             ztLeaveNetwork.Start();
+
             string Output = ztLeaveNetwork.StandardOutput.ReadToEnd();
+            //MessageBox.Show(Output);
             if (Output.Contains("OK"))
             {
-                ztDaemon.Kill();
-                ztLeaveNetwork.Kill();
+                try
+                {
+                    ztDaemon.Kill();
+                    ztLeaveNetwork.Kill();
+                }
+                catch { }
+                //ztDaemon.StandardInput.WriteLine("exit");
+                //ztLeaveNetwork.StandardInput.WriteLine("exit");
                 Globals.LeaveSuccessful = true;
+            }
+            else if (Output.Contains("404") || Output.Contains("failed"))
+            {
+                try
+                {
+                    ztDaemon.Kill();
+                    ztLeaveNetwork.Kill();
+                }
+                catch { }
+                //ztDaemon.StandardInput.WriteLine("exit");
+                //ztLeaveNetwork.StandardInput.WriteLine("exit");
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("Leaving ZT network failed. Perhaps you've already left the network.", "Network leave failed.");
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Leaving ZT network failed. Perhaps you've already left the network.", "Network leave failed.");
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Leaving ZT network failed. Perhaps you've already left the network.", "Network leave failed.");
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Leaving ZT network failed. Perhaps you've already left the network.", "Network leave failed.");
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Leaving ZT network failed. Perhaps you've already left the network.", "Network leave failed.");
+                }
             }
         }
 
