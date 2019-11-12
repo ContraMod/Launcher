@@ -4228,7 +4228,30 @@ namespace Contra
                     {
                         if (Globals.GB_Checked == true)
                         {
-                            MessageBox.Show("ContraVPN has been successfully uninstalled!", "VPN uninstalled!");
+                            MessageBox.Show("ContraVPN was successfully uninstalled!", "VPN uninstalled!");
+                        }
+                        else if (Globals.RU_Checked == true)
+                        {
+                            MessageBox.Show("ContraVPN был успешно удален!", "VPN удален!");
+                        }
+                        else if (Globals.UA_Checked == true)
+                        {
+                            MessageBox.Show("ContraVPN успішно видалено!", "Видалено VPN!");
+                        }
+                        else if (Globals.BG_Checked == true)
+                        {
+                            MessageBox.Show("ContraVPN беше деинсталиран успешно!", "VPN деинсталиран!");
+                        }
+                        else if (Globals.DE_Checked == true)
+                        {
+                            MessageBox.Show("ContraVPN wurde erfolgreich deinstalliert!", "VPN deinstalliert!");
+                        }
+                    }
+                    else
+                    {
+                        if (Globals.GB_Checked == true)
+                        {
+                            MessageBox.Show("ContraVPN was already uninstalled!", "VPN was already uninstalled!");
                         }
                         else if (Globals.RU_Checked == true)
                         {

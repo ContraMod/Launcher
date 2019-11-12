@@ -136,6 +136,7 @@ namespace Contra
                 Globals.ZTReady += 1;
             }
 
+
             //System.Management.SelectQuery query = new System.Management.SelectQuery("Win32_SystemDriver");
             //query.Condition = "Name = 'zttap300'"; //"DisplayName = 'Zerotier One Virtual Port'";
             //System.Management.ManagementObjectSearcher searcher = new System.Management.ManagementObjectSearcher(query);
@@ -245,6 +246,7 @@ namespace Contra
 
         public void JoinZTNetwork()
         {
+            //MessageBox.Show("here");
             Process[] vpnprocesses = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
 
             Process ztDaemon = new Process();
@@ -252,7 +254,7 @@ namespace Contra
             ztDaemon.StartInfo.FileName = ztDaemon.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
             ztDaemon.StartInfo.Arguments = "-C \"config\"";
             ztDaemon.StartInfo.UseShellExecute = false;
-            ztDaemon.StartInfo.CreateNoWindow = true;
+            //ztDaemon.StartInfo.CreateNoWindow = true;
             ztDaemon.Start();
 
             Process ztJoinNetwork = new Process();
@@ -271,8 +273,10 @@ namespace Contra
             if (Output.Contains("OK"))
             {
                 Globals.ZTReady += 1;
-                ztDaemon.Kill();
-                ztJoinNetwork.Kill();
+                ztDaemon.CloseMainWindow();
+                ztDaemon.Close();
+                //ztDaemon.Kill();
+                //ztJoinNetwork.Kill();
             }
         }
 
@@ -285,7 +289,7 @@ namespace Contra
             ztDaemon.StartInfo.FileName = ztDaemon.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
             ztDaemon.StartInfo.Arguments = "-C \"config\"";
             ztDaemon.StartInfo.UseShellExecute = false;
-            ztDaemon.StartInfo.CreateNoWindow = true;
+            //ztDaemon.StartInfo.CreateNoWindow = true;
 
             //ztDaemon.StartInfo.RedirectStandardInput = true;
 
@@ -309,8 +313,12 @@ namespace Contra
             {
                 try
                 {
-                    ztDaemon.Kill();
-                    ztLeaveNetwork.Kill();
+                    ztDaemon.CloseMainWindow();
+                    ztDaemon.Close();
+                    //ztLeaveNetwork.CloseMainWindow();
+                    //ztLeaveNetwork.Close();
+                    //ztDaemon.Kill();
+                    //ztLeaveNetwork.Kill();
                 }
                 catch { }
                 //ztDaemon.StandardInput.WriteLine("exit");
@@ -320,15 +328,19 @@ namespace Contra
             {
                 try
                 {
-                    ztDaemon.Kill();
-                    ztLeaveNetwork.Kill();
+                    ztDaemon.CloseMainWindow();
+                    ztDaemon.Close();
+                    //ztLeaveNetwork.CloseMainWindow();
+                    //ztLeaveNetwork.Close();
+                    //ztDaemon.Kill();
+                    //ztLeaveNetwork.Kill();
                 }
                 catch { }
                 //ztDaemon.StandardInput.WriteLine("exit");
                 //ztLeaveNetwork.StandardInput.WriteLine("exit");
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("Leaving ZT network failed. Perhaps you've already left the network.", "Network leave failed.");
+                    MessageBox.Show("Attempt to leave ZT network failed. Perhaps you've already left the network.\nContinuing with ZT driver uninstallation process...", "Network leave failed.");
                 }
                 else if (Globals.RU_Checked == true)
                 {
@@ -352,6 +364,7 @@ namespace Contra
 
         public void UninstallZTDriver()
         {
+            //MessageBox.Show("in uninst driver func");
             string infName = null;
             System.Management.ManagementObjectSearcher objSearcher = new System.Management.ManagementObjectSearcher("Select * from Win32_PnPSignedDriver Where DeviceName = 'Zerotier One Virtual Port'");
             System.Management.ManagementObjectCollection objCollection = objSearcher.Get();
@@ -371,18 +384,18 @@ namespace Contra
             cmd.StartInfo.CreateNoWindow = true;
             cmd.StartInfo.UseShellExecute = false;
             cmd.Start();
+            cmd.StandardInput.WriteLine("pnputil -f -d " + infName);
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
 
             string Output = cmd.StandardOutput.ReadToEnd();
-
-            cmd.StandardInput.WriteLine("pnputil -f -d " + infName);
+            //MessageBox.Show(Output);
 
             if (Output.Contains("Driver package deleted successfully."))
             {
+                //MessageBox.Show("uninst driver succc");
                 Globals.ZTDriverUninstallSuccessful = true;
             }
-
-            cmd.StandardInput.Flush();
-            cmd.StandardInput.Close();
         }
 
         public void CheckIfFileIsAvailable(string ZTURL)
