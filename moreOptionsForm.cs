@@ -476,22 +476,22 @@ namespace Contra
 
         private void button18_MouseEnter(object sender, EventArgs e)
         {
-            button18.BackgroundImage = (System.Drawing.Image)(Properties.Resources.exit11);
+            button18.BackgroundImage = Properties.Resources.exit11;
         }
 
         private void button18_MouseLeave(object sender, EventArgs e)
         {
-            button18.BackgroundImage = (System.Drawing.Image)(Properties.Resources.exit1);
+            button18.BackgroundImage = Properties.Resources.exit1;
         }
 
         private void button17_MouseEnter(object sender, EventArgs e)
         {
-            button17.BackgroundImage = (System.Drawing.Image)(Properties.Resources.min11);
+            button17.BackgroundImage = Properties.Resources.min11;
         }
 
         private void button17_MouseLeave(object sender, EventArgs e)
         {
-            button17.BackgroundImage = (System.Drawing.Image)(Properties.Resources.min);
+            button17.BackgroundImage = Properties.Resources.min;
         }
 
         private void FogCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -518,13 +518,13 @@ namespace Contra
 
         private void resOkButton_MouseDown(object sender, MouseEventArgs e)
         {
-            resOkButton.BackgroundImage = (System.Drawing.Image)(Properties.Resources.btnOk3a);
+            resOkButton.BackgroundImage = Properties.Resources.btnOk3a;
             resOkButton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
 
         private void resOkButton_MouseLeave(object sender, EventArgs e)
         {
-            resOkButton.BackgroundImage = (System.Drawing.Image)(Properties.Resources.btnOk3);
+            resOkButton.BackgroundImage = Properties.Resources.btnOk3;
             resOkButton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
 

@@ -45,7 +45,6 @@ namespace Contra
             this.musicpanel = new System.Windows.Forms.Panel();
             this.portraitspanel = new System.Windows.Forms.Panel();
             this.versionLabel = new System.Windows.Forms.Label();
-            this.VPNMoreButton = new System.Windows.Forms.Button();
             this.helpbutton = new System.Windows.Forms.Button();
             this.buttonChat = new System.Windows.Forms.Button();
             this.button18 = new System.Windows.Forms.Button();
@@ -64,12 +63,7 @@ namespace Contra
             this.RadioFlag_RU = new System.Windows.Forms.RadioButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.moreOptions = new System.Windows.Forms.Label();
-            this.playersOnlineLabel = new System.Windows.Forms.Label();
             this.vpn_start = new System.Windows.Forms.Button();
-            this.labelVpnStatus = new System.Windows.Forms.Label();
-            this.whoIsOnline = new System.Windows.Forms.Button();
-            this.vpnSettingsLabel = new System.Windows.Forms.Label();
-            this.openPlayersListTimer = new System.Windows.Forms.Timer(this.components);
             this.refreshVpnIpTimer = new System.Windows.Forms.Timer(this.components);
             this.PatchDLProgressBar = new System.Windows.Forms.ProgressBar();
             this.PatchDLPanel = new System.Windows.Forms.Panel();
@@ -224,23 +218,6 @@ namespace Contra
             resources.ApplyResources(this.versionLabel, "versionLabel");
             this.versionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(100)))));
             this.versionLabel.Name = "versionLabel";
-            // 
-            // VPNMoreButton
-            // 
-            this.VPNMoreButton.BackColor = System.Drawing.Color.Transparent;
-            this.VPNMoreButton.BackgroundImage = global::Contra.Properties.Resources._button_config;
-            this.VPNMoreButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.VPNMoreButton.FlatAppearance.BorderSize = 0;
-            this.VPNMoreButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.VPNMoreButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.VPNMoreButton, "VPNMoreButton");
-            this.VPNMoreButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.VPNMoreButton.Name = "VPNMoreButton";
-            this.VPNMoreButton.UseVisualStyleBackColor = false;
-            this.VPNMoreButton.Click += new System.EventHandler(this.VPNMoreButton_Click);
-            this.VPNMoreButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.VPNMoreButton_MouseDown);
-            this.VPNMoreButton.MouseEnter += new System.EventHandler(this.VPNMoreButton_MouseEnter);
-            this.VPNMoreButton.MouseLeave += new System.EventHandler(this.VPNMoreButton_MouseLeave);
             // 
             // helpbutton
             // 
@@ -506,6 +483,7 @@ namespace Contra
             this.toolTip1.AutoPopDelay = 5000;
             this.toolTip1.InitialDelay = 50;
             this.toolTip1.ReshowDelay = 100;
+            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
             // moreOptions
             // 
@@ -518,13 +496,6 @@ namespace Contra
             this.moreOptions.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Resolution_MouseDown);
             this.moreOptions.MouseEnter += new System.EventHandler(this.Resolution_MouseEnter);
             this.moreOptions.MouseLeave += new System.EventHandler(this.Resolution_MouseLeave);
-            // 
-            // playersOnlineLabel
-            // 
-            resources.ApplyResources(this.playersOnlineLabel, "playersOnlineLabel");
-            this.playersOnlineLabel.BackColor = System.Drawing.Color.Transparent;
-            this.playersOnlineLabel.ForeColor = System.Drawing.Color.White;
-            this.playersOnlineLabel.Name = "playersOnlineLabel";
             // 
             // vpn_start
             // 
@@ -539,39 +510,6 @@ namespace Contra
             this.vpn_start.MouseDown += new System.Windows.Forms.MouseEventHandler(this.vpn_start_MouseDown);
             this.vpn_start.MouseEnter += new System.EventHandler(this.vpn_start_MouseEnter);
             this.vpn_start.MouseLeave += new System.EventHandler(this.vpn_start_MouseLeave);
-            // 
-            // labelVpnStatus
-            // 
-            this.labelVpnStatus.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.labelVpnStatus, "labelVpnStatus");
-            this.labelVpnStatus.ForeColor = System.Drawing.Color.White;
-            this.labelVpnStatus.Name = "labelVpnStatus";
-            // 
-            // whoIsOnline
-            // 
-            this.whoIsOnline.BackColor = System.Drawing.Color.Transparent;
-            this.whoIsOnline.BackgroundImage = global::Contra.Properties.Resources.ppl;
-            resources.ApplyResources(this.whoIsOnline, "whoIsOnline");
-            this.whoIsOnline.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.whoIsOnline.FlatAppearance.BorderSize = 0;
-            this.whoIsOnline.Name = "whoIsOnline";
-            this.whoIsOnline.UseVisualStyleBackColor = false;
-            this.whoIsOnline.Click += new System.EventHandler(this.whoIsOnline_Click);
-            this.whoIsOnline.MouseDown += new System.Windows.Forms.MouseEventHandler(this.whoIsOnline_MouseDown);
-            this.whoIsOnline.MouseEnter += new System.EventHandler(this.whoIsOnline_MouseEnter);
-            this.whoIsOnline.MouseLeave += new System.EventHandler(this.whoIsOnline_MouseLeave);
-            // 
-            // vpnSettingsLabel
-            // 
-            this.vpnSettingsLabel.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.vpnSettingsLabel, "vpnSettingsLabel");
-            this.vpnSettingsLabel.ForeColor = System.Drawing.Color.White;
-            this.vpnSettingsLabel.Name = "vpnSettingsLabel";
-            // 
-            // openPlayersListTimer
-            // 
-            this.openPlayersListTimer.Interval = 7500;
-            this.openPlayersListTimer.Tick += new System.EventHandler(this.OpenPlayersListTimer_Tick);
             // 
             // refreshVpnIpTimer
             // 
@@ -620,7 +558,6 @@ namespace Contra
             // CancelModDLBtn
             // 
             this.CancelModDLBtn.BackColor = System.Drawing.Color.Transparent;
-            this.CancelModDLBtn.BackgroundImage = global::Contra.Properties.Resources.btnOk1;
             this.CancelModDLBtn.FlatAppearance.BorderSize = 0;
             resources.ApplyResources(this.CancelModDLBtn, "CancelModDLBtn");
             this.CancelModDLBtn.ForeColor = System.Drawing.Color.White;
@@ -733,15 +670,10 @@ namespace Contra
             this.Controls.Add(this.ZTConfigBtn);
             this.Controls.Add(this.PatchDLPanel);
             this.Controls.Add(this.MOTD);
-            this.Controls.Add(this.vpnSettingsLabel);
-            this.Controls.Add(this.whoIsOnline);
-            this.Controls.Add(this.labelVpnStatus);
             this.Controls.Add(this.vpn_start);
-            this.Controls.Add(this.playersOnlineLabel);
             this.Controls.Add(this.moreOptions);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.versionLabel);
-            this.Controls.Add(this.VPNMoreButton);
             this.Controls.Add(this.QSCheckBox);
             this.Controls.Add(this.WinCheckBox);
             this.Controls.Add(this.voicespanel);
@@ -809,7 +741,6 @@ namespace Contra
         private System.Windows.Forms.Panel languagepanel;
         private System.Windows.Forms.Panel musicpanel;
         private System.Windows.Forms.Panel portraitspanel;
-        private System.Windows.Forms.Button VPNMoreButton;
         private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.RadioButton RadioFlag_GB;
         private System.Windows.Forms.Panel panel1;
@@ -819,13 +750,8 @@ namespace Contra
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label moreOptions;
         private System.Windows.Forms.Button vpn_start;
-        private System.Windows.Forms.Label labelVpnStatus;
-        private System.Windows.Forms.Button whoIsOnline;
-        private System.Windows.Forms.Label vpnSettingsLabel;
         private System.Windows.Forms.RadioButton RadioFlag_DE;
         private Marquee MOTD;
-        public System.Windows.Forms.Label playersOnlineLabel;
-        private System.Windows.Forms.Timer openPlayersListTimer;
         private System.Windows.Forms.Timer refreshVpnIpTimer;
         private System.Windows.Forms.ProgressBar PatchDLProgressBar;
         private System.Windows.Forms.Panel PatchDLPanel;

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Contra
@@ -79,38 +76,74 @@ namespace Contra
             //catch { }
             //File.Delete(ZTFileName);
 
+
+
             //Show a message when the patch download has completed
-            if (Globals.GB_Checked == true)
-            {
-                MessageBox.Show("A new patch has been downloaded!\n\nThe application will now restart!", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.RU_Checked == true)
-            {
-                MessageBox.Show("Новый патч был загружен!\n\nПриложение будет перезагружено!", "Обновление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.UA_Checked == true)
-            {
-                MessageBox.Show("Новий виправлення завантажено!\n\nПрограма буде перезавантажена!", "Оновлення завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.BG_Checked == true)
-            {
-                MessageBox.Show("Нов пач беше изтеглен!\n\nСега ще се рестартира!", "Обновяването е завършено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.DE_Checked == true)
-            {
-                MessageBox.Show("Ein neuer Patch wurde heruntergeladen!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            //if (Globals.GB_Checked == true)
+            //{
+            //    MessageBox.Show("A new patch has been downloaded!\n\nThe application will now restart!", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //else if (Globals.RU_Checked == true)
+            //{
+            //    MessageBox.Show("Новый патч был загружен!\n\nПриложение будет перезагружено!", "Обновление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //else if (Globals.UA_Checked == true)
+            //{
+            //    MessageBox.Show("Новий виправлення завантажено!\n\nПрограма буде перезавантажена!", "Оновлення завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //else if (Globals.BG_Checked == true)
+            //{
+            //    MessageBox.Show("Нов пач беше изтеглен!\n\nСега ще се рестартира!", "Обновяването е завършено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //else if (Globals.DE_Checked == true)
+            //{
+            //    MessageBox.Show("Ein neuer Patch wurde heruntergeladen!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+
+
+
             //          Application.Restart();
 
 
             CheckZTInstallSteps();
         }
 
+        private void DisplayInstallMessage()
+        {
+            if (Globals.GB_Checked == true)
+            {
+                MessageBox.Show("ContraVPN is not yet installed. Starting installation...", "Installing ContraVPN");
+            }
+            else if (Globals.RU_Checked == true)
+            {
+                MessageBox.Show("ContraVPN еще не установлен. Начинается установка...", "Установка ContraVPN");
+            }
+            else if (Globals.UA_Checked == true)
+            {
+                MessageBox.Show("ContraVPN ще не встановлено. Початок установки...", "Встановлення ContraVPN");
+            }
+            else if (Globals.BG_Checked == true)
+            {
+                MessageBox.Show("ContraVPN не е инсталиран. Стартиране на инсталацията...", "Инсталиране на ContraVPN");
+            }
+            else if (Globals.DE_Checked == true)
+            {
+                MessageBox.Show("ContraVPN ist noch nicht installiert. Installation wird gestartet...", "ContraVPN installieren");
+            }
+        }
+
         public void CheckZTInstallSteps()
         {
+            bool installMessage = false;
+
             //Package downloaded but not installed
             if (File.Exists(ZTFileName) && (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt")))
             {
+                if (installMessage == false)
+                {
+                    DisplayInstallMessage();
+                    installMessage = true;
+                }
                 InstallZTPackage();
             }
             else
@@ -119,42 +152,63 @@ namespace Contra
             }
 
             //ZT Driver missing
-            bool found = false;
-            System.Management.ManagementObjectSearcher objSearcher = new System.Management.ManagementObjectSearcher("Select * from Win32_PnPSignedDriver Where DeviceName = 'Zerotier One Virtual Port'");
+
+            //bool found = false;
+            //System.Management.ManagementObjectSearcher objSearcher = new System.Management.ManagementObjectSearcher("Select * from Win32_PnPSignedDriver Where DeviceName = 'Zerotier One Virtual Port'");
+            //System.Management.ManagementObjectCollection objCollection = objSearcher.Get();
+            //foreach (System.Management.ManagementObject obj in objCollection)
+            //{
+            //    found = true;
+            //}
+
+            string infName = null;
+            System.Management.ManagementObjectSearcher objSearcher = new System.Management.ManagementObjectSearcher("Select * from Win32_PnPSignedDriver Where DeviceName = 'ZeroTier One Virtual Port'");
             System.Management.ManagementObjectCollection objCollection = objSearcher.Get();
             foreach (System.Management.ManagementObject obj in objCollection)
             {
-                found = true;
+                infName = String.Format("{0}", obj["InfName"]);
             }
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+            cmd.StandardInput.WriteLine("pnputil -e");
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            string Output = cmd.StandardOutput.ReadToEnd();
 
-            if (found == false)
+            if (!string.IsNullOrWhiteSpace(infName)) //if (Output.Contains(infName))
             {
-                InstallZTDriver();
+                //cmd.CloseMainWindow();
+                //cmd.Close();
+
+                Globals.ZTReady += 1;
             }
             else
             {
-                Globals.ZTReady += 1;
+                //cmd.CloseMainWindow();
+                //cmd.Close();
+
+                if (installMessage == false)
+                {
+                    DisplayInstallMessage();
+                    installMessage = true;
+                }
+                InstallZTDriver();
             }
-
-
-            //System.Management.SelectQuery query = new System.Management.SelectQuery("Win32_SystemDriver");
-            //query.Condition = "Name = 'zttap300'"; //"DisplayName = 'Zerotier One Virtual Port'";
-            //System.Management.ManagementObjectSearcher searcher = new System.Management.ManagementObjectSearcher(query);
-            //var drivers = searcher.Get();
-
-            //if (drivers.Count == 0)
-            //{
-            //    InstallZTDriver();
-            //}
-            //else
-            //{
-            //    Globals.ZTReady += 1;
-            //}
 
             //ZT Files missing in LocalAppData
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\moons.d") ||
                 !File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\local.conf"))
             {
+                if (installMessage == false)
+                {
+                    DisplayInstallMessage();
+                    installMessage = true;
+                }
                 MoveZTFiles();
             }
             else
@@ -166,6 +220,11 @@ namespace Contra
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\networks.d") ||
                 Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\networks.d").Length < 2)
             {
+                if (installMessage == false)
+                {
+                    DisplayInstallMessage();
+                    installMessage = true;
+                }
                 JoinZTNetwork();
             }
             else
@@ -237,10 +296,7 @@ namespace Contra
                     File.Copy(file_name, Path.Combine(configTargetPath, file_name.Substring(configSourcePath.Length)));
                 }
             }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.Message);
-            }
+            catch { }
             Globals.ZTReady += 1;
         }
 
@@ -256,6 +312,7 @@ namespace Contra
             ztDaemon.StartInfo.UseShellExecute = false;
             //ztDaemon.StartInfo.CreateNoWindow = true;
             ztDaemon.Start();
+            System.Threading.Thread.Sleep(3000);
 
             Process ztJoinNetwork = new Process();
             ztJoinNetwork.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
@@ -278,6 +335,31 @@ namespace Contra
                 //ztDaemon.Kill();
                 //ztJoinNetwork.Kill();
             }
+            else
+            {
+                ztDaemon.CloseMainWindow();
+                ztDaemon.Close();
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("An error occurred while attempting to join the ZT network.", "Network join failed.");
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Произошла ошибка при попытке присоединиться к сети ZT.", "Не удалось подключиться к сети.");
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Під час спроби приєднатися до мережі ZT сталася помилка.", "Помилка приєднання до мережі.");
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Възникна грешка в опита да се присъедините към ZT мрежата.", "Присъединяването към мрежата се провали.");
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Beim Versuch, dem ZT-Netzwerk beizutreten, ist ein Fehler aufgetreten.", "Netzwerkverbindung fehlgeschlagen.");
+                }
+            }
         }
 
         public void LeaveZTNetwork()
@@ -294,6 +376,7 @@ namespace Contra
             //ztDaemon.StartInfo.RedirectStandardInput = true;
 
             ztDaemon.Start();
+            System.Threading.Thread.Sleep(3000);
 
             Process ztLeaveNetwork = new Process();
             ztLeaveNetwork.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
@@ -340,23 +423,23 @@ namespace Contra
                 //ztLeaveNetwork.StandardInput.WriteLine("exit");
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("Attempt to leave ZT network failed. Perhaps you've already left the network.\nContinuing with ZT driver uninstallation process...", "Network leave failed.");
+                    MessageBox.Show("Attempt to leave ZT network failed. Perhaps you've already left the network.\n\nContinuing with ZT driver uninstallation process...", "Network leave failed.");
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Leaving ZT network failed. Perhaps you've already left the network.", "Network leave failed.");
+                    MessageBox.Show("Попытка покинуть сеть ZT не удалась. Возможно, вы уже вышли из сети.\n\nПродолжаем процесс удаления драйвера ZT...", "Не удалось выйти из сети.");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Leaving ZT network failed. Perhaps you've already left the network.", "Network leave failed.");
+                    MessageBox.Show("Не вдалося спробувати залишити мережу ZT. Можливо, ви вже вийшли з мережі.\n\nПродовження процесу видалення драйвера ZT...", "Не вдалося вийти з мережі.");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("Leaving ZT network failed. Perhaps you've already left the network.", "Network leave failed.");
+                    MessageBox.Show("Опитът да напуснете ZT мрежата се провали. Вероятно вече сте я напуснали.\n\nПродължаваме с деинсталацията на ZT драйвера...", "Провал в опита да излезете от мрежата.");
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("Leaving ZT network failed. Perhaps you've already left the network.", "Network leave failed.");
+                    MessageBox.Show("Der Versuch, das ZT-Netzwerk zu verlassen, ist fehlgeschlagen. Möglicherweise haben Sie das Netzwerk bereits verlassen.\n\nWeiter mit der Deinstallation des ZT-Treibers...", "Netzwerk konnte nicht verlassen werden.");
                 }
             }
             Globals.TriedToLeaveNetwork = true;
@@ -364,37 +447,74 @@ namespace Contra
 
         public void UninstallZTDriver()
         {
-            //MessageBox.Show("in uninst driver func");
             string infName = null;
-            System.Management.ManagementObjectSearcher objSearcher = new System.Management.ManagementObjectSearcher("Select * from Win32_PnPSignedDriver Where DeviceName = 'Zerotier One Virtual Port'");
-            System.Management.ManagementObjectCollection objCollection = objSearcher.Get();
-            foreach (System.Management.ManagementObject obj in objCollection)
-            {
-                infName = String.Format("{0}", obj["InfName"]);
-                //MessageBox.Show(infName);
-            }
+            //System.Management.ManagementObjectSearcher objSearcher = new System.Management.ManagementObjectSearcher("Select * from Win32_PnPSignedDriver Where DeviceName = 'ZeroTier One Virtual Port'");
+            //System.Management.ManagementObjectCollection objCollection = objSearcher.Get();
+            //foreach (System.Management.ManagementObject obj in objCollection)
+            //{
+            //    infName = String.Format("{0}", obj["InfName"]);
+            //    //MessageBox.Show(infName);
+            //}
+            //MessageBox.Show(infName);
 
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
-            //cmd.StartInfo.FileName = "pnputil.exe";
-            //cmd.StartInfo.FileName = @"C:\windows\system32\windowspowershell\v1.0\powershell.exe";
-            //cmd.StartInfo.Arguments = ("pnputil /f /d \"$PWD\\config\\tap-windows\\x" + Globals.userOS + "\\zttap300.inf\"");
             cmd.StartInfo.RedirectStandardInput = true;
             cmd.StartInfo.RedirectStandardOutput = true;
             cmd.StartInfo.CreateNoWindow = true;
             cmd.StartInfo.UseShellExecute = false;
             cmd.Start();
-            cmd.StandardInput.WriteLine("pnputil -f -d " + infName);
+            cmd.StandardInput.WriteLine("pnputil -e");
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
-
             string Output = cmd.StandardOutput.ReadToEnd();
-            //MessageBox.Show(Output);
 
-            if (Output.Contains("Driver package deleted successfully."))
+            //MessageBox.Show(Output);
+            try
             {
-                //MessageBox.Show("uninst driver succc");
-                Globals.ZTDriverUninstallSuccessful = true;
+                using (StringReader reader = new StringReader(Output))
+                {
+                    string line = string.Empty;
+                    do
+                    {
+                        line = reader.ReadLine();
+                        if (line.Contains("ZeroTier Networks LLC"))
+                        {
+                            infName = infName.Substring(infName.IndexOf(':') + 1);
+                            infName = Regex.Replace(infName, @"\s+", "");
+                            break;
+                        }
+                        infName = line;
+                    } while (line != null);
+                }
+            }
+            catch { }
+
+            if (!string.IsNullOrWhiteSpace(infName)) //if (Output.Contains(infName))
+            {
+                //cmd.CloseMainWindow();
+                //cmd.Close();
+
+                Process cmd2 = new Process();
+                cmd2.StartInfo.FileName = "cmd.exe";
+                cmd2.StartInfo.RedirectStandardInput = true;
+                cmd2.StartInfo.RedirectStandardOutput = true;
+                cmd2.StartInfo.CreateNoWindow = true;
+                cmd2.StartInfo.UseShellExecute = false;
+                cmd2.Start();
+                //MessageBox.Show(infName);
+                cmd2.StandardInput.WriteLine("pnputil -f -d " + infName);
+                cmd2.StandardInput.Flush();
+                cmd2.StandardInput.Close();
+
+                string Output2 = cmd2.StandardOutput.ReadToEnd();
+                //MessageBox.Show(Output2);
+
+                if (Output2.Contains("Driver package deleted successfully."))
+                {
+                    //MessageBox.Show("uninst driver succc");
+                    Globals.ZTDriverUninstallSuccessful = true;
+                }
             }
         }
 
@@ -409,7 +529,7 @@ namespace Contra
             {
                 response = (HttpWebResponse)request.GetResponse();
             }
-            catch (WebException ex)
+            catch (WebException)
             {
                 /* A WebException will be thrown if the status of the response is not `200 OK` */
                 if (Globals.GB_Checked == true)

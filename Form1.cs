@@ -11,7 +11,6 @@ using System.IO;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
 using System.Net;
-using System.Net.NetworkInformation;
 
 namespace Contra
 {
@@ -20,8 +19,8 @@ namespace Contra
         public Form1()
         {
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            this.InitializeComponent();
-            Application.ApplicationExit += new EventHandler(this.OnApplicationExit);
+            InitializeComponent();
+            Application.ApplicationExit += new EventHandler(OnApplicationExit);
             button1.TabStop = false;
             button2.TabStop = false;
             button3.TabStop = false;
@@ -38,8 +37,6 @@ namespace Contra
             DefaultPics.TabStop = false;
             QSCheckBox.TabStop = false;
             WinCheckBox.TabStop = false;
-            //buttonVPNstart.TabStop = false;
-            VPNMoreButton.TabStop = false;
             RadioFlag_GB.TabStop = false;
             RadioFlag_RU.TabStop = false;
             RadioFlag_UA.TabStop = false;
@@ -55,7 +52,6 @@ namespace Contra
             vpn_start.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
             DonateBtn.FlatAppearance.MouseOverBackColor = Color.Transparent;
             DonateBtn.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            whoIsOnline.Hide();
             if (Globals.GB_Checked == true)
             {
                 IP_Label.Text = "IP: unknown";
@@ -89,18 +85,6 @@ namespace Contra
 
             DelTmpChunk();
 
-            //Delete tinc.log if file size > 5 MB
-            Process tincLog = new Process();
-            tincLog.StartInfo.FileName = vpnconfig + @"\tinc.log";
-            if (File.Exists(vpnconfig + @"\tinc.log"))
-            {
-                double fileSize = new FileInfo(tincLog.StartInfo.FileName).Length;
-                if ((fileSize / 1048576.0) > 5)
-                {
-                    File.Delete(vpnconfig + @"\tinc.log");
-                }
-            }
-
             ////Load DiscordRPC.dll
             //if (File.Exists((@"contra\DiscordRPC.dll")))
             //{
@@ -124,7 +108,7 @@ namespace Contra
         int modVersionLocalInt;
         bool patch1Found, patch2Found;
 
-        bool ztStartFail = false;
+        bool disableVPNOnBtn = false;
         string ip;
 
         //Create method to check for an update
@@ -326,7 +310,7 @@ namespace Contra
             {
                 response = (HttpWebResponse)request.GetResponse();
             }
-            catch (WebException ex)
+            catch (WebException)
             {
                 /* A WebException will be thrown if the status of the response is not `200 OK` */
                 if (Globals.GB_Checked == true)
@@ -523,8 +507,6 @@ namespace Contra
 
         public static bool wait = true;
 
-        public static bool adapterInstalled = false;
-
         string vpnconfig = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn";
 
 
@@ -602,27 +584,26 @@ namespace Contra
 
         private void button2_MouseEnter(object sender, EventArgs e)
         {
-            button2.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_exit_text);
+            button2.BackgroundImage = Properties.Resources._button_exit_text;
             button2.ForeColor = SystemColors.ButtonHighlight;
             button2.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void button2_MouseLeave(object sender, EventArgs e)
         {
-            button2.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_exit);
+            button2.BackgroundImage = Properties.Resources._button_exit;
             button2.ForeColor = SystemColors.ButtonHighlight;
             button2.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void button2_MouseDown(object sender, MouseEventArgs e)
         {
-            button2.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_highlight);
+            button2.BackgroundImage = Properties.Resources._button_highlight;
             button2.ForeColor = SystemColors.ButtonHighlight;
             button2.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
 
         private void button2_Click(object sender, EventArgs e) //ExitButton
         {
-            string wb = "worldbuilder_ctr.exe";
-            Process[] wbByName = Process.GetProcessesByName(wb.Substring(0, wb.LastIndexOf('.')));
+            Process[] wbByName = Process.GetProcessesByName("worldbuilder_ctr");
             if (wbByName.Length > 0) //if wb is already running
             {
                 if (Globals.GB_Checked == true)
@@ -803,27 +784,26 @@ namespace Contra
 
         private void button1_MouseEnter(object sender, EventArgs e)
         {
-            button1.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_launch_text);
+            button1.BackgroundImage = Properties.Resources._button_launch_text;
             button1.ForeColor = SystemColors.ButtonHighlight;
             button1.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void button1_MouseLeave(object sender, EventArgs e)
         {
-            button1.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_launch);
+            button1.BackgroundImage = Properties.Resources._button_launch;
             button1.ForeColor = SystemColors.ButtonHighlight;
             button1.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void button1_MouseDown(object sender, MouseEventArgs e)
         {
-            button1.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_highlight);
+            button1.BackgroundImage = Properties.Resources._button_highlight;
             button1.ForeColor = SystemColors.ButtonHighlight;
             button1.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
 
         public void IsWbRunning()
         {
-            string wb = "worldbuilder_ctr.exe";
-            Process[] wbByName = Process.GetProcessesByName(wb.Substring(0, wb.LastIndexOf('.')));
+            Process[] wbByName = Process.GetProcessesByName("worldbuilder_ctr");
             if (wbByName.Length > 0) //if wb is already running
             {
                 if (Globals.GB_Checked == true)
@@ -1051,10 +1031,10 @@ namespace Contra
                     generals.EnableRaisingEvents = true;
                     generals.Exited += (sender1, e1) =>
                     {
-                        this.WindowState = FormWindowState.Normal;
+                        WindowState = FormWindowState.Normal;
                     };
                     generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
-                    this.WindowState = FormWindowState.Minimized;
+                    WindowState = FormWindowState.Minimized;
                     generals.Start();
                 }
                 else
@@ -1071,19 +1051,19 @@ namespace Contra
 
         private void websitebutton_MouseEnter(object sender, EventArgs e)
         {
-            websitebutton.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_website_text);
+            websitebutton.BackgroundImage = Properties.Resources._button_website_text;
             websitebutton.ForeColor = SystemColors.ButtonHighlight;
             websitebutton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void websitebutton_MouseLeave(object sender, EventArgs e)
         {
-            websitebutton.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_website);
+            websitebutton.BackgroundImage = Properties.Resources._button_website;
             websitebutton.ForeColor = SystemColors.ButtonHighlight;
             websitebutton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void websitebutton_MouseDown(object sender, MouseEventArgs e)
         {
-            websitebutton.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_highlight);
+            websitebutton.BackgroundImage = Properties.Resources._button_highlight;
             websitebutton.ForeColor = SystemColors.ButtonHighlight;
             websitebutton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
@@ -1114,19 +1094,19 @@ namespace Contra
         }
         private void button5_MouseEnter(object sender, EventArgs e)
         {
-            button5.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_moddb_text);
+            button5.BackgroundImage = Properties.Resources._button_moddb_text;
             button5.ForeColor = SystemColors.ButtonHighlight;
             button5.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void button5_MouseLeave(object sender, EventArgs e)
         {
-            button5.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_moddb);
+            button5.BackgroundImage = Properties.Resources._button_moddb;
             button5.ForeColor = SystemColors.ButtonHighlight;
             button5.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void button5_MouseDown(object sender, MouseEventArgs e)
         {
-            button5.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_highlight);
+            button5.BackgroundImage = Properties.Resources._button_highlight;
             button5.ForeColor = SystemColors.ButtonHighlight;
             button5.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
@@ -1138,19 +1118,19 @@ namespace Contra
 
         private void button3_MouseEnter(object sender, EventArgs e)
         {
-            button3.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_readme_text);
+            button3.BackgroundImage = Properties.Resources._button_readme_text;
             button3.ForeColor = SystemColors.ButtonHighlight;
             button3.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void button3_MouseLeave(object sender, EventArgs e)
         {
-            button3.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_readme);
+            button3.BackgroundImage = Properties.Resources._button_readme;
             button3.ForeColor = SystemColors.ButtonHighlight;
             button3.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void button3_MouseDown(object sender, MouseEventArgs e)
         {
-            button3.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_highlight);
+            button3.BackgroundImage = Properties.Resources._button_highlight;
             button3.ForeColor = SystemColors.ButtonHighlight;
             button3.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
@@ -1170,19 +1150,19 @@ namespace Contra
 
         private void button6_MouseEnter(object sender, EventArgs e)
         {
-            button6.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_wb_text);
+            button6.BackgroundImage = Properties.Resources._button_wb_text;
             button6.ForeColor = SystemColors.ButtonHighlight;
             button6.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void button6_MouseLeave(object sender, EventArgs e)
         {
-            button6.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_wb);
+            button6.BackgroundImage = Properties.Resources._button_wb;
             button6.ForeColor = SystemColors.ButtonHighlight;
             button6.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void button6_MouseDown(object sender, MouseEventArgs e)
         {
-            button6.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_highlight);
+            button6.BackgroundImage = Properties.Resources._button_highlight;
             button6.ForeColor = SystemColors.ButtonHighlight;
             button6.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
@@ -1322,8 +1302,7 @@ namespace Contra
             RadioFlag_DE.Checked = Properties.Settings.Default.Flag_DE;
             AutoScaleMode = AutoScaleMode.Dpi;
 
-            string ztExe = "zerotier-one_x" + Globals.userOS + ".exe";
-            Process[] ztExesByName = Process.GetProcessesByName(ztExe.Substring(0, ztExe.LastIndexOf('.')));
+            Process[] ztExesByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
             if (ztExesByName.Length > 0)
             {
                 try
@@ -1337,7 +1316,6 @@ namespace Contra
                 }
                 catch //(Exception ex)
                 {
-                    ztStartFail = true;
                     //MessageBox.Show(ex.ToString());
                     //string a = ex.ToString();
                 }
@@ -1345,26 +1323,21 @@ namespace Contra
                 if (Globals.GB_Checked == true)
                 {
                     IP_Label.Text = "IP: unknown";
-                    labelVpnStatus.Text = "Off";
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    labelVpnStatus.Text = "Выкл.";
                     IP_Label.Text = "IP: неизвестно";
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    labelVpnStatus.Text = "Вимк.";
                     IP_Label.Text = "IP: невідомо";
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    labelVpnStatus.Text = "Изкл.";
                     IP_Label.Text = "IP: неизвестен";
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    labelVpnStatus.Text = "Aus";
                     IP_Label.Text = "IP: unbekannt";
                 }
             }
@@ -1430,27 +1403,7 @@ namespace Contra
                 IP_Label.Text = "IP: unbekannt";
             }
 
-            foreach (Form onlinePlayersForm in Application.OpenForms)
-            {
-                if (onlinePlayersForm is onlinePlayersForm)
-                {
-                    onlinePlayersForm.Close();
-
-                    if (onlinePlayersForm.WindowState == FormWindowState.Normal)
-                    {
-                        Properties.Settings.Default.playersOnlineWindowLocation = onlinePlayersForm.Location;
-                    }
-                    else
-                    {
-                        Properties.Settings.Default.playersOnlineWindowLocation = onlinePlayersForm.RestoreBounds.Location;
-                    }
-                    Properties.Settings.Default.Save();
-
-                    this.Close();
-                }
-            }
-
-            this.Close();
+            Close();
         }
 
         private void radioButton1_CheckedChanged_1(object sender, EventArgs e)
@@ -1465,7 +1418,7 @@ namespace Contra
 
         private void button17_Click(object sender, EventArgs e) //MinimizeIcon
         {
-            this.WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized;
         }
 
         private void button18_Click(object sender, EventArgs e) //ExitIcon
@@ -1475,19 +1428,19 @@ namespace Contra
 
         private void buttonChat_MouseEnter(object sender, EventArgs e)
         {
-            buttonChat.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_discord_text);
+            buttonChat.BackgroundImage = Properties.Resources._button_discord_text;
             buttonChat.ForeColor = SystemColors.ButtonHighlight;
             buttonChat.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void buttonChat_MouseLeave(object sender, EventArgs e)
         {
-            buttonChat.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_discord);
+            buttonChat.BackgroundImage = Properties.Resources._button_discord;
             buttonChat.ForeColor = SystemColors.ButtonHighlight;
             buttonChat.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void buttonChat_MouseDown(object sender, MouseEventArgs e)
         {
-            buttonChat.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_highlight);
+            buttonChat.BackgroundImage = Properties.Resources._button_highlight;
             buttonChat.ForeColor = SystemColors.ButtonHighlight;
             buttonChat.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
@@ -1504,19 +1457,19 @@ namespace Contra
 
         private void helpbutton_MouseDown_1(object sender, MouseEventArgs e)
         {
-            helpbutton.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_highlight);
+            helpbutton.BackgroundImage = Properties.Resources._button_highlight;
             helpbutton.ForeColor = SystemColors.ButtonHighlight;
             helpbutton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void helpbutton_MouseEnter_1(object sender, EventArgs e)
         {
-            helpbutton.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_help_text);
+            helpbutton.BackgroundImage = Properties.Resources._button_help_text;
             helpbutton.ForeColor = SystemColors.ButtonHighlight;
             helpbutton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void helpbutton_MouseLeave_1(object sender, EventArgs e)
         {
-            helpbutton.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_help);
+            helpbutton.BackgroundImage = Properties.Resources._button_help;
             helpbutton.ForeColor = SystemColors.ButtonHighlight;
             helpbutton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
@@ -1551,86 +1504,36 @@ namespace Contra
 
         }
 
-        //**********TINC CODE START**********
+        //**********VPN CODE START**********
 
         public void VpnOff()
         {
             if (InvokeRequired)
             {
-                this.Invoke(new MethodInvoker(delegate
+                Invoke(new MethodInvoker(delegate
                 {
-                    vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off);
-                    whoIsOnline.Hide();
+                    vpn_start.BackgroundImage = Properties.Resources.vpn_off;
                     if (Globals.GB_Checked == true)
                     {
-                        playersOnlineLabel.Text = "ContraVPN disabled";
-                        labelVpnStatus.Text = "Off";
                         Properties.Settings.Default.IP_Label = "IP: unknown";
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        playersOnlineLabel.Text = "ContraVPN выключено";
-                        labelVpnStatus.Text = "Выкл.";
                         Properties.Settings.Default.IP_Label = "IP: неизвестно";
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        playersOnlineLabel.Text = "ContraVPN вимкнено";
-                        labelVpnStatus.Text = "Вимк.";
                         Properties.Settings.Default.IP_Label = "IP: невідомо";
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        playersOnlineLabel.Text = "ContraVPN изключен";
-                        labelVpnStatus.Text = "Изкл.";
                         Properties.Settings.Default.IP_Label = "IP: неизвестен";
                     }
                     else if (Globals.DE_Checked == true)
                     {
-                        playersOnlineLabel.Text = "ContraVPN deaktiviert";
-                        labelVpnStatus.Text = "Aus";
                         Properties.Settings.Default.IP_Label = "IP: unbekannt";
                     }
                 }));
-                return;
-            }
-        }
-
-        public void VpnOffNoCond()
-        {
-            {
-                vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off);
-                whoIsOnline.Hide();
-                if (Globals.GB_Checked == true)
-                {
-                    playersOnlineLabel.Text = "ContraVPN disabled";
-                    labelVpnStatus.Text = "Off";
-                    Properties.Settings.Default.IP_Label = "IP: unknown";
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    playersOnlineLabel.Text = "ContraVPN выключено";
-                    labelVpnStatus.Text = "Выкл.";
-                    Properties.Settings.Default.IP_Label = "IP: неизвестно";
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    playersOnlineLabel.Text = "ContraVPN вимкнено";
-                    labelVpnStatus.Text = "Вимк.";
-                    Properties.Settings.Default.IP_Label = "IP: невідомо";
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    playersOnlineLabel.Text = "ContraVPN изключен";
-                    labelVpnStatus.Text = "Изкл.";
-                    Properties.Settings.Default.IP_Label = "IP: неизвестен";
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    playersOnlineLabel.Text = "ContraVPN deaktiviert";
-                    labelVpnStatus.Text = "Aus";
-                    Properties.Settings.Default.IP_Label = "IP: unbekannt";
-                }
                 return;
             }
         }
@@ -1673,10 +1576,6 @@ namespace Contra
             ReadOnlyCollection<string> exes = Array.AsReadOnly(new[] {
                 "game.dat",
                 "generals.exe",
-                "contra\\vpn\\" + Globals.userOS + "\\tinc.exe",
-                "contra\\vpn\\" + Globals.userOS + "\\tinc.exe",
-                "contra\\vpn\\" + Globals.userOS + "\\tincd.exe",
-                "contra\\vpn\\" + Globals.userOS + "\\tincd.exe",
             });
 
             // Check if all files exist first before attempting to add any rules
@@ -1686,23 +1585,6 @@ namespace Contra
 
         public void StartZT()
         {
-            //Process netsh = new Process();
-            //netsh.StartInfo.FileName = "netsh.exe";
-            //netsh.StartInfo.UseShellExecute = false;
-            //netsh.StartInfo.RedirectStandardInput = true;
-            //netsh.StartInfo.RedirectStandardOutput = true;
-            //netsh.StartInfo.RedirectStandardError = true;
-            //netsh.StartInfo.CreateNoWindow = true;
-            //netsh.StartInfo.Arguments = "interface show interface ContraVPN";
-            //netsh.Start();
-            //string Output = netsh.StandardOutput.ReadToEnd();
-            ////MessageBox.Show(Output);
-            //if (Output.Contains("Administrative state: Disabled") == true)
-            //{
-            //    netsh.StartInfo.Arguments = "interface set interface ContraVPN enable";
-            //    netsh.Start();
-            //}
-
             Process ztDaemon = new Process();
             ztDaemon.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
             ztDaemon.StartInfo.FileName = ztDaemon.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS; //@"\zt-daemon.cmd"; //@"\zerotier-one_x" + Globals.userOS + ".exe";
@@ -1710,41 +1592,9 @@ namespace Contra
             ztDaemon.StartInfo.UseShellExecute = false;
             ztDaemon.StartInfo.CreateNoWindow = true;
 
-            //    if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\tinc.conf") && (File.Exists(@"contra\vpn\" + Globals.userOS + @"\tincd.exe")) && (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn")))
-            //   {
-            if (Globals.GB_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Loading...";
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Загрузка...";
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Завантаження...";
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Зарежда се...";
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Lade...";
-                }
-                ztDaemon.Start();
+            ztDaemon.Start();
             ZT_IP();
             refreshVpnIpTimer.Enabled = true;
-
-            ////check when zt exe gets turned off
-            //Process ztExe = new Process();
-            //string ztExeString = @"\zerotier-one_x" + Globals.userOS + ".exe";
-            //ztExe.StartInfo.FileName = ztExeString;
-            //ztExe.EnableRaisingEvents = true;
-            //ztExe.Exited += (sender, e) =>
-            //    {
-            //        VpnOff();
-            //    };
 
             //check when zt daemon gets turned off
             ztDaemon.EnableRaisingEvents = true;
@@ -1753,562 +1603,8 @@ namespace Contra
                 VpnOff();
             };
 
-            //Process ztExe = new Process();
-            //string ztExeString = @"\zerotier-one_x" + Globals.userOS + ".exe";
-            //ztExe.StartInfo.FileName = ztExeString;
-            ////    string tincd = "tincd.exe";
-            //Process[] ztExeByName = Process.GetProcessesByName(ztExeString.Substring(0, ztExeString.LastIndexOf('.')));
-            //Process[] ztExeByName = Process.GetProcessesByName(@"\zerotier-one_x" + Globals.userOS + ".exe");
-
-            //if (ztExeByName.Length > 0)
-            //{
             disableVPNBtnChangeTimer.Enabled = true;
-                vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                //               whoIsOnline.Show();
-                //                openPlayersListTimer.Enabled = true;
-                //openPlayersList();
-                if (Globals.GB_Checked == true)
-                {
-                    labelVpnStatus.Text = "On";
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    labelVpnStatus.Text = "Вкл.";
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    labelVpnStatus.Text = "Ввімк.";
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    labelVpnStatus.Text = "Вкл.";
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    labelVpnStatus.Text = "An";
-                }
-                //      }
-            //}
-            //else if (!Directory.Exists(@"contra\vpn"))
-            //{
-            //    if (Globals.GB_Checked == true)
-            //    {
-            //        MessageBox.Show("Cannot start ContraVPN because the \"vpn\" folder within the \"contra\" folder was not found in " + Environment.CurrentDirectory + "\nObtain these from the 009 Final archive.", "Error");
-            //    }
-            //    else if (Globals.RU_Checked == true)
-            //    {
-            //        MessageBox.Show("Не удается запустить ContraVPN, поскольку папка «vpn» в папке «contra» не найдена в " + Environment.CurrentDirectory + "\nПолучить их можно из архива 009 Final.", "Ошибка");
-            //    }
-            //    else if (Globals.UA_Checked == true)
-            //    {
-            //        MessageBox.Show("Не вдається запустити ContraVPN, оскільки папка \"vpn\" в папці \"contra\" не знайдена в " + Environment.CurrentDirectory + "\nОтримати їх можна з архіву 009 Final.", "Помилка");
-            //    }
-            //    else if (Globals.BG_Checked == true)
-            //    {
-            //        MessageBox.Show("ContraVPN не можа да се стартира, защото \"vpn\" папката в \"contra\" папката не беше намерена в " + Environment.CurrentDirectory + "\nРазархивирайте тези папки от 009 Final архива.", "Грешка");
-            //    }
-            //    else if (Globals.DE_Checked == true)
-            //    {
-            //        MessageBox.Show("ContraVPN kann nicht starten, weil der ordner \"vpn\" im \"contra\" ist nicht im " + Environment.CurrentDirectory + " gefunden.\nErhalt diese von 009 Final Archiv.", "Fehler");
-            //    }
-            //}
-            //else if (!Directory.Exists(@"contra\vpn\" + Globals.userOS))
-            //{
-            //    if (Globals.GB_Checked == true)
-            //    {
-            //        MessageBox.Show("Cannot start ContraVPN because \"" + Globals.userOS + "\" folder was not found in\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Error");
-            //    }
-            //    else if (Globals.RU_Checked == true)
-            //    {
-            //        MessageBox.Show("Не удается запустить ContraVPN, потому что папка \"" + Globals.userOS + "\" не найдена в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Ошибка");
-            //    }
-            //    else if (Globals.UA_Checked == true)
-            //    {
-            //        MessageBox.Show("Не вдається запустити ContraVPN, оскільки папка \"" + Globals.userOS + "\" не знайдено в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Помилка");
-            //    }
-            //    else if (Globals.BG_Checked == true)
-            //    {
-            //        MessageBox.Show("ContraVPN не можа да се стартира, защото папката \"" + Globals.userOS + "\" не беше намерена в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Грешка");
-            //    }
-            //    else if (Globals.DE_Checked == true)
-            //    {
-            //        MessageBox.Show("ContraVPN kann nicht gestartet werden, weil die \"" + Globals.userOS + "\" ordner nicht gefunden wurde im " + Environment.CurrentDirectory + "\\contra\\vpn\\", "Fehler");
-            //    }
-            //}
-            //else if (!File.Exists(@"contra\vpn\" + Globals.userOS + @"\tincd.exe"))
-            //{
-            //    if (Globals.GB_Checked == true)
-            //    {
-            //        MessageBox.Show("Cannot start ContraVPN because \"tincd.exe\" file was not found in\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Error");
-            //    }
-            //    else if (Globals.RU_Checked == true)
-            //    {
-            //        MessageBox.Show("Не удается запустить ContraVPN, потому что файл \"tincd.exe\" не найден в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Ошибка");
-            //    }
-            //    else if (Globals.UA_Checked == true)
-            //    {
-            //        MessageBox.Show("Не вдається запустити ContraVPN, оскільки файл \"tincd.exe\" не знайдено в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Помилка");
-            //    }
-            //    else if (Globals.BG_Checked == true)
-            //    {
-            //        MessageBox.Show("ContraVPN не можа да се стартира, защото файлът \"tincd.exe\" не беше намерен в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Грешка");
-            //    }
-            //    else if (Globals.DE_Checked == true)
-            //    {
-            //        MessageBox.Show("ContraVPN kann nicht gestartet werden, weil die \"tincd.exe\" datei nicht gefunden wurde im " + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Fehler");
-            //    }
-            //}
-            //else if (Directory.Exists(@"contra\vpn") && (!File.Exists(vpnconfig + "\\tinc.conf")))
-            //{
-            //    if (Globals.GB_Checked == true)
-            //    {
-            //        MessageBox.Show("Cannot start ContraVPN because \"tinc.conf\" file was not found. Make sure you have entered your invitation link first (go to VPN Settings > Invite).", "Error");
-            //    }
-            //    else if (Globals.RU_Checked == true)
-            //    {
-            //        MessageBox.Show("Не удается запустить ContraVPN, потому что файл \"tinc.conf\" не найден. Убедитесь, что вы сначала указали ссылку на приглашение (перейдите в «Настройки VPN» > «Приглашение»).", "Ошибка");
-            //    }
-            //    else if (Globals.UA_Checked == true)
-            //    {
-            //        MessageBox.Show("Не вдається запустити ContraVPN, оскільки файл \"tinc.conf\" не знайдено. Спочатку переконайтеся, що ви ввели посилання на запрошення (перейдіть до налаштувань VPN > Запрошення).", "Помилка");
-            //    }
-            //    else if (Globals.BG_Checked == true)
-            //    {
-            //        MessageBox.Show("ContraVPN не можа да се стартира, защото файлът \"tinc.conf\" не беше намерен. Уверете се, че сте въвели ключа си за покана (отидете във VPN Настройки > Покана).", "Грешка");
-            //    }
-            //    else if (Globals.DE_Checked == true)
-            //    {
-            //        MessageBox.Show("ContraVPN kann nicht gestartet werden, weil die \"tinc.conf\" datei nicht gefunden wurde. Stelle sicher, dass du deinen invite link zuerst eingegeben hast (gehe zu VPN Einstellungen > Einladung).", "Fehler");
-            //    }
-            //}
-            //else if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn"))
-            //{
-            //    if (Globals.GB_Checked == true)
-            //    {
-            //        MessageBox.Show("Cannot start ContraVPN because the \"contravpn\" host file was not found in " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Error");
-            //    }
-            //    else if (Globals.RU_Checked == true)
-            //    {
-            //        MessageBox.Show("Не удается запустить ContraVPN, поскольку файл хоста \"contravpn\" не найден в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Ошибка");
-            //    }
-            //    else if (Globals.UA_Checked == true)
-            //    {
-            //        MessageBox.Show("Неможливо запустити ContraVPN, тому що файл хоста \"contravpn\" не знайдено у " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Помилка");
-            //    }
-            //    else if (Globals.BG_Checked == true)
-            //    {
-            //        MessageBox.Show("ContraVPN не можа да се стартира, защото хост файлът \"contravpn\" не беше открит в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Грешка");
-            //    }
-            //    else if (Globals.DE_Checked == true)
-            //    {
-            //        MessageBox.Show("ContraVPN kann nicht starten, weil \"contravpn\" datei wurde nicht gefunden im " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Fehler");
-            //    }
-            //}
-        }
-
-        public void StartVPN()
-        {
-            Process netsh = new Process();
-            netsh.StartInfo.FileName = "netsh.exe";
-            netsh.StartInfo.UseShellExecute = false;
-            netsh.StartInfo.RedirectStandardInput = true;
-            netsh.StartInfo.RedirectStandardOutput = true;
-            netsh.StartInfo.RedirectStandardError = true;
-            netsh.StartInfo.CreateNoWindow = true;
-            netsh.StartInfo.Arguments = "interface show interface ContraVPN";
-            netsh.Start();
-            string Output = netsh.StandardOutput.ReadToEnd();
-            //MessageBox.Show(Output);
-            if (Output.Contains("Administrative state: Disabled") == true)
-            {
-                netsh.StartInfo.Arguments = "interface set interface ContraVPN enable";
-                netsh.Start();
-            }
-
-            Process tinc = new Process();
-            tinc.StartInfo.Arguments = "--no-detach --config=\"" + vpnconfig + "\" --debug=3 --pidfile=\"" + vpnconfig + "\\tinc.pid\" --option=AddressFamily=ipv4 --option=Interface=ContraVPN";
-            tinc.StartInfo.FileName = Globals.userOS + @"\tincd.exe";
-            tinc.StartInfo.UseShellExecute = true;
-            tinc.StartInfo.WorkingDirectory = Environment.CurrentDirectory + @"\contra\vpn";
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\tinc.conf") && (File.Exists(@"contra\vpn\" + Globals.userOS + @"\tincd.exe")) && (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn")))
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Loading...";
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Загрузка...";
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Завантаження...";
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Зарежда се...";
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Lade...";
-                }
-                tinc.Start();
-
-                //check when tinc gets turned off
-                tinc.EnableRaisingEvents = true;
-                tinc.Exited += (sender, e) =>
-                {
-                    VpnOff();
-                };
-
-                string tincd = "tincd.exe";
-                Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-                if (tincdByName.Length > 0)
-                {
-                    vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                    whoIsOnline.Show();
-                    openPlayersListTimer.Enabled = true;
-                    //openPlayersList();
-                    if (Globals.GB_Checked == true)
-                    {
-                        labelVpnStatus.Text = "On";
-                    }
-                    else if (Globals.RU_Checked == true)
-                    {
-                        labelVpnStatus.Text = "Вкл.";
-                    }
-                    else if (Globals.UA_Checked == true)
-                    {
-                        labelVpnStatus.Text = "Ввімк.";
-                    }
-                    else if (Globals.BG_Checked == true)
-                    {
-                        labelVpnStatus.Text = "Вкл.";
-                    }
-                    else if (Globals.DE_Checked == true)
-                    {
-                        labelVpnStatus.Text = "An";
-                    }
-                }
-            }
-            else if (!Directory.Exists(@"contra\vpn"))
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("Cannot start ContraVPN because the \"vpn\" folder within the \"contra\" folder was not found in " + Environment.CurrentDirectory + "\nObtain these from the 009 Final archive.", "Error");
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Не удается запустить ContraVPN, поскольку папка «vpn» в папке «contra» не найдена в " + Environment.CurrentDirectory + "\nПолучить их можно из архива 009 Final.", "Ошибка");
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки папка \"vpn\" в папці \"contra\" не знайдена в " + Environment.CurrentDirectory + "\nОтримати їх можна з архіву 009 Final.", "Помилка");
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN не можа да се стартира, защото \"vpn\" папката в \"contra\" папката не беше намерена в " + Environment.CurrentDirectory + "\nРазархивирайте тези папки от 009 Final архива.", "Грешка");
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN kann nicht starten, weil der ordner \"vpn\" im \"contra\" ist nicht im " + Environment.CurrentDirectory + " gefunden.\nErhalt diese von 009 Final Archiv.", "Fehler");
-                }
-            }
-            else if (!Directory.Exists(@"contra\vpn\" + Globals.userOS))
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("Cannot start ContraVPN because \"" + Globals.userOS + "\" folder was not found in\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Error");
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Не удается запустить ContraVPN, потому что папка \"" + Globals.userOS + "\" не найдена в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Ошибка");
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки папка \"" + Globals.userOS + "\" не знайдено в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Помилка");
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN не можа да се стартира, защото папката \"" + Globals.userOS + "\" не беше намерена в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Грешка");
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN kann nicht gestartet werden, weil die \"" + Globals.userOS + "\" ordner nicht gefunden wurde im " + Environment.CurrentDirectory + "\\contra\\vpn\\", "Fehler");
-                }
-            }
-            else if (!File.Exists(@"contra\vpn\" + Globals.userOS + @"\tincd.exe"))
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("Cannot start ContraVPN because \"tincd.exe\" file was not found in\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Error");
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Не удается запустить ContraVPN, потому что файл \"tincd.exe\" не найден в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Ошибка");
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки файл \"tincd.exe\" не знайдено в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Помилка");
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN не можа да се стартира, защото файлът \"tincd.exe\" не беше намерен в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Грешка");
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN kann nicht gestartet werden, weil die \"tincd.exe\" datei nicht gefunden wurde im " + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Fehler");
-                }
-            }
-            else if (Directory.Exists(@"contra\vpn") && (!File.Exists(vpnconfig + "\\tinc.conf")))
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("Cannot start ContraVPN because \"tinc.conf\" file was not found. Make sure you have entered your invitation link first (go to VPN Settings > Invite).", "Error");
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Не удается запустить ContraVPN, потому что файл \"tinc.conf\" не найден. Убедитесь, что вы сначала указали ссылку на приглашение (перейдите в «Настройки VPN» > «Приглашение»).", "Ошибка");
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки файл \"tinc.conf\" не знайдено. Спочатку переконайтеся, що ви ввели посилання на запрошення (перейдіть до налаштувань VPN > Запрошення).", "Помилка");
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN не можа да се стартира, защото файлът \"tinc.conf\" не беше намерен. Уверете се, че сте въвели ключа си за покана (отидете във VPN Настройки > Покана).", "Грешка");
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN kann nicht gestartet werden, weil die \"tinc.conf\" datei nicht gefunden wurde. Stelle sicher, dass du deinen invite link zuerst eingegeben hast (gehe zu VPN Einstellungen > Einladung).", "Fehler");
-                }
-            }
-            else if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn"))
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("Cannot start ContraVPN because the \"contravpn\" host file was not found in " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Error");
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Не удается запустить ContraVPN, поскольку файл хоста \"contravpn\" не найден в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Ошибка");
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Неможливо запустити ContraVPN, тому що файл хоста \"contravpn\" не знайдено у " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Помилка");
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN не можа да се стартира, защото хост файлът \"contravpn\" не беше открит в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Грешка");
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN kann nicht starten, weil \"contravpn\" datei wurde nicht gefunden im " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Fehler");
-                }
-            }
-        }
-
-        public void StartVPN_NoWindow()
-        {
-            //openPlayersListTimer.Enabled = true;
-            Process netsh = new Process();
-            netsh.StartInfo.FileName = "netsh.exe";
-            netsh.StartInfo.UseShellExecute = false;
-            netsh.StartInfo.RedirectStandardInput = true;
-            netsh.StartInfo.RedirectStandardOutput = true;
-            netsh.StartInfo.RedirectStandardError = true;
-            netsh.StartInfo.CreateNoWindow = true;
-            netsh.StartInfo.Arguments = "interface show interface ContraVPN";
-            netsh.Start();
-            string Output = netsh.StandardOutput.ReadToEnd();
-            //MessageBox.Show(Output);
-            if (Output.Contains("Administrative state: Disabled") == true)
-            {
-                netsh.StartInfo.Arguments = "interface set interface ContraVPN enable";
-                netsh.Start();
-            }
-
-            Process tinc = new Process();
-            tinc.StartInfo.Arguments = "--no-detach --config=\"" + vpnconfig + "\" --debug=3 --pidfile=\"" + vpnconfig + "\\tinc.pid\" --logfile=\"" + vpnconfig + "\\tinc.log\" --option=AddressFamily=ipv4 --option=Interface=ContraVPN";
-            tinc.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tincd.exe";
-            tinc.StartInfo.UseShellExecute = false;
-            tinc.StartInfo.CreateNoWindow = true;
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\tinc.conf") && (File.Exists(@"contra\vpn\" + Globals.userOS + @"\tincd.exe")) && (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn")))
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Loading...";
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Загрузка...";
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Завантаження...";
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Зарежда се...";
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Lade...";
-                }
-                tinc.Start();
-
-                //check when tinc gets turned off
-                tinc.EnableRaisingEvents = true;
-                tinc.Exited += (sender, e) =>
-                {
-                    VpnOff();
-                };
-
-                string tincd = "tincd.exe";
-                Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-                if (tincdByName.Length > 0)
-                {
-                    vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                    whoIsOnline.Show();
-                    openPlayersListTimer.Enabled = true;
-                    //openPlayersList();
-                    if (Globals.GB_Checked == true)
-                    {
-                        labelVpnStatus.Text = "On";
-                    }
-                    else if (Globals.RU_Checked == true)
-                    {
-                        labelVpnStatus.Text = "Вкл.";
-                    }
-                    else if (Globals.UA_Checked == true)
-                    {
-                        labelVpnStatus.Text = "Ввімк.";
-                    }
-                    else if (Globals.BG_Checked == true)
-                    {
-                        labelVpnStatus.Text = "Вкл.";
-                    }
-                    else if (Globals.DE_Checked == true)
-                    {
-                        labelVpnStatus.Text = "An";
-                    }
-                }
-            }
-            else if (!Directory.Exists(@"contra\vpn"))
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("Cannot start ContraVPN because the \"vpn\" folder within the \"contra\" folder was not found in " + Environment.CurrentDirectory + "\nObtain these from the 009 Final archive.", "Error");
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Не удается запустить ContraVPN, поскольку папка «vpn» в папке «contra» не найдена в " + Environment.CurrentDirectory + "\nПолучить их можно из архива 009 Final.", "Ошибка");
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки папка \"vpn\" в папці \"contra\" не знайдена в " + Environment.CurrentDirectory + "\nОтримати їх можна з архіву 009 Final.", "Помилка");
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN не можа да се стартира, защото \"vpn\" папката в \"contra\" папката не беше намерена в " + Environment.CurrentDirectory + "\nРазархивирайте тези папки от 009 Final архива.", "Грешка");
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN kann nicht starten, weil der ordner \"vpn\" im \"contra\" ist nicht im " + Environment.CurrentDirectory + " gefunden.\nErhalt diese von 009 Final Archiv.", "Fehler");
-                }
-            }
-            else if (!Directory.Exists(@"contra\vpn\" + Globals.userOS))
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("Cannot start ContraVPN because \"" + Globals.userOS + "\" folder was not found in\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Error");
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Не удается запустить ContraVPN, потому что папка \"" + Globals.userOS + "\" не найдена в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Ошибка");
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки папка \"" + Globals.userOS + "\" не знайдено в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Помилка");
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN не можа да се стартира, защото папката \"" + Globals.userOS + "\" не беше намерена в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\", "Грешка");
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN kann nicht gestartet werden, weil die \"" + Globals.userOS + "\" ordner nicht gefunden wurde im " + Environment.CurrentDirectory + "\\contra\\vpn\\", "Fehler");
-                }
-            }
-            else if (!File.Exists(@"contra\vpn\" + Globals.userOS + @"\tincd.exe"))
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("Cannot start ContraVPN because \"tincd.exe\" file was not found in\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Error");
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Не удается запустить ContraVPN, потому что файл \"tincd.exe\" не найден в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Ошибка");
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки файл \"tincd.exe\" не знайдено в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Помилка");
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN не можа да се стартира, защото файлът \"tincd.exe\" не беше намерен в\n" + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Грешка");
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN kann nicht gestartet werden, weil die \"tincd.exe\" datei nicht gefunden wurde im " + Environment.CurrentDirectory + "\\contra\\vpn\\" + Globals.userOS + "\\", "Fehler");
-                }
-            }
-            else if (Directory.Exists(@"contra\vpn") && (!File.Exists(vpnconfig + "\\tinc.conf")))
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("Cannot start ContraVPN because \"tinc.conf\" file was not found. Make sure you have entered your invitation link first (go to VPN Settings > Invite).", "Error");
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Не удается запустить ContraVPN, потому что файл \"tinc.conf\" не найден. Убедитесь, что вы сначала указали ссылку на приглашение (перейдите в «Настройки VPN» > «Приглашение»).", "Ошибка");
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Не вдається запустити ContraVPN, оскільки файл \"tinc.conf\" не знайдено. Спочатку переконайтеся, що ви ввели посилання на запрошення (перейдіть до налаштувань VPN > Запрошення).", "Помилка");
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN не можа да се стартира, защото файлът \"tinc.conf\" не беше намерен. Уверете се, че сте въвели ключа си за покана (отидете във VPN Настройки > Покана).", "Грешка");
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN kann nicht gestartet werden, weil die \"tinc.conf\" datei nicht gefunden wurde. Stelle sicher, dass du deinen invite link zuerst eingegeben hast (gehe zu VPN Einstellungen > Einladung).", "Fehler");
-                }
-            }
-            else if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts\contravpn"))
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("Cannot start ContraVPN because the \"contravpn\" host file was not found in " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Error");
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Не удается запустить ContraVPN, поскольку файл хоста \"contravpn\" не найден в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Ошибка");
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Неможливо запустити ContraVPN, тому що файл хоста \"contravpn\" не знайдено у " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Помилка");
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN не можа да се стартира, защото хост файлът \"contravpn\" не беше открит в " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Грешка");
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("ContraVPN kann nicht starten, weil \"contravpn\" datei wurde nicht gefunden im " + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn\hosts", "Fehler");
-                }
-            }
+            vpn_start.BackgroundImage = Properties.Resources.vpn_on;
         }
 
         private void buttonVPNinvOK_Click(object sender, EventArgs e)
@@ -2437,23 +1733,23 @@ namespace Contra
                 {
                     if (Globals.GB_Checked == true)
                     {
-                        MessageBox.Show("Options.ini not found, therefore the game will not start!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Options.ini not found, therefore the game will not start! You have to run Zero Hour once for it to generate the file.\nIf that fails, you will have to create the file manually. Click the \"Help\" button in launcher to be brought to a page with instructions.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        MessageBox.Show("Файл \"Options.ini\" не найден, поэтому игра не запустится!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Файл \"Options.ini\" не найден, поэтому игра не запустится! Вам нужно запустить Zero Hour один раз, чтобы он сгенерировал файл.\nЕсли не получится, вам придется создать файл вручную. Нажмите кнопку «Help» в панели лаунчера, чтобы перейти на страницу с инструкциями.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        MessageBox.Show("Файл Options.ini не знайдений, отже гра не розпочнеться!", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Файл Options.ini не знайдений, отже гра не розпочнеться! Вам потрібно запустити Zero Hour один раз, щоб створити файл.\nЯкщо це не вдасться, вам доведеться створити файл вручну. Натисніть кнопку \"Help\" в панелі запуску, щоб перейти на сторінку з інструкціями.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        MessageBox.Show("Options.ini не беше намерен, следователно играта няма да се стартира!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Options.ini не беше намерен, следователно играта няма да се стартира! Трябва да стартирате Zero Hour веднъж, за да генерира файла.\nАко това се провали, трябва да създадете файла ръчно. Щракнете на \"Help\" бутона в launcher-а, за да отидете на страница с инструкции.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else if (Globals.DE_Checked == true)
                     {
-                        MessageBox.Show("Options.ini nicht gefunden, daher startet das Spiel nicht!", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Options.ini nicht gefunden, daher startet das Spiel nicht! Sie müssen Zero Hour einmal ausführen, damit die Datei generiert wird.\nWenn dies fehlschlägt, müssen Sie die Datei manuell erstellen. Klicken Sie im Launcher auf die Schaltfläche \"Help\", um zu einer Seite mit Anweisungen zu gelangen.", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
@@ -2475,17 +1771,6 @@ namespace Contra
                     File.Delete(@"Data\INI\INIZH.big");
                 }
                 catch { }
-
-                //Set AutoConnect to "no".
-                if ((File.Exists(vpnconfig + "\\tinc.conf")))
-                {
-                    string tincconf = File.ReadAllText(vpnconfig + "\\tinc.conf");
-                    if (tincconf.Contains("AutoConnect = yes"))
-                    {
-                        tincconf = tincconf.Replace("AutoConnect = yes", "AutoConnect = no");
-                        File.WriteAllText(vpnconfig + "\\tinc.conf", tincconf);
-                    }
-                }
 
                 //Show message on first run.
                 if (GetCurrentCulture() == "en-US")
@@ -2628,7 +1913,7 @@ namespace Contra
             //Show warning if there are .ini files in Data\INI.
             try
             {
-                if (Directory.GetFiles(Environment.CurrentDirectory + @"\Data\INI", "*.ini").Length == 0)
+                if (Directory.GetFiles(Environment.CurrentDirectory + @"\Data\INI", "*.ini", SearchOption.AllDirectories).Length == 0)
                 {
                     //no .ini files
                 }
@@ -2659,45 +1944,6 @@ namespace Contra
             catch { }
         }
 
-        private void VPNMoreButton_Click(object sender, EventArgs e)
-        {
-            //CheckRegistryPathForWine();
-            //if (UserOnWine == true)
-            //{
-            //    return;
-            //}
-
-            foreach (Form VPNForm in Application.OpenForms)
-            {
-                if (VPNForm is VPNForm)
-                {
-                    VPNForm.Close();
-                    new VPNForm().Show();
-                    return;
-                }
-            }
-            new VPNForm().Show();
-        }
-
-        private void VPNMoreButton_MouseEnter(object sender, EventArgs e)
-        {
-            VPNMoreButton.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_config_tr);
-            VPNMoreButton.ForeColor = SystemColors.ButtonHighlight;
-            VPNMoreButton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
-        }
-        private void VPNMoreButton_MouseLeave(object sender, EventArgs e)
-        {
-            VPNMoreButton.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_config);
-            VPNMoreButton.ForeColor = SystemColors.ButtonHighlight;
-            VPNMoreButton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
-        }
-        private void VPNMoreButton_MouseDown(object sender, MouseEventArgs e)
-        {
-            VPNMoreButton.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_sm_highlight);
-            VPNMoreButton.ForeColor = SystemColors.ButtonHighlight;
-            VPNMoreButton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
-        }
-
         private void applyResources(ComponentResourceManager resources, Control.ControlCollection ctls)
         {
             foreach (Control ctl in ctls)
@@ -2712,7 +1958,7 @@ namespace Contra
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
             resources.ApplyResources(this, "$this");
-            applyResources(resources, this.Controls);
+            applyResources(resources, Controls);
             Globals.BG_Checked = false;
             Globals.RU_Checked = false;
             Globals.UA_Checked = false;
@@ -2728,8 +1974,10 @@ namespace Contra
             toolTip1.SetToolTip(GoofyPics, "Use funny general portraits.");
             toolTip1.SetToolTip(WinCheckBox, "Starts Contra in a window instead of full screen.");
             toolTip1.SetToolTip(QSCheckBox, "Disables intro and shellmap (game starts up faster).");
-            toolTip1.SetToolTip(whoIsOnline, "Show who is online.");
             toolTip1.SetToolTip(vpn_start, "Start/close ContraVPN.");
+            toolTip1.SetToolTip(ZTConfigBtn, "Open the ContraVPN config file.");
+            toolTip1.SetToolTip(ZTConsoleBtn, "Open the ContraVPN console window.");
+            toolTip1.SetToolTip(ZTNukeBtn, "Uninstall ContraVPN.");
             toolTip1.SetToolTip(DonateBtn, "Make a donation.");
             currentFileLabel = "File: ";
             ModDLLabel.Text = "Download progress: ";
@@ -2755,25 +2003,18 @@ namespace Contra
             }
             versionLabel.Text = "Contra Project Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
 
-            Process[] tincdByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
-            if (tincdByName.Length > 0 && wait == false) //if tinc is already running
+            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            if (ztExeByName.Length > 0 && wait == false) //if zt is already running
             {
-                vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                whoIsOnline.Show();
-                labelVpnStatus.Text = "On";
+                vpn_start.BackgroundImage = Properties.Resources.vpn_on;
                 IP_Label.Text = "IP: " + ip;
             }
-            if (tincdByName.Length > 0) //if tinc is already running
+            if (ztExeByName.Length > 0) //if zt is already running
             {
-                labelVpnStatus.Text = "On";
-                //refreshOnlinePlayersBtn.PerformClick();
-                playersOnlineLabel.Text = "Online!";
                 IP_Label.Text = "IP: " + ip;
             }
-            if (tincdByName.Length == 0) //if tinc is not running
+            if (ztExeByName.Length == 0) //if zt is not running
             {
-                playersOnlineLabel.Text = "ContraVPN disabled";
-                labelVpnStatus.Text = "Off";
                 IP_Label.Text = "IP: unknown";
             }
 
@@ -2782,7 +2023,7 @@ namespace Contra
             {
                 {
                     System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(this.ThreadProcSafe));
+                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafe));
                     demoThread.Start();
                 }
             }
@@ -2794,7 +2035,7 @@ namespace Contra
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
             resources.ApplyResources(this, "$this");
-            applyResources(resources, this.Controls);
+            applyResources(resources, Controls);
             Globals.GB_Checked = false;
             Globals.BG_Checked = false;
             Globals.UA_Checked = false;
@@ -2810,8 +2051,10 @@ namespace Contra
             toolTip1.SetToolTip(GoofyPics, "Включить смешные портреты Генералов.");
             toolTip1.SetToolTip(WinCheckBox, "Запуск Contra в режиме окна вместо полноэкранного.");
             toolTip1.SetToolTip(QSCheckBox, "Отключает интро и шелмапу (игра запускается быстрее).");
-            toolTip1.SetToolTip(whoIsOnline, "Показать, кто в сети.");
             toolTip1.SetToolTip(vpn_start, "Открыть/Закрыть ContraVPN.");
+            toolTip1.SetToolTip(ZTConfigBtn, "Открыть файл конфигурации ContraVPN.");
+            toolTip1.SetToolTip(ZTConsoleBtn, "Открыть консоль ContraVPN.");
+            toolTip1.SetToolTip(ZTNukeBtn, "Удалить ContraVPN.");
             toolTip1.SetToolTip(DonateBtn, "Дарить команду проекта.");
             RadioLocQuotes.Text = "Англ.";
             RadioOrigQuotes.Text = "Родные";
@@ -2837,27 +2080,19 @@ namespace Contra
                 yearString = "2019";
             }
             versionLabel.Text = "Contra Project Team " + yearString + " - Версия 009 Финал" + verString + " - Launcher: " + Application.ProductVersion;
-            vpnSettingsLabel.Text = "Настройки VPN";
 
-            Process[] tincdByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
-            if (tincdByName.Length > 0 && wait == false) //if tinc is already running
+            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            if (ztExeByName.Length > 0 && wait == false) //if zt is already running
             {
-                vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                whoIsOnline.Show();
-                labelVpnStatus.Text = "Вкл.";
+                vpn_start.BackgroundImage = Properties.Resources.vpn_on;
                 IP_Label.Text = "IP: " + ip;
             }
-            if (tincdByName.Length > 0) //if tinc is already running
+            if (ztExeByName.Length > 0) //if zt is already running
             {
-                labelVpnStatus.Text = "Вкл.";
-                //refreshOnlinePlayersBtn.PerformClick();
-                playersOnlineLabel.Text = "Онлайн!";
                 IP_Label.Text = "IP: " + ip;
             }
-            if (tincdByName.Length == 0) //if tinc is not running
+            if (ztExeByName.Length == 0) //if zt is not running
             {
-                playersOnlineLabel.Text = "ContraVPN выключено";
-                labelVpnStatus.Text = "Выкл.";
                 IP_Label.Text = "IP: неизвестно";
             }
 
@@ -2866,7 +2101,7 @@ namespace Contra
             {
                 {
                     System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(this.ThreadProcSafe));
+                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafe));
                     demoThread.Start();
                 }
             }
@@ -2878,7 +2113,7 @@ namespace Contra
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("uk-UA");
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
             resources.ApplyResources(this, "$this");
-            applyResources(resources, this.Controls);
+            applyResources(resources, Controls);
             Globals.GB_Checked = false;
             Globals.RU_Checked = false;
             Globals.BG_Checked = false;
@@ -2894,8 +2129,10 @@ namespace Contra
             toolTip1.SetToolTip(GoofyPics, "Використовуйте смішні портрети Генералів.");
             toolTip1.SetToolTip(WinCheckBox, "Запускає Contra у віконному режимі замість повноекранного.");
             toolTip1.SetToolTip(QSCheckBox, "Вимикає інтро і шелмапу (гра запускається швидше).");
-            toolTip1.SetToolTip(whoIsOnline, "Показати, хто в мережі.");
             toolTip1.SetToolTip(vpn_start, "Відкрити/закрити ContraVPN.");
+            toolTip1.SetToolTip(ZTConfigBtn, "Відкрити файл конфігурації ContraVPN.");
+            toolTip1.SetToolTip(ZTConsoleBtn, "Відкрити консоль ContraVPN.");
+            toolTip1.SetToolTip(ZTNukeBtn, "Видалити ContraVPN.");
             toolTip1.SetToolTip(DonateBtn, "Дарить команду проекту.");
             RadioLocQuotes.Text = "Англ.";
             RadioOrigQuotes.Text = "Рідні";
@@ -2921,27 +2158,19 @@ namespace Contra
                 yearString = "2019";
             }
             versionLabel.Text = "Contra Project Team " + yearString + " - Версія 009 Фінал" + verString + " - Launcher: " + Application.ProductVersion;
-            vpnSettingsLabel.Text = "Настройки VPN";
 
-            Process[] tincdByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
-            if (tincdByName.Length > 0 && wait == false) //if tinc is already running
+            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            if (ztExeByName.Length > 0 && wait == false) //if zt is already running
             {
-                vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                whoIsOnline.Show();
-                labelVpnStatus.Text = "Ввімк.";
+                vpn_start.BackgroundImage = Properties.Resources.vpn_on;
                 IP_Label.Text = "IP: " + ip;
             }
-            if (tincdByName.Length > 0) //if tinc is already running
+            if (ztExeByName.Length > 0) //if zt is already running
             {
-                labelVpnStatus.Text = "Ввімк.";
-                //refreshOnlinePlayersBtn.PerformClick();
-                playersOnlineLabel.Text = "В мережі!";
                 IP_Label.Text = "IP: " + ip;
             }
-            if (tincdByName.Length == 0) //if tinc is not running
+            if (ztExeByName.Length == 0) //if zt is not running
             {
-                playersOnlineLabel.Text = "ContraVPN вимкнено";
-                labelVpnStatus.Text = "Вимк.";
                 IP_Label.Text = "IP: невідомо";
             }
 
@@ -2950,7 +2179,7 @@ namespace Contra
             {
                 {
                     System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(this.ThreadProcSafe));
+                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafe));
                     demoThread.Start();
                 }
             }
@@ -2962,7 +2191,7 @@ namespace Contra
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("bg-BG");
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
             resources.ApplyResources(this, "$this");
-            applyResources(resources, this.Controls);
+            applyResources(resources, Controls);
             Globals.GB_Checked = false;
             Globals.RU_Checked = false;
             Globals.UA_Checked = false;
@@ -2978,8 +2207,10 @@ namespace Contra
             toolTip1.SetToolTip(GoofyPics, "Използвайте забавните генералски портрети.");
             toolTip1.SetToolTip(WinCheckBox, "Стартира Contra в нов прозорец вместо на цял екран.");
             toolTip1.SetToolTip(QSCheckBox, "Изключва интрото и анимираната карта (шелмапа). Играта стартира по-бързо.");
-            toolTip1.SetToolTip(whoIsOnline, "Покажи кои играчи са на линия.");
-            toolTip1.SetToolTip(vpn_start, "Включи/изключи ContraVPN.");
+            toolTip1.SetToolTip(vpn_start, "Включете/изключете ContraVPN.");
+            toolTip1.SetToolTip(ZTConfigBtn, "Отворете конфигурационния файл на ContraVPN.");
+            toolTip1.SetToolTip(ZTConsoleBtn, "Отворете конзолния прозорец на ContraVPN.");
+            toolTip1.SetToolTip(ZTNukeBtn, "Деинсталирайте ContraVPN.");
             toolTip1.SetToolTip(DonateBtn, "Направете дарение.");
             RadioLocQuotes.Text = "Англ.";
             RadioOrigQuotes.Text = "Родни";
@@ -3005,27 +2236,19 @@ namespace Contra
                 yearString = "2019";
             }
             versionLabel.Text = "Contra Екип " + yearString + " - Версия 009 Final" + verString + " - Launcher: " + Application.ProductVersion;
-            vpnSettingsLabel.Text = "VPN Настройки";
 
-            Process[] tincdByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
-            if (tincdByName.Length > 0 && wait == false) //if tinc is already running
+            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            if (ztExeByName.Length > 0 && wait == false) //if zt is already running
             {
-                vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                whoIsOnline.Show();
-                labelVpnStatus.Text = "Вкл.";
+                vpn_start.BackgroundImage = Properties.Resources.vpn_on;
                 IP_Label.Text = "IP: " + ip;
             }
-            if (tincdByName.Length > 0) //if tinc is already running
+            if (ztExeByName.Length > 0) //if zt is already running
             {
-                labelVpnStatus.Text = "Вкл.";
-                //refreshOnlinePlayersBtn.PerformClick();
-                playersOnlineLabel.Text = "На линия!";
                 IP_Label.Text = "IP: " + ip;
             }
-            if (tincdByName.Length == 0) //if tinc is not running
+            if (ztExeByName.Length == 0) //if zt is not running
             {
-                playersOnlineLabel.Text = "ContraVPN изключен";
-                labelVpnStatus.Text = "Изкл.";
                 IP_Label.Text = "IP: неизвестен";
             }
 
@@ -3034,7 +2257,7 @@ namespace Contra
             {
                 {
                     System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(this.ThreadProcSafe));
+                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafe));
                     demoThread.Start();
                 }
             }
@@ -3046,7 +2269,7 @@ namespace Contra
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("de-DE");
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
             resources.ApplyResources(this, "$this");
-            applyResources(resources, this.Controls);
+            applyResources(resources, Controls);
             Globals.GB_Checked = false;
             Globals.RU_Checked = false;
             Globals.UA_Checked = false;
@@ -3062,9 +2285,11 @@ namespace Contra
             toolTip1.SetToolTip(GoofyPics, "Verwende lustige General Portraits.");
             toolTip1.SetToolTip(WinCheckBox, "Startet Contra in einem Fenster anstatt im Vollbild.");
             toolTip1.SetToolTip(QSCheckBox, "Deaktiviert das Intro und die shellmap (Spiel startet schneller).");
-            toolTip1.SetToolTip(whoIsOnline, "Anzeigen wer online ist.");
             toolTip1.SetToolTip(vpn_start, "Starte/SchlieЯe ContraVPN.");
-            toolTip1.SetToolTip(DonateBtn, "Spende Geld an das Contra-Team.");
+            toolTip1.SetToolTip(ZTConfigBtn, "Öffnen Sie die ContraVPN-Konfigurationsdatei.");
+            toolTip1.SetToolTip(ZTConsoleBtn, "Öffnen Sie die ContraVPN-Konsole.");
+            toolTip1.SetToolTip(ZTNukeBtn, "Öffnen Sie die ContraVPN-Konsole.");
+            toolTip1.SetToolTip(DonateBtn, "Deinstallieren Sie ContraVPN.");
             voicespanel.Left = 260;
             voicespanel.Size = new Size(95, 61);
             RadioLocQuotes.Text = "Englisch"; RadioLocQuotes.Left = 0;
@@ -3091,27 +2316,19 @@ namespace Contra
                 yearString = "2019";
             }
             versionLabel.Text = "Contra Projekt Team " + yearString + " - Version 009 Final" + verString + " - Launcher: " + Application.ProductVersion;
-            vpnSettingsLabel.Text = "VPN Einstellungen";
 
-            Process[] tincdByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
-            if (tincdByName.Length > 0 && wait == false) //if tinc is already running
+            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            if (ztExeByName.Length > 0 && wait == false) //if zt is already running
             {
-                vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
-                whoIsOnline.Show();
-                labelVpnStatus.Text = "An";
+                vpn_start.BackgroundImage = Properties.Resources.vpn_on;
                 IP_Label.Text = "IP: " + ip;
             }
-            if (tincdByName.Length > 0) //if tinc is already running
+            if (ztExeByName.Length > 0) //if zt is already running
             {
-                labelVpnStatus.Text = "An";
-                //refreshOnlinePlayersBtn.PerformClick();
-                playersOnlineLabel.Text = "Online!";
                 IP_Label.Text = "IP: " + ip;
             }
-            if (tincdByName.Length == 0) //if tinc is not running
+            if (ztExeByName.Length == 0) //if zt is not running
             {
-                playersOnlineLabel.Text = "ContraVPN deaktiviert";
-                labelVpnStatus.Text = "Aus";
                 IP_Label.Text = "IP: unbekannt";
             }
 
@@ -3120,7 +2337,7 @@ namespace Contra
             {
                 {
                     System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(this.ThreadProcSafe));
+                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafe));
                     demoThread.Start();
                 }
             }
@@ -3195,129 +2412,28 @@ namespace Contra
 
         private void button18_MouseEnter(object sender, EventArgs e)
         {
-            button18.BackgroundImage = (System.Drawing.Image)(Properties.Resources.exit11);
+            button18.BackgroundImage = Properties.Resources.exit11;
         }
 
         private void button18_MouseLeave(object sender, EventArgs e)
         {
-            button18.BackgroundImage = (System.Drawing.Image)(Properties.Resources.exit1);
+            button18.BackgroundImage = Properties.Resources.exit1;
         }
 
         private void button17_MouseEnter(object sender, EventArgs e)
         {
-            button17.BackgroundImage = (System.Drawing.Image)(Properties.Resources.min11);
+            button17.BackgroundImage = Properties.Resources.min11;
         }
 
         private void button17_MouseLeave(object sender, EventArgs e)
         {
-            button17.BackgroundImage = (System.Drawing.Image)(Properties.Resources.min);
-        }
-
-        private void OpenPlayersList()
-        {
-            Process onlinePlayers = new Process();
-            onlinePlayers.StartInfo.Arguments = "--config=\"" + vpnconfig + "\" --pidfile=\"" + vpnconfig + "\\tinc.pid\"";
-            onlinePlayers.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tinc.exe";
-            onlinePlayers.StartInfo.UseShellExecute = false;
-            onlinePlayers.StartInfo.RedirectStandardInput = true;
-            onlinePlayers.StartInfo.RedirectStandardOutput = true;
-            onlinePlayers.StartInfo.CreateNoWindow = true;
-            onlinePlayers.Start();
-            onlinePlayers.StandardInput.WriteLine("dump reachable nodes");
-            onlinePlayers.StandardInput.Flush();
-            onlinePlayers.StandardInput.Close();
-            string s = onlinePlayers.StandardOutput.ReadToEnd();
-            if (s.Contains("id") == true)
-            {
-                if (Globals.GB_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Online!";
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Онлайн!";
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    playersOnlineLabel.Text = "В мережі!";
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    playersOnlineLabel.Text = "На линия!";
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Online!";
-                }
-                whoIsOnline.PerformClick();
-                onlinePlayers.WaitForExit();
-                onlinePlayers.Close();
-         //       VpnIP();
-                refreshVpnIpTimer.Enabled = true;
-            }
-        }
-
-        private void OpenPlayersListTimer_Tick(object sender, EventArgs e)
-        {
-            openPlayersListTimer.Enabled = false;
-            //openPlayersListTimer.Interval = 1000;
-            Process onlinePlayers = new Process();
-            onlinePlayers.StartInfo.Arguments = "--config=\"" + vpnconfig + "\" --pidfile=\"" + vpnconfig + "\\tinc.pid\"";
-            onlinePlayers.StartInfo.FileName = Environment.CurrentDirectory + @"\contra\vpn\" + Globals.userOS + @"\tinc.exe";
-            onlinePlayers.StartInfo.UseShellExecute = false;
-            onlinePlayers.StartInfo.RedirectStandardInput = true;
-            onlinePlayers.StartInfo.RedirectStandardOutput = true;
-            onlinePlayers.StartInfo.CreateNoWindow = true;
-            onlinePlayers.Start();
-            onlinePlayers.StandardInput.WriteLine("dump reachable nodes");
-            onlinePlayers.StandardInput.Flush();
-            onlinePlayers.StandardInput.Close();
-            string s = onlinePlayers.StandardOutput.ReadToEnd();
-            if (s.Contains("id") == true)
-            {
-                //int s2 = Regex.Matches(s, "id").Count;
-                //if (s.Contains("ctrvpntest") == true)
-                //{
-                //    s2 -= 1;
-                //}
-                //if (s.Contains("contravpn") == true)
-                //{
-                //    s2 -= 1;
-                //}
-                //                s2 -= 1; //excluding local user
-
-                if (Globals.GB_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Online!";
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Онлайн!";
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    playersOnlineLabel.Text = "В мережі!";
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    playersOnlineLabel.Text = "На линия!";
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    playersOnlineLabel.Text = "Online!";
-                }
-                whoIsOnline.PerformClick();
-                onlinePlayers.WaitForExit();
-                onlinePlayers.Close();
-          //      VpnIP();
-                refreshVpnIpTimer.Enabled = true;
-            }
+            button17.BackgroundImage = Properties.Resources.min;
         }
 
         int i = 0;
         private void RefreshVpnIpTimer_Tick(object sender, EventArgs e) //refresh VPN IP five times
         {
-            ZT_IP();// VpnIP();
+            ZT_IP();
             i++;
             if (i == 3)
             {
@@ -3333,243 +2449,19 @@ namespace Contra
             }
         }
 
-        public static void DisplayDnsConfiguration()
-        {
-            bool stopDialog = false;
-            string concatName = string.Empty;
-            string concatDesc = string.Empty;
-            NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
-            foreach (NetworkInterface adapter in adapters)
-            {
-                IPInterfaceProperties properties = adapter.GetIPProperties();
-                concatDesc += adapter.Description;
-                concatName += adapter.Name;
-            }
-
-            foreach (NetworkInterface adapter in adapters)
-            {
-                IPInterfaceProperties properties = adapter.GetIPProperties();
-                if (concatDesc.Contains("TAP-Windows Adapter V9") == true && concatName.Contains("ContraVPN") == false)
-                {
-                    if (adapter.Name.Contains("swr.net") == true)
-                    {
-                        continue;
-                    }
-                    if (adapter.Description.Contains("TAP-Windows Adapter V9") == true && stopDialog == false)
-                    {
-                        Properties.Settings.Default.adapterExists = true; //?
-                        if (Globals.GB_Checked == true)
-                        {
-                            DialogResult dialogResult = MessageBox.Show("Use existing adapter " + adapter.Name + " for ContraVPN?", "Choose Adapter", MessageBoxButtons.YesNo);
-                            if (dialogResult == DialogResult.Yes)
-                            {
-                                Process netsh = new Process();
-                                netsh.StartInfo.FileName = "netsh.exe";
-                                netsh.StartInfo.UseShellExecute = false;
-                                netsh.StartInfo.RedirectStandardInput = true;
-                                netsh.StartInfo.RedirectStandardOutput = true;
-                                netsh.StartInfo.RedirectStandardError = true;
-                                netsh.StartInfo.CreateNoWindow = true;
-                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"ContraVPN\"";
-                                netsh.Start();
-
-                                stopDialog = true;
-                                adapterInstalled = true;
-                                MessageBox.Show("All done! The new adapter is now in use by ContraVPN!");
-                            }
-                            else if (dialogResult == DialogResult.No)
-                            {
-                                //Properties.Settings.Default.adapterExists = false;
-                            }
-                        }
-                        else if (Globals.RU_Checked == true)
-                        {
-                            DialogResult dialogResult = MessageBox.Show("Использовать существующий адаптер " + adapter.Name + " для ContraVPN?", "Выберите адаптер", MessageBoxButtons.YesNo);
-                            if (dialogResult == DialogResult.Yes)
-                            {
-                                Process netsh = new Process();
-                                netsh.StartInfo.FileName = "netsh.exe";
-                                netsh.StartInfo.UseShellExecute = false;
-                                netsh.StartInfo.RedirectStandardInput = true;
-                                netsh.StartInfo.RedirectStandardOutput = true;
-                                netsh.StartInfo.RedirectStandardError = true;
-                                netsh.StartInfo.CreateNoWindow = true;
-                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"ContraVPN\"";
-                                netsh.Start();
-
-                                stopDialog = true;
-                                adapterInstalled = true;
-                                MessageBox.Show("Все сделано! Новый адаптер теперь используется ContraVPN!");
-                            }
-                            else if (dialogResult == DialogResult.No)
-                            {
-                                ////Properties.Settings.Default.adapterExists = false;
-                            }
-                        }
-                        else if (Globals.UA_Checked == true)
-                        {
-                            DialogResult dialogResult = MessageBox.Show("Використовувати існуючий адаптер " + adapter.Name + " для ContraVPN?", "Виберіть адептер", MessageBoxButtons.YesNo);
-                            if (dialogResult == DialogResult.Yes)
-                            {
-                                Process netsh = new Process();
-                                netsh.StartInfo.FileName = "netsh.exe";
-                                netsh.StartInfo.UseShellExecute = false;
-                                netsh.StartInfo.RedirectStandardInput = true;
-                                netsh.StartInfo.RedirectStandardOutput = true;
-                                netsh.StartInfo.RedirectStandardError = true;
-                                netsh.StartInfo.CreateNoWindow = true;
-                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"ContraVPN\"";
-                                netsh.Start();
-
-                                stopDialog = true;
-                                adapterInstalled = true;
-                                MessageBox.Show("Все зроблено! Новий адаптер тепер використовується ContraVPN!");
-                            }
-                            else if (dialogResult == DialogResult.No)
-                            {
-                                //Properties.Settings.Default.adapterExists = false;
-                            }
-                        }
-                        else if (Globals.BG_Checked == true)
-                        {
-                            DialogResult dialogResult = MessageBox.Show("Желаете ли да използвате " + adapter.Name + " за ContraVPN?", "Изберете адаптер", MessageBoxButtons.YesNo);
-                            if (dialogResult == DialogResult.Yes)
-                            {
-                                Process netsh = new Process();
-                                netsh.StartInfo.FileName = "netsh.exe";
-                                netsh.StartInfo.UseShellExecute = false;
-                                netsh.StartInfo.RedirectStandardInput = true;
-                                netsh.StartInfo.RedirectStandardOutput = true;
-                                netsh.StartInfo.RedirectStandardError = true;
-                                netsh.StartInfo.CreateNoWindow = true;
-                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"ContraVPN\"";
-                                netsh.Start();
-
-                                stopDialog = true;
-                                adapterInstalled = true;
-                                MessageBox.Show("Готово! Новият адаптер вече се ползва от ContraVPN!");
-                            }
-                            else if (dialogResult == DialogResult.No)
-                            {
-                                //Properties.Settings.Default.adapterExists = false;
-                            }
-                        }
-                        else if (Globals.DE_Checked == true)
-                        {
-                            DialogResult dialogResult = MessageBox.Show("Bereits vorhandenen Adapter " + adapter.Name + " fьr ContraVPN benutzen?", "Wдhle Adapter", MessageBoxButtons.YesNo);
-                            if (dialogResult == DialogResult.Yes)
-                            {
-                                Process netsh = new Process();
-                                netsh.StartInfo.FileName = "netsh.exe";
-                                netsh.StartInfo.UseShellExecute = false;
-                                netsh.StartInfo.RedirectStandardInput = true;
-                                netsh.StartInfo.RedirectStandardOutput = true;
-                                netsh.StartInfo.RedirectStandardError = true;
-                                netsh.StartInfo.CreateNoWindow = true;
-                                netsh.StartInfo.Arguments = "interface set interface name = " + "\"" + adapter.Name + "\"" + " newname = \"ContraVPN\"";
-                                netsh.Start();
-
-                                stopDialog = true;
-                                adapterInstalled = true;
-                                MessageBox.Show("Alles Fertig! Der neue Adapter wird nun von ContraVPN benutzt!");
-                            }
-                            else if (dialogResult == DialogResult.No)
-                            {
-                                //Properties.Settings.Default.adapterExists = false;
-                            }
-                        }
-                    }
-                }
-                else if (concatDesc.Contains("TAP-Windows Adapter V9") == true && concatName.Contains("ContraVPN") == true)
-                {
-                    Properties.Settings.Default.adapterExists = true;
-                }
-                else
-                {
-                    Properties.Settings.Default.adapterExists = false;
-                }
-            }
-            if (concatName.Contains("ContraVPN") == false)
-            {
-                Properties.Settings.Default.adapterExists = false;
-            }
-        }
-
-        //bool UserOnWine;
-
-        //public void CheckRegistryPathForWine()
-        //{
-        //    RegistryKey r;
-
-        //    try
-        //    {
-        //        r = Registry.LocalMachine.OpenSubKey(@"Software\Wine");
-
-        //        if (r != null)
-        //        {
-        //            MessageBox.Show("We've detected you're running launcher on Wine, Play-on-Linux or similar.\nVPN functionality disabled, please use native TincVPN 1.1+ on your system manually\nto connect as wine will need to use native tap adapters provided by your kernel to work.\n\nPlease visit #support channel on our discord for help with this.");
-        //            UserOnWine = true;
-        //        }
-        //    }
-        //    catch (Exception ex) { Console.Error.WriteLine(ex); }
-        //}
-
         private void vpn_start_Click(object sender, EventArgs e)
         {
-            //if (ztStartFail == true)
-            //{
-            //    if (Globals.GB_Checked == true)
-            //    {
-            //        MessageBox.Show("There was a problem starting ZT process!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //    else if (Globals.RU_Checked == true)
-            //    {
-            //        MessageBox.Show("Файл \"Options.ini\" не найден!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //    else if (Globals.UA_Checked == true)
-            //    {
-            //        MessageBox.Show("Файл Options.ini не знайдений!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //    else if (Globals.BG_Checked == true)
-            //    {
-            //        MessageBox.Show("Options.ini не беше намерен!", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //    else if (Globals.DE_Checked == true)
-            //    {
-            //        MessageBox.Show("Options.ini nicht gefunden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //}
+            disableVPNOnBtn = false;
 
-            //string tincd = "zerotier-one_x" + Globals.userOS + ".exe";
-            //Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
             Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
-            //CheckRegistryPathForWine();
-            //if (UserOnWine == true)
-            //{
-            //    return;
-            //}
             if (ztExeByName.Length == 0)
             {
                 var instance = new ZT();
                 instance.CheckZTInstall("https://download.zerotier.com/dist/ZeroTier%20One.msi");
             }
 
-            //MessageBox.Show(Globals.ZTReady.ToString());
-
             if (Globals.ZTReady == 4)
             {
-                //StartZT();
-
-                //CheckFirewallExceptions(); // needs to be reworked for zt
-                //string ztx64 = "zerotier-one_x64.exe";
-                //string ztx86 = "zerotier-one_x86.exe";
-
-                //Process[] ztx64ByName = Process.GetProcessesByName(ztx64.Substring(0, ztx64.LastIndexOf('.')));
-                //if (ztx64ByName.Length == 0)
-                //{
-                //    DisplayDnsConfiguration();
-                //}
-
                 try //check if zt is running or not
                 {
 
@@ -3603,27 +2495,7 @@ namespace Contra
                                 IP_Label.Text = "IP: unbekannt";
                             }
 
-                            vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off);
-                            whoIsOnline.Hide();
-                            foreach (Form onlinePlayersForm in Application.OpenForms)
-                            {
-                                if (onlinePlayersForm is onlinePlayersForm)
-                                {
-                                    onlinePlayersForm.Close();
-
-                                    if (onlinePlayersForm.WindowState == FormWindowState.Normal)
-                                    {
-                                        Properties.Settings.Default.playersOnlineWindowLocation = onlinePlayersForm.Location;
-                                    }
-                                    else
-                                    {
-                                        Properties.Settings.Default.playersOnlineWindowLocation = onlinePlayersForm.RestoreBounds.Location;
-                                    }
-                                    Properties.Settings.Default.Save();
-
-                                    return;
-                                }
-                            }
+                            vpn_start.BackgroundImage = Properties.Resources.vpn_off;
                             return;
                         }
                     }
@@ -3634,181 +2506,12 @@ namespace Contra
                 }
                 catch { }
             }
-
-            //check if adapter is installed
-
-            //if (Properties.Settings.Default.adapterExists == true)
-            //{
-            //    //MessageBox.Show("The adapter already exists!");
-            //    try //check if tincd is running or not
-            //    {
-            //        string tincd = "tincd.exe";
-            //        Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-            //        if (tincdByName.Length > 0) //if tinc is running but we are clicking button again to turn it off
-            //        {
-            //            Process[] vpnprocesses = Process.GetProcessesByName("tincd");
-            //            foreach (Process vpnprocess in vpnprocesses)
-            //            {
-            //                vpnprocess.Kill();
-            //                vpnprocess.WaitForExit();
-            //                vpnprocess.Dispose();
-
-            //                vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off);
-            //                whoIsOnline.Hide();
-            //                foreach (Form onlinePlayersForm in Application.OpenForms)
-            //                {
-            //                    if (onlinePlayersForm is onlinePlayersForm)
-            //                    {
-            //                        onlinePlayersForm.Close();
-
-            //                        if (onlinePlayersForm.WindowState == FormWindowState.Normal)
-            //                        {
-            //                            Properties.Settings.Default.playersOnlineWindowLocation = onlinePlayersForm.Location;
-            //                        }
-            //                        else
-            //                        {
-            //                            Properties.Settings.Default.playersOnlineWindowLocation = onlinePlayersForm.RestoreBounds.Location;
-            //                        }
-            //                        Properties.Settings.Default.Save();
-
-            //                        return;
-            //                    }
-            //                }
-            //                return;
-            //            }
-            //        }
-            //        else
-            //        {
-            //            if (Properties.Settings.Default.ShowConsole == true && Properties.Settings.Default.adapterExists == true)
-            //            {
-            //                StartVPN();
-            //            }
-            //            else if (Properties.Settings.Default.adapterExists == true)
-            //            {
-            //                StartVPN_NoWindow();
-            //            }
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        VpnOffNoCond();
-            //        MessageBox.Show(ex.Message, "Error");
-            //    }
-            //}
-            ////else if (adapterInstalled == false || Properties.Settings.Default.adapterExists == false) //if (Properties.Settings.Default.stopDialog == false)
-            //else if (adapterInstalled == false) //if (Properties.Settings.Default.stopDialog == false)
-            //{
-            //    try
-            //    {
-            //        if (Globals.GB_Checked == true)
-            //        {
-            //            MessageBox.Show("There is no free TAP-Windows Adapter V9 installed. Starting setup...");
-            //        }
-            //        else if (Globals.RU_Checked == true)
-            //        {
-            //            MessageBox.Show("Нет свободного установленого адаптера TAP-Windows V9. Запуск установки...");
-            //        }
-            //        else if (Globals.UA_Checked == true)
-            //        {
-            //            MessageBox.Show("Немає вільного встановленого TAP-Windows Adapter V9. Запуск установки...");
-            //        }
-            //        else if (Globals.BG_Checked == true)
-            //        {
-            //            MessageBox.Show("Липсва свободен TAP-Windows Adapter V9. Стартиране на инсталацията...");
-            //        }
-            //        else if (Globals.DE_Checked == true)
-            //        {
-            //            MessageBox.Show("Free TAP-Windows Adapter V9 ist nicht installiert. Starte Installation...");
-            //        }
-            //        string path = Path.GetDirectoryName(Application.ExecutablePath);
-            //        Process adapter = new Process();
-
-            //        adapter.StartInfo.FileName = "\"" + path + @"\contra\vpn\" + Globals.userOS + @"\devcon.exe" + "\"";
-            //        adapter.StartInfo.Arguments = " install " + "\"" + path + @"\contra\vpn\" + Globals.userOS + @"\OemWin2k.inf" + "\"" + " tap0901";
-            //        adapter.StartInfo.UseShellExecute = false;
-            //        adapter.StartInfo.RedirectStandardInput = true;
-            //        adapter.StartInfo.CreateNoWindow = true;
-            //        adapter.Start();
-            //        adapter.WaitForExit();
-            //        if (Globals.GB_Checked == true)
-            //        {
-            //            if (adapter.ExitCode == 0)
-            //            {
-            //                MessageBox.Show("A new TAP-Windows Adapter V9 has been installed. You may now allow it to be used by ContraVPN (selecting \"Yes\" on the first dialog message).", "Adapter Installed");
-            //                adapterInstalled = true;
-            //                DisplayDnsConfiguration();
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("TAP-Windows Adapter V9 installation failed.", "Adapter Install Failed");
-            //            }
-            //        }
-            //        else if (Globals.RU_Checked == true)
-            //        {
-            //            if (adapter.ExitCode == 0)
-            //            {
-            //                MessageBox.Show("Был установлен новый адаптер TAP-Windows V9. Теперь вы можете разрешить его использовать ContraVPN (выбирая \"Да\" в первом диалоговом сообщении).", "Адаптер установлен");
-            //                adapterInstalled = true;
-            //                DisplayDnsConfiguration();
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("Не удалось установить TAP-Windows Adapter V9.", "Не удалось установить адаптер");
-            //            }
-            //        }
-            //        else if (Globals.UA_Checked == true)
-            //        {
-            //            if (adapter.ExitCode == 0)
-            //            {
-            //                MessageBox.Show("Був встановлений новий TAP-Windows Adapter V9. Тепер ви можете дозволити його використовувати ContraVPN (вибравши \"Так\" у першому діалоговому вікні).", "Адаптер установлено");
-            //                adapterInstalled = true;
-            //                DisplayDnsConfiguration();
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("Не вдалося встановити TAP-Windows Adapter V9.", "Не вдалося встановити адаптер");
-            //            }
-            //        }
-            //        else if (Globals.BG_Checked == true)
-            //        {
-            //            if (adapter.ExitCode == 0)
-            //            {
-            //                MessageBox.Show("Нов TAP-Windows Adapter V9 беше инсталиран. Сега можете позволите той да бъде използван от ContraVPN (избирайки \"Да\" на първото съобщение)", "Адаптерът е инсталиран");
-            //                adapterInstalled = true;
-            //                DisplayDnsConfiguration();
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("Инсталацията на TAP-Windows Adapter V9 се провали.", "Грешка");
-            //            }
-            //        }
-            //        else if (Globals.DE_Checked == true)
-            //        {
-            //            if (adapter.ExitCode == 0)
-            //            {
-            //                MessageBox.Show("Ein neuer TAP-Windows Adapter V9 wurde installiert. Du solltest ihm nicht erlauben von ContraVPN benutzt zu werden (Wдhle \"yes\" auf dem ersten dialog Fenster)", "Adapter installiert");
-            //                adapterInstalled = true;
-            //                DisplayDnsConfiguration();
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("TAP-Windows Adapter V9 Installation gescheitert.", "Adapter Installation gescheitert");
-            //            }
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show(ex.Message);
-            //    }
-            //}
         }
 
         private void ZT_IP()
         {
             Process ztExe = new Process();
             ztExe.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
-            //ztExe.StartInfo.FileName = ztExe.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
-            //ztExe.StartInfo.Arguments = "./zt-cli listnetworks";
             ztExe.StartInfo.FileName = @"C:\windows\system32\windowspowershell\v1.0\powershell.exe";
             ztExe.StartInfo.Arguments = "./zt-cli listnetworks";
             ztExe.StartInfo.UseShellExecute = false;
@@ -3840,20 +2543,21 @@ namespace Contra
                     {
                         writeIPAddress(myDocPath + "Options.ini");
                     }
-                    else
-                    {
-                        var cannotsaveip_lang = new Dictionary<string, bool>
-                        {
-                            {"Options.ini not found!\nCannot write IPAddress.", Globals.GB_Checked},
-                            {"Файл Options.ini не найден!\nНевозможно записать IPAddress.", Globals.RU_Checked},
-                            {"Файл Options.ini не знайдений!\nНеможливо написати IPAddress.", Globals.UA_Checked},
-                            {"Options.ini не беше намерен!\nНе може запише IPAddress.", Globals.BG_Checked},
-                            {"Options.ini nicht gefunden!\nIPAddress kann nicht geschrieben werden.", Globals.DE_Checked},
-                        };
-                        //Too spammy
-                        //MessageBox.Show(cannotsaveip_lang.Single(l => l.Value).Key, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //Console.Error.WriteLine(cannotsaveip_lang.Single(l => l.Value).Key);
-                    }
+                    //else
+                    //{
+                    //    var cannotsaveip_lang = new Dictionary<string, bool>
+                    //    {
+                    //        {"Options.ini not found!\nCannot write IPAddress.", Globals.GB_Checked},
+                    //        {"Файл Options.ini не найден!\nНевозможно записать IPAddress.", Globals.RU_Checked},
+                    //        {"Файл Options.ini не знайдений!\nНеможливо написати IPAddress.", Globals.UA_Checked},
+                    //        {"Options.ini не беше намерен!\nНе може запише IPAddress.", Globals.BG_Checked},
+                    //        {"Options.ini nicht gefunden!\nIPAddress kann nicht geschrieben werden.", Globals.DE_Checked},
+                    //    };
+
+                    //    //Too spammy
+                    //    //MessageBox.Show(cannotsaveip_lang.Single(l => l.Value).Key, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    //Console.Error.WriteLine(cannotsaveip_lang.Single(l => l.Value).Key);
+                    //}
                 }
                 else
                 {
@@ -3875,187 +2579,71 @@ namespace Contra
             catch { }// (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
-        //private static void VpnIP()
-        //{
-        //    Process netsh = new Process();
-        //    netsh.StartInfo.FileName = "netsh.exe";
-        //    netsh.StartInfo.UseShellExecute = false;
-        //    netsh.StartInfo.RedirectStandardInput = true;
-        //    netsh.StartInfo.RedirectStandardOutput = true;
-        //    netsh.StartInfo.RedirectStandardError = true;
-        //    netsh.StartInfo.CreateNoWindow = true;
-        //    netsh.StartInfo.Arguments = "interface ip show addresses ContraVPN";
-        //    try
-        //    {
-        //        netsh.Start();
-        //        netsh.WaitForExit();
-        //        // Match vpn DHCP pool range 10.10.10.[11-254]
-        //        string ip = Regex.Match(netsh.StandardOutput.ReadToEnd(), "10.10.10.(1[1-9]|[2-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-4])?\r?\n").Value.Trim();
-
-        //        if (!string.IsNullOrWhiteSpace(ip))
-        //        {
-        //            Properties.Settings.Default.IP_Label = "IP: " + ip;
-        //            void writeIPAddress(string path)
-        //            {
-        //                File.WriteAllText(path, Regex.Replace(File.ReadAllText(path), "^IPAddress.*\\S+", $"IPAddress = {ip}", RegexOptions.Multiline));
-        //            }
-        //            if (File.Exists(UserDataLeafName() + "Options.ini"))
-        //            {
-        //                writeIPAddress(UserDataLeafName() + "Options.ini");
-        //            }
-        //            else if (File.Exists(myDocPath + "Options.ini"))
-        //            {
-        //                writeIPAddress(myDocPath + "Options.ini");
-        //            }
-        //            else
-        //            {
-        //                var cannotsaveip_lang = new Dictionary<string, bool>
-        //                {
-        //                    {"Options.ini not found!\nCannot write IPAddress.", Globals.GB_Checked},
-        //                    {"Файл Options.ini не найден!\nНевозможно записать IPAddress.", Globals.RU_Checked},
-        //                    {"Файл Options.ini не знайдений!\nНеможливо написати IPAddress.", Globals.UA_Checked},
-        //                    {"Options.ini не беше намерен!\nНе може запише IPAddress.", Globals.BG_Checked},
-        //                    {"Options.ini nicht gefunden!\nIPAddress kann nicht geschrieben werden.", Globals.DE_Checked},
-        //                };
-        //                //Too spammy
-        //                //MessageBox.Show(cannotsaveip_lang.Single(l => l.Value).Key, null, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //                Console.Error.WriteLine(cannotsaveip_lang.Single(l => l.Value).Key);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            var iplabel_lang = new Dictionary<string, bool>
-        //            {
-        //                {"Not compatible", Globals.GB_Checked},
-        //                {"несовместимый", Globals.RU_Checked},
-        //                {"несумісні", Globals.UA_Checked},
-        //                {"несъвместим", Globals.BG_Checked},
-        //                {"Nicht Kompatibel", Globals.DE_Checked},
-        //            };
-        //            Properties.Settings.Default.IP_Label = "IP: " + iplabel_lang.Single(l => l.Value).Key;
-        //        }
-        //    }
-        //    catch (Exception ex) { Console.Error.WriteLine(ex); }
-        //}
-
-        private void whoIsOnline_Click(object sender, EventArgs e)
-        {
-            foreach (Form onlinePlayersForm in Application.OpenForms)
-            {
-                if (onlinePlayersForm is onlinePlayersForm)
-                {
-                    onlinePlayersForm.Close();
-
-                    if (onlinePlayersForm.WindowState == FormWindowState.Normal)
-                    {
-                        Properties.Settings.Default.playersOnlineWindowLocation = onlinePlayersForm.Location;
-                    }
-                    else
-                    {
-                        Properties.Settings.Default.playersOnlineWindowLocation = onlinePlayersForm.RestoreBounds.Location;
-                    }
-                    Properties.Settings.Default.Save();
-
-                    new onlinePlayersForm().Show();
-                    return;
-                }
-            }
-            new onlinePlayersForm().Show();
-        }
-
-        private void whoIsOnline_MouseDown(object sender, MouseEventArgs e)
-        {
-            whoIsOnline.BackgroundImage = (System.Drawing.Image)(Properties.Resources.ppl);
-            whoIsOnline.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
-        }
-
-        private void whoIsOnline_MouseEnter(object sender, EventArgs e)
-        {
-            whoIsOnline.BackgroundImage = (System.Drawing.Image)(Properties.Resources.ppl_tr);
-            whoIsOnline.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            whoIsOnline.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            whoIsOnline.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
-        }
-
-        private void whoIsOnline_MouseLeave(object sender, EventArgs e)
-        {
-            whoIsOnline.BackgroundImage = (System.Drawing.Image)(Properties.Resources.ppl);
-            whoIsOnline.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
-        }
-
         private void RadioFlag_GB_MouseEnter(object sender, EventArgs e)
         {
-            RadioFlag_GB.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_gb_tr);
+            RadioFlag_GB.BackgroundImage = Properties.Resources.flag_gb_tr;
         }
         private void RadioFlag_GB_MouseLeave(object sender, EventArgs e)
         {
-            RadioFlag_GB.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_gb);
+            RadioFlag_GB.BackgroundImage = Properties.Resources.flag_gb;
         }
 
         private void RadioFlag_RU_MouseEnter(object sender, EventArgs e)
         {
-            RadioFlag_RU.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_ru_tr);
+            RadioFlag_RU.BackgroundImage = Properties.Resources.flag_ru_tr;
         }
         private void RadioFlag_RU_MouseLeave(object sender, EventArgs e)
         {
-            RadioFlag_RU.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_ru);
+            RadioFlag_RU.BackgroundImage = Properties.Resources.flag_ru;
         }
 
         private void RadioFlag_UA_MouseEnter(object sender, EventArgs e)
         {
-            RadioFlag_UA.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_ua_tr);
+            RadioFlag_UA.BackgroundImage = Properties.Resources.flag_ua_tr;
         }
         private void RadioFlag_UA_MouseLeave(object sender, EventArgs e)
         {
-            RadioFlag_UA.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_ua);
+            RadioFlag_UA.BackgroundImage = Properties.Resources.flag_ua;
         }
 
         private void RadioFlag_BG_MouseEnter(object sender, EventArgs e)
         {
-            RadioFlag_BG.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_bg_tr);
+            RadioFlag_BG.BackgroundImage = Properties.Resources.flag_bg_tr;
         }
         private void RadioFlag_BG_MouseLeave(object sender, EventArgs e)
         {
-            RadioFlag_BG.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_bg);
+            RadioFlag_BG.BackgroundImage = Properties.Resources.flag_bg;
         }
 
         private void RadioFlag_DE_MouseEnter(object sender, EventArgs e)
         {
-            RadioFlag_DE.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_de_tr);
+            RadioFlag_DE.BackgroundImage = Properties.Resources.flag_de_tr;
         }
 
         private void RadioFlag_DE_MouseLeave(object sender, EventArgs e)
         {
-            RadioFlag_DE.BackgroundImage = (System.Drawing.Image)(Properties.Resources.flag_de);
+            RadioFlag_DE.BackgroundImage = Properties.Resources.flag_de;
         }
 
         private void vpn_start_MouseDown(object sender, MouseEventArgs e)
         {
-            vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_vpn_highlight);
+            vpn_start.BackgroundImage = Properties.Resources._button_vpn_highlight;
             vpn_start.ForeColor = SystemColors.ButtonHighlight;
             vpn_start.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
-
-            //string tincd = "tincd.exe";
-            //Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-            //if (tincdByName.Length == 0)
-            //{
-            //    openPlayersListTimer.Interval = 1000;
-            //}
         }
 
         private void vpn_start_MouseEnter(object sender, EventArgs e)
         {
-            string tincd = "zerotier-one_x" + Globals.userOS +".exe";
-            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-            if (tincdByName.Length > 0 && Globals.ZTReady == 4)
+            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            if (ztExeByName.Length > 0 && Globals.ZTReady == 4 && disableVPNOnBtn == false)
             {
-                vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on_over);
+                vpn_start.BackgroundImage = Properties.Resources.vpn_on_over;
                 vpn_start.ForeColor = SystemColors.ButtonHighlight;
                 vpn_start.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
             }
             else
             {
-                vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off_over);
+                vpn_start.BackgroundImage = Properties.Resources.vpn_off_over;
                 vpn_start.ForeColor = SystemColors.ButtonHighlight;
                 vpn_start.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
             }
@@ -4063,17 +2651,16 @@ namespace Contra
 
         private void vpn_start_MouseLeave(object sender, EventArgs e)
         {
-            string tincd = "zerotier-one_x" + Globals.userOS + ".exe";
-            Process[] tincdByName = Process.GetProcessesByName(tincd.Substring(0, tincd.LastIndexOf('.')));
-            if (tincdByName.Length > 0 && Globals.ZTReady == 4)
+            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            if (ztExeByName.Length > 0 && Globals.ZTReady == 4 && disableVPNOnBtn == false)
             {
-                vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_on);
+                vpn_start.BackgroundImage = Properties.Resources.vpn_on;
                 vpn_start.ForeColor = SystemColors.ButtonHighlight;
                 vpn_start.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
             }
             else if (disableVPNBtnChangeTimer.Enabled == false)
             {
-                vpn_start.BackgroundImage = (System.Drawing.Image)(Properties.Resources.vpn_off);
+                vpn_start.BackgroundImage = Properties.Resources.vpn_off;
                 vpn_start.ForeColor = SystemColors.ButtonHighlight;
                 vpn_start.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
             }
@@ -4136,19 +2723,19 @@ namespace Contra
 
         private void ZTConsoleBtn_MouseDown(object sender, MouseEventArgs e)
         {
-            ZTConsoleBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_console_highlight);
+            ZTConsoleBtn.BackgroundImage = Properties.Resources._button_console_highlight;
             ZTConsoleBtn.ForeColor = SystemColors.ButtonHighlight;
             ZTConsoleBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void ZTConsoleBtn_MouseEnter(object sender, EventArgs e)
         {
-            ZTConsoleBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_console_s_tr);
+            ZTConsoleBtn.BackgroundImage = Properties.Resources._button_console_s_tr;
             ZTConsoleBtn.ForeColor = SystemColors.ButtonHighlight;
             ZTConsoleBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void ZTConsoleBtn_MouseLeave(object sender, EventArgs e)
         {
-            ZTConsoleBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_console_s);
+            ZTConsoleBtn.BackgroundImage = Properties.Resources._button_console_s;
             ZTConsoleBtn.ForeColor = SystemColors.ButtonHighlight;
             ZTConsoleBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
@@ -4168,19 +2755,19 @@ namespace Contra
 
         private void ZTConfigBtn_MouseDown(object sender, MouseEventArgs e)
         {
-            ZTConfigBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_config_highlight);
+            ZTConfigBtn.BackgroundImage = Properties.Resources._button_config_highlight;
             ZTConfigBtn.ForeColor = SystemColors.ButtonHighlight;
             ZTConfigBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void ZTConfigBtn_MouseEnter(object sender, EventArgs e)
         {
-            ZTConfigBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_config_s_tr);
+            ZTConfigBtn.BackgroundImage = Properties.Resources._button_config_s_tr;
             ZTConfigBtn.ForeColor = SystemColors.ButtonHighlight;
             ZTConfigBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void ZTConfigBtn_MouseLeave(object sender, EventArgs e)
         {
-            ZTConfigBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_config_s);
+            ZTConfigBtn.BackgroundImage = Properties.Resources._button_config_s;
             ZTConfigBtn.ForeColor = SystemColors.ButtonHighlight;
             ZTConfigBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
@@ -4219,6 +2806,7 @@ namespace Contra
             DialogResult dialogResult = MessageBox.Show(dialogMsg, dialogTitle, MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
+                disableVPNOnBtn = true;
                 var instance = new ZT();
                 instance.LeaveZTNetwork();
                 if (Globals.TriedToLeaveNetwork == true)
@@ -4251,23 +2839,23 @@ namespace Contra
                     {
                         if (Globals.GB_Checked == true)
                         {
-                            MessageBox.Show("ContraVPN was already uninstalled!", "VPN was already uninstalled!");
+                            MessageBox.Show("ContraVPN is already uninstalled.", "ContraVPN already uninstalled");
                         }
                         else if (Globals.RU_Checked == true)
                         {
-                            MessageBox.Show("ContraVPN был успешно удален!", "VPN удален!");
+                            MessageBox.Show("ContraVPN уже удален.", "ContraVPN уже удален");
                         }
                         else if (Globals.UA_Checked == true)
                         {
-                            MessageBox.Show("ContraVPN успішно видалено!", "Видалено VPN!");
+                            MessageBox.Show("ContraVPN вже видалено.", "ContraVPN вже видалено");
                         }
                         else if (Globals.BG_Checked == true)
                         {
-                            MessageBox.Show("ContraVPN беше деинсталиран успешно!", "VPN деинсталиран!");
+                            MessageBox.Show("ContraVPN вече беше деинсталиран.", "ContraVPN вече беше деинсталиран");
                         }
                         else if (Globals.DE_Checked == true)
                         {
-                            MessageBox.Show("ContraVPN wurde erfolgreich deinstalliert!", "VPN deinstalliert!");
+                            MessageBox.Show("ContraVPN ist bereits deinstalliert.", "ContraVPN ist bereits deinstalliert");
                         }
                     }
                 }
@@ -4280,19 +2868,19 @@ namespace Contra
 
         private void ZTNukeBtn_MouseDown(object sender, MouseEventArgs e)
         {
-            ZTNukeBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_sm_highlight_s);
+            ZTNukeBtn.BackgroundImage = Properties.Resources._button_sm_highlight_s;
             ZTNukeBtn.ForeColor = SystemColors.ButtonHighlight;
             ZTNukeBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void ZTNukeBtn_MouseEnter(object sender, EventArgs e)
         {
-            ZTNukeBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_trash_tr);
+            ZTNukeBtn.BackgroundImage = Properties.Resources._button_trash_tr;
             ZTNukeBtn.ForeColor = SystemColors.ButtonHighlight;
             ZTNukeBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void ZTNukeBtn_MouseLeave(object sender, EventArgs e)
         {
-            ZTNukeBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_trash);
+            ZTNukeBtn.BackgroundImage = Properties.Resources._button_trash;
             ZTNukeBtn.ForeColor = SystemColors.ButtonHighlight;
             ZTNukeBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
@@ -4304,21 +2892,31 @@ namespace Contra
 
         private void DonateBtn_MouseDown(object sender, MouseEventArgs e)
         {
-            DonateBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_sm_highlight);
+            DonateBtn.BackgroundImage = Properties.Resources._button_sm_highlight;
             DonateBtn.ForeColor = SystemColors.ButtonHighlight;
             DonateBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void DonateBtn_MouseEnter(object sender, EventArgs e)
         {
-            DonateBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_donate_tr);
+            DonateBtn.BackgroundImage = Properties.Resources._button_donate_tr;
             DonateBtn.ForeColor = SystemColors.ButtonHighlight;
             DonateBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void DonateBtn_MouseLeave(object sender, EventArgs e)
         {
-            DonateBtn.BackgroundImage = (System.Drawing.Image)(Properties.Resources._button_donate);
+            DonateBtn.BackgroundImage = Properties.Resources._button_donate;
             DonateBtn.ForeColor = SystemColors.ButtonHighlight;
             DonateBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+
+        private void openPlayersListTimer_Tick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
         }
 
         private void CancelModDLBtn_Click(object sender, EventArgs e)

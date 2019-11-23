@@ -115,12 +115,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="onlinePlayersForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="onlinePlayersForm.Designer.cs">
-      <DependentUpon>onlinePlayersForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="TransparentRichTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -129,12 +123,6 @@
     </Compile>
     <Compile Include="TransparentTrackBar.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="VPNForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="VPNForm.Designer.cs">
-      <DependentUpon>VPNForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ZT.cs" />
     <EmbeddedResource Include="Globals.resx">
@@ -151,12 +139,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="onlinePlayersForm.resx">
-      <DependentUpon>onlinePlayersForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VPNForm.resx">
-      <DependentUpon>VPNForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest">
       <SubType>Designer</SubType>
@@ -197,53 +179,33 @@
     <None Include="Resources\_button_trash1.png" />
     <None Include="Resources\_button_trash.png" />
     <None Include="Resources\_button_vpn_highlight.png" />
-    <None Include="Resources\_button_config_highlight.png" />
     <None Include="Resources\_button_console_highlight.png" />
     <None Include="Resources\_button_console_s.png" />
     <None Include="Resources\_button_console_s_tr.png" />
     <None Include="Resources\_button_donate.png" />
     <None Include="Resources\_button_donate_tr.png" />
+    <None Include="Resources\_button_config_highlight.png" />
     <Content Include="Version.txt" />
     <None Include="README.md" />
-    <None Include="Resources\refresh2.png" />
-    <None Include="Resources\playersOnline.jpg" />
-    <None Include="Resources\blackDot.png" />
     <None Include="Resources\flag_de_tr.png" />
     <None Include="Resources\flag_de.png" />
     <None Include="Resources\vpnbg.jpg" />
-    <None Include="Resources\btnOk2a.png" />
-    <None Include="Resources\btnOk1a.png" />
     <None Include="Resources\btnOk3a.png" />
     <None Include="Resources\btnOk3.png" />
-    <None Include="Resources\btnOk2.png" />
-    <None Include="Resources\btnOk1.png" />
     <None Include="Resources\flag_gb_sel.png" />
     <None Include="Resources\flag_gb_tr.png" />
     <None Include="Resources\flag_bg_tr.png" />
     <None Include="Resources\flag_ua_tr.png" />
     <None Include="Resources\flag_ru_tr.png" />
-    <None Include="Resources\ppl_tr.png" />
-    <None Include="Resources\ppl.png" />
-    <None Include="Resources\refresh_tr.png" />
-    <None Include="Resources\refresh.png" />
     <None Include="Resources\min11.png" />
     <None Include="Resources\min.png" />
     <None Include="Resources\exit11.png" />
     <None Include="Resources\exit1.png" />
-    <None Include="Resources\invinp.png" />
     <None Include="Resources\flag_gb.png" />
     <None Include="Resources\flag_bg.png" />
     <None Include="Resources\flag_ru.png" />
     <None Include="Resources\flag_ua.png" />
-    <None Include="Resources\_button_config_tr.png" />
-    <None Include="Resources\_button_config.png" />
-    <None Include="Resources\_button_log_tr.png" />
-    <None Include="Resources\_button_log.png" />
-    <None Include="Resources\_button_console_tr.png" />
-    <None Include="Resources\_button_console.png" />
-    <None Include="Resources\_button_invite_tr.png" />
     <None Include="Resources\_button_sm_highlight.png" />
-    <None Include="Resources\_button_invite.png" />
     <None Include="Resources\_button_highlight.png" />
     <None Include="Resources\_button_exit_text.png" />
     <None Include="Resources\_button_exit.png" />
@@ -287,12 +249,12 @@
   <ItemGroup>
     <PublishFile Include="bn\Contra Launcher.resources">
       <Visible>False</Visible>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Satellite</FileType>
     </PublishFile>
   </ItemGroup>
