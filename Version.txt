@@ -1,6 +1,7 @@
-Mod Version: 2#
+﻿Mod Version: 2#
 Mod Version Text: 009 Final Patch 2#
 Version: 1.0.0.3#
+ZT: 1.4.6#
 MOTD-EN: We are aware of VPN instability and are testing a new VPN solution for Patch 2.#
 MOTD-RU: Мы знаем о нестабильности VPN и тестируем новый VPN для Patch 2.#
 MOTD-UA: Ми знаємо про нестабільність VPN і тестуємо нові VPN для Patch 2.#

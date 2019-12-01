@@ -1462,7 +1462,7 @@
     <value>NoControl</value>
   </data>
   <data name="ZTConfigBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>134, 102</value>
+    <value>136, 100</value>
   </data>
   <data name="ZTConfigBtn.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 39</value>
@@ -1492,7 +1492,7 @@
     <value>NoControl</value>
   </data>
   <data name="ZTConsoleBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>136, 166</value>
+    <value>138, 168</value>
   </data>
   <data name="ZTConsoleBtn.Size" type="System.Drawing.Size, System.Drawing">
     <value>40, 35</value>
@@ -1559,7 +1559,7 @@
         XTesb3QPLh88M+QwdP6m681Lt7xuXbu94vbgcOjwnZHokdE77DtTd1PuvriXeW/h/sYH6AdFD6UeVjxS
         fNTws+7PbaOWo6fHXMf6Hwc/vj/OGn/2S8Yv7ycKnpCfVEyqTDZPmU2dmnafvvF05dOJZ+nPFmYKf5X+
         tfa5zvMffnP8rX82YnbiBf/Fp99LXsq/PPRq2aueuYC5R69TXy/MF72Rf3P4LeNt37vwd5MLWe+x7ys/
-        6H7o/ujz8cGn1E+f/gUDmPP8usTo0wAAAAlwSFlzAAALDQAACw0B7QfALAAADbxJREFUWEeNlndUVFe3
+        6H7o/ujz8cGn1E+f/gUDmPP8usTo0wAAAAlwSFlzAAALDAAACwwBP0AiyAAADbxJREFUWEeNlndUVFe3
         wA+2aAIoijSJCshQBEKxUAapAiKiggKGJgFRilRpRkCwIiJNlK4oDCSCiEawoKKMxlhQI3UYEDz3Dgw4
         yDiVMpzvzpiV9/n0rfX++K19z5m9zvnN3ucWgLh934bTCxD6BMaolJ2Vnlb3y4O2V1eFuFMqg5woF35x
         ppT621NK/ewoxb62lEJvKyLaUEqIcam/HeVCwCbK5SBHSuW+bZSLe90pF9zM74+13Q3orjkJyjXArEpj
@@ -1631,7 +1631,7 @@
     <value>NoControl</value>
   </data>
   <data name="ZTNukeBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>83, 197</value>
+    <value>83, 199</value>
   </data>
   <data name="ZTNukeBtn.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 30</value>
@@ -1658,10 +1658,10 @@
     <value>NoControl</value>
   </data>
   <data name="DonateBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>614, 205</value>
+    <value>659, 121</value>
   </data>
   <data name="DonateBtn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 47</value>
+    <value>75, 65</value>
   </data>
   <data name="DonateBtn.TabIndex" type="System.Int32, mscorlib">
     <value>70</value>
@@ -1715,7 +1715,7 @@
     <value>NoControl</value>
   </data>
   <data name="IP_Label.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 101</value>
+    <value>25, 101</value>
   </data>
   <data name="IP_Label.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 15</value>

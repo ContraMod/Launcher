@@ -111,6 +111,9 @@ namespace Contra
         bool disableVPNOnBtn = false;
         string ip;
 
+        bool triedToLeaveNetwork = false;
+        string contravpnPath = Environment.CurrentDirectory + @"\contra\vpn\";
+
         //Create method to check for an update
         public void GetModUpdate(string motd, string patch_url)
         {
@@ -378,14 +381,14 @@ namespace Contra
             //Extract patch zip
             string extractPath = Application.StartupPath;
             string zipPath = Application.StartupPath + @"\" + patchFileName;
-            if (patchFileName == "Contra009FinalPatch2.zip") //If the current patch installed is patch 2
-            {
-                try
-                {
-                    Directory.Delete("contra"); //Delete old contra folder containing tinc vpn scripts
-                }
-                catch { }
-            }
+            //if (patchFileName == "Contra009FinalPatch2.zip") //If the current patch installed is patch 2
+            //{
+            //    try
+            //    {
+            //        Directory.Delete("contra"); //Delete old contra folder containing tinc vpn scripts
+            //    }
+            //    catch { }
+            //}
             try //To prevent crash
             {
                 System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
@@ -1302,7 +1305,7 @@ namespace Contra
             RadioFlag_DE.Checked = Properties.Settings.Default.Flag_DE;
             AutoScaleMode = AutoScaleMode.Dpi;
 
-            Process[] ztExesByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            Process[] ztExesByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
             if (ztExesByName.Length > 0)
             {
                 try
@@ -1366,7 +1369,7 @@ namespace Contra
 
             DelTmpChunk();
 
-            Process[] vpnprocesses = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            Process[] vpnprocesses = Process.GetProcessesByName("zt-x" + Globals.userOS);
             try
             {
                 foreach (Process vpnprocess in vpnprocesses)
@@ -1585,26 +1588,33 @@ namespace Contra
 
         public void StartZT()
         {
-            Process ztDaemon = new Process();
-            ztDaemon.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
-            ztDaemon.StartInfo.FileName = ztDaemon.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS; //@"\zt-daemon.cmd"; //@"\zerotier-one_x" + Globals.userOS + ".exe";
-            ztDaemon.StartInfo.Arguments = "-C \"config\"";
-            ztDaemon.StartInfo.UseShellExecute = false;
-            ztDaemon.StartInfo.CreateNoWindow = true;
-
-            ztDaemon.Start();
-            ZT_IP();
-            refreshVpnIpTimer.Enabled = true;
-
-            //check when zt daemon gets turned off
-            ztDaemon.EnableRaisingEvents = true;
-            ztDaemon.Exited += (sender, e) =>
+            try
             {
-                VpnOff();
-            };
+                Process ztDaemon = new Process();
+                ztDaemon.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig";
+                ztDaemon.StartInfo.FileName = contravpnPath + "zt-x" + Globals.userOS;
+                ztDaemon.StartInfo.Arguments = "-C \"zt\"";
+                ztDaemon.StartInfo.UseShellExecute = false;
+                ztDaemon.StartInfo.CreateNoWindow = true;
 
-            disableVPNBtnChangeTimer.Enabled = true;
-            vpn_start.BackgroundImage = Properties.Resources.vpn_on;
+                ztDaemon.Start();
+                ZT_IP();
+                refreshVpnIpTimer.Enabled = true;
+
+                //check when zt daemon gets turned off
+                ztDaemon.EnableRaisingEvents = true;
+                ztDaemon.Exited += (sender, e) =>
+                {
+                    VpnOff();
+                };
+
+                disableVPNBtnChangeTimer.Enabled = true;
+                vpn_start.BackgroundImage = Properties.Resources.vpn_on;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void buttonVPNinvOK_Click(object sender, EventArgs e)
@@ -1756,6 +1766,25 @@ namespace Contra
 
             if (Properties.Settings.Default.FirstRun)
             {
+                //Delete tinc vpn files
+                try
+                {
+                    Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn");
+                    Directory.Delete(@"contra\vpn\32");
+                    Directory.Delete(@"contra\vpn\64");
+                    File.Delete(@"contra\vpn\tinc-adapters.cmd");
+                    File.Delete(@"contra\vpn\tinc-add-tap-adapter.cmd");
+                    File.Delete(@"contra\vpn\tinc-add-tap-adapter.ps1");
+                    File.Delete(@"contra\vpn\tinc-config.cmd");
+                    File.Delete(@"contra\vpn\tinc-console.cmd");
+                    File.Delete(@"contra\vpn\tinc-license.txt");
+                    File.Delete(@"contra\vpn\tinc-remove-tap-adapters.cmd");
+                    File.Delete(@"contra\vpn\tinc-remove-tap-adapters.ps1");
+                    File.Delete(@"contra\vpn\tinc-sources.url");
+                    File.Delete(@"contra\vpn\tinc-start-daemon.cmd");
+                    File.Delete(@"contra\vpn\tinc-up.cmd");
+                }
+                catch { }
 
                 //Create vpnconfig folder.
                 Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig");
@@ -2003,7 +2032,7 @@ namespace Contra
             }
             versionLabel.Text = "Contra Project Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
 
-            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
             if (ztExeByName.Length > 0 && wait == false) //if zt is already running
             {
                 vpn_start.BackgroundImage = Properties.Resources.vpn_on;
@@ -2081,7 +2110,7 @@ namespace Contra
             }
             versionLabel.Text = "Contra Project Team " + yearString + " - Версия 009 Финал" + verString + " - Launcher: " + Application.ProductVersion;
 
-            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
             if (ztExeByName.Length > 0 && wait == false) //if zt is already running
             {
                 vpn_start.BackgroundImage = Properties.Resources.vpn_on;
@@ -2159,7 +2188,7 @@ namespace Contra
             }
             versionLabel.Text = "Contra Project Team " + yearString + " - Версія 009 Фінал" + verString + " - Launcher: " + Application.ProductVersion;
 
-            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
             if (ztExeByName.Length > 0 && wait == false) //if zt is already running
             {
                 vpn_start.BackgroundImage = Properties.Resources.vpn_on;
@@ -2237,7 +2266,7 @@ namespace Contra
             }
             versionLabel.Text = "Contra Екип " + yearString + " - Версия 009 Final" + verString + " - Launcher: " + Application.ProductVersion;
 
-            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
             if (ztExeByName.Length > 0 && wait == false) //if zt is already running
             {
                 vpn_start.BackgroundImage = Properties.Resources.vpn_on;
@@ -2288,8 +2317,8 @@ namespace Contra
             toolTip1.SetToolTip(vpn_start, "Starte/SchlieЯe ContraVPN.");
             toolTip1.SetToolTip(ZTConfigBtn, "Öffnen Sie die ContraVPN-Konfigurationsdatei.");
             toolTip1.SetToolTip(ZTConsoleBtn, "Öffnen Sie die ContraVPN-Konsole.");
-            toolTip1.SetToolTip(ZTNukeBtn, "Öffnen Sie die ContraVPN-Konsole.");
-            toolTip1.SetToolTip(DonateBtn, "Deinstallieren Sie ContraVPN.");
+            toolTip1.SetToolTip(ZTNukeBtn, "Deinstallieren Sie ContraVPN.");
+            toolTip1.SetToolTip(DonateBtn, "Spende an das Contra-Team.");
             voicespanel.Left = 260;
             voicespanel.Size = new Size(95, 61);
             RadioLocQuotes.Text = "Englisch"; RadioLocQuotes.Left = 0;
@@ -2317,7 +2346,7 @@ namespace Contra
             }
             versionLabel.Text = "Contra Projekt Team " + yearString + " - Version 009 Final" + verString + " - Launcher: " + Application.ProductVersion;
 
-            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
             if (ztExeByName.Length > 0 && wait == false) //if zt is already running
             {
                 vpn_start.BackgroundImage = Properties.Resources.vpn_on;
@@ -2453,7 +2482,7 @@ namespace Contra
         {
             disableVPNOnBtn = false;
 
-            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
             if (ztExeByName.Length == 0)
             {
                 var instance = new ZT();
@@ -2467,7 +2496,7 @@ namespace Contra
 
                     if (ztExeByName.Length > 0) //if zt is running but we are clicking button again to turn it off
                     {
-                        Process[] vpnprocesses = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+                        Process[] vpnprocesses = Process.GetProcessesByName("zt-x" + Globals.userOS);
                         foreach (Process vpnprocess in vpnprocesses)
                         {
                             vpnprocess.Kill();
@@ -2511,7 +2540,7 @@ namespace Contra
         private void ZT_IP()
         {
             Process ztExe = new Process();
-            ztExe.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
+            ztExe.StartInfo.WorkingDirectory = contravpnPath;
             ztExe.StartInfo.FileName = @"C:\windows\system32\windowspowershell\v1.0\powershell.exe";
             ztExe.StartInfo.Arguments = "./zt-cli listnetworks";
             ztExe.StartInfo.UseShellExecute = false;
@@ -2634,7 +2663,7 @@ namespace Contra
 
         private void vpn_start_MouseEnter(object sender, EventArgs e)
         {
-            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
             if (ztExeByName.Length > 0 && Globals.ZTReady == 4 && disableVPNOnBtn == false)
             {
                 vpn_start.BackgroundImage = Properties.Resources.vpn_on_over;
@@ -2651,7 +2680,7 @@ namespace Contra
 
         private void vpn_start_MouseLeave(object sender, EventArgs e)
         {
-            Process[] ztExeByName = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
             if (ztExeByName.Length > 0 && Globals.ZTReady == 4 && disableVPNOnBtn == false)
             {
                 vpn_start.BackgroundImage = Properties.Resources.vpn_on;
@@ -2703,7 +2732,7 @@ namespace Contra
                 //process.StartInfo.UseShellExecute = false;
                 //process.StartInfo.RedirectStandardOutput = true;
                 //process.StartInfo.Verb = "runas";
-                process.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
+                process.StartInfo.WorkingDirectory = contravpnPath;
                 process.StartInfo.FileName = @"C:\windows\system32\windowspowershell\v1.0\powershell.exe";
                 process.StartInfo.Arguments = "-noexit $Host.UI.RawUI.WindowTitle = 'ZeroTier Console'; Write-Host 'Enter ./zt-cli help for available options.'";
                 //process.StartInfo.Arguments = "-noexit cd 'C:\\Users\\Bat Vlado\\AppData\\Local\\Contra\\vpnconfig\\zt\\CommonAppDataFolder\\ZeroTier\\One'";
@@ -2744,7 +2773,7 @@ namespace Contra
         {
             try
             {
-                Process.Start("notepad.exe", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\local.conf");
+                Process.Start("notepad.exe", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\local.conf");
                 return;
             }
             catch (Exception ex)
@@ -2808,10 +2837,28 @@ namespace Contra
             {
                 disableVPNOnBtn = true;
                 var instance = new ZT();
-                instance.LeaveZTNetwork();
-                if (Globals.TriedToLeaveNetwork == true)
+
+                try
+                {
+                    if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\networks.d") ||
+                    Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\networks.d").Length > 1)
+                    {
+                        instance.LeaveZTNetwork();
+                    }
+                }
+                catch { }
+                triedToLeaveNetwork = true;
+
+                if (triedToLeaveNetwork == true)
                 {
                     instance.UninstallZTDriver();
+
+                    try
+                    {
+                        Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt", true);
+                    }
+                    catch { }
+
                     if (Globals.ZTDriverUninstallSuccessful == true)
                     {
                         if (Globals.GB_Checked == true)
@@ -2892,7 +2939,7 @@ namespace Contra
 
         private void DonateBtn_MouseDown(object sender, MouseEventArgs e)
         {
-            DonateBtn.BackgroundImage = Properties.Resources._button_sm_highlight;
+            DonateBtn.BackgroundImage = Properties.Resources._button_vpn_highlight;
             DonateBtn.ForeColor = SystemColors.ButtonHighlight;
             DonateBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }

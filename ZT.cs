@@ -5,11 +5,29 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace Contra
 {
     class ZT
     {
+        [DllImport("kernel32.dll")]
+        static extern bool CreateSymbolicLink(
+        string lpSymlinkFileName, string lpTargetFileName, SymbolicLink dwFlags);
+        enum SymbolicLink
+        {
+            File = 0,
+            Directory = 1
+        }
+        string symbolicLink = contravpnPath + "zt-config";
+        string linksTo = ztPath;
+
+        static string contravpnPath = Environment.CurrentDirectory + @"\contra\vpn\";
+        string tempPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt-temp\";
+        static string ztPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\";
+
+        bool updateZTVersion = false;
+
         WebClient ztDL = new WebClient();
         //string ZTURL = "https://download.zerotier.com/dist/ZeroTier%20One.msi";
         string ZTFileName = "ZeroTier One.msi";
@@ -20,9 +38,32 @@ namespace Contra
 
             try
             {
-                //Download ZT
-                if (!File.Exists(ZTFileName)) //If user doesn't have ZT
+                // Download ZT if user doesn't have it
+                if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\tap-windows") ||
+                    !File.Exists(contravpnPath + "zt-x64.exe") || !File.Exists(contravpnPath + "zt-x86.exe") ||
+                    updateZTVersion == true)
                 {
+                    if (Globals.GB_Checked == true)
+                    {
+                        MessageBox.Show("ContraVPN (ZeroTier One) needs to be downloaded. Starting download...", "ContraVPN download");
+                    }
+                    else if (Globals.RU_Checked == true)
+                    {
+                        MessageBox.Show("ContraVPN (ZeroTier One) должен быть загружен. Начало загрузки...", "ContraVPN должен быть загружен");
+                    }
+                    else if (Globals.UA_Checked == true)
+                    {
+                        MessageBox.Show("ContraVPN (ZeroTier One) потрібно завантажити. Початок завантаження...", "ContraVPN потрібно завантажити");
+                    }
+                    else if (Globals.BG_Checked == true)
+                    {
+                        MessageBox.Show("ContraVPN (ZeroTier One) трябва да бъде изтеглен. Стартирането на изтеглянето...", "Изтегляне на ContraVPN");
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        MessageBox.Show("ContraVPN (ZeroTier One) muss heruntergeladen werden. Download wird gestartet...", "ContraVPN herunterladen");
+                    }
+
                     ztDL.DownloadFileCompleted += new AsyncCompletedEventHandler(ztDL_DownloadCompleted);
                     //         ztDL.DownloadProgressChanged += ztDL_DownloadProgressChanged;
 
@@ -37,19 +78,63 @@ namespace Contra
 
                     //  while (wc.IsBusy) { }
                 }
-
-                CheckZTInstallSteps();
+                else
+                {
+                    CheckZTInstallSteps();
+                    CheckZTVersion();
+                }
             }
             catch (Exception ex) { MessageBox.Show(ex.ToString()); }
         }
 
-            //        if (ztExeByName.Length != 0)
-            //{
+        public void CheckIfFileIsAvailable(string ZTURL)
+        {
+            var url = ZTURL;
+            HttpWebResponse response = null;
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException)
+            {
+                /* A WebException will be thrown if the status of the response is not `200 OK` */
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("The file is currently unavailable. Try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Файл в данный момент недоступен. Попробуйте позже.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Файл наразі недоступний. Повторіть спробу пізніше.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Понастоящем файлът не е налице. Опитайте отново по-късно.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Die Datei ist derzeit nicht verfügbar. Versuchen Sie es später noch einmal.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            finally
+            {
+                // Don't forget to close your response.
+                if (response != null)
+                {
+                    response.Close();
+                }
+            }
+        }
 
         void ztDL_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
        //     PatchDLPanel.Hide();
-            //TO-DO: update version string? Currently handled by forced launcher restart
 
             if (e.Cancelled)
             {
@@ -64,19 +149,6 @@ namespace Contra
                 MessageBox.Show(e.Error.Message);
                 return;
             }
-
-            ////Extract zip
-            //string extractPath = Application.StartupPath;
-            //string zipPath = Application.StartupPath + @"\" + ZTFileName;
-
-            //try //To prevent crash
-            //{
-            //    System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
-            //}
-            //catch { }
-            //File.Delete(ZTFileName);
-
-
 
             //Show a message when the patch download has completed
             //if (Globals.GB_Checked == true)
@@ -99,11 +171,6 @@ namespace Contra
             //{
             //    MessageBox.Show("Ein neuer Patch wurde heruntergeladen!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
             //}
-
-
-
-            //          Application.Restart();
-
 
             CheckZTInstallSteps();
         }
@@ -132,15 +199,79 @@ namespace Contra
             }
         }
 
+        public void CheckZTVersion()
+        {
+            Process ztExe = new Process();
+            ztExe.StartInfo.WorkingDirectory = contravpnPath;
+            ztExe.StartInfo.FileName = @"C:\windows\system32\windowspowershell\v1.0\powershell.exe";
+            ztExe.StartInfo.Arguments = "./zt-cli -v";
+            ztExe.StartInfo.UseShellExecute = false;
+            ztExe.StartInfo.CreateNoWindow = true;
+            ztExe.StartInfo.RedirectStandardOutput = true;
+            ztExe.Start();
+            string ztVersionLocal = ztExe.StandardOutput.ReadToEnd().Trim();
+            //MessageBox.Show(ztVersionLocal);
+
+            try
+            {
+                //Declare new WebClient object
+                WebClient wc = new WebClient();
+                string versionTxt = wc.DownloadString("https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/Version.txt");
+
+                //Get zt version
+                string ztVersionLatest = versionTxt.Substring(versionTxt.LastIndexOf("ZT: ") + 4);
+                ztVersionLatest = ztVersionLatest.Substring(0, ztVersionLatest.IndexOf("#")).Trim();
+                //MessageBox.Show(ztVersionLatest);
+
+                if (ztVersionLocal != ztVersionLatest)
+                {
+                    updateZTVersion = true;
+
+                    if (Globals.GB_Checked == true)
+                    {
+                        MessageBox.Show("A new ZeroTier One version is available.", "VPN update");
+                    }
+                    else if (Globals.RU_Checked == true)
+                    {
+                        MessageBox.Show("Доступна новая версия ZeroTier One.", "Обновление VPN");
+                    }
+                    else if (Globals.UA_Checked == true)
+                    {
+                        MessageBox.Show("Доступна нова версія ZeroTier One.", "Оновлення VPN");
+                    }
+                    else if (Globals.BG_Checked == true)
+                    {
+                        MessageBox.Show("Достъпна е нова версия на ZeroTier One.", "VPN обновление");
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        MessageBox.Show("Eine neue ZeroTier One-Version ist verfügbar.", "VPN-Update");
+                    }
+
+                    CheckZTInstall("https://download.zerotier.com/dist/ZeroTier%20One.msi");
+                }
+
+                //int ztVersionLatestInt = int.Parse(ztVersionLatest);
+            }
+            catch
+            {
+
+            }
+        }
+
         public void CheckZTInstallSteps()
         {
             bool installMessage = false;
 
-            //Package downloaded but not installed
-            if (File.Exists(ZTFileName) && (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt")))
+            //if (File.Exists(ZTFileName) && (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt")))
+
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\tap-windows") ||
+                Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\tap-windows", "*", SearchOption.AllDirectories).Length == 0 ||
+                !File.Exists(contravpnPath + "zt-x64.exe") || !File.Exists(contravpnPath + "zt-x86.exe"))
             {
                 if (installMessage == false)
                 {
+                    //MessageBox.Show("here");
                     DisplayInstallMessage();
                     installMessage = true;
                 }
@@ -201,8 +332,8 @@ namespace Contra
             }
 
             //ZT Files missing in LocalAppData
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\moons.d") ||
-                !File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\local.conf"))
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\moons.d\0000008cc55dfcea.moon") ||
+                !File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\local.conf"))
             {
                 if (installMessage == false)
                 {
@@ -217,8 +348,8 @@ namespace Contra
             }
 
             //ZT Network not joined
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\networks.d") ||
-                Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\networks.d").Length < 2)
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\networks.d") ||
+                Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\networks.d").Length < 2)
             {
                 if (installMessage == false)
                 {
@@ -232,92 +363,124 @@ namespace Contra
                 Globals.ZTReady += 1;
             }
         }
+        // End of step checks.
 
         public void InstallZTPackage()
         {
+            string tempPathTap = tempPath + @"CommonAppDataFolder\ZeroTier\One\tap-windows\";
+            string targetPathTap = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\tap-windows\";
+
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt");
+            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\tap-windows");
 
-            Process cmd = new Process();
-            cmd.StartInfo.FileName = "cmd.exe";
-            cmd.StartInfo.RedirectStandardInput = true;
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = true;
-            cmd.StartInfo.UseShellExecute = false;
-            cmd.Start();
+            if (!Directory.Exists((Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt-temp")))
+            {
+                Process cmd = new Process();
+                cmd.StartInfo.FileName = "cmd.exe";
+                cmd.StartInfo.RedirectStandardInput = true;
+                cmd.StartInfo.RedirectStandardOutput = true;
+                cmd.StartInfo.CreateNoWindow = true;
+                cmd.StartInfo.UseShellExecute = false;
+                cmd.Start();
 
-            cmd.StandardInput.WriteLine("msiexec /a \"ZeroTier One.msi\" /qb TARGETDIR=\"%LOCALAPPDATA%\\Contra\\vpnconfig\\zt\"");
-            cmd.StandardInput.Flush();
-            cmd.StandardInput.Close();
-            cmd.WaitForExit();
-            Globals.ZTReady += 1;
+                cmd.StandardInput.WriteLine("msiexec /a \"ZeroTier One.msi\" /qb TARGETDIR=\"%LOCALAPPDATA%\\Contra\\vpnconfig\\zt-temp\"");
+                cmd.StandardInput.Flush();
+                cmd.StandardInput.Close();
+                cmd.WaitForExit();
+            }
+
+            // Get files from temp folder and delete it.
+            System.Threading.Thread.Sleep(5000);
+            try
+            {
+                File.Copy(tempPath + @"CommonAppDataFolder\ZeroTier\One\zerotier-one_x64.exe", contravpnPath + "zt-x64.exe", true);
+                File.Copy(tempPath + @"CommonAppDataFolder\ZeroTier\One\zerotier-one_x86.exe", contravpnPath + "zt-x86.exe", true);
+
+                //Directory.Move(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt-temp\CommonAppDataFolder\ZeroTier\One\tap-windows", @"\Contra\vpnconfig\zt\tap-windows");
+                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\tap-windows");
+
+                foreach (string dir in Directory.GetDirectories(tempPath + @"CommonAppDataFolder\ZeroTier\One\tap-windows", "*", SearchOption.AllDirectories))
+                {
+                    Directory.CreateDirectory(Path.Combine(targetPathTap, dir.Substring(tempPathTap.Length)));
+                }
+                foreach (string file_name in Directory.GetFiles(tempPath + @"CommonAppDataFolder\ZeroTier\One\tap-windows", "*", SearchOption.AllDirectories))
+                {
+                    File.Copy(file_name, Path.Combine(targetPathTap, file_name.Substring(tempPathTap.Length)), true);
+                }
+
+                CreateSymbolicLink(symbolicLink, linksTo, SymbolicLink.Directory);
+
+                Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt-temp", true);
+
+                Globals.ZTReady += 1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         public void InstallZTDriver()
         {
-            Process cmd = new Process();
-            cmd.StartInfo.FileName = "cmd.exe";
-            cmd.StartInfo.RedirectStandardInput = true;
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = true;
-            cmd.StartInfo.UseShellExecute = false;
-            cmd.Start();
+            try
+            {
+                Process cmd = new Process();
+                cmd.StartInfo.FileName = "cmd.exe";
+                cmd.StartInfo.RedirectStandardInput = true;
+                cmd.StartInfo.RedirectStandardOutput = true;
+                cmd.StartInfo.CreateNoWindow = true;
+                cmd.StartInfo.UseShellExecute = false;
+                cmd.Start();
 
-            cmd.StandardInput.WriteLine("pnputil -i -a \"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config\tap-windows\x" + Globals.userOS + "\\zttap300.inf\"");
-            //cmd.StandardInput.WriteLine("pnputil /i /a \"$PWD\\config\\tap-windows\\x" + Globals.userOS + "\\zttap300.inf\"");
-            cmd.StandardInput.Flush();
-            cmd.StandardInput.Close();
-            cmd.WaitForExit();
-            Globals.ZTReady += 1;
+                cmd.StandardInput.WriteLine("pnputil -i -a \"" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\tap-windows\x" + Globals.userOS + "\\zttap300.inf\"");
+                //cmd.StandardInput.WriteLine("pnputil /i /a \"$PWD\\config\\tap-windows\\x" + Globals.userOS + "\\zttap300.inf\"");
+                cmd.StandardInput.Flush();
+                cmd.StandardInput.Close();
+                cmd.WaitForExit();
+                Globals.ZTReady += 1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         public void MoveZTFiles()
         {
-            string sourcePath = Environment.CurrentDirectory + @"\contra\vpn\";
-            string targetPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\";
-            string configSourcePath = Environment.CurrentDirectory + @"\contra\vpn\config\";
-            string configTargetPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config";
-
+            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\moons.d");
             try
             {
-                File.Copy(sourcePath + "zerotier-one_x64.exe", targetPath + "zerotier-one_x64.exe", true);
-                File.Copy(sourcePath + "zerotier-one_x86.exe", targetPath + "zerotier-one_x86.exe", true);
-                File.Copy(sourcePath + "zt-cli.cmd", targetPath + "zt-cli.cmd", true);
-                File.Copy(sourcePath + "zt-daemon.cmd", targetPath + "zt-daemon.cmd", true);
-                File.Copy(sourcePath + "zt-join-network.cmd", targetPath + "zt-join-network.cmd", true);
-                File.Copy(sourcePath + "zt-leave-network.cmd", targetPath + "zt-leave-network.cmd", true);
-                File.Copy(sourcePath + "zt-peers.cmd", targetPath + "zt-peers.cmd", true);
-                Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One\config");
-                foreach (string dir in Directory.GetDirectories(configSourcePath, "*", SearchOption.AllDirectories))
-                {
-                    Directory.CreateDirectory(Path.Combine(configTargetPath, dir.Substring(configSourcePath.Length)));
-                }
-                foreach (string file_name in Directory.GetFiles(configSourcePath, "*", SearchOption.AllDirectories))
-                {
-                    File.Copy(file_name, Path.Combine(configTargetPath, file_name.Substring(configSourcePath.Length)));
-                }
+                File.Copy(contravpnPath + "zt-local.ctr", ztPath + "local.conf", true);
+                File.Copy(contravpnPath + "zt-moon.ctr", ztPath + @"moons.d\0000008cc55dfcea.moon", true);
+                Globals.ZTReady += 1;
             }
-            catch { }
-            Globals.ZTReady += 1;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         public void JoinZTNetwork()
         {
             //MessageBox.Show("here");
-            Process[] vpnprocesses = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            //Process[] vpnprocesses = Process.GetProcessesByName("zt-x" + Globals.userOS);
 
             Process ztDaemon = new Process();
-            ztDaemon.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
-            ztDaemon.StartInfo.FileName = ztDaemon.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
-            ztDaemon.StartInfo.Arguments = "-C \"config\"";
+            ztDaemon.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig";
+            ztDaemon.StartInfo.FileName = contravpnPath + "zt-x" + Globals.userOS;
+            ztDaemon.StartInfo.Arguments = "-C \"zt\"";
             ztDaemon.StartInfo.UseShellExecute = false;
             //ztDaemon.StartInfo.CreateNoWindow = true;
+            //ztDaemon.StartInfo.RedirectStandardOutput = true;
             ztDaemon.Start();
-            System.Threading.Thread.Sleep(3000);
+            //string Outputa = ztDaemon.StandardOutput.ReadToEnd();
+            //MessageBox.Show(Outputa);
+            System.Threading.Thread.Sleep(5000);
 
             Process ztJoinNetwork = new Process();
-            ztJoinNetwork.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
-            ztJoinNetwork.StartInfo.FileName = ztJoinNetwork.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
-            ztJoinNetwork.StartInfo.Arguments = "-q -D\"config\" join 8cc55dfcea100100";
+            ztJoinNetwork.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig";
+            ztJoinNetwork.StartInfo.FileName = contravpnPath + "zt-x" + Globals.userOS;
+            ztJoinNetwork.StartInfo.Arguments = "-q -D\"zt\" join 8cc55dfcea100100";
             //ztJoinNetwork.StartInfo.RedirectStandardInput = true;
             ztJoinNetwork.StartInfo.RedirectStandardOutput = true;
             //ztJoinNetwork.StartInfo.RedirectStandardError = true;
@@ -341,47 +504,47 @@ namespace Contra
                 ztDaemon.Close();
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("An error occurred while attempting to join the ZT network.", "Network join failed.");
+                    MessageBox.Show("An error occurred while attempting to join the ZT network.\n" + Output, "Network join failed.");
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Произошла ошибка при попытке присоединиться к сети ZT.", "Не удалось подключиться к сети.");
+                    MessageBox.Show("Произошла ошибка при попытке присоединиться к сети ZT.\n" + Output, "Не удалось подключиться к сети.");
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Під час спроби приєднатися до мережі ZT сталася помилка.", "Помилка приєднання до мережі.");
+                    MessageBox.Show("Під час спроби приєднатися до мережі ZT сталася помилка.\n" + Output, "Помилка приєднання до мережі.");
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("Възникна грешка в опита да се присъедините към ZT мрежата.", "Присъединяването към мрежата се провали.");
+                    MessageBox.Show("Възникна грешка в опита да се присъедините към ZT мрежата.\n" + Output, "Присъединяването към мрежата се провали.");
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("Beim Versuch, dem ZT-Netzwerk beizutreten, ist ein Fehler aufgetreten.", "Netzwerkverbindung fehlgeschlagen.");
+                    MessageBox.Show("Beim Versuch, dem ZT-Netzwerk beizutreten, ist ein Fehler aufgetreten.\n" + Output, "Netzwerkverbindung fehlgeschlagen.");
                 }
             }
         }
 
         public void LeaveZTNetwork()
         {
-            Process[] vpnprocesses = Process.GetProcessesByName("zerotier-one_x" + Globals.userOS);
+            Process[] vpnprocesses = Process.GetProcessesByName("zt-x" + Globals.userOS);
 
             Process ztDaemon = new Process();
-            ztDaemon.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
-            ztDaemon.StartInfo.FileName = ztDaemon.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
-            ztDaemon.StartInfo.Arguments = "-C \"config\"";
+            ztDaemon.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig";
+            ztDaemon.StartInfo.FileName = contravpnPath + "zt-x" + Globals.userOS;
+            ztDaemon.StartInfo.Arguments = "-C \"zt\"";
             ztDaemon.StartInfo.UseShellExecute = false;
             //ztDaemon.StartInfo.CreateNoWindow = true;
 
             //ztDaemon.StartInfo.RedirectStandardInput = true;
 
             ztDaemon.Start();
-            System.Threading.Thread.Sleep(3000);
+            System.Threading.Thread.Sleep(5000);
 
             Process ztLeaveNetwork = new Process();
-            ztLeaveNetwork.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\CommonAppDataFolder\ZeroTier\One";
-            ztLeaveNetwork.StartInfo.FileName = ztLeaveNetwork.StartInfo.WorkingDirectory + @"\zerotier-one_x" + Globals.userOS;
-            ztLeaveNetwork.StartInfo.Arguments = "-q -D\"config\" leave 8cc55dfcea100100";
+            ztLeaveNetwork.StartInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig";
+            ztLeaveNetwork.StartInfo.FileName = contravpnPath + "zt-x" + Globals.userOS;
+            ztLeaveNetwork.StartInfo.Arguments = "-q -D\"zt\" leave 8cc55dfcea100100";
             ztLeaveNetwork.StartInfo.RedirectStandardOutput = true;
             ztLeaveNetwork.StartInfo.UseShellExecute = false;
             ztLeaveNetwork.StartInfo.CreateNoWindow = true;
@@ -442,7 +605,6 @@ namespace Contra
                     MessageBox.Show("Der Versuch, das ZT-Netzwerk zu verlassen, ist fehlgeschlagen. Möglicherweise haben Sie das Netzwerk bereits verlassen.\n\nWeiter mit der Deinstallation des ZT-Treibers...", "Netzwerk konnte nicht verlassen werden.");
                 }
             }
-            Globals.TriedToLeaveNetwork = true;
         }
 
         public void UninstallZTDriver()
@@ -514,51 +676,6 @@ namespace Contra
                 {
                     //MessageBox.Show("uninst driver succc");
                     Globals.ZTDriverUninstallSuccessful = true;
-                }
-            }
-        }
-
-        public void CheckIfFileIsAvailable(string ZTURL)
-        {
-            var url = ZTURL;
-            HttpWebResponse response = null;
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-
-            try
-            {
-                response = (HttpWebResponse)request.GetResponse();
-            }
-            catch (WebException)
-            {
-                /* A WebException will be thrown if the status of the response is not `200 OK` */
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("The file is currently unavailable. Try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Файл в данный момент недоступен. Попробуйте позже.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Файл наразі недоступний. Повторіть спробу пізніше.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("Понастоящем файлът не е налице. Опитайте отново по-късно.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("Die Datei ist derzeit nicht verfügbar. Versuchen Sie es später noch einmal.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            finally
-            {
-                // Don't forget to close your response.
-                if (response != null)
-                {
-                    response.Close();
                 }
             }
         }
