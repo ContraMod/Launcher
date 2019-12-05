@@ -616,12 +616,37 @@ namespace Contra
             }
         }
 
+        public string AspectRatio(int x, int y)
+        {
+            double value = (double)x / y;
+            if (value > 1.7)
+                return "16:9";
+            else
+                return "4:3";
+        }
+
         private void ChangeCamHeight()
         {
             if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
             {
                 Encoding encoding = Encoding.GetEncoding("windows-1252");
-                var regex = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + camTrackBar.Value + ".0" + " ;350.0\r\n");
+                var regex = "";
+                string x = Properties.Settings.Default.Res;
+                string y = Properties.Settings.Default.Res;
+                x = x.Substring(0, x.IndexOf("x") + 1);
+                x = Regex.Replace(x, "x", "");
+                y = y.Substring(y.IndexOf("x"));
+                y = Regex.Replace(y, "x", "");
+                int xInt, yInt;
+                Int32.TryParse(x, out xInt); Int32.TryParse(y, out yInt);
+                if (AspectRatio(xInt, yInt) == "16:9")
+                {
+                    regex = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + (camTrackBar.Value-110) + ".0" + " ;350.0\r\n");
+                }
+                else
+                {
+                    regex = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + camTrackBar.Value + ".0" + " ;350.0\r\n");
+                }
                 string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big", encoding);
                 File.WriteAllText("!!!Contra009Final_Patch2_GameData.big", regex, encoding);
 

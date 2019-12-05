@@ -11,6 +11,7 @@ using System.IO;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
 using System.Net;
+using System.Runtime.InteropServices;
 
 namespace Contra
 {
@@ -110,9 +111,32 @@ namespace Contra
 
         bool disableVPNOnBtn = false;
         string ip;
+        string genToolFileName = "";
 
         bool triedToLeaveNetwork = false;
         string contravpnPath = Environment.CurrentDirectory + @"\contra\vpn\";
+        string ztPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\";
+
+        [DllImport("version.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int GetFileVersionInfoSize(string lptstrFilename, out int lpdwHandle);
+        [DllImport("version.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool GetFileVersionInfo(string lptstrFilename, int dwHandle, int dwLen, byte[] lpData);
+        [DllImport("version.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool VerQueryValue(byte[] pBlock, string lpSubBlock, out IntPtr lplpBuffer, out int puLen);
+
+        [DllImport("ntdll.dll", CharSet = CharSet.Ansi)]
+        public static extern string wine_get_version();
+
+        public static bool isRunningOnWine()
+        {
+            try
+            {
+                string wineVer = wine_get_version();
+                MessageBox.Show($"We've detected you're running launcher on Wine {wineVer}\nVPN functionality disabled, instead of using the bundled ZT for Windows, install ZeroTier One from your distro's package repositories.\nThen you can start the ZT service and run 'sudo zerotier-cli join 8cc55dfcea100100' to connect to the ContraVPN network.\n\nPlease visit #support channel on our discord if you need help with this.");
+                return true;
+            }
+            catch { return false; }
+        }
 
         //Create method to check for an update
         public void GetModUpdate(string motd, string patch_url)
@@ -986,27 +1010,6 @@ namespace Contra
                     File.Move("GenArial.ttf", "GenArial_.ttf");
                 }
 
-                //Enable custom camera height with GenTool
-                if (File.Exists("d3d8.cfg"))
-                {
-                    if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
-                    {
-                        File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
-                    }
-
-                    if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
-                    {
-                        string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big");
-                        string defaultHeightValue = "MaxCameraHeight = 392";
-                        if (!read.Contains(defaultHeightValue))
-                        {
-                            string cfgText = File.ReadAllText("d3d8.cfg");
-                            cfgText = Regex.Replace(cfgText, "pitch=.*", "pitch=36");
-                            File.WriteAllText("d3d8.cfg", cfgText);
-                        }
-                    }
-                }
-
                 //Start Generals
                 if (File.Exists("generals.exe"))
                 {
@@ -1278,6 +1281,23 @@ namespace Contra
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void ThreadProcSafeGentool()
+        {
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    string s = client.DownloadString("http://www.gentool.net/download/patch");
+
+                    MessageBox.Show(s);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -1672,7 +1692,7 @@ namespace Contra
 
         // This method is executed on the worker thread and makes 
         // a thread-safe call on the TextBox control. 
-        private void ThreadProcSafe()
+        private void ThreadProcSafeMOTD()
         {
             try
             {
@@ -1724,9 +1744,198 @@ namespace Contra
             catch (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
+        void gtwc_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            //Extract zip
+            string extractPath = Application.StartupPath;
+            string zipPath = Application.StartupPath + @"\" + genToolFileName;
+
+            try //To prevent crash
+            {
+                ZipArchiveExtensions.ExtractToDirectory(System.IO.Compression.ZipFile.OpenRead(zipPath), extractPath, true);
+                //File.Delete("d3d8.dll"); // Delete old GenTool
+                //System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
+            }
+            catch { }
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.ToString());
+            //}
+            try
+            {
+                File.Delete(genToolFileName);
+            }
+            catch { }
+
+            //Show a message when the patch download has completed
+            if (Globals.GB_Checked == true)
+            {
+                MessageBox.Show("A new version of Gentool has been downloaded!", "Gentool update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (Globals.RU_Checked == true)
+            {
+                MessageBox.Show("Новая версия GenTool был загружен!", "Gentool обновление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (Globals.UA_Checked == true)
+            {
+                MessageBox.Show("Новий GenTool завантажено!", "Оновлення GenTool завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (Globals.BG_Checked == true)
+            {
+                MessageBox.Show("Нова версия на GenTool беше изтегленa!", "Обновяването на GenTool е завършено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (Globals.DE_Checked == true)
+            {
+                MessageBox.Show("Ein neuer GenTool wurde heruntergeladen!", "Aktualisierung GenTool abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        public void DownloadGentool(string url)
+        {
+            try
+            {
+                WebClient gtwc = new WebClient();
+                //MessageBox.Show(Application.StartupPath + @"\" + genToolFileName);
+
+                gtwc.DownloadFileCompleted += new AsyncCompletedEventHandler(gtwc_DownloadCompleted);
+                //gtwc.DownloadFileCompleted += new AsyncCompletedEventHandler((sender, e) => gtwc_DownloadCompleted(sender, e));
+
+                //CheckIfFileIsAvailable(url);
+                //gtwc.OpenRead(url + genToolFileName);
+                //bytes_total = Convert.ToInt64(gtwc.ResponseHeaders["Content-Length"]);
+
+                gtwc.DownloadFileAsync(new Uri(url), Application.StartupPath + @"\" + genToolFileName);
+            }
+            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+        }
+
+        //public void DownloadModUpdate(string patch_url)
+        //{
+        //    try
+        //    {
+        //        wcMod.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadPatchCompleted);
+        //        wcMod.DownloadProgressChanged += wc_DownloadProgressChanged;
+
+        //        //Download one patch at a time
+        //        if (modVersionLocalInt != 2) //If user doesn't have the latest patch
+        //        {
+        //            if (patch1Found == false)
+        //            {
+        //                patchFileName = "Contra009FinalPatch1.zip";
+        //            }
+        //            else if (patch2Found == false)
+        //            {
+        //                patchFileName = "Contra009FinalPatch2.zip";
+        //            }
+        //            CheckIfFileIsAvailable(patch_url);
+        //            currentFile = patchFileName;
+        //            wcMod.OpenRead(patch_url + patchFileName);
+        //            bytes_total = Convert.ToInt64(wcMod.ResponseHeaders["Content-Length"]);
+
+        //            wcMod.DownloadFileAsync(new Uri(patch_url + patchFileName), Application.StartupPath + @"\" + patchFileName);
+        //        }
+        //        PatchDLPanel.Show();
+
+        //        //  while (wc.IsBusy) { }
+        //    }
+        //    catch (Exception ex) { Console.Error.WriteLine(ex); }
+        //}
+
+        //public void CheckIfFileIsAvailable(string patch_url)
+        //{
+        //    var url = patch_url + patchFileName;
+        //    HttpWebResponse response = null;
+        //    var request = (HttpWebRequest)WebRequest.Create(url);
+        //    request.Method = "GET";
+
+        //    try
+        //    {
+        //        response = (HttpWebResponse)request.GetResponse();
+        //    }
+        //    catch (WebException)
+        //    {
+        //        /* A WebException will be thrown if the status of the response is not `200 OK` */
+        //        if (Globals.GB_Checked == true)
+        //        {
+        //            MessageBox.Show("The file is currently unavailable. Try again later or download it from: www.moddb.com/mods/contra/downloads", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        }
+        //        else if (Globals.RU_Checked == true)
+        //        {
+        //            MessageBox.Show("Файл в данный момент недоступен. Попробуйте позже или загрузите его с: www.moddb.com/mods/contra/downloads", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        }
+        //        else if (Globals.UA_Checked == true)
+        //        {
+        //            MessageBox.Show("Файл наразі недоступний. Повторіть спробу пізніше або завантажте його з: www.moddb.com/mods/contra/downloads", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        }
+        //        else if (Globals.BG_Checked == true)
+        //        {
+        //            MessageBox.Show("Понастоящем файлът не е налице. Опитайте отново по-късно или го изтеглете от: www.moddb.com/mods/contra/downloads", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        }
+        //        else if (Globals.DE_Checked == true)
+        //        {
+        //            MessageBox.Show("Die Datei ist derzeit nicht verfügbar. Versuchen Sie es später noch einmal oder laden Sie es von folgender Adresse herunter: www.moddb.com/mods/contra/downloads", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        }
+        //    }
+        //    finally
+        //    {
+        //        // Don't forget to close your response.
+        //        if (response != null)
+        //        {
+        //            response.Close();
+        //        }
+        //    }
+        //}
+
+        public void CreateOptionsINI()
+        {
+            try
+            {
+                using (FileStream fs = File.Create(UserDataLeafName() + @"\Options.ini"))
+                {
+                    byte[] info = new UTF8Encoding(true).GetBytes("IdealStaticGameLOD = High" + Environment.NewLine + "Resolution = 800 600");
+                    fs.Write(info, 0, info.Length);
+                }
+            }
+
+            catch { }
+        }
+
         private void Form1_Shown(object sender, EventArgs e)
         {
-            //PatchDLPanel.Hide();
+            if (isGentoolInstalled("d3d8.dll") && isGentoolOutdated("d3d8.dll", 79)) // Replace with full path to d3d8.dll
+            {
+                //try
+                //{
+                //    {
+                //        System.Threading.Thread demoThread =
+                //           new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafeGentool));
+                //        demoThread.Start();
+                //    }
+                //}
+                //catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+
+                try
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        genToolFileName = client.DownloadString("http://www.gentool.net/download/patch");
+                        var pos = genToolFileName.IndexOf(';');
+                        genToolFileName = genToolFileName.Substring(1, pos - 1);
+                        genToolFileName = Regex.Replace(genToolFileName, "~", "");
+                        genToolFileName = genToolFileName.Replace("\n", String.Empty);
+                        genToolFileName.Trim();
+
+                        //MessageBox.Show(genToolFileName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+
+                string gtURL = "http://www.gentool.net/download/GenTool_v7.9.zip"; //"http://www.gentool.net/download/" + genToolFileName;
+                DownloadGentool(gtURL);
+            }
 
             //This renames the original file so any shortcut works and names it accordingly after the update
             // if (File.Exists(Application.StartupPath + "/Contra_Launcher_ToDelete.exe") && (applyNewLauncher == true))
@@ -1741,26 +1950,27 @@ namespace Contra
             {
                 if (!File.Exists(UserDataLeafName() + "Options.ini") && (!File.Exists(myDocPath + "Options.ini")))
                 {
-                    if (Globals.GB_Checked == true)
-                    {
-                        MessageBox.Show("Options.ini not found, therefore the game will not start! You have to run Zero Hour once for it to generate the file.\nIf that fails, you will have to create the file manually. Click the \"Help\" button in launcher to be brought to a page with instructions.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else if (Globals.RU_Checked == true)
-                    {
-                        MessageBox.Show("Файл \"Options.ini\" не найден, поэтому игра не запустится! Вам нужно запустить Zero Hour один раз, чтобы он сгенерировал файл.\nЕсли не получится, вам придется создать файл вручную. Нажмите кнопку «Help» в панели лаунчера, чтобы перейти на страницу с инструкциями.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else if (Globals.UA_Checked == true)
-                    {
-                        MessageBox.Show("Файл Options.ini не знайдений, отже гра не розпочнеться! Вам потрібно запустити Zero Hour один раз, щоб створити файл.\nЯкщо це не вдасться, вам доведеться створити файл вручну. Натисніть кнопку \"Help\" в панелі запуску, щоб перейти на сторінку з інструкціями.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else if (Globals.BG_Checked == true)
-                    {
-                        MessageBox.Show("Options.ini не беше намерен, следователно играта няма да се стартира! Трябва да стартирате Zero Hour веднъж, за да генерира файла.\nАко това се провали, трябва да създадете файла ръчно. Щракнете на \"Help\" бутона в launcher-а, за да отидете на страница с инструкции.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else if (Globals.DE_Checked == true)
-                    {
-                        MessageBox.Show("Options.ini nicht gefunden, daher startet das Spiel nicht! Sie müssen Zero Hour einmal ausführen, damit die Datei generiert wird.\nWenn dies fehlschlägt, müssen Sie die Datei manuell erstellen. Klicken Sie im Launcher auf die Schaltfläche \"Help\", um zu einer Seite mit Anweisungen zu gelangen.", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
+                    //if (Globals.GB_Checked == true)
+                    //{
+                    //    MessageBox.Show("Options.ini not found, therefore the game will not start! You have to run Zero Hour once for it to generate the file.\nIf that fails, you will have to create the file manually. Click the \"Help\" button in launcher to be brought to a page with instructions.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //}
+                    //else if (Globals.RU_Checked == true)
+                    //{
+                    //    MessageBox.Show("Файл \"Options.ini\" не найден, поэтому игра не запустится! Вам нужно запустить Zero Hour один раз, чтобы он сгенерировал файл.\nЕсли не получится, вам придется создать файл вручную. Нажмите кнопку «Help» в панели лаунчера, чтобы перейти на страницу с инструкциями.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //}
+                    //else if (Globals.UA_Checked == true)
+                    //{
+                    //    MessageBox.Show("Файл Options.ini не знайдений, отже гра не розпочнеться! Вам потрібно запустити Zero Hour один раз, щоб створити файл.\nЯкщо це не вдасться, вам доведеться створити файл вручну. Натисніть кнопку \"Help\" в панелі запуску, щоб перейти на сторінку з інструкціями.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //}
+                    //else if (Globals.BG_Checked == true)
+                    //{
+                    //    MessageBox.Show("Options.ini не беше намерен, следователно играта няма да се стартира! Трябва да стартирате Zero Hour веднъж, за да генерира файла.\nАко това се провали, трябва да създадете файла ръчно. Щракнете на \"Help\" бутона в launcher-а, за да отидете на страница с инструкции.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //}
+                    //else if (Globals.DE_Checked == true)
+                    //{
+                    //    MessageBox.Show("Options.ini nicht gefunden, daher startet das Spiel nicht! Sie müssen Zero Hour einmal ausführen, damit die Datei generiert wird.\nWenn dies fehlschlägt, müssen Sie die Datei manuell erstellen. Klicken Sie im Launcher auf die Schaltfläche \"Help\", um zu einer Seite mit Anweisungen zu gelangen.", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //}
+                    CreateOptionsINI();
                 }
             }
 
@@ -2052,7 +2262,7 @@ namespace Contra
             {
                 {
                     System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafe));
+                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafeMOTD));
                     demoThread.Start();
                 }
             }
@@ -2130,7 +2340,7 @@ namespace Contra
             {
                 {
                     System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafe));
+                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafeMOTD));
                     demoThread.Start();
                 }
             }
@@ -2208,7 +2418,7 @@ namespace Contra
             {
                 {
                     System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafe));
+                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafeMOTD));
                     demoThread.Start();
                 }
             }
@@ -2286,7 +2496,7 @@ namespace Contra
             {
                 {
                     System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafe));
+                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafeMOTD));
                     demoThread.Start();
                 }
             }
@@ -2366,7 +2576,7 @@ namespace Contra
             {
                 {
                     System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafe));
+                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafeMOTD));
                     demoThread.Start();
                 }
             }
@@ -2481,6 +2691,8 @@ namespace Contra
         private void vpn_start_Click(object sender, EventArgs e)
         {
             disableVPNOnBtn = false;
+
+            if (isRunningOnWine()) return;
 
             Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
             if (ztExeByName.Length == 0)
@@ -2718,6 +2930,47 @@ namespace Contra
             //}
         }
 
+        public static bool isGentoolInstalled(string gentoolPath)
+        {
+            try
+            {
+                var size = GetFileVersionInfoSize(gentoolPath, out _);
+                if (size == 0) { throw new Win32Exception(); };
+                var bytes = new byte[size];
+                bool success = GetFileVersionInfo(gentoolPath, 0, size, bytes);
+                if (!success) { throw new Win32Exception(); }
+
+                VerQueryValue(bytes, @"\StringFileInfo\040904E4\ProductName", out IntPtr ptr, out _);
+                return Marshal.PtrToStringUni(ptr) == "GenTool";
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex);
+                return false;
+            }
+        }
+
+        public static bool isGentoolOutdated(string gentoolPath, int minVersion)
+        {
+            try
+            {
+                var size = GetFileVersionInfoSize(gentoolPath, out _);
+                if (size == 0) { throw new Win32Exception(); };
+                var bytes = new byte[size];
+                bool success = GetFileVersionInfo(gentoolPath, 0, size, bytes);
+                if (!success) { throw new Win32Exception(); }
+
+                // 040904E4 US English + CP_USASCII
+                VerQueryValue(bytes, @"\StringFileInfo\040904E4\ProductVersion", out IntPtr ptr, out _);
+                return int.Parse(Marshal.PtrToStringUni(ptr)) < minVersion;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return false;
+            }
+        }
+
         private void disableVPNBtnChangeTimer_Tick(object sender, EventArgs e)
         {
             disableVPNBtnChangeTimer.Enabled = false;
@@ -2853,13 +3106,18 @@ namespace Contra
                 {
                     instance.UninstallZTDriver();
 
+                    bool didZtFolderExist;
                     try
                     {
                         Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt", true);
+                        didZtFolderExist = true;
                     }
-                    catch { }
+                    catch
+                    {
+                        didZtFolderExist = false;
+                    }
 
-                    if (Globals.ZTDriverUninstallSuccessful == true)
+                    if (Globals.ZTDriverUninstallSuccessful == true || didZtFolderExist == true)
                     {
                         if (Globals.GB_Checked == true)
                         {

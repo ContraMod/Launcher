@@ -134,7 +134,7 @@ namespace Contra
 
         void ztDL_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
-       //     PatchDLPanel.Hide();
+            //     PatchDLPanel.Hide();
 
             if (e.Cancelled)
             {
@@ -263,8 +263,7 @@ namespace Contra
         {
             bool installMessage = false;
 
-            //if (File.Exists(ZTFileName) && (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt")))
-
+            // Files from package missing
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\tap-windows") ||
                 Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\tap-windows", "*", SearchOption.AllDirectories).Length == 0 ||
                 !File.Exists(contravpnPath + "zt-x64.exe") || !File.Exists(contravpnPath + "zt-x86.exe"))
@@ -282,16 +281,7 @@ namespace Contra
                 Globals.ZTReady += 1;
             }
 
-            //ZT Driver missing
-
-            //bool found = false;
-            //System.Management.ManagementObjectSearcher objSearcher = new System.Management.ManagementObjectSearcher("Select * from Win32_PnPSignedDriver Where DeviceName = 'Zerotier One Virtual Port'");
-            //System.Management.ManagementObjectCollection objCollection = objSearcher.Get();
-            //foreach (System.Management.ManagementObject obj in objCollection)
-            //{
-            //    found = true;
-            //}
-
+            // ZT Driver missing
             string infName = null;
             System.Management.ManagementObjectSearcher objSearcher = new System.Management.ManagementObjectSearcher("Select * from Win32_PnPSignedDriver Where DeviceName = 'ZeroTier One Virtual Port'");
             System.Management.ManagementObjectCollection objCollection = objSearcher.Get();
@@ -311,7 +301,10 @@ namespace Contra
             cmd.StandardInput.Close();
             string Output = cmd.StandardOutput.ReadToEnd();
 
-            if (!string.IsNullOrWhiteSpace(infName)) //if (Output.Contains(infName))
+            //MessageBox.Show(infName);
+
+            //if (!string.IsNullOrWhiteSpace(infName)) //if (Output.Contains(infName))
+            if (!string.IsNullOrWhiteSpace(infName) && Output.Contains(infName))
             {
                 //cmd.CloseMainWindow();
                 //cmd.Close();
@@ -331,7 +324,7 @@ namespace Contra
                 InstallZTDriver();
             }
 
-            //ZT Files missing in LocalAppData
+            // ZT Files missing in LocalAppData
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\moons.d\0000008cc55dfcea.moon") ||
                 !File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\local.conf"))
             {
@@ -347,7 +340,7 @@ namespace Contra
                 Globals.ZTReady += 1;
             }
 
-            //ZT Network not joined
+            // ZT Network not joined
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\networks.d") ||
                 Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\networks.d").Length < 2)
             {
@@ -390,7 +383,20 @@ namespace Contra
             }
 
             // Get files from temp folder and delete it.
-            System.Threading.Thread.Sleep(5000);
+            int i = 0;
+            // wait 30 sec for files to be downloaded
+            while (!File.Exists(tempPath + @"CommonAppDataFolder\ZeroTier\One\zerotier-one_x64.exe") && i < 30 ||
+                !File.Exists(tempPath + @"CommonAppDataFolder\ZeroTier\One\zerotier-one_x86.exe") && i < 30 ||
+                !File.Exists(tempPath + @"CommonAppDataFolder\ZeroTier\One\tap-windows\x64\zttap300.cat") && i < 30 ||
+                !File.Exists(tempPath + @"CommonAppDataFolder\ZeroTier\One\tap-windows\x64\zttap300.inf") && i < 30 ||
+                !File.Exists(tempPath + @"CommonAppDataFolder\ZeroTier\One\tap-windows\x64\zttap300.sys") && i < 30 ||
+                !File.Exists(tempPath + @"CommonAppDataFolder\ZeroTier\One\tap-windows\x86\zttap300.cat") && i < 30 ||
+                !File.Exists(tempPath + @"CommonAppDataFolder\ZeroTier\One\tap-windows\x86\zttap300.inf") && i < 30 ||
+                !File.Exists(tempPath + @"CommonAppDataFolder\ZeroTier\One\tap-windows\x86\zttap300.sys") && i < 30)
+            {
+                System.Threading.Thread.Sleep(1000);
+                i++;
+            }
             try
             {
                 File.Copy(tempPath + @"CommonAppDataFolder\ZeroTier\One\zerotier-one_x64.exe", contravpnPath + "zt-x64.exe", true);
@@ -422,6 +428,7 @@ namespace Contra
 
         public void InstallZTDriver()
         {
+            //MessageBox.Show("InstallZTDriver()");
             try
             {
                 Process cmd = new Process();
