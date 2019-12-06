@@ -24,7 +24,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.3</ApplicationVersion>
+    <ApplicationVersion>1.1.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -185,6 +185,7 @@
     <None Include="Resources\_button_donate.png" />
     <None Include="Resources\_button_donate_tr.png" />
     <None Include="Resources\background.jpg" />
+    <None Include="Resources\btnOk1.png" />
     <Content Include="Version.txt" />
     <None Include="README.md" />
     <None Include="Resources\flag_de_tr.png" />

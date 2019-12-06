@@ -86,7 +86,7 @@ namespace Contra
                 WaterEffectsCheckBox.Text = "Wassereffekt";
             }
 
-            //Read from Options.ini and check/uncheck Heat Effects checkbox depending on value there:
+            // Read from Options.ini and check/uncheck Heat Effects checkbox depending on value there:
             if (Directory.Exists(UserDataLeafName()))
             {
                 string text = File.ReadAllText(UserDataLeafName() + "Options.ini");
@@ -106,10 +106,6 @@ namespace Contra
                     else if (text.Contains("HeatEffects = yes"))
                     {
                         HeatEffectsCheckBox.Checked = true;
-                    }
-                    else
-                    {
-                        //
                     }
                 }
             }
@@ -133,61 +129,87 @@ namespace Contra
                     {
                         HeatEffectsCheckBox.Checked = true;
                     }
-                    else
-                    {
-                        //
-                    }
                 }
             }
 
 
-            //Get current camera height
+            // Get current camera height
             if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
             {
-                string s = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big");
-                List<string> found = new List<string>();
-                string line;
-                using (StringReader file = new StringReader(s))
+                try
                 {
-                    while ((line = file.ReadLine()) != null)
+                    string s = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big");
+                    List<string> found = new List<string>();
+                    string line;
+                    using (StringReader file = new StringReader(s))
                     {
-                        if (line.Contains(" MaxCameraHeight ="))
+                        while ((line = file.ReadLine()) != null)
                         {
-                            found.Add(line);
-                            line = line.Substring(0, line.IndexOf(".") + 1);
-                            line = Regex.Replace(line, @"[^\d]", "");
-                            if (Globals.GB_Checked == true)
+                            if (line.Contains(" MaxCameraHeight ="))
                             {
-                                camHeightLabel.Text = "Camera Height: " + camTrackBar.Value.ToString() + ".0";
-                                camTrackBar.Value = Convert.ToInt32(line);
-                            }
-                            else if (Globals.RU_Checked == true)
-                            {
-                                camHeightLabel.Text = "Высота камеры: " + camTrackBar.Value.ToString() + ".0";
-                                camTrackBar.Value = Convert.ToInt32(line);
-                            }
-                            else if (Globals.UA_Checked == true)
-                            {
-                                camHeightLabel.Text = "Висота камери: " + camTrackBar.Value.ToString() + ".0";
-                                camTrackBar.Value = Convert.ToInt32(line);
-                            }
-                            else if (Globals.BG_Checked == true)
-                            {
-                                camHeightLabel.Text = "Височина на камерата: " + camTrackBar.Value.ToString() + ".0";
-                                camTrackBar.Value = Convert.ToInt32(line);
-                            }
-                            else if (Globals.DE_Checked == true)
-                            {
-                                camHeightLabel.Text = "Kamerahöhe: " + camTrackBar.Value.ToString() + ".0";
-                                camTrackBar.Value = Convert.ToInt32(line);
+                                found.Add(line);
+                                line = line.Substring(0, line.IndexOf(".") + 1);
+                                line = Regex.Replace(line, @"[^\d]", "");
+                                if (AspectRatio(x, y) == "16:9")
+                                {
+                                    camTrackBar.Value = Convert.ToInt32(line);
+                                    camTrackBar.Value = (camTrackBar.Value + 110);
+                                }
+                                else
+                                {
+                                    camTrackBar.Value = Convert.ToInt32(line);
+                                }
+                                if (Globals.GB_Checked == true)
+                                {
+                                    camHeightLabel.Text = "Camera Height: " + camTrackBar.Value.ToString() + ".0";
+                                }
+                                else if (Globals.RU_Checked == true)
+                                {
+                                    camHeightLabel.Text = "Высота камеры: " + camTrackBar.Value.ToString() + ".0";
+                                }
+                                else if (Globals.UA_Checked == true)
+                                {
+                                    camHeightLabel.Text = "Висота камери: " + camTrackBar.Value.ToString() + ".0";
+                                }
+                                else if (Globals.BG_Checked == true)
+                                {
+                                    camHeightLabel.Text = "Височина на камерата: " + camTrackBar.Value.ToString() + ".0";
+                                }
+                                else if (Globals.DE_Checked == true)
+                                {
+                                    camHeightLabel.Text = "Kamerahöhe: " + camTrackBar.Value.ToString() + ".0";
+                                }
                             }
                         }
                     }
                 }
+                catch (IOException)
+                {
+                    if (Globals.GB_Checked == true)
+                    {
+                        MessageBox.Show("Please close !!!Contra009Final_Patch2_GameData.big in order to change camera height.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (Globals.RU_Checked == true)
+                    {
+                        MessageBox.Show("Пожалуйста, закройте !!!Contra009Final_Patch2_GameData.big, чтобы изменить высоту камеры.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (Globals.UA_Checked == true)
+                    {
+                        MessageBox.Show("Будь ласка, закрийте !!!Contra009Final_Patch2_GameData.big, щоб змінити висоту камери.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (Globals.BG_Checked == true)
+                    {
+                        MessageBox.Show("Моля, затворете !!!Contra009Final_Patch2_GameData.big, за да промените височината на камерата.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        MessageBox.Show("Bitte schließen Sie !!!Contra009Final_Patch2_GameData.big, um die Kamerahöhe zu ändern.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
 
 
-            //Get current resolution
+            // Get current resolution
             {
                 if (Directory.Exists(UserDataLeafName()))
                 {
@@ -238,7 +260,6 @@ namespace Contra
                 comboBox1.Text = Properties.Settings.Default.Res;
 
                 FogCheckBox.Checked = Properties.Settings.Default.Fog;
-                //HeatEffectsCheckBox.Checked = Properties.Settings.Default.HeatEffects;
                 LangFilterCheckBox.Checked = Properties.Settings.Default.LangF;
                 WaterEffectsCheckBox.Checked = Properties.Settings.Default.WaterEffects;
             }
@@ -262,7 +283,7 @@ namespace Contra
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("Options.ini nicht gefunden! Aktuelle Auflцsung konnte nicht geladen werden.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Options.ini nicht gefunden! Aktuelle Auflцsung konnte nicht geladen werden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -532,9 +553,7 @@ namespace Contra
         {
             if (!HeatEffectsCheckBox.Checked)
             {
-                //Properties.Settings.Default.HeatEffects = false;
-                //Properties.Settings.Default.Save();
-                //Disable Heat Effects. Fixes black screen issue.
+                // Disable Heat Effects. Fixes black screen issue.
                 if (Directory.Exists(UserDataLeafName()))
                 {
                     string text = File.ReadAllText(UserDataLeafName() + "Options.ini");
@@ -546,10 +565,6 @@ namespace Contra
                         else if (text.Contains("HeatEffects = yes"))
                         {
                             File.WriteAllText(UserDataLeafName() + "Options.ini", File.ReadAllText(UserDataLeafName() + "Options.ini").Replace("HeatEffects = yes", "HeatEffects = No"));
-                        }
-                        else
-                        {
-                            //
                         }
                     }
                 }
@@ -565,18 +580,12 @@ namespace Contra
                         {
                             File.WriteAllText(myDocPath + "Options.ini", File.ReadAllText(myDocPath + "Options.ini").Replace("HeatEffects = yes", "HeatEffects = No"));
                         }
-                        else
-                        {
-                            //
-                        }
                     }
                 }
             }
             else
             {
-                //Properties.Settings.Default.HeatEffects = true;
-                //Properties.Settings.Default.Save();
-                //Disable Heat Effects. Fixes black screen issue.
+                // Disable Heat Effects. Fixes black screen issue.
                 if (Directory.Exists(UserDataLeafName()))
                 {
                     string text = File.ReadAllText(UserDataLeafName() + "Options.ini");
@@ -588,10 +597,6 @@ namespace Contra
                         else if (text.Contains("HeatEffects = no"))
                         {
                             File.WriteAllText(UserDataLeafName() + "Options.ini", File.ReadAllText(UserDataLeafName() + "Options.ini").Replace("HeatEffects = no", "HeatEffects = Yes"));
-                        }
-                        else
-                        {
-                            //
                         }
                     }
                 }
@@ -607,14 +612,14 @@ namespace Contra
                         {
                             File.WriteAllText(myDocPath + "Options.ini", File.ReadAllText(myDocPath + "Options.ini").Replace("HeatEffects = no", "HeatEffects = Yes"));
                         }
-                        else
-                        {
-                            //
-                        }
                     }
                 }
             }
         }
+
+        public static Tuple<int, int> getScreenResolution() => Tuple.Create(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+        int x = getScreenResolution().Item1;
+        int y = getScreenResolution().Item2;
 
         public string AspectRatio(int x, int y)
         {
@@ -631,15 +636,7 @@ namespace Contra
             {
                 Encoding encoding = Encoding.GetEncoding("windows-1252");
                 var regex = "";
-                string x = Properties.Settings.Default.Res;
-                string y = Properties.Settings.Default.Res;
-                x = x.Substring(0, x.IndexOf("x") + 1);
-                x = Regex.Replace(x, "x", "");
-                y = y.Substring(y.IndexOf("x"));
-                y = Regex.Replace(y, "x", "");
-                int xInt, yInt;
-                Int32.TryParse(x, out xInt); Int32.TryParse(y, out yInt);
-                if (AspectRatio(xInt, yInt) == "16:9")
+                if (AspectRatio(x, y) == "16:9")
                 {
                     regex = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + (camTrackBar.Value-110) + ".0" + " ;350.0\r\n");
                 }
@@ -711,50 +708,37 @@ namespace Contra
 
         private void camOkButton_Click(object sender, EventArgs e)
         {
-            ChangeCamHeight();
-            //if (!cfgText.Contains("5.8")) //if user isn't on ver 6.2
-            //{
-            //    if (Globals.GB_Checked == true)
-            //    {
-            //        var result = MessageBox.Show("Gentool versions above 6.2 do not allow custom camera height for mods in LAN lobby.\n\nDo you still want to set camera height?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            //        if (result == DialogResult.Yes)
-            //        {
-            //            changeCamHeight();
-            //        }
-            //    }
-            //    else if (Globals.RU_Checked == true)
-            //    {
-            //        var result = MessageBox.Show("Версии Gentool выше 6.2 не позволяют настраивать высоту камеры для модов в лобби локальной сети.\n\nВы все еще хотите установить высоту камеры?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            //        if (result == DialogResult.Yes)
-            //        {
-            //            changeCamHeight();
-            //        }
-            //    }
-            //    else if (Globals.UA_Checked == true)
-            //    {
-            //        var result = MessageBox.Show("Версії Gentool вище 6.2 не дозволяють налаштувати висоту камер для модів у лобі LAN.\n\nВи все ще бажаєте встановити висоту камери?", "Застереження", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            //        if (result == DialogResult.Yes)
-            //        {
-            //            changeCamHeight();
-            //        }
-            //    }
-            //    else if (Globals.BG_Checked == true)
-            //    {
-            //        var result = MessageBox.Show("Gentool версиите над 6.2 не позволяват персонализирана височина на камерата за модове в LAN лобито.\n\nВсе още ли искате да я промените?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            //        if (result == DialogResult.Yes)
-            //        {
-            //            changeCamHeight();
-            //        }
-            //    }
-            //    else if (Globals.DE_Checked == true)
-            //    {
-            //        var result = MessageBox.Show("Gentool-Versionen über 6.2 erlauben keine benutzerdefinierte Kamerahöhe für Mods in der LAN-Lobby.\n\nMöchten Sie die Kamerahöhe noch einstellen?", "Warnung", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            //        if (result == DialogResult.Yes)
-            //        {
-            //            changeCamHeight();
-            //        }
-            //    }
-            //}
+            try
+            {
+                ChangeCamHeight();
+            }
+            catch (IOException)
+            {
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("Please close !!!Contra009Final_Patch2_GameData.big in order to change camera height.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Пожалуйста, закройте !!!Contra009Final_Patch2_GameData.big, чтобы изменить высоту камеры.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Будь ласка, закрийте !!!Contra009Final_Patch2_GameData.big, щоб змінити висоту камери.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Моля, затворете !!!Contra009Final_Patch2_GameData.big, за да промените височината на камерата.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Bitte schließen Sie !!!Contra009Final_Patch2_GameData.big, um die Kamerahöhe zu ändern.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
 
         private void camTrackBar_Scroll(object sender, EventArgs e)

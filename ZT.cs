@@ -216,11 +216,11 @@ namespace Contra
             {
                 //Declare new WebClient object
                 WebClient wc = new WebClient();
-                string versionTxt = wc.DownloadString("https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/Version.txt");
+                string versionTxt = wc.DownloadString("https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/Versions.txt");
 
                 //Get zt version
-                string ztVersionLatest = versionTxt.Substring(versionTxt.LastIndexOf("ZT: ") + 4);
-                ztVersionLatest = ztVersionLatest.Substring(0, ztVersionLatest.IndexOf("#")).Trim();
+                string ztVersionLatest = versionTxt.Substring(versionTxt.LastIndexOf("ZeroTier: ") + 10);
+                ztVersionLatest = ztVersionLatest.Substring(0, ztVersionLatest.IndexOf("$")).Trim();
                 //MessageBox.Show(ztVersionLatest);
 
                 if (ztVersionLocal != ztVersionLatest)

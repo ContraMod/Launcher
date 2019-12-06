@@ -1,0 +1,9 @@
+﻿Mod: 2$
+Mod Text: 009 Final Patch 2$
+Launcher: 1.1.0.0$
+ZeroTier: 1.4.6$
+MOTD-EN: $
+MOTD-RU: $
+MOTD-UA: $
+MOTD-BG: $
+MOTD-DE: $

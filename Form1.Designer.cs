@@ -558,6 +558,7 @@ namespace Contra
             // CancelModDLBtn
             // 
             this.CancelModDLBtn.BackColor = System.Drawing.Color.Transparent;
+            this.CancelModDLBtn.BackgroundImage = global::Contra.Properties.Resources.btnOk1;
             this.CancelModDLBtn.FlatAppearance.BorderSize = 0;
             resources.ApplyResources(this.CancelModDLBtn, "CancelModDLBtn");
             this.CancelModDLBtn.ForeColor = System.Drawing.Color.White;
@@ -663,12 +664,12 @@ namespace Contra
             this.BackgroundImage = global::Contra.Properties.Resources.background;
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
+            this.Controls.Add(this.PatchDLPanel);
             this.Controls.Add(this.IP_Label);
             this.Controls.Add(this.DonateBtn);
             this.Controls.Add(this.ZTNukeBtn);
             this.Controls.Add(this.ZTConsoleBtn);
             this.Controls.Add(this.ZTConfigBtn);
-            this.Controls.Add(this.PatchDLPanel);
             this.Controls.Add(this.MOTD);
             this.Controls.Add(this.vpn_start);
             this.Controls.Add(this.moreOptions);
