@@ -214,7 +214,6 @@ namespace Contra
 
             try
             {
-                //Declare new WebClient object
                 WebClient wc = new WebClient();
                 string versionTxt = wc.DownloadString("https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/Versions.txt");
 

@@ -230,7 +230,8 @@ namespace Contra
                 versionText = versionText.Substring(0, versionText.IndexOf("$"));
                 newVersion = versionText;
             }
-            catch (Exception ex) { Console.Error.WriteLine(ex); }
+            catch
+            { }
         }
 
         // Create method to check for launcher update
@@ -274,7 +275,8 @@ namespace Contra
                     DownloadUpdate(exe_url);
                 }
             }
-            catch (Exception ex) { Console.Error.WriteLine(ex); }
+            catch
+            { }
         }
 
         static String BytesToString(long byteCount)
@@ -322,7 +324,8 @@ namespace Contra
 
                 //  while (wc.IsBusy) { }
             }
-            catch (Exception ex) { Console.Error.WriteLine(ex); }
+            catch
+            { }
         }
 
         public void CheckIfFileIsAvailable(string patch_url)
@@ -447,7 +450,6 @@ namespace Contra
         {
             try
             {
-                //Declare new WebClient object
                 WebClient wc = new WebClient();
                 wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadLauncherCompleted);
                 //wc.DownloadFileAsync(new Uri(exe_url), Application.StartupPath + "/Contra_Launcher_New.exe");
@@ -457,7 +459,8 @@ namespace Contra
 
                 //  while (wc.IsBusy) { }
             }
-            catch (Exception ex) { Console.Error.WriteLine(ex); }
+            catch
+            { }
         }
 
         bool applyNewLauncher = false;
@@ -802,10 +805,8 @@ namespace Contra
                     { }
                 }
             }
-            catch //(Exception ex)
-            {
-
-            }
+            catch
+            { }
         }
 
         private void button1_MouseEnter(object sender, EventArgs e)
@@ -1000,7 +1001,8 @@ namespace Contra
                         File.Copy("Install_Final.bmp", "Install_Final_ZH.bmp", true);
                         File.Copy("Install_Final_Contra.bmp", "Install_Final.bmp", true);
                     }
-                    catch (Exception ex) { Console.Error.WriteLine(ex); }
+                    catch
+                    { }
                 }
 
                 // Disable cyrillic letters, enable German umlauts.
@@ -1732,7 +1734,8 @@ namespace Contra
                     SetMOTD(motd_lang.Single(l => l.Value).Key);
                 }
             }
-            catch (Exception ex) { Console.Error.WriteLine(ex); }
+            catch
+            { }
         }
 
         void gtwc_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
@@ -2187,7 +2190,8 @@ namespace Contra
                     demoThread.Start();
                 }
             }
-            catch (Exception ex) { Console.Error.WriteLine(ex); }
+            catch
+            { }
         }
 
         private void RadioFlag_RU_CheckedChanged(object sender, EventArgs e)
@@ -2265,7 +2269,8 @@ namespace Contra
                     demoThread.Start();
                 }
             }
-            catch (Exception ex) { Console.Error.WriteLine(ex); }
+            catch
+            { }
         }
 
         private void RadioFlag_UA_CheckedChanged(object sender, EventArgs e)
@@ -2343,7 +2348,8 @@ namespace Contra
                     demoThread.Start();
                 }
             }
-            catch (Exception ex) { Console.Error.WriteLine(ex); }
+            catch
+            { }
         }
 
         private void RadioFlag_BG_CheckedChanged(object sender, EventArgs e)
@@ -2421,7 +2427,8 @@ namespace Contra
                     demoThread.Start();
                 }
             }
-            catch (Exception ex) { Console.Error.WriteLine(ex); }
+            catch
+            { }
         }
 
         private void RadioFlag_DE_CheckedChanged(object sender, EventArgs e)
@@ -2501,7 +2508,8 @@ namespace Contra
                     demoThread.Start();
                 }
             }
-            catch (Exception ex) { Console.Error.WriteLine(ex); }
+            catch
+            { }
         }
 
         private void Resolution_Click(object sender, EventArgs e) //Opens More Options form
@@ -2866,7 +2874,7 @@ namespace Contra
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine(ex);
+                //Console.Error.WriteLine(ex);
                 return false;
             }
         }
