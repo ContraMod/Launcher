@@ -152,8 +152,9 @@ namespace Contra
                                 line = Regex.Replace(line, @"[^\d]", "");
                                 if (AspectRatio(x, y) == "16:9")
                                 {
-                                    camTrackBar.Value = Convert.ToInt32(line);
-                                    camTrackBar.Value = (camTrackBar.Value + 110);
+                                    int value;
+                                    value = Convert.ToInt32(line);
+                                    camTrackBar.Value = value + 110;
                                 }
                                 else
                                 {

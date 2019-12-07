@@ -1930,7 +1930,7 @@ namespace Contra
             if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
             {
                 Encoding encoding = Encoding.GetEncoding("windows-1252");
-                var regex = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + (392 - 110) + ".0" + " ;350.0\r\n");
+                var regex = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = 282.0 ;350.0\r\n");
                 string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big", encoding);
                 File.WriteAllText("!!!Contra009Final_Patch2_GameData.big", regex, encoding);
             }
