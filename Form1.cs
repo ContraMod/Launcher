@@ -1984,11 +1984,7 @@ namespace Contra
                     using (WebClient client = new WebClient())
                     {
                         genToolFileName = client.DownloadString("http://www.gentool.net/download/patch");
-                        var pos = genToolFileName.IndexOf(';');
-                        genToolFileName = genToolFileName.Substring(1, pos - 1);
-                        genToolFileName = Regex.Replace(genToolFileName, "~", "");
-                        genToolFileName = genToolFileName.Replace("\n", String.Empty);
-                        genToolFileName.Trim();
+                        genToolFileName = genToolFileName.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)[1];
 
                         //MessageBox.Show(genToolFileName);
                     }
@@ -1996,6 +1992,7 @@ namespace Contra
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
+                    return;
                 }
 
                 string gtURL = "http://www.gentool.net/download/" + genToolFileName;
