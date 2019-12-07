@@ -680,6 +680,10 @@ namespace Contra
 
                 if (Output2.Contains("Driver package deleted successfully."))
                 {
+                    cmd.CloseMainWindow();
+                    cmd.Close();
+                    cmd2.CloseMainWindow();
+                    cmd2.Close();
                     //MessageBox.Show("uninst driver succc");
                     Globals.ZTDriverUninstallSuccessful = true;
                 }

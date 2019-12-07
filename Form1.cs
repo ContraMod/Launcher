@@ -1998,7 +1998,7 @@ namespace Contra
                 //Delete tinc vpn files
                 try
                 {
-                    Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn");
+                    Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn", true);
                     Directory.Delete(@"contra\vpn\32");
                     Directory.Delete(@"contra\vpn\64");
                     File.Delete(@"contra\vpn\tinc-adapters.cmd");
