@@ -134,7 +134,7 @@ namespace Contra
             try
             {
                 string wineVer = wine_get_version();
-                MessageBox.Show($"We've detected you're running launcher on Wine {wineVer}\nVPN functionality disabled, instead of using the bundled ZT for Windows, install ZeroTier One from your distro's package repositories.\nThen you can start the ZT service and run 'sudo zerotier-cli join 8cc55dfcea100100' to connect to the ContraVPN network.\n\nPlease visit #support channel on our discord if you need help with this.");
+                MessageBox.Show($"We've detected you're running launcher on Wine {wineVer}\nVPN functionality disabled. Instead of using the bundled ZT for Windows, install ZeroTier One from your distro's package repositories.\n\nThen you can start the ZT service and run\n\nsudo zerotier-cli join 8cc55dfcea100100\n\nto connect to the ContraVPN network.\n\nPlease visit #support channel on our discord if you need help with this.");
                 return true;
             }
             catch { return false; }
@@ -1916,6 +1916,49 @@ namespace Contra
             }
         }
 
+        public string AspectRatio(int x, int y)
+        {
+            double value = (double)x / y;
+            if (value > 1.7)
+                return "16:9";
+            else
+                return "4:3";
+        }
+
+        private void ChangeCamHeight()
+        {
+            if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
+            {
+                Encoding encoding = Encoding.GetEncoding("windows-1252");
+                var regex = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + (392 - 110) + ".0" + " ;350.0\r\n");
+                string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big", encoding);
+                File.WriteAllText("!!!Contra009Final_Patch2_GameData.big", regex, encoding);
+            }
+            else
+            {
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" file not found!", "Error");
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не найден!", "Ошибка");
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не знайдений!", "Помилка");
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Файлът \"!!!Contra009Final_Patch2_GameData.big\" не беше намерен!", "Грешка");
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" nicht gefunden!", "Fehler");
+                }
+            }
+        }
+
         private void Form1_Shown(object sender, EventArgs e)
         {
             string gtHash = null;
@@ -1995,6 +2038,21 @@ namespace Contra
 
             if (Properties.Settings.Default.FirstRun)
             {
+                // Enable GameData
+                if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
+                {
+                    File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
+                }
+                // Set default cam height
+                try
+                {
+                    if (AspectRatio(x, y) == "16:9" && isGentoolInstalled("d3d8.dll"))
+                    {
+                        ChangeCamHeight();
+                    }
+                }
+                catch { }
+
                 // Delete tinc vpn files
                 try
                 {
@@ -3044,6 +3102,8 @@ namespace Contra
 
         private void ZTConsoleBtn_Click(object sender, EventArgs e)
         {
+            if (isRunningOnWine()) return;
+
             try
             {
                 //string strCmdText = Path.Combine(Directory.GetCurrentDirectory(), "Start.ps1");
@@ -3090,6 +3150,8 @@ namespace Contra
 
         private void ZTConfigBtn_Click(object sender, EventArgs e)
         {
+            if (isRunningOnWine()) return;
+
             try
             {
                 Process.Start("notepad.exe", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\local.conf");
@@ -3122,6 +3184,8 @@ namespace Contra
 
         private void ZTNukeBtn_Click(object sender, EventArgs e)
         {
+            if (isRunningOnWine()) return;
+
             string dialogMsg = null;
             string dialogTitle = null;
 
