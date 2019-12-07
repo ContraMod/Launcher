@@ -1,0 +1,35 @@
+name: Build
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  PUBLISH_PATH: netcore/bin/Debug/netcoreapp3.1/win-x64/publish
+
+on: 
+  push:
+    tags-ignore:
+      - '**'
+    branches:
+      - '*'
+  pull_request:
+
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[ci skip]')"
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.100
+
+      - name: Build
+        run: dotnet publish -r win-x64 --self-contained=false /p:PublishTrimmed=false netcore
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: contra-launcher
+          path: ${{ env.PUBLISH_PATH }}

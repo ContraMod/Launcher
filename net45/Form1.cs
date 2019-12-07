@@ -447,7 +447,7 @@ namespace Contra
             Application.Restart();
         }
 
-        public void DownloadUpdate(string exe_url)
+        public void DownloadUpdate(string zip_url)
         {
             try
             {
@@ -456,7 +456,7 @@ namespace Contra
                 //wc.DownloadFileAsync(new Uri(exe_url), Application.StartupPath + "/Contra_Launcher_New.exe");
 
                 //download the new file and append version number to its name
-                wc.DownloadFileAsync(new Uri(exe_url), Application.StartupPath + @"\contra-launcher.zip");
+                wc.DownloadFileAsync(new Uri(zip_url), Application.StartupPath + @"\Contra-Launcher.zip");
 
                 //  while (wc.IsBusy) { }
             }
@@ -477,7 +477,7 @@ namespace Contra
             }
 
             string extractPath = Application.StartupPath;
-            string zipPath = Application.StartupPath + @"\contra-launcher.zip";
+            string zipPath = Application.StartupPath + @"\Contra-Launcher.zip";
             try //To prevent crash
             {
                 using (ZipArchive archive = ZipFile.OpenRead(zipPath))
@@ -1790,7 +1790,7 @@ namespace Contra
                     string versionText = motd.Substring(motd.LastIndexOf("Launcher: ") + 10);
                     versionText = versionText.Substring(0, versionText.IndexOf("$"));
                     newVersion = versionText;
-                    string exe_url = "https://github.com/Teteros/contra-launcher/releases/download/" + versionText + "/ contra-launcher.zip";
+                    string zip_url = "https://github.com/Teteros/contra-launcher/releases/download/" + versionText + "/Contra-Launcher.zip";
 
                     //URL of patch files
                     string patch_url = "http://contra.cncguild.net/Downloads/Launcher/";
@@ -1802,7 +1802,7 @@ namespace Contra
                         if (seekForUpdate == true)
                         {
                             seekForUpdate = false;
-                            GetUpdate(motd, exe_url);
+                            GetUpdate(motd, zip_url);
                             GetModUpdate(motd, patch_url);
                         }
                         downloadTextFile = true;

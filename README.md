@@ -1,22 +1,34 @@
-# ![icon](https://user-images.githubusercontent.com/5067989/39086645-d642c65a-458c-11e8-92c4-189a1a704d2b.png) Contra Launcher
+# Contra Launcher
 
-Launcher for [Contra](http://www.moddb.com/mods/contra) 009 Final with TincVPN support.
+<a href="https://discordapp.com/invite/015E6KXXHmdWFXCtt"><img src="https://discordapp.com/assets/e05ead6e6ebc08df9291738d0aa6986d.png" alt="Discord" width="22"></a>
+[![Actions Status](https://github.com/Teteros/contra-launcher/workflows/Build/badge.svg)](https://github.com/Teteros/contra-launcher/actions)
+[![GitHub Releases](https://img.shields.io/github/release/Teteros/contra-launcher.svg)](https://github.com/Teteros/contra-launcher/releases)
+<a href="https://www.moddb.com/mods/contra"><img src="https://button.moddb.com/download/medium/172830.png" alt="Moddb Icon" height="20"></a>
 
 >Contra is a freeware modification for Command and Conquer Generals: Zero Hour real-time strategy game. It's a big project started in 2004. It adds many new units as well as numerous new upgrades, new general's powers and buildings. It also adds new sounds, maps, bug fixes, enhanced graphics, and other effects, as well as three new generals.
 
-![Launcher UI IMG](https://user-images.githubusercontent.com/5067989/53661832-47733800-3c59-11e9-8b4d-a804381ba9a0.png)
-
 ## Compiling
 
-Solution tested with Visual Studio 2017 Community with .NET 4.0 target and on Linux with MSBuild (Mono).
+Requires Windows 7 or higher and one of the following SDKs:
 
-# Usage
+**.NET Core 3.1** (Preferred)
 
-This repository only contains the source code for the launcher component of the mod.
-009 Final files are hosted on [moddb](https://www.moddb.com/mods/contra/downloads/contra-009-final).
-You will also need newest the [patch](https://www.moddb.com/mods/contra/downloads/contra-009-final-patch-1).
+`dotnet publish /p:Configuration=Release netcore`
 
-If you are only using the sources from this repo, unzip the [launcher package](https://github.com/ThePredatorBG/contra-launcher/files/2920827/contra-dist.zip) that includes the tap driver and tinc binaries where your Launcher is built.
-Current Dev Launcher binary is available on `master` [bin/Release/Contra_Launcher.exe](https://github.com/ThePredatorBG/contra-launcher/raw/master/bin/Release/Contra_Launcher.exe), but please use the pinned (moddb) release for playing.
+Build Location: `netcore\bin\Release\netcoreapp3.1\win-x86\publish\Contra_Launcher.exe`
 
-Feel free to join our [Discord](https://discordapp.com/invite/015E6KXXHmdWFXCtt) chat if you're interested in contributing or discussion.
+**.Net Framework 4.5**
+
+`msbuild /p:Configuration=Release /p:Platform=AnyCPU net45`
+
+Build Location: `net45\bin\Release\Contra_Launcher.exe`
+
+Instead of command-line you can also open the solution in Visual Studio 2019 and built from there.
+
+## Running
+
+This repository only contains the source code for the launcher, download the [mod archive](https://www.moddb.com/mods/contra/downloads) to play the mod itself.
+
+Grab latest dev builds (artifacts) from [GitHub Actions](https://github.com/Teteros/ctrlauncher/actions) for testing or download the [stable](https://github.com/Teteros/ctrlauncher/releases/latest) release.
+
+Binary tested on Windows 7-10 and Wine (Linux) x64.

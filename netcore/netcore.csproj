@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>Contra</RootNamespace>
+    <AssemblyName>Contra_Launcher</AssemblyName>
+    <ApplicationIcon>..\net45\ContraIco.ico</ApplicationIcon>
+    <ApplicationManifest>..\net45\app.manifest</ApplicationManifest>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <PublishSingleFile>true</PublishSingleFile>
+    <PublishTrimmed>true</PublishTrimmed>
+    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\net45\**\*.cs" />
+    <EmbeddedResource Include="..\net45\**\*.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="*" />
+    <PackageReference Include="System.Resources.Extensions" Version="*" />
+  </ItemGroup>
+</Project>

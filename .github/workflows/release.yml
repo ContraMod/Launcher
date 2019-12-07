@@ -1,0 +1,50 @@
+name: Release
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  PUBLISH_PATH: netcore/bin/Release/netcoreapp3.1/win-x86/publish
+
+on:
+  push:
+    tags:
+      - '**'
+
+jobs:
+  release:
+    if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[ci skip]')"
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.100
+
+    - name: Build & Publish
+      run: dotnet publish /p:AssemblyName="Contra_Launcher_$("${{ github.ref }}".Substring(10))" --configuration Release netcore
+
+    - name: Archive
+      run: Compress-Archive -Force -Path "${{env.PUBLISH_PATH}}/Contra_Launcher_$("${{ github.ref }}".Substring(10)).exe" -DestinationPath ${{env.PUBLISH_PATH}}/Contra_Launcher.zip
+
+    - name: Create release
+      id: create_release
+      uses: actions/create-release@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+        draft: false
+        prerelease: false
+
+    - name: Upload release asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ${{ env.PUBLISH_PATH }}/Contra_Launcher.zip
+        asset_name: Contra_Launcher.zip
+        asset_content_type: application/zip

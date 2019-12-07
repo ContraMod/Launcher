@@ -17,6 +17,9 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+# Mono auto generated files
+mono_crash.*
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -28,10 +31,8 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
-[Bb]in/[Rr]elease/[Cc]ontra
 [Oo]bj/
 [Ll]og/
-*.exe.config
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -41,9 +42,8 @@ bld/
 # Visual Studio 2017 auto generated files
 Generated\ Files/
 
-# MSTest test Results
-[Tt]est[Rr]esult*/
-[Bb]uild[Ll]og.*
+# Benchmark Results
+BenchmarkDotNet.Artifacts/
 
 # .NET Core
 project.lock.json
@@ -99,6 +99,24 @@ ipch/
 # Visual Studio Trace Files
 *.e2e
 
+# Click-Once directory
+[Pp]ublish[Pp]rofiles
+publish/
+
+# NuGet Packages
+*.nupkg
+# NuGet Symbol Packages
+*.snupkg
+# The packages folder can be ignored because of Package Restore
+**/[Pp]ackages/*
+# except build/, which is used as an MSBuild target.
+!**/[Pp]ackages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/[Pp]ackages/repositories.config
+# NuGet v3's project.json files produces more ignorable files
+*.nuget.props
+*.nuget.targets
+
 # Visual Studio cache files
 # files ending in .cache can be ignored
 *.[Cc]ache
@@ -114,11 +132,10 @@ ClientBin/
 *.jfm
 *.pfx
 *.publishsettings
-orleans.codegen.cs
 
 # Including strong name files can present a security risk
 # (https://github.com/github/gitignore/pull/2483#issue-259490424)
-#*.snk
+*.snk
 
 # Backup & report files from converting an old project file
 # to a newer Visual Studio version. Backup files are not needed,
@@ -129,5 +146,11 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 ServiceFabricBackup/
 *.rptproj.bak
+
+# MSBuild Binary and Structured Log
+*.binlog
+
+# Backup folder for Package Reference Convert tool in Visual Studio 2017
+MigrationBackup/
 
 # End of https://www.gitignore.io/api/csharp
