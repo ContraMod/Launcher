@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.IO.Compression;
+using System.Security.Cryptography;
 
 namespace Contra
 {
@@ -222,7 +223,7 @@ namespace Contra
                             MessageBox.Show("Contra muss aktualisiert werden. Die neueste Version ist " + modVersionText + "! Klicke OK zum aktualisieren!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
-                        DownloadModUpdate(patch_url);
+                    DownloadModUpdate(patch_url);
                 }
 
                 // Get launcher version
@@ -804,6 +805,19 @@ namespace Contra
                     catch
                     { }
                 }
+
+                if (File.Exists("generals_zh.exe"))
+                {
+                    try
+                    {
+                        File.SetAttributes("generals.exe", FileAttributes.Normal);
+                        File.SetAttributes("generals_zh.exe", FileAttributes.Normal);
+                        File.SetAttributes("generals.ctr", FileAttributes.Normal);
+                        File.Copy("generals_zh.exe", "generals.exe", true);
+                    }
+                    catch
+                    { }
+                }
             }
             catch
             { }
@@ -1011,42 +1025,47 @@ namespace Contra
                     File.Move("GenArial.ttf", "GenArial_.ttf");
                 }
 
-                // Start Generals
-                if (File.Exists("generals.exe"))
+                // Check for generals.ctr
+                string message = null;
+                string title = null;
+                if (!File.Exists("generals.ctr") || CalculateMD5("generals.ctr") != "ee7d5e6c2d7fb66f5c27131f33da5fd3")
                 {
-                    IsWbRunning();
-                    Process generals = new Process();
-                    generals.StartInfo.FileName = "generals.exe";
-
-                    if (WinCheckBox.Checked == false && QSCheckBox.Checked == false)
+                    if (Globals.GB_Checked == true)
                     {
-                        //no start arguments
+                        message = "\"generals.ctr\" not found or checksum mismatch! Please, extract it from the \"Contra009FinalPatch2\" archive if you want camera height setting to work and be able to play online with ContraVPN.\n\nWould you like to start the game anyway?";
+                        title = "Warning";
                     }
-                    else if (QSCheckBox.Checked && WinCheckBox.Checked == false)
+                    else if (Globals.RU_Checked == true)
                     {
-                        generals.StartInfo.Arguments = "-quickstart -nologo";
+                        message = "\"generals.ctr\" не найден или несоответствие контрольной суммы! Извлеките его из архива \"Contra009FinalPatch2\", если вы хотите, чтобы настройка высоты камеры работала и была возможность играть онлайн с ContraVPN.\n\nХотели бы вы начать игру?";
+                        title = "Предупреждение";
                     }
-                    else if (WinCheckBox.Checked && QSCheckBox.Checked)
+                    else if (Globals.UA_Checked == true)
                     {
-                        generals.StartInfo.Arguments = "-win -quickstart -nologo";
+                        message = "\"generals.ctr\" не знайден або невідповідність контрольної суми! Будь ласка, витягніть його з архіву \"Contra009FinalPatch2\", якщо ви хочете, щоб налаштування висоти камери працювало та матимете змогу грати в режимі он-лайн з ContraVPN.\n\nВи хочете все-таки почати гру?";
+                        title = "Попередження";
                     }
-                    else //if (WinCheckBox.Checked && QSCheckBox.Checked == false)
+                    else if (Globals.BG_Checked == true)
                     {
-                        generals.StartInfo.Arguments = "-win";
+                        message = "\"generals.ctr\" не е намерен или има несъответствие в контролната сума! Моля, извлечете го от архива \"Contra009FinalPatch2\", ако искате настройката на височината на камерата да работи и да можете да играете онлайн с ContraVPN.\n\nЖелаете ли да стартирате играта въпреки това?";
+                        title = "Предупреждение";
                     }
-
-                    generals.EnableRaisingEvents = true;
-                    generals.Exited += (sender1, e1) =>
+                    else if (Globals.DE_Checked == true)
                     {
-                        WindowState = FormWindowState.Normal;
-                    };
-                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
-                    WindowState = FormWindowState.Minimized;
-                    generals.Start();
+                        message = "\"generals.ctr\" nicht gefunden oder Prüfsummeninkongruenz! Bitte extrahieren Sie es aus dem Archiv \"Contra009FinalPatch2\", wenn die Einstellung der Kamerahöhe funktionieren soll und Sie mit ContraVPN online spielen können.\n\nMöchten Sie das Spiel trotzdem starten?";
+                        title = "Warnung";
+                    }
+                    DialogResult dialogResult = MessageBox.Show(message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        StartGenerals();
+                    }
+                    else
+                    { }
                 }
                 else
                 {
-                    CheckInstallDir();
+                    StartGenerals();
                 }
             }
             catch (Exception ex)
@@ -1054,6 +1073,64 @@ namespace Contra
                 MessageBox.Show(ex.Message, "Error");
             }
             return;
+        }
+
+        public void StartGenerals()
+        {
+            // Rename generals.exes
+            if (File.Exists("generals.exe") && (File.Exists("generals.ctr")))
+            {
+                try
+                {
+                    File.SetAttributes("generals.exe", FileAttributes.Normal);
+                    if (File.Exists("generals_zh.exe"))
+                    {
+                        File.SetAttributes("generals_zh.exe", FileAttributes.Normal);
+                    }
+                    File.SetAttributes("generals.ctr", FileAttributes.Normal);
+                    File.Copy("generals.exe", "generals_zh.exe", true);
+                    File.Copy("generals.ctr", "generals.exe", true);
+                }
+                catch
+                { }
+            }
+
+            if (File.Exists("generals.exe"))
+            {
+                IsWbRunning();
+                Process generals = new Process();
+                generals.StartInfo.FileName = "generals.exe";
+
+                if (WinCheckBox.Checked == false && QSCheckBox.Checked == false)
+                {
+                    //no start arguments
+                }
+                else if (QSCheckBox.Checked && WinCheckBox.Checked == false)
+                {
+                    generals.StartInfo.Arguments = "-quickstart -nologo";
+                }
+                else if (WinCheckBox.Checked && QSCheckBox.Checked)
+                {
+                    generals.StartInfo.Arguments = "-win -quickstart -nologo";
+                }
+                else //if (WinCheckBox.Checked && QSCheckBox.Checked == false)
+                {
+                    generals.StartInfo.Arguments = "-win";
+                }
+
+                generals.EnableRaisingEvents = true;
+                generals.Exited += (sender1, e1) =>
+                {
+                    WindowState = FormWindowState.Normal;
+                };
+                generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
+                WindowState = FormWindowState.Minimized;
+                generals.Start();
+            }
+            else
+            {
+                CheckInstallDir();
+            }
         }
 
         private void websitebutton_MouseEnter(object sender, EventArgs e)
@@ -1403,7 +1480,7 @@ namespace Contra
                     //labelVpnStatus.Text = "Off";
                 }
             }
-            catch {}
+            catch { }
             //catch (Exception ex) { MessageBox.Show(ex.ToString()); }
 
             if (Globals.GB_Checked == true)
@@ -1694,11 +1771,11 @@ namespace Contra
                 {
                     //URL of MOTD with Version string
                     string motd = client.DownloadString("https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/Versions.txt");
-                 //   string motd = client.DownloadString("https://github.com/ThePredatorBG/contra-launcher/blob/master/VersionTEST"); //test version.txt
+                    //   string motd = client.DownloadString("https://github.com/ThePredatorBG/contra-launcher/blob/master/VersionTEST"); //test version.txt
 
                     //URL of the updated file
                     string exe_url = "https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/bin/Release/Contra_Launcher.exe";
-                 //   string exe_url = "https://github.com/ThePredatorBG/contra-launcher/raw/master/Contra_Launcher.exe"; //test exe
+                    //   string exe_url = "https://github.com/ThePredatorBG/contra-launcher/raw/master/Contra_Launcher.exe"; //test exe
 
                     //URL of patch files
                     string patch_url = "http://contra.cncguild.net/Downloads/Launcher/";
@@ -1827,9 +1904,27 @@ namespace Contra
             catch { }
         }
 
+        static string CalculateMD5(string filename)
+        {
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(filename))
+                {
+                    var hash = md5.ComputeHash(stream);
+                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                }
+            }
+        }
+
         private void Form1_Shown(object sender, EventArgs e)
         {
-            if (isGentoolInstalled("d3d8.dll") && isGentoolOutdated("d3d8.dll", 79)) // Replace with full path to d3d8.dll
+            string gtHash = null;
+            try
+            {
+                gtHash = CalculateMD5("d3d8.dll");
+            }
+            catch { }
+            if (isGentoolInstalled("d3d8.dll") && isGentoolOutdated("d3d8.dll", 79) || (gtHash == "70c28745f6e9a9a59cfa1be00df6836a" || gtHash == "13a13584d97922de92443631931d46c3"))
             {
                 //try
                 //{
@@ -2623,58 +2718,84 @@ namespace Contra
 
             if (isRunningOnWine()) return;
 
-            Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
-            if (ztExeByName.Length == 0)
+            if (File.Exists("generals.ctr") && CalculateMD5("generals.ctr") == "ee7d5e6c2d7fb66f5c27131f33da5fd3")
             {
-                var instance = new ZT();
-                instance.CheckZTInstall("https://download.zerotier.com/dist/ZeroTier%20One.msi");
-            }
-
-            if (Globals.ZTReady == 4)
-            {
-                try //check if zt is running or not
+                Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
+                if (ztExeByName.Length == 0)
                 {
+                    var instance = new ZT();
+                    instance.CheckZTInstall("https://download.zerotier.com/dist/ZeroTier%20One.msi");
+                }
 
-                    if (ztExeByName.Length > 0) //if zt is running but we are clicking button again to turn it off
+                if (Globals.ZTReady == 4)
+                {
+                    try //check if zt is running or not
                     {
-                        Process[] vpnprocesses = Process.GetProcessesByName("zt-x" + Globals.userOS);
-                        foreach (Process vpnprocess in vpnprocesses)
+
+                        if (ztExeByName.Length > 0) //if zt is running but we are clicking button again to turn it off
                         {
-                            vpnprocess.Kill();
-                            vpnprocess.WaitForExit();
-                            vpnprocess.Dispose();
+                            Process[] vpnprocesses = Process.GetProcessesByName("zt-x" + Globals.userOS);
+                            foreach (Process vpnprocess in vpnprocesses)
+                            {
+                                vpnprocess.Kill();
+                                vpnprocess.WaitForExit();
+                                vpnprocess.Dispose();
 
-                            if (Globals.GB_Checked == true)
-                            {
-                                IP_Label.Text = "ContraVPN: Off";
-                            }
-                            else if (Globals.RU_Checked == true)
-                            {
-                                IP_Label.Text = "ContraVPN: Выкл.";
-                            }
-                            else if (Globals.UA_Checked == true)
-                            {
-                                IP_Label.Text = "ContraVPN: Вимк.";
-                            }
-                            else if (Globals.BG_Checked == true)
-                            {
-                                IP_Label.Text = "ContraVPN: Изкл.";
-                            }
-                            else if (Globals.DE_Checked == true)
-                            {
-                                IP_Label.Text = "ContraVPN: Aus";
-                            }
+                                if (Globals.GB_Checked == true)
+                                {
+                                    IP_Label.Text = "ContraVPN: Off";
+                                }
+                                else if (Globals.RU_Checked == true)
+                                {
+                                    IP_Label.Text = "ContraVPN: Выкл.";
+                                }
+                                else if (Globals.UA_Checked == true)
+                                {
+                                    IP_Label.Text = "ContraVPN: Вимк.";
+                                }
+                                else if (Globals.BG_Checked == true)
+                                {
+                                    IP_Label.Text = "ContraVPN: Изкл.";
+                                }
+                                else if (Globals.DE_Checked == true)
+                                {
+                                    IP_Label.Text = "ContraVPN: Aus";
+                                }
 
-                            vpn_start.BackgroundImage = Properties.Resources.vpn_off;
-                            return;
+                                vpn_start.BackgroundImage = Properties.Resources.vpn_off;
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            StartZT();
                         }
                     }
-                    else
-                    {
-                        StartZT();
-                    }
+                    catch { }
                 }
-                catch { }
+            }
+            else
+            {
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("\"generals.ctr\" not found or checksum mismatch! Please, extract it from the \"Contra009FinalPatch2\" archive if you want camera height setting to work and be able to play online with ContraVPN.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("\"generals.ctr\" не найден или несоответствие контрольной суммы! Извлеките его из архива \"Contra009FinalPatch2\", если вы хотите, чтобы настройка высоты камеры работала и была возможность играть онлайн с ContraVPN.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("\"generals.ctr\" не знайден або невідповідність контрольної суми! Будь ласка, витягніть його з архіву \"Contra009FinalPatch2\", якщо ви хочете, щоб налаштування висоти камери працювало та матимете змогу грати в режимі он-лайн з ContraVPN.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("\"generals.ctr\" не е намерен или има несъответствие в контролната сума! Моля, извлечете го от архива \"Contra009FinalPatch2\", ако искате настройката на височината на камерата да работи и да можете да играете онлайн с ContraVPN.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("\"generals.ctr\" nicht gefunden oder Prüfsummeninkongruenz! Bitte extrahieren Sie es aus dem Archiv \"Contra009FinalPatch2\", wenn die Einstellung der Kamerahöhe funktionieren soll und Sie mit ContraVPN online spielen können.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
