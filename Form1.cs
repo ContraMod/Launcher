@@ -1955,11 +1955,11 @@ namespace Contra
                     MessageBox.Show(ex.ToString());
                 }
 
-                string gtURL = "http://www.gentool.net/download/GenTool_v7.9.zip"; //"http://www.gentool.net/download/" + genToolFileName;
+                string gtURL = "http://www.gentool.net/download/" + genToolFileName;
                 DownloadGentool(gtURL);
             }
 
-            //This renames the original file so any shortcut works and names it accordingly after the update
+            // This renames the original file so any shortcut works and names it accordingly after the update
             // if (File.Exists(Application.StartupPath + "/Contra_Launcher_ToDelete.exe") && (applyNewLauncher == true))
             if (File.Exists(Application.StartupPath + @"\Contra_Launcher_ToDelete.exe"))
             {
@@ -1995,7 +1995,7 @@ namespace Contra
 
             if (Properties.Settings.Default.FirstRun)
             {
-                //Delete tinc vpn files
+                // Delete tinc vpn files
                 try
                 {
                     Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\contravpn", true);
@@ -2015,22 +2015,22 @@ namespace Contra
                 }
                 catch { }
 
-                //Create vpnconfig folder.
+                // Create vpnconfig folder.
                 Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig");
 
-                //If there are older Contra config folders, this means Contra Launcher has been
-                //ran before on this PC, so in this case, we skip first run welcome message.
+                // If there are older Contra config folders, this means Contra Launcher has been
+                // ran before on this PC, so in this case, we skip first run welcome message.
                 int directoryCount = Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra").Length;
 
-                //Zero Hour has a 'DeleteFile("Data\INI\INIZH.big");' line in GameEngine::init with no condition whatsoever (will always try to delete it if exists)
-                //an identical copy of this file exists in root ZH folder so we can safely delete it before ZH runs to prevent unwanted crashes
+                // Zero Hour has a 'DeleteFile("Data\INI\INIZH.big");' line in GameEngine::init with no condition whatsoever (will always try to delete it if exists)
+                // an identical copy of this file exists in root ZH folder so we can safely delete it before ZH runs to prevent unwanted crashes
                 try
                 {
                     File.Delete(@"Data\INI\INIZH.big");
                 }
                 catch { }
 
-                //Show message on first run.
+                // Show message on first run.
                 if (GetCurrentCulture() == "en-US")
                 {
                     RadioFlag_GB.Checked = true;
@@ -2080,7 +2080,31 @@ namespace Contra
                     }
                 }
 
-                //Delete old Contra config folders
+                // Show tooltip on Options
+                Point pt = new Point(0, 0);
+                pt.Offset(moreOptions.Width - 30, moreOptions.Height - 55);
+                if (Globals.GB_Checked == true)
+                {
+                    optionsToolTip.Show("You can customize many options including camera height here.", moreOptions, pt, 10000);
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    optionsToolTip.Show("Здесь вы можете настроить множество параметров, включая высоту камеры.", moreOptions, pt, 10000);
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    optionsToolTip.Show("Тут можна налаштувати багато варіантів, включаючи висоту камери.", moreOptions, pt, 10000);
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    optionsToolTip.Show("Тук можете да персонализирате много опции, включително височина на камерата.", moreOptions, pt, 10000);
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    optionsToolTip.Show("Sie können hier viele Optionen anpassen, einschließlich der Kamerahöhe.", moreOptions, pt, 10000);
+                }
+
+                // Delete old Contra config folders
                 DirectoryInfo di = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra");
 
                 foreach (DirectoryInfo dir in di.EnumerateDirectories())
@@ -2093,7 +2117,7 @@ namespace Contra
                 }
                 try
                 {
-                    //Enable Tournament Mode (limit super weapons and super units) on first run.
+                    // Enable Tournament Mode (limit super weapons and super units) on first run.
                     if (Directory.Exists(UserDataLeafName()))
                     {
                         string text = File.ReadAllText(UserDataLeafName() + "Skirmish.ini");
@@ -2105,10 +2129,6 @@ namespace Contra
                             else if (text.Contains("SuperweaponRestrict = no"))
                             {
                                 File.WriteAllText(UserDataLeafName() + "Skirmish.ini", File.ReadAllText(UserDataLeafName() + "Skirmish.ini").Replace("SuperweaponRestrict = no", "SuperweaponRestrict = Yes"));
-                            }
-                            else
-                            {
-                                //
                             }
                         }
                     }
@@ -2124,10 +2144,6 @@ namespace Contra
                             {
                                 File.WriteAllText(myDocPath + "Skirmish.ini", File.ReadAllText(myDocPath + "Skirmish.ini").Replace("SuperweaponRestrict = no", "SuperweaponRestrict = Yes"));
                             }
-                            else
-                            {
-                                //
-                            }
                         }
                     }
                 }
@@ -2136,14 +2152,14 @@ namespace Contra
                     //
                 }
 
-                //Add Firewall exceptions.
+                // Add Firewall exceptions.
                 CheckFirewallExceptions();
 
                 Properties.Settings.Default.FirstRun = false;
                 Properties.Settings.Default.Save();
             }
 
-            //Show warning if the base mod isn't found.
+            // Show warning if the base mod isn't found.
             if (!File.Exists("!Contra009Final.ctr") && !File.Exists("!Contra009Final.big"))
             {
                 if (Globals.GB_Checked == true)
@@ -2168,12 +2184,12 @@ namespace Contra
                 }
             }
 
-            //Show warning if there are .ini files in Data\INI.
+            // Show warning if there are .ini files in Data\INI or its subfolders.
             try
             {
                 if (Directory.GetFiles(Environment.CurrentDirectory + @"\Data\INI", "*.ini", SearchOption.AllDirectories).Length == 0)
                 {
-                    //no .ini files
+                    // no .ini files
                 }
                 else
                 {
@@ -2993,7 +3009,7 @@ namespace Contra
                 VerQueryValue(bytes, @"\StringFileInfo\040904E4\ProductName", out IntPtr ptr, out _);
                 return Marshal.PtrToStringUni(ptr) == "GenTool";
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
                 //Console.Error.WriteLine(ex);
                 return false;

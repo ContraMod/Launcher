@@ -906,75 +906,6 @@
   <data name="panel1.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="&gt;&gt;RadioFlag_DE.Name" xml:space="preserve">
-    <value>RadioFlag_DE</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_DE.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_DE.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_DE.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_BG.Name" xml:space="preserve">
-    <value>RadioFlag_BG</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_BG.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_BG.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_BG.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_UA.Name" xml:space="preserve">
-    <value>RadioFlag_UA</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_UA.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_UA.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_UA.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_RU.Name" xml:space="preserve">
-    <value>RadioFlag_RU</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_RU.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_RU.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;RadioFlag_RU.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>45, 46</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 22</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
   <data name="RadioFlag_DE.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -1107,6 +1038,27 @@
   <data name="&gt;&gt;RadioFlag_RU.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>45, 46</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 22</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>21, 17</value>
   </metadata>
@@ -1199,90 +1151,6 @@
   </data>
   <data name="&gt;&gt;PatchDLProgressBar.ZOrder" xml:space="preserve">
     <value>5</value>
-  </data>
-  <data name="&gt;&gt;ModDLCurrentFileLabel.Name" xml:space="preserve">
-    <value>ModDLCurrentFileLabel</value>
-  </data>
-  <data name="&gt;&gt;ModDLCurrentFileLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ModDLCurrentFileLabel.Parent" xml:space="preserve">
-    <value>PatchDLPanel</value>
-  </data>
-  <data name="&gt;&gt;ModDLCurrentFileLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;DLPercentLabel.Name" xml:space="preserve">
-    <value>DLPercentLabel</value>
-  </data>
-  <data name="&gt;&gt;DLPercentLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DLPercentLabel.Parent" xml:space="preserve">
-    <value>PatchDLPanel</value>
-  </data>
-  <data name="&gt;&gt;DLPercentLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;ModDLFileSizeLabel.Name" xml:space="preserve">
-    <value>ModDLFileSizeLabel</value>
-  </data>
-  <data name="&gt;&gt;ModDLFileSizeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ModDLFileSizeLabel.Parent" xml:space="preserve">
-    <value>PatchDLPanel</value>
-  </data>
-  <data name="&gt;&gt;ModDLFileSizeLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;CancelModDLBtn.Name" xml:space="preserve">
-    <value>CancelModDLBtn</value>
-  </data>
-  <data name="&gt;&gt;CancelModDLBtn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CancelModDLBtn.Parent" xml:space="preserve">
-    <value>PatchDLPanel</value>
-  </data>
-  <data name="&gt;&gt;CancelModDLBtn.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;ModDLLabel.Name" xml:space="preserve">
-    <value>ModDLLabel</value>
-  </data>
-  <data name="&gt;&gt;ModDLLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ModDLLabel.Parent" xml:space="preserve">
-    <value>PatchDLPanel</value>
-  </data>
-  <data name="&gt;&gt;ModDLLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="PatchDLPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>247, 147</value>
-  </data>
-  <data name="PatchDLPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 300</value>
-  </data>
-  <data name="PatchDLPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>66</value>
-  </data>
-  <data name="PatchDLPanel.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;PatchDLPanel.Name" xml:space="preserve">
-    <value>PatchDLPanel</value>
-  </data>
-  <data name="&gt;&gt;PatchDLPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PatchDLPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;PatchDLPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="ModDLCurrentFileLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1448,6 +1316,30 @@
   </data>
   <data name="&gt;&gt;ModDLLabel.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="PatchDLPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>247, 147</value>
+  </data>
+  <data name="PatchDLPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 300</value>
+  </data>
+  <data name="PatchDLPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <data name="PatchDLPanel.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;PatchDLPanel.Name" xml:space="preserve">
+    <value>PatchDLPanel</value>
+  </data>
+  <data name="&gt;&gt;PatchDLPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PatchDLPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PatchDLPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="disableVPNBtnChangeTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>265, 15</value>
@@ -1678,33 +1570,6 @@
   <data name="&gt;&gt;DonateBtn.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="MOTD.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Calibri, 15px, style=Bold</value>
-  </data>
-  <data name="MOTD.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="MOTD.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 578</value>
-  </data>
-  <data name="MOTD.Size" type="System.Drawing.Size, System.Drawing">
-    <value>750, 22</value>
-  </data>
-  <data name="MOTD.TabIndex" type="System.Int32, mscorlib">
-    <value>64</value>
-  </data>
-  <data name="&gt;&gt;MOTD.Name" xml:space="preserve">
-    <value>MOTD</value>
-  </data>
-  <data name="&gt;&gt;MOTD.Type" xml:space="preserve">
-    <value>Contra.Marquee, Contra_Launcher, Version=1.0.0.3, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;MOTD.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;MOTD.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
   <data name="IP_Label.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1738,6 +1603,36 @@
   <data name="&gt;&gt;IP_Label.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="MOTD.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Calibri, 15px, style=Bold</value>
+  </data>
+  <data name="MOTD.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="MOTD.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 578</value>
+  </data>
+  <data name="MOTD.Size" type="System.Drawing.Size, System.Drawing">
+    <value>750, 22</value>
+  </data>
+  <data name="MOTD.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="&gt;&gt;MOTD.Name" xml:space="preserve">
+    <value>MOTD</value>
+  </data>
+  <data name="&gt;&gt;MOTD.Type" xml:space="preserve">
+    <value>Contra.Marquee, Contra_Launcher, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MOTD.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MOTD.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <metadata name="optionsToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>470, 15</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -1826,6 +1721,9 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
 </value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>800, 600</value>
   </data>
@@ -1855,6 +1753,12 @@
   </data>
   <data name="&gt;&gt;disableVPNBtnChangeTimer.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;optionsToolTip.Name" xml:space="preserve">
+    <value>optionsToolTip</value>
+  </data>
+  <data name="&gt;&gt;optionsToolTip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Form1</value>

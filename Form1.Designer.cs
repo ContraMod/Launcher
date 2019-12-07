@@ -77,8 +77,9 @@ namespace Contra
             this.ZTConsoleBtn = new System.Windows.Forms.Button();
             this.ZTNukeBtn = new System.Windows.Forms.Button();
             this.DonateBtn = new System.Windows.Forms.Button();
-            this.MOTD = new Contra.Marquee();
             this.IP_Label = new System.Windows.Forms.Label();
+            this.MOTD = new Contra.Marquee();
+            this.optionsToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.voicespanel.SuspendLayout();
             this.languagepanel.SuspendLayout();
             this.musicpanel.SuspendLayout();
@@ -642,6 +643,13 @@ namespace Contra
             this.DonateBtn.MouseEnter += new System.EventHandler(this.DonateBtn_MouseEnter);
             this.DonateBtn.MouseLeave += new System.EventHandler(this.DonateBtn_MouseLeave);
             // 
+            // IP_Label
+            // 
+            resources.ApplyResources(this.IP_Label, "IP_Label");
+            this.IP_Label.BackColor = System.Drawing.Color.Transparent;
+            this.IP_Label.ForeColor = System.Drawing.Color.White;
+            this.IP_Label.Name = "IP_Label";
+            // 
             // MOTD
             // 
             this.MOTD.BackColor = System.Drawing.Color.Transparent;
@@ -651,12 +659,9 @@ namespace Contra
             this.MOTD.Speed = 1;
             this.MOTD.yOffset = 0;
             // 
-            // IP_Label
+            // optionsToolTip
             // 
-            resources.ApplyResources(this.IP_Label, "IP_Label");
-            this.IP_Label.BackColor = System.Drawing.Color.Transparent;
-            this.IP_Label.ForeColor = System.Drawing.Color.White;
-            this.IP_Label.Name = "IP_Label";
+            this.optionsToolTip.IsBalloon = true;
             // 
             // Form1
             // 
@@ -767,6 +772,7 @@ namespace Contra
         private System.Windows.Forms.Button ZTNukeBtn;
         private System.Windows.Forms.Button DonateBtn;
         private System.Windows.Forms.Label IP_Label;
+        private System.Windows.Forms.ToolTip optionsToolTip;
     }
 }
 
