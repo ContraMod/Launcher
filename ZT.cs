@@ -503,6 +503,26 @@ namespace Contra
                 ztDaemon.Close();
                 //ztDaemon.Kill();
                 //ztJoinNetwork.Kill();
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("VPN successfully installed!");
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("VPN успешно установлен!");
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("VPN успішно встановлено!");
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("VPN успешно инсталиран!");
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("VPN erfolgreich installiert!");
+                }
             }
             else
             {
@@ -629,7 +649,7 @@ namespace Contra
             cmd.StartInfo.FileName = "cmd.exe";
             cmd.StartInfo.RedirectStandardInput = true;
             cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.CreateNoWindow = true;
+            //cmd.StartInfo.CreateNoWindow = true;
             cmd.StartInfo.UseShellExecute = false;
             cmd.Start();
             cmd.StandardInput.WriteLine("pnputil -e");
@@ -667,7 +687,7 @@ namespace Contra
                 cmd2.StartInfo.FileName = "cmd.exe";
                 cmd2.StartInfo.RedirectStandardInput = true;
                 cmd2.StartInfo.RedirectStandardOutput = true;
-                cmd2.StartInfo.CreateNoWindow = true;
+                //cmd2.StartInfo.CreateNoWindow = true;
                 cmd2.StartInfo.UseShellExecute = false;
                 cmd2.Start();
                 //MessageBox.Show(infName);
@@ -680,10 +700,14 @@ namespace Contra
 
                 if (Output2.Contains("Driver package deleted successfully."))
                 {
-                    cmd.CloseMainWindow();
-                    cmd.Close();
-                    cmd2.CloseMainWindow();
-                    cmd2.Close();
+                    try
+                    {
+                        cmd.CloseMainWindow();
+                        cmd.Close();
+                        cmd2.CloseMainWindow();
+                        cmd2.Close();
+                    }
+                    catch { }
                     //MessageBox.Show("uninst driver succc");
                     Globals.ZTDriverUninstallSuccessful = true;
                 }
