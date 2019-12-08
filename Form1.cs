@@ -456,7 +456,7 @@ namespace Contra
                 //wc.DownloadFileAsync(new Uri(exe_url), Application.StartupPath + "/Contra_Launcher_New.exe");
 
                 //download the new file and append version number to its name
-                wc.DownloadFileAsync(new Uri(exe_url), Application.StartupPath + @"\Contra_Launcher_" + versionText + ".exe");
+                wc.DownloadFileAsync(new Uri(exe_url), Application.StartupPath + @"\contra-launcher.zip");
 
                 //  while (wc.IsBusy) { }
             }
@@ -475,6 +475,20 @@ namespace Contra
                 applyNewLauncher = false;
                 return;
             }
+
+            string extractPath = Application.StartupPath;
+            string zipPath = Application.StartupPath + @"\contra-launcher.zip";
+            try //To prevent crash
+            {
+                using (ZipArchive archive = ZipFile.OpenRead(zipPath))
+                {
+                    foreach (ZipArchiveEntry entry in archive.Entries.Where(a => a.FullName.Contains("Contra_Launcher.exe")))
+                    {
+                        entry.ExtractToFile(Path.Combine(extractPath, entry.FullName), true);
+                    }
+                }
+            }
+            catch { }
 
             applyNewLauncher = true;
 
@@ -1770,12 +1784,13 @@ namespace Contra
                 using (WebClient client = new WebClient())
                 {
                     //URL of MOTD with Version string
-                    string motd = client.DownloadString("https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/Versions.txt");
-                    //   string motd = client.DownloadString("https://github.com/ThePredatorBG/contra-launcher/blob/master/VersionTEST"); //test version.txt
+                    string motd = client.DownloadString("https://raw.githubusercontent.com/Teteros/contra-launcher/netcore/Versions.txt");
 
                     //URL of the updated file
-                    string exe_url = "https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/bin/Release/Contra_Launcher.exe";
-                    //   string exe_url = "https://github.com/ThePredatorBG/contra-launcher/raw/master/Contra_Launcher.exe"; //test exe
+                    string versionText = motd.Substring(motd.LastIndexOf("Launcher: ") + 10);
+                    versionText = versionText.Substring(0, versionText.IndexOf("$"));
+                    newVersion = versionText;
+                    string exe_url = "https://github.com/Teteros/contra-launcher/releases/download/" + versionText + "/ contra-launcher.zip";
 
                     //URL of patch files
                     string patch_url = "http://contra.cncguild.net/Downloads/Launcher/";
@@ -1794,7 +1809,7 @@ namespace Contra
                     }
                     void SetMOTD(string prefix)
                     {
-                        motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/Versions.txt");
+                        motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/Teteros/contra-launcher/netcore/Versions.txt");
                         string MOTDText = motd.Substring(motd.LastIndexOf(prefix) + 9);
                         string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("$"));
                         ThreadHelperClass.SetText(this, MOTD, MOTDText2);

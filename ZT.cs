@@ -215,7 +215,7 @@ namespace Contra
             try
             {
                 WebClient wc = new WebClient();
-                string versionTxt = wc.DownloadString("https://raw.githubusercontent.com/ThePredatorBG/contra-launcher/master/Versions.txt");
+                string versionTxt = wc.DownloadString("https://raw.githubusercontent.com/Teteros/contra-launcher/netcore/Versions.txt");
 
                 //Get zt version
                 string ztVersionLatest = versionTxt.Substring(versionTxt.LastIndexOf("ZeroTier: ") + 10);
