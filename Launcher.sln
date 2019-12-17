@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore", "netcore\netcore.csproj", "{9F538C49-C9A3-49EA-99B6-8F62610A97CF}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DC31620A-C192-46E4-82D8-15D1D1823649} = {DC31620A-C192-46E4-82D8-15D1D1823649}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "net45", "net45\net45.csproj", "{DC31620A-C192-46E4-82D8-15D1D1823649}"
 EndProject

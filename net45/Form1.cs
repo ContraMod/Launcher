@@ -14,6 +14,9 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.IO.Compression;
 using System.Security.Cryptography;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace Contra
 {
@@ -55,26 +58,6 @@ namespace Contra
             vpn_start.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
             DonateBtn.FlatAppearance.MouseOverBackColor = Color.Transparent;
             DonateBtn.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            if (Globals.GB_Checked == true)
-            {
-                IP_Label.Text = "ContraVPN: Off";
-            }
-            else if (Globals.RU_Checked == true)
-            {
-                IP_Label.Text = "ContraVPN: Выкл.";
-            }
-            else if (Globals.UA_Checked == true)
-            {
-                IP_Label.Text = "ContraVPN: Вимк.";
-            }
-            else if (Globals.BG_Checked == true)
-            {
-                IP_Label.Text = "ContraVPN: Изкл.";
-            }
-            else if (Globals.DE_Checked == true)
-            {
-                IP_Label.Text = "ContraVPN: Aus";
-            }
 
             //Determine OS bitness
             if (IntPtr.Size == 8)
@@ -85,39 +68,42 @@ namespace Contra
             {
                 Globals.userOS = "32";
             }
-
+            
+            IP_LabelReset();
             DelTmpChunk();
+        }
 
-            ////Load DiscordRPC.dll
-            //if (File.Exists((@"contra\DiscordRPC.dll")))
-            //{
-            //    //Assembly assembly = Assembly.LoadFrom("DiscordRPC.dll");
-            //    Assembly assembly = Assembly.LoadFrom(@"contra\DiscordRPC.dll");
-            //    Type type = assembly.GetType("DiscordRPC.Program");
-            //    object instance = Activator.CreateInstance(type);
-            //    MethodInfo[] methods = type.GetMethods();
-            //}
+        private void IP_LabelReset()
+        {
+            try
+            {
+
+                IP_Label.Text = new Dictionary<string, bool>()
+                {
+                    { "ContraVPN: Off", Globals.GB_Checked },
+                    { "ContraVPN: Выкл", Globals.RU_Checked },
+                    { "ContraVPN: Вимк", Globals.UA_Checked },
+                    { "ContraVPN: Изкл", Globals.BG_Checked },
+                    { "ContraVPN: Aus", Globals.DE_Checked },
+                }.Single(l => l.Value).Key;
+            }
+            catch { IP_Label.Text = "ContraVPN: Off"; };
         }
 
         string currentFileLabel;
-        string currentFile;
+        //string currentFile;
 
-        string verString = string.Empty;
-        string yearString = "2018";
+        string newVersion, genToolFileName = "";
 
-        string newVersion = "";
-
-        string versionText = "";
-        int modVersionLocalInt;
-        bool patch1Found, patch2Found;
+        //int modVersionLocalInt;
+        //bool patch1Found, patch2Found;
+        bool applyNewLauncher = false;
 
         bool disableVPNOnBtn = false;
         string ip;
-        string genToolFileName = "";
 
-        bool triedToLeaveNetwork = false;
-        string contravpnPath = Environment.CurrentDirectory + @"\contra\vpn\";
-        string ztPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\";
+        static string launcherExecutingPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        readonly string contravpnPath = Environment.CurrentDirectory + @"\contra\vpn\";
 
         [DllImport("version.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int GetFileVersionInfoSize(string lptstrFilename, out int lpdwHandle);
@@ -129,7 +115,7 @@ namespace Contra
         [DllImport("ntdll.dll", CharSet = CharSet.Ansi)]
         public static extern string wine_get_version();
 
-        public static bool isRunningOnWine()
+        public static bool IsRunningOnWine()
         {
             try
             {
@@ -140,381 +126,417 @@ namespace Contra
             catch { return false; }
         }
 
-        // Create method to check for an update
-        public void GetModUpdate(string motd, string patch_url)
+        public static readonly CancellationTokenSource httpCancellationToken = new CancellationTokenSource();
+
+        public async void GetLauncherUpdate(string motd, string launcher_url)
         {
-            try
+            string launcher_ver = motd.Substring(motd.LastIndexOf("Launcher: ") + 10);
+            newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
+            string zip_url = launcher_url + launcher_ver.Substring(0, launcher_ver.IndexOf("$")) + @"/Contra_Launcher.zip";
+            string zip_path = zip_url.Split('/').Last();
+
+            // If there is a new launcher version, call the DownloadUpdate method
+            if (newVersion != Application.ProductVersion)
             {
-                WebClient wc = new WebClient();
-
-                // Get mod version
-                string modVersionActual = motd.Substring(motd.LastIndexOf("Mod: ") + 5);
-                modVersionActual = modVersionActual.Substring(0, modVersionActual.IndexOf("$"));
-
-                int modVersionActualInt = int.Parse(modVersionActual);
-
-                // Get mod version text
-                string modVersionText = motd.Substring(motd.LastIndexOf("Mod Text: ") + 10); //The latest patch name
-                modVersionText = modVersionText.Substring(0, modVersionText.IndexOf("$"));
-
-                // Determine current mod version
-                if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
+                try
                 {
-                    if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && File.Exists("!!!Contra009Final_Patch2_GameData.big") || File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
+                    var updatePendingText = new Dictionary<Tuple<string, string>, bool>
                     {
-                        patch2Found = true;
-                    }
-                    if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
+                        { Tuple.Create($"Contra Launcher version {newVersion} is available! Click OK to update and restart!", "Update Available"), Globals.GB_Checked},
+                        { Tuple.Create($"Версия Contra Launcher {newVersion} доступна! Нажмите «ОК», чтобы обновить и перезапустить!", "Доступно обновление"), Globals.RU_Checked},
+                        { Tuple.Create($"Версія Contra Launcher {newVersion} доступна! Натисніть кнопку ОК, щоб оновити та перезапустити!", "Доступне оновлення"), Globals.UA_Checked},
+                        { Tuple.Create($"Contra Launcher версия {newVersion} е достъпна! Щракнете OK, за да обновите и рестартирате!", "Достъпна е актуализация"), Globals.BG_Checked},
+                        { Tuple.Create($"Contra Launcher version {newVersion} ist verfьgbar! Klicke OK zum aktualisieren und neu starten!", "Aktualisierung verfьgbar"), Globals.DE_Checked},
+                    }.Single(l => l.Value).Key;
+                    MessageBox.Show(new Form { TopMost = true }, updatePendingText.Item1, updatePendingText.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    await DownloadFile(zip_url, zip_path, TimeSpan.FromMinutes(5), httpCancellationToken.Token);
+
+                    using (ZipArchive archive = await Task.Run(() => ZipFile.OpenRead(zip_path)))
                     {
-                        patch1Found = true;
+                        foreach (ZipArchiveEntry entry in archive.Entries)
+                        {
+                            if (entry.Name == "Contra_Launcher.exe") continue;
+                            await Task.Run(() => entry.ExtractToFile(entry.Name, true));
+                        }
                     }
-                    if (patch1Found == true && patch2Found == true)
+
+                    File.Delete(zip_path);
+                    applyNewLauncher = true;
+
+                    // Show a message when the launcher download has completed
+                    var updateDoneText = new Dictionary<Tuple<string, string>, bool>
                     {
-                        modVersionLocalInt = 2;
-                    }
+                        { Tuple.Create("Your application is now up-to-date!\n\nThe application will now restart!", "Update Complete"), Globals.GB_Checked},
+                        { Tuple.Create("Ваше приложение теперь обновлено!\n\nПриложение будет перезагружено!", "Обновление завершено"), Globals.RU_Checked},
+                        { Tuple.Create("Ваша готова до оновлення!\n\nПрограма буде перезавантажена!", "Оновлення завершено"), Globals.UA_Checked},
+                        { Tuple.Create("Приложението е вече обновено!\n\nСега ще се рестартира!", "Обновяването е завършено"), Globals.BG_Checked},
+                        { Tuple.Create("Ihr Programm ist jetzt auf dem neuesten Stand!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen"), Globals.DE_Checked},
+                    }.Single(l => l.Value).Key;
+                    MessageBox.Show(new Form { TopMost = true }, updateDoneText.Item1, updateDoneText.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    this.Close();
                 }
-
-                // Download new mod version if local one is outdated and launcher is up to date
-                if ((modVersionLocalInt < modVersionActualInt) && (newVersion == Application.ProductVersion) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+                catch (OperationCanceledException)
                 {
-                    if (patch1Found == false)
-                    {
-                        if (Globals.GB_Checked == true)
-                        {
-                            MessageBox.Show("Contra is not up to date. An old patch is missing and needs to be downloaded! Click OK to update!", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (Globals.RU_Checked == true)
-                        {
-                            MessageBox.Show("Contra должна быть обновлена. Старый патч отсутствует и должен быть загружен! Нажмите «ОК», чтобы обновить!", "Доступно обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (Globals.UA_Checked == true)
-                        {
-                            MessageBox.Show("Contra повинна бути оновлена. Старий патч відсутній і його потрібно завантажити! Натисніть кнопку ОК, щоб оновити!", "Доступне оновлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (Globals.BG_Checked == true)
-                        {
-                            MessageBox.Show("Contra трябва да бъде обновена. Стар пач липсва и трябва да бъде изтеглен! Щракнете OK, за да обновите!", "Достъпна е актуализация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (Globals.DE_Checked == true)
-                        {
-                            MessageBox.Show("Contra muss aktualisiert werden. Ein alter Patch fehlt und muss heruntergeladen werden! Klicke OK zum aktualisieren!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    }
-                    else if (patch2Found == false)
-                    {
-                        if (Globals.GB_Checked == true)
-                        {
-                            MessageBox.Show("Contra is not up to date. The latest version which will be downloaded now is " + modVersionText + "! Click OK to update!", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (Globals.RU_Checked == true)
-                        {
-                            MessageBox.Show("Contra должна быть обновлена. Последняя версия " + modVersionText + "! Нажмите «ОК», чтобы обновить!", "Доступно обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (Globals.UA_Checked == true)
-                        {
-                            MessageBox.Show("Contra повинна бути оновлена. Остання версія " + modVersionText + "! Натисніть кнопку ОК, щоб оновити!", "Доступне оновлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (Globals.BG_Checked == true)
-                        {
-                            MessageBox.Show("Contra трябва да бъде обновена. Последната версия е " + modVersionText + "! Щракнете OK, за да обновите!", "Достъпна е актуализация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (Globals.DE_Checked == true)
-                        {
-                            MessageBox.Show("Contra muss aktualisiert werden. Die neueste Version ist " + modVersionText + "! Klicke OK zum aktualisieren!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    }
-                    DownloadModUpdate(patch_url);
+                    applyNewLauncher = false;
+                    File.Delete(zip_path); // Clean-up partial download
+                    PatchDLPanel.Hide();
                 }
-
-                // Get launcher version
-                string versionText = motd.Substring(motd.LastIndexOf("Launcher: ") + 10);
-                versionText = versionText.Substring(0, versionText.IndexOf("$"));
-                newVersion = versionText;
-            }
-            catch
-            { }
-        }
-
-        // Create method to check for launcher update
-        public void GetUpdate(string motd, string exe_url)
-        {
-            try
-            {
-                WebClient wc = new WebClient();
-
-                // Get launcher version
-                string versionText = motd.Substring(motd.LastIndexOf("Launcher: ") + 10);
-                versionText = versionText.Substring(0, versionText.IndexOf("$"));
-                newVersion = versionText;
-
-                // If there is a new launcher version, call the DownloadUpdate method
-                if (newVersion != Application.ProductVersion)
-                //int newVersionInt = int.Parse(newVersion);
-                //int productVersionInt = int.Parse(Application.ProductVersion);
-                //if (newVersionInt > productVersionInt)
+                catch (Exception ex)
                 {
-                    if (Globals.GB_Checked == true)
-                    {
-                        MessageBox.Show("Contra Launcher version " + versionText + " is available! Click OK to update and restart!", "Update Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (Globals.RU_Checked == true)
-                    {
-                        MessageBox.Show("Версия Contra Launcher " + versionText + " доступна! Нажмите «ОК», чтобы обновить и перезапустить!", "Доступно обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (Globals.UA_Checked == true)
-                    {
-                        MessageBox.Show("Версія Contra Launcher " + versionText + " доступна! Натисніть кнопку ОК, щоб оновити та перезапустити!", "Доступне оновлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (Globals.BG_Checked == true)
-                    {
-                        MessageBox.Show("Contra Launcher версия " + versionText + " е достъпна! Щракнете OK, за да обновите и рестартирате!", "Достъпна е актуализация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (Globals.DE_Checked == true)
-                    {
-                        MessageBox.Show("Contra Launcher version " + versionText + " ist verfьgbar! Klicke OK zum aktualisieren und neu starten!", "Aktualisierung verfьgbar", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    DownloadUpdate(exe_url);
-                }
-            }
-            catch
-            { }
-        }
-
-        static String BytesToString(long byteCount)
-        {
-            string[] suf = { " B", " KB", " MB", " GB", " TB", " PB", " EB" }; //Longs run out around EB
-            if (byteCount == 0)
-                return "0" + suf[0];
-            long bytes = Math.Abs(byteCount);
-            int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
-            double num = Math.Round(bytes / Math.Pow(1024, place), 1);
-            return (Math.Sign(byteCount) * num).ToString() + suf[place];
-        }
-
-        WebClient wcMod = new WebClient();
-        Int64 bytes_total;
-        long s1;
-        string patchFileName;
-
-        public void DownloadModUpdate(string patch_url)
-        {
-            try
-            {
-                wcMod.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadPatchCompleted);
-                wcMod.DownloadProgressChanged += wc_DownloadProgressChanged;
-
-                // Download one patch at a time
-                if (modVersionLocalInt != 2) //If user doesn't have the latest patch
-                {
-                    if (patch1Found == false)
-                    {
-                        patchFileName = "Contra009FinalPatch1.zip";
-                    }
-                    else if (patch2Found == false)
-                    {
-                        patchFileName = "Contra009FinalPatch2.zip";
-                    }
-                    CheckIfFileIsAvailable(patch_url);
-                    currentFile = patchFileName;
-                    wcMod.OpenRead(patch_url + patchFileName);
-                    bytes_total = Convert.ToInt64(wcMod.ResponseHeaders["Content-Length"]);
-
-                    wcMod.DownloadFileAsync(new Uri(patch_url + patchFileName), Application.StartupPath + @"\" + patchFileName);
-                }
-                PatchDLPanel.Show();
-
-                //  while (wc.IsBusy) { }
-            }
-            catch
-            { }
-        }
-
-        public void CheckIfFileIsAvailable(string patch_url)
-        {
-            var url = patch_url + patchFileName;
-            HttpWebResponse response = null;
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-
-            try
-            {
-                response = (HttpWebResponse)request.GetResponse();
-            }
-            catch (WebException)
-            {
-                /* A WebException will be thrown if the status of the response is not `200 OK` */
-                if (Globals.GB_Checked == true)
-                {
-                    MessageBox.Show("The file is currently unavailable. Try again later or download it from: www.moddb.com/mods/contra/downloads", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    MessageBox.Show("Файл в данный момент недоступен. Попробуйте позже или загрузите его с: www.moddb.com/mods/contra/downloads", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    MessageBox.Show("Файл наразі недоступний. Повторіть спробу пізніше або завантажте його з: www.moddb.com/mods/contra/downloads", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    MessageBox.Show("Понастоящем файлът не е налице. Опитайте отново по-късно или го изтеглете от: www.moddb.com/mods/contra/downloads", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    MessageBox.Show("Die Datei ist derzeit nicht verfügbar. Versuchen Sie es später noch einmal oder laden Sie es von folgender Adresse herunter: www.moddb.com/mods/contra/downloads", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            finally
-            {
-                // Don't forget to close your response.
-                if (response != null)
-                {
-                    response.Close();
+                    applyNewLauncher = false;
+                    File.Delete(zip_path); // Clean-up partial download
+                    PatchDLPanel.Hide();
+                    MessageBox.Show(ex.ToString());
                 }
             }
         }
 
-        private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        //public void GetModUpdate(string motd, string patch_url)
+        //{
+        //    try
+        //    {
+        //        WebClient wc = new WebClient();
+
+        //        // Get mod version
+        //        string modVersionActual = motd.Substring(motd.LastIndexOf("Mod: ") + 5);
+        //        modVersionActual = modVersionActual.Substring(0, modVersionActual.IndexOf("$"));
+
+        //        int modVersionActualInt = int.Parse(modVersionActual);
+
+        //        // Get mod version text
+        //        string modVersionText = motd.Substring(motd.LastIndexOf("Mod Text: ") + 10); //The latest patch name
+        //        modVersionText = modVersionText.Substring(0, modVersionText.IndexOf("$"));
+
+        //        // Determine current mod version
+        //        if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
+        //        {
+        //            if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && File.Exists("!!!Contra009Final_Patch2_GameData.big") || File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
+        //            {
+        //                patch2Found = true;
+        //            }
+        //            if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
+        //            {
+        //                patch1Found = true;
+        //            }
+        //            if (patch1Found == true && patch2Found == true)
+        //            {
+        //                modVersionLocalInt = 2;
+        //            }
+        //        }
+
+        //        // Download new mod version if local one is outdated and launcher is up to date
+        //        if ((modVersionLocalInt < modVersionActualInt) && (newVersion == Application.ProductVersion) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+        //        {
+        //            if (patch1Found == false)
+        //            {
+        //                var patch1Text = new Dictionary<Tuple<string, string>, bool>
+        //                {
+        //                    { Tuple.Create("Contra is not up to date. An old patch is missing and needs to be downloaded! Click OK to update!", "Update Available"), Globals.GB_Checked},
+        //                    { Tuple.Create("Contra должна быть обновлена. Старый патч отсутствует и должен быть загружен! Нажмите «ОК», чтобы обновить!", "Доступно обновление"), Globals.RU_Checked},
+        //                    { Tuple.Create("Contra повинна бути оновлена. Старий патч відсутній і його потрібно завантажити! Натисніть кнопку ОК, щоб оновити!", "Доступне оновлення"), Globals.UA_Checked},
+        //                    { Tuple.Create("Contra трябва да бъде обновена. Стар пач липсва и трябва да бъде изтеглен! Щракнете OK, за да обновите!", "Достъпна е актуализация"), Globals.BG_Checked},
+        //                    { Tuple.Create("Contra muss aktualisiert werden. Ein alter Patch fehlt und muss heruntergeladen werden! Klicke OK zum aktualisieren!", "Aktualisierung verfьgbar"), Globals.DE_Checked},
+        //                }.Single(l => l.Value).Key;
+        //                MessageBox.Show(new Form { TopMost = true }, patch1Text.Item1, patch1Text.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //            }
+        //            else if (patch2Found == false)
+        //            {
+        //                var patch2Text = new Dictionary<Tuple<string, string>, bool>
+        //                {
+        //                    { Tuple.Create("Contra is not up to date. The latest version which will be downloaded now is " + modVersionText + "! Click OK to update!", "Update Available"), Globals.GB_Checked},
+        //                    { Tuple.Create("Contra должна быть обновлена. Последняя версия " + modVersionText + "! Нажмите «ОК», чтобы обновить!", "Доступно обновление"), Globals.RU_Checked},
+        //                    { Tuple.Create("Contra повинна бути оновлена. Остання версія " + modVersionText + "! Натисніть кнопку ОК, щоб оновити!", "Доступне оновлення"), Globals.UA_Checked},
+        //                    { Tuple.Create("Contra трябва да бъде обновена. Последната версия е " + modVersionText + "! Щракнете OK, за да обновите!", "Достъпна е актуализация"), Globals.BG_Checked},
+        //                    { Tuple.Create("Contra muss aktualisiert werden. Die neueste Version ist " + modVersionText + "! Klicke OK zum aktualisieren!", "Aktualisierung verfьgbar"), Globals.DE_Checked},
+        //                }.Single(l => l.Value).Key;
+        //                MessageBox.Show(new Form { TopMost = true }, patch2Text.Item1, patch2Text.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //            }
+        //            DownloadModUpdate(patch_url);
+        //        }
+        //    }
+        //    catch { }
+        //}
+
+        //static String BytesToString(long byteCount)
+        //{
+        //    string[] suf = { " B", " KB", " MB", " GB", " TB", " PB", " EB" }; //Longs run out around EB
+        //    if (byteCount == 0)
+        //        return "0" + suf[0];
+        //    long bytes = Math.Abs(byteCount);
+        //    int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
+        //    double num = Math.Round(bytes / Math.Pow(1024, place), 1);
+        //    return (Math.Sign(byteCount) * num).ToString() + suf[place];
+        //}
+
+        //WebClient wcMod = new WebClient();
+        //Int64 bytes_total;
+        //string patchFileName;
+
+        //public void CheckIfFileIsAvailable(string file_url)
+        //{
+        //    HttpWebResponse response = null;
+        //    var request = (HttpWebRequest)WebRequest.Create(file_url);
+        //    request.Method = "GET";
+
+        //    try
+        //    {
+        //        response = (HttpWebResponse)request.GetResponse();
+        //    }
+        //    catch (WebException)
+        //    {
+        //        /* A WebException will be thrown if the status of the response is not `200 OK` */
+        //        var unavailableLangText = new Dictionary<Tuple<string, string>, bool>
+        //        {
+        //            { Tuple.Create("The file is currently unavailable, please try again later.", "Error"), Globals.GB_Checked},
+        //            { Tuple.Create("Файл в данный момент недоступен, Повторите связаться позже.", "Ошибка"), Globals.RU_Checked},
+        //            { Tuple.Create("Файл наразі недоступний, будь-ласка спробуйте пізніше.", "Помилка"), Globals.UA_Checked},
+        //            { Tuple.Create("Понастоящем файлът не е налице, будь-ласка спробуйте пізніше.", "Грешка"), Globals.BG_Checked},
+        //            { Tuple.Create("Die Datei ist derzeit nicht verfügbar, bitte versuchen Sie es später noch einmal.", "Fehler"), Globals.DE_Checked},
+        //        }.Single(l => l.Value).Key;
+        //        MessageBox.Show(new Form { TopMost = true }, unavailableLangText.Item1, unavailableLangText.Item2, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //    finally
+        //    {
+        //        // Don't forget to close your response.
+        //        if (response != null) response.Close();
+        //    }
+        //}
+
+        public static readonly HttpClient httpclient = new HttpClient();
+
+        public static Tuple<double, string> ByteToSizeType(long value)
         {
-            // In case you don't have a progressBar Log the value instead 
-            // Console.WriteLine(e.ProgressPercentage);
-            PatchDLProgressBar.Value = e.ProgressPercentage;
-            DLPercentLabel.Text = e.ProgressPercentage.ToString() + "%";
-            ModDLCurrentFileLabel.Text = currentFileLabel + currentFile;
-            FileInfo f = new FileInfo(currentFile);
-            s1 = f.Length;
-            ModDLFileSizeLabel.Text = BytesToString(s1) + " / " + BytesToString(bytes_total);
+            if (value == 0L) return Tuple.Create(0D, "Bytes"); // zero is plural
+            IReadOnlyDictionary<long, string> thresholds = new Dictionary<long, string>()
+                {
+                    { 1, "Byte" },
+                    { 2, "Bytes" },
+                    { 1024, "KiB" },
+                    { 1048576, "MiB" },
+                    { 1073741824, "GiB" },
+                    { 1099511627776, "TiB" },
+                    { 1125899906842620, "PiB" },
+                    { 1152921504606850000, "EiB" },
+                };
+            for (int t = thresholds.Count - 1; t > 0; t--)
+            {
+                if (value >= thresholds.ElementAt(t).Key) return Tuple.Create(Math.Round((double)value / thresholds.ElementAt(t).Key, 2), thresholds.ElementAt(t).Value);
+            }
+            // handle negative values if given
+            var reValue = ByteToSizeType(-value);
+            return Tuple.Create(-reValue.Item1, reValue.Item2);
         }
 
-        void wc_DownloadPatchCompleted(object sender, AsyncCompletedEventArgs e)
+        public async Task DownloadFile(string url, string outPath, TimeSpan timeout, CancellationToken cancellationToken = default)
         {
+            httpclient.Timeout = timeout;
+            var response = httpclient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead).Result;
+            response.EnsureSuccessStatusCode();
+
+            var contentLength = response.Content.Headers.ContentLength.GetValueOrDefault();
+            var totalToDownload = ByteToSizeType(contentLength);
+            var downloadSize = totalToDownload.Item1;
+            var downloadUnit = totalToDownload.Item2;
+            PatchDLPanel.Show();
+
+            using (Stream contentStream = await response.Content.ReadAsStreamAsync(), fileStream = new FileStream(outPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true))
+            {
+                var data = new byte[8192];
+                long totalBytesRead = 0L, readCount = 0L;
+                bool bytesRemaining = true;
+
+                do
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    var bytesRead = await contentStream.ReadAsync(data, 0, data.Length, cancellationToken);
+
+                    if (bytesRead == 0) bytesRemaining = false;
+                    else
+                    {
+                        await fileStream.WriteAsync(data, 0, bytesRead);
+                        totalBytesRead += bytesRead;
+                        readCount += 1;
+                        if (readCount % 100 == 0)
+                        {
+                            PatchDLProgressBar.Value = Convert.ToInt32((double)totalBytesRead / contentLength * 100);
+                            DLPercentLabel.Text = $"{(double)totalBytesRead / contentLength * 100:F2}%";
+                            ModDLCurrentFileLabel.Text = currentFileLabel + outPath;
+                            ModDLFileSizeLabel.Text = $"{ByteToSizeType(totalBytesRead).Item1} / {downloadSize} {downloadUnit}";
+                            //ModDLFileSizeLabel.Text = $"{BytesToSize(e.BytesReceived, SizeUnits.MiB)} MiB / {BytesToSize(e.TotalBytesToReceive, SizeUnits.MiB)} MiB";
+                        }
+                    }
+                }
+                while (bytesRemaining);
+            }
             PatchDLPanel.Hide();
-            //TO-DO: update version string? Currently handled by forced launcher restart
-
-            if (e.Cancelled)
-            {
-                // delete the partially-downloaded file
-                File.Delete(patchFileName);
-                return;
-            }
-
-            // display completion status.
-            if (e.Error != null)
-            {
-                MessageBox.Show(e.Error.Message);
-                return;
-            }
-
-            // Extract patch zip
-            string extractPath = Application.StartupPath;
-            string zipPath = Application.StartupPath + @"\" + patchFileName;
-            //if (patchFileName == "Contra009FinalPatch2.zip") //If the current patch installed is patch 2
-            //{
-            //    try
-            //    {
-            //        Directory.Delete("contra"); //Delete old contra folder containing tinc vpn scripts
-            //    }
-            //    catch { }
-            //}
-            try //To prevent crash
-            {
-                ZipFile.ExtractToDirectory(zipPath, extractPath);
-            }
-            catch { }
-            File.Delete(patchFileName);
-
-            // Show a message when the patch download has completed
-            if (Globals.GB_Checked == true)
-            {
-                MessageBox.Show("A new patch has been downloaded!\n\nThe application will now restart!", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.RU_Checked == true)
-            {
-                MessageBox.Show("Новый патч был загружен!\n\nПриложение будет перезагружено!", "Обновление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.UA_Checked == true)
-            {
-                MessageBox.Show("Новий виправлення завантажено!\n\nПрограма буде перезавантажена!", "Оновлення завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.BG_Checked == true)
-            {
-                MessageBox.Show("Нов пач беше изтеглен!\n\nСега ще се рестартира!", "Обновяването е завършено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.DE_Checked == true)
-            {
-                MessageBox.Show("Ein neuer Patch wurde heruntergeladen!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            Application.Restart();
         }
 
-        public void DownloadUpdate(string zip_url)
+        public static async Task DownloadFileSimple(string url, string outPath, TimeSpan timeout)
         {
-            try
+            httpclient.Timeout = timeout;
+            var response = httpclient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead).Result;
+            response.EnsureSuccessStatusCode();
+
+            using (var contentStream = new FileStream(outPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true))
             {
-                WebClient wc = new WebClient();
-                wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadLauncherCompleted);
-                //wc.DownloadFileAsync(new Uri(exe_url), Application.StartupPath + "/Contra_Launcher_New.exe");
-
-                //download the new file and append version number to its name
-                wc.DownloadFileAsync(new Uri(zip_url), Application.StartupPath + @"\Contra-Launcher.zip");
-
-                //  while (wc.IsBusy) { }
+                await response.Content.CopyToAsync(contentStream);
             }
-            catch
-            { }
         }
 
-        bool applyNewLauncher = false;
+        //Old WebClient based implementation -- can't cancel download in progress
+        //readonly WebClient wcDL = new WebClient();
+        //public async Task DownloadFile(string url, string output, TimeSpan timeout)
+        //{
+        //    PatchDLPanel.Show();
+        //    DateTime? lastReceived = null;
+        //    wcDL.DownloadProgressChanged += (o, e) =>
+        //    {
+        //        lastReceived = DateTime.Now;
+        //        PatchDLProgressBar.Value = e.ProgressPercentage;
+        //        DLPercentLabel.Text = e.ProgressPercentage.ToString() + "%";
+        //        ModDLCurrentFileLabel.Text = currentFileLabel + output;
+        //        ModDLFileSizeLabel.Text = $"{BytesToSize(e.BytesReceived, SizeUnits.MiB)} MiB / {BytesToSize(e.TotalBytesToReceive, SizeUnits.MiB)} MiB";
+        //    };
 
-        void wc_DownloadLauncherCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            // display completion status.
-            if (e.Error != null)
-            {
-                MessageBox.Show(e.Error.Message);
-                applyNewLauncher = false;
-                return;
-            }
+        //    var download = wcDL.DownloadFileTaskAsync(url, output);
 
-            string extractPath = Application.StartupPath;
-            string zipPath = Application.StartupPath + @"\Contra-Launcher.zip";
-            try //To prevent crash
-            {
-                using (ZipArchive archive = ZipFile.OpenRead(zipPath))
-                {
-                    foreach (ZipArchiveEntry entry in archive.Entries.Where(a => a.FullName.Contains("Contra_Launcher.exe")))
-                    {
-                        entry.ExtractToFile(Path.Combine(extractPath, entry.FullName), true);
-                    }
-                }
-            }
-            catch { }
+        //    // await until download is completed or timeout expires
+        //    while (lastReceived == null || DateTime.Now - lastReceived < timeout)
+        //    {
+        //        await Task.WhenAny(Task.Delay(1000), download); // 1 second wait vs download task
+        //        if (download.IsCompleted) break;
+        //    }
 
-            applyNewLauncher = true;
+        //    PatchDLPanel.Hide();
+        //    if (download.IsCanceled) throw new TaskCanceledException("File cancelled by user.");
 
-            // Show a message when the launcher download has completed
-            if (Globals.GB_Checked == true)
-            {
-                MessageBox.Show("Your application is now up-to-date!\n\nThe application will now restart!", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.RU_Checked == true)
-            {
-                MessageBox.Show("Ваше приложение теперь обновлено!\n\nПриложение будет перезагружено!", "Обновление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.UA_Checked == true)
-            {
-                MessageBox.Show("Ваша готова до оновлення!\n\nПрограма буде перезавантажена!", "Оновлення завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.BG_Checked == true)
-            {
-                MessageBox.Show("Приложението е вече обновено!\n\nСега ще се рестартира!", "Обновяването е завършено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.DE_Checked == true)
-            {
-                MessageBox.Show("Ihr Programm ist jetzt auf dem neuesten Stand!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            Application.Restart();
-        }
+        //    var exception = download.Exception;
+        //    bool timed_out = !download.IsCompleted && exception == null;
+
+        //    // download did not complete, nor did it fail, most likely user's connection dropped, let's cancel it
+        //    if (timed_out) wcDL.CancelAsync();
+
+        //    if (timed_out || exception != null)
+        //    {
+        //        // delete partially downloaded file if any (CancelAsync() is not immediate so multiple tries might be needed)
+        //        int fails = 0;
+        //        while (true)
+        //        {
+        //            try
+        //            {
+        //                File.Delete(output);
+        //                break;
+        //            }
+        //            catch
+        //            {
+        //                fails++;
+        //                if (fails >= 10) break;
+
+        //                await Task.Delay(1000);
+        //            }
+        //        }
+        //    }
+
+        //    if (exception != null) throw new Exception("Failed to download file", exception);
+        //    if (timed_out) throw new Exception($"Failed to download file (timeout reached: {timeout})");
+        //}
+
+        // There should be only one instance of HttpClient for more efficient socket usage, no need to wrap it in a 'using' or dispose it.
+
+        //public void DownloadModUpdate(string patch_url)
+        //{
+        //    void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        //    {
+        //        // In case you don't have a progressBar Log the value instead 
+        //        // Console.WriteLine(e.ProgressPercentage);
+        //        PatchDLProgressBar.Value = e.ProgressPercentage;
+        //        DLPercentLabel.Text = e.ProgressPercentage.ToString() + "%";
+        //        ModDLCurrentFileLabel.Text = currentFileLabel + currentFile;
+        //        FileInfo f = new FileInfo(currentFile);
+        //        long s1 = f.Length;
+        //        ModDLFileSizeLabel.Text = BytesToString(s1) + " / " + BytesToString(bytes_total);
+        //    }
+
+        //    void wc_DownloadPatchCompleted(object sender, AsyncCompletedEventArgs e)
+        //    {
+        //        PatchDLPanel.Hide();
+        //        //TO-DO: update version string? Currently handled by forced launcher restart
+
+        //        if (e.Cancelled)
+        //        {
+        //            // delete the partially-downloaded file
+        //            File.Delete(patchFileName);
+        //            return;
+        //        }
+
+        //        // display completion status.
+        //        if (e.Error != null)
+        //        {
+        //            MessageBox.Show(e.Error.Message);
+        //            return;
+        //        }
+
+        //        // Extract patch zip
+        //        string zipPath = launcherExecutingPath + @"\" + patchFileName;
+        //        //if (patchFileName == "Contra009FinalPatch2.zip") //If the current patch installed is patch 2
+        //        //{
+        //        //    try
+        //        //    {
+        //        //        Directory.Delete("contra"); //Delete old contra folder containing tinc vpn scripts
+        //        //    }
+        //        //    catch { }
+        //        //}
+        //        try //To prevent crash
+        //        {
+        //            ZipFile.ExtractToDirectory(zipPath, launcherExecutingPath);
+        //        }
+        //        catch { }
+        //        File.Delete(patchFileName);
+
+        //        // Show a message when the patch download has completed
+        //        var updateLangText = new Dictionary<Tuple<string, string>, bool>
+        //    {
+        //        { Tuple.Create("A new patch has been downloaded!\n\nThe application will now restart!", "Update Complete"), Globals.GB_Checked},
+        //        { Tuple.Create("Новый патч был загружен!\n\nПриложение будет перезагружено!", "Обновление завершено"), Globals.RU_Checked},
+        //        { Tuple.Create("Новий виправлення завантажено!\n\nПрограма буде перезавантажена!", "Оновлення завершено"), Globals.UA_Checked},
+        //        { Tuple.Create("Нов пач беше изтеглен!\n\nСега ще се рестартира!", "Обновяването е завършено"), Globals.BG_Checked},
+        //        { Tuple.Create("Ein neuer Patch wurde heruntergeladen!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen"), Globals.DE_Checked},
+        //    }.Single(l => l.Value).Key;
+        //        MessageBox.Show(new Form { TopMost = true }, updateLangText.Item1, updateLangText.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        //        System.Diagnostics.Process.Start(launcherExecutingPath + "\\Contra_Launcher.exe");
+        //        this.Close();
+        //    }
+        //    try
+        //    {
+        //        wcMod.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadPatchCompleted);
+        //        wcMod.DownloadProgressChanged += wc_DownloadProgressChanged;
+
+        //        // Download one patch at a time
+        //        if (modVersionLocalInt != 2) //If user doesn't have the latest patch
+        //        {
+        //            if (patch1Found == false)
+        //            {
+        //                patchFileName = "Contra009FinalPatch1.zip";
+        //            }
+        //            else if (patch2Found == false)
+        //            {
+        //                patchFileName = "Contra009FinalPatch2.zip";
+        //            }
+        //            CheckIfFileIsAvailable(patch_url + patchFileName);
+        //            currentFile = patchFileName;
+        //            wcMod.OpenRead(patch_url + patchFileName);
+        //            bytes_total = Convert.ToInt64(wcMod.ResponseHeaders["Content-Length"]);
+
+        //            wcMod.DownloadFileAsync(new Uri(patch_url + patchFileName), Path.Combine(launcherExecutingPath, patchFileName));
+        //        }
+        //        PatchDLPanel.Show();
+
+        //    }
+        //    catch {}
+        //}
 
         public static string UserDataLeafName()
         {
@@ -548,11 +570,7 @@ namespace Contra
 
         public static string myDocPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Command and Conquer Generals Zero Hour Data\";
 
-
         public static bool wait = true;
-
-        string vpnconfig = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra\\vpnconfig\\contravpn";
-
 
         //**********DRAG FORM CODE START**********
         const int WM_NCLBUTTONDBLCLK = 0xA3;
@@ -588,7 +606,6 @@ namespace Contra
             }
         }
         //**********MINIMIZE FORM CODE END**********
-
 
         private void CheckInstallDir()
         {
@@ -833,8 +850,7 @@ namespace Contra
                     { }
                 }
             }
-            catch
-            { }
+            catch {}
         }
 
         private void button1_MouseEnter(object sender, EventArgs e)
@@ -1375,23 +1391,6 @@ namespace Contra
 
         }
 
-        //private void ThreadProcSafeGentool()
-        //{
-        //    try
-        //    {
-        //        using (WebClient client = new WebClient())
-        //        {
-        //            string s = client.DownloadString("http://www.gentool.net/download/patch");
-
-        //            MessageBox.Show(s);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.ToString());
-        //    }
-        //}
-
         private void Form1_Load(object sender, EventArgs e)
         {
             if (Properties.Settings.Default.UpgradeRequired)
@@ -1435,26 +1434,7 @@ namespace Contra
                     //string a = ex.ToString();
                 }
 
-                if (Globals.GB_Checked == true)
-                {
-                    IP_Label.Text = "ContraVPN: Off";
-                }
-                else if (Globals.RU_Checked == true)
-                {
-                    IP_Label.Text = "ContraVPN: Выкл.";
-                }
-                else if (Globals.UA_Checked == true)
-                {
-                    IP_Label.Text = "ContraVPN: Вимк.";
-                }
-                else if (Globals.BG_Checked == true)
-                {
-                    IP_Label.Text = "ContraVPN: Изкл.";
-                }
-                else if (Globals.DE_Checked == true)
-                {
-                    IP_Label.Text = "ContraVPN: Aus";
-                }
+                IP_LabelReset();
             }
         }
 
@@ -1494,31 +1474,10 @@ namespace Contra
                     //labelVpnStatus.Text = "Off";
                 }
             }
-            catch { }
+            catch {}
             //catch (Exception ex) { MessageBox.Show(ex.ToString()); }
 
-            if (Globals.GB_Checked == true)
-            {
-                IP_Label.Text = "ContraVPN: Off";
-            }
-            else if (Globals.RU_Checked == true)
-            {
-                IP_Label.Text = "ContraVPN: Выкл.";
-            }
-            else if (Globals.UA_Checked == true)
-            {
-                IP_Label.Text = "ContraVPN: Вимк.";
-            }
-            else if (Globals.BG_Checked == true)
-            {
-                IP_Label.Text = "ContraVPN: Изкл.";
-            }
-            else if (Globals.DE_Checked == true)
-            {
-                IP_Label.Text = "ContraVPN: Aus";
-            }
-
-            Close();
+            this.Close();
         }
 
         private void radioButton1_CheckedChanged_1(object sender, EventArgs e)
@@ -1628,26 +1587,14 @@ namespace Contra
                 Invoke(new MethodInvoker(delegate
                 {
                     vpn_start.BackgroundImage = Properties.Resources.vpn_off;
-                    if (Globals.GB_Checked == true)
+                    Properties.Settings.Default.IP_Label = new Dictionary<string, bool>()
                     {
-                        Properties.Settings.Default.IP_Label = "ContraVPN: Off";
-                    }
-                    else if (Globals.RU_Checked == true)
-                    {
-                        Properties.Settings.Default.IP_Label = "ContraVPN: Выкл.";
-                    }
-                    else if (Globals.UA_Checked == true)
-                    {
-                        Properties.Settings.Default.IP_Label = "ContraVPN: Вимк.";
-                    }
-                    else if (Globals.BG_Checked == true)
-                    {
-                        Properties.Settings.Default.IP_Label = "ContraVPN: Изкл.";
-                    }
-                    else if (Globals.DE_Checked == true)
-                    {
-                        Properties.Settings.Default.IP_Label = "ContraVPN: Aus";
-                    }
+                        { "ContraVPN: Off", Globals.GB_Checked },
+                        { "ContraVPN: Выкл", Globals.RU_Checked },
+                        { "ContraVPN: Вимк", Globals.UA_Checked },
+                        { "ContraVPN: Изкл", Globals.BG_Checked },
+                        { "ContraVPN: Aus", Globals.DE_Checked },
+                    }.Single(l => l.Value).Key;
                 }));
                 return;
             }
@@ -1777,39 +1724,24 @@ namespace Contra
 
         // This method is executed on the worker thread and makes 
         // a thread-safe call on the TextBox control. 
-        private void ThreadProcSafeMOTD()
+        private void ThreadProcSafeMOTD(string motd)
         {
             try
             {
-                using (WebClient client = new WebClient())
                 {
-                    //URL of MOTD with Version string
-                    string motd = client.DownloadString("https://raw.githubusercontent.com/Teteros/contra-launcher/netcore/Versions.txt");
-
-                    //URL of the updated file
-                    string versionText = motd.Substring(motd.LastIndexOf("Launcher: ") + 10);
-                    versionText = versionText.Substring(0, versionText.IndexOf("$"));
-                    newVersion = versionText;
-                    string zip_url = "https://github.com/Teteros/contra-launcher/releases/download/" + versionText + "/Contra-Launcher.zip";
-
-                    //URL of patch files
-                    string patch_url = "http://contra.cncguild.net/Downloads/Launcher/";
-
-
                     if (downloadTextFile == false)
                     {
                         //Check for launcher update once per launch.
                         if (seekForUpdate == true)
                         {
                             seekForUpdate = false;
-                            GetUpdate(motd, zip_url);
-                            GetModUpdate(motd, patch_url);
+                            //GetLauncherUpdate(motd, launcher_url);
+                            //GetModUpdate(motd, patch_url);
                         }
                         downloadTextFile = true;
                     }
                     void SetMOTD(string prefix)
                     {
-                        motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/Teteros/contra-launcher/netcore/Versions.txt");
                         string MOTDText = motd.Substring(motd.LastIndexOf(prefix) + 9);
                         string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("$"));
                         ThreadHelperClass.SetText(this, MOTD, MOTDText2);
@@ -1826,15 +1758,13 @@ namespace Contra
                     SetMOTD(motd_lang.Single(l => l.Value).Key);
                 }
             }
-            catch
-            { }
+            catch {}
         }
 
         void gtwc_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
             //Extract zip
-            string extractPath = Application.StartupPath;
-            string zipPath = Application.StartupPath + @"\" + genToolFileName;
+            string zipPath = launcherExecutingPath + @"\" + genToolFileName;
 
             try //To prevent crash
             {
@@ -1842,11 +1772,11 @@ namespace Contra
                 {
                     foreach (ZipArchiveEntry entry in archive.Entries.Where(a => a.FullName.Contains("d3d8.dll")))
                     {
-                        entry.ExtractToFile(Path.Combine(extractPath, entry.FullName), true);
+                        entry.ExtractToFile(Path.Combine(launcherExecutingPath, entry.FullName), true);
                     }
                 }
             }
-            catch { }
+            catch {}
             //catch (Exception ex)
             //{
             //    MessageBox.Show(ex.ToString());
@@ -1855,29 +1785,18 @@ namespace Contra
             {
                 File.Delete(genToolFileName);
             }
-            catch { }
+            catch {}
 
             //Show a message when the patch download has completed
-            if (Globals.GB_Checked == true)
-            {
-                MessageBox.Show("A new version of Gentool has been downloaded!", "Gentool update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.RU_Checked == true)
-            {
-                MessageBox.Show("Новая версия GenTool был загружен!", "Gentool обновление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.UA_Checked == true)
-            {
-                MessageBox.Show("Новий GenTool завантажено!", "Оновлення GenTool завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.BG_Checked == true)
-            {
-                MessageBox.Show("Нова версия на GenTool беше изтегленa!", "Обновяването на GenTool е завършено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Globals.DE_Checked == true)
-            {
-                MessageBox.Show("Ein neuer GenTool wurde heruntergeladen!", "Aktualisierung GenTool abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            var gtLangText = new Dictionary<Tuple<string, string>, bool>
+                {
+                    { Tuple.Create("A new version of Gentool has been downloaded!", "Gentool update Complete"), Globals.GB_Checked},
+                    { Tuple.Create("Новая версия GenTool был загружен!", "Gentool обновление завершено"), Globals.RU_Checked},
+                    { Tuple.Create("Новий GenTool завантажено!", "Оновлення GenTool завершено"), Globals.UA_Checked},
+                    { Tuple.Create("Нова версия на GenTool беше изтегленa!", "Обновяването на GenTool е завършено"), Globals.BG_Checked},
+                    { Tuple.Create("Ein neuer GenTool wurde heruntergeladen!", "Aktualisierung GenTool abgeschlossen"), Globals.DE_Checked},
+                }.Single(l => l.Value).Key;
+            MessageBox.Show(new Form { TopMost = true }, gtLangText.Item1, gtLangText.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public void DownloadGentool(string url)
@@ -1891,14 +1810,14 @@ namespace Contra
                 //gtwc.OpenRead(url + genToolFileName);
                 //bytes_total = Convert.ToInt64(gtwc.ResponseHeaders["Content-Length"]);
 
-                gtwc.DownloadFileAsync(new Uri(url), Application.StartupPath + @"\" + genToolFileName);
+                gtwc.DownloadFileAsync(new Uri(url), launcherExecutingPath + @"\" + genToolFileName);
             }
             catch (Exception ex) { MessageBox.Show(ex.ToString()); }
         }
 
         public static Tuple<int, int> getScreenResolution() => Tuple.Create(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-        int x = getScreenResolution().Item1;
-        int y = getScreenResolution().Item2;
+        readonly int ScreenResolutionX = getScreenResolution().Item1;
+        readonly int ScreenResolutionY = getScreenResolution().Item2;
 
         public void CreateOptionsINI()
         {
@@ -1906,12 +1825,12 @@ namespace Contra
             {
                 using (FileStream fs = File.Create(UserDataLeafName() + @"\Options.ini"))
                 {
-                    byte[] info = new UTF8Encoding(true).GetBytes("IdealStaticGameLOD = High" + Environment.NewLine + "Resolution = " + x + " " + y);
+                    byte[] info = new UTF8Encoding(true).GetBytes("IdealStaticGameLOD = High" + Environment.NewLine + "Resolution = " + ScreenResolutionX + " " + ScreenResolutionY);
                     fs.Write(info, 0, info.Length);
                 }
                 using (FileStream fs = File.Create(myDocPath + @"\Options.ini"))
                 {
-                    byte[] info = new UTF8Encoding(true).GetBytes("IdealStaticGameLOD = High" + Environment.NewLine + "Resolution = " + x + " " + y);
+                    byte[] info = new UTF8Encoding(true).GetBytes("IdealStaticGameLOD = High" + Environment.NewLine + "Resolution = " + ScreenResolutionX + " " + ScreenResolutionY);
                     fs.Write(info, 0, info.Length);
                 }
             }
@@ -1981,7 +1900,8 @@ namespace Contra
             {
                 gtHash = CalculateMD5("d3d8.dll");
             }
-            catch { }
+            catch {}
+
             if (isGentoolInstalled("d3d8.dll") && isGentoolOutdated("d3d8.dll", 79) || (gtHash == "70c28745f6e9a9a59cfa1be00df6836a" || gtHash == "13a13584d97922de92443631931d46c3"))
             {
                 //try
@@ -2014,12 +1934,11 @@ namespace Contra
                 DownloadGentool(gtURL);
             }
 
-            // This renames the original file so any shortcut works and names it accordingly after the update
-            // if (File.Exists(Application.StartupPath + "/Contra_Launcher_ToDelete.exe") && (applyNewLauncher == true))
-            if (File.Exists(Application.StartupPath + @"\Contra_Launcher_ToDelete.exe"))
+            // Cleanup old Launcher file after update
+            if (File.Exists(launcherExecutingPath + @"\Contra_Launcher_ToDelete.exe"))
             {
                 File.SetAttributes("Contra_Launcher_ToDelete.exe", FileAttributes.Normal);
-                File.Delete(Application.StartupPath + @"\Contra_Launcher_ToDelete.exe");
+                File.Delete(launcherExecutingPath + @"\Contra_Launcher_ToDelete.exe");
             }
 
             // Generate Options.ini if missing.
@@ -2058,7 +1977,7 @@ namespace Contra
                 // Set default cam height
                 try
                 {
-                    if (AspectRatio(x, y) == "16:9" && isGentoolInstalled("d3d8.dll"))
+                    if (AspectRatio(ScreenResolutionX, ScreenResolutionY) == "16:9" && isGentoolInstalled("d3d8.dll"))
                     {
                         ChangeCamHeight();
                     }
@@ -2299,7 +2218,7 @@ namespace Contra
 
         private void RadioFlag_GB_CheckedChanged(object sender, EventArgs e)
         {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
             resources.ApplyResources(this, "$this");
             applyResources(resources, Controls);
@@ -2325,6 +2244,7 @@ namespace Contra
             toolTip1.SetToolTip(DonateBtn, "Make a donation.");
             currentFileLabel = "File: ";
             ModDLLabel.Text = "Download progress: ";
+            string verString, yearString = "";
             if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
             {
                 verString = "009 Final Patch 2";
@@ -2362,22 +2282,19 @@ namespace Contra
                 IP_Label.Text = "ContraVPN: Off";
             }
 
+            // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
+            string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
+            string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
+            GetLauncherUpdate(motd, launcher_url);
+
             //Load MOTD
-            try
-            {
-                {
-                    System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafeMOTD));
-                    demoThread.Start();
-                }
-            }
-            catch
-            { }
+            try { new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start(); }
+            catch {}
         }
 
         private void RadioFlag_RU_CheckedChanged(object sender, EventArgs e)
         {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
             resources.ApplyResources(this, "$this");
             applyResources(resources, Controls);
@@ -2414,6 +2331,7 @@ namespace Contra
             moreOptions.Text = "Больше опций";
             currentFileLabel = "Файл: ";
             ModDLLabel.Text = "Прогресс загрузки: ";
+            string verString, yearString = "";
             if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
             {
                 verString = " Патч 2";
@@ -2423,6 +2341,11 @@ namespace Contra
             {
                 verString = " Патч 1";
                 yearString = "2019";
+            }
+            else
+            {
+                verString = "???";
+                yearString = "2018";
             }
             versionLabel.Text = "Contra Project Team " + yearString + " - Версия 009 Финал" + verString + " - Launcher: " + Application.ProductVersion;
 
@@ -2441,22 +2364,19 @@ namespace Contra
                 IP_Label.Text = "ContraVPN: Выкл.";
             }
 
+            // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
+            string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
+            string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
+            GetLauncherUpdate(motd, launcher_url);
+
             //Load MOTD
-            try
-            {
-                {
-                    System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafeMOTD));
-                    demoThread.Start();
-                }
-            }
-            catch
-            { }
+            try { new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start(); }
+            catch {}
         }
 
         private void RadioFlag_UA_CheckedChanged(object sender, EventArgs e)
         {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("uk-UA");
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("uk-UA");
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
             resources.ApplyResources(this, "$this");
             applyResources(resources, Controls);
@@ -2493,6 +2413,7 @@ namespace Contra
             moreOptions.Text = "Більше опцій";
             currentFileLabel = "Файл: ";
             ModDLLabel.Text = "Прогрес завантаження: ";
+            string verString, yearString = "";
             if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
             {
                 verString = " Патч 2";
@@ -2502,6 +2423,11 @@ namespace Contra
             {
                 verString = " Патч 1";
                 yearString = "2019";
+            }
+            else
+            {
+                verString = "???";
+                yearString = "2018";
             }
             versionLabel.Text = "Contra Project Team " + yearString + " - Версія 009 Фінал" + verString + " - Launcher: " + Application.ProductVersion;
 
@@ -2520,22 +2446,19 @@ namespace Contra
                 IP_Label.Text = "ContraVPN: Вимк.";
             }
 
+            // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
+            string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
+            string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
+            GetLauncherUpdate(motd, launcher_url);
+
             //Load MOTD
-            try
-            {
-                {
-                    System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafeMOTD));
-                    demoThread.Start();
-                }
-            }
-            catch
-            { }
+            try { new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start(); }
+            catch {}
         }
 
         private void RadioFlag_BG_CheckedChanged(object sender, EventArgs e)
         {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("bg-BG");
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("bg-BG");
             ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
             resources.ApplyResources(this, "$this");
             applyResources(resources, Controls);
@@ -2572,6 +2495,7 @@ namespace Contra
             moreOptions.Text = "Доп. Опции";
             currentFileLabel = "Файл: ";
             ModDLLabel.Text = "Прогрес на изтегляне: ";
+            string verString, yearString = "";
             if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
             {
                 verString = " Пач 2";
@@ -2581,6 +2505,11 @@ namespace Contra
             {
                 verString = " Пач 1";
                 yearString = "2019";
+            }
+            else
+            {
+                verString = "???";
+                yearString = "2018";
             }
             versionLabel.Text = "Contra Екип " + yearString + " - Версия 009 Final" + verString + " - Launcher: " + Application.ProductVersion;
 
@@ -2599,17 +2528,14 @@ namespace Contra
                 IP_Label.Text = "ContraVPN: Изкл.";
             }
 
+            // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
+            string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
+            string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
+            GetLauncherUpdate(motd, launcher_url);
+
             //Load MOTD
-            try
-            {
-                {
-                    System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafeMOTD));
-                    demoThread.Start();
-                }
-            }
-            catch
-            { }
+            try { new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start(); }
+            catch {}
         }
 
         private void RadioFlag_DE_CheckedChanged(object sender, EventArgs e)
@@ -2653,6 +2579,7 @@ namespace Contra
             moreOptions.Text = "Einstellungen";
             currentFileLabel = "Datei: ";
             ModDLLabel.Text = "Downloadfortschritt: ";
+            string verString, yearString = "";
             if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
             {
                 verString = " Patch 2";
@@ -2662,6 +2589,11 @@ namespace Contra
             {
                 verString = " Patch 1";
                 yearString = "2019";
+            }
+            else
+            {
+                verString = "???";
+                yearString = "2018";
             }
             versionLabel.Text = "Contra Projekt Team " + yearString + " - Version 009 Final" + verString + " - Launcher: " + Application.ProductVersion;
 
@@ -2680,17 +2612,14 @@ namespace Contra
                 IP_Label.Text = "ContraVPN: Aus";
             }
 
+            // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
+            string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
+            string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
+            GetLauncherUpdate(motd, launcher_url);
+
             //Load MOTD
-            try
-            {
-                {
-                    System.Threading.Thread demoThread =
-                       new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafeMOTD));
-                    demoThread.Start();
-                }
-            }
-            catch
-            { }
+            try { new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start(); }
+            catch {}
         }
 
         private void Resolution_Click(object sender, EventArgs e) //Opens More Options form
@@ -2779,20 +2708,20 @@ namespace Contra
             button17.BackgroundImage = Properties.Resources.min;
         }
 
-        int i = 0;
+        int ztTimer = 0;
         private void RefreshVpnIpTimer_Tick(object sender, EventArgs e) //refresh VPN IP five times
         {
             ZT_IP();
-            i++;
-            if (i == 3)
+            ztTimer++;
+            if (ztTimer == 3)
             {
                 refreshVpnIpTimer.Interval = 5000;
             }
-            if (i == 4)
+            if (ztTimer == 4)
             {
                 refreshVpnIpTimer.Interval = 10000;
             }
-            if (i == 5)
+            if (ztTimer == 5)
             {
                 refreshVpnIpTimer.Enabled = false;
             }
@@ -2802,7 +2731,7 @@ namespace Contra
         {
             disableVPNOnBtn = false;
 
-            if (isRunningOnWine()) return;
+            if (IsRunningOnWine()) return;
 
             if (File.Exists("generals.ctr") && CalculateMD5("generals.ctr") == "ee7d5e6c2d7fb66f5c27131f33da5fd3")
             {
@@ -2827,26 +2756,7 @@ namespace Contra
                                 vpnprocess.WaitForExit();
                                 vpnprocess.Dispose();
 
-                                if (Globals.GB_Checked == true)
-                                {
-                                    IP_Label.Text = "ContraVPN: Off";
-                                }
-                                else if (Globals.RU_Checked == true)
-                                {
-                                    IP_Label.Text = "ContraVPN: Выкл.";
-                                }
-                                else if (Globals.UA_Checked == true)
-                                {
-                                    IP_Label.Text = "ContraVPN: Вимк.";
-                                }
-                                else if (Globals.BG_Checked == true)
-                                {
-                                    IP_Label.Text = "ContraVPN: Изкл.";
-                                }
-                                else if (Globals.DE_Checked == true)
-                                {
-                                    IP_Label.Text = "ContraVPN: Aus";
-                                }
+                                IP_LabelReset();
 
                                 vpn_start.BackgroundImage = Properties.Resources.vpn_off;
                                 return;
@@ -2941,19 +2851,17 @@ namespace Contra
                     //MessageBox.Show(ip);
                     //MessageBox.Show(Output);
 
-                    var iplabel_lang = new Dictionary<string, bool>
+                    IP_Label.Text = "IP: " + new Dictionary<string, bool>
                     {
                         {"not compatible", Globals.GB_Checked},
                         {"несовместимый", Globals.RU_Checked},
                         {"несумісні", Globals.UA_Checked},
                         {"несъвместим", Globals.BG_Checked},
                         {"Nicht Kompatibel", Globals.DE_Checked},
-                    };
-                    //Properties.Settings.Default.IP_Label = "IP: " + iplabel_lang.Single(l => l.Value).Key;
-                    IP_Label.Text = "IP: " + iplabel_lang.Single(l => l.Value).Key;
+                    }.Single(l => l.Value).Key;
                 }
             }
-            catch { }// (Exception ex) { Console.Error.WriteLine(ex); }
+            catch {}// (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
         private void RadioFlag_GB_MouseEnter(object sender, EventArgs e)
@@ -3046,24 +2954,18 @@ namespace Contra
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //This renames the original file so any shortcut works and names it accordingly after the update
-            if (File.Exists(Application.StartupPath + @"\Contra_Launcher_" + versionText + ".exe") && (applyNewLauncher == true))
-            {
-                File.Move(Application.StartupPath + @"\Contra_Launcher.exe", Application.StartupPath + @"\Contra_Launcher_ToDelete.exe");
-                File.Move(Application.StartupPath + @"\Contra_Launcher_" + versionText + ".exe", Application.StartupPath + @"\Contra_Launcher.exe");
-            }
             //If updating has failed, clear the 0KB file
-            if (File.Exists(Application.StartupPath + @"\Contra_Launcher_" + versionText + ".exe") && (applyNewLauncher == false))
+            if (File.Exists($"{launcherExecutingPath}\\Contra_Launcher_{newVersion}.exe") && (applyNewLauncher == false))
             {
-                File.Delete(Application.StartupPath + @"\Contra_Launcher_" + versionText + ".exe");
+                File.Delete($"{launcherExecutingPath}\\Contra_Launcher_{newVersion}.exe");
             }
-
-
-            //if (File.Exists(Application.StartupPath + "/Contra_Launcher_New.exe"))
-            //{
-            //    File.Move(Application.StartupPath + "/Contra_Launcher.exe", Application.StartupPath + "/Contra_Launcher_ToDelete.exe");
-            //    File.Move(Application.StartupPath + "/Contra_Launcher_New.exe", Application.StartupPath + "/Contra_Launcher.exe");
-            //}
+            //This renames the original file so any shortcut works and names it accordingly after the update
+            if (File.Exists($"{launcherExecutingPath}\\Contra_Launcher_{newVersion}.exe") && (applyNewLauncher == true))
+            {
+                File.Move($"{launcherExecutingPath}\\Contra_Launcher.exe", $"{launcherExecutingPath}\\Contra_Launcher_ToDelete.exe");
+                File.Move($"{launcherExecutingPath}\\Contra_Launcher_{newVersion}.exe", $"{launcherExecutingPath}\\Contra_Launcher.exe");
+                System.Diagnostics.Process.Start(Path.Combine(launcherExecutingPath, "Contra_Launcher.exe"));
+            }
         }
 
         public static bool isGentoolInstalled(string gentoolPath)
@@ -3114,7 +3016,7 @@ namespace Contra
 
         private void ZTConsoleBtn_Click(object sender, EventArgs e)
         {
-            if (isRunningOnWine()) return;
+            if (IsRunningOnWine()) return;
 
             try
             {
@@ -3162,7 +3064,7 @@ namespace Contra
 
         private void ZTConfigBtn_Click(object sender, EventArgs e)
         {
-            if (isRunningOnWine()) return;
+            if (IsRunningOnWine()) return;
 
             try
             {
@@ -3196,7 +3098,7 @@ namespace Contra
 
         private void ZTNukeBtn_Click(object sender, EventArgs e)
         {
-            if (isRunningOnWine()) return;
+            if (IsRunningOnWine()) return;
 
             string dialogMsg = null;
             string dialogTitle = null;
@@ -3242,68 +3144,64 @@ namespace Contra
                     }
                 }
                 catch { }
-                triedToLeaveNetwork = true;
 
-                if (triedToLeaveNetwork == true)
+                instance.UninstallZTDriver();
+
+                bool didZtFolderExist;
+                try
                 {
-                    instance.UninstallZTDriver();
+                    Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt", true);
+                    didZtFolderExist = true;
+                }
+                catch
+                {
+                    didZtFolderExist = false;
+                }
 
-                    bool didZtFolderExist;
-                    try
+                if (Globals.ZTDriverUninstallSuccessful == true || didZtFolderExist == true)
+                {
+                    if (Globals.GB_Checked == true)
                     {
-                        Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt", true);
-                        didZtFolderExist = true;
+                        MessageBox.Show("ContraVPN was successfully uninstalled!", "VPN uninstalled!");
                     }
-                    catch
+                    else if (Globals.RU_Checked == true)
                     {
-                        didZtFolderExist = false;
+                        MessageBox.Show("ContraVPN был успешно удален!", "VPN удален!");
                     }
-
-                    if (Globals.ZTDriverUninstallSuccessful == true || didZtFolderExist == true)
+                    else if (Globals.UA_Checked == true)
                     {
-                        if (Globals.GB_Checked == true)
-                        {
-                            MessageBox.Show("ContraVPN was successfully uninstalled!", "VPN uninstalled!");
-                        }
-                        else if (Globals.RU_Checked == true)
-                        {
-                            MessageBox.Show("ContraVPN был успешно удален!", "VPN удален!");
-                        }
-                        else if (Globals.UA_Checked == true)
-                        {
-                            MessageBox.Show("ContraVPN успішно видалено!", "Видалено VPN!");
-                        }
-                        else if (Globals.BG_Checked == true)
-                        {
-                            MessageBox.Show("ContraVPN беше деинсталиран успешно!", "VPN деинсталиран!");
-                        }
-                        else if (Globals.DE_Checked == true)
-                        {
-                            MessageBox.Show("ContraVPN wurde erfolgreich deinstalliert!", "VPN deinstalliert!");
-                        }
+                        MessageBox.Show("ContraVPN успішно видалено!", "Видалено VPN!");
                     }
-                    else
+                    else if (Globals.BG_Checked == true)
                     {
-                        if (Globals.GB_Checked == true)
-                        {
-                            MessageBox.Show("ContraVPN is already uninstalled.", "ContraVPN already uninstalled");
-                        }
-                        else if (Globals.RU_Checked == true)
-                        {
-                            MessageBox.Show("ContraVPN уже удален.", "ContraVPN уже удален");
-                        }
-                        else if (Globals.UA_Checked == true)
-                        {
-                            MessageBox.Show("ContraVPN вже видалено.", "ContraVPN вже видалено");
-                        }
-                        else if (Globals.BG_Checked == true)
-                        {
-                            MessageBox.Show("ContraVPN вече беше деинсталиран.", "ContraVPN вече беше деинсталиран");
-                        }
-                        else if (Globals.DE_Checked == true)
-                        {
-                            MessageBox.Show("ContraVPN ist bereits deinstalliert.", "ContraVPN ist bereits deinstalliert");
-                        }
+                        MessageBox.Show("ContraVPN беше деинсталиран успешно!", "VPN деинсталиран!");
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        MessageBox.Show("ContraVPN wurde erfolgreich deinstalliert!", "VPN deinstalliert!");
+                    }
+                }
+                else
+                {
+                    if (Globals.GB_Checked == true)
+                    {
+                        MessageBox.Show("ContraVPN is already uninstalled.", "ContraVPN already uninstalled");
+                    }
+                    else if (Globals.RU_Checked == true)
+                    {
+                        MessageBox.Show("ContraVPN уже удален.", "ContraVPN уже удален");
+                    }
+                    else if (Globals.UA_Checked == true)
+                    {
+                        MessageBox.Show("ContraVPN вже видалено.", "ContraVPN вже видалено");
+                    }
+                    else if (Globals.BG_Checked == true)
+                    {
+                        MessageBox.Show("ContraVPN вече беше деинсталиран.", "ContraVPN вече беше деинсталиран");
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        MessageBox.Show("ContraVPN ist bereits deinstalliert.", "ContraVPN ist bereits deinstalliert");
                     }
                 }
             }
@@ -3368,7 +3266,9 @@ namespace Contra
 
         private void CancelModDLBtn_Click(object sender, EventArgs e)
         {
-            wcMod.CancelAsync();
+            httpCancellationToken.Cancel();
+            //PatchDLPanel.Hide();
+            //wcMod.CancelAsync();
         }
     }
 }

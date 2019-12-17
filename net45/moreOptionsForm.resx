@@ -578,7 +578,7 @@
     <value>camTrackBar</value>
   </data>
   <data name="&gt;&gt;camTrackBar.Type" xml:space="preserve">
-    <value>Contra.TrackBar, Contra_Launcher, Version=1.1.0.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>Contra.TrackBar, Contra_Launcher, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;camTrackBar.Parent" xml:space="preserve">
     <value>$this</value>

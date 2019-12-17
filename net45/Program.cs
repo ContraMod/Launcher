@@ -1,36 +1,44 @@
 using System;
 using System.Windows.Forms;
 using System.Threading;
-using System.IO;
 
 namespace Contra
 {
     static class Program
     {
-        private static Mutex mutex = null;
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        private static Mutex mutex;
+
         [STAThread]
         static void Main()
         {
-            const string appName = "MyAppName";
-            bool createdNew;
+            mutex = new Mutex(false, "Contra_Launcher");
 
-            mutex = new Mutex(true, appName, out createdNew);
-
-            if (!File.Exists(Application.StartupPath + @"\Contra_Launcher_ToDelete.exe"))
+            try
             {
-                if (!createdNew)
+                try
                 {
-                    //app is already running! Exiting the application
-                    MessageBox.Show("Contra Launcher is already running!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
+                    if (!mutex.WaitOne(5))
+                    {
+                        mutex.Dispose();
+                        mutex = null;
+                        MessageBox.Show("Contra Launcher is already running!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+                catch (AbandonedMutexException) {} // Mutex wasn't fully released previous instance
+
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new Form1());
+            }
+            finally
+            {
+                if (mutex != null)
+                {
+                    mutex.ReleaseMutex();
+                    mutex.Dispose();
                 }
             }
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
         }
     }
 }

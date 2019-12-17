@@ -6,6 +6,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace Contra
 {
@@ -26,13 +27,13 @@ namespace Contra
         string tempPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt-temp\";
         static string ztPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\";
 
-        bool updateZTVersion = false;
+        static bool updateZTVersion = false;
 
-        WebClient ztDL = new WebClient();
+        //WebClient ztDL = new WebClient();
         //string ZTURL = "https://download.zerotier.com/dist/ZeroTier%20One.msi";
-        string ZTFileName = "ZeroTier One.msi";
+        static readonly string ZTFileName = "ZeroTier One.msi";
 
-        public void CheckZTInstall(string ZTURL)
+        public async void CheckZTInstall(string ZTURL)
         {
             Globals.ZTReady = 0;
 
@@ -64,19 +65,15 @@ namespace Contra
                         MessageBox.Show("ContraVPN (ZeroTier One) muss heruntergeladen werden. Download wird gestartet...", "ContraVPN herunterladen");
                     }
 
-                    ztDL.DownloadFileCompleted += new AsyncCompletedEventHandler(ztDL_DownloadCompleted);
-                    //         ztDL.DownloadProgressChanged += ztDL_DownloadProgressChanged;
+                    await Form1.DownloadFileSimple(ZTURL, $"{Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\{ZTFileName}", TimeSpan.FromMinutes(10));
+                    CheckZTInstallSteps();
+                    //await (new Form1()).DownloadFile(ZTURL, $"{Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\\{ZTFileName}", TimeSpan.FromMinutes(5), Form1.httpCancellationToken.Token);
 
-                    CheckIfFileIsAvailable(ZTURL);
-                    //             currentFile = ZTFileName;
-                    ztDL.OpenRead(ZTURL);
-                    //              bytes_total = Convert.ToInt64(ztDL.ResponseHeaders["Content-Length"]);
-
-                    ztDL.DownloadFileAsync(new Uri(ZTURL), Application.StartupPath + @"\" + ZTFileName);
-
-                    //         PatchDLPanel.Show();
-
-                    //  while (wc.IsBusy) { }
+                    //ztDL.DownloadFileCompleted += new AsyncCompletedEventHandler(ztDL_DownloadCompleted);
+                    //
+                    //CheckIfFileIsAvailable(ZTURL);
+                    //ztDL.OpenRead(ZTURL);
+                    //ztDL.DownloadFileAsync(new Uri(ZTURL), Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\" + ZTFileName);
                 }
                 else
                 {
@@ -84,7 +81,10 @@ namespace Contra
                     CheckZTVersion();
                 }
             }
-            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+            catch (Exception ex) {
+                if (File.Exists(ZTFileName)) File.Delete(ZTFileName);
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         public void CheckIfFileIsAvailable(string ZTURL)
@@ -132,48 +132,48 @@ namespace Contra
             }
         }
 
-        void ztDL_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            //     PatchDLPanel.Hide();
+        //void ztDL_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
+        //{
+        //    //     PatchDLPanel.Hide();
 
-            if (e.Cancelled)
-            {
-                // delete the partially-downloaded file
-                File.Delete(ZTFileName);
-                return;
-            }
+        //    if (e.Cancelled)
+        //    {
+        //        // delete the partially-downloaded file
+        //        File.Delete(ZTFileName);
+        //        return;
+        //    }
 
-            // display completion status.
-            if (e.Error != null)
-            {
-                MessageBox.Show(e.Error.Message);
-                return;
-            }
+        //    // display completion status.
+        //    if (e.Error != null)
+        //    {
+        //        MessageBox.Show(e.Error.Message);
+        //        return;
+        //    }
 
-            //Show a message when the patch download has completed
-            //if (Globals.GB_Checked == true)
-            //{
-            //    MessageBox.Show("A new patch has been downloaded!\n\nThe application will now restart!", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-            //else if (Globals.RU_Checked == true)
-            //{
-            //    MessageBox.Show("Новый патч был загружен!\n\nПриложение будет перезагружено!", "Обновление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-            //else if (Globals.UA_Checked == true)
-            //{
-            //    MessageBox.Show("Новий виправлення завантажено!\n\nПрограма буде перезавантажена!", "Оновлення завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-            //else if (Globals.BG_Checked == true)
-            //{
-            //    MessageBox.Show("Нов пач беше изтеглен!\n\nСега ще се рестартира!", "Обновяването е завършено", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-            //else if (Globals.DE_Checked == true)
-            //{
-            //    MessageBox.Show("Ein neuer Patch wurde heruntergeladen!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
+        //    //Show a message when the patch download has completed
+        //    //if (Globals.GB_Checked == true)
+        //    //{
+        //    //    MessageBox.Show("A new patch has been downloaded!\n\nThe application will now restart!", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    //}
+        //    //else if (Globals.RU_Checked == true)
+        //    //{
+        //    //    MessageBox.Show("Новый патч был загружен!\n\nПриложение будет перезагружено!", "Обновление завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    //}
+        //    //else if (Globals.UA_Checked == true)
+        //    //{
+        //    //    MessageBox.Show("Новий виправлення завантажено!\n\nПрограма буде перезавантажена!", "Оновлення завершено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    //}
+        //    //else if (Globals.BG_Checked == true)
+        //    //{
+        //    //    MessageBox.Show("Нов пач беше изтеглен!\n\nСега ще се рестартира!", "Обновяването е завършено", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    //}
+        //    //else if (Globals.DE_Checked == true)
+        //    //{
+        //    //    MessageBox.Show("Ein neuer Patch wurde heruntergeladen!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    //}
 
-            CheckZTInstallSteps();
-        }
+        //    CheckZTInstallSteps();
+        //}
 
         private void DisplayInstallMessage()
         {
@@ -215,7 +215,7 @@ namespace Contra
             try
             {
                 WebClient wc = new WebClient();
-                string versionTxt = wc.DownloadString("https://raw.githubusercontent.com/Teteros/contra-launcher/netcore/Versions.txt");
+                string versionTxt = wc.DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
 
                 //Get zt version
                 string ztVersionLatest = versionTxt.Substring(versionTxt.LastIndexOf("ZeroTier: ") + 10);
@@ -357,7 +357,7 @@ namespace Contra
         }
         // End of step checks.
 
-        public void InstallZTPackage()
+        public async void InstallZTPackage()
         {
             string tempPathTap = tempPath + @"CommonAppDataFolder\ZeroTier\One\tap-windows\";
             string targetPathTap = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Contra\vpnconfig\zt\tap-windows\";
@@ -383,7 +383,6 @@ namespace Contra
 
             // Get files from temp folder and delete it.
             int i = 0;
-            // wait 30 sec for files to be downloaded
             while (!File.Exists(tempPath + @"CommonAppDataFolder\ZeroTier\One\zerotier-one_x64.exe") && i < 30 ||
                 !File.Exists(tempPath + @"CommonAppDataFolder\ZeroTier\One\zerotier-one_x86.exe") && i < 30 ||
                 !File.Exists(tempPath + @"CommonAppDataFolder\ZeroTier\One\tap-windows\x64\zttap300.cat") && i < 30 ||
@@ -393,7 +392,8 @@ namespace Contra
                 !File.Exists(tempPath + @"CommonAppDataFolder\ZeroTier\One\tap-windows\x86\zttap300.inf") && i < 30 ||
                 !File.Exists(tempPath + @"CommonAppDataFolder\ZeroTier\One\tap-windows\x86\zttap300.sys") && i < 30)
             {
-                System.Threading.Thread.Sleep(1000);
+                await Task.Delay(1000);
+                //System.Threading.Thread.Sleep(1000);
                 i++;
             }
             try
