@@ -2,8 +2,8 @@
 Mod Text: 009 Final Patch 2$
 Launcher: 1.1.0.0$
 ZeroTier: 1.4.6$
-MOTD-EN: $
-MOTD-RU: $
-MOTD-UA: $
-MOTD-BG: $
-MOTD-DE: $
+MOTD-EN: We are working on fixing VPN issues. You can temporarily play on RadminVPN. Name: JohnyF, Password: 111111$
+MOTD-RU: Мы работаем над устранением проблем с VPN. Вы можете временно играть на RadminVPN. Имя: JohnyF, Пароль: 111111$
+MOTD-UA: Ми працюємо над вирішенням проблем VPN. Ви можете тимчасово грати на RadminVPN. Ім'я: JohnyF, Пароль: 111111$
+MOTD-BG: Работим по отстраняването на проблемите с VPN. Можете временно да играете на RadminVPN. Име: JohnyF, Парола: 111111$
+MOTD-DE: Wir arbeiten an der Behebung von VPN-Problemen. Vorübergehend auf RadminVPN legen. Name: JohnyF, Passwort: 111111$
