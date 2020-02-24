@@ -2283,12 +2283,15 @@ namespace Contra
             }
 
             // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
-            string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
-            string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
-            GetLauncherUpdate(motd, launcher_url);
+            try
+            {
+                string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
+                string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
+                GetLauncherUpdate(motd, launcher_url);
 
-            //Load MOTD
-            try { new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start(); }
+                //Load MOTD
+                new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
+            }
             catch {}
         }
 
@@ -2365,12 +2368,15 @@ namespace Contra
             }
 
             // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
-            string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
-            string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
-            GetLauncherUpdate(motd, launcher_url);
+            try
+            {
+                string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
+                string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
+                GetLauncherUpdate(motd, launcher_url);
 
-            //Load MOTD
-            try { new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start(); }
+                //Load MOTD
+                new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
+            }
             catch {}
         }
 
@@ -2447,12 +2453,15 @@ namespace Contra
             }
 
             // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
-            string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
-            string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
-            GetLauncherUpdate(motd, launcher_url);
+            try
+            {
+                string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
+                string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
+                GetLauncherUpdate(motd, launcher_url);
 
-            //Load MOTD
-            try { new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start(); }
+                //Load MOTD
+                new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
+            }
             catch {}
         }
 
@@ -2529,12 +2538,15 @@ namespace Contra
             }
 
             // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
-            string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
-            string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
-            GetLauncherUpdate(motd, launcher_url);
+            try
+            {
+                string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
+                string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
+                GetLauncherUpdate(motd, launcher_url);
 
-            //Load MOTD
-            try { new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start(); }
+                //Load MOTD
+                new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
+            }
             catch {}
         }
 
@@ -2613,12 +2625,15 @@ namespace Contra
             }
 
             // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
-            string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
-            string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
-            GetLauncherUpdate(motd, launcher_url);
+            try
+            {
+                string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
+                string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
+                GetLauncherUpdate(motd, launcher_url);
 
-            //Load MOTD
-            try { new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start(); }
+                //Load MOTD
+                new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
+            }
             catch {}
         }
 
