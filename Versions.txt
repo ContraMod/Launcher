@@ -2,8 +2,8 @@
 Mod Text: 009 Final Patch 2$
 Launcher: 1.1.0.0$
 ZeroTier: 1.4.6$
-MOTD-EN: Preferred software for online play at the moment is RadminVPN. Network Name: JohnyF, Password: 111111$
-MOTD-RU: Играем в RadminVPN. Имя сети: JohnyF, Пароль: 111111$
-MOTD-UA: Граємо в RadminVPN. Назва мережі: JohnyF, Пароль: 111111$
-MOTD-BG: Играем в RadminVPN. Име на мрежата: JohnyF, Парола: 111111$
-MOTD-DE: Wir spielen mit RadminVPN. Name: JohnyF, Pass: 111111$
+MOTD-EN: Preferred software for online play at the moment is RadminVPN. Network Name: "JohnyF", Password: "111111"$
+MOTD-RU: Играем в RadminVPN. Имя сети: "JohnyF", Пароль: "111111"$
+MOTD-UA: Граємо в RadminVPN. Назва мережі: "JohnyF", Пароль: "111111"$
+MOTD-BG: Играем в RadminVPN. Име на мрежата: "JohnyF", Парола: "111111"$
+MOTD-DE: Wir spielen mit RadminVPN. Name: "JohnyF", Pass: "111111"$
