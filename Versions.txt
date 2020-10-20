@@ -2,8 +2,8 @@
 Mod Text: 009 Final Patch 2$
 Launcher: 1.1.0.0$
 ZeroTier: 1.4.6$
-MOTD-EN: Preferred software for online play at the moment is RadminVPN. Network Name: "JohnyF", Password: "111111"$
-MOTD-RU: Играем через RadminVPN. Имя сети: "JohnyF", Пароль: "111111"$
-MOTD-UA: Граємо через RadminVPN. Назва мережі: "JohnyF", Пароль: "111111"$
-MOTD-BG: Играем чрез RadminVPN. Име на мрежата: "JohnyF", Парола: "111111"$
-MOTD-DE: Wir spielen mit RadminVPN. Name: "JohnyF", Pass: "111111"$
+MOTD-EN: We're playing via RadminVPN at "Contra 009" Gaming Network and Private Network: "JohnyF", Password: "111111"$
+MOTD-RU: Играем через RadminVPN в игровой сети: "Contra 009" и частной сети: "JohnyF", Пароль: "111111"$
+MOTD-UA: Граємо через RadminVPN в ігровій мережі "Contra 009" та приватній мережі: "JohnyF", Пароль: "111111"$
+MOTD-BG: Играем чрез RadminVPN в игрова мрежа "Contra 009" и частна мрежа: "JohnyF", Парола: "111111"$
+MOTD-DE: Wir spielen mit RadminVPN im "Contra 009" Gaming Network und Private Network: "JohnyF", Pass: "111111"$
