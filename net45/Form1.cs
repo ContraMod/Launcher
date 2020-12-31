@@ -26,6 +26,7 @@ namespace Contra
     {
         public Form1()
         {
+            //
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             InitializeComponent();
             Application.ApplicationExit += new EventHandler(OnApplicationExit);
