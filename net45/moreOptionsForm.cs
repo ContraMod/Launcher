@@ -1893,10 +1893,10 @@ namespace Contra
         {
             if (!LeikezeHotkeysRadioButton.Checked)
             {
-                Properties.Settings.Default.LegacyHotkeys = false;
+                Properties.Settings.Default.LeikezeHotkeys = false;
                 Properties.Settings.Default.Save();
             }
-            else Properties.Settings.Default.LegacyHotkeys = true;
+            else Properties.Settings.Default.LeikezeHotkeys = true;
             Properties.Settings.Default.Save();
             IsGeneralsRunning();
         }
@@ -1905,10 +1905,10 @@ namespace Contra
         {
             if (!LegacyHotkeysRadioButton.Checked)
             {
-                Properties.Settings.Default.LeikezeHotkeys = false;
+                Properties.Settings.Default.LegacyHotkeys = false;
                 Properties.Settings.Default.Save();
             }
-            else Properties.Settings.Default.LeikezeHotkeys = true;
+            else Properties.Settings.Default.LegacyHotkeys = true;
             Properties.Settings.Default.Save();
             IsGeneralsRunning();
         }
