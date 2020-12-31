@@ -18,12 +18,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@main
 
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@main
         with:
-          dotnet-version: 3.1.100
+          dotnet-version: 3.1.x
 
       # Debug build
       #   run: dotnet publish -r win-x64 --self-contained=false /p:PublishTrimmed=false netcore
@@ -32,7 +32,7 @@ jobs:
         run: dotnet publish -r win-x64 --configuration Release netcore
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@main
         with:
           name: contra-launcher
           path: ${{ env.PUBLISH_PATH }}/Contra_Launcher.exe

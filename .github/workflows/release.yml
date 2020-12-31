@@ -15,12 +15,12 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@main
 
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@main
       with:
-        dotnet-version: 3.1.100
+        dotnet-version: 3.1.x
 
     - name: Build & Publish
       run: dotnet publish /p:AssemblyName="Contra_Launcher_$("${{ github.ref }}".Substring(10))" --configuration Release netcore
@@ -30,7 +30,7 @@ jobs:
 
     - name: Create release
       id: create_release
-      uses: actions/create-release@v1.0.0
+      uses: actions/create-release@main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -40,7 +40,7 @@ jobs:
         prerelease: false
 
     - name: Upload release asset
-      uses: actions/upload-release-asset@v1.0.1
+      uses: actions/upload-release-asset@main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
