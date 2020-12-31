@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
 
 namespace Contra
 {
@@ -11,6 +12,22 @@ namespace Contra
         [STAThread]
         static void Main()
         {
+            // Check if the config file is corrupt. If yes, reset it and continue.
+            try
+            {
+                Properties.Settings.Default.LangEN = false;
+            }
+            catch (System.Configuration.ConfigurationErrorsException ex)
+            {
+                string filename = ((System.Configuration.ConfigurationErrorsException)ex.InnerException).Filename;
+                //MessageBox.Show("Contra Launcher has detected that your user settings file has become corrupted. This may be due to a crash or improper exiting of the program. Contra Launcher will now reset your user settings in order to continue.");
+                File.Delete(filename);
+                //Properties.Settings.Default.Reload();
+                System.Diagnostics.Process.Start("Contra_Launcher.exe");
+                return;
+            }
+            Properties.Settings.Default.LangEN = true;
+
             mutex = new Mutex(false, "Contra_Launcher");
 
             try
@@ -25,7 +42,7 @@ namespace Contra
                         return;
                     }
                 }
-                catch (AbandonedMutexException) {} // Mutex wasn't fully released previous instance
+                catch (AbandonedMutexException) { } // Mutex wasn't fully released previous instance
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);

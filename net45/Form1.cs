@@ -17,6 +17,8 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Globalization;
+using System.Management;
 
 namespace Contra
 {
@@ -68,7 +70,7 @@ namespace Contra
             {
                 Globals.userOS = "32";
             }
-            
+
             IP_LabelReset();
             DelTmpChunk();
         }
@@ -688,11 +690,43 @@ namespace Contra
                     MessageBox.Show("Mod dateien konnten nicht entladen werden, da sie momentan im World Builder benutzt werden. Falls du die mod dateien entladen wilst, schlieЯe den World Builder und starte den Launcher erneut. SchlieЯt den Launcher sowieso.", "Fehler");
                 }
             }
-            OnApplicationExit(sender, e);
+            this.Close(); // Application.Exit(); //OnApplicationExit(sender, e);
         }
 
         private static void DeleteDuplicateFiles()
         {
+            if (File.Exists("!!!!Contra009Final_Patch3_GameData.ctr") && File.Exists("!!!!Contra009Final_Patch3_GameData.big"))
+            {
+                File.Delete("!!!!Contra009Final_Patch3_GameData.big");
+            }
+            if (File.Exists("!!!!Contra009Final_Patch3.ctr") && File.Exists("!!!!Contra009Final_Patch3.big"))
+            {
+                File.Delete("!!!!Contra009Final_Patch3.big");
+            }
+            if (File.Exists("!!!!Contra009Final_Patch3_RU_Leikeze.ctr") && File.Exists("!!!!Contra009Final_Patch3_RU_Leikeze.big"))
+            {
+                File.Delete("!!!!Contra009Final_Patch3_RU_Leikeze.big");
+            }
+            if (File.Exists("!!!!Contra009Final_Patch3_RU_Legacy.ctr") && File.Exists("!!!!Contra009Final_Patch3_RU_Legacy.big"))
+            {
+                File.Delete("!!!!Contra009Final_Patch3_RU_Legacy.big");
+            }
+            if (File.Exists("!!!!Contra009Final_Patch3_EN_Leikeze.ctr") && File.Exists("!!!!Contra009Final_Patch3_EN_Leikeze.big"))
+            {
+                File.Delete("!!!!Contra009Final_Patch3_EN_Leikeze.big");
+            }
+            if (File.Exists("!!!!Contra009Final_Patch3_EN_Legacy.ctr") && File.Exists("!!!!Contra009Final_Patch3_EN_Legacy.big"))
+            {
+                File.Delete("!!!!Contra009Final_Patch3_EN_Legacy.big");
+            }
+            if (File.Exists("!!!!Contra009Final_Patch3_NatVO.ctr") && File.Exists("!!!!Contra009Final_Patch3_NatVO.big"))
+            {
+                File.Delete("!!!!Contra009Final_Patch3_NatVO.big");
+            }
+            if (File.Exists("!!!!Contra009Final_Patch3_EngVO.ctr") && File.Exists("!!!!Contra009Final_Patch3_EngVO.big"))
+            {
+                File.Delete("!!!!Contra009Final_Patch3_EngVO.big");
+            }
             if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr") && File.Exists("!!!Contra009Final_Patch2_GameData.big"))
             {
                 File.Delete("!!!Contra009Final_Patch2_GameData.big");
@@ -773,10 +807,10 @@ namespace Contra
             {
                 File.Delete("langdata1.dat");
             }
-            if (File.Exists("dbghelp.dll") && File.Exists("dbghelp.ctr"))
-            {
-                File.Delete("dbghelp.ctr");
-            }
+            //if (File.Exists("dbghelp.dll") && File.Exists("dbghelp.backup"))
+            //{
+            //    File.Delete("dbghelp.backup");
+            //}
         }
 
         private static void RenameBigToCtr()
@@ -785,6 +819,14 @@ namespace Contra
             {
                 List<string> bigs = new List<string>
                 {
+                    "!!!!Contra009Final_Patch3_GameData.big",
+                    "!!!!Contra009Final_Patch3.big",
+                    "!!!!Contra009Final_Patch3_RU_Leikeze.big",
+                    "!!!!Contra009Final_Patch3_RU_Legacy.big",
+                    "!!!!Contra009Final_Patch3_EN_Leikeze.big",
+                    "!!!!Contra009Final_Patch3_EN_Legacy.big",
+                    "!!!!Contra009Final_Patch3_NatVO.big",
+                    "!!!!Contra009Final_Patch3_EngVO.big",
                     "!!!Contra009Final_Patch2_GameData.big",
                     "!!!Contra009Final_Patch2.big",
                     "!!!Contra009Final_Patch2_RU.big",
@@ -822,7 +864,121 @@ namespace Contra
                     Directory.Move(@"Data\Scripts1", @"Data\Scripts");
                 }
 
-                File.Move("dbghelp.ctr", "dbghelp.dll");
+                //File.Move("dbghelp.backup", "dbghelp.dll");
+
+                if (File.Exists("Install_Final_ZH.bmp"))
+                {
+                    try
+                    {
+                        File.SetAttributes("Install_Final.bmp", FileAttributes.Normal);
+                        File.SetAttributes("Install_Final_ZH.bmp", FileAttributes.Normal);
+                        File.SetAttributes("Install_Final_Contra.bmp", FileAttributes.Normal);
+                        File.Copy("Install_Final_ZH.bmp", "Install_Final.bmp", true);
+                    }
+                    catch
+                    { }
+                }
+
+                if (File.Exists("generals_zh.exe"))
+                {
+                    try
+                    {
+                        File.SetAttributes("generals.exe", FileAttributes.Normal);
+                        File.SetAttributes("generals_zh.exe", FileAttributes.Normal);
+                        File.SetAttributes("generals.ctr", FileAttributes.Normal);
+                        File.Copy("generals_zh.exe", "generals.exe", true);
+                    }
+                    catch
+                    { }
+                }
+
+                // Save CTR Options; Make ZH Options.ini active
+                try
+                {
+                    if (File.Exists(UserDataLeafName() + "Options_ZH.ini"))
+                    {
+                        File.SetAttributes(UserDataLeafName() + "Options.ini", FileAttributes.Normal);
+                        File.SetAttributes(UserDataLeafName() + "Options_CTR.ini", FileAttributes.Normal);
+                        File.SetAttributes(UserDataLeafName() + "Options_ZH.ini", FileAttributes.Normal);
+                        File.Copy(UserDataLeafName() + "Options.ini", UserDataLeafName() + "Options_CTR.ini", true);
+                        File.Copy(UserDataLeafName() + "Options_ZH.ini", UserDataLeafName() + "Options.ini", true);
+                    }
+                    else if (File.Exists(myDocPath + "Options_ZH.ini"))
+                    {
+                        File.SetAttributes(myDocPath + "Options.ini", FileAttributes.Normal);
+                        File.SetAttributes(myDocPath + "Options_CTR.ini", FileAttributes.Normal);
+                        File.SetAttributes(myDocPath + "Options_ZH.ini", FileAttributes.Normal);
+                        File.Copy(myDocPath + "Options.ini", myDocPath + "Options_CTR.ini", true);
+                        File.Copy(myDocPath + "Options_ZH.ini", myDocPath + "Options.ini", true);
+                    }
+                }
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show(ex.Message);
+                //}
+                catch
+                { }
+            }
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+            catch
+            { }
+        }
+
+        private static void RenameBigToCtrSkipOptionsINI() // For WB
+        {
+            try
+            {
+                List<string> bigs = new List<string>
+                {
+                    "!!!!Contra009Final_Patch3_GameData.big",
+                    "!!!!Contra009Final_Patch3.big",
+                    "!!!!Contra009Final_Patch3_RU_Leikeze.big",
+                    "!!!!Contra009Final_Patch3_RU_Legacy.big",
+                    "!!!!Contra009Final_Patch3_EN_Leikeze.big",
+                    "!!!!Contra009Final_Patch3_EN_Legacy.big",
+                    "!!!!Contra009Final_Patch3_NatVO.big",
+                    "!!!!Contra009Final_Patch3_EngVO.big",
+                    "!!!Contra009Final_Patch2_GameData.big",
+                    "!!!Contra009Final_Patch2.big",
+                    "!!!Contra009Final_Patch2_RU.big",
+                    "!!!Contra009Final_Patch2_EN.big",
+                    "!!!Contra009Final_Patch2_NatVO.big",
+                    "!!!Contra009Final_Patch2_EngVO.big",
+                    "!!Contra009Final_Patch1.big",
+                    "!!Contra009Final_Patch1_RU.big",
+                    "!!Contra009Final_Patch1_EN.big",
+                    "!!Contra009Final_Patch1_EngVO.big",
+                    "!!Contra009Final_FogOff.big",
+                    "!!Contra009Final_WaterEffectsOff.big",
+                    "!!Contra009Final_FunnyGenPics.big",
+                    "!Contra009Final.big",
+                    "!Contra009Final_NatVO.big",
+                    "!Contra009Final_EngVO.big",
+                    "!Contra009Final_NewMusic.big",
+                    "!Contra009Final_EN.big",
+                    "!Contra009Final_RU.big",
+                };
+                foreach (string big in bigs)
+                {
+                    string ctr = big.Replace(".big", ".ctr");
+                    if (File.Exists(big))
+                    {
+                        File.Move(big, ctr);
+                    }
+                }
+                if (File.Exists("langdata1.dat"))
+                {
+                    File.Move("langdata1.dat", "langdata.dat");
+                }
+                if (Directory.Exists(@"Data\Scripts1"))
+                {
+                    Directory.Move(@"Data\Scripts1", @"Data\Scripts");
+                }
+
+                //File.Move("dbghelp.backup", "dbghelp.dll");
 
                 if (File.Exists("Install_Final_ZH.bmp"))
                 {
@@ -850,7 +1006,12 @@ namespace Contra
                     { }
                 }
             }
-            catch {}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+            catch
+            { }
         }
 
         private void button1_MouseEnter(object sender, EventArgs e)
@@ -906,30 +1067,16 @@ namespace Contra
             RenameBigToCtr();
             try
             {
-                //if (File.Exists("!Contra009Final.ctr"))
-                //{
-                //    File.Move("!Contra009Final.ctr", "!Contra009Final.big");
-                //}
-                //if (File.Exists("!!Contra009Final_Patch1.ctr"))
-                //{
-                //    File.Move("!!Contra009Final_Patch1.ctr", "!!Contra009Final_Patch1.big");
-                //}
-                //if (File.Exists("!!!Contra009Final_Patch2.ctr"))
-                //{
-                //    File.Move("!!!Contra009Final_Patch2.ctr", "!!!Contra009Final_Patch2.big");
-                //}
-                //if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
-                //{
-                //    File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
-                //}
                 try
                 {
                     File.Move("!Contra009Final.ctr", "!Contra009Final.big");
                     File.Move("!!Contra009Final_Patch1.ctr", "!!Contra009Final_Patch1.big");
                     File.Move("!!!Contra009Final_Patch2.ctr", "!!!Contra009Final_Patch2.big");
                     File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
+                    File.Move("!!!!Contra009Final_Patch3.ctr", "!!!!Contra009Final_Patch3.big");
+                    File.Move("!!!!Contra009Final_Patch3_GameData.ctr", "!!!!Contra009Final_Patch3_GameData.big");
 
-                    File.Move("dbghelp.dll", "dbghelp.ctr");
+                    File.Move("dbghelp.dll", "dbghelp.backup"); // Disable dbghelp.dll forever to fix DirectX error on game startup.
                 }
                 catch { }
                 if ((RadioOrigQuotes.Checked) && (File.Exists("!Contra009Final_NatVO.ctr")))
@@ -952,6 +1099,14 @@ namespace Contra
                 {
                     File.Move("!!!Contra009Final_Patch2_EngVO.ctr", "!!!Contra009Final_Patch2_EngVO.big");
                 }
+                if ((RadioOrigQuotes.Checked) && (File.Exists("!!!!Contra009Final_Patch3_NatVO.ctr")))
+                {
+                    File.Move("!!!!Contra009Final_Patch3_NatVO.ctr", "!!!!Contra009Final_Patch3_NatVO.big");
+                }
+                if ((RadioLocQuotes.Checked) && (File.Exists("!!!!Contra009Final_Patch3_EngVO.ctr")))
+                {
+                    File.Move("!!!!Contra009Final_Patch3_EngVO.ctr", "!!!!Contra009Final_Patch3_EngVO.big");
+                }
                 if ((RadioEN.Checked) && (File.Exists("!Contra009Final_EN.ctr")))
                 {
                     File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
@@ -964,6 +1119,14 @@ namespace Contra
                 {
                     File.Move("!!!Contra009Final_Patch2_EN.ctr", "!!!Contra009Final_Patch2_EN.big");
                 }
+                if ((RadioEN.Checked) && (Properties.Settings.Default.LeikezeHotkeys == true) && (File.Exists("!!!!Contra009Final_Patch3_EN_Leikeze.ctr")))
+                {
+                    File.Move("!!!!Contra009Final_Patch3_EN_Leikeze.ctr", "!!!!Contra009Final_Patch3_EN_Leikeze.big");
+                }
+                else if ((RadioEN.Checked) && (Properties.Settings.Default.LegacyHotkeys == true) && (File.Exists("!!!!Contra009Final_Patch3_EN_Legacy.ctr")))
+                {
+                    File.Move("!!!!Contra009Final_Patch3_EN_Legacy.ctr", "!!!!Contra009Final_Patch3_EN_Legacy.big");
+                }
                 if ((RadioRU.Checked) && (File.Exists("!Contra009Final_RU.ctr")))
                 {
                     File.Move("!Contra009Final_RU.ctr", "!Contra009Final_RU.big");
@@ -975,6 +1138,14 @@ namespace Contra
                 if ((RadioRU.Checked) && (File.Exists("!!!Contra009Final_Patch2_RU.ctr")))
                 {
                     File.Move("!!!Contra009Final_Patch2_RU.ctr", "!!!Contra009Final_Patch2_RU.big");
+                }
+                if ((RadioRU.Checked) && (Properties.Settings.Default.LeikezeHotkeys == true) && (File.Exists("!!!!Contra009Final_Patch3_RU_Leikeze.ctr")))
+                {
+                    File.Move("!!!!Contra009Final_Patch3_RU_Leikeze.ctr", "!!!!Contra009Final_Patch3_RU_Leikeze.big");
+                }
+                else if ((RadioRU.Checked) && (Properties.Settings.Default.LegacyHotkeys == true) && (File.Exists("!!!!Contra009Final_Patch3_RU_Legacy.ctr")))
+                {
+                    File.Move("!!!!Contra009Final_Patch3_RU_Legacy.ctr", "!!!!Contra009Final_Patch3_RU_Legacy.big");
                 }
                 if ((MNew.Checked) && (File.Exists("!Contra009Final_NewMusic.ctr")))
                 {
@@ -1049,6 +1220,33 @@ namespace Contra
                     { }
                 }
 
+                // Make CTR Options.ini active
+                try
+                {
+                    if (File.Exists(UserDataLeafName() + "Options_CTR.ini"))
+                    {
+                        File.SetAttributes(UserDataLeafName() + "Options.ini", FileAttributes.Normal);
+                        File.SetAttributes(UserDataLeafName() + "Options_CTR.ini", FileAttributes.Normal);
+                        File.SetAttributes(UserDataLeafName() + "Options_ZH.ini", FileAttributes.Normal);
+                        File.Copy(UserDataLeafName() + "Options.ini", UserDataLeafName() + "Options_ZH.ini", true);
+                        File.Copy(UserDataLeafName() + "Options_CTR.ini", UserDataLeafName() + "Options.ini", true);
+                    }
+                    else if (File.Exists(myDocPath + "Options_CTR.ini"))
+                    {
+                        File.SetAttributes(myDocPath + "Options.ini", FileAttributes.Normal);
+                        File.SetAttributes(myDocPath + "Options_CTR.ini", FileAttributes.Normal);
+                        File.SetAttributes(myDocPath + "Options_ZH.ini", FileAttributes.Normal);
+                        File.Copy(myDocPath + "Options.ini", myDocPath + "Options_ZH.ini", true);
+                        File.Copy(myDocPath + "Options_CTR.ini", myDocPath + "Options.ini", true);
+                    }
+                }
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show(ex.Message);
+                //}
+                catch
+                { }
+
                 // Disable cyrillic letters, enable German umlauts.
                 if (File.Exists("GermanZH.big") && File.Exists("GenArial.ttf"))
                 {
@@ -1098,10 +1296,12 @@ namespace Contra
                     StartGenerals();
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
-            }
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Error");
+            //}
+            catch
+            { }
             return;
         }
 
@@ -1283,64 +1483,34 @@ namespace Contra
         private void button6_Click(object sender, EventArgs e) //WorldBuilder
         {
             DeleteDuplicateFiles();
+            RenameBigToCtrSkipOptionsINI();
 
-            //if (File.Exists("!Contra009Final.ctr"))
-            //{
-            //    File.Move("!Contra009Final.ctr", "!Contra009Final.big");
-            //}
-            //if (File.Exists("!!Contra009Final_Patch1.ctr"))
-            //{
-            //    File.Move("!!Contra009Final_Patch1.ctr", "!!Contra009Final_Patch1.big");
-            //}
-            //if (File.Exists("!!!Contra009Final_Patch2.ctr"))
-            //{
-            //    File.Move("!!!Contra009Final_Patch2.ctr", "!!!Contra009Final_Patch2.big");
-            //}
-            //if (File.Exists("!Contra009Final_EN.ctr"))
-            //{
-            //    File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
-            //}
-            //if (File.Exists("!!Contra009Final_Patch1_EN.ctr"))
-            //{
-            //    File.Move("!!Contra009Final_Patch1_EN.ctr", "!!Contra009Final_Patch1_EN.big");
-            //}
-            //if (File.Exists("!!!Contra009Final_Patch2_EN.ctr"))
-            //{
-            //    File.Move("!!!Contra009Final_Patch2_EN.ctr", "!!!Contra009Final_Patch2_EN.big");
-            //}
-            //if (File.Exists("!Contra009Final_EngVO.ctr"))
-            //{
-            //    File.Move("!Contra009Final_EngVO.ctr", "!Contra009Final_EngVO.big");
-            //}
-            //if (File.Exists("!!Contra009Final_Patch1_EngVO.ctr"))
-            //{
-            //    File.Move("!!Contra009Final_Patch1_EngVO.ctr", "!!Contra009Final_Patch1_EngVO.big");
-            //}
-            //if (File.Exists("!!!Contra009Final_Patch2_EngVO.ctr"))
-            //{
-            //    File.Move("!!!Contra009Final_Patch2_EngVO.ctr", "!!!Contra009Final_Patch2_EngVO.big");
-            //}
             try
             {
                 File.Move("!Contra009Final.ctr", "!Contra009Final.big");
                 File.Move("!!Contra009Final_Patch1.ctr", "!!Contra009Final_Patch1.big");
                 File.Move("!!!Contra009Final_Patch2.ctr", "!!!Contra009Final_Patch2.big");
+                File.Move("!!!!Contra009Final_Patch3.ctr", "!!!!Contra009Final_Patch3.big");
                 File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
                 File.Move("!!Contra009Final_Patch1_EN.ctr", "!!Contra009Final_Patch1_EN.big");
                 File.Move("!!!Contra009Final_Patch2_EN.ctr", "!!!Contra009Final_Patch2_EN.big");
+                File.Move("!!!!Contra009Final_Patch3_EN_Legacy.ctr", "!!!!Contra009Final_Patch3_EN_Legacy.big");
                 File.Move("!Contra009Final_EngVO.ctr", "!Contra009Final_EngVO.big");
                 File.Move("!!Contra009Final_Patch1_EngVO.ctr", "!!Contra009Final_Patch1_EngVO.big");
                 File.Move("!!!Contra009Final_Patch2_EngVO.ctr", "!!!Contra009Final_Patch2_EngVO.big");
-                if ((Properties.Settings.Default.WaterEffects == false) && (File.Exists("!!Contra009Final_WaterEffectsOff.ctr")))
-                {
-                    File.Move("!!Contra009Final_WaterEffectsOff.ctr", "!!Contra009Final_WaterEffectsOff.big");
-                }
-                else
-                {
-                    File.Move("!!Contra009Final_WaterEffectsOff.big", "!!Contra009Final_WaterEffectsOff.ctr");
-                }
+                File.Move("!!!!Contra009Final_Patch3_EngVO.ctr", "!!!!Contra009Final_Patch3_EngVO.big");
             }
             catch { }
+
+            if ((Properties.Settings.Default.WaterEffects == false) && (File.Exists("!!Contra009Final_WaterEffectsOff.ctr")))
+            {
+                File.Move("!!Contra009Final_WaterEffectsOff.ctr", "!!Contra009Final_WaterEffectsOff.big");
+            }
+            else if ((Properties.Settings.Default.WaterEffects == true) && (File.Exists("!!Contra009Final_WaterEffectsOff.big")))
+            {
+                File.Move("!!Contra009Final_WaterEffectsOff.big", "!!Contra009Final_WaterEffectsOff.ctr");
+            }
+
             Process wb = new Process();
             wb.StartInfo.Verb = "runas";
             try
@@ -1474,7 +1644,7 @@ namespace Contra
                     //labelVpnStatus.Text = "Off";
                 }
             }
-            catch {}
+            catch { }
             //catch (Exception ex) { MessageBox.Show(ex.ToString()); }
 
             this.Close();
@@ -1497,7 +1667,7 @@ namespace Contra
 
         private void button18_Click(object sender, EventArgs e) //ExitIcon
         {
-            OnApplicationExit(sender, e);
+            this.Close(); //Application.Exit(); //OnApplicationExit(sender, e);
         }
 
         private void buttonChat_MouseEnter(object sender, EventArgs e)
@@ -1758,7 +1928,7 @@ namespace Contra
                     SetMOTD(motd_lang.Single(l => l.Value).Key);
                 }
             }
-            catch {}
+            catch { }
         }
 
         void gtwc_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
@@ -1776,7 +1946,7 @@ namespace Contra
                     }
                 }
             }
-            catch {}
+            catch { }
             //catch (Exception ex)
             //{
             //    MessageBox.Show(ex.ToString());
@@ -1785,7 +1955,7 @@ namespace Contra
             {
                 File.Delete(genToolFileName);
             }
-            catch {}
+            catch { }
 
             //Show a message when the patch download has completed
             var gtLangText = new Dictionary<Tuple<string, string>, bool>
@@ -1861,34 +2031,196 @@ namespace Contra
 
         private void ChangeCamHeight()
         {
-            if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
+            if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr"))
             {
-                Encoding encoding = Encoding.GetEncoding("windows-1252");
-                var regex = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = 282.0 ;350.0\r\n");
-                string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big", encoding);
-                File.WriteAllText("!!!Contra009Final_Patch2_GameData.big", regex, encoding);
+                if (File.Exists("!!!!Contra009Final_Patch3_GameData.big"))
+                {
+                    Encoding encoding = Encoding.GetEncoding("windows-1252");
+                    var regex = Regex.Replace(File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = 282.0 ;350.0\r\n");
+                    string read = File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big", encoding);
+                    File.WriteAllText("!!!!Contra009Final_Patch3_GameData.big", regex, encoding);
+                }
+                else
+                {
+                    if (Globals.GB_Checked == true)
+                    {
+                        MessageBox.Show("\"!!!!Contra009Final_Patch3_GameData.big\" file not found!", "Error");
+                    }
+                    else if (Globals.RU_Checked == true)
+                    {
+                        MessageBox.Show("Файл \"!!!!Contra009Final_Patch3_GameData.big\" не найден!", "Ошибка");
+                    }
+                    else if (Globals.UA_Checked == true)
+                    {
+                        MessageBox.Show("Файл \"!!!!Contra009Final_Patch3_GameData.big\" не знайдений!", "Помилка");
+                    }
+                    else if (Globals.BG_Checked == true)
+                    {
+                        MessageBox.Show("Файлът \"!!!!Contra009Final_Patch3_GameData.big\" не беше намерен!", "Грешка");
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        MessageBox.Show("\"!!!!Contra009Final_Patch3_GameData.big\" nicht gefunden!", "Fehler");
+                    }
+                }
             }
-            else
+            else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
             {
-                if (Globals.GB_Checked == true)
+                if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
                 {
-                    MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" file not found!", "Error");
+                    Encoding encoding = Encoding.GetEncoding("windows-1252");
+                    var regex = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = 282.0 ;350.0\r\n");
+                    string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big", encoding);
+                    File.WriteAllText("!!!Contra009Final_Patch2_GameData.big", regex, encoding);
                 }
-                else if (Globals.RU_Checked == true)
+                else
                 {
-                    MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не найден!", "Ошибка");
+                    if (Globals.GB_Checked == true)
+                    {
+                        MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" file not found!", "Error");
+                    }
+                    else if (Globals.RU_Checked == true)
+                    {
+                        MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не найден!", "Ошибка");
+                    }
+                    else if (Globals.UA_Checked == true)
+                    {
+                        MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не знайдений!", "Помилка");
+                    }
+                    else if (Globals.BG_Checked == true)
+                    {
+                        MessageBox.Show("Файлът \"!!!Contra009Final_Patch2_GameData.big\" не беше намерен!", "Грешка");
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" nicht gefunden!", "Fehler");
+                    }
                 }
-                else if (Globals.UA_Checked == true)
+            }
+        }
+
+        private void ChangeCamHeightLimit() // Limit camera height to 750 if user has more (unused - WIP)
+        {
+            //if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
+            //{
+            //    Encoding encoding = Encoding.GetEncoding("windows-1252");
+            //    var regex = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = 282.0 ;350.0\r\n");
+            //    string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big", encoding);
+            //    File.WriteAllText("!!!Contra009Final_Patch2_GameData.big", regex, encoding);
+            //}
+
+            if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr"))
+            {
+                if (File.Exists("!!!!Contra009Final_Patch3_GameData.big"))
                 {
-                    MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не знайдений!", "Помилка");
+                    Encoding encoding = Encoding.GetEncoding("windows-1252");
+
+                    // Determine current cam height.
+                    string searchKeyword = "  MaxCameraHeight = ";
+                    string[] textLines = File.ReadAllLines("!!!!Contra009Final_Patch3_GameData.big", encoding);
+                    List<string> list = new List<string> { };
+                    foreach (string line in textLines.Where(l => l.StartsWith(searchKeyword)))
+                        list.Add(line);
+
+                    list[0] = list[0].Substring(list[0].IndexOf('=') + 2);
+                    list[0] = list[0].Substring(0, list[0].IndexOf(";") - 1);
+
+                    //MessageBox.Show(list[0].ToString());
+                    float f = float.Parse(list[0], CultureInfo.InvariantCulture);
+
+                    //MessageBox.Show(f.ToString());
+                    if (f > 750.0)
+                    {
+                        var regex = Regex.Replace(File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = 750.0 ;350.0\r\n");
+                        string read = File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big", encoding);
+                        File.WriteAllText("!!!!Contra009Final_Patch3_GameData.big", regex, encoding);
+                    }
+                    else
+                    {
+                        var regex = Regex.Replace(File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = 282.0 ;350.0\r\n");
+                        string read = File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big", encoding);
+                        File.WriteAllText("!!!!Contra009Final_Patch3_GameData.big", regex, encoding);
+                    }
                 }
-                else if (Globals.BG_Checked == true)
+                else
                 {
-                    MessageBox.Show("Файлът \"!!!Contra009Final_Patch2_GameData.big\" не беше намерен!", "Грешка");
+                    if (Globals.GB_Checked == true)
+                    {
+                        MessageBox.Show("\"!!!!Contra009Final_Patch3_GameData.big\" file not found!", "Error");
+                    }
+                    else if (Globals.RU_Checked == true)
+                    {
+                        MessageBox.Show("Файл \"!!!!Contra009Final_Patch3_GameData.big\" не найден!", "Ошибка");
+                    }
+                    else if (Globals.UA_Checked == true)
+                    {
+                        MessageBox.Show("Файл \"!!!!Contra009Final_Patch3_GameData.big\" не знайдений!", "Помилка");
+                    }
+                    else if (Globals.BG_Checked == true)
+                    {
+                        MessageBox.Show("Файлът \"!!!!Contra009Final_Patch3_GameData.big\" не беше намерен!", "Грешка");
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        MessageBox.Show("\"!!!!Contra009Final_Patch3_GameData.big\" nicht gefunden!", "Fehler");
+                    }
                 }
-                else if (Globals.DE_Checked == true)
+            }
+            else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
+            {
+                if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
                 {
-                    MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" nicht gefunden!", "Fehler");
+                    Encoding encoding = Encoding.GetEncoding("windows-1252");
+
+                    // Determine current cam height.
+                    string searchKeyword = "  MaxCameraHeight = ";
+                    string[] textLines = File.ReadAllLines("!!!Contra009Final_Patch2_GameData.big", encoding);
+                    List<string> list = new List<string> { };
+                    foreach (string line in textLines.Where(l => l.StartsWith(searchKeyword)))
+                        list.Add(line);
+
+                    list[0] = list[0].Substring(list[0].IndexOf('=') + 2);
+                    list[0] = list[0].Substring(0, list[0].IndexOf(";") - 1);
+
+                    //MessageBox.Show(list[0].ToString());
+                    float f = float.Parse(list[0], CultureInfo.InvariantCulture);
+
+                    //MessageBox.Show(f.ToString());
+                    if (f > 750.0)
+                    {
+                        var regex = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = 750.0 ;350.0\r\n");
+                        string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big", encoding);
+                        File.WriteAllText("!!!Contra009Final_Patch2_GameData.big", regex, encoding);
+                    }
+                    else
+                    {
+                        var regex = Regex.Replace(File.ReadAllText("!!!Contra009Final_Patch2_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = 282.0 ;350.0\r\n");
+                        string read = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big", encoding);
+                        File.WriteAllText("!!!Contra009Final_Patch2_GameData.big", regex, encoding);
+                    }
+                }
+                else
+                {
+                    if (Globals.GB_Checked == true)
+                    {
+                        MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" file not found!", "Error");
+                    }
+                    else if (Globals.RU_Checked == true)
+                    {
+                        MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не найден!", "Ошибка");
+                    }
+                    else if (Globals.UA_Checked == true)
+                    {
+                        MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не знайдений!", "Помилка");
+                    }
+                    else if (Globals.BG_Checked == true)
+                    {
+                        MessageBox.Show("Файлът \"!!!Contra009Final_Patch2_GameData.big\" не беше намерен!", "Грешка");
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" nicht gefunden!", "Fehler");
+                    }
                 }
             }
         }
@@ -1900,7 +2232,7 @@ namespace Contra
             {
                 gtHash = CalculateMD5("d3d8.dll");
             }
-            catch {}
+            catch { }
 
             if (isGentoolInstalled("d3d8.dll") && isGentoolOutdated("d3d8.dll", 79) || (gtHash == "70c28745f6e9a9a59cfa1be00df6836a" || gtHash == "13a13584d97922de92443631931d46c3"))
             {
@@ -1967,10 +2299,58 @@ namespace Contra
                 CreateOptionsINI();
             }
 
+            // Make a 2 copies of Options.ini, name them Options_ZH.ini and Options_CTR.ini
+            if (!File.Exists(UserDataLeafName() + "Options_ZH.ini") || (!File.Exists(myDocPath + "Options_ZH.ini")) && !File.Exists(UserDataLeafName() + "Options_CTR.ini") || (!File.Exists(myDocPath + "Options_CTR.ini")))
+            {
+                if (File.Exists(UserDataLeafName() + "Options.ini"))
+                {
+                    File.SetAttributes(UserDataLeafName() + "Options.ini", FileAttributes.Normal);
+                    File.Copy(UserDataLeafName() + "Options.ini", UserDataLeafName() + "Options_ZH.ini", true);
+                    File.Copy(UserDataLeafName() + "Options.ini", UserDataLeafName() + "Options_CTR.ini", true);
+                }
+                else if (File.Exists(myDocPath + "Options.ini"))
+                {
+                    File.SetAttributes(myDocPath + "Options.ini", FileAttributes.Normal);
+                    File.Copy(myDocPath + "Options.ini", myDocPath + "Options_ZH.ini", true);
+                    File.Copy(myDocPath + "Options.ini", myDocPath + "Options_CTR.ini", true);
+                }
+            }
+
+            // Make CTR Options.ini active
+            try
+            {
+                if (File.Exists(UserDataLeafName() + "Options_CTR.ini"))
+                {
+                    File.SetAttributes(UserDataLeafName() + "Options.ini", FileAttributes.Normal);
+                    File.SetAttributes(UserDataLeafName() + "Options_CTR.ini", FileAttributes.Normal);
+                    File.SetAttributes(UserDataLeafName() + "Options_ZH.ini", FileAttributes.Normal);
+                    File.Copy(UserDataLeafName() + "Options.ini", UserDataLeafName() + "Options_ZH.ini", true);
+                    File.Copy(UserDataLeafName() + "Options_CTR.ini", UserDataLeafName() + "Options.ini", true);
+                }
+                else if (File.Exists(myDocPath + "Options_CTR.ini"))
+                {
+                    File.SetAttributes(myDocPath + "Options.ini", FileAttributes.Normal);
+                    File.SetAttributes(myDocPath + "Options_CTR.ini", FileAttributes.Normal);
+                    File.SetAttributes(myDocPath + "Options_ZH.ini", FileAttributes.Normal);
+                    File.Copy(myDocPath + "Options.ini", myDocPath + "Options_ZH.ini", true);
+                    File.Copy(myDocPath + "Options_CTR.ini", myDocPath + "Options.ini", true);
+                }
+            }
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+            catch
+            { }
+
             if (Properties.Settings.Default.FirstRun)
             {
                 // Enable GameData
-                if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
+                if (File.Exists("!!!!Contra009Final_Patch3_GameData.ctr"))
+                {
+                    File.Move("!!!!Contra009Final_Patch3_GameData.ctr", "!!!!Contra009Final_Patch3_GameData.big");
+                }
+                else if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
                 {
                     File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
                 }
@@ -2019,13 +2399,123 @@ namespace Contra
                 }
                 catch { }
 
+                // Get CPU specs to determine default graphical settings
+                ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_Processor");
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher(wql);
+                ManagementObjectCollection results = searcher.Get();
+                foreach (ManagementObject result in results)
+                {
+                    Globals.cpuSpeed = Convert.ToInt32(result["MaxClockSpeed"]);
+
+                    //Properties.Settings.Default.HeatEffects = false; // Disabled by default to prevent black screen issue of some users.
+                    if (Directory.Exists(UserDataLeafName()))
+                    {
+                        string text = File.ReadAllText(UserDataLeafName() + "Options.ini");
+                        {
+                            if (text.Contains("HeatEffects = Yes"))
+                            {
+                                File.WriteAllText(UserDataLeafName() + "Options.ini", File.ReadAllText(UserDataLeafName() + "Options.ini").Replace("HeatEffects = Yes", "HeatEffects = No"));
+                            }
+                            else if (text.Contains("HeatEffects = yes"))
+                            {
+                                File.WriteAllText(UserDataLeafName() + "Options.ini", File.ReadAllText(UserDataLeafName() + "Options.ini").Replace("HeatEffects = yes", "HeatEffects = No"));
+                            }
+                        }
+                    }
+                    else if (Directory.Exists(myDocPath))
+                    {
+                        string text = File.ReadAllText(myDocPath + "Options.ini");
+                        {
+                            if (text.Contains("HeatEffects = Yes"))
+                            {
+                                File.WriteAllText(myDocPath + "Options.ini", File.ReadAllText(myDocPath + "Options.ini").Replace("HeatEffects = Yes", "HeatEffects = No"));
+                            }
+                            else if (text.Contains("HeatEffects = yes"))
+                            {
+                                File.WriteAllText(myDocPath + "Options.ini", File.ReadAllText(myDocPath + "Options.ini").Replace("HeatEffects = yes", "HeatEffects = No"));
+                            }
+                        }
+                    }
+
+                    if (Globals.cpuSpeed < 3500) // We consider base clock less than 3500MHz to be insufficient for stable FPS.
+                    {
+                        //    Properties.Settings.Default.Shadows3D = false;
+                        //    Properties.Settings.Default.DisableDynamicLOD = false;
+                        Properties.Settings.Default.WaterEffects = false;
+
+                        if (Directory.Exists(UserDataLeafName()))
+                        {
+                            string text = File.ReadAllText(UserDataLeafName() + "Options.ini");
+                            {
+                                if (text.Contains("UseShadowVolumes = Yes"))
+                                {
+                                    File.WriteAllText(UserDataLeafName() + "Options.ini", File.ReadAllText(UserDataLeafName() + "Options.ini").Replace("UseShadowVolumes = Yes", "UseShadowVolumes = No"));
+                                }
+                                else if (text.Contains("UseShadowVolumes = yes"))
+                                {
+                                    File.WriteAllText(UserDataLeafName() + "Options.ini", File.ReadAllText(UserDataLeafName() + "Options.ini").Replace("UseShadowVolumes = yes", "UseShadowVolumes = No"));
+                                }
+                            }
+                        }
+                        else if (Directory.Exists(myDocPath))
+                        {
+                            string text = File.ReadAllText(myDocPath + "Options.ini");
+                            {
+                                if (text.Contains("UseShadowVolumes = Yes"))
+                                {
+                                    File.WriteAllText(myDocPath + "Options.ini", File.ReadAllText(myDocPath + "Options.ini").Replace("UseShadowVolumes = Yes", "UseShadowVolumes = No"));
+                                }
+                                else if (text.Contains("UseShadowVolumes = yes"))
+                                {
+                                    File.WriteAllText(myDocPath + "Options.ini", File.ReadAllText(myDocPath + "Options.ini").Replace("UseShadowVolumes = yes", "UseShadowVolumes = No"));
+                                }
+                            }
+                        }
+
+                        if (Directory.Exists(UserDataLeafName()))
+                        {
+                            string text = File.ReadAllText(UserDataLeafName() + "Options.ini");
+                            {
+                                if (text.Contains("DynamicLOD = No"))
+                                {
+                                    File.WriteAllText(UserDataLeafName() + "Options.ini", File.ReadAllText(UserDataLeafName() + "Options.ini").Replace("DynamicLOD = No", "DynamicLOD = Yes"));
+                                }
+                                else if (text.Contains("DynamicLOD = no"))
+                                {
+                                    File.WriteAllText(UserDataLeafName() + "Options.ini", File.ReadAllText(UserDataLeafName() + "Options.ini").Replace("DynamicLOD = no", "DynamicLOD = Yes"));
+                                }
+                            }
+                        }
+                        else if (Directory.Exists(myDocPath))
+                        {
+                            string text = File.ReadAllText(myDocPath + "Options.ini");
+                            {
+                                if (text.Contains("DynamicLOD = No"))
+                                {
+                                    File.WriteAllText(myDocPath + "Options.ini", File.ReadAllText(myDocPath + "Options.ini").Replace("DynamicLOD = No", "DynamicLOD = Yes"));
+                                }
+                                else if (text.Contains("DynamicLOD = no"))
+                                {
+                                    File.WriteAllText(myDocPath + "Options.ini", File.ReadAllText(myDocPath + "Options.ini").Replace("DynamicLOD = no", "DynamicLOD = Yes"));
+                                }
+                            }
+                        }
+                    }
+
+                    //Console.WriteLine("NumberOfCores : {0}", result["NumberOfCores"]);
+                    //Console.WriteLine("NumberOfLogicalProcessors : {0}", result["NumberOfLogicalProcessors"]);
+                    //Console.WriteLine("CurrentClockSpeed : {0}MHz", result["CurrentClockSpeed"]);
+                    //Console.WriteLine("MaxClockSpeed : {0}MHz", result["MaxClockSpeed"]);
+                    //Console.WriteLine("ExtClock : {0}MHz", result["ExtClock"]);
+                }
+
                 // Show message on first run.
                 if (GetCurrentCulture() == "en-US")
                 {
                     RadioFlag_GB.Checked = true;
                     if (directoryCount <= 2)
                     {
-                        MessageBox.Show("Welcome to Contra 009 Final! Since this is your first time running this launcher, we would like to let you know that you have a new opportunity to play Contra online via ContraVPN! We highly recommend you to join our Discord community!");
+                        MessageBox.Show("Welcome to Contra 009 Final! We highly recommend you to join our Discord community!");
                     }
                 }
                 else if (GetCurrentCulture() == "ru-RU")
@@ -2033,7 +2523,8 @@ namespace Contra
                     RadioFlag_RU.Checked = true;
                     if (directoryCount <= 2)
                     {
-                        MessageBox.Show("Добро пожаловать в Contra 009 Final! Поскольку это Ваш первый запуск этого лаунчера, мы хотим сообщить Вам о том, что у Вас есть новая возможность играть в Contra онлайн через ContraVPN! Мы настоятельно рекомендуем Вам присоедениться к нашей группе Discord.");
+                        MessageBox.Show("Добро пожаловать в Contra 009 Final! Мы настоятельно рекомендуем Вам присоедениться к нашей группе Discord.");
+                        RadioRU.Checked = true;
                     }
                 }
                 else if (GetCurrentCulture() == "uk-UA")
@@ -2041,7 +2532,8 @@ namespace Contra
                     RadioFlag_UA.Checked = true;
                     if (directoryCount <= 2)
                     {
-                        MessageBox.Show("Ласкаво просимо до Contra 009 Final! Оскільки це Ваш перший запуск цього лаунчера, ми хочемо повідомити Вас про те, що у Вас є нова можливість відтворити Contra онлайн через ContraVPN! Ми максимально рекомендуємо Вам приєднатися до нашої спільноти Discord.");
+                        MessageBox.Show("Ласкаво просимо до Contra 009 Final! Ми максимально рекомендуємо Вам приєднатися до нашої спільноти Discord.");
+                        RadioRU.Checked = true;
                     }
                 }
                 else if (GetCurrentCulture() == "bg-BG")
@@ -2049,7 +2541,7 @@ namespace Contra
                     RadioFlag_BG.Checked = true;
                     if (directoryCount <= 2)
                     {
-                        MessageBox.Show("Добре дошли в Contra 009 Final! Тъй като това е първото Ви стартиране на Contra, бихме искали да знаете, че имате нова възможност да играете Contra онлайн чрез ContraVPN! Силно препоръчваме да се присъедините към нашата Discord общност!");
+                        MessageBox.Show("Добре дошли в Contra 009 Final! Силно препоръчваме да се присъедините към нашата Discord общност!");
                     }
                 }
                 else if (GetCurrentCulture() == "de-DE")
@@ -2057,7 +2549,7 @@ namespace Contra
                     RadioFlag_DE.Checked = true;
                     if (directoryCount <= 2)
                     {
-                        MessageBox.Show("Wilkommen zu Contra 009 Final! Da du diesen launcher zum ersten mal ausfьhrst wollten wir dich wissen lassen, dass du eine neue Mцglichkeit hast Contra online zu spielen ьber ContraVPN! Wir empfehlen dir unserem Discord Server beizutreten.");
+                        MessageBox.Show("Wilkommen zu Contra 009 Final! Wir empfehlen dir unserem Discord Server beizutreten.");
                     }
                 }
                 else
@@ -2065,7 +2557,7 @@ namespace Contra
                     RadioFlag_GB.Checked = true;
                     if (directoryCount <= 1)
                     {
-                        MessageBox.Show("Welcome to Contra 009 Final! Since this is your first time running this launcher, we would like to let you know that you have a new opportunity to play Contra online via ContraVPN! We highly recommend you to join our Discord community!");
+                        MessageBox.Show("Welcome to Contra 009 Final! We highly recommend you to join our Discord community!");
                     }
                 }
 
@@ -2074,7 +2566,7 @@ namespace Contra
                 pt.Offset(moreOptions.Width - 30, moreOptions.Height - 55);
                 if (Globals.GB_Checked == true)
                 {
-                    optionsToolTip.Show("You can customize many options including camera height here.", moreOptions, pt, 10000);
+                    optionsToolTip.Show("You can adjust many options including camera height here.", moreOptions, pt, 10000);
                 }
                 else if (Globals.RU_Checked == true)
                 {
@@ -2086,7 +2578,7 @@ namespace Contra
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    optionsToolTip.Show("Тук можете да персонализирате много опции, включително височина на камерата.", moreOptions, pt, 10000);
+                    optionsToolTip.Show("Тук можете да настроите много опции, включително височина на камерата.", moreOptions, pt, 10000);
                 }
                 else if (Globals.DE_Checked == true)
                 {
@@ -2149,7 +2641,30 @@ namespace Contra
             }
 
             // Show warning if the base mod isn't found.
-            if (!File.Exists("!Contra009Final.ctr") && !File.Exists("!Contra009Final.big"))
+            if (!File.Exists("!Contra009Final.ctr") && !File.Exists("!Contra009Final.big") && Application.StartupPath.Contains(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)))
+            {
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("Contra Launcher could not find Contra installed on your desktop. Locate the game folder where you installed Contra and make a shortcut (not a copy) of Contra Launcher instead.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Contra Launcher не может найти установленная Contra на вашем рабочем столе. Найдите папку с игрой, в которую вы установили Contra, и вместо этого сделайте ярлык (не копию) Contra Launcher.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Contra Launcher не може знайти встановлена Contra на вашому робочому столі. Знайдіть папку з грою, в яку ви встановили Contra, і замість цього зробіть ярлик (не копію) Contra Launcher.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Contra Launcher не можа да открие инсталирана Contra на вашия работен плот. Намерете директорията на играта, където сте инсталирали Contra и създайте пряк път (не копие) на Contra Launcher вместо това.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Contra Launcher konnte Contra nicht auf Ihrem Desktop installiert finden. Suchen Sie den Spielordner, in dem Sie Contra installiert haben, und erstellen Sie stattdessen eine Verknüpfung (keine Kopie) von Contra Launcher.", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else if (!File.Exists("!Contra009Final.ctr") && !File.Exists("!Contra009Final.big"))
             {
                 if (Globals.GB_Checked == true)
                 {
@@ -2245,7 +2760,12 @@ namespace Contra
             currentFileLabel = "File: ";
             ModDLLabel.Text = "Download progress: ";
             string verString, yearString = "";
-            if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+            if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
+            {
+                verString = "009 Final Patch 3";
+                yearString = "2020";
+            }
+            else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
             {
                 verString = "009 Final Patch 2";
                 yearString = "2019";
@@ -2292,7 +2812,7 @@ namespace Contra
                 //Load MOTD
                 new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
             }
-            catch {}
+            catch { }
         }
 
         private void RadioFlag_RU_CheckedChanged(object sender, EventArgs e)
@@ -2334,23 +2854,34 @@ namespace Contra
             moreOptions.Text = "Больше опций";
             currentFileLabel = "Файл: ";
             ModDLLabel.Text = "Прогресс загрузки: ";
+            onlineInstructionsLabel.Text = "Инструкции по онлайн-игре";
             string verString, yearString = "";
-            if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
+            if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
             {
-                verString = " Патч 2";
+                verString = "009 Финал Патч 3";
+                yearString = "2020";
+            }
+            else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+            {
+                verString = "009 Финал Патч 2";
                 yearString = "2019";
             }
-            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
+            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
             {
-                verString = " Патч 1";
+                verString = "009 Финал Патч 1";
                 yearString = "2019";
+            }
+            else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
+            {
+                verString = "009 Финал";
+                yearString = "2018";
             }
             else
             {
                 verString = "???";
                 yearString = "2018";
             }
-            versionLabel.Text = "Contra Project Team " + yearString + " - Версия 009 Финал" + verString + " - Launcher: " + Application.ProductVersion;
+            versionLabel.Text = "Contra Project Team " + yearString + " - Версия " + verString + " - Launcher: " + Application.ProductVersion;
 
             Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
             if (ztExeByName.Length > 0 && wait == false) //if zt is already running
@@ -2377,7 +2908,7 @@ namespace Contra
                 //Load MOTD
                 new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
             }
-            catch {}
+            catch { }
         }
 
         private void RadioFlag_UA_CheckedChanged(object sender, EventArgs e)
@@ -2419,23 +2950,34 @@ namespace Contra
             moreOptions.Text = "Більше опцій";
             currentFileLabel = "Файл: ";
             ModDLLabel.Text = "Прогрес завантаження: ";
+            onlineInstructionsLabel.Text = "Інструкції з гри в режимі онлайн";
             string verString, yearString = "";
-            if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
+            if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
             {
-                verString = " Патч 2";
+                verString = "009 Фінал Патч 3";
+                yearString = "2020";
+            }
+            else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+            {
+                verString = "009 Фінал Патч 2";
                 yearString = "2019";
             }
-            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
+            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
             {
-                verString = " Патч 1";
+                verString = "009 Фінал Патч 1";
                 yearString = "2019";
+            }
+            else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
+            {
+                verString = "009 Фінал";
+                yearString = "2018";
             }
             else
             {
                 verString = "???";
                 yearString = "2018";
             }
-            versionLabel.Text = "Contra Project Team " + yearString + " - Версія 009 Фінал" + verString + " - Launcher: " + Application.ProductVersion;
+            versionLabel.Text = "Contra Project Team " + yearString + " - Версія " + verString + " - Launcher: " + Application.ProductVersion;
 
             Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
             if (ztExeByName.Length > 0 && wait == false) //if zt is already running
@@ -2462,7 +3004,7 @@ namespace Contra
                 //Load MOTD
                 new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
             }
-            catch {}
+            catch { }
         }
 
         private void RadioFlag_BG_CheckedChanged(object sender, EventArgs e)
@@ -2504,23 +3046,34 @@ namespace Contra
             moreOptions.Text = "Доп. Опции";
             currentFileLabel = "Файл: ";
             ModDLLabel.Text = "Прогрес на изтегляне: ";
+            onlineInstructionsLabel.Text = "Онлайн инструкции";
             string verString, yearString = "";
-            if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
+            if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
             {
-                verString = " Пач 2";
+                verString = "009 Final Пач 3";
+                yearString = "2020";
+            }
+            else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+            {
+                verString = "009 Final Пач 2";
                 yearString = "2019";
             }
-            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
+            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
             {
-                verString = " Пач 1";
+                verString = "009 Final Пач 1";
                 yearString = "2019";
+            }
+            else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
+            {
+                verString = "009 Final";
+                yearString = "2018";
             }
             else
             {
                 verString = "???";
                 yearString = "2018";
             }
-            versionLabel.Text = "Contra Екип " + yearString + " - Версия 009 Final" + verString + " - Launcher: " + Application.ProductVersion;
+            versionLabel.Text = "Contra Екип " + yearString + " - Версия " + verString + " - Launcher: " + Application.ProductVersion;
 
             Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
             if (ztExeByName.Length > 0 && wait == false) //if zt is already running
@@ -2547,7 +3100,7 @@ namespace Contra
                 //Load MOTD
                 new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
             }
-            catch {}
+            catch { }
         }
 
         private void RadioFlag_DE_CheckedChanged(object sender, EventArgs e)
@@ -2591,23 +3144,34 @@ namespace Contra
             moreOptions.Text = "Einstellungen";
             currentFileLabel = "Datei: ";
             ModDLLabel.Text = "Downloadfortschritt: ";
+            onlineInstructionsLabel.Text = "Online-Spielanweisungen";
             string verString, yearString = "";
-            if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
+            if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
             {
-                verString = " Patch 2";
+                verString = "009 Final Patch 3";
+                yearString = "2020";
+            }
+            else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+            {
+                verString = "009 Final Patch 2";
                 yearString = "2019";
             }
-            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr"))
+            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
             {
-                verString = " Patch 1";
+                verString = "009 Final Patch 1";
                 yearString = "2019";
+            }
+            else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
+            {
+                verString = "009 Final";
+                yearString = "2018";
             }
             else
             {
                 verString = "???";
                 yearString = "2018";
             }
-            versionLabel.Text = "Contra Projekt Team " + yearString + " - Version 009 Final" + verString + " - Launcher: " + Application.ProductVersion;
+            versionLabel.Text = "Contra Projekt Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
 
             Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
             if (ztExeByName.Length > 0 && wait == false) //if zt is already running
@@ -2634,7 +3198,7 @@ namespace Contra
                 //Load MOTD
                 new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
             }
-            catch {}
+            catch { }
         }
 
         private void Resolution_Click(object sender, EventArgs e) //Opens More Options form
@@ -2644,7 +3208,15 @@ namespace Contra
             {
                 File.Delete("!!!Contra009Final_Patch2_GameData.big");
             }
+            if (File.Exists("!!!!Contra009Final_Patch3_GameData.ctr") && File.Exists("!!!!Contra009Final_Patch3_GameData.big"))
+            {
+                File.Delete("!!!!Contra009Final_Patch3_GameData.big");
+            }
             //Enable GameData so that we can show current camera height in Options
+            if (File.Exists("!!!!Contra009Final_Patch3_GameData.ctr"))
+            {
+                File.Move("!!!!Contra009Final_Patch3_GameData.ctr", "!!!!Contra009Final_Patch3_GameData.big");
+            }
             if (File.Exists("!!!Contra009Final_Patch2_GameData.ctr"))
             {
                 File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
@@ -2876,7 +3448,7 @@ namespace Contra
                     }.Single(l => l.Value).Key;
                 }
             }
-            catch {}// (Exception ex) { Console.Error.WriteLine(ex); }
+            catch { }// (Exception ex) { Console.Error.WriteLine(ex); }
         }
 
         private void RadioFlag_GB_MouseEnter(object sender, EventArgs e)
@@ -3277,6 +3849,31 @@ namespace Contra
         private void toolTip1_Popup(object sender, PopupEventArgs e)
         {
 
+        }
+
+        //private void onlineInstructionsLabel_Click(object sender, EventArgs e)
+        //{
+        //    Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
+        //}
+
+        private void onlineInstructionsLabel_MouseEnter(object sender, EventArgs e)
+        {
+            onlineInstructionsLabel.ForeColor = Color.FromArgb(255, 210, 100);
+        }
+
+        //private void onlineInstructionsLabel_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    onlineInstructionsLabel.ForeColor = Color.FromArgb(255, 230, 160);
+        //}
+
+        private void onlineInstructionsLabel_MouseLeave(object sender, EventArgs e)
+        {
+            onlineInstructionsLabel.ForeColor = Color.FromArgb(255, 255, 255);
+        }
+
+        private void onlineInstructionsLabel_Click_1(object sender, EventArgs e)
+        {
+            Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
         }
 
         private void CancelModDLBtn_Click(object sender, EventArgs e)

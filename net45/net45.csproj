@@ -75,6 +75,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
     <Reference Include="System.Net.Http" />
@@ -185,8 +186,9 @@
     <None Include="Resources\_button_config_highlight.png" />
     <None Include="Resources\_button_donate.png" />
     <None Include="Resources\_button_donate_tr.png" />
-    <None Include="Resources\background.jpg" />
     <None Include="Resources\btnOk1.png" />
+    <None Include="Resources\advopbg.jpg" />
+    <None Include="Resources\background.jpg" />
     <Content Include="Version.txt" />
     <None Include="README.md" />
     <None Include="Resources\flag_de_tr.png" />

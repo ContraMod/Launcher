@@ -78,8 +78,9 @@ namespace Contra
             this.ZTNukeBtn = new System.Windows.Forms.Button();
             this.DonateBtn = new System.Windows.Forms.Button();
             this.IP_Label = new System.Windows.Forms.Label();
-            this.MOTD = new Contra.Marquee();
             this.optionsToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.onlineInstructionsLabel = new System.Windows.Forms.Label();
+            this.MOTD = new Contra.Marquee();
             this.voicespanel.SuspendLayout();
             this.languagepanel.SuspendLayout();
             this.musicpanel.SuspendLayout();
@@ -650,6 +651,21 @@ namespace Contra
             this.IP_Label.ForeColor = System.Drawing.Color.White;
             this.IP_Label.Name = "IP_Label";
             // 
+            // optionsToolTip
+            // 
+            this.optionsToolTip.IsBalloon = true;
+            // 
+            // onlineInstructionsLabel
+            // 
+            resources.ApplyResources(this.onlineInstructionsLabel, "onlineInstructionsLabel");
+            this.onlineInstructionsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.onlineInstructionsLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.onlineInstructionsLabel.ForeColor = System.Drawing.Color.White;
+            this.onlineInstructionsLabel.Name = "onlineInstructionsLabel";
+            this.onlineInstructionsLabel.Click += new System.EventHandler(this.onlineInstructionsLabel_Click_1);
+            this.onlineInstructionsLabel.MouseEnter += new System.EventHandler(this.onlineInstructionsLabel_MouseEnter);
+            this.onlineInstructionsLabel.MouseLeave += new System.EventHandler(this.onlineInstructionsLabel_MouseLeave);
+            // 
             // MOTD
             // 
             this.MOTD.BackColor = System.Drawing.Color.Transparent;
@@ -659,16 +675,13 @@ namespace Contra
             this.MOTD.Speed = 1;
             this.MOTD.yOffset = 0;
             // 
-            // optionsToolTip
-            // 
-            this.optionsToolTip.IsBalloon = true;
-            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = global::Contra.Properties.Resources.background;
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
+            this.Controls.Add(this.onlineInstructionsLabel);
             this.Controls.Add(this.PatchDLPanel);
             this.Controls.Add(this.IP_Label);
             this.Controls.Add(this.DonateBtn);
@@ -676,6 +689,7 @@ namespace Contra
             this.Controls.Add(this.ZTConsoleBtn);
             this.Controls.Add(this.ZTConfigBtn);
             this.Controls.Add(this.MOTD);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.vpn_start);
             this.Controls.Add(this.moreOptions);
             this.Controls.Add(this.panel1);
@@ -693,7 +707,6 @@ namespace Contra
             this.Controls.Add(this.websitebutton);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
@@ -773,6 +786,7 @@ namespace Contra
         private System.Windows.Forms.Button DonateBtn;
         private System.Windows.Forms.Label IP_Label;
         private System.Windows.Forms.ToolTip optionsToolTip;
+        private System.Windows.Forms.Label onlineInstructionsLabel;
     }
 }
 

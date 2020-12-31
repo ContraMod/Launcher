@@ -40,9 +40,22 @@ namespace Contra
             this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
             this.HeatEffectsCheckBox = new System.Windows.Forms.CheckBox();
             this.camOkButton = new System.Windows.Forms.Button();
-            this.camTrackBar = new Contra.TrackBar();
             this.camHeightLabel = new System.Windows.Forms.Label();
             this.WaterEffectsCheckBox = new System.Windows.Forms.CheckBox();
+            this.DisableDynamicLODCheckBox = new System.Windows.Forms.CheckBox();
+            this.ExtraAnimationsCheckBox = new System.Windows.Forms.CheckBox();
+            this.ShowPropsCheckBox = new System.Windows.Forms.CheckBox();
+            this.BehindBuildingsCheckBox = new System.Windows.Forms.CheckBox();
+            this.Shadows3DCheckBox = new System.Windows.Forms.CheckBox();
+            this.Shadows2DCheckBox = new System.Windows.Forms.CheckBox();
+            this.CloudShadowsCheckBox = new System.Windows.Forms.CheckBox();
+            this.ExtraGroundLightingCheckBox = new System.Windows.Forms.CheckBox();
+            this.SmoothWaterBordersCheckBox = new System.Windows.Forms.CheckBox();
+            this.camTrackBar = new Contra.TrackBar();
+            this.HotkeyStyleGroupBox = new System.Windows.Forms.GroupBox();
+            this.LegacyHotkeysRadioButton = new System.Windows.Forms.RadioButton();
+            this.LeikezeHotkeysRadioButton = new System.Windows.Forms.RadioButton();
+            this.HotkeyStyleGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // button17
@@ -160,16 +173,6 @@ namespace Contra
             this.camOkButton.UseVisualStyleBackColor = false;
             this.camOkButton.Click += new System.EventHandler(this.camOkButton_Click);
             // 
-            // camTrackBar
-            // 
-            this.camTrackBar.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.camTrackBar, "camTrackBar");
-            this.camTrackBar.Maximum = 1000;
-            this.camTrackBar.Minimum = 392;
-            this.camTrackBar.Name = "camTrackBar";
-            this.camTrackBar.TabStop = true;
-            this.camTrackBar.Scroll += new System.EventHandler(this.camTrackBar_Scroll);
-            // 
             // camHeightLabel
             // 
             resources.ApplyResources(this.camHeightLabel, "camHeightLabel");
@@ -188,12 +191,140 @@ namespace Contra
             this.WaterEffectsCheckBox.UseVisualStyleBackColor = false;
             this.WaterEffectsCheckBox.CheckedChanged += new System.EventHandler(this.WaterEffectsCheckBox_CheckedChanged);
             // 
+            // DisableDynamicLODCheckBox
+            // 
+            resources.ApplyResources(this.DisableDynamicLODCheckBox, "DisableDynamicLODCheckBox");
+            this.DisableDynamicLODCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.DisableDynamicLODCheckBox.ForeColor = System.Drawing.Color.White;
+            this.DisableDynamicLODCheckBox.Name = "DisableDynamicLODCheckBox";
+            this.DisableDynamicLODCheckBox.UseVisualStyleBackColor = false;
+            this.DisableDynamicLODCheckBox.CheckedChanged += new System.EventHandler(this.DisableDynamicLODCheckBox_CheckedChanged);
+            // 
+            // ExtraAnimationsCheckBox
+            // 
+            resources.ApplyResources(this.ExtraAnimationsCheckBox, "ExtraAnimationsCheckBox");
+            this.ExtraAnimationsCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.ExtraAnimationsCheckBox.ForeColor = System.Drawing.Color.White;
+            this.ExtraAnimationsCheckBox.Name = "ExtraAnimationsCheckBox";
+            this.ExtraAnimationsCheckBox.UseVisualStyleBackColor = false;
+            this.ExtraAnimationsCheckBox.CheckedChanged += new System.EventHandler(this.ExtraAnimationsCheckBox_CheckedChanged);
+            // 
+            // ShowPropsCheckBox
+            // 
+            resources.ApplyResources(this.ShowPropsCheckBox, "ShowPropsCheckBox");
+            this.ShowPropsCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.ShowPropsCheckBox.ForeColor = System.Drawing.Color.White;
+            this.ShowPropsCheckBox.Name = "ShowPropsCheckBox";
+            this.ShowPropsCheckBox.UseVisualStyleBackColor = false;
+            this.ShowPropsCheckBox.CheckedChanged += new System.EventHandler(this.ShowPropsCheckBox_CheckedChanged);
+            // 
+            // BehindBuildingsCheckBox
+            // 
+            resources.ApplyResources(this.BehindBuildingsCheckBox, "BehindBuildingsCheckBox");
+            this.BehindBuildingsCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.BehindBuildingsCheckBox.ForeColor = System.Drawing.Color.White;
+            this.BehindBuildingsCheckBox.Name = "BehindBuildingsCheckBox";
+            this.BehindBuildingsCheckBox.UseVisualStyleBackColor = false;
+            this.BehindBuildingsCheckBox.CheckedChanged += new System.EventHandler(this.BehindBuildingsCheckBox_CheckedChanged);
+            // 
+            // Shadows3DCheckBox
+            // 
+            resources.ApplyResources(this.Shadows3DCheckBox, "Shadows3DCheckBox");
+            this.Shadows3DCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.Shadows3DCheckBox.ForeColor = System.Drawing.Color.White;
+            this.Shadows3DCheckBox.Name = "Shadows3DCheckBox";
+            this.Shadows3DCheckBox.UseVisualStyleBackColor = false;
+            this.Shadows3DCheckBox.CheckedChanged += new System.EventHandler(this.Shadows3DCheckBox_CheckedChanged);
+            // 
+            // Shadows2DCheckBox
+            // 
+            resources.ApplyResources(this.Shadows2DCheckBox, "Shadows2DCheckBox");
+            this.Shadows2DCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.Shadows2DCheckBox.ForeColor = System.Drawing.Color.White;
+            this.Shadows2DCheckBox.Name = "Shadows2DCheckBox";
+            this.Shadows2DCheckBox.UseVisualStyleBackColor = false;
+            this.Shadows2DCheckBox.CheckedChanged += new System.EventHandler(this.Shadows2DCheckBox_CheckedChanged);
+            // 
+            // CloudShadowsCheckBox
+            // 
+            resources.ApplyResources(this.CloudShadowsCheckBox, "CloudShadowsCheckBox");
+            this.CloudShadowsCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.CloudShadowsCheckBox.ForeColor = System.Drawing.Color.White;
+            this.CloudShadowsCheckBox.Name = "CloudShadowsCheckBox";
+            this.CloudShadowsCheckBox.UseVisualStyleBackColor = false;
+            this.CloudShadowsCheckBox.CheckedChanged += new System.EventHandler(this.CloudShadowsCheckBox_CheckedChanged);
+            // 
+            // ExtraGroundLightingCheckBox
+            // 
+            resources.ApplyResources(this.ExtraGroundLightingCheckBox, "ExtraGroundLightingCheckBox");
+            this.ExtraGroundLightingCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.ExtraGroundLightingCheckBox.ForeColor = System.Drawing.Color.White;
+            this.ExtraGroundLightingCheckBox.Name = "ExtraGroundLightingCheckBox";
+            this.ExtraGroundLightingCheckBox.UseVisualStyleBackColor = false;
+            this.ExtraGroundLightingCheckBox.CheckedChanged += new System.EventHandler(this.ExtraGroundLightingCheckBox_CheckedChanged);
+            // 
+            // SmoothWaterBordersCheckBox
+            // 
+            resources.ApplyResources(this.SmoothWaterBordersCheckBox, "SmoothWaterBordersCheckBox");
+            this.SmoothWaterBordersCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.SmoothWaterBordersCheckBox.ForeColor = System.Drawing.Color.White;
+            this.SmoothWaterBordersCheckBox.Name = "SmoothWaterBordersCheckBox";
+            this.SmoothWaterBordersCheckBox.UseVisualStyleBackColor = false;
+            this.SmoothWaterBordersCheckBox.CheckedChanged += new System.EventHandler(this.SmoothWaterBordersCheckBox_CheckedChanged);
+            // 
+            // camTrackBar
+            // 
+            this.camTrackBar.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.camTrackBar, "camTrackBar");
+            this.camTrackBar.Maximum = 750;
+            this.camTrackBar.Minimum = 392;
+            this.camTrackBar.Name = "camTrackBar";
+            this.camTrackBar.TabStop = true;
+            this.camTrackBar.Value = 392;
+            this.camTrackBar.Scroll += new System.EventHandler(this.camTrackBar_Scroll);
+            // 
+            // HotkeyStyleGroupBox
+            // 
+            this.HotkeyStyleGroupBox.BackColor = System.Drawing.Color.Transparent;
+            this.HotkeyStyleGroupBox.Controls.Add(this.LegacyHotkeysRadioButton);
+            this.HotkeyStyleGroupBox.Controls.Add(this.LeikezeHotkeysRadioButton);
+            resources.ApplyResources(this.HotkeyStyleGroupBox, "HotkeyStyleGroupBox");
+            this.HotkeyStyleGroupBox.ForeColor = System.Drawing.Color.White;
+            this.HotkeyStyleGroupBox.Name = "HotkeyStyleGroupBox";
+            this.HotkeyStyleGroupBox.TabStop = false;
+            // 
+            // LegacyHotkeysRadioButton
+            // 
+            resources.ApplyResources(this.LegacyHotkeysRadioButton, "LegacyHotkeysRadioButton");
+            this.LegacyHotkeysRadioButton.Name = "LegacyHotkeysRadioButton";
+            this.LegacyHotkeysRadioButton.UseVisualStyleBackColor = true;
+            this.LegacyHotkeysRadioButton.CheckedChanged += new System.EventHandler(this.LegacyHotkeysRadioButton_CheckedChanged);
+            // 
+            // LeikezeHotkeysRadioButton
+            // 
+            resources.ApplyResources(this.LeikezeHotkeysRadioButton, "LeikezeHotkeysRadioButton");
+            this.LeikezeHotkeysRadioButton.Checked = true;
+            this.LeikezeHotkeysRadioButton.Name = "LeikezeHotkeysRadioButton";
+            this.LeikezeHotkeysRadioButton.TabStop = true;
+            this.LeikezeHotkeysRadioButton.UseVisualStyleBackColor = true;
+            this.LeikezeHotkeysRadioButton.CheckedChanged += new System.EventHandler(this.LeikezeHotkeysRadioButton_CheckedChanged);
+            // 
             // moreOptionsForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackgroundImage = global::Contra.Properties.Resources.vpnbg;
+            this.BackgroundImage = global::Contra.Properties.Resources.advopbg;
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
+            this.Controls.Add(this.HotkeyStyleGroupBox);
+            this.Controls.Add(this.Shadows3DCheckBox);
+            this.Controls.Add(this.Shadows2DCheckBox);
+            this.Controls.Add(this.CloudShadowsCheckBox);
+            this.Controls.Add(this.ExtraGroundLightingCheckBox);
+            this.Controls.Add(this.SmoothWaterBordersCheckBox);
+            this.Controls.Add(this.BehindBuildingsCheckBox);
+            this.Controls.Add(this.ShowPropsCheckBox);
+            this.Controls.Add(this.ExtraAnimationsCheckBox);
+            this.Controls.Add(this.DisableDynamicLODCheckBox);
             this.Controls.Add(this.WaterEffectsCheckBox);
             this.Controls.Add(this.camHeightLabel);
             this.Controls.Add(this.camTrackBar);
@@ -210,6 +341,8 @@ namespace Contra
             this.MaximizeBox = false;
             this.Name = "moreOptionsForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.HotkeyStyleGroupBox.ResumeLayout(false);
+            this.HotkeyStyleGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -230,5 +363,17 @@ namespace Contra
         private TrackBar camTrackBar;
         private System.Windows.Forms.Label camHeightLabel;
         private System.Windows.Forms.CheckBox WaterEffectsCheckBox;
+        private System.Windows.Forms.CheckBox DisableDynamicLODCheckBox;
+        private System.Windows.Forms.CheckBox ExtraAnimationsCheckBox;
+        private System.Windows.Forms.CheckBox ShowPropsCheckBox;
+        private System.Windows.Forms.CheckBox BehindBuildingsCheckBox;
+        private System.Windows.Forms.CheckBox Shadows3DCheckBox;
+        private System.Windows.Forms.CheckBox Shadows2DCheckBox;
+        private System.Windows.Forms.CheckBox CloudShadowsCheckBox;
+        private System.Windows.Forms.CheckBox ExtraGroundLightingCheckBox;
+        private System.Windows.Forms.CheckBox SmoothWaterBordersCheckBox;
+        private System.Windows.Forms.GroupBox HotkeyStyleGroupBox;
+        private System.Windows.Forms.RadioButton LegacyHotkeysRadioButton;
+        private System.Windows.Forms.RadioButton LeikezeHotkeysRadioButton;
     }
 }
