@@ -20,7 +20,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 1. Установите Contra 009 Final -> Patch 1 -> Patch 2 -> Patch 3 сверху чистый 1.04 Zero Hour.
 
 2. Установите RadminVPN
-Go to https://www.radmin-vpn.com/ then click Free Download and Install
+Go to https://www.radmin-vpn.com/ru/ затем нажмите Скачать бесплатно и установите
 
 3. В Radmin найдите и присоединитесь к игровой сети:
 Command & Conquer: Generals - Zero Hour - Contra 009
