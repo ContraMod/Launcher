@@ -9,6 +9,7 @@
 ![1](https://media.discordapp.net/attachments/410501978784006144/795776427739971604/unknown.png)
 
 4. Switch **LAN IP** to **26.X.X.X** inside the game's options.
+
 ![2](https://media.discordapp.net/attachments/410501978784006144/795781301134819348/unknown.png)
 - Gentool zip is needed to preserve custom resolution:
 https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
@@ -29,6 +30,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 ![1](https://media.discordapp.net/attachments/194120076054495232/768127932320710676/unknown.png)
 
 4. Переключите **IP сети** на **26.X.X.X** внутри опций игры.
+
 ![2](https://media.discordapp.net/attachments/410501978784006144/795781594764804106/unknown.png)
 - Gentool zip необходим для сохранения нестандартного разрешения:
 https://www.gentool.net/download (извлеките последнюю версию d3d8.dll в папку ZH из архива)
