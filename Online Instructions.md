@@ -1,4 +1,4 @@
-[ENGLISH](#EN) | [РУССКИЙ](#RU)
+[ENGLISH](#EN) | [РУССКИЙ](#Contra-009-Final-Patch-3-Инструкции-по онлайн-игре)
 ### EN
 # Contra 009 Final Patch 3 Online Play Instructions
 
