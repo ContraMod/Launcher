@@ -2,7 +2,7 @@
 ### ENGLISH
 # Contra 009 Final Patch 3 Online Play Instructions
 
-1. Install [Contra 009 Final + Patch 1 + Patch 2 + Patch 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) on top of clean 1.04 Zero Hour.
+## 1. Install [Contra 009 Final + Patch 1 + Patch 2 + Patch 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) on top of clean 1.04 Zero Hour.
 
 2. Install RadminVPN. Go to https://www.radmin-vpn.com/ then click Free Download and Install
 
