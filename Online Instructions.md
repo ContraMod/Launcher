@@ -6,7 +6,7 @@
 
 3. In Radmin, search and join the gaming network:
 **Command & Conquer: Generals - Zero Hour - Contra 009**
-(https://media.discordapp.net/attachments/194120076054495232/768127932320710676/unknown.png)
+![1](https://media.discordapp.net/attachments/194120076054495232/768127932320710676/unknown.png)
 
 4. Switch **LAN IP** to **26.X.X.X** inside the game's options. Gentool zip is needed to preserve custom resolution:
 https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
@@ -22,7 +22,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 3. В Radmin найдите и присоединитесь к игровой сети:
 **Command & Conquer: Generals - Zero Hour - Contra 009**
-(https://media.discordapp.net/attachments/194120076054495232/768127932320710676/unknown.png)
+![1](https://media.discordapp.net/attachments/194120076054495232/768127932320710676/unknown.png)
 
 4. Переключите **LAN IP** на **26.X.X.X** внутри опций игры. Gentool zip необходим для сохранения нестандартного разрешения:
 https://www.gentool.net/download (извлеките последнюю версию d3d8.dll в папку ZH из архива)
