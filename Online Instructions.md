@@ -31,4 +31,5 @@ https://www.gentool.net/download (извлеките последнюю верс
 - Также отключите 3D-тени в пользовательских графических параметрах для повышения производительности
 
 5. Играйте через лобби **VPN / LAN** (не GameSpy / CnC Online!)
+
 ![2](https://media.discordapp.net/attachments/410501978784006144/795777032054112306/unknown.png)
