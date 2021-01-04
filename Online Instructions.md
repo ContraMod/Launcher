@@ -8,7 +8,8 @@
 **Command & Conquer: Generals - Zero Hour - Contra 009**
 ![1](https://media.discordapp.net/attachments/410501978784006144/795776427739971604/unknown.png)
 
-4. Switch **LAN IP** to **26.X.X.X** inside the game's options. Gentool zip is needed to preserve custom resolution:
+4. Switch **LAN IP** to **26.X.X.X** inside the game's options.
+- Gentool zip is needed to preserve custom resolution:
 https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 - Please also disable 3D shadows from custom graphics options for improved performance
 
@@ -26,7 +27,8 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 **Command & Conquer: Generals - Zero Hour - Contra 009**
 ![1](https://media.discordapp.net/attachments/194120076054495232/768127932320710676/unknown.png)
 
-4. Переключите **IP сети** на **26.X.X.X** внутри опций игры. Gentool zip необходим для сохранения нестандартного разрешения:
+4. Переключите **IP сети** на **26.X.X.X** внутри опций игры.
+- Gentool zip необходим для сохранения нестандартного разрешения:
 https://www.gentool.net/download (извлеките последнюю версию d3d8.dll в папку ZH из архива)
 - Также отключите 3D-тени в пользовательских графических параметрах для повышения производительности
 
