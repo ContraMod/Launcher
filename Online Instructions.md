@@ -2,8 +2,7 @@
 
 1. Install [Contra 009 Final + Patch 1 + Patch 2 + Patch 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) on top of clean 1.04 Zero Hour.
 
-2. Install RadminVPN
-Go to https://www.radmin-vpn.com/ then click Free Download and Install
+2. Install RadminVPN. Go to https://www.radmin-vpn.com/ then click Free Download and Install
 
 3. In Radmin, search and join the gaming network:
 Command & Conquer: Generals - Zero Hour - Contra 009
@@ -19,8 +18,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 1. Установите [Contra 009 Финал + Патч 1 + Патч 2 + Патч 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) сверху чистый 1.04 Zero Hour.
 
-2. Установите RadminVPN
-Go to https://www.radmin-vpn.com/ru/ затем нажмите Скачать бесплатно и установите
+2. Установите RadminVPN: https://www.radmin-vpn.com/ru/ затем нажмите Скачать бесплатно и установите
 
 3. В Radmin найдите и присоединитесь к игровой сети:
 Command & Conquer: Generals - Zero Hour - Contra 009
