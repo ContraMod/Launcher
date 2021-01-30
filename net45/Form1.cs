@@ -100,7 +100,13 @@ namespace Contra
 
         //int modVersionLocalInt;
         //bool patch1Found, patch2Found;
+
+        string versions_url = "https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt";
+        string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
+        string patch_url = "http://contra.cncguild.net/Downloads/";
+
         bool applyNewLauncher = false;
+        bool restartLauncher = false;
 
         bool disableVPNOnBtn = false;
         string ip;
@@ -131,9 +137,9 @@ namespace Contra
 
         public static readonly CancellationTokenSource httpCancellationToken = new CancellationTokenSource();
 
-        public async void GetLauncherUpdate(string motd, string launcher_url)
+        public async void GetLauncherUpdate(string versionsTXT, string launcher_url)
         {
-            string launcher_ver = motd.Substring(motd.LastIndexOf("Launcher: ") + 10);
+            string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
             newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
             string zip_url = launcher_url + launcher_ver.Substring(0, launcher_ver.IndexOf("$")) + @"/Contra_Launcher.zip";
             string zip_path = zip_url.Split('/').Last();
@@ -178,7 +184,9 @@ namespace Contra
                     }.Single(l => l.Value).Key;
                     MessageBox.Show(new Form { TopMost = true }, updateDoneText.Item1, updateDoneText.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    this.Close();
+                    //this.Close();
+                    Application.Restart();
+                    Environment.Exit(0);
                 }
                 catch (OperationCanceledException)
                 {
@@ -196,75 +204,83 @@ namespace Contra
             }
         }
 
-        public async void GetModUpdate(string motd, string patch_url)
+        public async void GetModUpdate(string versionsTXT, string patch_url)
         {
-            string zip_url = patch_url + @"/Contra009FinalPatch3Hotfix.zip";
+            string zip_url = null;
+
+            if (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big"))
+            {
+                zip_url = patch_url + @"/Contra009FinalPatch3Hotfix.zip";
+            }
+            else if (!File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big"))
+            {
+                zip_url = patch_url + @"/Contra009FinalPatch3Hotfix2.zip";
+            }
             string zip_path = zip_url.Split('/').Last();
 
             // Get mod version text
-            string modVersionText = motd.Substring(motd.LastIndexOf("Mod Text: ") + 10); // The latest patch name
+            string modVersionText = versionsTXT.Substring(versionsTXT.LastIndexOf("Mod Text: ") + 10); // The latest patch name
             modVersionText = modVersionText.Substring(0, modVersionText.IndexOf("$"));
 
-            //if (modVersionText == "009 Final Patch 3 Hotfix")
-            //{
-                try
-                {
-                    var updatePendingText = new Dictionary<Tuple<string, string>, bool>
+            try
+            {
+                var updatePendingText = new Dictionary<Tuple<string, string>, bool>
                     {
-                        { Tuple.Create($"Contra version {modVersionText} is available! Would you like to download and update now?", "Update Available"), Globals.GB_Checked},
-                        { Tuple.Create($"Версия Contra {modVersionText} доступна! Хотите скачать и обновить сейчас?", "Доступно обновление"), Globals.RU_Checked},
-                        { Tuple.Create($"Версія Contra {modVersionText} доступна! Хочете завантажити та оновити зараз?", "Доступне оновлення"), Globals.UA_Checked},
-                        { Tuple.Create($"Contra версия {modVersionText} е достъпна! Искате ли да изтеглите и актуализирате сега?", "Достъпна е актуализация"), Globals.BG_Checked},
-                        { Tuple.Create($"Contra version {modVersionText} ist verfьgbar! Möchten Sie jetzt herunterladen und aktualisieren?", "Aktualisierung verfьgbar"), Globals.DE_Checked},
+                        { Tuple.Create($"Contra version {modVersionText} is available!\n\nNote: If you play online, you should download the new version at all costs, otherwise the game will mismatch!\n\nWould you like to download and update now?", "Update Available"), Globals.GB_Checked},
+                        { Tuple.Create($"Версия Contra {modVersionText} доступна!\n\nПримечание: Если вы играете онлайн, вам следует загрузить новую версию любой ценой, иначе игра выдаст ошибку несоответствия!\n\nХотите скачать и обновить сейчас?", "Доступно обновление"), Globals.RU_Checked},
+                        { Tuple.Create($"Версія Contra {modVersionText} доступна!\n\nПримітка: Якщо ви граєте в Інтернеті, вам слід завантажити нову версію за будь-яку ціну, інакше гра викличе помилку невідповідності!\n\nХочете завантажити та оновити зараз?", "Доступне оновлення"), Globals.UA_Checked},
+                        { Tuple.Create($"Contra версия {modVersionText} е достъпна!\n\nЗабележка: Ако играете онлайн, трябва да изтеглите новата версия на всяка цена, в противен случай играта ще се разминава!\n\nИскате ли да изтеглите и актуализирате сега?", "Достъпна е актуализация"), Globals.BG_Checked},
+                        { Tuple.Create($"Contra version {modVersionText} ist verfьgbar!\n\nHinweis: Wenn Sie online spielen, sollten Sie die neue Version unbedingt herunterladen, da sonst ein Fehlanpassungsfehler auftritt!\n\nMöchten Sie jetzt herunterladen und aktualisieren?", "Aktualisierung verfьgbar"), Globals.DE_Checked},
                     }.Single(l => l.Value).Key;
-                    DialogResult dialogResult = MessageBox.Show(new Form { TopMost = true }, updatePendingText.Item1, updatePendingText.Item2, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                DialogResult dialogResult = MessageBox.Show(new Form { TopMost = true }, updatePendingText.Item1, updatePendingText.Item2, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
-                    if (dialogResult == DialogResult.Yes)
+                if (dialogResult == DialogResult.Yes)
+                {
+                    await DownloadFile(zip_url, zip_path, TimeSpan.FromMinutes(5), httpCancellationToken.Token);
+
+                    using (ZipArchive archive = await Task.Run(() => ZipFile.OpenRead(zip_path)))
                     {
-                        await DownloadFile(zip_url, zip_path, TimeSpan.FromMinutes(5), httpCancellationToken.Token);
-
-                        using (ZipArchive archive = await Task.Run(() => ZipFile.OpenRead(zip_path)))
+                        foreach (ZipArchiveEntry entry in archive.Entries)
                         {
-                            foreach (ZipArchiveEntry entry in archive.Entries)
-                            {
-                                //if (entry.Name == "Contra_Launcher.exe") continue;
-                                await Task.Run(() => entry.ExtractToFile(entry.Name, true));
-                            }
+                            //if (entry.Name == "Contra_Launcher.exe") continue;
+                            await Task.Run(() => entry.ExtractToFile(entry.Name, true));
                         }
-
-                        File.Delete(zip_path);
-                        //applyNewLauncher = true;
-
-                        // Show a message when the patch download has completed
-                        var updateDoneText = new Dictionary<Tuple<string, string>, bool>
-                        {
-                            { Tuple.Create($"{modVersionText} was installed successfully!", "Update Complete"), Globals.GB_Checked},
-                            { Tuple.Create($"{modVersionText} установлен успешно!", "Обновление завершено"), Globals.RU_Checked},
-                            { Tuple.Create($"{modVersionText} було успішно встановлено!", "Оновлення завершено"), Globals.UA_Checked},
-                            { Tuple.Create($"{modVersionText} беше инсталиран успешно!", "Обновяването е завършено"), Globals.BG_Checked},
-                            { Tuple.Create($"{modVersionText} wurde erfolgreich installiert!", "Aktualisierung abgeschlossen"), Globals.DE_Checked},
-                        }.Single(l => l.Value).Key;
-                        MessageBox.Show(new Form { TopMost = true }, updateDoneText.Item1, updateDoneText.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        //this.Close();
                     }
-                    else
-                    { }
+
+                    File.Delete(zip_path);
+                    //restartLauncher = true;
+
+                    // Show a message when the patch download has completed
+                    var updateDoneText = new Dictionary<Tuple<string, string>, bool>
+                        {
+                            { Tuple.Create($"{modVersionText} was installed successfully! The launcher will now restart!", "Update Complete"), Globals.GB_Checked},
+                            { Tuple.Create($"{modVersionText} установлен успешно! Лаунчер перезапустится!", "Обновление завершено"), Globals.RU_Checked},
+                            { Tuple.Create($"{modVersionText} було успішно встановлено! Тепер лаунчер перезапуститься!", "Оновлення завершено"), Globals.UA_Checked},
+                            { Tuple.Create($"{modVersionText} беше инсталиран успешно! Launcher-а ще се рестартира!", "Обновяването е завършено"), Globals.BG_Checked},
+                            { Tuple.Create($"{modVersionText} wurde erfolgreich installiert! Der Launcher wird jetzt neu gestartet!", "Aktualisierung abgeschlossen"), Globals.DE_Checked},
+                        }.Single(l => l.Value).Key;
+                    MessageBox.Show(new Form { TopMost = true }, updateDoneText.Item1, updateDoneText.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    //this.Close();
+                    Application.Restart();
+                    Environment.Exit(0);
                 }
-                catch (OperationCanceledException)
-                {
-                    //applyNewLauncher = false;
-                    File.Delete(zip_path); // Clean-up partial download
-                    PatchDLPanel.Hide();
-                }
-                catch (Exception ex)
-                {
-                    //applyNewLauncher = false;
-                    File.Delete(zip_path); // Clean-up partial download
-                    PatchDLPanel.Hide();
-                    MessageBox.Show(ex.ToString());
-                }
-            //}
+                else
+                { }
+            }
+            catch (OperationCanceledException)
+            {
+                //restartLauncher = false;
+                File.Delete(zip_path); // Clean-up partial download
+                PatchDLPanel.Hide();
+            }
+            catch (Exception ex)
+            {
+                //restartLauncher = false;
+                File.Delete(zip_path); // Clean-up partial download
+                PatchDLPanel.Hide();
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         public static readonly HttpClient httpclient = new HttpClient();
@@ -421,23 +437,23 @@ namespace Contra
         {
             if (Globals.GB_Checked == true)
             {
-                MessageBox.Show("You have installed Contra in the wrong folder. Install it in the Zero Hour folder which contains the \"generals.exe\". It's very often the parent folder.", "Error");
+                MessageBox.Show("You have installed Contra in the wrong folder. Install it in the Zero Hour folder which contains the \"generals.exe\".", "Error");
             }
             else if (Globals.RU_Checked == true)
             {
-                MessageBox.Show("Вы установили Contra в неправильную папку. Установите его в папку Zero Hour, которая содержит файл \"generals.exe\". Это очень часто предыдущая папка.", "Ошибка");
+                MessageBox.Show("Вы установили Contra в неправильную папку. Установите его в папку Zero Hour, которая содержит файл \"generals.exe\".", "Ошибка");
             }
             else if (Globals.UA_Checked == true)
             {
-                MessageBox.Show("Ви встановили Contra у неправильній папці. Встановіть це в папку Zero Hour, яка містить \"generals.exe\". Це дуже часто попередня папка.", "Помилка");
+                MessageBox.Show("Ви встановили Contra у неправильній папці. Встановіть це в папку Zero Hour, яка містить \"generals.exe\".", "Помилка");
             }
             else if (Globals.BG_Checked == true)
             {
-                MessageBox.Show("Инсталирали сте Contra в грешната папка. Инсталирайте в Zero Hour папката, която съдържа \"generals.exe\". Обикновено това е предишната папка.", "Грешка");
+                MessageBox.Show("Инсталирали сте Contra в грешната папка. Инсталирайте в Zero Hour папката, която съдържа \"generals.exe\".", "Грешка");
             }
             else if (Globals.DE_Checked == true)
             {
-                MessageBox.Show("Du hast Contra im falschen ordner installiert. Installiere es in dem Zero Hour ordner in dem die \"generals.exe\" ist. Es ist sehr oft der übergeordnete Ordner.", "Fehler");
+                MessageBox.Show("Du hast Contra im falschen ordner installiert. Installiere es in dem Zero Hour ordner in dem die \"generals.exe\" ist.", "Fehler");
             }
         }
 
@@ -514,6 +530,10 @@ namespace Contra
             if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big"))
             {
                 File.Delete("!!!!!Contra009Final_Patch3_Hotfix.big");
+            }
+            if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big"))
+            {
+                File.Delete("!!!!!!Contra009Final_Patch3_Hotfix2.big");
             }
             if (File.Exists("!!!!Contra009Final_Patch3_GameData.ctr") && File.Exists("!!!!Contra009Final_Patch3_GameData.big"))
             {
@@ -639,6 +659,7 @@ namespace Contra
             {
                 List<string> bigs = new List<string>
                 {
+                    "!!!!!!Contra009Final_Patch3_Hotfix2.big",
                     "!!!!!!Contra009Final_Patch3_Hotfix_FunnyGenPics.big",
                     "!!!!!Contra009Final_Patch3_Hotfix_NatVO.big",
                     "!!!!!Contra009Final_Patch3_Hotfix.big",
@@ -756,6 +777,7 @@ namespace Contra
             {
                 List<string> bigs = new List<string>
                 {
+                    "!!!!!!Contra009Final_Patch3_Hotfix2.big",
                     "!!!!!!Contra009Final_Patch3_Hotfix_FunnyGenPics.big",
                     "!!!!!Contra009Final_Patch3_Hotfix_NatVO.big",
                     "!!!!!Contra009Final_Patch3_Hotfix.big",
@@ -902,6 +924,7 @@ namespace Contra
                     File.Move("!!!!Contra009Final_Patch3.ctr", "!!!!Contra009Final_Patch3.big");
                     File.Move("!!!!Contra009Final_Patch3_GameData.ctr", "!!!!Contra009Final_Patch3_GameData.big");
                     File.Move("!!!!!Contra009Final_Patch3_Hotfix.ctr", "!!!!!Contra009Final_Patch3_Hotfix.big");
+                    File.Move("!!!!!!Contra009Final_Patch3_Hotfix2.ctr", "!!!!!!Contra009Final_Patch3_Hotfix2.big");
 
                     // Remove dbghelp to fix DirectX error on game startup.
                     File.Delete("dbghelp.dll");
@@ -1334,6 +1357,7 @@ namespace Contra
                 File.Move("!!!Contra009Final_Patch2.ctr", "!!!Contra009Final_Patch2.big");
                 File.Move("!!!!Contra009Final_Patch3.ctr", "!!!!Contra009Final_Patch3.big");
                 File.Move("!!!!!Contra009Final_Patch3_Hotfix.ctr", "!!!!!Contra009Final_Patch3_Hotfix.big");
+                File.Move("!!!!!!Contra009Final_Patch3_Hotfix2.ctr", "!!!!!!Contra009Final_Patch3_Hotfix2.big");
                 File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
                 File.Move("!!Contra009Final_Patch1_EN.ctr", "!!Contra009Final_Patch1_EN.big");
                 File.Move("!!!Contra009Final_Patch2_EN.ctr", "!!!Contra009Final_Patch2_EN.big");
@@ -1737,7 +1761,7 @@ namespace Contra
 
         // This method is executed on the worker thread and makes 
         // a thread-safe call on the TextBox control. 
-        private void ThreadProcSafeMOTD(string motd)
+        private void ThreadProcSafeMOTD(string versionsTXT)
         {
             try
             {
@@ -1748,19 +1772,19 @@ namespace Contra
                         if (seekForUpdate == true)
                         {
                             seekForUpdate = false;
-                            //GetLauncherUpdate(motd, launcher_url);
-                            //GetModUpdate(motd, patch_url);
+                            //GetLauncherUpdate(versionsTXT, launcher_url);
+                            //GetModUpdate(versionsTXT, patch_url);
                         }
                         downloadTextFile = true;
                     }
                     void SetMOTD(string prefix)
                     {
-                        string MOTDText = motd.Substring(motd.LastIndexOf(prefix) + 9);
+                        string MOTDText = versionsTXT.Substring(versionsTXT.LastIndexOf(prefix) + 9);
                         string MOTDText2 = MOTDText.Substring(0, MOTDText.IndexOf("$"));
                         ThreadHelperClass.SetText(this, MOTD, MOTDText2);
                     }
 
-                    var motd_lang = new Dictionary<string, bool>
+                    var versionsTXT_lang = new Dictionary<string, bool>
                     {
                         {"MOTD-EN: ", Globals.GB_Checked},
                         {"MOTD-RU: ", Globals.RU_Checked},
@@ -1768,7 +1792,7 @@ namespace Contra
                         {"MOTD-BG: ", Globals.BG_Checked},
                         {"MOTD-DE: ", Globals.DE_Checked},
                     };
-                    SetMOTD(motd_lang.Single(l => l.Value).Key);
+                    SetMOTD(versionsTXT_lang.Single(l => l.Value).Key);
                 }
             }
             catch { }
@@ -2646,9 +2670,14 @@ namespace Contra
             currentFileLabel = "File: ";
             ModDLLabel.Text = "Download progress: ";
             string verString, yearString = "";
-            if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+            if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
             {
-                verString = "009 Final Patch 3 + Hotfix";
+                verString = "009 Final Patch 3 Hotfix 2";
+                yearString = "2021";
+            }
+            else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+            {
+                verString = "009 Final Patch 3 Hotfix 1";
                 yearString = "2021";
             }
             else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
@@ -2693,26 +2722,27 @@ namespace Contra
                 IP_Label.Text = "ContraVPN: Off";
             }
 
-            // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
+            // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
             try
             {
+                string versionsTXT = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString(versions_url);
+
                 // Update launcher
-                string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
-                string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
-                GetLauncherUpdate(motd, launcher_url);
+                GetLauncherUpdate(versionsTXT, launcher_url);
 
                 // Update patch
-                string launcher_ver = motd.Substring(motd.LastIndexOf("Launcher: ") + 10);
+                string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
                 newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
-                // If launcher is up to date and P3 Hotfix is missing
-                if ((newVersion == Application.ProductVersion) && (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big")))
+                // If launcher is up to date and P3 Hotfixes are missing
+                if ((newVersion == Application.ProductVersion) &&
+                    (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
+                    !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big")))
                 {
-                    string patch_url = "http://contra.cncguild.net/Downloads/";
-                    GetModUpdate(motd, patch_url);
+                    GetModUpdate(versionsTXT, patch_url);
                 }
 
                 //Load MOTD
-                new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
+                new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
             }
             catch { }
         }
@@ -2758,9 +2788,14 @@ namespace Contra
             ModDLLabel.Text = "Прогресс загрузки: ";
             onlineInstructionsLabel.Text = "Инструкции по онлайн-игре";
             string verString, yearString = "";
-            if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+            if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
             {
-                verString = "009 Final Патч 3 + Hotfix";
+                verString = "009 Final Патч 3 Hotfix 2";
+                yearString = "2021";
+            }
+            else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+            {
+                verString = "009 Final Патч 3 Hotfix 1";
                 yearString = "2021";
             }
             else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
@@ -2805,26 +2840,27 @@ namespace Contra
                 IP_Label.Text = "ContraVPN: Выкл.";
             }
 
-            // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
+            // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
             try
             {
+                string versionsTXT = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString(versions_url);
+
                 // Update launcher
-                string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
-                string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
-                GetLauncherUpdate(motd, launcher_url);
+                GetLauncherUpdate(versionsTXT, launcher_url);
 
                 // Update patch
-                string launcher_ver = motd.Substring(motd.LastIndexOf("Launcher: ") + 10);
+                string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
                 newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
-                // If launcher is up to date and P3 Hotfix is missing
-                if ((newVersion == Application.ProductVersion) && (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big")))
+                // If launcher is up to date and P3 Hotfixes are missing
+                if ((newVersion == Application.ProductVersion) &&
+                    (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
+                    !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big")))
                 {
-                    string patch_url = "http://contra.cncguild.net/Downloads/";
-                    GetModUpdate(motd, patch_url);
+                    GetModUpdate(versionsTXT, patch_url);
                 }
 
                 //Load MOTD
-                new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
+                new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
             }
             catch { }
         }
@@ -2870,9 +2906,14 @@ namespace Contra
             ModDLLabel.Text = "Прогрес завантаження: ";
             onlineInstructionsLabel.Text = "Інструкції з гри в режимі онлайн";
             string verString, yearString = "";
-            if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+            if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
             {
-                verString = "009 Final Патч 3 + Hotfix";
+                verString = "009 Final Патч 3 Hotfix 2";
+                yearString = "2021";
+            }
+            else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+            {
+                verString = "009 Final Патч 3 Hotfix 1";
                 yearString = "2021";
             }
             else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
@@ -2917,26 +2958,27 @@ namespace Contra
                 IP_Label.Text = "ContraVPN: Вимк.";
             }
 
-            // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
+            // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
             try
             {
+                string versionsTXT = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString(versions_url);
+
                 // Update launcher
-                string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
-                string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
-                GetLauncherUpdate(motd, launcher_url);
+                GetLauncherUpdate(versionsTXT, launcher_url);
 
                 // Update patch
-                string launcher_ver = motd.Substring(motd.LastIndexOf("Launcher: ") + 10);
+                string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
                 newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
-                // If launcher is up to date and P3 Hotfix is missing
-                if ((newVersion == Application.ProductVersion) && (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big")))
+                // If launcher is up to date and P3 Hotfixes are missing
+                if ((newVersion == Application.ProductVersion) &&
+                    (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
+                    !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big")))
                 {
-                    string patch_url = "http://contra.cncguild.net/Downloads/";
-                    GetModUpdate(motd, patch_url);
+                    GetModUpdate(versionsTXT, patch_url);
                 }
 
                 //Load MOTD
-                new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
+                new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
             }
             catch { }
         }
@@ -2982,9 +3024,14 @@ namespace Contra
             ModDLLabel.Text = "Прогрес на изтегляне: ";
             onlineInstructionsLabel.Text = "Онлайн инструкции";
             string verString, yearString = "";
-            if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+            if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
             {
-                verString = "009 Final Пач 3 + Hotfix";
+                verString = "009 Final Пач 3 Hotfix 2";
+                yearString = "2021";
+            }
+            else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+            {
+                verString = "009 Final Пач 3 Hotfix 1";
                 yearString = "2021";
             }
             else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
@@ -3029,26 +3076,27 @@ namespace Contra
                 IP_Label.Text = "ContraVPN: Изкл.";
             }
 
-            // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
+            // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
             try
             {
+                string versionsTXT = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString(versions_url);
+
                 // Update launcher
-                string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
-                string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
-                GetLauncherUpdate(motd, launcher_url);
+                GetLauncherUpdate(versionsTXT, launcher_url);
 
                 // Update patch
-                string launcher_ver = motd.Substring(motd.LastIndexOf("Launcher: ") + 10);
+                string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
                 newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
-                // If launcher is up to date and P3 Hotfix is missing
-                if ((newVersion == Application.ProductVersion) && (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big")))
+                // If launcher is up to date and P3 Hotfixes are missing
+                if ((newVersion == Application.ProductVersion) &&
+                    (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
+                    !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big")))
                 {
-                    string patch_url = "http://contra.cncguild.net/Downloads/";
-                    GetModUpdate(motd, patch_url);
+                    GetModUpdate(versionsTXT, patch_url);
                 }
 
                 //Load MOTD
-                new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
+                new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
             }
             catch { }
         }
@@ -3096,9 +3144,14 @@ namespace Contra
             ModDLLabel.Text = "Downloadfortschritt: ";
             onlineInstructionsLabel.Text = "Online-Spielanweisungen";
             string verString, yearString = "";
-            if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+            if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
             {
-                verString = "009 Final Patch 3 + Hotfix";
+                verString = "009 Final Patch 3 Hotfix 2";
+                yearString = "2021";
+            }
+            else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+            {
+                verString = "009 Final Patch 3 Hotfix 1";
                 yearString = "2021";
             }
             else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
@@ -3143,26 +3196,27 @@ namespace Contra
                 IP_Label.Text = "ContraVPN: Aus";
             }
 
-            // Temporary hack so update runs on main thread, motd should be rewritten to be async if possible
+            // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
             try
             {
+                string versionsTXT = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString(versions_url);
+
                 // Update launcher
-                string motd = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString("https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions.txt");
-                string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
-                GetLauncherUpdate(motd, launcher_url);
+                GetLauncherUpdate(versionsTXT, launcher_url);
 
                 // Update patch
-                string launcher_ver = motd.Substring(motd.LastIndexOf("Launcher: ") + 10);
+                string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
                 newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
-                // If launcher is up to date and P3 Hotfix is missing
-                if ((newVersion == Application.ProductVersion) && (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big")))
+                // If launcher is up to date and P3 Hotfixes are missing
+                if ((newVersion == Application.ProductVersion) &&
+                    (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
+                    !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big")))
                 {
-                    string patch_url = "http://contra.cncguild.net/Downloads/";
-                    GetModUpdate(motd, patch_url);
+                    GetModUpdate(versionsTXT, patch_url);
                 }
 
                 //Load MOTD
-                new Thread(() => ThreadProcSafeMOTD(motd)) { IsBackground = true }.Start();
+                new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
             }
             catch { }
         }
@@ -3517,8 +3571,14 @@ namespace Contra
             {
                 File.Move($"{launcherExecutingPath}\\Contra_Launcher.exe", $"{launcherExecutingPath}\\Contra_Launcher_ToDelete.exe");
                 File.Move($"{launcherExecutingPath}\\Contra_Launcher_{newVersion}.exe", $"{launcherExecutingPath}\\Contra_Launcher.exe");
-                System.Diagnostics.Process.Start(Path.Combine(launcherExecutingPath, "Contra_Launcher.exe"));
+                //Process.Start(Path.Combine(launcherExecutingPath, "Contra_Launcher.exe"));
             }
+
+            //Restart launcher after patching the mod
+            //if (restartLauncher == true)
+            //{
+            //    Process.Start(Path.Combine(launcherExecutingPath, "Contra_Launcher.exe"));
+            //}
         }
 
         public static bool isGentoolInstalled(string gentoolPath)

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
@@ -38,8 +38,29 @@ namespace Contra
                     {
                         mutex.Dispose();
                         mutex = null;
-                        MessageBox.Show("Contra Launcher is already running!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        if (Properties.Settings.Default.Flag_GB == true)
+                        {
+                            MessageBox.Show("Contra Launcher is already running!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (Properties.Settings.Default.Flag_RU == true)
+                        {
+                            MessageBox.Show("Contra Launcher уже запущен!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (Properties.Settings.Default.Flag_UA == true)
+                        {
+                            MessageBox.Show("Contra Launcher вже працює!", "Повідомлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (Properties.Settings.Default.Flag_BG == true)
+                        {
+                            MessageBox.Show("Contra Launcher е вече стартиран!", "Известие", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (Properties.Settings.Default.Flag_DE == true)
+                        {
+                            MessageBox.Show("Contra Launcher läuft bereits!", "Beachten", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                         return;
+
                     }
                 }
                 catch (AbandonedMutexException) { } // Mutex wasn't fully released previous instance
