@@ -7,11 +7,59 @@ using System.Text.RegularExpressions;
 using Microsoft.Win32;
 using System.Text;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Linq;
 
 namespace Contra
 {
     public partial class moreOptionsForm : Form
     {
+        [DllImport("user32.dll")]
+        public static extern bool EnumDisplaySettings(
+      string deviceName, int modeNum, ref DEVMODE devMode);
+        const int ENUM_CURRENT_SETTINGS = -1;
+
+        const int ENUM_REGISTRY_SETTINGS = -2;
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct DEVMODE
+        {
+            private const int CCHDEVICENAME = 0x20;
+            private const int CCHFORMNAME = 0x20;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x20)]
+            public string dmDeviceName;
+            public short dmSpecVersion;
+            public short dmDriverVersion;
+            public short dmSize;
+            public short dmDriverExtra;
+            public int dmFields;
+            public int dmPositionX;
+            public int dmPositionY;
+            public ScreenOrientation dmDisplayOrientation;
+            public int dmDisplayFixedOutput;
+            public short dmColor;
+            public short dmDuplex;
+            public short dmYResolution;
+            public short dmTTOption;
+            public short dmCollate;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x20)]
+            public string dmFormName;
+            public short dmLogPixels;
+            public int dmBitsPerPel;
+            public int dmPelsWidth;
+            public int dmPelsHeight;
+            public int dmDisplayFlags;
+            public int dmDisplayFrequency;
+            public int dmICMMethod;
+            public int dmICMIntent;
+            public int dmMediaType;
+            public int dmDitherType;
+            public int dmReserved1;
+            public int dmReserved2;
+            public int dmPanningWidth;
+            public int dmPanningHeight;
+        }
+
         public moreOptionsForm()
         {
             InitializeComponent();
@@ -21,6 +69,18 @@ namespace Contra
             button18.TabStop = false;
             comboBox1.TabStop = false;
             resOkButton.TabStop = false;
+
+            DEVMODE vDevMode = new DEVMODE();
+            int i = 0;
+            var dataSource = new List<string>();
+            while (EnumDisplaySettings(null, i, ref vDevMode))
+            {
+                dataSource.Add(vDevMode.dmPelsWidth.ToString() + "x" + vDevMode.dmPelsHeight.ToString());
+                i++;
+            }
+            var noDupes = dataSource.Distinct().ToList();
+
+            this.comboBox1.DataSource = noDupes;
 
             if (Globals.GB_Checked == true)
             {
@@ -941,25 +1001,22 @@ namespace Contra
                     var regex = "";
                     if (AspectRatio(x, y) == "16:9")
                     {
-                        regex = Regex.Replace(File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + (camTrackBar.Value - 110) + ".0" + " ;350.0\r\n");
+                        regex = Regex.Replace(File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big", encoding), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + (camTrackBar.Value - 110) + ".0" + " ;350.0\r\n");
                     }
                     else
                     {
-                        regex = Regex.Replace(File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + camTrackBar.Value + ".0" + " ;350.0\r\n");
+                        regex = Regex.Replace(File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big", encoding), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + camTrackBar.Value + ".0" + " ;350.0\r\n");
                     }
-                    string read = File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big", encoding);
                     File.WriteAllText("!!!!Contra009Final_Patch3_GameData.big", regex, encoding);
 
                     if (camTrackBar.Value > 392)
                     {
-                        var regex2 = Regex.Replace(File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big"), "  DrawEntireTerrain = No\r?\n", "  DrawEntireTerrain = Yes\r\n");
-                        string read2 = File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big", encoding);
+                        var regex2 = Regex.Replace(File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big", encoding), "  DrawEntireTerrain = No\r?\n", "  DrawEntireTerrain = Yes\r\n");
                         File.WriteAllText("!!!!Contra009Final_Patch3_GameData.big", regex2, encoding);
                     }
                     else
                     {
-                        var regex2 = Regex.Replace(File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big"), "  DrawEntireTerrain = Yes\r?\n", "  DrawEntireTerrain = No\r\n");
-                        string read2 = File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big", encoding);
+                        var regex2 = Regex.Replace(File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big", encoding), "  DrawEntireTerrain = Yes\r?\n", "  DrawEntireTerrain = No\r\n");
                         File.WriteAllText("!!!!Contra009Final_Patch3_GameData.big", regex2, encoding);
                     }
 

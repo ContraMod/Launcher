@@ -1172,6 +1172,32 @@ namespace Contra
 
         public void StartGenerals()
         {
+            // Check for .dll files
+            if (!File.Exists("binkw32.dll") || (!File.Exists("mss32.dll")))
+            {
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("The game cannot start because the \"binkw32.dll\" and/or \"mss32.dll\" file(s) were not found. You may have installed the mod in the wrong folder.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Игра не может запуститься, потому что файлы \"binkw32.dll\" и/или \"mss32.dll\" не найдены. Возможно, вы установили мод не в ту папку.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Гра не може запуститися, оскільки файли \"binkw32.dll\" та/або \"mss32.dll\" не знайдені. Можливо, ви встановили мод у неправильну папку.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Играта не може да се стартира, тъй като не са намерени файловете \"binkw32.dll\" и/или \"mss32.dll\". Може да сте инсталирали мода в грешната папка.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Das Spiel kann nicht gestartet werden, da die Dateien \"binkw32.dll\" und /oder \"mss32.dll\" nicht gefunden wurden. Möglicherweise haben Sie den Mod im falschen Ordner installiert.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return;
+            }
+
             // Rename generals.exes
             if (File.Exists("generals.exe") && (File.Exists("generals.ctr")))
             {
@@ -1393,6 +1419,29 @@ namespace Contra
                     wb.StartInfo.FileName = "WorldBuilder.exe";
                     wb.StartInfo.WorkingDirectory = Path.GetDirectoryName("WorldBuilder.exe");
                     wb.Start();
+                }
+                else
+                {
+                    if (Globals.GB_Checked == true)
+                    {
+                        MessageBox.Show("World Builder was not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (Globals.RU_Checked == true)
+                    {
+                        MessageBox.Show("World Builder не найден.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (Globals.UA_Checked == true)
+                    {
+                        MessageBox.Show("World Builder не знайдено.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (Globals.BG_Checked == true)
+                    {
+                        MessageBox.Show("World Builder не бе намерен.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (Globals.DE_Checked == true)
+                    {
+                        MessageBox.Show("World Builder wurde nicht gefunden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             catch (Exception ex)
@@ -1862,16 +1911,65 @@ namespace Contra
             {
                 using (FileStream fs = File.Create(UserDataLeafName() + @"\Options.ini"))
                 {
-                    byte[] info = new UTF8Encoding(true).GetBytes("IdealStaticGameLOD = High" + Environment.NewLine + "Resolution = " + ScreenResolutionX + " " + ScreenResolutionY);
+                    byte[] info = new UTF8Encoding(true).GetBytes(
+                        "IdealStaticGameLOD = High" +
+                        Environment.NewLine +
+                        "Resolution = " + ScreenResolutionX + " " + ScreenResolutionY +
+                        Environment.NewLine +
+                        "BuildingOcclusion = Yes" +
+                        Environment.NewLine +
+                        "DynamicLOD = Yes" +
+                        Environment.NewLine +
+                        "ExtraAnimations = Yes" +
+                        Environment.NewLine +
+                        "HeatEffects = No" +
+                        Environment.NewLine +
+                        "ShowSoftWaterEdge = Yes" +
+                        Environment.NewLine +
+                        "ShowTrees = Yes" +
+                        Environment.NewLine +
+                        "StaticGameLOD = Custom" +
+                        Environment.NewLine +
+                        "UseCloudMap = Yes" +
+                        Environment.NewLine +
+                        "UseLightMap = Yes" +
+                        Environment.NewLine +
+                        "UseShadowDecals = Yes" +
+                        Environment.NewLine +
+                        "UseShadowVolumes = No");
                     fs.Write(info, 0, info.Length);
                 }
                 using (FileStream fs = File.Create(myDocPath + @"\Options.ini"))
                 {
-                    byte[] info = new UTF8Encoding(true).GetBytes("IdealStaticGameLOD = High" + Environment.NewLine + "Resolution = " + ScreenResolutionX + " " + ScreenResolutionY);
+                    byte[] info = new UTF8Encoding(true).GetBytes(
+                        "IdealStaticGameLOD = High" +
+                        Environment.NewLine +
+                        "Resolution = " + ScreenResolutionX + " " + ScreenResolutionY +
+                        Environment.NewLine +
+                        "BuildingOcclusion = Yes" +
+                        Environment.NewLine +
+                        "DynamicLOD = Yes" +
+                        Environment.NewLine +
+                        "ExtraAnimations = Yes" +
+                        Environment.NewLine +
+                        "HeatEffects = No" +
+                        Environment.NewLine +
+                        "ShowSoftWaterEdge = Yes" +
+                        Environment.NewLine +
+                        "ShowTrees = Yes" +
+                        Environment.NewLine +
+                        "StaticGameLOD = Custom" +
+                        Environment.NewLine +
+                        "UseCloudMap = Yes" +
+                        Environment.NewLine +
+                        "UseLightMap = Yes" +
+                        Environment.NewLine +
+                        "UseShadowDecals = Yes" +
+                        Environment.NewLine +
+                        "UseShadowVolumes = No");
                     fs.Write(info, 0, info.Length);
                 }
             }
-
             catch { }
         }
 
@@ -1903,8 +2001,7 @@ namespace Contra
                 if (File.Exists("!!!!Contra009Final_Patch3_GameData.big"))
                 {
                     Encoding encoding = Encoding.GetEncoding("windows-1252");
-                    var regex = Regex.Replace(File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big"), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = 282.0 ;350.0\r\n");
-                    string read = File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big", encoding);
+                    var regex = Regex.Replace(File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big", encoding), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = 282.0 ;350.0\r\n");
                     File.WriteAllText("!!!!Contra009Final_Patch3_GameData.big", regex, encoding);
                 }
                 else
@@ -2467,7 +2564,7 @@ namespace Contra
 
                 foreach (DirectoryInfo dir in di.EnumerateDirectories())
                 {
-                    if (dir.Name.Contains("vpnconfig") == true) //do not delete vpnconfig folder
+                    if (dir.Name.Contains("vpnconfig") == true || dir.Name.Contains("Contra007Classic_Launcher_Url") == true) //do not delete these folders
                     {
                         continue;
                     }
@@ -2669,6 +2766,7 @@ namespace Contra
             toolTip1.SetToolTip(DonateBtn, "Make a donation.");
             currentFileLabel = "File: ";
             ModDLLabel.Text = "Download progress: ";
+            CancelModDLBtn.Text = "Cancel";
             string verString, yearString = "";
             if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
             {
@@ -2733,10 +2831,11 @@ namespace Contra
                 // Update patch
                 string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
                 newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
-                // If launcher is up to date and P3 Hotfixes are missing
+                // If launcher is up to date, P3 exists and P3 Hotfixes are missing
                 if ((newVersion == Application.ProductVersion) &&
+                    (File.Exists("!!!!Contra009Final_Patch3.ctr") && !File.Exists("!!!!Contra009Final_Patch3.big") &&
                     (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
-                    !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big")))
+                    !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big"))))
                 {
                     GetModUpdate(versionsTXT, patch_url);
                 }
@@ -2786,6 +2885,7 @@ namespace Contra
             moreOptions.Text = "Больше опций";
             currentFileLabel = "Файл: ";
             ModDLLabel.Text = "Прогресс загрузки: ";
+            CancelModDLBtn.Text = "Отмена";
             onlineInstructionsLabel.Text = "Инструкции по онлайн-игре";
             string verString, yearString = "";
             if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
@@ -2904,6 +3004,7 @@ namespace Contra
             moreOptions.Text = "Більше опцій";
             currentFileLabel = "Файл: ";
             ModDLLabel.Text = "Прогрес завантаження: ";
+            CancelModDLBtn.Text = "Скасувати";
             onlineInstructionsLabel.Text = "Інструкції з гри в режимі онлайн";
             string verString, yearString = "";
             if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
@@ -3022,6 +3123,7 @@ namespace Contra
             moreOptions.Text = "Доп. Опции";
             currentFileLabel = "Файл: ";
             ModDLLabel.Text = "Прогрес на изтегляне: ";
+            CancelModDLBtn.Text = "Отмени";
             onlineInstructionsLabel.Text = "Онлайн инструкции";
             string verString, yearString = "";
             if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
@@ -3142,6 +3244,7 @@ namespace Contra
             moreOptions.Text = "Einstellungen";
             currentFileLabel = "Datei: ";
             ModDLLabel.Text = "Downloadfortschritt: ";
+            CancelModDLBtn.Text = "Stornieren";
             onlineInstructionsLabel.Text = "Online-Spielanweisungen";
             string verString, yearString = "";
             if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
@@ -3381,23 +3484,23 @@ namespace Contra
             {
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("\"generals.ctr\" not found or checksum mismatch! Please, extract it from the \"Contra009FinalPatch2\" archive if you want camera height setting to work and be able to play online with ContraVPN.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("\"generals.ctr\" not found or checksum mismatch! Please, extract it from the \"Contra009FinalPatch2\" archive if you want camera height setting to work and be able to play online.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("\"generals.ctr\" не найден или несоответствие контрольной суммы! Извлеките его из архива \"Contra009FinalPatch2\", если вы хотите, чтобы настройка высоты камеры работала и была возможность играть онлайн с ContraVPN.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("\"generals.ctr\" не найден или несоответствие контрольной суммы! Извлеките его из архива \"Contra009FinalPatch2\", если вы хотите, чтобы настройка высоты камеры работала и была возможность играть онлайн.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("\"generals.ctr\" не знайден або невідповідність контрольної суми! Будь ласка, витягніть його з архіву \"Contra009FinalPatch2\", якщо ви хочете, щоб налаштування висоти камери працювало та матимете змогу грати в режимі он-лайн з ContraVPN.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("\"generals.ctr\" не знайден або невідповідність контрольної суми! Будь ласка, витягніть його з архіву \"Contra009FinalPatch2\", якщо ви хочете, щоб налаштування висоти камери працювало та матимете змогу грати в режимі он-лайн.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("\"generals.ctr\" не е намерен или има несъответствие в контролната сума! Моля, извлечете го от архива \"Contra009FinalPatch2\", ако искате настройката на височината на камерата да работи и да можете да играете онлайн с ContraVPN.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("\"generals.ctr\" не е намерен или има несъответствие в контролната сума! Моля, извлечете го от архива \"Contra009FinalPatch2\", ако искате настройката на височината на камерата да работи и да можете да играете онлайн.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("\"generals.ctr\" nicht gefunden oder Prüfsummeninkongruenz! Bitte extrahieren Sie es aus dem Archiv \"Contra009FinalPatch2\", wenn die Einstellung der Kamerahöhe funktionieren soll und Sie mit ContraVPN online spielen können.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("\"generals.ctr\" nicht gefunden oder Prüfsummeninkongruenz! Bitte extrahieren Sie es aus dem Archiv \"Contra009FinalPatch2\", wenn die Einstellung der Kamerahöhe funktioniert und Sie online spielen können.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

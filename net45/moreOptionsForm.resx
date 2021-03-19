@@ -249,48 +249,6 @@
   <data name="comboBox1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 15px</value>
   </data>
-  <data name="comboBox1.Items" xml:space="preserve">
-    <value>800x600</value>
-  </data>
-  <data name="comboBox1.Items1" xml:space="preserve">
-    <value>1024x768</value>
-  </data>
-  <data name="comboBox1.Items2" xml:space="preserve">
-    <value>1280x720</value>
-  </data>
-  <data name="comboBox1.Items3" xml:space="preserve">
-    <value>1280x768</value>
-  </data>
-  <data name="comboBox1.Items4" xml:space="preserve">
-    <value>1280x800</value>
-  </data>
-  <data name="comboBox1.Items5" xml:space="preserve">
-    <value>1280x1024</value>
-  </data>
-  <data name="comboBox1.Items6" xml:space="preserve">
-    <value>1366x768</value>
-  </data>
-  <data name="comboBox1.Items7" xml:space="preserve">
-    <value>1440x900</value>
-  </data>
-  <data name="comboBox1.Items8" xml:space="preserve">
-    <value>1600x900</value>
-  </data>
-  <data name="comboBox1.Items9" xml:space="preserve">
-    <value>1680x1050</value>
-  </data>
-  <data name="comboBox1.Items10" xml:space="preserve">
-    <value>1920x1080</value>
-  </data>
-  <data name="comboBox1.Items11" xml:space="preserve">
-    <value>1920x1200</value>
-  </data>
-  <data name="comboBox1.Items12" xml:space="preserve">
-    <value>2560x1440</value>
-  </data>
-  <data name="comboBox1.Items13" xml:space="preserve">
-    <value>2560x1800</value>
-  </data>
   <data name="comboBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>46, 91</value>
   </data>
@@ -947,7 +905,7 @@
     <value>camTrackBar</value>
   </data>
   <data name="&gt;&gt;camTrackBar.Type" xml:space="preserve">
-    <value>Contra.TrackBar, Contra_Launcher, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Contra.TrackBar, Contra_Launcher, Version=1.2.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;camTrackBar.Parent" xml:space="preserve">
     <value>$this</value>

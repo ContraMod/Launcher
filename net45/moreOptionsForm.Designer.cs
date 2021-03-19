@@ -110,21 +110,6 @@ namespace Contra
             // 
             resources.ApplyResources(this.comboBox1, "comboBox1");
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            resources.GetString("comboBox1.Items"),
-            resources.GetString("comboBox1.Items1"),
-            resources.GetString("comboBox1.Items2"),
-            resources.GetString("comboBox1.Items3"),
-            resources.GetString("comboBox1.Items4"),
-            resources.GetString("comboBox1.Items5"),
-            resources.GetString("comboBox1.Items6"),
-            resources.GetString("comboBox1.Items7"),
-            resources.GetString("comboBox1.Items8"),
-            resources.GetString("comboBox1.Items9"),
-            resources.GetString("comboBox1.Items10"),
-            resources.GetString("comboBox1.Items11"),
-            resources.GetString("comboBox1.Items12"),
-            resources.GetString("comboBox1.Items13")});
             this.comboBox1.Name = "comboBox1";
             // 
             // labelResolution
@@ -280,7 +265,6 @@ namespace Contra
             this.camTrackBar.Minimum = 392;
             this.camTrackBar.Name = "camTrackBar";
             this.camTrackBar.TabStop = true;
-            this.camTrackBar.Value = 392;
             this.camTrackBar.Scroll += new System.EventHandler(this.camTrackBar_Scroll);
             // 
             // HotkeyStyleGroupBox
