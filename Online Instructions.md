@@ -29,20 +29,22 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 **1.** Установите [Contra 009 Финал + Патч 1 + Патч 2 + Патч 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) сверху чистый 1.04 Zero Hour.
 
-**2.** Установите RadminVPN: https://www.radmin-vpn.com/ru/ затем нажмите Скачать бесплатно и установите
+**2.** Запустите ***Contra_Launcher.exe*** и примите исправления, нажав «Да» при появлении запроса ![1](https://media.discordapp.net/attachments/410501978784006144/829700542443552795/unknown.png).
 
-**3.** В Radmin найдите и присоединитесь к игровой сети:
+**3.** Установите RadminVPN: https://www.radmin-vpn.com/ru/ затем нажмите Скачать бесплатно и установите
+
+**4.** В Radmin найдите и присоединитесь к игровой сети:
 **Command & Conquer: Generals - Zero Hour - Contra 009**
 
-![1](https://media.discordapp.net/attachments/194120076054495232/768127932320710676/unknown.png)
+![2](https://media.discordapp.net/attachments/194120076054495232/768127932320710676/unknown.png)
 
-**4.** Переключите **IP сети** на **26.X.X.X** внутри опций игры.
+**5.** Переключите **IP сети** на **26.X.X.X** внутри опций игры.
 
-![2](https://media.discordapp.net/attachments/410501978784006144/795781594764804106/unknown.png)
+![3](https://media.discordapp.net/attachments/410501978784006144/795781594764804106/unknown.png)
 - Gentool zip необходим для сохранения нестандартного разрешения:
 https://www.gentool.net/download (извлеките последнюю версию d3d8.dll в папку ZH из архива)
 - Также отключите 3D-тени в пользовательских графических параметрах для повышения производительности
 
-**5.** Играйте через лобби **VPN / LAN** (не GameSpy / CnC Online!)
+**6.** Играйте через лобби **VPN / LAN** (не GameSpy / CnC Online!)
 
-![3](https://media.discordapp.net/attachments/410501978784006144/795777032054112306/unknown.png)
+![4](https://media.discordapp.net/attachments/410501978784006144/795777032054112306/unknown.png)
