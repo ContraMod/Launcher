@@ -2,7 +2,7 @@
 ### ENGLISH
 # Contra 009 Final Patch 3 Online Play Instructions
 
-**1.** Install [Contra 009 Final + Patch 1 + Patch 2 + Patch 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) on top of clean 1.04 Zero Hour.
+**1.** Install [Contra 009 Final + Patch 1 + Patch 2 + Patch 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) on top of clean, working, unmodded 1.04 Zero Hour.
 
 **2.** Run ***Contra_Launcher.exe*** and accept the hotfixes by clicking "Yes" when prompted ![1](https://media.discordapp.net/attachments/410501978784006144/829700450064400394/unknown.png).
 
