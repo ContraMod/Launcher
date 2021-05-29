@@ -204,6 +204,545 @@ namespace Contra
             }
         }
 
+        private void UpdateLogic()
+        {
+            string versionsTXT = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString(versions_url);
+
+            // Update launcher
+            GetLauncherUpdate(versionsTXT, launcher_url);
+
+            // Update patch
+            string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
+            newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
+
+            // If launcher is up to date, P3 exists and P3 Hotfixes are missing, update the mod
+            if ((newVersion == Application.ProductVersion) &&
+                (File.Exists("!!!!Contra009Final_Patch3.ctr") || File.Exists("!!!!Contra009Final_Patch3.big")) &&
+                !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
+                (!File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big")))
+            {
+                GetModUpdate(versionsTXT, patch_url);
+            }
+
+            //Load MOTD
+            new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
+        }
+
+        private void RadioFlag_GB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioFlag_GB.Checked)
+            {
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+                ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
+                resources.ApplyResources(this, "$this");
+                applyResources(resources, Controls);
+                Globals.BG_Checked = false;
+                Globals.RU_Checked = false;
+                Globals.UA_Checked = false;
+                Globals.DE_Checked = false;
+                Globals.GB_Checked = true;
+                toolTip1.SetToolTip(RadioLocQuotes, "Units of all three factions will speak English.");
+                toolTip1.SetToolTip(RadioOrigQuotes, "Each faction's units will speak their native language.");
+                toolTip1.SetToolTip(RadioEN, "English in-game language.");
+                toolTip1.SetToolTip(RadioRU, "Russian in-game language.");
+                toolTip1.SetToolTip(MNew, "Use new soundtracks.");
+                toolTip1.SetToolTip(MStandard, "Use standard Zero Hour soundtracks.");
+                toolTip1.SetToolTip(DefaultPics, "Use default general portraits.");
+                toolTip1.SetToolTip(GoofyPics, "Use funny general portraits.");
+                toolTip1.SetToolTip(WinCheckBox, "Starts Contra in a window instead of full screen.");
+                toolTip1.SetToolTip(QSCheckBox, "Disables intro and shellmap (game starts up faster).");
+                toolTip1.SetToolTip(vpn_start, "Start/close ContraVPN.");
+                toolTip1.SetToolTip(ZTConfigBtn, "Open the ContraVPN config file.");
+                toolTip1.SetToolTip(ZTConsoleBtn, "Open the ContraVPN console window.");
+                toolTip1.SetToolTip(ZTNukeBtn, "Uninstall ContraVPN.");
+                toolTip1.SetToolTip(DonateBtn, "Make a donation.");
+                currentFileLabel = "File: ";
+                ModDLLabel.Text = "Download progress: ";
+                CancelModDLBtn.Text = "Cancel";
+                string verString, yearString = "";
+                if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
+                {
+                    verString = "009 Final Patch 3 Hotfix 2";
+                    yearString = "2021";
+                }
+                else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+                {
+                    verString = "009 Final Patch 3 Hotfix 1";
+                    yearString = "2021";
+                }
+                else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
+                {
+                    verString = "009 Final Patch 3";
+                    yearString = "2020";
+                }
+                else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+                {
+                    verString = "009 Final Patch 2";
+                    yearString = "2019";
+                }
+                else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+                {
+                    verString = "009 Final Patch 1";
+                    yearString = "2019";
+                }
+                else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
+                {
+                    verString = "009 Final";
+                    yearString = "2018";
+                }
+                else
+                {
+                    verString = "???";
+                    yearString = "2018";
+                }
+                versionLabel.Text = "Contra Project Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
+
+                Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
+                if (ztExeByName.Length > 0 && wait == false) //if zt is already running
+                {
+                    vpn_start.BackgroundImage = Properties.Resources.vpn_on;
+                    IP_Label.Text = "IP: " + ip;
+                }
+                if (ztExeByName.Length > 0) //if zt is already running
+                {
+                    IP_Label.Text = "IP: " + ip;
+                }
+                if (ztExeByName.Length == 0) //if zt is not running
+                {
+                    IP_Label.Text = "ContraVPN: Off";
+                }
+
+                // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
+                try
+                {
+                    UpdateLogic();
+                }
+                catch { }
+            }
+        }
+
+        private void RadioFlag_RU_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioFlag_RU.Checked)
+            {
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
+                ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
+                resources.ApplyResources(this, "$this");
+                applyResources(resources, Controls);
+                Globals.GB_Checked = false;
+                Globals.BG_Checked = false;
+                Globals.UA_Checked = false;
+                Globals.DE_Checked = false;
+                Globals.RU_Checked = true;
+                toolTip1.SetToolTip(RadioLocQuotes, "Юниты всех трех фракций будут разговаривать на английском.");
+                toolTip1.SetToolTip(RadioOrigQuotes, "Юниты каждой фракции будут разговаривать на их родном языке.");
+                toolTip1.SetToolTip(RadioEN, "Английский язык.");
+                toolTip1.SetToolTip(RadioRU, "Русский язык.");
+                toolTip1.SetToolTip(MNew, "Включить новые саундтреки.");
+                toolTip1.SetToolTip(MStandard, "Включить стандартные саундтреки Zero Hour.");
+                toolTip1.SetToolTip(DefaultPics, "Включить портреты Генералов по умолчанию.");
+                toolTip1.SetToolTip(GoofyPics, "Включить смешные портреты Генералов.");
+                toolTip1.SetToolTip(WinCheckBox, "Запуск Contra в режиме окна вместо полноэкранного.");
+                toolTip1.SetToolTip(QSCheckBox, "Отключает интро и шелмапу (игра запускается быстрее).");
+                toolTip1.SetToolTip(vpn_start, "Открыть/Закрыть ContraVPN.");
+                toolTip1.SetToolTip(ZTConfigBtn, "Открыть файл конфигурации ContraVPN.");
+                toolTip1.SetToolTip(ZTConsoleBtn, "Открыть консоль ContraVPN.");
+                toolTip1.SetToolTip(ZTNukeBtn, "Удалить ContraVPN.");
+                toolTip1.SetToolTip(DonateBtn, "Дарить команду проекта.");
+                RadioLocQuotes.Text = "Англ.";
+                RadioOrigQuotes.Text = "Родные";
+                MNew.Text = "Новая";
+                MStandard.Text = "ZH";
+                WinCheckBox.Text = "Режим окна"; WinCheckBox.Left = 254;
+                QSCheckBox.Text = "Быстр. старт"; QSCheckBox.Left = 254;
+                RadioEN.Text = "Англ.";
+                RadioRU.Text = "Русский";
+                DefaultPics.Text = "По умолч.";
+                GoofyPics.Text = "Смешные";
+                moreOptions.Text = "Больше опций";
+                currentFileLabel = "Файл: ";
+                ModDLLabel.Text = "Прогресс загрузки: ";
+                CancelModDLBtn.Text = "Отмена";
+                onlineInstructionsLabel.Text = "Инструкции по онлайн-игре";
+                string verString, yearString = "";
+                if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
+                {
+                    verString = "009 Final Патч 3 Hotfix 2";
+                    yearString = "2021";
+                }
+                else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+                {
+                    verString = "009 Final Патч 3 Hotfix 1";
+                    yearString = "2021";
+                }
+                else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
+                {
+                    verString = "009 Финал Патч 3";
+                    yearString = "2020";
+                }
+                else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+                {
+                    verString = "009 Финал Патч 2";
+                    yearString = "2019";
+                }
+                else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+                {
+                    verString = "009 Финал Патч 1";
+                    yearString = "2019";
+                }
+                else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
+                {
+                    verString = "009 Финал";
+                    yearString = "2018";
+                }
+                else
+                {
+                    verString = "???";
+                    yearString = "2018";
+                }
+                versionLabel.Text = "Contra Project Team " + yearString + " - Версия " + verString + " - Launcher: " + Application.ProductVersion;
+
+                Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
+                if (ztExeByName.Length > 0 && wait == false) //if zt is already running
+                {
+                    vpn_start.BackgroundImage = Properties.Resources.vpn_on;
+                    IP_Label.Text = "IP: " + ip;
+                }
+                if (ztExeByName.Length > 0) //if zt is already running
+                {
+                    IP_Label.Text = "IP: " + ip;
+                }
+                if (ztExeByName.Length == 0) //if zt is not running
+                {
+                    IP_Label.Text = "ContraVPN: Выкл.";
+                }
+
+                // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
+                try
+                {
+                    UpdateLogic();
+                }
+                catch { }
+            }
+        }
+
+        private void RadioFlag_UA_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioFlag_UA.Checked)
+            {
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("uk-UA");
+                ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
+                resources.ApplyResources(this, "$this");
+                applyResources(resources, Controls);
+                Globals.GB_Checked = false;
+                Globals.RU_Checked = false;
+                Globals.BG_Checked = false;
+                Globals.DE_Checked = false;
+                Globals.UA_Checked = true;
+                toolTip1.SetToolTip(RadioLocQuotes, "Юніти всіх трьох фракцій розмовлятимуть англійською.");
+                toolTip1.SetToolTip(RadioOrigQuotes, "Юніти кожної фракції розмовлятимуть їхньою рідною мовою.");
+                toolTip1.SetToolTip(RadioEN, "Англійська мова.");
+                toolTip1.SetToolTip(RadioRU, "Російська мова.");
+                toolTip1.SetToolTip(MNew, "Використовуйте нові саундтреки.");
+                toolTip1.SetToolTip(MStandard, "Використовуйте стандартні саундтреки Zero Hour.");
+                toolTip1.SetToolTip(DefaultPics, "Використовуйте портрети Генералів за замовчуванням.");
+                toolTip1.SetToolTip(GoofyPics, "Використовуйте смішні портрети Генералів.");
+                toolTip1.SetToolTip(WinCheckBox, "Запускає Contra у віконному режимі замість повноекранного.");
+                toolTip1.SetToolTip(QSCheckBox, "Вимикає інтро і шелмапу (гра запускається швидше).");
+                toolTip1.SetToolTip(vpn_start, "Відкрити/закрити ContraVPN.");
+                toolTip1.SetToolTip(ZTConfigBtn, "Відкрити файл конфігурації ContraVPN.");
+                toolTip1.SetToolTip(ZTConsoleBtn, "Відкрити консоль ContraVPN.");
+                toolTip1.SetToolTip(ZTNukeBtn, "Видалити ContraVPN.");
+                toolTip1.SetToolTip(DonateBtn, "Дарить команду проекту.");
+                RadioLocQuotes.Text = "Англ.";
+                RadioOrigQuotes.Text = "Рідні";
+                MNew.Text = "Нова";
+                MStandard.Text = "ZH";
+                WinCheckBox.Text = "Віконний";
+                QSCheckBox.Text = "Шв. старт";
+                RadioEN.Text = "Англ.";
+                RadioRU.Text = "Рос.";
+                DefaultPics.Text = "За замовч.";
+                GoofyPics.Text = "Смішні";
+                moreOptions.Text = "Більше опцій";
+                currentFileLabel = "Файл: ";
+                ModDLLabel.Text = "Прогрес завантаження: ";
+                CancelModDLBtn.Text = "Скасувати";
+                onlineInstructionsLabel.Text = "Інструкції з гри в режимі онлайн";
+                string verString, yearString = "";
+                if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
+                {
+                    verString = "009 Final Патч 3 Hotfix 2";
+                    yearString = "2021";
+                }
+                else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+                {
+                    verString = "009 Final Патч 3 Hotfix 1";
+                    yearString = "2021";
+                }
+                else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
+                {
+                    verString = "009 Фінал Патч 3";
+                    yearString = "2020";
+                }
+                else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+                {
+                    verString = "009 Фінал Патч 2";
+                    yearString = "2019";
+                }
+                else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+                {
+                    verString = "009 Фінал Патч 1";
+                    yearString = "2019";
+                }
+                else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
+                {
+                    verString = "009 Фінал";
+                    yearString = "2018";
+                }
+                else
+                {
+                    verString = "???";
+                    yearString = "2018";
+                }
+                versionLabel.Text = "Contra Project Team " + yearString + " - Версія " + verString + " - Launcher: " + Application.ProductVersion;
+
+                Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
+                if (ztExeByName.Length > 0 && wait == false) //if zt is already running
+                {
+                    vpn_start.BackgroundImage = Properties.Resources.vpn_on;
+                    IP_Label.Text = "IP: " + ip;
+                }
+                if (ztExeByName.Length > 0) //if zt is already running
+                {
+                    IP_Label.Text = "IP: " + ip;
+                }
+                if (ztExeByName.Length == 0) //if zt is not running
+                {
+                    IP_Label.Text = "ContraVPN: Вимк.";
+                }
+
+                // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
+                try
+                {
+                    UpdateLogic();
+                }
+                catch { }
+            }
+        }
+
+        private void RadioFlag_BG_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioFlag_BG.Checked)
+            {
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("bg-BG");
+                ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
+                resources.ApplyResources(this, "$this");
+                applyResources(resources, Controls);
+                Globals.GB_Checked = false;
+                Globals.RU_Checked = false;
+                Globals.UA_Checked = false;
+                Globals.DE_Checked = false;
+                Globals.BG_Checked = true;
+                toolTip1.SetToolTip(RadioLocQuotes, "Единиците на трите фракции ще говорят на английски.");
+                toolTip1.SetToolTip(RadioOrigQuotes, "Единиците на трите фракции ще говорят на техния роден език.");
+                toolTip1.SetToolTip(RadioEN, "Английски език в играта.");
+                toolTip1.SetToolTip(RadioRU, "Руски език в играта.");
+                toolTip1.SetToolTip(MNew, "Използвайте новата музика.");
+                toolTip1.SetToolTip(MStandard, "Използвайте стандартната музика в Zero Hour.");
+                toolTip1.SetToolTip(DefaultPics, "Използвайте оригиналните генералски портрети.");
+                toolTip1.SetToolTip(GoofyPics, "Използвайте забавните генералски портрети.");
+                toolTip1.SetToolTip(WinCheckBox, "Стартира Contra в нов прозорец вместо на цял екран.");
+                toolTip1.SetToolTip(QSCheckBox, "Изключва интрото и анимираната карта (шелмапа). Играта стартира по-бързо.");
+                toolTip1.SetToolTip(vpn_start, "Включете/изключете ContraVPN.");
+                toolTip1.SetToolTip(ZTConfigBtn, "Отворете конфигурационния файл на ContraVPN.");
+                toolTip1.SetToolTip(ZTConsoleBtn, "Отворете конзолния прозорец на ContraVPN.");
+                toolTip1.SetToolTip(ZTNukeBtn, "Деинсталирайте ContraVPN.");
+                toolTip1.SetToolTip(DonateBtn, "Направете дарение.");
+                RadioLocQuotes.Text = "Англ.";
+                RadioOrigQuotes.Text = "Родни";
+                MNew.Text = "Нова";
+                MStandard.Text = "ZH";
+                WinCheckBox.Text = "В прозорец"; WinCheckBox.Left = 267;
+                QSCheckBox.Text = "Бърз старт"; QSCheckBox.Left = 267;
+                RadioEN.Text = "Англ.";
+                RadioRU.Text = "Руски";
+                DefaultPics.Text = "По подр.";
+                GoofyPics.Text = "Забавни";
+                moreOptions.Text = "Доп. Опции";
+                currentFileLabel = "Файл: ";
+                ModDLLabel.Text = "Прогрес на изтегляне: ";
+                CancelModDLBtn.Text = "Отмени";
+                onlineInstructionsLabel.Text = "Онлайн инструкции";
+                string verString, yearString = "";
+                if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
+                {
+                    verString = "009 Final Пач 3 Hotfix 2";
+                    yearString = "2021";
+                }
+                else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+                {
+                    verString = "009 Final Пач 3 Hotfix 1";
+                    yearString = "2021";
+                }
+                else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
+                {
+                    verString = "009 Final Пач 3";
+                    yearString = "2020";
+                }
+                else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+                {
+                    verString = "009 Final Пач 2";
+                    yearString = "2019";
+                }
+                else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+                {
+                    verString = "009 Final Пач 1";
+                    yearString = "2019";
+                }
+                else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
+                {
+                    verString = "009 Final";
+                    yearString = "2018";
+                }
+                else
+                {
+                    verString = "???";
+                    yearString = "2018";
+                }
+                versionLabel.Text = "Contra Екип " + yearString + " - Версия " + verString + " - Launcher: " + Application.ProductVersion;
+
+                Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
+                if (ztExeByName.Length > 0 && wait == false) //if zt is already running
+                {
+                    vpn_start.BackgroundImage = Properties.Resources.vpn_on;
+                    IP_Label.Text = "IP: " + ip;
+                }
+                if (ztExeByName.Length > 0) //if zt is already running
+                {
+                    IP_Label.Text = "IP: " + ip;
+                }
+                if (ztExeByName.Length == 0) //if zt is not running
+                {
+                    IP_Label.Text = "ContraVPN: Изкл.";
+                }
+
+                // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
+                try
+                {
+                    UpdateLogic();
+                }
+                catch { }
+            }
+        }
+
+        private void RadioFlag_DE_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioFlag_DE.Checked)
+            {
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("de-DE");
+                ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
+                resources.ApplyResources(this, "$this");
+                applyResources(resources, Controls);
+                Globals.GB_Checked = false;
+                Globals.RU_Checked = false;
+                Globals.UA_Checked = false;
+                Globals.BG_Checked = false;
+                Globals.DE_Checked = true;
+                toolTip1.SetToolTip(RadioLocQuotes, "Einheiten von allen drei Fraktionen werden Englisch sprechen.");
+                toolTip1.SetToolTip(RadioOrigQuotes, "Die Einheiten jeder Fraktion sprechen ihre Muttersprache.");
+                toolTip1.SetToolTip(RadioEN, "Englische in-game Sprache.");
+                toolTip1.SetToolTip(RadioRU, "Russische in-game Sprache.");
+                toolTip1.SetToolTip(MNew, "Verwende den neuen Soundtrack.");
+                toolTip1.SetToolTip(MStandard, "Verwende den Standard Zero Hour Soundtrack.");
+                toolTip1.SetToolTip(DefaultPics, "Verwende normale General Portraits.");
+                toolTip1.SetToolTip(GoofyPics, "Verwende lustige General Portraits.");
+                toolTip1.SetToolTip(WinCheckBox, "Startet Contra in einem Fenster anstatt im Vollbild.");
+                toolTip1.SetToolTip(QSCheckBox, "Deaktiviert das Intro und die shellmap (Spiel startet schneller).");
+                toolTip1.SetToolTip(vpn_start, "Starte/SchlieЯe ContraVPN.");
+                toolTip1.SetToolTip(ZTConfigBtn, "Öffnen Sie die ContraVPN-Konfigurationsdatei.");
+                toolTip1.SetToolTip(ZTConsoleBtn, "Öffnen Sie die ContraVPN-Konsole.");
+                toolTip1.SetToolTip(ZTNukeBtn, "Deinstallieren Sie ContraVPN.");
+                toolTip1.SetToolTip(DonateBtn, "Spende an das Contra-Team.");
+                voicespanel.Left = 260;
+                voicespanel.Size = new Size(95, 61);
+                RadioLocQuotes.Text = "Englisch"; RadioLocQuotes.Left = 0;
+                RadioOrigQuotes.Text = "Einheimisch"; RadioOrigQuotes.Left = 0;
+                MNew.Text = "Neu";
+                MStandard.Text = "Standard";
+                WinCheckBox.Text = "Fenstermodus"; WinCheckBox.Left = 260;
+                QSCheckBox.Text = "Schnellstart"; QSCheckBox.Left = 260;
+                RadioEN.Text = "Englisch";
+                RadioRU.Text = "Russisch";
+                DefaultPics.Text = "Standard";
+                GoofyPics.Text = "Lustig";
+                moreOptions.Text = "Einstellungen";
+                currentFileLabel = "Datei: ";
+                ModDLLabel.Text = "Downloadfortschritt: ";
+                CancelModDLBtn.Text = "Stornieren";
+                onlineInstructionsLabel.Text = "Online-Spielanweisungen";
+                string verString, yearString = "";
+                if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
+                {
+                    verString = "009 Final Patch 3 Hotfix 2";
+                    yearString = "2021";
+                }
+                else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
+                {
+                    verString = "009 Final Patch 3 Hotfix 1";
+                    yearString = "2021";
+                }
+                else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
+                {
+                    verString = "009 Final Patch 3";
+                    yearString = "2020";
+                }
+                else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+                {
+                    verString = "009 Final Patch 2";
+                    yearString = "2019";
+                }
+                else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
+                {
+                    verString = "009 Final Patch 1";
+                    yearString = "2019";
+                }
+                else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
+                {
+                    verString = "009 Final";
+                    yearString = "2018";
+                }
+                else
+                {
+                    verString = "???";
+                    yearString = "2018";
+                }
+                versionLabel.Text = "Contra Projekt Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
+
+                Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
+                if (ztExeByName.Length > 0 && wait == false) //if zt is already running
+                {
+                    vpn_start.BackgroundImage = Properties.Resources.vpn_on;
+                    IP_Label.Text = "IP: " + ip;
+                }
+                if (ztExeByName.Length > 0) //if zt is already running
+                {
+                    IP_Label.Text = "IP: " + ip;
+                }
+                if (ztExeByName.Length == 0) //if zt is not running
+                {
+                    IP_Label.Text = "ContraVPN: Aus";
+                }
+
+                // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
+                try
+                {
+                    UpdateLogic();
+                }
+                catch { }
+            }
+        }
+
         public async void GetModUpdate(string versionsTXT, string patch_url)
         {
             string zip_url = null;
@@ -2736,592 +3275,6 @@ namespace Contra
                 resources.ApplyResources(ctl, ctl.Name);
                 applyResources(resources, ctl.Controls);
             }
-        }
-
-        private void RadioFlag_GB_CheckedChanged(object sender, EventArgs e)
-        {
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
-            resources.ApplyResources(this, "$this");
-            applyResources(resources, Controls);
-            Globals.BG_Checked = false;
-            Globals.RU_Checked = false;
-            Globals.UA_Checked = false;
-            Globals.DE_Checked = false;
-            Globals.GB_Checked = true;
-            toolTip1.SetToolTip(RadioLocQuotes, "Units of all three factions will speak English.");
-            toolTip1.SetToolTip(RadioOrigQuotes, "Each faction's units will speak their native language.");
-            toolTip1.SetToolTip(RadioEN, "English in-game language.");
-            toolTip1.SetToolTip(RadioRU, "Russian in-game language.");
-            toolTip1.SetToolTip(MNew, "Use new soundtracks.");
-            toolTip1.SetToolTip(MStandard, "Use standard Zero Hour soundtracks.");
-            toolTip1.SetToolTip(DefaultPics, "Use default general portraits.");
-            toolTip1.SetToolTip(GoofyPics, "Use funny general portraits.");
-            toolTip1.SetToolTip(WinCheckBox, "Starts Contra in a window instead of full screen.");
-            toolTip1.SetToolTip(QSCheckBox, "Disables intro and shellmap (game starts up faster).");
-            toolTip1.SetToolTip(vpn_start, "Start/close ContraVPN.");
-            toolTip1.SetToolTip(ZTConfigBtn, "Open the ContraVPN config file.");
-            toolTip1.SetToolTip(ZTConsoleBtn, "Open the ContraVPN console window.");
-            toolTip1.SetToolTip(ZTNukeBtn, "Uninstall ContraVPN.");
-            toolTip1.SetToolTip(DonateBtn, "Make a donation.");
-            currentFileLabel = "File: ";
-            ModDLLabel.Text = "Download progress: ";
-            CancelModDLBtn.Text = "Cancel";
-            string verString, yearString = "";
-            if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
-            {
-                verString = "009 Final Patch 3 Hotfix 2";
-                yearString = "2021";
-            }
-            else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
-            {
-                verString = "009 Final Patch 3 Hotfix 1";
-                yearString = "2021";
-            }
-            else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
-            {
-                verString = "009 Final Patch 3";
-                yearString = "2020";
-            }
-            else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
-            {
-                verString = "009 Final Patch 2";
-                yearString = "2019";
-            }
-            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
-            {
-                verString = "009 Final Patch 1";
-                yearString = "2019";
-            }
-            else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
-            {
-                verString = "009 Final";
-                yearString = "2018";
-            }
-            else
-            {
-                verString = "???";
-                yearString = "2018";
-            }
-            versionLabel.Text = "Contra Project Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
-
-            Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
-            if (ztExeByName.Length > 0 && wait == false) //if zt is already running
-            {
-                vpn_start.BackgroundImage = Properties.Resources.vpn_on;
-                IP_Label.Text = "IP: " + ip;
-            }
-            if (ztExeByName.Length > 0) //if zt is already running
-            {
-                IP_Label.Text = "IP: " + ip;
-            }
-            if (ztExeByName.Length == 0) //if zt is not running
-            {
-                IP_Label.Text = "ContraVPN: Off";
-            }
-
-            // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
-            try
-            {
-                string versionsTXT = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString(versions_url);
-
-                // Update launcher
-                GetLauncherUpdate(versionsTXT, launcher_url);
-
-                // Update patch
-                string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
-                newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
-                // If launcher is up to date, P3 exists and P3 Hotfixes are missing
-                if ((newVersion == Application.ProductVersion) &&
-                    (File.Exists("!!!!Contra009Final_Patch3.ctr") && !File.Exists("!!!!Contra009Final_Patch3.big") &&
-                    (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
-                    !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big"))))
-                {
-                    GetModUpdate(versionsTXT, patch_url);
-                }
-
-                //Load MOTD
-                new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
-            }
-            catch { }
-        }
-
-        private void RadioFlag_RU_CheckedChanged(object sender, EventArgs e)
-        {
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
-            resources.ApplyResources(this, "$this");
-            applyResources(resources, Controls);
-            Globals.GB_Checked = false;
-            Globals.BG_Checked = false;
-            Globals.UA_Checked = false;
-            Globals.DE_Checked = false;
-            Globals.RU_Checked = true;
-            toolTip1.SetToolTip(RadioLocQuotes, "Юниты всех трех фракций будут разговаривать на английском.");
-            toolTip1.SetToolTip(RadioOrigQuotes, "Юниты каждой фракции будут разговаривать на их родном языке.");
-            toolTip1.SetToolTip(RadioEN, "Английский язык.");
-            toolTip1.SetToolTip(RadioRU, "Русский язык.");
-            toolTip1.SetToolTip(MNew, "Включить новые саундтреки.");
-            toolTip1.SetToolTip(MStandard, "Включить стандартные саундтреки Zero Hour.");
-            toolTip1.SetToolTip(DefaultPics, "Включить портреты Генералов по умолчанию.");
-            toolTip1.SetToolTip(GoofyPics, "Включить смешные портреты Генералов.");
-            toolTip1.SetToolTip(WinCheckBox, "Запуск Contra в режиме окна вместо полноэкранного.");
-            toolTip1.SetToolTip(QSCheckBox, "Отключает интро и шелмапу (игра запускается быстрее).");
-            toolTip1.SetToolTip(vpn_start, "Открыть/Закрыть ContraVPN.");
-            toolTip1.SetToolTip(ZTConfigBtn, "Открыть файл конфигурации ContraVPN.");
-            toolTip1.SetToolTip(ZTConsoleBtn, "Открыть консоль ContraVPN.");
-            toolTip1.SetToolTip(ZTNukeBtn, "Удалить ContraVPN.");
-            toolTip1.SetToolTip(DonateBtn, "Дарить команду проекта.");
-            RadioLocQuotes.Text = "Англ.";
-            RadioOrigQuotes.Text = "Родные";
-            MNew.Text = "Новая";
-            MStandard.Text = "ZH";
-            WinCheckBox.Text = "Режим окна"; WinCheckBox.Left = 254;
-            QSCheckBox.Text = "Быстр. старт"; QSCheckBox.Left = 254;
-            RadioEN.Text = "Англ.";
-            RadioRU.Text = "Русский";
-            DefaultPics.Text = "По умолч.";
-            GoofyPics.Text = "Смешные";
-            moreOptions.Text = "Больше опций";
-            currentFileLabel = "Файл: ";
-            ModDLLabel.Text = "Прогресс загрузки: ";
-            CancelModDLBtn.Text = "Отмена";
-            onlineInstructionsLabel.Text = "Инструкции по онлайн-игре";
-            string verString, yearString = "";
-            if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
-            {
-                verString = "009 Final Патч 3 Hotfix 2";
-                yearString = "2021";
-            }
-            else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
-            {
-                verString = "009 Final Патч 3 Hotfix 1";
-                yearString = "2021";
-            }
-            else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
-            {
-                verString = "009 Финал Патч 3";
-                yearString = "2020";
-            }
-            else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
-            {
-                verString = "009 Финал Патч 2";
-                yearString = "2019";
-            }
-            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
-            {
-                verString = "009 Финал Патч 1";
-                yearString = "2019";
-            }
-            else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
-            {
-                verString = "009 Финал";
-                yearString = "2018";
-            }
-            else
-            {
-                verString = "???";
-                yearString = "2018";
-            }
-            versionLabel.Text = "Contra Project Team " + yearString + " - Версия " + verString + " - Launcher: " + Application.ProductVersion;
-
-            Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
-            if (ztExeByName.Length > 0 && wait == false) //if zt is already running
-            {
-                vpn_start.BackgroundImage = Properties.Resources.vpn_on;
-                IP_Label.Text = "IP: " + ip;
-            }
-            if (ztExeByName.Length > 0) //if zt is already running
-            {
-                IP_Label.Text = "IP: " + ip;
-            }
-            if (ztExeByName.Length == 0) //if zt is not running
-            {
-                IP_Label.Text = "ContraVPN: Выкл.";
-            }
-
-            // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
-            try
-            {
-                string versionsTXT = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString(versions_url);
-
-                // Update launcher
-                GetLauncherUpdate(versionsTXT, launcher_url);
-
-                // Update patch
-                string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
-                newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
-                // If launcher is up to date and P3 Hotfixes are missing
-                if ((newVersion == Application.ProductVersion) &&
-                    (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
-                    !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big")))
-                {
-                    GetModUpdate(versionsTXT, patch_url);
-                }
-
-                //Load MOTD
-                new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
-            }
-            catch { }
-        }
-
-        private void RadioFlag_UA_CheckedChanged(object sender, EventArgs e)
-        {
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("uk-UA");
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
-            resources.ApplyResources(this, "$this");
-            applyResources(resources, Controls);
-            Globals.GB_Checked = false;
-            Globals.RU_Checked = false;
-            Globals.BG_Checked = false;
-            Globals.DE_Checked = false;
-            Globals.UA_Checked = true;
-            toolTip1.SetToolTip(RadioLocQuotes, "Юніти всіх трьох фракцій розмовлятимуть англійською.");
-            toolTip1.SetToolTip(RadioOrigQuotes, "Юніти кожної фракції розмовлятимуть їхньою рідною мовою.");
-            toolTip1.SetToolTip(RadioEN, "Англійська мова.");
-            toolTip1.SetToolTip(RadioRU, "Російська мова.");
-            toolTip1.SetToolTip(MNew, "Використовуйте нові саундтреки.");
-            toolTip1.SetToolTip(MStandard, "Використовуйте стандартні саундтреки Zero Hour.");
-            toolTip1.SetToolTip(DefaultPics, "Використовуйте портрети Генералів за замовчуванням.");
-            toolTip1.SetToolTip(GoofyPics, "Використовуйте смішні портрети Генералів.");
-            toolTip1.SetToolTip(WinCheckBox, "Запускає Contra у віконному режимі замість повноекранного.");
-            toolTip1.SetToolTip(QSCheckBox, "Вимикає інтро і шелмапу (гра запускається швидше).");
-            toolTip1.SetToolTip(vpn_start, "Відкрити/закрити ContraVPN.");
-            toolTip1.SetToolTip(ZTConfigBtn, "Відкрити файл конфігурації ContraVPN.");
-            toolTip1.SetToolTip(ZTConsoleBtn, "Відкрити консоль ContraVPN.");
-            toolTip1.SetToolTip(ZTNukeBtn, "Видалити ContraVPN.");
-            toolTip1.SetToolTip(DonateBtn, "Дарить команду проекту.");
-            RadioLocQuotes.Text = "Англ.";
-            RadioOrigQuotes.Text = "Рідні";
-            MNew.Text = "Нова";
-            MStandard.Text = "ZH";
-            WinCheckBox.Text = "Віконний";
-            QSCheckBox.Text = "Шв. старт";
-            RadioEN.Text = "Англ.";
-            RadioRU.Text = "Рос.";
-            DefaultPics.Text = "За замовч.";
-            GoofyPics.Text = "Смішні";
-            moreOptions.Text = "Більше опцій";
-            currentFileLabel = "Файл: ";
-            ModDLLabel.Text = "Прогрес завантаження: ";
-            CancelModDLBtn.Text = "Скасувати";
-            onlineInstructionsLabel.Text = "Інструкції з гри в режимі онлайн";
-            string verString, yearString = "";
-            if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
-            {
-                verString = "009 Final Патч 3 Hotfix 2";
-                yearString = "2021";
-            }
-            else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
-            {
-                verString = "009 Final Патч 3 Hotfix 1";
-                yearString = "2021";
-            }
-            else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
-            {
-                verString = "009 Фінал Патч 3";
-                yearString = "2020";
-            }
-            else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
-            {
-                verString = "009 Фінал Патч 2";
-                yearString = "2019";
-            }
-            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
-            {
-                verString = "009 Фінал Патч 1";
-                yearString = "2019";
-            }
-            else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
-            {
-                verString = "009 Фінал";
-                yearString = "2018";
-            }
-            else
-            {
-                verString = "???";
-                yearString = "2018";
-            }
-            versionLabel.Text = "Contra Project Team " + yearString + " - Версія " + verString + " - Launcher: " + Application.ProductVersion;
-
-            Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
-            if (ztExeByName.Length > 0 && wait == false) //if zt is already running
-            {
-                vpn_start.BackgroundImage = Properties.Resources.vpn_on;
-                IP_Label.Text = "IP: " + ip;
-            }
-            if (ztExeByName.Length > 0) //if zt is already running
-            {
-                IP_Label.Text = "IP: " + ip;
-            }
-            if (ztExeByName.Length == 0) //if zt is not running
-            {
-                IP_Label.Text = "ContraVPN: Вимк.";
-            }
-
-            // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
-            try
-            {
-                string versionsTXT = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString(versions_url);
-
-                // Update launcher
-                GetLauncherUpdate(versionsTXT, launcher_url);
-
-                // Update patch
-                string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
-                newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
-                // If launcher is up to date and P3 Hotfixes are missing
-                if ((newVersion == Application.ProductVersion) &&
-                    (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
-                    !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big")))
-                {
-                    GetModUpdate(versionsTXT, patch_url);
-                }
-
-                //Load MOTD
-                new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
-            }
-            catch { }
-        }
-
-        private void RadioFlag_BG_CheckedChanged(object sender, EventArgs e)
-        {
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("bg-BG");
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
-            resources.ApplyResources(this, "$this");
-            applyResources(resources, Controls);
-            Globals.GB_Checked = false;
-            Globals.RU_Checked = false;
-            Globals.UA_Checked = false;
-            Globals.DE_Checked = false;
-            Globals.BG_Checked = true;
-            toolTip1.SetToolTip(RadioLocQuotes, "Единиците на трите фракции ще говорят на английски.");
-            toolTip1.SetToolTip(RadioOrigQuotes, "Единиците на трите фракции ще говорят на техния роден език.");
-            toolTip1.SetToolTip(RadioEN, "Английски език в играта.");
-            toolTip1.SetToolTip(RadioRU, "Руски език в играта.");
-            toolTip1.SetToolTip(MNew, "Използвайте новата музика.");
-            toolTip1.SetToolTip(MStandard, "Използвайте стандартната музика в Zero Hour.");
-            toolTip1.SetToolTip(DefaultPics, "Използвайте оригиналните генералски портрети.");
-            toolTip1.SetToolTip(GoofyPics, "Използвайте забавните генералски портрети.");
-            toolTip1.SetToolTip(WinCheckBox, "Стартира Contra в нов прозорец вместо на цял екран.");
-            toolTip1.SetToolTip(QSCheckBox, "Изключва интрото и анимираната карта (шелмапа). Играта стартира по-бързо.");
-            toolTip1.SetToolTip(vpn_start, "Включете/изключете ContraVPN.");
-            toolTip1.SetToolTip(ZTConfigBtn, "Отворете конфигурационния файл на ContraVPN.");
-            toolTip1.SetToolTip(ZTConsoleBtn, "Отворете конзолния прозорец на ContraVPN.");
-            toolTip1.SetToolTip(ZTNukeBtn, "Деинсталирайте ContraVPN.");
-            toolTip1.SetToolTip(DonateBtn, "Направете дарение.");
-            RadioLocQuotes.Text = "Англ.";
-            RadioOrigQuotes.Text = "Родни";
-            MNew.Text = "Нова";
-            MStandard.Text = "ZH";
-            WinCheckBox.Text = "В прозорец"; WinCheckBox.Left = 267;
-            QSCheckBox.Text = "Бърз старт"; QSCheckBox.Left = 267;
-            RadioEN.Text = "Англ.";
-            RadioRU.Text = "Руски";
-            DefaultPics.Text = "По подр.";
-            GoofyPics.Text = "Забавни";
-            moreOptions.Text = "Доп. Опции";
-            currentFileLabel = "Файл: ";
-            ModDLLabel.Text = "Прогрес на изтегляне: ";
-            CancelModDLBtn.Text = "Отмени";
-            onlineInstructionsLabel.Text = "Онлайн инструкции";
-            string verString, yearString = "";
-            if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
-            {
-                verString = "009 Final Пач 3 Hotfix 2";
-                yearString = "2021";
-            }
-            else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
-            {
-                verString = "009 Final Пач 3 Hotfix 1";
-                yearString = "2021";
-            }
-            else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
-            {
-                verString = "009 Final Пач 3";
-                yearString = "2020";
-            }
-            else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
-            {
-                verString = "009 Final Пач 2";
-                yearString = "2019";
-            }
-            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
-            {
-                verString = "009 Final Пач 1";
-                yearString = "2019";
-            }
-            else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
-            {
-                verString = "009 Final";
-                yearString = "2018";
-            }
-            else
-            {
-                verString = "???";
-                yearString = "2018";
-            }
-            versionLabel.Text = "Contra Екип " + yearString + " - Версия " + verString + " - Launcher: " + Application.ProductVersion;
-
-            Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
-            if (ztExeByName.Length > 0 && wait == false) //if zt is already running
-            {
-                vpn_start.BackgroundImage = Properties.Resources.vpn_on;
-                IP_Label.Text = "IP: " + ip;
-            }
-            if (ztExeByName.Length > 0) //if zt is already running
-            {
-                IP_Label.Text = "IP: " + ip;
-            }
-            if (ztExeByName.Length == 0) //if zt is not running
-            {
-                IP_Label.Text = "ContraVPN: Изкл.";
-            }
-
-            // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
-            try
-            {
-                string versionsTXT = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString(versions_url);
-
-                // Update launcher
-                GetLauncherUpdate(versionsTXT, launcher_url);
-
-                // Update patch
-                string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
-                newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
-                // If launcher is up to date and P3 Hotfixes are missing
-                if ((newVersion == Application.ProductVersion) &&
-                    (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
-                    !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big")))
-                {
-                    GetModUpdate(versionsTXT, patch_url);
-                }
-
-                //Load MOTD
-                new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
-            }
-            catch { }
-        }
-
-        private void RadioFlag_DE_CheckedChanged(object sender, EventArgs e)
-        {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("de-DE");
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
-            resources.ApplyResources(this, "$this");
-            applyResources(resources, Controls);
-            Globals.GB_Checked = false;
-            Globals.RU_Checked = false;
-            Globals.UA_Checked = false;
-            Globals.BG_Checked = false;
-            Globals.DE_Checked = true;
-            toolTip1.SetToolTip(RadioLocQuotes, "Einheiten von allen drei Fraktionen werden Englisch sprechen.");
-            toolTip1.SetToolTip(RadioOrigQuotes, "Die Einheiten jeder Fraktion sprechen ihre Muttersprache.");
-            toolTip1.SetToolTip(RadioEN, "Englische in-game Sprache.");
-            toolTip1.SetToolTip(RadioRU, "Russische in-game Sprache.");
-            toolTip1.SetToolTip(MNew, "Verwende den neuen Soundtrack.");
-            toolTip1.SetToolTip(MStandard, "Verwende den Standard Zero Hour Soundtrack.");
-            toolTip1.SetToolTip(DefaultPics, "Verwende normale General Portraits.");
-            toolTip1.SetToolTip(GoofyPics, "Verwende lustige General Portraits.");
-            toolTip1.SetToolTip(WinCheckBox, "Startet Contra in einem Fenster anstatt im Vollbild.");
-            toolTip1.SetToolTip(QSCheckBox, "Deaktiviert das Intro und die shellmap (Spiel startet schneller).");
-            toolTip1.SetToolTip(vpn_start, "Starte/SchlieЯe ContraVPN.");
-            toolTip1.SetToolTip(ZTConfigBtn, "Öffnen Sie die ContraVPN-Konfigurationsdatei.");
-            toolTip1.SetToolTip(ZTConsoleBtn, "Öffnen Sie die ContraVPN-Konsole.");
-            toolTip1.SetToolTip(ZTNukeBtn, "Deinstallieren Sie ContraVPN.");
-            toolTip1.SetToolTip(DonateBtn, "Spende an das Contra-Team.");
-            voicespanel.Left = 260;
-            voicespanel.Size = new Size(95, 61);
-            RadioLocQuotes.Text = "Englisch"; RadioLocQuotes.Left = 0;
-            RadioOrigQuotes.Text = "Einheimisch"; RadioOrigQuotes.Left = 0;
-            MNew.Text = "Neu";
-            MStandard.Text = "Standard";
-            WinCheckBox.Text = "Fenstermodus"; WinCheckBox.Left = 260;
-            QSCheckBox.Text = "Schnellstart"; QSCheckBox.Left = 260;
-            RadioEN.Text = "Englisch";
-            RadioRU.Text = "Russisch";
-            DefaultPics.Text = "Standard";
-            GoofyPics.Text = "Lustig";
-            moreOptions.Text = "Einstellungen";
-            currentFileLabel = "Datei: ";
-            ModDLLabel.Text = "Downloadfortschritt: ";
-            CancelModDLBtn.Text = "Stornieren";
-            onlineInstructionsLabel.Text = "Online-Spielanweisungen";
-            string verString, yearString = "";
-            if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
-            {
-                verString = "009 Final Patch 3 Hotfix 2";
-                yearString = "2021";
-            }
-            else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
-            {
-                verString = "009 Final Patch 3 Hotfix 1";
-                yearString = "2021";
-            }
-            else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
-            {
-                verString = "009 Final Patch 3";
-                yearString = "2020";
-            }
-            else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
-            {
-                verString = "009 Final Patch 2";
-                yearString = "2019";
-            }
-            else if (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr") && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))
-            {
-                verString = "009 Final Patch 1";
-                yearString = "2019";
-            }
-            else if (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))
-            {
-                verString = "009 Final";
-                yearString = "2018";
-            }
-            else
-            {
-                verString = "???";
-                yearString = "2018";
-            }
-            versionLabel.Text = "Contra Projekt Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
-
-            Process[] ztExeByName = Process.GetProcessesByName("zt-x" + Globals.userOS);
-            if (ztExeByName.Length > 0 && wait == false) //if zt is already running
-            {
-                vpn_start.BackgroundImage = Properties.Resources.vpn_on;
-                IP_Label.Text = "IP: " + ip;
-            }
-            if (ztExeByName.Length > 0) //if zt is already running
-            {
-                IP_Label.Text = "IP: " + ip;
-            }
-            if (ztExeByName.Length == 0) //if zt is not running
-            {
-                IP_Label.Text = "ContraVPN: Aus";
-            }
-
-            // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
-            try
-            {
-                string versionsTXT = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString(versions_url);
-
-                // Update launcher
-                GetLauncherUpdate(versionsTXT, launcher_url);
-
-                // Update patch
-                string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
-                newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
-                // If launcher is up to date and P3 Hotfixes are missing
-                if ((newVersion == Application.ProductVersion) &&
-                    (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
-                    !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big")))
-                {
-                    GetModUpdate(versionsTXT, patch_url);
-                }
-
-                //Load MOTD
-                new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
-            }
-            catch { }
         }
 
         private void Resolution_Click(object sender, EventArgs e) //Opens More Options form
