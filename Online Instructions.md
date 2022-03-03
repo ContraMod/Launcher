@@ -1,5 +1,5 @@
 [ENGLISH](#ENGLISH) | [РУССКИЙ](#РУССКИЙ)
-### ENGLISH (https://cdn.discordapp.com/attachments/410500983198580740/948933164859015198/flag-ru.jpg)
+### ENGLISH !(https://cdn.discordapp.com/attachments/410500983198580740/948933165177765938/flag-gb.jpg)
 # Contra 009 Final Patch 3 Online Play Instructions
 
 ### Contra installation method #1 (using official Contra Launcher)
@@ -32,7 +32,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 ![4](https://media.discordapp.net/attachments/410501978784006144/795777286874857542/unknown.png)
 
-### РУССКИЙ (https://cdn.discordapp.com/attachments/410500983198580740/948933164859015198/flag-ru.jpg)
+### РУССКИЙ !(https://cdn.discordapp.com/attachments/410500983198580740/948933164859015198/flag-ru.jpg)
 # Contra 009 Final Patch 3 Инструкции по онлайн-игре
 
 ### Способ установки Contra №1 (используя официальный Contra Launcher)
