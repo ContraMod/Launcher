@@ -2,15 +2,15 @@
 ### ENGLISH
 # Contra 009 Final Patch 3 Online Play Instructions
 
-### Contra installation method #1
+### Contra installation method #1 (using official Contra Launcher)
 **1.** Install [Contra 009 Final + Patch 1 + Patch 2 + Patch 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) on top of clean, working, unmodded Zero Hour v1.04.
 
 **2.** Run ***Contra_Launcher.exe*** and accept the hotfixes by clicking "Yes" when prompted ![1](https://media.discordapp.net/attachments/410501978784006144/829700450064400394/unknown.png).
 
-### Contra installation method #2
+### Contra installation method #2 (using GenLauncher)
 **1.** Join [GenLauncher Discord](https://discord.com/invite/fFGpudz5hV)
 
-**2.** Join [Download the latest version](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) and place GenLauncher.exe in your Zero Hour game folder. Run it, add Contra mod, and wait for it to get downloaded.
+**2.** [Download the latest version](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) and place GenLauncher.exe in your Zero Hour game folder. Run it, add Contra mod, and wait for it to get downloaded.
 
 ### Installing the VPN software
 
