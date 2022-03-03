@@ -1,5 +1,5 @@
 [ENGLISH](#ENGLISH) | [РУССКИЙ](#РУССКИЙ)
-### ENGLISH
+### ENGLISH https://cdn.discordapp.com/attachments/410500983198580740/948933164859015198/flag-ru.jpg
 # Contra 009 Final Patch 3 Online Play Instructions
 
 ### Contra installation method #1 (using official Contra Launcher)
