@@ -35,9 +35,17 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 ### РУССКИЙ
 # Contra 009 Final Patch 3 Инструкции по онлайн-игре
 
+### Способ установки Contra №1 (используя официальный Contra Launcher)
 **1.** Установите [Contra 009 Финал + Патч 1 + Патч 2 + Патч 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
 
 **2.** Запустите ***Contra_Launcher.exe*** и примите исправления, нажав «Да» при появлении запроса ![1](https://media.discordapp.net/attachments/410501978784006144/829700542443552795/unknown.png).
+
+### Способ установки Contra №2 (используя GenLauncher)
+**1.** Присоединитесь [GenLauncher Discord](https://discord.com/invite/fFGpudz5hV)
+
+**2.** [Скачать последнюю версию](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) и поместите GenLauncher.exe в папку с игрой Zero Hour. Запустите его, добавьте мод Contra и дождитесь его загрузки.
+
+### Установка программного обеспечения VPN
 
 **3.** Установите RadminVPN: https://www.radmin-vpn.com/ru/ затем нажмите Скачать бесплатно и установите
 
