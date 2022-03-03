@@ -32,7 +32,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 ![4](https://media.discordapp.net/attachments/410501978784006144/795777286874857542/unknown.png)
 
-### РУССКИЙ ![0](https://cdn.discordapp.com/attachments/410500983198580740/948933164859015198/flag-ru.jpg)
+### РУССКИЙ ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg)
 # Contra 009 Final Patch 3 Инструкции по онлайн-игре
 
 ### Способ установки Contra №1 (используя официальный Contra Launcher)
