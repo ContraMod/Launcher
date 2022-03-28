@@ -38,7 +38,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 ### Способ установки Contra №1 (используя официальный Contra Launcher)
 **1.** Установите [Contra 009 Финал + Патч 1 + Патч 2 + Патч 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
--([Видео инструкции])(https://www.youtube.com/watch?v=wQoktTvNQGs)
+-[(Видео инструкции)](https://www.youtube.com/watch?v=wQoktTvNQGs)
 
 **2.** Запустите ***Contra_Launcher.exe*** и примите исправления, нажав «Да» при появлении запроса ![1](https://media.discordapp.net/attachments/410501978784006144/829700542443552795/unknown.png).
 
