@@ -1,0 +1,34 @@
+![0](https://cdn.discordapp.com/attachments/410500983198580740/948933165177765938/flag-gb.jpg) [ENGLISH](#ENGLISH-) | ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg) [РУССКИЙ](#РУССКИЙ-)
+### ENGLISH ![0](https://cdn.discordapp.com/attachments/410500983198580740/948933165177765938/flag-gb.jpg)
+# Contra Support
+
+You're having a problem with the mod but need help finding a solution?
+
+**1.** [Join our Discord](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches).
+
+**2.** Navigate to the **#issue-support** channel.
+
+**3.** Click the pin icon to bring up the pinned messages.
+
+**4.** Browse through the available error solutions.
+
+![](https://cdn.discordapp.com/attachments/410500983198580740/975850322155171840/support.jpg)
+
+If you didn't find a fix for your problem, feel free to ask in the same channel.
+
+### РУССКИЙ ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg)
+# Contra Поддержка
+
+У вас возникла проблема с модом, но вам нужна помощь в поиске решения?
+
+**1.** [Присоединяйтесь к нашему Discord](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches).
+
+**2.** Перейдите на канал **#issue-support**.
+
+**3.** Щелкните значок булавки, чтобы открыть закрепленные сообщения.
+
+**4.** Просмотрите доступные решения ошибок.
+
+![](https://cdn.discordapp.com/attachments/410500983198580740/975850322155171840/support.jpg)
+
+Если вы не нашли решение своей проблемы, не стесняйтесь спрашивать в том же канале. Если ваш вопрос будет на русском языке, пожалуйста, используйте канал **#помощь**.
