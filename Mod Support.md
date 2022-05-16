@@ -2,7 +2,7 @@
 ### ENGLISH ![0](https://cdn.discordapp.com/attachments/410500983198580740/948933165177765938/flag-gb.jpg)
 # Contra Support
 
-You're having a problem with the mod but need help finding a solution?
+You're having a problem with the mod but need help finding a solution? Before you continue, if you have a problem with installing the mod, [visit this page](https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md#ENGLISH-) and check steps 1. and 2.
 
 **1.** [Join our Discord](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches).
 
@@ -19,7 +19,7 @@ If you didn't find a fix for your problem, feel free to ask in the same channel.
 ### РУССКИЙ ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg)
 # Contra Поддержка
 
-У вас возникла проблема с модом, но вам нужна помощь в поиске решения?
+У вас возникла проблема с модом, но вам нужна помощь в поиске решения? Прежде чем продолжить, если у вас возникли проблемы с установкой мода, [посетите эту страницу](https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md#ENGLISH-) и проверьте шаги 1. и 2.
 
 **1.** [Присоединяйтесь к нашему Discord](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches).
 
