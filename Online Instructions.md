@@ -5,7 +5,7 @@
 ### Contra installation method №1 (using official Contra Launcher)
 **1.** Install [Contra 009 Final + Patch 1 + Patch 2 + Patch 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) on top of clean, working, unmodded Zero Hour v1.04.
 
-[(Video instructions)](https://www.youtube.com/watch?v=UbPLFd_D_tM)
+[![](https://cdn.discordapp.com/attachments/410500983198580740/975781531228455042/youtubeicon.png)](https://www.youtube.com/watch?v=UbPLFd_D_tM)[(Video instructions)](https://www.youtube.com/watch?v=UbPLFd_D_tM)
 
 **2.** Run ***Contra_Launcher.exe*** and accept the hotfixes by clicking "Yes" when prompted ![1](https://media.discordapp.net/attachments/410501978784006144/829700450064400394/unknown.png).
 
@@ -40,7 +40,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 ### Способ установки Contra №1 (используя официальный Contra Launcher)
 **1.** Установите [Contra 009 Финал + Патч 1 + Патч 2 + Патч 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
 
-[(Видео инструкции)](https://www.youtube.com/watch?v=wQoktTvNQGs)
+[![](https://cdn.discordapp.com/attachments/410500983198580740/975781531228455042/youtubeicon.png)](https://www.youtube.com/watch?v=UbPLFd_D_tM)[(Видео инструкции)](https://www.youtube.com/watch?v=wQoktTvNQGs)
 
 **2.** Запустите ***Contra_Launcher.exe*** и примите исправления, нажав «Да» при появлении запроса ![1](https://media.discordapp.net/attachments/410501978784006144/829700542443552795/unknown.png).
 
