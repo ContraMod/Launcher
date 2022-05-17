@@ -106,7 +106,7 @@ namespace Contra
         string patch_url = "http://contra.cncguild.net/Downloads/";
 
         bool applyNewLauncher = false;
-        bool restartLauncher = false;
+//        bool restartLauncher = false;
 
         bool disableVPNOnBtn = false;
         string ip;
@@ -129,7 +129,7 @@ namespace Contra
             try
             {
                 string wineVer = wine_get_version();
-                MessageBox.Show($"We've detected you're running launcher on Wine {wineVer}\nVPN functionality disabled. Instead of using the bundled ZT for Windows, install ZeroTier One from your distro's package repositories.\n\nThen you can start the ZT service and run\n\nsudo zerotier-cli join 8cc55dfcea100100\n\nto connect to the ContraVPN network.\n\nPlease visit #support channel on our discord if you need help with this.");
+                MessageBox.Show($"We've detected you're running launcher on Wine {wineVer}\nVPN functionality disabled. Instead of using the bundled ZT for Windows, install ZeroTier One from your distro's package repositories.\n\nThen you can start the ZT service and run\n\nsudo zerotier-cli join 8cc55dfcea100100\n\nto connect to the ContraVPN network.\n\nPlease visit #issue-support channel on our Discord if you need help with this.");
                 return true;
             }
             catch { return false; }
@@ -216,13 +216,24 @@ namespace Contra
             newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
 
             // If launcher is up to date, P3 exists and P3 Hotfixes are missing, update the mod
-            if ((newVersion == Application.ProductVersion) &&
-                (File.Exists("!!!!Contra009Final_Patch3.ctr") || File.Exists("!!!!Contra009Final_Patch3.big")) &&
-                !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
-                (!File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big")))
+            if ((newVersion == Application.ProductVersion) && (File.Exists("!!!!Contra009Final_Patch3.ctr") || File.Exists("!!!!Contra009Final_Patch3.big")))
             {
-                GetModUpdate(versionsTXT, patch_url);
+                if
+                (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
+                !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") ||
+                !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big"))
+                {
+                    GetModUpdate(versionsTXT, patch_url);
+                }
             }
+
+            ////Load MOTD
+            //new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
+        }
+
+        private void RetrieveMOTD()
+        {
+            string versionsTXT = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString(versions_url);
 
             //Load MOTD
             new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
@@ -260,7 +271,12 @@ namespace Contra
                 ModDLLabel.Text = "Download progress: ";
                 CancelModDLBtn.Text = "Cancel";
                 string verString, yearString = "";
-                if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
+                if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
+                {
+                    verString = "009 Final Patch 3 Hotfix 3";
+                    yearString = "2022";
+                }
+                else if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
                 {
                     verString = "009 Final Patch 3 Hotfix 2";
                     yearString = "2021";
@@ -315,7 +331,7 @@ namespace Contra
                 // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
                 try
                 {
-                    UpdateLogic();
+                    RetrieveMOTD();
                 }
                 catch { }
             }
@@ -363,16 +379,24 @@ namespace Contra
                 currentFileLabel = "Файл: ";
                 ModDLLabel.Text = "Прогресс загрузки: ";
                 CancelModDLBtn.Text = "Отмена";
-                onlineInstructionsLabel.Text = "Инструкции по онлайн-игре";
+                onlineInstructionsLabel.Text = "Как играть онлайн?";
+                replaysLabel.Text = "Повторы игр";
+                customAddonsLabel.Text = "Карты и дополнения";
+                supportLabel.Text = "У меня проблема";
                 string verString, yearString = "";
-                if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
+                if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
                 {
-                    verString = "009 Final Патч 3 Hotfix 2";
+                    verString = "009 Final Патч 3 Хотфикс 3";
+                    yearString = "2022";
+                }
+                else if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
+                {
+                    verString = "009 Финал Патч 3 Хотфикс 2";
                     yearString = "2021";
                 }
                 else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
                 {
-                    verString = "009 Final Патч 3 Hotfix 1";
+                    verString = "009 Финал Патч 3 Хотфикс 1";
                     yearString = "2021";
                 }
                 else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
@@ -420,7 +444,7 @@ namespace Contra
                 // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
                 try
                 {
-                    UpdateLogic();
+                    RetrieveMOTD();
                 }
                 catch { }
             }
@@ -468,16 +492,24 @@ namespace Contra
                 currentFileLabel = "Файл: ";
                 ModDLLabel.Text = "Прогрес завантаження: ";
                 CancelModDLBtn.Text = "Скасувати";
-                onlineInstructionsLabel.Text = "Інструкції з гри в режимі онлайн";
+                onlineInstructionsLabel.Text = "Як грати онлайн?";
+                replaysLabel.Text = "Повтори гри";
+                customAddonsLabel.Text = "Карти та доповнення";
+                supportLabel.Text = "У мене є проблема";
                 string verString, yearString = "";
-                if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
+                if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
                 {
-                    verString = "009 Final Патч 3 Hotfix 2";
+                    verString = "009 Фінал Патч 3 Хотфикс 3";
+                    yearString = "2022";
+                }
+                else if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
+                {
+                    verString = "009 Фінал Патч 3 Хотфикс 2";
                     yearString = "2021";
                 }
                 else if (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))
                 {
-                    verString = "009 Final Патч 3 Hotfix 1";
+                    verString = "009 Фінал Патч 3 Хотфикс 1";
                     yearString = "2021";
                 }
                 else if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))
@@ -525,7 +557,7 @@ namespace Contra
                 // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
                 try
                 {
-                    UpdateLogic();
+                    RetrieveMOTD();
                 }
                 catch { }
             }
@@ -573,9 +605,17 @@ namespace Contra
                 currentFileLabel = "Файл: ";
                 ModDLLabel.Text = "Прогрес на изтегляне: ";
                 CancelModDLBtn.Text = "Отмени";
-                onlineInstructionsLabel.Text = "Онлайн инструкции";
+                onlineInstructionsLabel.Text = "Как да играя онлайн?";
+                replaysLabel.Text = "Игрови повторения";
+                customAddonsLabel.Text = "Карти и добавки";
+                supportLabel.Text = "Имам проблем";
                 string verString, yearString = "";
-                if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
+                if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
+                {
+                    verString = "009 Final Пач 3 Hotfix 3";
+                    yearString = "2022";
+                }
+                else if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
                 {
                     verString = "009 Final Пач 3 Hotfix 2";
                     yearString = "2021";
@@ -630,7 +670,7 @@ namespace Contra
                 // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
                 try
                 {
-                    UpdateLogic();
+                    RetrieveMOTD();
                 }
                 catch { }
             }
@@ -680,9 +720,17 @@ namespace Contra
                 currentFileLabel = "Datei: ";
                 ModDLLabel.Text = "Downloadfortschritt: ";
                 CancelModDLBtn.Text = "Stornieren";
-                onlineInstructionsLabel.Text = "Online-Spielanweisungen";
+                onlineInstructionsLabel.Text = "Wie spiele ich online?";
+                replaysLabel.Text = "Spielwiederholungen";
+                customAddonsLabel.Text = "Karten und Addons";
+                supportLabel.Text = "Ich habe ein Problem";
                 string verString, yearString = "";
-                if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
+                if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
+                {
+                    verString = "009 Final Patch 3 Hotfix 3";
+                    yearString = "2022";
+                }
+                else if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
                 {
                     verString = "009 Final Patch 3 Hotfix 2";
                     yearString = "2021";
@@ -737,7 +785,7 @@ namespace Contra
                 // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
                 try
                 {
-                    UpdateLogic();
+                    RetrieveMOTD();
                 }
                 catch { }
             }
@@ -746,29 +794,37 @@ namespace Contra
         public async void GetModUpdate(string versionsTXT, string patch_url)
         {
             string zip_url = null;
+            string modVersionText = null;
 
             if (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big"))
             {
                 zip_url = patch_url + @"/Contra009FinalPatch3Hotfix.zip";
+                modVersionText = "009 Final Patch 3 Hotfix";
             }
             else if (!File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big"))
             {
                 zip_url = patch_url + @"/Contra009FinalPatch3Hotfix2.zip";
+                modVersionText = "009 Final Patch 3 Hotfix 2";
+            }
+            else if (!File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big"))
+            {
+                zip_url = patch_url + @"/Contra009FinalPatch3Hotfix3.zip";
+                modVersionText = "009 Final Patch 3 Hotfix 3";
             }
             string zip_path = zip_url.Split('/').Last();
 
-            // Get mod version text
-            string modVersionText = versionsTXT.Substring(versionsTXT.LastIndexOf("Mod Text: ") + 10); // The latest patch name
-            modVersionText = modVersionText.Substring(0, modVersionText.IndexOf("$"));
+            // Get mod version text - unused
+            //string modVersionText = versionsTXT.Substring(versionsTXT.LastIndexOf("Mod Text: ") + 10); // The latest patch name
+            //modVersionText = modVersionText.Substring(0, modVersionText.IndexOf("$"));
 
             try
             {
                 var updatePendingText = new Dictionary<Tuple<string, string>, bool>
                     {
-                        { Tuple.Create($"Contra version {modVersionText} is available!\n\nNote: If you play online, you should download the new version at all costs, otherwise the game will mismatch!\n\nWould you like to download and update now?", "Update Available"), Globals.GB_Checked},
+                        { Tuple.Create($"Contra version {modVersionText} is available!\n\nNote: If you play online, you should download the new version at all costs, otherwise the game will be interrupted by mismatch error!\n\nWould you like to download and update now?", "Update Available"), Globals.GB_Checked},
                         { Tuple.Create($"Версия Contra {modVersionText} доступна!\n\nПримечание: Если вы играете онлайн, вам следует загрузить новую версию любой ценой, иначе игра выдаст ошибку несоответствия!\n\nХотите скачать и обновить сейчас?", "Доступно обновление"), Globals.RU_Checked},
                         { Tuple.Create($"Версія Contra {modVersionText} доступна!\n\nПримітка: Якщо ви граєте в Інтернеті, вам слід завантажити нову версію за будь-яку ціну, інакше гра викличе помилку невідповідності!\n\nХочете завантажити та оновити зараз?", "Доступне оновлення"), Globals.UA_Checked},
-                        { Tuple.Create($"Contra версия {modVersionText} е достъпна!\n\nЗабележка: Ако играете онлайн, трябва да изтеглите новата версия на всяка цена, в противен случай играта ще се разминава!\n\nИскате ли да изтеглите и актуализирате сега?", "Достъпна е актуализация"), Globals.BG_Checked},
+                        { Tuple.Create($"Contra версия {modVersionText} е достъпна!\n\nЗабележка: Ако играете онлайн, трябва да изтеглите новата версия на всяка цена, в противен случай играта ще прекъсва с грешка за несъответствие!\n\nИскате ли да изтеглите и актуализирате сега?", "Достъпна е актуализация"), Globals.BG_Checked},
                         { Tuple.Create($"Contra version {modVersionText} ist verfьgbar!\n\nHinweis: Wenn Sie online spielen, sollten Sie die neue Version unbedingt herunterladen, da sonst ein Fehlanpassungsfehler auftritt!\n\nMöchten Sie jetzt herunterladen und aktualisieren?", "Aktualisierung verfьgbar"), Globals.DE_Checked},
                     }.Single(l => l.Value).Key;
                 DialogResult dialogResult = MessageBox.Show(new Form { TopMost = true }, updatePendingText.Item1, updatePendingText.Item2, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
@@ -792,11 +848,11 @@ namespace Contra
                     // Show a message when the patch download has completed
                     var updateDoneText = new Dictionary<Tuple<string, string>, bool>
                         {
-                            { Tuple.Create($"{modVersionText} was installed successfully! The launcher will now restart!", "Update Complete"), Globals.GB_Checked},
-                            { Tuple.Create($"{modVersionText} установлен успешно! Лаунчер перезапустится!", "Обновление завершено"), Globals.RU_Checked},
-                            { Tuple.Create($"{modVersionText} було успішно встановлено! Тепер лаунчер перезапуститься!", "Оновлення завершено"), Globals.UA_Checked},
-                            { Tuple.Create($"{modVersionText} беше инсталиран успешно! Launcher-а ще се рестартира!", "Обновяването е завършено"), Globals.BG_Checked},
-                            { Tuple.Create($"{modVersionText} wurde erfolgreich installiert! Der Launcher wird jetzt neu gestartet!", "Aktualisierung abgeschlossen"), Globals.DE_Checked},
+                            { Tuple.Create($"The new version {modVersionText} was installed successfully! The launcher will now restart!", "Update Complete"), Globals.GB_Checked},
+                            { Tuple.Create($"Новая версия {modVersionText} успешно установлена! Лаунчер перезапустится!", "Обновление завершено"), Globals.RU_Checked},
+                            { Tuple.Create($"Нова версія {modVersionText} була успішно встановлена! Тепер лаунчер перезапуститься!", "Оновлення завершено"), Globals.UA_Checked},
+                            { Tuple.Create($"Новата версия {modVersionText} беше инсталирана успешно! Launcher-а ще се рестартира!", "Обновяването е завършено"), Globals.BG_Checked},
+                            { Tuple.Create($"Die neue Version {modVersionText} wurde erfolgreich installiert! Der Launcher wird jetzt neu gestartet!", "Aktualisierung abgeschlossen"), Globals.DE_Checked},
                         }.Single(l => l.Value).Key;
                     MessageBox.Show(new Form { TopMost = true }, updateDoneText.Item1, updateDoneText.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -976,23 +1032,43 @@ namespace Contra
         {
             if (Globals.GB_Checked == true)
             {
-                MessageBox.Show("You have installed Contra in the wrong folder. Install it in the Zero Hour folder which contains the \"generals.exe\".", "Error");
+                DialogResult dialogResult = MessageBox.Show("The \"generals.exe\" file was not found. Make sure you have Zero Hour installed, and Contra is installed into Zero Hour's main folder.\n\nWould you like to visit a page with installation instructions?", "Error", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
+                }
             }
             else if (Globals.RU_Checked == true)
             {
-                MessageBox.Show("Вы установили Contra в неправильную папку. Установите его в папку Zero Hour, которая содержит файл \"generals.exe\".", "Ошибка");
+                DialogResult dialogResult = MessageBox.Show("Файл \"generals.exe\" не найден. Убедитесь, что у вас установлена Zero Hour, а Contra установлен в основную папку Zero Hour.\n\nХотите посетить страницу с инструкциями по установке?", "Ошибка", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
+                }
             }
             else if (Globals.UA_Checked == true)
             {
-                MessageBox.Show("Ви встановили Contra у неправильній папці. Встановіть це в папку Zero Hour, яка містить \"generals.exe\".", "Помилка");
+                DialogResult dialogResult = MessageBox.Show("Файл \"generals.exe\" не знайдено. Переконайтеся, що у вас встановлена Zero Hour, а Contra встановлений в головну папку Zero Hour.\n\nБажаєте відвідати сторінку з інструкціями щодо встановлення?", "Помилка", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
+                }
             }
             else if (Globals.BG_Checked == true)
             {
-                MessageBox.Show("Инсталирали сте Contra в грешната папка. Инсталирайте в Zero Hour папката, която съдържа \"generals.exe\".", "Грешка");
+                DialogResult dialogResult = MessageBox.Show("Файлът \"generals.exe\" не беше намерен. Уверете се, че Zero Hour е инсталирана и Contra е инсталиран в основната й папка.\n\nИскате ли да посетите страница с инструкции за инсталиране?", "Грешка", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
+                }
             }
             else if (Globals.DE_Checked == true)
             {
-                MessageBox.Show("Du hast Contra im falschen ordner installiert. Installiere es in dem Zero Hour ordner in dem die \"generals.exe\" ist.", "Fehler");
+                DialogResult dialogResult = MessageBox.Show("Die Datei \"generals.exe\" wurde nicht gefunden. Stellen Sie sicher, dass Sie Zero Hour installiert haben und Contra im Hauptordner von Zero Hour installiert ist.\n\nMöchten Sie eine Seite mit Installationsanweisungen besuchen?", "Fehler", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
+                }
             }
         }
 
@@ -1073,6 +1149,10 @@ namespace Contra
             if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big"))
             {
                 File.Delete("!!!!!!Contra009Final_Patch3_Hotfix2.big");
+            }
+            if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big"))
+            {
+                File.Delete("!!!!!!!Contra009Final_Patch3_Hotfix3.big");
             }
             if (File.Exists("!!!!Contra009Final_Patch3_GameData.ctr") && File.Exists("!!!!Contra009Final_Patch3_GameData.big"))
             {
@@ -1198,6 +1278,7 @@ namespace Contra
             {
                 List<string> bigs = new List<string>
                 {
+                    "!!!!!!!Contra009Final_Patch3_Hotfix3.big",
                     "!!!!!!Contra009Final_Patch3_Hotfix2.big",
                     "!!!!!!Contra009Final_Patch3_Hotfix_FunnyGenPics.big",
                     "!!!!!Contra009Final_Patch3_Hotfix_NatVO.big",
@@ -1316,6 +1397,7 @@ namespace Contra
             {
                 List<string> bigs = new List<string>
                 {
+                    "!!!!!!!Contra009Final_Patch3_Hotfix3.big",
                     "!!!!!!Contra009Final_Patch3_Hotfix2.big",
                     "!!!!!!Contra009Final_Patch3_Hotfix_FunnyGenPics.big",
                     "!!!!!Contra009Final_Patch3_Hotfix_NatVO.big",
@@ -1464,6 +1546,7 @@ namespace Contra
                     File.Move("!!!!Contra009Final_Patch3_GameData.ctr", "!!!!Contra009Final_Patch3_GameData.big");
                     File.Move("!!!!!Contra009Final_Patch3_Hotfix.ctr", "!!!!!Contra009Final_Patch3_Hotfix.big");
                     File.Move("!!!!!!Contra009Final_Patch3_Hotfix2.ctr", "!!!!!!Contra009Final_Patch3_Hotfix2.big");
+                    File.Move("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr", "!!!!!!!Contra009Final_Patch3_Hotfix3.big");
 
                     // Remove dbghelp to fix DirectX error on game startup.
                     File.Delete("dbghelp.dll");
@@ -1716,23 +1799,43 @@ namespace Contra
             {
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("The game cannot start because the \"binkw32.dll\" and/or \"mss32.dll\" file(s) were not found. You may have installed the mod in the wrong folder.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DialogResult dialogResult = MessageBox.Show("The game cannot start because the \"binkw32.dll\" and/or \"mss32.dll\" file(s) were not found. You may have installed the mod in the wrong folder.\n\nWould you like to visit a page with installation instructions?", "Error", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
+                    }
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Игра не может запуститься, потому что файлы \"binkw32.dll\" и/или \"mss32.dll\" не найдены. Возможно, вы установили мод не в ту папку.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DialogResult dialogResult = MessageBox.Show("Игра не может запуститься, потому что файлы \"binkw32.dll\" и/или \"mss32.dll\" не найдены. Возможно, вы установили мод не в ту папку.\n\nХотите посетить страницу с инструкциями по установке?", "Ошибка", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
+                    }
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Гра не може запуститися, оскільки файли \"binkw32.dll\" та/або \"mss32.dll\" не знайдені. Можливо, ви встановили мод у неправильну папку.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DialogResult dialogResult = MessageBox.Show("Гра не може запуститися, оскільки файли \"binkw32.dll\" та/або \"mss32.dll\" не знайдені. Можливо, ви встановили мод у неправильну папку.\n\nБажаєте відвідати сторінку з інструкціями щодо встановлення?", "Помилка", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
+                    }
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("Играта не може да се стартира, тъй като не са намерени файловете \"binkw32.dll\" и/или \"mss32.dll\". Може да сте инсталирали мода в грешната папка.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DialogResult dialogResult = MessageBox.Show("Играта не може да се стартира, тъй като не са намерени файловете \"binkw32.dll\" и/или \"mss32.dll\". Може да сте инсталирали мода в грешната папка.\n\nИскате ли да посетите страница с инструкции за инсталиране?", "Грешка", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
+                    }
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("Das Spiel kann nicht gestartet werden, da die Dateien \"binkw32.dll\" und /oder \"mss32.dll\" nicht gefunden wurden. Möglicherweise haben Sie den Mod im falschen Ordner installiert.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DialogResult dialogResult = MessageBox.Show("Das Spiel kann nicht gestartet werden, da die Dateien \"binkw32.dll\" und /oder \"mss32.dll\" nicht gefunden wurden. Möglicherweise haben Sie den Mod im falschen Ordner installiert.\n\nMöchten Sie eine Seite mit Installationsanweisungen besuchen?", "Fehler", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
+                    }
                 }
                 return;
             }
@@ -1923,6 +2026,7 @@ namespace Contra
                 File.Move("!!!!Contra009Final_Patch3.ctr", "!!!!Contra009Final_Patch3.big");
                 File.Move("!!!!!Contra009Final_Patch3_Hotfix.ctr", "!!!!!Contra009Final_Patch3_Hotfix.big");
                 File.Move("!!!!!!Contra009Final_Patch3_Hotfix2.ctr", "!!!!!!Contra009Final_Patch3_Hotfix2.big");
+                File.Move("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr", "!!!!!!!Contra009Final_Patch3_Hotfix3.big");
                 File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
                 File.Move("!!Contra009Final_Patch1_EN.ctr", "!!Contra009Final_Patch1_EN.big");
                 File.Move("!!!Contra009Final_Patch2_EN.ctr", "!!!Contra009Final_Patch2_EN.big");
@@ -2469,13 +2573,15 @@ namespace Contra
                         Environment.NewLine +
                         "StaticGameLOD = Custom" +
                         Environment.NewLine +
+                        "TextureReduction = 0" +
+                        Environment.NewLine +
                         "UseCloudMap = Yes" +
                         Environment.NewLine +
                         "UseLightMap = Yes" +
                         Environment.NewLine +
                         "UseShadowDecals = Yes" +
                         Environment.NewLine +
-                        "UseShadowVolumes = No");
+                        "UseShadowVolumes = Yes");
                     fs.Write(info, 0, info.Length);
                 }
                 using (FileStream fs = File.Create(myDocPath + @"\Options.ini"))
@@ -2499,13 +2605,15 @@ namespace Contra
                         Environment.NewLine +
                         "StaticGameLOD = Custom" +
                         Environment.NewLine +
+                        "TextureReduction = 0" +
+                        Environment.NewLine +
                         "UseCloudMap = Yes" +
                         Environment.NewLine +
                         "UseLightMap = Yes" +
                         Environment.NewLine +
                         "UseShadowDecals = Yes" +
                         Environment.NewLine +
-                        "UseShadowVolumes = No");
+                        "UseShadowVolumes = Yes");
                     fs.Write(info, 0, info.Length);
                 }
             }
@@ -2547,23 +2655,23 @@ namespace Contra
                 {
                     if (Globals.GB_Checked == true)
                     {
-                        MessageBox.Show("\"!!!!Contra009Final_Patch3_GameData.big\" file not found!", "Error");
+                        MessageBox.Show("\"!!!!Contra009Final_Patch3_GameData.big\" file not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        MessageBox.Show("Файл \"!!!!Contra009Final_Patch3_GameData.big\" не найден!", "Ошибка");
+                        MessageBox.Show("Файл \"!!!!Contra009Final_Patch3_GameData.big\" не найден!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        MessageBox.Show("Файл \"!!!!Contra009Final_Patch3_GameData.big\" не знайдений!", "Помилка");
+                        MessageBox.Show("Файл \"!!!!Contra009Final_Patch3_GameData.big\" не знайдений!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        MessageBox.Show("Файлът \"!!!!Contra009Final_Patch3_GameData.big\" не беше намерен!", "Грешка");
+                        MessageBox.Show("Файлът \"!!!!Contra009Final_Patch3_GameData.big\" не беше намерен!", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (Globals.DE_Checked == true)
                     {
-                        MessageBox.Show("\"!!!!Contra009Final_Patch3_GameData.big\" nicht gefunden!", "Fehler");
+                        MessageBox.Show("\"!!!!Contra009Final_Patch3_GameData.big\" nicht gefunden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -2580,23 +2688,23 @@ namespace Contra
                 {
                     if (Globals.GB_Checked == true)
                     {
-                        MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" file not found!", "Error");
+                        MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" file not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не найден!", "Ошибка");
+                        MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не найден!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не знайдений!", "Помилка");
+                        MessageBox.Show("Файл \"!!!Contra009Final_Patch2_GameData.big\" не знайдений!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        MessageBox.Show("Файлът \"!!!Contra009Final_Patch2_GameData.big\" не беше намерен!", "Грешка");
+                        MessageBox.Show("Файлът \"!!!Contra009Final_Patch2_GameData.big\" не беше намерен!", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (Globals.DE_Checked == true)
                     {
-                        MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" nicht gefunden!", "Fehler");
+                        MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" nicht gefunden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -2730,6 +2838,13 @@ namespace Contra
 
         private void Form1_Shown(object sender, EventArgs e)
         {
+            // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
+            try
+            {
+                UpdateLogic();
+            }
+            catch { }
+
             string gtHash = null;
             try
             {
@@ -2799,24 +2914,64 @@ namespace Contra
                 //{
                 //    MessageBox.Show("Options.ini nicht gefunden, daher startet das Spiel nicht! Sie müssen Zero Hour einmal ausführen, damit die Datei generiert wird.\nWenn dies fehlschlägt, müssen Sie die Datei manuell erstellen. Klicken Sie im Launcher auf die Schaltfläche \"Help\", um zu einer Seite mit Anweisungen zu gelangen.", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 //}
+                {
+                    CreateOptionsINI();
+                }
+            }
+            // If Options.ini is present but any of the graphical entries are missing, delete the current Options.ini and generate a new one.
+            else
+            {
+                if (File.Exists(UserDataLeafName() + "Options.ini"))
+                {
+                    string OptionsText = File.ReadAllText(UserDataLeafName() + "Options.ini");
+                    if (!OptionsText.Contains("StaticGameLOD") ||
+                        !OptionsText.Contains("UseShadowVolumes") ||
+                        !OptionsText.Contains("UseShadowDecals") ||
+                        !OptionsText.Contains("UseCloudMap") ||
+                        !OptionsText.Contains("UseLightMap") ||
+                        !OptionsText.Contains("ShowSoftWaterEdge") ||
+                        !OptionsText.Contains("BuildingOcclusion") ||
+                        !OptionsText.Contains("ShowTrees") ||
+                        !OptionsText.Contains("ExtraAnimations") ||
+                        !OptionsText.Contains("DynamicLOD") ||
+                        !OptionsText.Contains("HeatEffects"))
+                    {
+                        File.Delete(UserDataLeafName() + "Options.ini");
+                    }
+                }
+                else if (File.Exists(myDocPath + "Options.ini"))
+                {
+                    string OptionsText = File.ReadAllText(myDocPath + "Options.ini");
+                    if (!OptionsText.Contains("StaticGameLOD") ||
+                        !OptionsText.Contains("UseShadowVolumes") ||
+                        !OptionsText.Contains("UseShadowDecals") ||
+                        !OptionsText.Contains("UseCloudMap") ||
+                        !OptionsText.Contains("UseLightMap") ||
+                        !OptionsText.Contains("ShowSoftWaterEdge") ||
+                        !OptionsText.Contains("BuildingOcclusion") ||
+                        !OptionsText.Contains("ShowTrees") ||
+                        !OptionsText.Contains("ExtraAnimations") ||
+                        !OptionsText.Contains("DynamicLOD") ||
+                        !OptionsText.Contains("HeatEffects"))
+                    {
+                        File.Delete(myDocPath + "Options.ini");
+                    }
+                }
                 CreateOptionsINI();
             }
 
             // Make 2 copies of Options.ini, name them Options_ZH.ini and Options_CTR.ini
-            if (!File.Exists(UserDataLeafName() + "Options_ZH.ini") || (!File.Exists(myDocPath + "Options_ZH.ini")) && !File.Exists(UserDataLeafName() + "Options_CTR.ini") || (!File.Exists(myDocPath + "Options_CTR.ini")))
+            if (File.Exists(UserDataLeafName() + "Options.ini") && !File.Exists(UserDataLeafName() + "Options_ZH.ini") && !File.Exists(UserDataLeafName() + "Options_CTR.ini"))
             {
-                if (File.Exists(UserDataLeafName() + "Options.ini"))
-                {
-                    File.SetAttributes(UserDataLeafName() + "Options.ini", FileAttributes.Normal);
-                    File.Copy(UserDataLeafName() + "Options.ini", UserDataLeafName() + "Options_ZH.ini", true);
-                    File.Copy(UserDataLeafName() + "Options.ini", UserDataLeafName() + "Options_CTR.ini", true);
-                }
-                else if (File.Exists(myDocPath + "Options.ini"))
-                {
-                    File.SetAttributes(myDocPath + "Options.ini", FileAttributes.Normal);
-                    File.Copy(myDocPath + "Options.ini", myDocPath + "Options_ZH.ini", true);
-                    File.Copy(myDocPath + "Options.ini", myDocPath + "Options_CTR.ini", true);
-                }
+                File.SetAttributes(UserDataLeafName() + "Options.ini", FileAttributes.Normal);
+                File.Copy(UserDataLeafName() + "Options.ini", UserDataLeafName() + "Options_ZH.ini", true);
+                File.Copy(UserDataLeafName() + "Options.ini", UserDataLeafName() + "Options_CTR.ini", true);
+            }
+            else if (File.Exists(myDocPath + "Options.ini") && !File.Exists(myDocPath + "Options_ZH.ini") && !File.Exists(myDocPath + "Options_CTR.ini"))
+            {
+                File.SetAttributes(myDocPath + "Options.ini", FileAttributes.Normal);
+                File.Copy(myDocPath + "Options.ini", myDocPath + "Options_ZH.ini", true);
+                File.Copy(myDocPath + "Options.ini", myDocPath + "Options_CTR.ini", true);
             }
 
             // Make CTR Options.ini active
@@ -2846,6 +3001,7 @@ namespace Contra
             catch
             { }
 
+            // Actions taken on first launcher run.
             if (Properties.Settings.Default.FirstRun)
             {
                 try
@@ -2951,9 +3107,9 @@ namespace Contra
                     }
 
                     if (Globals.cpuSpeed < 3500) // We consider base clock less than 3500MHz to be insufficient for stable FPS.
+                                                 // If that's the case, we disable 3D shadows, water reflections and enable Dynamic LOD,
+                                                 // as they are the most stressing graphical settings.
                     {
-                        //    Properties.Settings.Default.Shadows3D = false;
-                        //    Properties.Settings.Default.DisableDynamicLOD = false;
                         Properties.Settings.Default.WaterEffects = false;
 
                         if (Directory.Exists(UserDataLeafName()))
@@ -3212,23 +3368,43 @@ namespace Contra
                 {
                     if (Globals.GB_Checked == true)
                     {
-                        MessageBox.Show("Found .ini files in the Data\\INI directory. They may corrupt the mod or cause mismatch online.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DialogResult dialogResult = MessageBox.Show("Found .ini files in the Data\\INI directory. They may corrupt the mod or cause mismatch online.\n\nWould you like to visit this folder now?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            Process.Start(Environment.CurrentDirectory + @"\Data\INI");
+                        }
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        MessageBox.Show("Найдены файлы .ini в каталоге Data\\INI. Они могут повредить мод или вызвать несоответствие в сети.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DialogResult dialogResult = MessageBox.Show("Найдены файлы .ini в каталоге Data\\INI. Они могут повредить мод или вызвать несоответствие в сети.\n\nХотите посетить эту папку сейчас?", "Предупреждение", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            Process.Start(Environment.CurrentDirectory + @"\Data\INI");
+                        }
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        MessageBox.Show("Знайдено файли .ini в каталозі Data\\INI. Вони можуть пошкодити мод або призвести до невідповідності в Інтернеті.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DialogResult dialogResult = MessageBox.Show("Знайдено файли .ini в каталозі Data\\INI. Вони можуть пошкодити мод або призвести до невідповідності в Інтернеті.\n\nБажаєте відвідати цю папку зараз?", "Попередження", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            Process.Start(Environment.CurrentDirectory + @"\Data\INI");
+                        }
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        MessageBox.Show("Намерени .ini файлове в директорията Data\\INI. Те могат да повредят мода или да причинят несъответствие онлайн.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DialogResult dialogResult = MessageBox.Show("Намерени .ini файлове в директорията Data\\INI. Те могат да повредят мода или да причинят несъответствие онлайн.\n\nИскате ли да посетите тази папка сега?", "Предупреждение", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            Process.Start(Environment.CurrentDirectory + @"\Data\INI");
+                        }
                     }
                     else if (Globals.DE_Checked == true)
                     {
-                        MessageBox.Show("Es wurden INI-Dateien im Verzeichnis \"Data\\INI\" gefunden. Sie können den Mod beschädigen oder online zu Unstimmigkeiten führen.", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DialogResult dialogResult = MessageBox.Show("Es wurden INI-Dateien im Verzeichnis \"Data\\INI\" gefunden. Sie können den Mod beschädigen oder online zu Unstimmigkeiten führen.\n\nMöchten Sie diesen Ordner jetzt aufrufen?", "Warnung", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            Process.Start(Environment.CurrentDirectory + @"\Data\INI");
+                        }
                     }
                 }
             }
@@ -3245,23 +3421,43 @@ namespace Contra
                 {
                     if (Globals.GB_Checked == true)
                     {
-                        MessageBox.Show("Found .wnd files in the Window directory. They may corrupt the mod.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DialogResult dialogResult = MessageBox.Show("Found .wnd files in the Window directory. They may corrupt the mod.\n\nWould you like to visit this folder now?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            Process.Start(Environment.CurrentDirectory + @"\Window");
+                        }
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        MessageBox.Show("Найдены файлы .wnd в каталоге Window. Они могут повредить мод.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DialogResult dialogResult = MessageBox.Show("Найдены файлы .wnd в каталоге Window. Они могут повредить мод.\n\nХотите посетить эту папку сейчас?", "Предупреждение", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            Process.Start(Environment.CurrentDirectory + @"\Window");
+                        }
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        MessageBox.Show("Знайдено файли .wnd в каталозі Window. Вони можуть пошкодити мод.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DialogResult dialogResult = MessageBox.Show("Знайдено файли .wnd в каталозі Window. Вони можуть пошкодити мод.\n\nБажаєте відвідати цю папку зараз?", "Попередження", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            Process.Start(Environment.CurrentDirectory + @"\Window");
+                        }
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        MessageBox.Show("Намерени .wnd файлове в директорията Window. Те могат да повредят мода.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DialogResult dialogResult = MessageBox.Show("Намерени .wnd файлове в директорията Window. Те могат да повредят мода.\n\nИскате ли да посетите тази папка сега?", "Предупреждение", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            Process.Start(Environment.CurrentDirectory + @"\Window");
+                        }
                     }
                     else if (Globals.DE_Checked == true)
                     {
-                        MessageBox.Show("Es wurden WND-Dateien im Verzeichnis \"Window\" gefunden. Sie können den Mod beschädigen.", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DialogResult dialogResult = MessageBox.Show("Es wurden WND-Dateien im Verzeichnis \"Window\" gefunden. Sie können den Mod beschädigen.\n\nMöchten Sie diesen Ordner jetzt aufrufen?", "Warnung", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            Process.Start(Environment.CurrentDirectory + @"\Window");
+                        }
                     }
                 }
             }
@@ -3933,29 +4129,96 @@ namespace Contra
 
         }
 
-        //private void onlineInstructionsLabel_Click(object sender, EventArgs e)
-        //{
-        //    Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
-        //}
+        private void onlineInstructionsLabel_Click_1(object sender, EventArgs e)
+        {
+            if (Globals.GB_Checked == true || Globals.DE_Checked == true)
+            {
+                Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md#ENGLISH-");
+            }
+            else if (Globals.RU_Checked == true || Globals.UA_Checked == true)
+            {
+                Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md#РУССКИЙ-");
+            }
+            else if (Globals.BG_Checked == true)
+            {
+                Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
+            }
+        }
 
         private void onlineInstructionsLabel_MouseEnter(object sender, EventArgs e)
         {
             onlineInstructionsLabel.ForeColor = Color.FromArgb(255, 210, 100);
         }
 
-        //private void onlineInstructionsLabel_MouseDown(object sender, MouseEventArgs e)
-        //{
-        //    onlineInstructionsLabel.ForeColor = Color.FromArgb(255, 230, 160);
-        //}
-
         private void onlineInstructionsLabel_MouseLeave(object sender, EventArgs e)
         {
             onlineInstructionsLabel.ForeColor = Color.FromArgb(255, 255, 255);
         }
 
-        private void onlineInstructionsLabel_Click_1(object sender, EventArgs e)
+        private void replaysLabel_Click(object sender, EventArgs e)
         {
-            Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
+            Url_open("https://www.gamereplays.org/cnczerohourcontra/replays.php?game=101&tab=popular&show=index&tab_new=upcoming&display_mode=standard");
+        }
+
+        private void replaysLabel_MouseEnter(object sender, EventArgs e)
+        {
+            replaysLabel.ForeColor = Color.FromArgb(255, 210, 100);
+        }
+
+        private void replaysLabel_MouseLeave(object sender, EventArgs e)
+        {
+            replaysLabel.ForeColor = Color.FromArgb(255, 255, 255);
+        }
+        private void customAddonsLabel_Click(object sender, EventArgs e)
+        {
+            if (Globals.GB_Checked == true || Globals.DE_Checked == true)
+            {
+                Url_open("https://github.com/ContraMod/Launcher/blob/master/Mod%20Addons.md#ENGLISH-");
+            }
+            else if (Globals.RU_Checked == true || Globals.UA_Checked == true)
+            {
+                Url_open("https://github.com/ContraMod/Launcher/blob/master/Mod%20Addons.md#РУССКИЙ-");
+            }
+            else if (Globals.BG_Checked == true)
+            {
+                Url_open("https://github.com/ContraMod/Launcher/blob/master/Mod%20Addons.md");
+            }
+        }
+
+        private void customAddonsLabel_MouseEnter(object sender, EventArgs e)
+        {
+            customAddonsLabel.ForeColor = Color.FromArgb(255, 210, 100);
+        }
+
+        private void customAddonsLabel_MouseLeave(object sender, EventArgs e)
+        {
+            customAddonsLabel.ForeColor = Color.FromArgb(255, 255, 255);
+        }
+
+        private void supportLabel_Click(object sender, EventArgs e)
+        {
+            if (Globals.GB_Checked == true || Globals.DE_Checked == true)
+            {
+                Url_open("https://github.com/ContraMod/Launcher/blob/master/Mod%20Support.md#ENGLISH-");
+            }
+            else if (Globals.RU_Checked == true || Globals.UA_Checked == true)
+            {
+                Url_open("https://github.com/ContraMod/Launcher/blob/master/Mod%20Support.md#РУССКИЙ-");
+            }
+            else if (Globals.BG_Checked == true)
+            {
+                Url_open("https://github.com/ContraMod/Launcher/blob/master/Mod%20Support.md");
+            }
+        }
+
+        private void supportLabel_MouseEnter(object sender, EventArgs e)
+        {
+            supportLabel.ForeColor = Color.FromArgb(255, 210, 100);
+        }
+
+        private void supportLabel_MouseLeave(object sender, EventArgs e)
+        {
+            supportLabel.ForeColor = Color.FromArgb(255, 255, 255);
         }
 
         private void CancelModDLBtn_Click(object sender, EventArgs e)

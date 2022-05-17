@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Contra</RootNamespace>
     <AssemblyName>Contra_Launcher</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -188,7 +188,7 @@
     <None Include="Resources\_button_donate_tr.png" />
     <None Include="Resources\btnOk1.png" />
     <None Include="Resources\advopbg.jpg" />
-    <None Include="Resources\background.jpg" />
+    <Content Include="Resources\background.jpg" />
     <Content Include="Version.txt" />
     <None Include="README.md" />
     <None Include="Resources\flag_de_tr.png" />

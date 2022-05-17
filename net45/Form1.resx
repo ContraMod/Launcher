@@ -319,7 +319,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;QSCheckBox.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>16</value>
   </data>
   <data name="MStandard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -385,7 +385,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;WinCheckBox.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>17</value>
   </data>
   <data name="DefaultPics.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -472,7 +472,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;voicespanel.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>18</value>
   </data>
   <data name="languagepanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>441, 212</value>
@@ -493,7 +493,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;languagepanel.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>19</value>
   </data>
   <data name="musicpanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>275, 306</value>
@@ -514,7 +514,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;musicpanel.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>21</value>
   </data>
   <data name="portraitspanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>441, 306</value>
@@ -535,7 +535,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;portraitspanel.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>20</value>
   </data>
   <data name="versionLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 13px, style=Bold</value>
@@ -568,7 +568,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;versionLabel.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>15</value>
   </data>
   <data name="helpbutton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -598,7 +598,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;helpbutton.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>22</value>
   </data>
   <data name="buttonChat.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -628,7 +628,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;buttonChat.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>23</value>
   </data>
   <data name="button18.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -658,7 +658,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button18.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>24</value>
   </data>
   <data name="button17.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -688,7 +688,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button17.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>25</value>
   </data>
   <data name="websitebutton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -718,7 +718,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;websitebutton.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>26</value>
   </data>
   <data name="button2.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -748,7 +748,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button2.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>27</value>
   </data>
   <data name="button3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -778,7 +778,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>28</value>
   </data>
   <data name="button6.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -808,7 +808,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button6.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>11</value>
   </data>
   <data name="button5.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -838,7 +838,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button5.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>29</value>
   </data>
   <data name="button1.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -868,7 +868,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>30</value>
   </data>
   <data name="RadioFlag_GB.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -1057,7 +1057,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>14</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>21, 17</value>
@@ -1093,7 +1093,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;moreOptions.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>13</value>
   </data>
   <data name="vpn_start.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -1126,7 +1126,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;vpn_start.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>12</value>
   </data>
   <metadata name="refreshVpnIpTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>115, 20</value>
@@ -1342,7 +1342,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;PatchDLPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <metadata name="disableVPNBtnChangeTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>265, 15</value>
@@ -1378,7 +1378,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ZTConfigBtn.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>9</value>
   </data>
   <data name="ZTConsoleBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1411,7 +1411,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ZTConsoleBtn.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>8</value>
   </data>
   <data name="ZTNukeBtn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1553,7 +1553,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ZTNukeBtn.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="DonateBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1580,7 +1580,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;DonateBtn.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="IP_Label.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1616,7 +1616,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;IP_Label.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
   <metadata name="optionsToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>470, 15</value>
@@ -1631,16 +1631,16 @@
     <value>NoControl</value>
   </data>
   <data name="onlineInstructionsLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>44, 146</value>
+    <value>44, 140</value>
   </data>
   <data name="onlineInstructionsLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 18</value>
+    <value>131, 18</value>
   </data>
   <data name="onlineInstructionsLabel.TabIndex" type="System.Int32, mscorlib">
     <value>72</value>
   </data>
   <data name="onlineInstructionsLabel.Text" xml:space="preserve">
-    <value>Online Play Instructions</value>
+    <value>How to play online?</value>
   </data>
   <data name="&gt;&gt;onlineInstructionsLabel.Name" xml:space="preserve">
     <value>onlineInstructionsLabel</value>
@@ -1652,6 +1652,105 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;onlineInstructionsLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="replaysLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="replaysLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Calibri, 15px, style=Bold, Underline</value>
+  </data>
+  <data name="replaysLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="replaysLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>45, 161</value>
+  </data>
+  <data name="replaysLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 18</value>
+  </data>
+  <data name="replaysLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>73</value>
+  </data>
+  <data name="replaysLabel.Text" xml:space="preserve">
+    <value>Game Replays</value>
+  </data>
+  <data name="&gt;&gt;replaysLabel.Name" xml:space="preserve">
+    <value>replaysLabel</value>
+  </data>
+  <data name="&gt;&gt;replaysLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;replaysLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;replaysLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="customAddonsLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="customAddonsLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Calibri, 15px, style=Bold, Underline</value>
+  </data>
+  <data name="customAddonsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="customAddonsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>45, 182</value>
+  </data>
+  <data name="customAddonsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 18</value>
+  </data>
+  <data name="customAddonsLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
+  </data>
+  <data name="customAddonsLabel.Text" xml:space="preserve">
+    <value>Maps and Addons</value>
+  </data>
+  <data name="&gt;&gt;customAddonsLabel.Name" xml:space="preserve">
+    <value>customAddonsLabel</value>
+  </data>
+  <data name="&gt;&gt;customAddonsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;customAddonsLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;customAddonsLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="supportLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="supportLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Calibri, 15px, style=Bold, Underline</value>
+  </data>
+  <data name="supportLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="supportLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>45, 203</value>
+  </data>
+  <data name="supportLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 18</value>
+  </data>
+  <data name="supportLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>75</value>
+  </data>
+  <data name="supportLabel.Text" xml:space="preserve">
+    <value>I have a problem</value>
+  </data>
+  <data name="&gt;&gt;supportLabel.Name" xml:space="preserve">
+    <value>supportLabel</value>
+  </data>
+  <data name="&gt;&gt;supportLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;supportLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;supportLabel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="MOTD.Font" type="System.Drawing.Font, System.Drawing">
@@ -1673,13 +1772,13 @@
     <value>MOTD</value>
   </data>
   <data name="&gt;&gt;MOTD.Type" xml:space="preserve">
-    <value>Contra.Marquee, Contra_Launcher, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Contra.Marquee, Contra_Launcher, Version=1.2.0.4, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;MOTD.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MOTD.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>10</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

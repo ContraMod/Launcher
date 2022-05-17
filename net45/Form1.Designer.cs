@@ -80,6 +80,9 @@ namespace Contra
             this.IP_Label = new System.Windows.Forms.Label();
             this.optionsToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.onlineInstructionsLabel = new System.Windows.Forms.Label();
+            this.replaysLabel = new System.Windows.Forms.Label();
+            this.customAddonsLabel = new System.Windows.Forms.Label();
+            this.supportLabel = new System.Windows.Forms.Label();
             this.MOTD = new Contra.Marquee();
             this.voicespanel.SuspendLayout();
             this.languagepanel.SuspendLayout();
@@ -666,6 +669,39 @@ namespace Contra
             this.onlineInstructionsLabel.MouseEnter += new System.EventHandler(this.onlineInstructionsLabel_MouseEnter);
             this.onlineInstructionsLabel.MouseLeave += new System.EventHandler(this.onlineInstructionsLabel_MouseLeave);
             // 
+            // replaysLabel
+            // 
+            resources.ApplyResources(this.replaysLabel, "replaysLabel");
+            this.replaysLabel.BackColor = System.Drawing.Color.Transparent;
+            this.replaysLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.replaysLabel.ForeColor = System.Drawing.Color.White;
+            this.replaysLabel.Name = "replaysLabel";
+            this.replaysLabel.Click += new System.EventHandler(this.replaysLabel_Click);
+            this.replaysLabel.MouseEnter += new System.EventHandler(this.replaysLabel_MouseEnter);
+            this.replaysLabel.MouseLeave += new System.EventHandler(this.replaysLabel_MouseLeave);
+            // 
+            // customAddonsLabel
+            // 
+            resources.ApplyResources(this.customAddonsLabel, "customAddonsLabel");
+            this.customAddonsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.customAddonsLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.customAddonsLabel.ForeColor = System.Drawing.Color.White;
+            this.customAddonsLabel.Name = "customAddonsLabel";
+            this.customAddonsLabel.Click += new System.EventHandler(this.customAddonsLabel_Click);
+            this.customAddonsLabel.MouseEnter += new System.EventHandler(this.customAddonsLabel_MouseEnter);
+            this.customAddonsLabel.MouseLeave += new System.EventHandler(this.customAddonsLabel_MouseLeave);
+            // 
+            // supportLabel
+            // 
+            resources.ApplyResources(this.supportLabel, "supportLabel");
+            this.supportLabel.BackColor = System.Drawing.Color.Transparent;
+            this.supportLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.supportLabel.ForeColor = System.Drawing.Color.White;
+            this.supportLabel.Name = "supportLabel";
+            this.supportLabel.Click += new System.EventHandler(this.supportLabel_Click);
+            this.supportLabel.MouseEnter += new System.EventHandler(this.supportLabel_MouseEnter);
+            this.supportLabel.MouseLeave += new System.EventHandler(this.supportLabel_MouseLeave);
+            // 
             // MOTD
             // 
             this.MOTD.BackColor = System.Drawing.Color.Transparent;
@@ -681,6 +717,9 @@ namespace Contra
             this.BackgroundImage = global::Contra.Properties.Resources.background;
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
+            this.Controls.Add(this.supportLabel);
+            this.Controls.Add(this.customAddonsLabel);
+            this.Controls.Add(this.replaysLabel);
             this.Controls.Add(this.onlineInstructionsLabel);
             this.Controls.Add(this.PatchDLPanel);
             this.Controls.Add(this.IP_Label);
@@ -787,6 +826,9 @@ namespace Contra
         private System.Windows.Forms.Label IP_Label;
         private System.Windows.Forms.ToolTip optionsToolTip;
         private System.Windows.Forms.Label onlineInstructionsLabel;
+        private System.Windows.Forms.Label replaysLabel;
+        private System.Windows.Forms.Label customAddonsLabel;
+        private System.Windows.Forms.Label supportLabel;
     }
 }
 

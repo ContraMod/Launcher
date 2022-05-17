@@ -146,6 +146,7 @@ namespace Contra
             this.HeatEffectsCheckBox.Name = "HeatEffectsCheckBox";
             this.HeatEffectsCheckBox.UseVisualStyleBackColor = false;
             this.HeatEffectsCheckBox.CheckedChanged += new System.EventHandler(this.HeatEffectsCheckBox_CheckedChanged);
+            this.HeatEffectsCheckBox.Click += new System.EventHandler(this.HeatEffectsCheckBox_Click);
             // 
             // camOkButton
             // 
@@ -265,6 +266,7 @@ namespace Contra
             this.camTrackBar.Minimum = 392;
             this.camTrackBar.Name = "camTrackBar";
             this.camTrackBar.TabStop = true;
+            this.camTrackBar.Value = 392;
             this.camTrackBar.Scroll += new System.EventHandler(this.camTrackBar_Scroll);
             // 
             // HotkeyStyleGroupBox

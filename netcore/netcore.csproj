@@ -12,12 +12,16 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PublishReadyToRun>false</PublishReadyToRun>
     <PublishSingleFile>true</PublishSingleFile>
-    <PublishTrimmed>true</PublishTrimmed>
+    <!--<PublishTrimmed>true</PublishTrimmed>-->
     <RuntimeIdentifier>win-x86</RuntimeIdentifier>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\net45\**\*.cs" />
     <EmbeddedResource Include="..\net45\**\*.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="..\net45\obj\Debug\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Management" Version="*" />

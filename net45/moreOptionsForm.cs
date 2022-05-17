@@ -60,6 +60,8 @@ namespace Contra
             public int dmPanningHeight;
         }
 
+        bool heatEffectsCheckBoxIsClicked = false; // Bool that helps check if heat effects checkbox has been checked by the user and not automatically
+
         public moreOptionsForm()
         {
             InitializeComponent();
@@ -359,10 +361,12 @@ namespace Contra
                     if (text.Contains("HeatEffects = No") || text.Contains("HeatEffects = no"))
                     {
                         HeatEffectsCheckBox.Checked = false;
+                        heatEffectsCheckBoxIsClicked = false;
                     }
                     else if (text.Contains("HeatEffects = Yes") || text.Contains("HeatEffects = yes"))
                     {
                         HeatEffectsCheckBox.Checked = true;
+                        heatEffectsCheckBoxIsClicked = false; // Yes, false
                     }
                 }
             }
@@ -459,10 +463,12 @@ namespace Contra
                     if (text.Contains("HeatEffects = No") || text.Contains("HeatEffects = no"))
                     {
                         HeatEffectsCheckBox.Checked = false;
+                        heatEffectsCheckBoxIsClicked = false;
                     }
                     else if (text.Contains("HeatEffects = Yes") || text.Contains("HeatEffects = yes"))
                     {
                         HeatEffectsCheckBox.Checked = true;
+                        heatEffectsCheckBoxIsClicked = false; // Yes, false
                     }
                 }
             }
@@ -669,13 +675,11 @@ namespace Contra
                 }
                 comboBox1.Text = Properties.Settings.Default.Res;
 
-                FogCheckBox.Checked = Properties.Settings.Default.Fog;
-                LangFilterCheckBox.Checked = Properties.Settings.Default.LangF;
-                WaterEffectsCheckBox.Checked = Properties.Settings.Default.WaterEffects;
-                LeikezeHotkeysRadioButton.Checked = Properties.Settings.Default.LeikezeHotkeys;
-                LegacyHotkeysRadioButton.Checked = Properties.Settings.Default.LegacyHotkeys;
-                Shadows3DCheckBox.Checked = Properties.Settings.Default.Shadows3D;
-                DisableDynamicLODCheckBox.Checked = Properties.Settings.Default.DisableDynamicLOD;
+                //FogCheckBox.Checked = Properties.Settings.Default.Fog;
+                //LangFilterCheckBox.Checked = Properties.Settings.Default.LangF;
+                //WaterEffectsCheckBox.Checked = Properties.Settings.Default.WaterEffects;
+                //LeikezeHotkeysRadioButton.Checked = Properties.Settings.Default.LeikezeHotkeys;
+                //LegacyHotkeysRadioButton.Checked = Properties.Settings.Default.LegacyHotkeys;
             }
             if (!File.Exists(UserDataLeafName() + "Options.ini") && (!File.Exists(myDocPath + "Options.ini")))
             {
@@ -782,23 +786,23 @@ namespace Contra
                     {
                         if (Globals.GB_Checked == true)
                         {
-                            MessageBox.Show("This resolution is not valid.", "Error");
+                            MessageBox.Show("This resolution is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else if (Globals.RU_Checked == true)
                         {
-                            MessageBox.Show("Это разрешение экрана не является действительным.", "Ошибка");
+                            MessageBox.Show("Это разрешение экрана не является действительным.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else if (Globals.UA_Checked == true)
                         {
-                            MessageBox.Show("Це розширення не є дійсним.", "Помилка");
+                            MessageBox.Show("Це розширення не є дійсним.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else if (Globals.BG_Checked == true)
                         {
-                            MessageBox.Show("Тази резолюция не е валидна.", "Грешка");
+                            MessageBox.Show("Тази резолюция не е валидна.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else if (Globals.DE_Checked == true)
                         {
-                            MessageBox.Show("Diese Auflцsung ist nicht gьltig.", "Fehler");
+                            MessageBox.Show("Diese Auflцsung ist nicht gьltig.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         //return;
                     }
@@ -808,23 +812,23 @@ namespace Contra
                         File.WriteAllText(UserDataLeafName() + "Options.ini", Regex.Replace(File.ReadAllText(UserDataLeafName() + "Options.ini"), "\r?\nResolution =.*", "\r\nResolution = " + fixedText + "\r"));
                         if (Globals.GB_Checked == true)
                         {
-                            MessageBox.Show("Resolution changed successfully!");
+                            MessageBox.Show("Resolution changed successfully!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else if (Globals.RU_Checked == true)
                         {
-                            MessageBox.Show("Разрешение экрана успешно изменено!");
+                            MessageBox.Show("Разрешение экрана успешно изменено!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else if (Globals.UA_Checked == true)
                         {
-                            MessageBox.Show("Розширення успішно змінено!");
+                            MessageBox.Show("Розширення успішно змінено!", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else if (Globals.BG_Checked == true)
                         {
-                            MessageBox.Show("Резолюцията беше променена успешно!");
+                            MessageBox.Show("Резолюцията беше променена успешно!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else if (Globals.DE_Checked == true)
                         {
-                            MessageBox.Show("Auflцsung erfolgreich geдndert!");
+                            MessageBox.Show("Auflцsung erfolgreich geдndert!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         IsGeneralsRunning();
                     }
@@ -838,50 +842,51 @@ namespace Contra
                     {
                         if (Globals.GB_Checked == true)
                         {
-                            MessageBox.Show("This resolution is not valid.", "Error");
+                            MessageBox.Show("This resolution is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else if (Globals.RU_Checked == true)
                         {
-                            MessageBox.Show("Это разрешение экрана не является действительным.", "Ошибка");
+                            MessageBox.Show("Это разрешение экрана не является действительным.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else if (Globals.UA_Checked == true)
                         {
-                            MessageBox.Show("Це розширення не є дійсним.", "Помилка");
+                            MessageBox.Show("Це розширення не є дійсним.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else if (Globals.BG_Checked == true)
                         {
-                            MessageBox.Show("Тази резолюция не е валидна.", "Грешка");
+                            MessageBox.Show("Тази резолюция не е валидна.", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else if (Globals.DE_Checked == true)
                         {
-                            MessageBox.Show("Diese Auflцsung ist nicht gьltig.", "Fehler");
+                            MessageBox.Show("Diese Auflцsung ist nicht gьltig.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         //return;
                     }
                     else
                     {
                         string fixedText = comboBox1.Text.Replace("x", " ");
-                        File.WriteAllText(myDocPath + "Options.ini", Regex.Replace(File.ReadAllText(myDocPath + "Options.ini"), "\r?\nResolution =.*", "\r\nResolution = " + fixedText + "\r\n"));
+                        File.WriteAllText(myDocPath + "Options.ini", Regex.Replace(File.ReadAllText(myDocPath + "Options.ini"), "\r?\nResolution =.*", "\r\nResolution = " + fixedText + "\r"));
                         if (Globals.GB_Checked == true)
                         {
-                            MessageBox.Show("Resolution changed successfully!");
+                            MessageBox.Show("Resolution changed successfully!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else if (Globals.RU_Checked == true)
                         {
-                            MessageBox.Show("Разрешение экрана успешно изменено!");
+                            MessageBox.Show("Разрешение экрана успешно изменено!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else if (Globals.UA_Checked == true)
                         {
-                            MessageBox.Show("Розширення успішно змінено!");
+                            MessageBox.Show("Розширення успішно змінено!", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else if (Globals.BG_Checked == true)
                         {
-                            MessageBox.Show("Резолюцията беше променена успешно!");
+                            MessageBox.Show("Резолюцията беше променена успешно!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else if (Globals.DE_Checked == true)
                         {
-                            MessageBox.Show("Auflцsung erfolgreich geдndert!");
+                            MessageBox.Show("Auflцsung erfolgreich geдndert!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
+                        IsGeneralsRunning();
                     }
                 }
             }
@@ -1022,23 +1027,23 @@ namespace Contra
 
                     if (Globals.GB_Checked == true)
                     {
-                        MessageBox.Show("Camera height changed!\n\nNOTE: High camera height values may decrease performance.");
+                        MessageBox.Show("Camera height successfully changed!\n\nNOTE: High camera height values will decrease performance.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else if (Globals.RU_Checked == true)
                     {
-                        MessageBox.Show("Высота камеры изменена!\n\nЗаметка. Высокие значения высоты камеры могут снизить производительность.");
+                        MessageBox.Show("Высота камеры изменена!\n\nЗаметка. Высокие значения высоты камеры снижают производительность.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else if (Globals.UA_Checked == true)
                     {
-                        MessageBox.Show("Висота камери змінилася!\n\nПримітка. Високі значення висоти камери можуть знизити продуктивність.");
+                        MessageBox.Show("Висота камери змінилася!\n\nПримітка. Високі значення висоти камери знижують продуктивність.", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else if (Globals.BG_Checked == true)
                     {
-                        MessageBox.Show("Височината на камерата е променена!\n\nЗабележка: Високите стойности на камерата могат да намалят производителността.");
+                        MessageBox.Show("Височината на камерата е променена!\n\nЗабележка: Високите стойности на височината на камерата ще намалят производителността.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else if (Globals.DE_Checked == true)
                     {
-                        MessageBox.Show("Kamerahöhe geändert!\n\nHinweis: Hohe Kamerahöhen können die Leistung beeinträchtigen.");
+                        MessageBox.Show("Kamerahöhe geändert!\n\nHinweis: Hohe Werte für die Kamerahöhe verringern die Leistung.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
@@ -1138,6 +1143,29 @@ namespace Contra
                     {
                         MessageBox.Show("\"!!!Contra009Final_Patch2_GameData.big\" nicht gefunden!", "Fehler");
                     }
+                }
+            }
+            else
+            {
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("Could not change camera height because of missing files!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Не удалось изменить высоту камеры из-за отсутствия файлов!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Не вдалося змінити висоту камери через відсутні файли!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Височината на камерата не можа да се промени поради липсващи файлове!", "Грешка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Die Kamerahöhe konnte wegen fehlender Dateien nicht geändert werden!", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -1262,9 +1290,6 @@ namespace Contra
         {
             if (!Shadows3DCheckBox.Checked)
             {
-                Properties.Settings.Default.Shadows3D = false;
-                Properties.Settings.Default.Save();
-
                 if (Directory.Exists(UserDataLeafName()))
                 {
                     string text = File.ReadAllText(UserDataLeafName() + "Options.ini");
@@ -1296,9 +1321,6 @@ namespace Contra
             }
             else
             {
-                Properties.Settings.Default.Shadows3D = true;
-                Properties.Settings.Default.Save();
-
                 if (Directory.Exists(UserDataLeafName()))
                 {
                     string text = File.ReadAllText(UserDataLeafName() + "Options.ini");
@@ -1804,9 +1826,6 @@ namespace Contra
         {
             if (DisableDynamicLODCheckBox.Checked)
             {
-                Properties.Settings.Default.DisableDynamicLOD = true;
-                Properties.Settings.Default.Save();
-
                 if (Directory.Exists(UserDataLeafName()))
                 {
                     string text = File.ReadAllText(UserDataLeafName() + "Options.ini");
@@ -1838,9 +1857,6 @@ namespace Contra
             }
             else
             {
-                Properties.Settings.Default.DisableDynamicLOD = false;
-                Properties.Settings.Default.Save();
-
                 if (Directory.Exists(UserDataLeafName()))
                 {
                     string text = File.ReadAllText(UserDataLeafName() + "Options.ini");
@@ -1877,6 +1893,7 @@ namespace Contra
         {
             if (!HeatEffectsCheckBox.Checked)
             {
+                heatEffectsCheckBoxIsClicked = false;
                 Properties.Settings.Default.HeatEffects = false;
                 Properties.Settings.Default.Save();
 
@@ -1911,6 +1928,7 @@ namespace Contra
             }
             else
             {
+                heatEffectsCheckBoxIsClicked = true;
                 Properties.Settings.Default.HeatEffects = true;
                 Properties.Settings.Default.Save();
 
@@ -1968,6 +1986,33 @@ namespace Contra
             else Properties.Settings.Default.LegacyHotkeys = true;
             Properties.Settings.Default.Save();
             IsGeneralsRunning();
+        }
+
+        private void HeatEffectsCheckBox_Click(object sender, EventArgs e)
+        {
+            if (heatEffectsCheckBoxIsClicked == true)
+            {
+                if (Globals.GB_Checked == true)
+                {
+                    MessageBox.Show("Heat Effects are known to cause black screen in the game on certain systems. If you get this problem, turn this setting off.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.RU_Checked == true)
+                {
+                    MessageBox.Show("Известно, что тепловые эффекты вызывают черный экран в игре на некоторых системах. Если у вас возникла эта проблема, отключите этот параметр.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.UA_Checked == true)
+                {
+                    MessageBox.Show("Відомо, що теплові ефекти викликають чорний екран у грі на певних системах. Якщо у вас виникла ця проблема, вимкніть це налаштування.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.BG_Checked == true)
+                {
+                    MessageBox.Show("Известно е, че топлинните ефекти причиняват черен екран в играта на определени системи. Ако имате този проблем, изключете тази настройка.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (Globals.DE_Checked == true)
+                {
+                    MessageBox.Show("Es ist bekannt, dass Hitzeeffekte auf bestimmten Systemen einen schwarzen Bildschirm im Spiel verursachen. Wenn dieses Problem auftritt, schalten Sie diese Einstellung aus.", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
     }
 }
