@@ -1,10 +1,20 @@
-[ENGLISH](#ENGLISH) | [РУССКИЙ](#РУССКИЙ)
-### ENGLISH
+![0](https://cdn.discordapp.com/attachments/410500983198580740/948933165177765938/flag-gb.jpg) [ENGLISH](#ENGLISH-) | ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg) [РУССКИЙ](#РУССКИЙ-)
+### ENGLISH ![0](https://cdn.discordapp.com/attachments/410500983198580740/948933165177765938/flag-gb.jpg)
 # Contra 009 Final Patch 3 Online Play Instructions
 
-**1.** Install [Contra 009 Final + Patch 1 + Patch 2 + Patch 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) on top of clean, working, unmodded 1.04 Zero Hour.
+### Contra installation method №1 (using official Contra Launcher)
+**1.** Install [Contra 009 Final + Patch 1 + Patch 2 + Patch 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) on top of clean, working, unmodded Zero Hour v1.04.
+
+[![](https://cdn.discordapp.com/attachments/410500983198580740/975781531228455042/youtubeicon.png)](https://www.youtube.com/watch?v=UbPLFd_D_tM)[(Video instructions)](https://www.youtube.com/watch?v=UbPLFd_D_tM)
 
 **2.** Run ***Contra_Launcher.exe*** and accept the hotfixes by clicking "Yes" when prompted ![1](https://media.discordapp.net/attachments/410501978784006144/829700450064400394/unknown.png).
+
+### Contra installation method №2 (using GenLauncher)
+**1.** Join [GenLauncher Discord](https://discord.com/invite/fFGpudz5hV)
+
+**2.** [Download the latest version](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) and place GenLauncher.exe in your Zero Hour game folder. Run it, add Contra mod, and wait for it to get downloaded.
+
+### Installing the VPN software
 
 **3.** Install RadminVPN. Go to https://www.radmin-vpn.com/ then click Free Download and Install
 
@@ -24,12 +34,22 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 ![4](https://media.discordapp.net/attachments/410501978784006144/795777286874857542/unknown.png)
 
-### РУССКИЙ
+### РУССКИЙ ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg)
 # Contra 009 Final Patch 3 Инструкции по онлайн-игре
 
-**1.** Установите [Contra 009 Финал + Патч 1 + Патч 2 + Патч 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) сверху чистый 1.04 Zero Hour.
+### Способ установки Contra №1 (используя официальный Contra Launcher)
+**1.** Установите [Contra 009 Финал + Патч 1 + Патч 2 + Патч 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
+
+[![](https://cdn.discordapp.com/attachments/410500983198580740/975781531228455042/youtubeicon.png)](https://www.youtube.com/watch?v=UbPLFd_D_tM)[(Видео инструкции)](https://www.youtube.com/watch?v=wQoktTvNQGs)
 
 **2.** Запустите ***Contra_Launcher.exe*** и примите исправления, нажав «Да» при появлении запроса ![1](https://media.discordapp.net/attachments/410501978784006144/829700542443552795/unknown.png).
+
+### Способ установки Contra №2 (используя GenLauncher)
+**1.** Присоединитесь [GenLauncher Discord](https://discord.com/invite/fFGpudz5hV)
+
+**2.** [Скачать последнюю версию](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) и поместите GenLauncher.exe в папку с игрой Zero Hour. Запустите его, добавьте мод Contra и дождитесь его загрузки.
+
+### Установка программного обеспечения VPN
 
 **3.** Установите RadminVPN: https://www.radmin-vpn.com/ru/ затем нажмите Скачать бесплатно и установите
 
