@@ -221,7 +221,8 @@ namespace Contra
                 if
                 (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
                 !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") ||
-                !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big"))
+                !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") ||
+                !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.ctr") && !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big"))
                 {
                     GetModUpdate(versionsTXT, patch_url);
                 }
@@ -811,6 +812,11 @@ namespace Contra
                 zip_url = patch_url + @"/Contra009FinalPatch3Hotfix3.zip";
                 modVersionText = "009 Final Patch 3 Hotfix 3";
             }
+            else if (!File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.ctr") && !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big"))
+            {
+                zip_url = patch_url + @"/Contra009FinalPatch3Hotfix3_AI.zip";
+                modVersionText = "009 Final Patch 3 Hotfix 3";
+            }
             string zip_path = zip_url.Split('/').Last();
 
             // Get mod version text - unused
@@ -1154,6 +1160,10 @@ namespace Contra
             {
                 File.Delete("!!!!!!!Contra009Final_Patch3_Hotfix3.big");
             }
+            if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.ctr") && File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big"))
+            {
+                File.Delete("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big");
+            }
             if (File.Exists("!!!!Contra009Final_Patch3_GameData.ctr") && File.Exists("!!!!Contra009Final_Patch3_GameData.big"))
             {
                 File.Delete("!!!!Contra009Final_Patch3_GameData.big");
@@ -1278,6 +1288,7 @@ namespace Contra
             {
                 List<string> bigs = new List<string>
                 {
+                    "!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big",
                     "!!!!!!!Contra009Final_Patch3_Hotfix3.big",
                     "!!!!!!Contra009Final_Patch3_Hotfix2.big",
                     "!!!!!!Contra009Final_Patch3_Hotfix_FunnyGenPics.big",
@@ -1397,6 +1408,7 @@ namespace Contra
             {
                 List<string> bigs = new List<string>
                 {
+                    "!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big",
                     "!!!!!!!Contra009Final_Patch3_Hotfix3.big",
                     "!!!!!!Contra009Final_Patch3_Hotfix2.big",
                     "!!!!!!Contra009Final_Patch3_Hotfix_FunnyGenPics.big",
@@ -1547,6 +1559,7 @@ namespace Contra
                     File.Move("!!!!!Contra009Final_Patch3_Hotfix.ctr", "!!!!!Contra009Final_Patch3_Hotfix.big");
                     File.Move("!!!!!!Contra009Final_Patch3_Hotfix2.ctr", "!!!!!!Contra009Final_Patch3_Hotfix2.big");
                     File.Move("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr", "!!!!!!!Contra009Final_Patch3_Hotfix3.big");
+                    File.Move("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.ctr", "!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big");
 
                     // Remove dbghelp to fix DirectX error on game startup.
                     File.Delete("dbghelp.dll");
@@ -2027,6 +2040,7 @@ namespace Contra
                 File.Move("!!!!!Contra009Final_Patch3_Hotfix.ctr", "!!!!!Contra009Final_Patch3_Hotfix.big");
                 File.Move("!!!!!!Contra009Final_Patch3_Hotfix2.ctr", "!!!!!!Contra009Final_Patch3_Hotfix2.big");
                 File.Move("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr", "!!!!!!!Contra009Final_Patch3_Hotfix3.big");
+                File.Move("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.ctr", "!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big");
                 File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
                 File.Move("!!Contra009Final_Patch1_EN.ctr", "!!Contra009Final_Patch1_EN.big");
                 File.Move("!!!Contra009Final_Patch2_EN.ctr", "!!!Contra009Final_Patch2_EN.big");
