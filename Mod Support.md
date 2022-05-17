@@ -14,7 +14,7 @@ You're having a problem with the mod but need help finding a solution? Before yo
 
 ![](https://cdn.discordapp.com/attachments/410500983198580740/975850322155171840/support.jpg)
 
-If you didn't find a fix for your problem, feel free to ask in the same channel.
+If you didn't find a fix for your problem, use the search function. The chance of someone having already asked the same question is high. If you still cannot find it, feel free to ask in the same channel.
 
 ### РУССКИЙ ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg)
 # Contra Поддержка
@@ -31,4 +31,4 @@ If you didn't find a fix for your problem, feel free to ask in the same channel.
 
 ![](https://cdn.discordapp.com/attachments/410500983198580740/975850322155171840/support.jpg)
 
-Если вы не нашли решение своей проблемы, не стесняйтесь спрашивать в том же канале. Если ваш вопрос будет на русском языке, пожалуйста, используйте канал **#помощь**.
+Если вы не нашли решение своей проблемы, воспользуйтесь поиском. Вероятность того, что кто-то уже задавал тот же вопрос, высока. Если вы все еще не можете найти его, не стесняйтесь спрашивать в том же канале. Если ваш вопрос будет на русском языке, пожалуйста, используйте канал **#помощь**.
