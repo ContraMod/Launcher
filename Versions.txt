@@ -1,6 +1,6 @@
 ﻿Mod: 2$
 Mod Text: 009 Final Patch 3 Hotfix 3$
-Launcher: 1.2.0.5$
+Launcher: 1.2.0.6$
 ZeroTier: 1.4.6$
 MOTD-EN: We're playing via RadminVPN at "Contra 009" Gaming Network$
 MOTD-RU: Играем через RadminVPN в игровой сети: "Contra 009"$
