@@ -222,7 +222,8 @@ namespace Contra
                 (!File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && !File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") ||
                 !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && !File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") ||
                 !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") ||
-                !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.ctr") && !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big"))
+                !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.ctr") && !File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big") ||
+                !File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.ctr") && !File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.big"))
                 {
                     GetModUpdate(versionsTXT, patch_url);
                 }
@@ -272,7 +273,12 @@ namespace Contra
                 ModDLLabel.Text = "Download progress: ";
                 CancelModDLBtn.Text = "Cancel";
                 string verString, yearString = "";
-                if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
+                if (File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.big") || File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.ctr") && (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))))
+                {
+                    verString = "009 Final Patch 3 Hotfix 4";
+                    yearString = "2022";
+                }
+                else if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
                 {
                     verString = "009 Final Patch 3 Hotfix 3";
                     yearString = "2022";
@@ -385,9 +391,14 @@ namespace Contra
                 customAddonsLabel.Text = "Карты и дополнения";
                 supportLabel.Text = "У меня проблема";
                 string verString, yearString = "";
-                if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
+                if (File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.big") || File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.ctr") && (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))))
                 {
-                    verString = "009 Final Патч 3 Хотфикс 3";
+                    verString = "009 Финал Патч 3 Хотфикс 4";
+                    yearString = "2022";
+                }
+                else if(File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
+                {
+                    verString = "009 Финал Патч 3 Хотфикс 3";
                     yearString = "2022";
                 }
                 else if (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))
@@ -498,7 +509,12 @@ namespace Contra
                 customAddonsLabel.Text = "Карти та доповнення";
                 supportLabel.Text = "У мене є проблема";
                 string verString, yearString = "";
-                if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
+                if (File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.big") || File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.ctr") && (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))))
+                {
+                    verString = "009 Фінал Патч 3 Хотфикс 4";
+                    yearString = "2022";
+                }
+                else if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
                 {
                     verString = "009 Фінал Патч 3 Хотфикс 3";
                     yearString = "2022";
@@ -611,7 +627,12 @@ namespace Contra
                 customAddonsLabel.Text = "Карти и добавки";
                 supportLabel.Text = "Имам проблем";
                 string verString, yearString = "";
-                if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
+                if (File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.big") || File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.ctr") && (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))))
+                {
+                    verString = "009 Final Пач 3 Hotfix 4";
+                    yearString = "2022";
+                }
+                else if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
                 {
                     verString = "009 Final Пач 3 Hotfix 3";
                     yearString = "2022";
@@ -726,7 +747,12 @@ namespace Contra
                 customAddonsLabel.Text = "Karten und Addons";
                 supportLabel.Text = "Ich habe ein Problem";
                 string verString, yearString = "";
-                if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
+                if (File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.big") || File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.ctr") && (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr"))))))))
+                {
+                    verString = "009 Final Patch 3 Hotfix 4";
+                    yearString = "2022";
+                }
+                else if (File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.big") || File.Exists("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr") && (File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.big") || File.Exists("!!!!!!Contra009Final_Patch3_Hotfix2.ctr") && (File.Exists("!!!!!Contra009Final_Patch3_Hotfix.big") || File.Exists("!!!!!Contra009Final_Patch3_Hotfix.ctr") && (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr") && (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr") && (File.Exists("!!Contra009Final_Patch1.big") || File.Exists("!!Contra009Final_Patch1.ctr")) && (File.Exists("!Contra009Final.big") || File.Exists("!Contra009Final.ctr")))))))
                 {
                     verString = "009 Final Patch 3 Hotfix 3";
                     yearString = "2022";
@@ -816,6 +842,11 @@ namespace Contra
             {
                 zip_url = patch_url + @"/Contra009FinalPatch3Hotfix3_AI.zip";
                 modVersionText = "009 Final Patch 3 Hotfix 3";
+            }
+            else if (!File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.ctr") && !File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.big"))
+            {
+                zip_url = patch_url + @"/Contra009FinalPatch3Hotfix4.zip";
+                modVersionText = "009 Final Patch 3 Hotfix 4";
             }
             string zip_path = zip_url.Split('/').Last();
 
@@ -1164,6 +1195,10 @@ namespace Contra
             {
                 File.Delete("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big");
             }
+            if (File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.ctr") && File.Exists("!!!!!!!!Contra009Final_Patch3_Hotfix4.big"))
+            {
+                File.Delete("!!!!!!!!Contra009Final_Patch3_Hotfix4.big");
+            }
             if (File.Exists("!!!!Contra009Final_Patch3_GameData.ctr") && File.Exists("!!!!Contra009Final_Patch3_GameData.big"))
             {
                 File.Delete("!!!!Contra009Final_Patch3_GameData.big");
@@ -1288,6 +1323,7 @@ namespace Contra
             {
                 List<string> bigs = new List<string>
                 {
+                    "!!!!!!!!Contra009Final_Patch3_Hotfix4.big",
                     "!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big",
                     "!!!!!!!Contra009Final_Patch3_Hotfix3.big",
                     "!!!!!!Contra009Final_Patch3_Hotfix2.big",
@@ -1408,6 +1444,7 @@ namespace Contra
             {
                 List<string> bigs = new List<string>
                 {
+                    "!!!!!!!!Contra009Final_Patch3_Hotfix4.big",
                     "!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big",
                     "!!!!!!!Contra009Final_Patch3_Hotfix3.big",
                     "!!!!!!Contra009Final_Patch3_Hotfix2.big",
@@ -1560,6 +1597,7 @@ namespace Contra
                     File.Move("!!!!!!Contra009Final_Patch3_Hotfix2.ctr", "!!!!!!Contra009Final_Patch3_Hotfix2.big");
                     File.Move("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr", "!!!!!!!Contra009Final_Patch3_Hotfix3.big");
                     File.Move("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.ctr", "!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big");
+                    File.Move("!!!!!!!!Contra009Final_Patch3_Hotfix4.ctr", "!!!!!!!!Contra009Final_Patch3_Hotfix4.big");
 
                     // Remove dbghelp to fix DirectX error on game startup.
                     File.Delete("dbghelp.dll");
@@ -2041,6 +2079,7 @@ namespace Contra
                 File.Move("!!!!!!Contra009Final_Patch3_Hotfix2.ctr", "!!!!!!Contra009Final_Patch3_Hotfix2.big");
                 File.Move("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr", "!!!!!!!Contra009Final_Patch3_Hotfix3.big");
                 File.Move("!!!!!!!Contra009Final_Patch3_Hotfix3_AI.ctr", "!!!!!!!Contra009Final_Patch3_Hotfix3_AI.big");
+                File.Move("!!!!!!!!Contra009Final_Patch3_Hotfix4.ctr", "!!!!!!!!Contra009Final_Patch3_Hotfix4.big");
                 File.Move("!Contra009Final_EN.ctr", "!Contra009Final_EN.big");
                 File.Move("!!Contra009Final_Patch1_EN.ctr", "!!Contra009Final_Patch1_EN.big");
                 File.Move("!!!Contra009Final_Patch2_EN.ctr", "!!!Contra009Final_Patch2_EN.big");
