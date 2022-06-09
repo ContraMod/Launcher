@@ -675,11 +675,11 @@ namespace Contra
                 }
                 comboBox1.Text = Properties.Settings.Default.Res;
 
-                //FogCheckBox.Checked = Properties.Settings.Default.Fog;
-                //LangFilterCheckBox.Checked = Properties.Settings.Default.LangF;
-                //WaterEffectsCheckBox.Checked = Properties.Settings.Default.WaterEffects;
-                //LeikezeHotkeysRadioButton.Checked = Properties.Settings.Default.LeikezeHotkeys;
-                //LegacyHotkeysRadioButton.Checked = Properties.Settings.Default.LegacyHotkeys;
+                FogCheckBox.Checked = Properties.Settings.Default.Fog;
+                LangFilterCheckBox.Checked = Properties.Settings.Default.LangF;
+                WaterEffectsCheckBox.Checked = Properties.Settings.Default.WaterEffects;
+                LeikezeHotkeysRadioButton.Checked = Properties.Settings.Default.LeikezeHotkeys;
+                LegacyHotkeysRadioButton.Checked = Properties.Settings.Default.LegacyHotkeys;
             }
             if (!File.Exists(UserDataLeafName() + "Options.ini") && (!File.Exists(myDocPath + "Options.ini")))
             {
