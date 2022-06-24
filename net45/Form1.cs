@@ -1551,32 +1551,46 @@ namespace Contra
             button1.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
 
-        public void IsWbRunning()
+        public bool wbRunningDialogResultYes()
         {
             Process[] wbByName = Process.GetProcessesByName("worldbuilder_ctr");
+            string message = null;
+            string title = null;
             if (wbByName.Length > 0) //if wb is already running
             {
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("Voice, language and hotkey preferences may not load correctly since World Builder is running. Starting Contra anyway.", "Error");
+                    message = "Voice, language and hotkey preferences may not load correctly since World Builder is running.\n\nWould you like to start the game anyway?";
+                    title = "Warning";
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("Настройки голоса, языка и горячих клавиш могут загружаться неправильно, так как World Builder запущен.. Запуск Contra в любом случае.", "Ошибка");
+                    message = "Настройки голоса, языка и горячих клавиш могут загружаться неправильно, так как World Builder запущен.\n\nВы все равно хотите начать игру?";
+                    title = "Предупреждение";
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("Налаштування голосу, мови та гарячих клавіш можуть завантажуватися неправильно, оскільки працює World Builder. Запуск Contra в будь-якому випадку.", "Помилка");
+                    message = "Налаштування голосу, мови та гарячих клавіш можуть завантажуватися неправильно, оскільки працює World Builder.\n\nВи все-таки хотіли б почати гру?";
+                    title = "Попередження";
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("Предпочитанията за глас, език и горещи клавиши може да не се заредят правилно, тъй като World Builder е стартиран. Contra ще стартира въпреки това.", "Грешка");
+                    message = "Предпочитанията за глас, език и горещи клавиши може да не се заредят правилно, тъй като World Builder е стартиран.\n\nИскате ли да стартирате играта все пак?";
+                    title = "Предупреждение";
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("Stimmen der Einheit, Spielsprache und Hotkey-Einstellungen werden möglicherweise nicht richtig geladen, da World Builder ausgeführt wird. Contra wird ohnehin gestartet.", "Fehler");
+                    message = "Stimmen der Einheit, Spielsprache und Hotkey-Einstellungen werden möglicherweise nicht richtig geladen, da World Builder ausgeführt wird.\n\nMöchten Sie das Spiel trotzdem starten?";
+                    title = "Warnung";
                 }
+                DialogResult dialogResult = MessageBox.Show(message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dialogResult == DialogResult.No)
+                {
+                    return false;
+                }
+                else return true;
             }
+            return true;
         }
 
         private void button1_Click(object sender, EventArgs e) // LaunchButton
@@ -1604,7 +1618,23 @@ namespace Contra
                     File.Delete("dbghelp.ctr");
                     File.Delete("dbghelp.backup");
                 }
-                catch { }
+                //catch { }
+                catch (Exception ex)
+                {
+                    var text = new Dictionary<Tuple<string, string>, bool>
+                {
+                    { Tuple.Create(ex.Message + "\n\nThis means that you are launching the mod with missing files, or an older version of the mod, and there will be errors or mismatch issues in online games.\n\nWould you like to start the game anyway?", "Warning"), Globals.GB_Checked},
+                    { Tuple.Create(ex.Message + "\n\nЭто означает, что вы запускаете мод с отсутствующими файлами или более старую версию мода, и в онлайн-играх будут ошибки или проблемы с несоответствием.\n\nХотели бы вы начать игру?", "Предупреждение"), Globals.RU_Checked},
+                    { Tuple.Create(ex.Message + "\n\nЦе означає, що ви запускаєте мод з відсутніми файлами або старішою версією мода, і в онлайн-іграх будуть помилки або проблеми з невідповідністю.\n\nВи хочете все-таки почати гру?", "Попередження"), Globals.UA_Checked},
+                    { Tuple.Create(ex.Message + "\n\nТова означава, че стартирате мода с липсващи файлове или по-стара версия на мода и ще има грешки или несъответствие в онлайн игрите.\n\nЖелаете ли да стартирате играта въпреки това?", "Предупреждение"), Globals.BG_Checked},
+                    { Tuple.Create(ex.Message + "\n\nDas bedeutet, dass Sie den Mod mit fehlenden Dateien oder einer älteren Version des Mods starten und es in Online-Spielen zu Fehlern oder Nichtübereinstimmungsproblemen kommt.\n\nMöchten Sie das Spiel trotzdem starten?", "Warnung"), Globals.DE_Checked},
+                }.Single(l => l.Value).Key;
+
+                    DialogResult dialogResult = MessageBox.Show(new Form { TopMost = true }, text.Item1, text.Item2, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (dialogResult == DialogResult.Yes) { }
+                    else { return; }
+                }
+
                 if ((RadioOrigQuotes.Checked) && (File.Exists("!Contra009Final_NatVO.ctr")))
                 {
                     File.Move("!Contra009Final_NatVO.ctr", "!Contra009Final_NatVO.big");
@@ -1826,8 +1856,6 @@ namespace Contra
                     {
                         StartGenerals();
                     }
-                    else
-                    { }
                 }
                 else
                 {
@@ -1850,7 +1878,7 @@ namespace Contra
             {
                 if (Globals.GB_Checked == true)
                 {
-                    DialogResult dialogResult = MessageBox.Show("The game cannot start because the \"binkw32.dll\" and/or \"mss32.dll\" file(s) were not found. You may have installed the mod in the wrong folder.\n\nWould you like to visit a page with installation instructions?", "Error", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                    DialogResult dialogResult = MessageBox.Show("The game cannot start because the \"binkw32.dll\" and/or \"mss32.dll\" file(s) were not found in the current directory. Contra must be installed in Zero Hour's main game folder.\n\nWould you like to visit a page with installation instructions?", "Error", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
                     if (dialogResult == DialogResult.Yes)
                     {
                         Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
@@ -1858,7 +1886,7 @@ namespace Contra
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    DialogResult dialogResult = MessageBox.Show("Игра не может запуститься, потому что файлы \"binkw32.dll\" и/или \"mss32.dll\" не найдены. Возможно, вы установили мод не в ту папку.\n\nХотите посетить страницу с инструкциями по установке?", "Ошибка", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                    DialogResult dialogResult = MessageBox.Show("Игра не может запуститься, потому что файлы \"binkw32.dll\" и/или \"mss32.dll\" не найдены в текущей папке. Contra должна быть установлена в основную папку игры Zero Hour.\n\nХотите посетить страницу с инструкциями по установке?", "Ошибка", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
                     if (dialogResult == DialogResult.Yes)
                     {
                         Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
@@ -1866,7 +1894,7 @@ namespace Contra
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    DialogResult dialogResult = MessageBox.Show("Гра не може запуститися, оскільки файли \"binkw32.dll\" та/або \"mss32.dll\" не знайдені. Можливо, ви встановили мод у неправильну папку.\n\nБажаєте відвідати сторінку з інструкціями щодо встановлення?", "Помилка", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                    DialogResult dialogResult = MessageBox.Show("Гра не може запуститися, оскільки файли \"binkw32.dll\" та/або \"mss32.dll\" не знайдені у поточній папці. Contra має бути встановленa в головній папці гри Zero Hour.\n\nБажаєте відвідати сторінку з інструкціями щодо встановлення?", "Помилка", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
                     if (dialogResult == DialogResult.Yes)
                     {
                         Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
@@ -1874,7 +1902,7 @@ namespace Contra
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    DialogResult dialogResult = MessageBox.Show("Играта не може да се стартира, тъй като не са намерени файловете \"binkw32.dll\" и/или \"mss32.dll\". Може да сте инсталирали мода в грешната папка.\n\nИскате ли да посетите страница с инструкции за инсталиране?", "Грешка", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                    DialogResult dialogResult = MessageBox.Show("Играта не може да се стартира, тъй като не са намерени файловете \"binkw32.dll\" и/или \"mss32.dll\" в текущата директория. Contra трябва да се инсталира в основната папка на Zero Hour.\n\nИскате ли да посетите страница с инструкции за инсталиране?", "Грешка", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
                     if (dialogResult == DialogResult.Yes)
                     {
                         Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
@@ -1882,7 +1910,7 @@ namespace Contra
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    DialogResult dialogResult = MessageBox.Show("Das Spiel kann nicht gestartet werden, da die Dateien \"binkw32.dll\" und /oder \"mss32.dll\" nicht gefunden wurden. Möglicherweise haben Sie den Mod im falschen Ordner installiert.\n\nMöchten Sie eine Seite mit Installationsanweisungen besuchen?", "Fehler", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                    DialogResult dialogResult = MessageBox.Show("Das Spiel kann nicht gestartet werden, da die Dateien \"binkw32.dll\" und /oder \"mss32.dll\" nicht im aktuellen Verzeichnis gefunden wurden. Contra muss im Hauptspielordner von Zero Hour installiert werden.\n\nMöchten Sie eine Seite mit Installationsanweisungen besuchen?", "Fehler", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
                     if (dialogResult == DialogResult.Yes)
                     {
                         Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
@@ -1911,35 +1939,44 @@ namespace Contra
 
             if (File.Exists("generals.exe"))
             {
-                IsWbRunning();
-                Process generals = new Process();
-                generals.StartInfo.FileName = "generals.exe";
+                if (wbRunningDialogResultYes() == true)
+                {
+                    Process generals = new Process();
+                    generals.StartInfo.FileName = "generals.exe";
 
-                if (WinCheckBox.Checked == false && QSCheckBox.Checked == false)
-                {
-                    //no start arguments
-                }
-                else if (QSCheckBox.Checked && WinCheckBox.Checked == false)
-                {
-                    generals.StartInfo.Arguments = "-quickstart -nologo";
-                }
-                else if (WinCheckBox.Checked && QSCheckBox.Checked)
-                {
-                    generals.StartInfo.Arguments = "-win -quickstart -nologo";
-                }
-                else //if (WinCheckBox.Checked && QSCheckBox.Checked == false)
-                {
-                    generals.StartInfo.Arguments = "-win";
-                }
+                    if (WinCheckBox.Checked == false && QSCheckBox.Checked == false)
+                    {
+                        //no start arguments
+                    }
+                    else if (QSCheckBox.Checked && WinCheckBox.Checked == false)
+                    {
+                        generals.StartInfo.Arguments = "-quickstart -nologo";
+                    }
+                    else if (WinCheckBox.Checked && QSCheckBox.Checked)
+                    {
+                        generals.StartInfo.Arguments = "-win -quickstart -nologo";
+                    }
+                    else //if (WinCheckBox.Checked && QSCheckBox.Checked == false)
+                    {
+                        generals.StartInfo.Arguments = "-win";
+                    }
 
-                generals.EnableRaisingEvents = true;
-                generals.Exited += (sender1, e1) =>
-                {
-                    WindowState = FormWindowState.Normal;
-                };
-                generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
-                WindowState = FormWindowState.Minimized;
-                generals.Start();
+                    generals.EnableRaisingEvents = true;
+                    generals.Exited += (sender1, e1) =>
+                    {
+                        WindowState = FormWindowState.Normal;
+                    };
+                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
+                    WindowState = FormWindowState.Minimized;
+                    try
+                    {
+                        generals.Start();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error");
+                    }
+                }
             }
             else
             {
@@ -2064,7 +2101,7 @@ namespace Contra
             button6.ForeColor = SystemColors.ButtonHighlight;
             button6.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
-        private void button6_Click(object sender, EventArgs e) //WorldBuilder
+        private void button6_Click(object sender, EventArgs e) // WorldBuilder
         {
             DeleteDuplicateFiles();
             RenameBigToCtrSkipOptionsINI();
@@ -2074,7 +2111,9 @@ namespace Contra
                 File.Move("!Contra009Final.ctr", "!Contra009Final.big");
                 File.Move("!!Contra009Final_Patch1.ctr", "!!Contra009Final_Patch1.big");
                 File.Move("!!!Contra009Final_Patch2.ctr", "!!!Contra009Final_Patch2.big");
+                File.Move("!!!Contra009Final_Patch2_GameData.ctr", "!!!Contra009Final_Patch2_GameData.big");
                 File.Move("!!!!Contra009Final_Patch3.ctr", "!!!!Contra009Final_Patch3.big");
+                File.Move("!!!!Contra009Final_Patch3_GameData.ctr", "!!!!Contra009Final_Patch3_GameData.big");
                 File.Move("!!!!!Contra009Final_Patch3_Hotfix.ctr", "!!!!!Contra009Final_Patch3_Hotfix.big");
                 File.Move("!!!!!!Contra009Final_Patch3_Hotfix2.ctr", "!!!!!!Contra009Final_Patch3_Hotfix2.big");
                 File.Move("!!!!!!!Contra009Final_Patch3_Hotfix3.ctr", "!!!!!!!Contra009Final_Patch3_Hotfix3.big");
@@ -3390,23 +3429,23 @@ namespace Contra
             {
                 if (Globals.GB_Checked == true)
                 {
-                    MessageBox.Show("\"!Contra009Final.ctr\" is missing!\nPlease, install 009 Final first, or the mod will not start!\nIt is common for people to install the patch, but not the base mod.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("\"!Contra009Final.ctr\" is missing!\nPlease, install 009 Final first, or the mod will not start!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else if (Globals.RU_Checked == true)
                 {
-                    MessageBox.Show("\"!Contra009Final.ctr\" отсутствует!\nПожалуйста, сначала установите 009 Final, или мод не запустится!\nЛюди обычно устанавливают патч, но не базовый мод.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("\"!Contra009Final.ctr\" отсутствует!\nПожалуйста, сначала установите 009 Final, или мод не запустится!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else if (Globals.UA_Checked == true)
                 {
-                    MessageBox.Show("\"!Contra009Final.ctr\" відсутня!\nБудь ласка, спочатку встановіть 009 Final, або мод не запуститься!\nЛюди звичайно встановлюють патч, але не базовий мод.", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("\"!Contra009Final.ctr\" відсутня!\nБудь ласка, спочатку встановіть 009 Final, або мод не запуститься!", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else if (Globals.BG_Checked == true)
                 {
-                    MessageBox.Show("\"!Contra009Final.ctr\" не беше намерен!\nМоля, първо инсталирайте 009 Final, или модът няма да стартира!\nЧесто хората инсталират само последния пач, но не и базовия мод.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("\"!Contra009Final.ctr\" не беше намерен!\nМоля, първо инсталирайте 009 Final, или модът няма да стартира!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else if (Globals.DE_Checked == true)
                 {
-                    MessageBox.Show("\"!Contra009Final.ctr\" wird vermisst!\nBitte installieren Sie zuerst 009 Final, oder der mod startet nicht!\nEs ist üblich, dass Leute den Patch installieren, nicht aber den Basemod.", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("\"!Contra009Final.ctr\" wird vermisst!\nBitte installieren Sie zuerst 009 Final, oder der mod startet nicht!", "Warnung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
 
