@@ -1618,22 +1618,24 @@ namespace Contra
                     File.Delete("dbghelp.ctr");
                     File.Delete("dbghelp.backup");
                 }
-                //catch { }
-                catch (Exception ex)
-                {
-                    var text = new Dictionary<Tuple<string, string>, bool>
-                {
-                    { Tuple.Create(ex.Message + "\n\nThis means that you are launching the mod with missing files, or an older version of the mod, and there will be errors or mismatch issues in online games.\n\nWould you like to start the game anyway?", "Warning"), Globals.GB_Checked},
-                    { Tuple.Create(ex.Message + "\n\nЭто означает, что вы запускаете мод с отсутствующими файлами или более старую версию мода, и в онлайн-играх будут ошибки или проблемы с несоответствием.\n\nХотели бы вы начать игру?", "Предупреждение"), Globals.RU_Checked},
-                    { Tuple.Create(ex.Message + "\n\nЦе означає, що ви запускаєте мод з відсутніми файлами або старішою версією мода, і в онлайн-іграх будуть помилки або проблеми з невідповідністю.\n\nВи хочете все-таки почати гру?", "Попередження"), Globals.UA_Checked},
-                    { Tuple.Create(ex.Message + "\n\nТова означава, че стартирате мода с липсващи файлове или по-стара версия на мода и ще има грешки или несъответствие в онлайн игрите.\n\nЖелаете ли да стартирате играта въпреки това?", "Предупреждение"), Globals.BG_Checked},
-                    { Tuple.Create(ex.Message + "\n\nDas bedeutet, dass Sie den Mod mit fehlenden Dateien oder einer älteren Version des Mods starten und es in Online-Spielen zu Fehlern oder Nichtübereinstimmungsproblemen kommt.\n\nMöchten Sie das Spiel trotzdem starten?", "Warnung"), Globals.DE_Checked},
-                }.Single(l => l.Value).Key;
+                catch { }
 
-                    DialogResult dialogResult = MessageBox.Show(new Form { TopMost = true }, text.Item1, text.Item2, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (dialogResult == DialogResult.Yes) { }
-                    else { return; }
-                }
+                // TODO: Find a place for this:
+                //catch (Exception ex)
+                //{
+                //    var text = new Dictionary<Tuple<string, string>, bool>
+                //{
+                //    { Tuple.Create(ex.Message + "\n\nThis means that you are launching the mod with missing files, or an older version of the mod, and there will be errors or mismatch issues in online games.\n\nWould you like to start the game anyway?", "Warning"), Globals.GB_Checked},
+                //    { Tuple.Create(ex.Message + "\n\nЭто означает, что вы запускаете мод с отсутствующими файлами или более старую версию мода, и в онлайн-играх будут ошибки или проблемы с несоответствием.\n\nХотели бы вы начать игру?", "Предупреждение"), Globals.RU_Checked},
+                //    { Tuple.Create(ex.Message + "\n\nЦе означає, що ви запускаєте мод з відсутніми файлами або старішою версією мода, і в онлайн-іграх будуть помилки або проблеми з невідповідністю.\n\nВи хочете все-таки почати гру?", "Попередження"), Globals.UA_Checked},
+                //    { Tuple.Create(ex.Message + "\n\nТова означава, че стартирате мода с липсващи файлове или по-стара версия на мода и ще има грешки или несъответствие в онлайн игрите.\n\nЖелаете ли да стартирате играта въпреки това?", "Предупреждение"), Globals.BG_Checked},
+                //    { Tuple.Create(ex.Message + "\n\nDas bedeutet, dass Sie den Mod mit fehlenden Dateien oder einer älteren Version des Mods starten und es in Online-Spielen zu Fehlern oder Nichtübereinstimmungsproblemen kommt.\n\nMöchten Sie das Spiel trotzdem starten?", "Warnung"), Globals.DE_Checked},
+                //}.Single(l => l.Value).Key;
+
+                //    DialogResult dialogResult = MessageBox.Show(new Form { TopMost = true }, text.Item1, text.Item2, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                //    if (dialogResult == DialogResult.Yes) { }
+                //    else { return; }
+                //}
 
                 if ((RadioOrigQuotes.Checked) && (File.Exists("!Contra009Final_NatVO.ctr")))
                 {
