@@ -24,6 +24,12 @@
     <Compile Remove="..\net45\obj\Debug\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Resources\_bg_update.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\_bg_update.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="System.Management" Version="*" />
     <PackageReference Include="System.Resources.Extensions" Version="*" />
   </ItemGroup>

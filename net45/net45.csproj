@@ -92,11 +92,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Globals.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Marquee.cs">
       <SubType>Component</SubType>
@@ -104,11 +104,12 @@
     <Compile Include="Marquee.Designer.cs">
       <DependentUpon>Marquee.cs</DependentUpon>
     </Compile>
-    <Compile Include="moreOptionsForm.cs">
+    <Compile Include="Messages.cs" />
+    <Compile Include="OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="moreOptionsForm.Designer.cs">
-      <DependentUpon>moreOptionsForm.cs</DependentUpon>
+    <Compile Include="OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -126,16 +127,16 @@
     <Compile Include="TransparentTrackBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ZT.cs" />
     <EmbeddedResource Include="Globals.resx">
       <DependentUpon>Globals.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="moreOptionsForm.resx">
-      <DependentUpon>moreOptionsForm.cs</DependentUpon>
+    <EmbeddedResource Include="OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -165,51 +166,28 @@
   <ItemGroup>
     <Content Include="ContraIco.ico" />
     <Content Include="LICENSE.txt" />
-    <None Include="Resources\_button_sm_highlight_s.png" />
-    <None Include="Resources\donate.png" />
-    <None Include="Resources\vpn_off.png" />
-    <None Include="Resources\vpn_off_over.png" />
-    <None Include="Resources\vpn_on.png" />
-    <None Include="Resources\vpn_on_over.png" />
-    <None Include="Resources\_button_config_s.png" />
-    <None Include="Resources\_button_config_s_tr.png" />
-    <None Include="Resources\trash.png" />
-    <None Include="Resources\trash_tr.png" />
-    <None Include="Resources\trash1.png" />
-    <None Include="Resources\_button_trash_tr.png" />
-    <None Include="Resources\_button_trash1.png" />
-    <None Include="Resources\_button_trash.png" />
+    <Content Include="Resources\background.jpg" />
+    <Content Include="Resources\_bg_update.jpg" />
     <None Include="Resources\_button_vpn_highlight.png" />
-    <None Include="Resources\_button_console_highlight.png" />
-    <None Include="Resources\_button_console_s.png" />
-    <None Include="Resources\_button_console_s_tr.png" />
-    <None Include="Resources\_button_config_highlight.png" />
     <None Include="Resources\_button_donate.png" />
     <None Include="Resources\_button_donate_tr.png" />
     <None Include="Resources\btnOk1.png" />
-    <None Include="Resources\advopbg.jpg" />
-    <Content Include="Resources\background.jpg" />
-    <Content Include="Version.txt" />
+    <None Include="Resources\_bg_options.jpg" />
     <None Include="README.md" />
     <None Include="Resources\flag_de_tr.png" />
     <None Include="Resources\flag_de.png" />
-    <None Include="Resources\vpnbg.jpg" />
     <None Include="Resources\btnOk3a.png" />
     <None Include="Resources\btnOk3.png" />
-    <None Include="Resources\flag_gb_sel.png" />
     <None Include="Resources\flag_gb_tr.png" />
     <None Include="Resources\flag_bg_tr.png" />
     <None Include="Resources\flag_ua_tr.png" />
     <None Include="Resources\flag_ru_tr.png" />
-    <None Include="Resources\min11.png" />
-    <None Include="Resources\min.png" />
-    <None Include="Resources\exit11.png" />
-    <None Include="Resources\exit1.png" />
+    <None Include="Resources\_button_sm_exit_tr.png" />
+    <None Include="Resources\_button_sm_exit.png" />
     <None Include="Resources\flag_gb.png" />
     <None Include="Resources\flag_bg.png" />
     <None Include="Resources\flag_ru.png" />
     <None Include="Resources\flag_ua.png" />
-    <None Include="Resources\_button_sm_highlight.png" />
     <None Include="Resources\_button_highlight.png" />
     <None Include="Resources\_button_exit_text.png" />
     <None Include="Resources\_button_exit.png" />

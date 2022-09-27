@@ -395,7 +395,7 @@ namespace Contra
         protected virtual void OnValueChanged(EventArgs eventArgs)
         {
             if (this.ValueChanged != null)
-                this.ValueChanged(this, eventArgs);
+                ValueChanged(this, eventArgs);
             this.LayoutTrackBarParts();
             this.OnScroll(eventArgs);
             this.Invalidate();
