@@ -508,7 +508,7 @@ namespace Contra
 
         private void ExitBtnSm_MouseEnter(object sender, EventArgs e)
         {
-            ExitBtnSm.BackgroundImage = Properties.Resources._button_sm_exit;
+            ExitBtnSm.BackgroundImage = Properties.Resources._button_sm_exit_tr;
         }
         private void ExitBtnSm_MouseLeave(object sender, EventArgs e)
         {
