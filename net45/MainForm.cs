@@ -1826,21 +1826,6 @@ namespace Contra
                     { }
                 }
 
-                // Make CTR Options.ini active
-                try
-                {
-                    if (File.Exists(Globals.myDocPath + "Options_CTR.ini"))
-                    {
-                        File.SetAttributes(Globals.myDocPath + "Options.ini", FileAttributes.Normal);
-                        File.SetAttributes(Globals.myDocPath + "Options_CTR.ini", FileAttributes.Normal);
-                        File.SetAttributes(Globals.myDocPath + "Options_ZH.ini", FileAttributes.Normal);
-                        File.Copy(Globals.myDocPath + "Options.ini", Globals.myDocPath + "Options_ZH.ini", true);
-                        File.Copy(Globals.myDocPath + "Options_CTR.ini", Globals.myDocPath + "Options.ini", true);
-                    }
-                }
-                catch
-                { }
-
                 // Disable cyrillic letters, enable German umlauts.
                 if (File.Exists("GermanZH.big") && File.Exists("GenArial.ttf"))
                 {
