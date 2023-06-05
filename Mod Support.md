@@ -6,13 +6,13 @@ You're having a problem with the mod but need help finding a solution? Before yo
 
 **1.** [Join our Discord](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches).
 
-**2.** Navigate to the **#troubleshooting** channel.
+**2.** Navigate to the **#🔧troubleshooting** channel.
 
 **3.** Browse through the available error solutions.
 
 ![](https://cdn.discordapp.com/attachments/410500983198580740/1115211749390565436/image.png)
 
-If you didn't find a fix for your problem, use the search function in the **#issue-support** channel below. ![](https://cdn.discordapp.com/attachments/410500983198580740/976042866709250078/unknown.png)
+If you didn't find a fix for your problem, use the search function in the **#✋issue-support** channel below. ![](https://cdn.discordapp.com/attachments/410500983198580740/976042866709250078/unknown.png)
 
 The chance of someone having already asked the same question is high. If you still cannot find it, feel free to ask in the same channel.
 
@@ -23,14 +23,12 @@ The chance of someone having already asked the same question is high. If you sti
 
 **1.** [Присоединяйтесь к нашему Discord](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches).
 
-**2.** Перейдите на канал **#issue-support**.
+**2.** Перейдите на канал **#🔧устранение-неполадок**.
 
-**3.** Щелкните значок булавки, чтобы открыть закрепленные сообщения.
+**3.** Просмотрите доступные решения ошибок.
 
-**4.** Просмотрите доступные решения ошибок.
+![](https://cdn.discordapp.com/attachments/410500983198580740/1115212824558436443/image.png)
 
-![](https://cdn.discordapp.com/attachments/410500983198580740/975850322155171840/support.jpg)
+Если вы не нашли решение своей проблемы, воспользуйтесь поиском в канале **#✋помощь**.  ![](https://cdn.discordapp.com/attachments/410500983198580740/976042866709250078/unknown.png)
 
-Если вы не нашли решение своей проблемы, воспользуйтесь поиском.  ![](https://cdn.discordapp.com/attachments/410500983198580740/976042866709250078/unknown.png)
-
-Вероятность того, что кто-то уже задавал тот же вопрос, высока. Если вы все еще не можете найти его, не стесняйтесь спрашивать в том же канале. Если ваш вопрос будет на русском языке, пожалуйста, используйте канал **#помощь**.
+Вероятность того, что кто-то уже задавал тот же вопрос, высока. Если вы все еще не можете найти его, не стесняйтесь спрашивать в том же канале.
