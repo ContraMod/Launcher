@@ -19,7 +19,7 @@ The chance of someone having already asked the same question is high. If you sti
 ### РУССКИЙ ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg)
 # Contra Поддержка
 
-У вас возникла проблема с модом, но вам нужна помощь в поиске решения? Прежде чем продолжить, если у вас возникли проблемы с установкой мода, [посетите эту страницу](https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md#ENGLISH-) и проверьте шаги 1. и 2.
+У вас возникла проблема с модом, но вам нужна помощь в поиске решения? Прежде чем продолжить, если у вас возникли проблемы с установкой мода, [посетите эту страницу](https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md#РУССКИЙ-) и проверьте шаги 1. и 2.
 
 **1.** [Присоединяйтесь к нашему Discord](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches).
 
