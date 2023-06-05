@@ -12,7 +12,7 @@ You're having a problem with the mod but need help finding a solution? Before yo
 
 **4.** Browse through the available error solutions.
 
-![](https://cdn.discordapp.com/attachments/410500983198580740/975850322155171840/support.jpg)
+![](https://cdn.discordapp.com/attachments/410500983198580740/1115211749390565436/image.png)
 
 If you didn't find a fix for your problem, use the search function. ![](https://cdn.discordapp.com/attachments/410500983198580740/976042866709250078/unknown.png)
 
