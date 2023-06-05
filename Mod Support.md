@@ -6,15 +6,13 @@ You're having a problem with the mod but need help finding a solution? Before yo
 
 **1.** [Join our Discord](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches).
 
-**2.** Navigate to the **#issue-support** channel.
+**2.** Navigate to the **#troubleshooting** channel.
 
-**3.** Click the pin icon to bring up the pinned messages.
-
-**4.** Browse through the available error solutions.
+**3.** Browse through the available error solutions.
 
 ![](https://cdn.discordapp.com/attachments/410500983198580740/1115211749390565436/image.png)
 
-If you didn't find a fix for your problem, use the search function. ![](https://cdn.discordapp.com/attachments/410500983198580740/976042866709250078/unknown.png)
+If you didn't find a fix for your problem, use the search function in the **#issue-support** channel below. ![](https://cdn.discordapp.com/attachments/410500983198580740/976042866709250078/unknown.png)
 
 The chance of someone having already asked the same question is high. If you still cannot find it, feel free to ask in the same channel.
 
