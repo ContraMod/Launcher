@@ -1,6 +1,6 @@
 ![0](https://cdn.discordapp.com/attachments/410500983198580740/948933165177765938/flag-gb.jpg) [ENGLISH](#ENGLISH-) | ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg) [РУССКИЙ](#РУССКИЙ-)
 ### ENGLISH ![0](https://cdn.discordapp.com/attachments/410500983198580740/948933165177765938/flag-gb.jpg)
-# Contra 009 Final Patch 3 Online Play Instructions
+# Contra 009 Final Patch 3 Setup and Online Play Instructions
 
 ### Contra installation method №1 (using official Contra Launcher)
 **1.** Install [Contra 009 Final + Patch 1 + Patch 2 + Patch 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) on top of clean, working, unmodded Zero Hour v1.04.
@@ -35,7 +35,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 ![4](https://media.discordapp.net/attachments/410501978784006144/795777286874857542/unknown.png)
 
 ### РУССКИЙ ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg)
-# Contra 009 Final Patch 3 Инструкции по онлайн-игре
+# Contra 009 Final Patch 3 Установка и Инструкции по сетевой игре
 
 ### Способ установки Contra №1 (используя официальный Contra Launcher)
 **1.** Установите [Contra 009 Финал + Патч 1 + Патч 2 + Патч 3](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches) поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
