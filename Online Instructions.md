@@ -8,9 +8,15 @@
 1. Install [Contra X Beta](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup) on top of clean, working, unmodded Zero Hour v1.04.
 2. Run ***Contra_Launcher.exe***.
 
+![image](https://github.com/ContraMod/Launcher/assets/32432772/bf1f75f0-eedb-43fe-aec6-e62b6573818f)
+
+
 * ### Method №2 (using GenLauncher)
 1. Join [GenLauncher Discord](https://discord.com/invite/fFGpudz5hV)
 2. [Download the latest version](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) and place GenLauncher.exe in your Zero Hour game folder. Run it, add Contra mod, and wait for it to get downloaded.
+
+![image](https://github.com/ContraMod/Launcher/assets/32432772/91cb8342-73a8-471c-9476-8ab922bbf75c)
+
 
 ---
 ### Installing the VPN software
@@ -42,9 +48,15 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 1. Установите [Contra X Beta](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup) поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
 2. Запустите ***Contra_Launcher.exe***.
 
+![image](https://github.com/ContraMod/Launcher/assets/32432772/bf1f75f0-eedb-43fe-aec6-e62b6573818f)
+
+
 * ### Способ №2 (используя GenLauncher)
 1. Присоединитесь [GenLauncher Discord](https://discord.com/invite/fFGpudz5hV)
 2. [Скачать последнюю версию](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) и поместите GenLauncher.exe в папку с игрой Zero Hour. Запустите его, добавьте мод Contra и дождитесь его загрузки.
+
+![image](https://github.com/ContraMod/Launcher/assets/32432772/91cb8342-73a8-471c-9476-8ab922bbf75c)
+
 
 ### Установка программного обеспечения VPN
 
