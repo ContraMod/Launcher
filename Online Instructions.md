@@ -2,6 +2,7 @@
 ### ENGLISH ![0](https://cdn.discordapp.com/attachments/410500983198580740/948933165177765938/flag-gb.jpg)
 # Contra X Beta Setup and Online Play Instructions
 
+------
 ### Contra installation method №1 (using official Contra Launcher)
 **1.** Install [Contra X Beta](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup) on top of clean, working, unmodded Zero Hour v1.04.
 
@@ -12,6 +13,7 @@
 
 **2.** [Download the latest version](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) and place GenLauncher.exe in your Zero Hour game folder. Run it, add Contra mod, and wait for it to get downloaded.
 
+------
 ### Installing the VPN software
 
 **3.** Install RadminVPN. Go to https://www.radmin-vpn.com/ then click Free Download and Install
