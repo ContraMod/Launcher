@@ -5,7 +5,7 @@
 ### Contra installation method №1 (using official Contra Launcher)
 **1.** Install [Contra X Beta](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup) on top of clean, working, unmodded Zero Hour v1.04.
 
-**2.** Run ***Contra_Launcher.exe***
+**2.** Run ***Contra_Launcher.exe***.
 
 ### Contra installation method №2 (using GenLauncher)
 **1.** Join [GenLauncher Discord](https://discord.com/invite/fFGpudz5hV)
@@ -38,9 +38,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 ### Способ установки Contra №1 (используя официальный Contra Launcher)
 **1.** Установите [Contra X Beta](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup) поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
 
-[![](https://cdn.discordapp.com/attachments/410500983198580740/975781531228455042/youtubeicon.png)](https://www.youtube.com/watch?v=UbPLFd_D_tM)[(Видео инструкции)](https://www.youtube.com/watch?v=wQoktTvNQGs)
-
-**2.** Запустите ***Contra_Launcher.exe*** и примите исправления, нажав «Да» при появлении запроса ![1](https://media.discordapp.net/attachments/410501978784006144/829700542443552795/unknown.png).
+**2.** Запустите ***Contra_Launcher.exe***.
 
 ### Способ установки Contra №2 (используя GenLauncher)
 **1.** Присоединитесь [GenLauncher Discord](https://discord.com/invite/fFGpudz5hV)
