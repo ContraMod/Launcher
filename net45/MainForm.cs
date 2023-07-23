@@ -899,7 +899,13 @@ namespace Contra
 
                 // Disable cyrillic letters, enable German umlauts.
                 if (File.Exists("GermanZH.big") && File.Exists("GenArial.ttf"))
+                {
+                    if (File.Exists("GenArial_.ttf"))
+                    {
+                        File.Delete("GenArial_.ttf");
+                    }
                     File.Move("GenArial.ttf", "GenArial_.ttf");
+                }
 
                 // Check for generals.ctr
                 if (!File.Exists("generals.ctr") || CalculateMD5("generals.ctr") != "ee7d5e6c2d7fb66f5c27131f33da5fd3")
