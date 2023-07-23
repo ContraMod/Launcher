@@ -145,7 +145,7 @@ namespace Contra.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Fog {
             get {
                 return ((bool)(this["Fog"]));
@@ -344,6 +344,102 @@ namespace Contra.Properties {
             }
             set {
                 this["DisableDynamicLOD"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ParticleCap {
+            get {
+                return ((string)(this["ParticleCap"]));
+            }
+            set {
+                this["ParticleCap"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Anisotropic {
+            get {
+                return ((bool)(this["Anisotropic"]));
+            }
+            set {
+                this["Anisotropic"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ControlBarPro {
+            get {
+                return ((bool)(this["ControlBarPro"]));
+            }
+            set {
+                this["ControlBarPro"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ControlBarContra {
+            get {
+                return ((bool)(this["ControlBarContra"]));
+            }
+            set {
+                this["ControlBarContra"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CameosDouble {
+            get {
+                return ((bool)(this["CameosDouble"]));
+            }
+            set {
+                this["CameosDouble"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CameosStandard {
+            get {
+                return ((bool)(this["CameosStandard"]));
+            }
+            set {
+                this["CameosStandard"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ControlBarStandard {
+            get {
+                return ((bool)(this["ControlBarStandard"]));
+            }
+            set {
+                this["ControlBarStandard"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ExtraBuildingProps {
+            get {
+                return ((bool)(this["ExtraBuildingProps"]));
+            }
+            set {
+                this["ExtraBuildingProps"] = value;
             }
         }
     }

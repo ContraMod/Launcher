@@ -16,7 +16,6 @@ namespace Contra
         [DllImport("user32.dll")]
         public static extern bool EnumDisplaySettings(string deviceName, int modeNum, ref DEVMODE devMode);
         const int ENUM_CURRENT_SETTINGS = -1;
-
         const int ENUM_REGISTRY_SETTINGS = -2;
 
         [StructLayout(LayoutKind.Sequential)]
@@ -69,7 +68,6 @@ namespace Contra
             MinBtnSm.TabStop = false;
             ExitBtnSm.TabStop = false;
             resolutionComboBox.TabStop = false;
-            resOkButton.TabStop = false;
 
             // Get supported resolutions
             DEVMODE vDevMode = new DEVMODE();
@@ -83,334 +81,238 @@ namespace Contra
             var noDupes = dataSource.Distinct().ToList();
 
             // Populate Resolution comboBox with supported resolutions
-            this.resolutionComboBox.DataSource = noDupes;
+            resolutionComboBox.DataSource = noDupes;
 
-            if (Globals.GB_Checked == true)
+            if (Globals.RU_Checked == true)
             {
-                toolTip3.SetToolTip(Shadows3DCheckBox, "Toggle showing 3D shadows in game.\nTurn off for improved performance."); ;
-                toolTip3.SetToolTip(Shadows2DCheckBox, "Toggle showing 2D shadows in game.\nTurn off for improved performance.");
-                toolTip3.SetToolTip(CloudShadowsCheckBox, "Toggle showing cloud shadows on terrain.\nTurn off for improved performance.");
-                toolTip3.SetToolTip(ExtraGroundLightingCheckBox, "Toggle showing detailed lighting on terrain.\nTurn off for improved performance.");
-                toolTip3.SetToolTip(SmoothWaterBordersCheckBox, "Toggle smoothing of water borders.\nTurn off for improved performance.");
-                toolTip3.SetToolTip(BehindBuildingsCheckBox, "Toggle showing units behind buildings.\nTurn off for improved performance.");
-                toolTip3.SetToolTip(ShowPropsCheckBox, "Toggle displaying game props.\nTurn off for improved performance.");
-                toolTip3.SetToolTip(ExtraAnimationsCheckBox, "Toggle showing optional animations like tree sway.\nTurn off for improved performance.");
-                toolTip3.SetToolTip(DisableDynamicLODCheckBox, "Disable automatic detail adjustment.\nTurn off for improved performance.");
-                toolTip3.SetToolTip(HeatEffectsCheckBox, "Toggle showing heat distortion effects.\nTurn this off if your screen randomly turns black while playing.");
-                toolTip3.SetToolTip(FogCheckBox, "Toggle fog (depth of field) effects on/off.\nThis effect adds a color layer at the top of the screen, depending on the map.");
-                toolTip3.SetToolTip(LangFilterCheckBox, "Disabling the language filter will show bad words written by players in chat.");
-                toolTip3.SetToolTip(WaterEffectsCheckBox, "Toggle water effects on/off.\nThis effect simulates water reflection.");
-                toolTip3.SetToolTip(camHeightLabel, "The camera height setting changes the default and maximum player view distance in-game.\nThe higher this value is, the further away the view will be.");
-            }
-            else if (Globals.RU_Checked == true)
-            {
-                toolTip3.SetToolTip(Shadows3DCheckBox, "Переключить отображение трехмерных теней в игре.\nВыключите для повышения производительности.");
-                toolTip3.SetToolTip(Shadows2DCheckBox, "Переключить отображение двумерных теней в игре.\nВыключите для повышения производительности.");
-                toolTip3.SetToolTip(CloudShadowsCheckBox, "Переключить отображение тени облаков на местности.\nВыключите для повышения производительности.");
-                toolTip3.SetToolTip(ExtraGroundLightingCheckBox, "Переключить детализированного освещения земли.\nВыключите для повышения производительности.");
-                toolTip3.SetToolTip(SmoothWaterBordersCheckBox, "Переключить сглаживание границ воды.\nВыключите для повышения производительности.");
-                toolTip3.SetToolTip(BehindBuildingsCheckBox, "Переключить отображение единицы за зданиями.\nВыключите для повышения производительности.");
-                toolTip3.SetToolTip(ShowPropsCheckBox, "Переключить отображение маленькие объекты.\nВыключите для повышения производительности.");
-                toolTip3.SetToolTip(ExtraAnimationsCheckBox, "Переключить отображение дополнительных анимаций, таких как раскачивание деревьев.\nВыключите для повышения производительности.");
-                toolTip3.SetToolTip(DisableDynamicLODCheckBox, "Переключить автоматическую регулировку деталей.\nВыключите для повышения производительности.");
-                toolTip3.SetToolTip(HeatEffectsCheckBox, "Переключите отображение тепловых эффектов.\nВыключите, если ваш экран случайно становится черным во время игры.");
-                toolTip3.SetToolTip(FogCheckBox, "Эффекты переключения тумана (глубина поля) вкл\\выкл.");
-                toolTip3.SetToolTip(LangFilterCheckBox, "Отключение языкового фильтра покажет плохие слова, написанные игроками в чате.");
-                toolTip3.SetToolTip(WaterEffectsCheckBox, "Эффекты переключения отражение воды вкл\\выкл.");
-                toolTip3.SetToolTip(camHeightLabel, "Настройка высоты камеры изменяет стандартное и максимальное расстояние поле зрения игрока.\nЧем выше это значение, тем дальше будет поле зрения.");
-
-                labelResolution.Text = "Разрешение экрана:";
+                labelResolution.Text = "Разрешение:";
                 Shadows3DCheckBox.Text = "3D Тени";
                 Shadows2DCheckBox.Text = "2D Тени";
                 CloudShadowsCheckBox.Text = "Тени облаков";
-                ExtraGroundLightingCheckBox.Text = "Дополнит. освещение земли";
+                ExtraGroundLightingCheckBox.Text = "Освещение земли";
                 SmoothWaterBordersCheckBox.Text = "Ровные края воды";
-                BehindBuildingsCheckBox.Text = "Единицы за зданиями";
-                ShowPropsCheckBox.Text = "Показывать маленькие объекты";
-                ExtraAnimationsCheckBox.Text = "Дополнительные анимации";
-                DisableDynamicLODCheckBox.Text = "Откл. Динам. Уровень Детализации";
+                BehindBuildingsCheckBox.Text = "Единицы через здания";
+                ShowPropsCheckBox.Text = "Маленькие объекты";
+                ExtraAnimationsCheckBox.Text = "Дополнит. анимации";
+                DisableDynamicLODCheckBox.Text = "Откл. динам. ур. детал.";
                 HeatEffectsCheckBox.Text = "Тепловые эффекты";
                 FogCheckBox.Text = "Эффект тумана";
                 LangFilterCheckBox.Text = "Языковый фильтр";
                 WaterEffectsCheckBox.Text = "Эффект воды";
-                camHeightLabel.Text = "Высота камеры: ?";
-                HotkeyStyleGroupBox.Text = "Стиль горячих клавиш";
+                CameraHeightLabel.Text = "Высота камеры: ?";
+                HotkeyStyleLabel.Text = "Горячие клав.";
                 LegacyHotkeysRadioButton.Text = "Оригинальный";
+                AnisoCheckBox.Text = "Анизотропная фильтрация";
+                CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Стандарт.";
+                ControlBarLabel.Text = "Панель упр.";
+                IconQualityLabel.Text = "Кач. иконок";
+                ExtraBuildingPropsCheckBox.Text = "Доп. объекты к зданиям";
+                NoPreviewText.Text = "Предварительный просмотр недоступен";
             }
             else if (Globals.UA_Checked == true)
             {
-                toolTip3.SetToolTip(Shadows3DCheckBox, "Переключити відображення тривимірних тіней в грі.\nВиключіте для підвищення продуктивності.");
-                toolTip3.SetToolTip(Shadows2DCheckBox, "Переключити відображення двовимірних тіней в грі.\nВиключіте для підвищення продуктивності.");
-                toolTip3.SetToolTip(CloudShadowsCheckBox, "Переключити відображення тіні хмар на місцевості.\nВиключіте для підвищення продуктивності.");
-                toolTip3.SetToolTip(ExtraGroundLightingCheckBox, "Переключити детального висвітлення землі.\nВиключіте для підвищення продуктивності.");
-                toolTip3.SetToolTip(SmoothWaterBordersCheckBox, "Переключити згладжування меж води.\nВиключіте для підвищення продуктивності.");
-                toolTip3.SetToolTip(BehindBuildingsCheckBox, "Переключити відображення одиниці за будівлями.\nВиключіте для підвищення продуктивності.");
-                toolTip3.SetToolTip(ShowPropsCheckBox, "Переключити відображення маленькі об'єкти.\nВиключіте для підвищення продуктивності.");
-                toolTip3.SetToolTip(ExtraAnimationsCheckBox, "Переключити відображення додаткових анімацій, таких як розгойдування дерев.\nВиключіте для підвищення продуктивності.");
-                toolTip3.SetToolTip(DisableDynamicLODCheckBox, "Переключити автоматичне регулювання деталей.\nВиключіте для підвищення продуктивності.");
-                toolTip3.SetToolTip(HeatEffectsCheckBox, "Переключення відображення теплових ефектів.\nВимкніть цю функцію, якщо екран у випадковому режимі стане чорним під час відтворення.");
-                toolTip3.SetToolTip(FogCheckBox, "Ефекти перемикання туману (глибина поля) вкл\\викл.");
-                toolTip3.SetToolTip(LangFilterCheckBox, "Вимкнення мовного фільтра покаже погані слова, написані гравцями в чаті.");
-                toolTip3.SetToolTip(WaterEffectsCheckBox, "Ефекти перемикання відображення води вкл\\викл.");
-                toolTip3.SetToolTip(camHeightLabel, "Налаштування висоти камери змінює стандартне і максимальна відстань поле зору гравця.\nЧем вище це значення, тим далі буде поле зору.");
-
-                labelResolution.Text = "Роздільна здатність:";
+                labelResolution.Text = "Розрішення:";
                 Shadows3DCheckBox.Text = "3D Тіні";
                 Shadows2DCheckBox.Text = "2D Тіні";
                 CloudShadowsCheckBox.Text = "Тіні хмар";
-                ExtraGroundLightingCheckBox.Text = "Додаткове освітлення землі";
+                ExtraGroundLightingCheckBox.Text = "Освітлення землі";
                 SmoothWaterBordersCheckBox.Text = "Рівні краї води";
-                BehindBuildingsCheckBox.Text = "Одиниці за будівлями";
-                ShowPropsCheckBox.Text = "Показувати маленькі об'єкти";
+                BehindBuildingsCheckBox.Text = "Одиниць через будівлі";
+                ShowPropsCheckBox.Text = "Маленькі об'єкти";
                 ExtraAnimationsCheckBox.Text = "Додаткова анімація";
-                DisableDynamicLODCheckBox.Text = "Вимкнути Динам. Рівень Деталізації";
+                DisableDynamicLODCheckBox.Text = "Вимк. дин. рівень детал.";
                 HeatEffectsCheckBox.Text = "Теплові ефекти";
                 FogCheckBox.Text = "Ефект туману";
                 LangFilterCheckBox.Text = "Мовний фільтр";
                 WaterEffectsCheckBox.Text = "Водний ефект";
-                camHeightLabel.Text = "Висота камери: ?";
-                HotkeyStyleGroupBox.Text = "Стиль гарячих клавіш";
+                CameraHeightLabel.Text = "Висота камери: ?";
+                HotkeyStyleLabel.Text = "Гарячі клавіші";
                 LegacyHotkeysRadioButton.Text = "Оригінальний";
+                AnisoCheckBox.Text = "Анізотропна фільтрація";
+                CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Стандарт.";
+                ControlBarLabel.Text = "Панель кер.";
+                IconQualityLabel.Text = "Якість ікон";
+                ExtraBuildingPropsCheckBox.Text = "Дод. об'єкти до будівель";
+                NoPreviewText.Text = "Попередній перегляд недоступний";
             }
             else if (Globals.BG_Checked == true)
             {
-                toolTip3.SetToolTip(Shadows3DCheckBox, "Превключете показването на 3D сенки в играта.\nИзключете за по-добра производителност.");
-                toolTip3.SetToolTip(Shadows2DCheckBox, "Превключете показването на 2D сенки в играта.\nИзключете за по-добра производителност.");
-                toolTip3.SetToolTip(CloudShadowsCheckBox, "Превключете показването на облачни сенки по земята.\nИзключете за по-добра производителност.");
-                toolTip3.SetToolTip(ExtraGroundLightingCheckBox, "Превключете показването на детайлно осветление по земята.\nИзключете за по-добра производителност.");
-                toolTip3.SetToolTip(SmoothWaterBordersCheckBox, "Превключете изглаждане на водните граници.\nИзключете за по-добра производителност.");
-                toolTip3.SetToolTip(BehindBuildingsCheckBox, "Превключете показването на единици зад сградите.\nИзключете за по-добра производителност.");
-                toolTip3.SetToolTip(ShowPropsCheckBox, "Превключете показването на малки обекти.\nИзключете за по-добра производителност.");
-                toolTip3.SetToolTip(ExtraAnimationsCheckBox, "Превключете показването на допълнителни анимации като например люлеене на дърветата.\nИзключете за по-добра производителност.");
-                toolTip3.SetToolTip(DisableDynamicLODCheckBox, "Превключете автоматичното регулиране на детайлите.\nИзключете за по-добра производителност.");
-                toolTip3.SetToolTip(HeatEffectsCheckBox, "Превключете показването на топлинните ефекти.\nИзключете ги, ако вашият екран става черен, докато играете.");
-                toolTip3.SetToolTip(FogCheckBox, "Превключете ефекта \"дълбочина на рязкост\".\nТози ефект добавя цветен слой на върха на екрана, зависещ от атмосферата на картата. Например, мъгла.");
-                toolTip3.SetToolTip(LangFilterCheckBox, "Изключването на езиковия филтър ще спре да скрива лошите думи, написани от играчите.");
-                toolTip3.SetToolTip(WaterEffectsCheckBox, "Превключете водните ефекти (симулация на слънчево и облачно отражение).");
-                toolTip3.SetToolTip(camHeightLabel, "Настройката за височина на камерата променя стандартното и максималното разстояние на изглед на играча.\nКолкото по-висока е тази стойност, толкова по-далеч ще бъде изгледът.");
-
                 labelResolution.Text = "Резолюция:";
                 Shadows3DCheckBox.Text = "3D сенки";
                 Shadows2DCheckBox.Text = "2D сенки";
                 CloudShadowsCheckBox.Text = "Облачни сенки";
-                ExtraGroundLightingCheckBox.Text = "Допълн. осветление на земята";
-                SmoothWaterBordersCheckBox.Text = "Гладки граници на водата";
-                BehindBuildingsCheckBox.Text = "Единици зад сгради";
-                ShowPropsCheckBox.Text = "Показвай малки обекти";
-                ExtraAnimationsCheckBox.Text = "Допълнителни анимации";
-                DisableDynamicLODCheckBox.Text = "Изкл. Динам. Ниво на Детайлност";
+                ExtraGroundLightingCheckBox.Text = "Осветление на земята";
+                SmoothWaterBordersCheckBox.Text = "Гладки водни граници";
+                BehindBuildingsCheckBox.Text = "Единици през сгради";
+                ShowPropsCheckBox.Text = "Малки обекти";
+                ExtraAnimationsCheckBox.Text = "Допълнит. анимации";
+                DisableDynamicLODCheckBox.Text = "Изкл. дин. ниво на дет.";
                 HeatEffectsCheckBox.Text = "Топлинни ефекти";
                 FogCheckBox.Text = "Мъглявинен ефект";
                 LangFilterCheckBox.Text = "Езиков филтър";
                 WaterEffectsCheckBox.Text = "Водни ефекти";
-                camHeightLabel.Text = "Височина на камерата: ?";
-                HotkeyStyleGroupBox.Text = "Стил на горещи клавиши";
+                CameraHeightLabel.Text = "Вис. на камерата: ?";
+                HotkeyStyleLabel.Text = "Горещи клав.";
                 LegacyHotkeysRadioButton.Text = "Оригинален";
+                AnisoCheckBox.Text = "Анизотропно филтриране";
+                CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Стандарт.";
+                ControlBarLabel.Text = "Контр. лента";
+                IconQualityLabel.Text = "Кач. на икон.";
+                ExtraBuildingPropsCheckBox.Text = "Доп. елементи на сградите";
+                NoPreviewText.Text = "Няма налична визуализация";
             }
             else if (Globals.DE_Checked == true)
             {
-                toolTip3.SetToolTip(Shadows3DCheckBox, "Schaltet das Anzeigen von 3D-Schatten im Spiel um.\nSchalten Sie das Gerät aus, um die Leistung zu verbessern.");
-                toolTip3.SetToolTip(Shadows2DCheckBox, "Schaltet das Anzeigen von 2D-Schatten im Spiel um.\nSchalten Sie das Gerät aus, um die Leistung zu verbessern.");
-                toolTip3.SetToolTip(CloudShadowsCheckBox, "Umschalten der Anzeige von Wolkenschatten im Gelände.\nSchalten Sie das Gerät aus, um die Leistung zu verbessern.");
-                toolTip3.SetToolTip(ExtraGroundLightingCheckBox, "Umschalten der Anzeige der detaillierten Beleuchtung im Gelände.\nSchalten Sie das Gerät aus, um die Leistung zu verbessern.");
-                toolTip3.SetToolTip(SmoothWaterBordersCheckBox, "Glättung der Wassergrenzen umschalten.\nSchalten Sie das Gerät aus, um die Leistung zu verbessern.");
-                toolTip3.SetToolTip(BehindBuildingsCheckBox, "Umschalten der Anzeige von Einheiten hinter Gebäuden.\nSchalten Sie das Gerät aus, um die Leistung zu verbessern.");
-                toolTip3.SetToolTip(ShowPropsCheckBox, "Anzeige der Spielrequisiten umschalten.\nSchalten Sie das Gerät aus, um die Leistung zu verbessern.");
-                toolTip3.SetToolTip(ExtraAnimationsCheckBox, "Optionale Animationen wie Baumschwankungen anzeigen.\nSchalten Sie das Gerät aus, um die Leistung zu verbessern.");
-                toolTip3.SetToolTip(DisableDynamicLODCheckBox, "Deaktiviert die automatische Detailanpassung.\nSchalten Sie das Gerät aus, um die Leistung zu verbessern.");
-                toolTip3.SetToolTip(HeatEffectsCheckBox, "Schalten Sie die Anzeige der thermischen Effekte.\nDeaktivieren Sie diese Option, wenn der Bildschirm während des Spiels zufällig schwarz wird.");
-                toolTip3.SetToolTip(FogCheckBox, "Schalte Nebel (Tiefenschдrfe) Effekte An/Aus.");
-                toolTip3.SetToolTip(LangFilterCheckBox, "Das ausschalten vom Sprache Filter zeigt bцse Wцrter von anderen Spielern im Chat an.");
-                toolTip3.SetToolTip(WaterEffectsCheckBox, "Schalte Wasser Reflexion Effekte An/Aus.");
-                toolTip3.SetToolTip(camHeightLabel, "Mit der Einstellung für die Kamerahöhe werden die Standard- und die maximale Anzeigedistanz des Players geändert.\nJe höher dieser Wert ist, desto weiter entfernt ist die Ansicht.");
-
                 labelResolution.Text = "Auflцsung:";
                 Shadows3DCheckBox.Text = "3D-Schatten";
                 Shadows2DCheckBox.Text = "2D-Schatten";
                 CloudShadowsCheckBox.Text = "Schatten der Wolken";
-                ExtraGroundLightingCheckBox.Text = "Zusätzliche Bodenbeleuchtung";
-                SmoothWaterBordersCheckBox.Text = "Flache Ränder des Wassers";
+                ExtraGroundLightingCheckBox.Text = "Bodenbeleuchtung";
+                SmoothWaterBordersCheckBox.Text = "Glatte Wasserränder";
                 BehindBuildingsCheckBox.Text = "Einheiten hinter Gebäuden";
-                ShowPropsCheckBox.Text = "Kleine Objekte anzeigen";
+                ShowPropsCheckBox.Text = "Kleine Objekte";
                 ExtraAnimationsCheckBox.Text = "Zusätzliche Animation";
-                DisableDynamicLODCheckBox.Text = "Dynamische Detailebene deaktivieren";
+                DisableDynamicLODCheckBox.Text = "Dyn. Detailebene deaktiv.";
                 HeatEffectsCheckBox.Text = "Wärmeeffekte";
                 FogCheckBox.Text = "Nebel Effekte";
                 LangFilterCheckBox.Text = "Sprache Filter";
                 WaterEffectsCheckBox.Text = "Wassereffekt";
-                camHeightLabel.Text = "Kamerahöhe: ?";
-                HotkeyStyleGroupBox.Text = "Hotkey-Stil";
+                CameraHeightLabel.Text = "Kamerahöhe: ?";
+                HotkeyStyleLabel.Text = "Hotkey-Stil";
                 LegacyHotkeysRadioButton.Text = "Original";
+                AnisoCheckBox.Text = "Anisotrope Filterung";
+                CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Standard";
+                ControlBarLabel.Text = "Kontrollleiste";
+                IconQualityLabel.Text = "Cameo-Qual.";
+                ExtraBuildingPropsCheckBox.Text = "Zusätzliche Gebäudeobjekte";
+                NoPreviewText.Text = "Keine Vorschau vorhanden";
             }
+            //TextureResLabel.Text = Messages.GenerateMessage("TextureRes", Globals.currentLanguage);
 
-            // Read the settings from Options.ini and check/uncheck our checkboxes depending on values from the file
+            // Load settings from Options.ini to display them in our Options form
             if (Directory.Exists(Globals.myDocPath))
             {
-                string text = File.ReadAllText(Globals.myDocPath + "Options.ini");
+                string s = File.ReadAllText(Globals.myDocPath + "Options.ini");
                 {
-                    if (text.Contains("StaticGameLOD = Low") || text.Contains("StaticGameLOD = Medium") || text.Contains("StaticGameLOD = High"))
+                    if (s.ToLower().Contains("staticgamelod = low")
+                        || s.ToLower().Contains("staticgamelod = medium")
+                        || s.ToLower().Contains("staticgamelod = high"))
                     {
-                        File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(text, "\r?\nStaticGameLOD = .*", "\r\nStaticGameLOD = Custom" + "\r"));
+                        File.WriteAllText(Globals.myDocPath + "Options.ini",
+                            Regex.Replace(s,
+                            "\r?\nStaticGameLOD = .*",
+                            "\r\nStaticGameLOD = Custom" + "\r"));
                     }
 
-                    if (text.Contains("UseShadowVolumes = No") || text.Contains("UseShadowVolumes = no"))
-                    {
-                        Shadows3DCheckBox.Checked = false;
-                    }
-                    else if (text.Contains("UseShadowVolumes = Yes") || text.Contains("UseShadowVolumes = yes"))
-                    {
-                        Shadows3DCheckBox.Checked = true;
-                    }
+                    // Check/uncheck our checkboxes depending on values from the file
+                    if (s.ToLower().Contains("useshadowvolumes = no")) Shadows3DCheckBox.Checked = false;
+                    else if (s.ToLower().Contains("useshadowvolumes = yes")) Shadows3DCheckBox.Checked = true;
+                    if (s.ToLower().Contains("useshadowdecals = no")) Shadows2DCheckBox.Checked = false;
+                    else if (s.ToLower().Contains("useshadowdecals = yes")) Shadows2DCheckBox.Checked = true;
+                    if (s.ToLower().Contains("usecloudmap = no")) CloudShadowsCheckBox.Checked = false;
+                    else if (s.ToLower().Contains("usecloudmap = yes")) CloudShadowsCheckBox.Checked = true;
+                    if (s.ToLower().Contains("uselightmap = no")) ExtraGroundLightingCheckBox.Checked = false;
+                    else if (s.ToLower().Contains("uselightmap = yes")) ExtraGroundLightingCheckBox.Checked = true;
+                    if (s.ToLower().Contains("showsoftwateredge = no")) SmoothWaterBordersCheckBox.Checked = false;
+                    else if (s.ToLower().Contains("showsoftwateredge = yes")) SmoothWaterBordersCheckBox.Checked = true;
+                    if (s.ToLower().Contains("buildingocclusion = no")) BehindBuildingsCheckBox.Checked = false;
+                    else if (s.ToLower().Contains("buildingocclusion = yes")) BehindBuildingsCheckBox.Checked = true;
+                    if (s.ToLower().Contains("showtrees = no")) ShowPropsCheckBox.Checked = false;
+                    else if (s.ToLower().Contains("showtrees = yes")) ShowPropsCheckBox.Checked = true;
+                    if (s.ToLower().Contains("extraanimations = no")) ExtraAnimationsCheckBox.Checked = false;
+                    else if (s.ToLower().Contains("extraanimations = yes")) ExtraAnimationsCheckBox.Checked = true;
+                    if (s.ToLower().Contains("dynamiclod = no")) DisableDynamicLODCheckBox.Checked = true;
+                    else if (s.ToLower().Contains("dynamiclod = yes")) DisableDynamicLODCheckBox.Checked = false;
 
-                    if (text.Contains("UseShadowDecals = No") || text.Contains("UseShadowDecals = no"))
-                    {
-                        Shadows2DCheckBox.Checked = false;
-                    }
-                    else if (text.Contains("UseShadowDecals = Yes") || text.Contains("UseShadowDecals = yes"))
-                    {
-                        Shadows2DCheckBox.Checked = true;
-                    }
-
-                    if (text.Contains("UseCloudMap = No") || text.Contains("UseCloudMap = no"))
-                    {
-                        CloudShadowsCheckBox.Checked = false;
-                    }
-                    else if (text.Contains("UseCloudMap = Yes") || text.Contains("UseCloudMap = yes"))
-                    {
-                        CloudShadowsCheckBox.Checked = true;
-                    }
-
-                    if (text.Contains("UseLightMap = No") || text.Contains("UseLightMap = no"))
-                    {
-                        ExtraGroundLightingCheckBox.Checked = false;
-                    }
-                    else if (text.Contains("UseLightMap = Yes") || text.Contains("UseLightMap = yes"))
-                    {
-                        ExtraGroundLightingCheckBox.Checked = true;
-                    }
-
-                    if (text.Contains("ShowSoftWaterEdge = No") || text.Contains("ShowSoftWaterEdge = no"))
-                    {
-                        SmoothWaterBordersCheckBox.Checked = false;
-                    }
-                    else if (text.Contains("ShowSoftWaterEdge = Yes") || text.Contains("ShowSoftWaterEdge = yes"))
-                    {
-                        SmoothWaterBordersCheckBox.Checked = true;
-                    }
-
-                    if (text.Contains("BuildingOcclusion = No") || text.Contains("BuildingOcclusion = no"))
-                    {
-                        BehindBuildingsCheckBox.Checked = false;
-                    }
-                    else if (text.Contains("BuildingOcclusion = Yes") || text.Contains("BuildingOcclusion = yes"))
-                    {
-                        BehindBuildingsCheckBox.Checked = true;
-                    }
-
-                    if (text.Contains("ShowTrees = No") || text.Contains("ShowTrees = no"))
-                    {
-                        ShowPropsCheckBox.Checked = false;
-                    }
-                    else if (text.Contains("ShowTrees = Yes") || text.Contains("ShowTrees = yes"))
-                    {
-                        ShowPropsCheckBox.Checked = true;
-                    }
-
-                    if (text.Contains("ExtraAnimations = No") || text.Contains("ExtraAnimations = no"))
-                    {
-                        ExtraAnimationsCheckBox.Checked = false;
-                    }
-                    else if (text.Contains("ExtraAnimations = Yes") || text.Contains("ExtraAnimations = yes"))
-                    {
-                        ExtraAnimationsCheckBox.Checked = true;
-                    }
-
-                    if (text.Contains("DynamicLOD = No") || text.Contains("DynamicLOD = no"))
-                    {
-                        DisableDynamicLODCheckBox.Checked = true;
-                    }
-                    else if (text.Contains("DynamicLOD = Yes") || text.Contains("DynamicLOD = yes"))
-                    {
-                        DisableDynamicLODCheckBox.Checked = false;
-                    }
-
-                    if (text.Contains("HeatEffects = No") || text.Contains("HeatEffects = no"))
+                    if (s.ToLower().Contains("heateffects = no"))
                     {
                         HeatEffectsCheckBox.Checked = false;
                         heatEffectsCheckBoxIsClicked = false;
                     }
-                    else if (text.Contains("HeatEffects = Yes") || text.Contains("HeatEffects = yes"))
+                    else if (s.ToLower().Contains("heateffects = yes"))
                     {
                         HeatEffectsCheckBox.Checked = true;
                         heatEffectsCheckBoxIsClicked = false; // Yes, false
                     }
                 }
-            }
 
-            // Get current camera height
-            if (File.Exists("!!!!Contra009Final_Patch3_GameData.big"))
-            {
-                string fileToRead = File.ReadAllText("!!!!Contra009Final_Patch3_GameData.big");
-
-                try
-                {
-                    ReadCameraHeight(fileToRead);
-                }
-                catch (IOException)
-                {
-                    Messages.GenerateMessageBox("E_CloseGameDataP3", Globals.currentLanguage);
-                }
-            }
-            else if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
-            {
-                string fileToRead = File.ReadAllText("!!!Contra009Final_Patch2_GameData.big");
-
-                try
-                {
-                    ReadCameraHeight(fileToRead);
-                }
-                catch (IOException)
-                {
-                    Messages.GenerateMessageBox("E_CloseGameDataP2", Globals.currentLanguage);
-                }
-            }
-
-            // Get current resolution
-            if (Directory.Exists(Globals.myDocPath))
-            {
-                string s = File.ReadAllText(Globals.myDocPath + "Options.ini");
+                // Get and display numeric values from the file
                 List<string> found = new List<string>();
                 string line;
                 using (StringReader file = new StringReader(s))
                 {
                     while ((line = file.ReadLine()) != null)
                     {
-                        if (line.Contains("Resolution ="))
+                        // Get current resolution
+                        if (line.ToLower().Contains("resolution ="))
                         {
                             found.Add(line);
                             s = line;
                             s = s.Substring(s.IndexOf('=') + 2);
                             s = s.TrimEnd();
                             string s2 = s.Replace(" ", "x");
+                            resolutionComboBox.Text = s2;
                             Properties.Settings.Default.Res = s2;
-                            Properties.Settings.Default.Save();
+                        }
+                        // Get current particle cap
+                        if (line.ToLower().Contains("maxparticlecount ="))
+                        {
+                            found.Add(line);
+                            s = line;
+                            s = s.Substring(s.IndexOf('=') + 2);
+                            s = s.TrimEnd();
+                            ParticleCapTrackBar.Value = Convert.ToInt32(s);
+                        }
+                        // Get current texture resolution
+                        if (line.ToLower().Contains("texturereduction ="))
+                        {
+                            found.Add(line);
+                            s = line;
+                            s = s.Substring(s.IndexOf('=') + 2);
+                            s = s.TrimEnd();
+                            if (Convert.ToInt32(s) == 0)
+                            {
+                                TextureResTrackBar.Value = 3;
+                                TextureResLabel.Text = Messages.GenerateMessage("TextureRes", Globals.currentLanguage) + Messages.GenerateMessage("High", Globals.currentLanguage);
+                            }
+                            else if (Convert.ToInt32(s) == 1)
+                            {
+                                TextureResTrackBar.Value = 2;
+                                TextureResLabel.Text = Messages.GenerateMessage("TextureRes", Globals.currentLanguage) + Messages.GenerateMessage("Medium", Globals.currentLanguage);
+                            }
+                            else if (Convert.ToInt32(s) == 2)
+                            {
+                                TextureResTrackBar.Value = 1;
+                                TextureResLabel.Text = Messages.GenerateMessage("TextureRes", Globals.currentLanguage) + Messages.GenerateMessage("Low", Globals.currentLanguage);
+                            }
                         }
                     }
                 }
             }
-            resolutionComboBox.Text = Properties.Settings.Default.Res;
+            else Messages.GenerateMessageBox("E_NotFound_OptionsIni", Globals.currentLanguage);
+
 
             FogCheckBox.Checked = Properties.Settings.Default.Fog;
             LangFilterCheckBox.Checked = Properties.Settings.Default.LangF;
             WaterEffectsCheckBox.Checked = Properties.Settings.Default.WaterEffects;
+            ExtraBuildingPropsCheckBox.Checked = Properties.Settings.Default.ExtraBuildingProps;
+            ControlBarProRadioButton.Checked = Properties.Settings.Default.ControlBarPro;
+            ControlBarContraRadioButton.Checked = Properties.Settings.Default.ControlBarContra;
+            ControlBarStandardRadioButton.Checked = Properties.Settings.Default.ControlBarStandard;
+            CameosDoubleRadioButton.Checked = Properties.Settings.Default.CameosDouble;
+            CameosStandardRadioButton.Checked = Properties.Settings.Default.CameosStandard;
             LeikezeHotkeysRadioButton.Checked = Properties.Settings.Default.LeikezeHotkeys;
             LegacyHotkeysRadioButton.Checked = Properties.Settings.Default.LegacyHotkeys;
+            AnisoCheckBox.Checked = Properties.Settings.Default.Anisotropic;
 
-            if (!File.Exists(Globals.myDocPath + "Options.ini"))
+            // Get current camera height
+            if (File.Exists("!ContraXBeta_GameData.big"))
             {
-                Messages.GenerateMessageBox("E_CouldNotLoadRes", Globals.currentLanguage);
+                try {ReadCameraHeight(File.ReadAllText("!ContraXBeta_GameData.big"));}
+                catch (IOException) {Messages.GenerateMessageBox("E_CloseGameDataP3", Globals.currentLanguage);}
             }
         }
+
         private void ReadCameraHeight(string fileToRead)
         {
             List<string> found = new List<string>();
@@ -428,18 +330,17 @@ namespace Contra
                         {
                             int value;
                             value = Convert.ToInt32(line);
-                            camTrackBar.Value = value + 110;
+                            CameraHeightTrackBar.Value = value + 110;
                         }
                         else
                         {
-                            camTrackBar.Value = Convert.ToInt32(line);
+                            CameraHeightTrackBar.Value = Convert.ToInt32(line);
                         }
-                        camHeightLabel.Text = Messages.GenerateMessage("CameraHeightString", Globals.currentLanguage) + camTrackBar.Value.ToString() + ".0";
+                        CameraHeightLabel.Text = Messages.GenerateMessage("CameraHeightString", Globals.currentLanguage) + CameraHeightTrackBar.Value.ToString() + ".0";
                     }
                 }
             }
         }
-
 
         //**********DRAG FORM CODE START**********
         const int WM_NCLBUTTONDBLCLK = 0xA3;
@@ -461,49 +362,10 @@ namespace Contra
         }
         //**********DRAG FORM CODE END**********
 
-
         private void OnApplicationExit(object sender, EventArgs e)
         {
             Properties.Settings.Default.Save();
-            this.Close();
-        }
-
-        private void resOkButton_Click(object sender, EventArgs e)
-        {
-            if (Directory.Exists(Globals.myDocPath))
-            {
-                string text = File.ReadAllText(Globals.myDocPath + "Options.ini");
-                {
-                    if (!Regex.IsMatch(resolutionComboBox.Text, @"^[0-9]{3,4}x[0-9]{3,4}$")) //if selected res doesn't match valid input (input must match the regex)
-                    {
-                        Messages.GenerateMessageBox("E_InvalidRes", Globals.currentLanguage);
-                        //return;
-                    }
-                    else
-                    {
-                        string fixedText = resolutionComboBox.Text.Replace("x", " ");
-                        File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(text, "\r?\nResolution =.*", "\r\nResolution = " + fixedText + "\r"));
-                        Messages.GenerateMessageBox("I_ResChanged", Globals.currentLanguage);
-                        IsGeneralsRunning();
-                    }
-                }
-            }
- 
-            if (!File.Exists(Globals.myDocPath + "Options.ini"))
-            {
-                Messages.GenerateMessageBox("E_CouldNotSetRes", Globals.currentLanguage);
-            }
-        }
-
-        private void resOkButton_MouseDown(object sender, MouseEventArgs e)
-        {
-            resOkButton.BackgroundImage = Properties.Resources.btnOk3a;
-            resOkButton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
-        }
-        private void resOkButton_MouseLeave(object sender, EventArgs e)
-        {
-            resOkButton.BackgroundImage = Properties.Resources.btnOk3;
-            resOkButton.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+            Close();
         }
 
         private void ExitBtnSm_MouseEnter(object sender, EventArgs e)
@@ -516,7 +378,7 @@ namespace Contra
         }
         private void ExitBtnSm_Click(object sender, EventArgs e)
         {
-            this.Close(); //OnApplicationExit(sender, e);
+            Close(); //OnApplicationExit(sender, e);
         }
 
         private void MinBtnSm_MouseEnter(object sender, EventArgs e)
@@ -529,62 +391,7 @@ namespace Contra
         }
         private void MinBtnSm_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void FogCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!FogCheckBox.Checked)
-            {
-                Properties.Settings.Default.Fog = false;
-            }
-            else Properties.Settings.Default.Fog = true;
-            Properties.Settings.Default.Save();
-            IsGeneralsRunning();
-        }
-
-        private void LangFilterCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!LangFilterCheckBox.Checked)
-            {
-                Properties.Settings.Default.LangF = false;
-            }
-            else Properties.Settings.Default.LangF = true;
-            Properties.Settings.Default.Save();
-            IsGeneralsRunning();
-        }
-
-        private void WaterEffectsCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!WaterEffectsCheckBox.Checked)
-            {
-                Properties.Settings.Default.WaterEffects = false;
-            }
-            else Properties.Settings.Default.WaterEffects = true;
-            Properties.Settings.Default.Save();
-            IsGeneralsRunning();
-        }
-
-        private void LeikezeHotkeysRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!LeikezeHotkeysRadioButton.Checked)
-            {
-                Properties.Settings.Default.LeikezeHotkeys = false;
-            }
-            else Properties.Settings.Default.LeikezeHotkeys = true;
-            Properties.Settings.Default.Save();
-            IsGeneralsRunning();
-        }
-
-        private void LegacyHotkeysRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!LegacyHotkeysRadioButton.Checked)
-            {
-                Properties.Settings.Default.LegacyHotkeys = false;
-            }
-            else Properties.Settings.Default.LegacyHotkeys = true;
-            Properties.Settings.Default.Save();
-            IsGeneralsRunning();
+            WindowState = FormWindowState.Minimized;
         }
 
         public static Tuple<int, int> getScreenResolution() => Tuple.Create(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
@@ -602,18 +409,11 @@ namespace Contra
 
         private void ChangeCamHeight()
         {
-            if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr"))
-            {
-                CamHeightRegexReplace("!!!!Contra009Final_Patch3_GameData.big", "E_NotFound_GameDataP3");
-            }
-            else if (File.Exists("!!!Contra009Final_Patch2.big") || File.Exists("!!!Contra009Final_Patch2.ctr"))
-            {
-                CamHeightRegexReplace("!!!Contra009Final_Patch2_GameData.big", "E_NotFound_GameDataP2");
-            }
-            else
-            {
-                Messages.GenerateMessageBox("E_MissingFiles_CouldNotChangeCamHeight", Globals.currentLanguage);
-            }
+            //if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr"))
+            //{
+                CamHeightRegexReplace("!ContraXBeta_GameData.big", "E_NotFound_GameDataP3");
+            //}
+            //else Messages.GenerateMessageBox("E_MissingFiles_CouldNotChangeCamHeight", Globals.currentLanguage);
         }
 
         private void CamHeightRegexReplace(string gameDataFilename, string gameDataNotFoundMsg)
@@ -625,224 +425,498 @@ namespace Contra
 
                 if (AspectRatio(x, y) == "16:9")
                 {
-                    regex = Regex.Replace(File.ReadAllText(gameDataFilename, encoding), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + (camTrackBar.Value - 110) + ".0" + " ;350.0\r\n");
+                    regex = Regex.Replace(File.ReadAllText(gameDataFilename, encoding),
+                        "  MaxCameraHeight = .*\r?\n",
+                        "  MaxCameraHeight = " + (CameraHeightTrackBar.Value - 110) + ".0" + " ;350.0\r\n");
                 }
                 else
                 {
-                    regex = Regex.Replace(File.ReadAllText(gameDataFilename, encoding), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = " + camTrackBar.Value + ".0" + " ;350.0\r\n");
+                    regex = Regex.Replace(File.ReadAllText(gameDataFilename, encoding),
+                        "  MaxCameraHeight = .*\r?\n",
+                        "  MaxCameraHeight = " + CameraHeightTrackBar.Value + ".0" + " ;350.0\r\n");
                 }
                 File.WriteAllText(gameDataFilename, regex, encoding);
 
-                if (camTrackBar.Value > 392)
+                if (CameraHeightTrackBar.Value > 392)
                 {
-                    regex2 = Regex.Replace(File.ReadAllText(gameDataFilename, encoding), "  DrawEntireTerrain = No\r?\n", "  DrawEntireTerrain = Yes\r\n");
+                    regex2 = Regex.Replace(File.ReadAllText(gameDataFilename, encoding),
+                        "  DrawEntireTerrain = No\r?\n",
+                        "  DrawEntireTerrain = Yes\r\n");
                 }
                 else
                 {
-                    regex2 = Regex.Replace(File.ReadAllText(gameDataFilename, encoding), "  DrawEntireTerrain = Yes\r?\n", "  DrawEntireTerrain = No\r\n");
+                    regex2 = Regex.Replace(File.ReadAllText(gameDataFilename, encoding),
+                        "  DrawEntireTerrain = Yes\r?\n",
+                        "  DrawEntireTerrain = No\r\n");
                 }
                 File.WriteAllText(gameDataFilename, regex2, encoding);
-
-                Messages.GenerateMessageBox("I_CameraHeightChanged", Globals.currentLanguage);
             }
-            else
-            {
-                Messages.GenerateMessageBox(gameDataNotFoundMsg, Globals.currentLanguage);
-            }
+            else Messages.GenerateMessageBox(gameDataNotFoundMsg, Globals.currentLanguage);
         }
 
-        private void camOkButton_Click(object sender, EventArgs e)
+        private void CameraHeightTrackBar_Scroll(object sender, EventArgs e)
         {
-            try
-            {
-                ChangeCamHeight();
-            }
-            catch (IOException)
-            {
-                if (File.Exists("!!!!Contra009Final_Patch3_GameData.big"))
-                {
-                    Messages.GenerateMessageBox("E_CloseGameDataP3", Globals.currentLanguage);
-                }
-                else if (File.Exists("!!!Contra009Final_Patch2_GameData.big"))
-                {
-                    Messages.GenerateMessageBox("E_CloseGameDataP2", Globals.currentLanguage);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-        }
-
-        private void camTrackBar_Scroll(object sender, EventArgs e)
-        {
-            camHeightLabel.Text = Messages.GenerateMessage("CameraHeightString", Globals.currentLanguage) + camTrackBar.Value.ToString() + ".0";
+            CameraHeightLabel.Text = Messages.GenerateMessage("CameraHeightString", Globals.currentLanguage) + CameraHeightTrackBar.Value.ToString() + ".0";
         }
 
         public void IsGeneralsRunning()
         {
-            if (Form.ActiveForm == this)
+            if (ActiveForm == this)
             {
                 Process[] genByName = Process.GetProcessesByName("generals");
                 if (genByName.Length > 0)
-                {
                     Messages.GenerateMessageBox("W_ChangesAfterGameRestart", Globals.currentLanguage);
-                }
             }
-        }
-
-        private void Shadows3DCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            string optionsIniText = File.ReadAllText(Globals.myDocPath + "Options.ini");
-            if (!Shadows3DCheckBox.Checked)
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nUseShadowVolumes = Yes", "\r\nUseShadowVolumes = No", RegexOptions.IgnoreCase));
-            }
-            else
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nUseShadowVolumes = No", "\r\nUseShadowVolumes = Yes", RegexOptions.IgnoreCase));
-            }
-            IsGeneralsRunning();
-        }
-
-        private void Shadows2DCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            string optionsIniText = File.ReadAllText(Globals.myDocPath + "Options.ini");
-            if (!Shadows2DCheckBox.Checked)
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nUseShadowDecals = Yes", "\r\nUseShadowDecals = No", RegexOptions.IgnoreCase));
-            }
-            else
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nUseShadowDecals = No", "\r\nUseShadowDecals = Yes", RegexOptions.IgnoreCase));
-            }
-            IsGeneralsRunning();
-        }
-
-        private void CloudShadowsCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            string optionsIniText = File.ReadAllText(Globals.myDocPath + "Options.ini");
-            if (!CloudShadowsCheckBox.Checked)
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nUseCloudMap = Yes", "\r\nUseCloudMap = No", RegexOptions.IgnoreCase));
-            }
-            else
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nUseCloudMap = No", "\r\nUseCloudMap = Yes", RegexOptions.IgnoreCase));
-            }
-            IsGeneralsRunning();
-        }
-
-        private void ExtraGroundLightingCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            string optionsIniText = File.ReadAllText(Globals.myDocPath + "Options.ini");
-            if (!ExtraGroundLightingCheckBox.Checked)
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nUseLightMap = Yes", "\r\nUseLightMap = No", RegexOptions.IgnoreCase));
-            }
-            else
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nUseLightMap = No", "\r\nUseLightMap = Yes", RegexOptions.IgnoreCase));
-            }
-            IsGeneralsRunning();
-        }
-
-        private void SmoothWaterBordersCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            string optionsIniText = File.ReadAllText(Globals.myDocPath + "Options.ini");
-            if (!SmoothWaterBordersCheckBox.Checked)
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nShowSoftWaterEdge = Yes", "\r\nShowSoftWaterEdge = No", RegexOptions.IgnoreCase));
-            }
-            else
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nShowSoftWaterEdge = No", "\r\nShowSoftWaterEdge = Yes", RegexOptions.IgnoreCase));
-            }
-            IsGeneralsRunning();
-        }
-
-        private void BehindBuildingsCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            string optionsIniText = File.ReadAllText(Globals.myDocPath + "Options.ini");
-            if (!BehindBuildingsCheckBox.Checked)
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nBuildingOcclusion = Yes", "\r\nBuildingOcclusion = No", RegexOptions.IgnoreCase));
-            }
-            else
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nBuildingOcclusion = No", "\r\nBuildingOcclusion = Yes", RegexOptions.IgnoreCase));
-            }
-            IsGeneralsRunning();
-        }
-
-        private void ShowPropsCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            string optionsIniText = File.ReadAllText(Globals.myDocPath + "Options.ini");
-            if (!ShowPropsCheckBox.Checked)
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nShowTrees = Yes", "\r\nShowTrees = No", RegexOptions.IgnoreCase));
-            }
-            else
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nShowTrees = No", "\r\nShowTrees = Yes", RegexOptions.IgnoreCase));
-            }
-            IsGeneralsRunning();
-        }
-
-        private void ExtraAnimationsCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            string optionsIniText = File.ReadAllText(Globals.myDocPath + "Options.ini");
-            if (!ExtraAnimationsCheckBox.Checked)
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nExtraAnimations = Yes", "\r\nExtraAnimations = No", RegexOptions.IgnoreCase));
-            }
-            else
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nExtraAnimations = No", "\r\nExtraAnimations = Yes", RegexOptions.IgnoreCase));
-            }
-            IsGeneralsRunning();
-        }
-
-        private void DisableDynamicLODCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            string optionsIniText = File.ReadAllText(Globals.myDocPath + "Options.ini");
-            if (DisableDynamicLODCheckBox.Checked)
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nDynamicLOD = Yes", "\r\nDynamicLOD = No", RegexOptions.IgnoreCase));
-            }
-            else
-            {
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nDynamicLOD = No", "\r\nDynamicLOD = Yes", RegexOptions.IgnoreCase));
-            }
-            IsGeneralsRunning();
         }
 
         private void HeatEffectsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            string optionsIniText = File.ReadAllText(Globals.myDocPath + "Options.ini");
             if (!HeatEffectsCheckBox.Checked)
-            {
                 heatEffectsCheckBoxIsClicked = false;
-                Properties.Settings.Default.HeatEffects = false;
-                Properties.Settings.Default.Save();
-
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nHeatEffects = Yes", "\r\nHeatEffects = No", RegexOptions.IgnoreCase));
-            }
             else
-            {
                 heatEffectsCheckBoxIsClicked = true;
-                Properties.Settings.Default.HeatEffects = true;
-                Properties.Settings.Default.Save();
-
-                File.WriteAllText(Globals.myDocPath + "Options.ini", Regex.Replace(optionsIniText, "\r?\nHeatEffects = No", "\r\nHeatEffects = Yes", RegexOptions.IgnoreCase));
-            }
-            IsGeneralsRunning();
         }
         private void HeatEffectsCheckBox_Click(object sender, EventArgs e)
         {
             if (heatEffectsCheckBoxIsClicked == true)
-            {
                 Messages.GenerateMessageBox("W_BlackScreen", Globals.currentLanguage);
+        }
+
+        private void AcceptBtn_MouseDown(object sender, MouseEventArgs e)
+        {
+            AcceptBtn.BackgroundImage = Properties.Resources._button_big_down;
+            AcceptBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            AcceptBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+        private void AcceptBtn_MouseEnter(object sender, EventArgs e)
+        {
+            AcceptBtn.BackgroundImage = Properties.Resources._button_big_hover;
+            AcceptBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            AcceptBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+        private void AcceptBtn_MouseLeave(object sender, EventArgs e)
+        {
+            AcceptBtn.BackgroundImage = Properties.Resources._button_big;
+            AcceptBtn.ForeColor = SystemColors.ButtonHighlight;
+            AcceptBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+
+        private void EnableDisableSettings(string settingName, string settingValueCaseOne)
+        {
+            string settingValueCaseTwo;
+            if (settingValueCaseOne == "Yes") settingValueCaseTwo = "No";
+            else settingValueCaseTwo = "Yes";
+
+            File.WriteAllText(Globals.myDocPath + "Options.ini",
+                Regex.Replace(File.ReadAllText(Globals.myDocPath + "Options.ini"),
+                $"\r?\n{settingName} = {settingValueCaseOne}",
+                $"\r\n{settingName} = {settingValueCaseTwo}",
+                RegexOptions.IgnoreCase));
+        }
+
+        private void AcceptBtn_Click(object sender, EventArgs e)
+        {
+            // Apply .ini-file options
+            if (Directory.Exists(Globals.myDocPath))
+            {
+                if (!Shadows3DCheckBox.Checked) EnableDisableSettings("UseShadowVolumes", "Yes");
+                else EnableDisableSettings("UseShadowVolumes", "No");
+                if (!Shadows2DCheckBox.Checked) EnableDisableSettings("UseShadowDecals", "Yes");
+                else EnableDisableSettings("UseShadowDecals", "No");
+                if (!CloudShadowsCheckBox.Checked) EnableDisableSettings("UseCloudMap", "Yes");
+                else EnableDisableSettings("UseCloudMap", "No");
+                if (!ExtraGroundLightingCheckBox.Checked) EnableDisableSettings("UseLightMap", "Yes");
+                else EnableDisableSettings("UseLightMap", "No");
+                if (!SmoothWaterBordersCheckBox.Checked) EnableDisableSettings("ShowSoftWaterEdge", "Yes");
+                else EnableDisableSettings("ShowSoftWaterEdge", "No");
+                if (!BehindBuildingsCheckBox.Checked) EnableDisableSettings("BuildingOcclusion", "Yes");
+                else EnableDisableSettings("BuildingOcclusion", "No");
+                if (!ShowPropsCheckBox.Checked) EnableDisableSettings("ShowTrees", "Yes");
+                else EnableDisableSettings("ShowTrees", "No");
+                if (!ExtraAnimationsCheckBox.Checked) EnableDisableSettings("ExtraAnimations", "Yes");
+                else EnableDisableSettings("ExtraAnimations", "No");
+                if (DisableDynamicLODCheckBox.Checked) EnableDisableSettings("DynamicLOD", "Yes");
+                else EnableDisableSettings("DynamicLOD", "No");
+
+                if (!HeatEffectsCheckBox.Checked)
+                {
+                    heatEffectsCheckBoxIsClicked = false;
+                    Properties.Settings.Default.HeatEffects = false;
+                    EnableDisableSettings("HeatEffects", "Yes");
+                }
+                else
+                {
+                    heatEffectsCheckBoxIsClicked = true;
+                    Properties.Settings.Default.HeatEffects = true;
+                    EnableDisableSettings("HeatEffects", "No");
+                }
+
+                // Apply resolution
+                if (Regex.IsMatch(resolutionComboBox.Text, @"^[0-9]{3,4}x[0-9]{3,4}$"))
+                {
+                    string fixedText = resolutionComboBox.Text.Replace("x", " ");
+                    File.WriteAllText(Globals.myDocPath + "Options.ini",
+                        Regex.Replace(File.ReadAllText(Globals.myDocPath + "Options.ini"),
+                        "\r?\nResolution =.*", "\r\nResolution = " + fixedText + "\r",
+                        RegexOptions.IgnoreCase));
+                }
+                else
+                {
+                    Messages.GenerateMessageBox("E_InvalidRes", Globals.currentLanguage);
+                    return;
+                }
+
+                // Apply Particle Cap
+                File.WriteAllText(Globals.myDocPath + "Options.ini",
+                    Regex.Replace(File.ReadAllText(Globals.myDocPath + "Options.ini"),
+                    "\r?\nMaxParticleCount =.*",
+                    "\r\nMaxParticleCount = " + ParticleCapTrackBar.Value + "\r",
+                    RegexOptions.IgnoreCase));
+
+                // Apply Texture Resolution
+                if (TextureResTrackBar.Value == 1)
+                {
+                    File.WriteAllText(Globals.myDocPath + "Options.ini",
+                        Regex.Replace(File.ReadAllText(Globals.myDocPath + "Options.ini"),
+                        "\r?\nTextureReduction =.*",
+                        "\r\nTextureReduction = 2\r",
+                        RegexOptions.IgnoreCase));
+                }
+                else if (TextureResTrackBar.Value == 2)
+                {
+                    File.WriteAllText(Globals.myDocPath + "Options.ini",
+                        Regex.Replace(File.ReadAllText(Globals.myDocPath + "Options.ini"),
+                        "\r?\nTextureReduction =.*",
+                        "\r\nTextureReduction = 1\r",
+                        RegexOptions.IgnoreCase));
+                }
+                else
+                {
+                    File.WriteAllText(Globals.myDocPath + "Options.ini",
+                        Regex.Replace(File.ReadAllText(Globals.myDocPath + "Options.ini"),
+                        "\r?\nTextureReduction =.*",
+                        "\r\nTextureReduction = 0\r",
+                        RegexOptions.IgnoreCase));
+                }
+            }
+            else Messages.GenerateMessageBox("E_NotFound_OptionsIni", Globals.currentLanguage);
+
+            // Apply Camera Height
+            try { ChangeCamHeight(); }
+            catch (IOException)
+            {
+                if (File.Exists("!ContraXBeta_GameData.big")) Messages.GenerateMessageBox("E_CloseGameDataP3", Globals.currentLanguage);
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
+
+            // .big-file Options
+            if (FogCheckBox.Checked)
+                Properties.Settings.Default.Fog = true;
+            else Properties.Settings.Default.Fog = false;
+
+            if (WaterEffectsCheckBox.Checked)
+                Properties.Settings.Default.WaterEffects = true;
+            else Properties.Settings.Default.WaterEffects = false;
+
+            if (LangFilterCheckBox.Checked)
+                Properties.Settings.Default.LangF = true;
+            else Properties.Settings.Default.LangF = false;
+
+            if (ExtraBuildingPropsCheckBox.Checked)
+                Properties.Settings.Default.ExtraBuildingProps = true;
+            else Properties.Settings.Default.ExtraBuildingProps = false;
+
+            if (ControlBarProRadioButton.Checked)
+            {
+                Properties.Settings.Default.ControlBarPro = true;
+                Properties.Settings.Default.ControlBarContra = false;
+                Properties.Settings.Default.ControlBarStandard = false;
+            }
+            else if (ControlBarContraRadioButton.Checked)
+            {
+                Properties.Settings.Default.ControlBarPro = false;
+                Properties.Settings.Default.ControlBarContra = true;
+                Properties.Settings.Default.ControlBarStandard = false;
+            }
+            else
+            {
+                Properties.Settings.Default.ControlBarPro = false;
+                Properties.Settings.Default.ControlBarContra = false;
+                Properties.Settings.Default.ControlBarStandard = true;
+            }
+
+            if (CameosDoubleRadioButton.Checked)
+            {
+                Properties.Settings.Default.CameosDouble = true;
+                Properties.Settings.Default.CameosStandard = false;
+            }
+            else
+            {
+                Properties.Settings.Default.CameosDouble = false;
+                Properties.Settings.Default.CameosStandard = true;
+            }
+
+            if (LeikezeHotkeysRadioButton.Checked)
+            {
+                Properties.Settings.Default.LeikezeHotkeys = true;
+                Properties.Settings.Default.LegacyHotkeys = false;
+            }
+            else
+            {
+                Properties.Settings.Default.LeikezeHotkeys = false;
+                Properties.Settings.Default.LegacyHotkeys = true;
+            }
+
+            // Enable ENB Series distribution for Anisotropic Filtering
+            if (AnisoCheckBox.Checked)
+                Properties.Settings.Default.Anisotropic = true;
+            else Properties.Settings.Default.Anisotropic = false;
+
+            IsGeneralsRunning();
+            Properties.Settings.Default.Save();
+            Close();
+        }
+
+        private void CloseBtn_MouseDown(object sender, MouseEventArgs e)
+        {
+            CloseBtn.BackgroundImage = Properties.Resources._button_big_down;
+            CloseBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            CloseBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+        private void CloseBtn_MouseEnter(object sender, EventArgs e)
+        {
+            CloseBtn.BackgroundImage = Properties.Resources._button_big_hover;
+            CloseBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            CloseBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+        private void CloseBtn_MouseLeave(object sender, EventArgs e)
+        {
+            CloseBtn.BackgroundImage = Properties.Resources._button_big;
+            CloseBtn.ForeColor = SystemColors.ButtonHighlight;
+            CloseBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
+        }
+        private void CloseBtn_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void ShowGraphicsInfo(string header, string performance, string label, bool haspreview = true)
+        {
+            if (haspreview == true) NoPreviewText.Visible = false;
+            else NoPreviewText.Visible = true;
+            GraphicsInfoHeaderLabel.Visible = true;
+            GraphicsInfoPerformanceLabel.Visible = true;
+            GraphicsInfoDescriptionLabel.Visible = true;
+            GraphicsInfoHeaderLabel.Text = header.ToUpper();
+            GraphicsInfoPerformanceLabel.Text = performance;
+            GraphicsInfoDescriptionLabel.Text = label;
+        }
+
+        private void Shadows3DCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_3d;
+            ShowGraphicsInfo(Shadows3DCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectHigh", Globals.currentLanguage),
+                Messages.GenerateMessage("Shadows3DDescription", Globals.currentLanguage));
+        }
+        private void Shadows2DCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_2d;
+            ShowGraphicsInfo(Shadows2DCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectLow", Globals.currentLanguage),
+                Messages.GenerateMessage("Shadows2DDescription", Globals.currentLanguage));
+        }
+        private void CloudShadowsCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_cloud;
+            ShowGraphicsInfo(CloudShadowsCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectLow", Globals.currentLanguage),
+                Messages.GenerateMessage("CloudShadowsDescription", Globals.currentLanguage));
+        }
+        private void ExtraGroundLightingCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_light;
+            ShowGraphicsInfo(ExtraGroundLightingCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectLow", Globals.currentLanguage),
+                Messages.GenerateMessage("ExtraGroundLightingDescription", Globals.currentLanguage));
+        }
+        private void SmoothWaterBordersCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_watbord;
+            ShowGraphicsInfo(SmoothWaterBordersCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectLow", Globals.currentLanguage),
+                Messages.GenerateMessage("SmoothWaterBordersDescription", Globals.currentLanguage));
+        }
+        private void BehindBuildingsCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_behindbldg;
+            ShowGraphicsInfo(BehindBuildingsCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectLow", Globals.currentLanguage),
+                Messages.GenerateMessage("BehindBuildingsDescription", Globals.currentLanguage));
+        }
+        private void ShowPropsCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_props;
+            ShowGraphicsInfo(ShowPropsCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectLow", Globals.currentLanguage),
+                Messages.GenerateMessage("ShowPropsDescription", Globals.currentLanguage));
+        }
+        private void ExtraAnimationsCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_extraanim;
+            ShowGraphicsInfo(ExtraAnimationsCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectLow", Globals.currentLanguage),
+                Messages.GenerateMessage("ExtraAnimationsDescription", Globals.currentLanguage));
+        }
+        private void DisableDynamicLODCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            ShowGraphicsInfo(DisableDynamicLODCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectHigh", Globals.currentLanguage),
+                Messages.GenerateMessage("DisableDynamicLODDescription", Globals.currentLanguage), false);
+        }
+        private void HeatEffectsCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_heat;
+            ShowGraphicsInfo(HeatEffectsCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectLow", Globals.currentLanguage),
+                Messages.GenerateMessage("HeatEffectsDescription", Globals.currentLanguage));
+        }
+        private void FogCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_fog;
+            ShowGraphicsInfo(FogCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectLow", Globals.currentLanguage),
+                Messages.GenerateMessage("FogDescription", Globals.currentLanguage));
+        }
+        private void WaterEffectsCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_waterfx;
+            ShowGraphicsInfo(WaterEffectsCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectHigh", Globals.currentLanguage),
+                Messages.GenerateMessage("WaterEffectsDescription", Globals.currentLanguage));
+        }
+        private void LangFilterCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_langfilter;
+            ShowGraphicsInfo(LangFilterCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectNone", Globals.currentLanguage),
+                Messages.GenerateMessage("LangFilterDescription", Globals.currentLanguage));
+        }
+        private void AnisoCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_aniso;
+            ShowGraphicsInfo(AnisoCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectLow", Globals.currentLanguage),
+                Messages.GenerateMessage("AnisoDescription", Globals.currentLanguage));
+        }
+
+        private void ExtraBuildingPropsCheckBox_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_extraprops;
+            ShowGraphicsInfo(ExtraBuildingPropsCheckBox.Text,
+                Messages.GenerateMessage("PerformanceEffectMedium", Globals.currentLanguage),
+                Messages.GenerateMessage("ExtraBuildingPropsDescription", Globals.currentLanguage));
+        }
+        private void ControlBarProRadioButton_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_barpro;
+            ShowGraphicsInfo(Messages.GenerateMessage("ControlBarPro", Globals.currentLanguage),
+                Messages.GenerateMessage("ControlBarProDescription", Globals.currentLanguage), "");
+        }
+        private void ControlBarContraRadioButton_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_barctr;
+            ShowGraphicsInfo(Messages.GenerateMessage("ControlBarContra", Globals.currentLanguage),
+                Messages.GenerateMessage("ControlBarContraDescription", Globals.currentLanguage), "");
+        }
+        private void ControlBarStandardRadioButton_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_barstandard;
+            ShowGraphicsInfo(Messages.GenerateMessage("ControlBarStandard", Globals.currentLanguage),
+                Messages.GenerateMessage("ControlBarStandardDescription", Globals.currentLanguage), "");
+        }
+        private void CameosDoubleRadioButton_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_iconshd;
+            ShowGraphicsInfo(Messages.GenerateMessage("IconQualityDouble", Globals.currentLanguage),
+                Messages.GenerateMessage("IconQualityDoubleDescription", Globals.currentLanguage), "");
+        }
+        private void CameosStandardRadioButton_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_iconsstandard;
+            ShowGraphicsInfo(Messages.GenerateMessage("IconQualityStandard", Globals.currentLanguage),
+                Messages.GenerateMessage("IconQualityStandardDescription", Globals.currentLanguage), "");
+        }
+        private void LeikezeHotkeysRadioButton_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_hotkeysleikeze;
+            ShowGraphicsInfo(Messages.GenerateMessage("HotkeysLeikeze", Globals.currentLanguage),
+                Messages.GenerateMessage("HotkeysLeikezeDescription", Globals.currentLanguage), "");
+        }
+        private void LegacyHotkeysRadioButton_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_hotkeysstandard;
+            ShowGraphicsInfo(Messages.GenerateMessage("HotkeysStandard", Globals.currentLanguage),
+                Messages.GenerateMessage("HotkeysStandardDescription", Globals.currentLanguage), "");
+        }
+        private void CameraHeightTrackBar_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_height;
+            ShowGraphicsInfo(Messages.GenerateMessage("CameraHeight", Globals.currentLanguage),
+                Messages.GenerateMessage("PerformanceEffectHigh", Globals.currentLanguage),
+                Messages.GenerateMessage("CameraHeightDescription", Globals.currentLanguage));
+        }
+        private void TextureResTrackBar_MouseHover(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = Properties.Resources.comp_textureres;
+            ShowGraphicsInfo(Messages.GenerateMessage("TextureResTwo", Globals.currentLanguage),
+                Messages.GenerateMessage("PerformanceEffectLow", Globals.currentLanguage),
+                Messages.GenerateMessage("TextureResDescription", Globals.currentLanguage));
+        }
+        private void ParticleCapTrackBar_MouseHover(object sender, EventArgs e)
+        {
+            ShowGraphicsInfo(Messages.GenerateMessage("ParticleCap", Globals.currentLanguage),
+                Messages.GenerateMessage("PerformanceEffectHigh", Globals.currentLanguage),
+                Messages.GenerateMessage("ParticleCapDescription", Globals.currentLanguage), false);
+        }
+
+        private void ParticleCapTrackBar_Scroll(object sender, EventArgs e)
+        {
+            ParticleCapLabel.Text = Messages.GenerateMessage("ParticleCap", Globals.currentLanguage) + ParticleCapTrackBar.Value.ToString();
+        }
+
+        private void TextureResTrackBar_Scroll(object sender, EventArgs e)
+        {
+            if (TextureResTrackBar.Value == 1) TextureResLabel.Text = Messages.GenerateMessage("TextureRes", Globals.currentLanguage)
+                    + Messages.GenerateMessage("Low", Globals.currentLanguage);
+            else if (TextureResTrackBar.Value == 2) TextureResLabel.Text = Messages.GenerateMessage("TextureRes", Globals.currentLanguage)
+                    + Messages.GenerateMessage("Medium", Globals.currentLanguage);
+            else TextureResLabel.Text = Messages.GenerateMessage("TextureRes", Globals.currentLanguage)
+                    + Messages.GenerateMessage("High", Globals.currentLanguage);
+        }
+
+        private void Option_MouseLeave(object sender, EventArgs e)
+        {
+            GraphicsInfoPictureBox.Image = null;
+            GraphicsInfoHeaderLabel.Visible = false;
+            GraphicsInfoPerformanceLabel.Visible = false;
+            GraphicsInfoDescriptionLabel.Visible = false;
+            NoPreviewText.Visible = true;
+        }
+
+        private void ControlBarProRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb != null && rb.Checked)
+            {
+                if (!MainForm.isGentoolInstalled("d3d8.dll") || MainForm.isGentoolOutdated("d3d8.dll", 85))
+                {
+                    DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("W_GenToolNotInstalledOrNotUpToDate", Globals.currentLanguage),
+                    Messages.GenerateMessage("Warning", Globals.currentLanguage), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    if (dialogResult == DialogResult.Yes)
+                        MainForm.Url_open("https://www.gentool.net/");
+                    return;
+                }
             }
         }
     }

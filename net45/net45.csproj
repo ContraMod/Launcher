@@ -55,9 +55,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <ManifestCertificateThumbprint>35F59486F344F6926ADA969ED9D6C8D5B80401AB</ManifestCertificateThumbprint>
   </PropertyGroup>
@@ -72,6 +70,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -166,13 +167,25 @@
   <ItemGroup>
     <Content Include="ContraIco.ico" />
     <Content Include="LICENSE.txt" />
-    <Content Include="Resources\background.jpg" />
+    <None Include="Resources\_button_sm_exit_tr.png" />
+    <None Include="Resources\_button_sm_min_tr.png" />
+    <None Include="Resources\_button_big_hover.png" />
+    <None Include="Resources\_button_big_down.png" />
+    <None Include="Resources\_button_big_down.jpg" />
+    <None Include="Resources\_button_big_hover.jpg" />
+    <None Include="Resources\_button_huge.png" />
+    <None Include="Resources\_button_big.png" />
+    <None Include="Resources\_bg_options.jpg" />
+    <None Include="Resources\background.jpg" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\folder_hl.png" />
+    <None Include="Resources\comp_3d.jpg" />
     <Content Include="Resources\_bg_update.jpg" />
+    <None Include="Resources\_big-button.png" />
     <None Include="Resources\_button_vpn_highlight.png" />
     <None Include="Resources\_button_donate.png" />
     <None Include="Resources\_button_donate_tr.png" />
     <None Include="Resources\btnOk1.png" />
-    <None Include="Resources\_bg_options.jpg" />
     <None Include="README.md" />
     <None Include="Resources\flag_de_tr.png" />
     <None Include="Resources\flag_de.png" />
@@ -182,7 +195,6 @@
     <None Include="Resources\flag_bg_tr.png" />
     <None Include="Resources\flag_ua_tr.png" />
     <None Include="Resources\flag_ru_tr.png" />
-    <None Include="Resources\_button_sm_exit_tr.png" />
     <None Include="Resources\_button_sm_exit.png" />
     <None Include="Resources\flag_gb.png" />
     <None Include="Resources\flag_bg.png" />

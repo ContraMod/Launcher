@@ -32,28 +32,17 @@ namespace Contra
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.RadioEN = new System.Windows.Forms.RadioButton();
             this.RadioRU = new System.Windows.Forms.RadioButton();
-            this.RadioOrigQuotes = new System.Windows.Forms.RadioButton();
-            this.RadioLocQuotes = new System.Windows.Forms.RadioButton();
             this.MNew = new System.Windows.Forms.RadioButton();
             this.QSCheckBox = new System.Windows.Forms.CheckBox();
             this.MStandard = new System.Windows.Forms.RadioButton();
             this.WinCheckBox = new System.Windows.Forms.CheckBox();
             this.DefaultPics = new System.Windows.Forms.RadioButton();
             this.GoofyPics = new System.Windows.Forms.RadioButton();
-            this.voicespanel = new System.Windows.Forms.Panel();
-            this.languagepanel = new System.Windows.Forms.Panel();
-            this.musicpanel = new System.Windows.Forms.Panel();
-            this.portraitspanel = new System.Windows.Forms.Panel();
             this.versionLabel = new System.Windows.Forms.Label();
-            this.HelpBtn = new System.Windows.Forms.Button();
-            this.DiscordBtn = new System.Windows.Forms.Button();
             this.ExitBtnSm = new System.Windows.Forms.Button();
             this.MinBtnSm = new System.Windows.Forms.Button();
-            this.SiteBtn = new System.Windows.Forms.Button();
             this.ExitBtn = new System.Windows.Forms.Button();
-            this.ReadMeBtn = new System.Windows.Forms.Button();
             this.WBBtn = new System.Windows.Forms.Button();
-            this.ModDBBtn = new System.Windows.Forms.Button();
             this.LaunchBtn = new System.Windows.Forms.Button();
             this.RadioFlag_GB = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -62,7 +51,6 @@ namespace Contra
             this.RadioFlag_UA = new System.Windows.Forms.RadioButton();
             this.RadioFlag_RU = new System.Windows.Forms.RadioButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.moreOptions = new System.Windows.Forms.Label();
             this.PatchDLProgressBar = new System.Windows.Forms.ProgressBar();
             this.PatchDLPanel = new System.Windows.Forms.Panel();
             this.ModDLCurrentFileLabel = new System.Windows.Forms.Label();
@@ -70,19 +58,48 @@ namespace Contra
             this.ModDLFileSizeLabel = new System.Windows.Forms.Label();
             this.CancelModDLBtn = new System.Windows.Forms.Button();
             this.ModDLLabel = new System.Windows.Forms.Label();
-            this.DonateBtn = new System.Windows.Forms.Button();
             this.optionsToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.onlineInstructionsLabel = new System.Windows.Forms.Label();
             this.replaysLabel = new System.Windows.Forms.Label();
             this.customAddonsLabel = new System.Windows.Forms.Label();
-            this.MOTD = new Contra.Marquee();
             this.supportLabel = new System.Windows.Forms.Label();
-            this.voicespanel.SuspendLayout();
-            this.languagepanel.SuspendLayout();
-            this.musicpanel.SuspendLayout();
-            this.portraitspanel.SuspendLayout();
+            this.OptionsBtn = new System.Windows.Forms.Button();
+            this.DiscordBtn = new System.Windows.Forms.Button();
+            this.ModDBBtn = new System.Windows.Forms.Button();
+            this.DonateBtn = new System.Windows.Forms.Button();
+            this.DataFolder = new System.Windows.Forms.PictureBox();
+            this.DataFolderLabel = new System.Windows.Forms.Label();
+            this.GameFolder = new System.Windows.Forms.PictureBox();
+            this.GameFolderLabel = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.UnitVoicesPanel = new System.Windows.Forms.Panel();
+            this.UnitVoicesLabel = new System.Windows.Forms.Label();
+            this.RadioOrigQuotes = new System.Windows.Forms.RadioButton();
+            this.RadioLocQuotes = new System.Windows.Forms.RadioButton();
+            this.LanguagePanel = new System.Windows.Forms.Panel();
+            this.LanguageLabel = new System.Windows.Forms.Label();
+            this.MusicPanel = new System.Windows.Forms.Panel();
+            this.MusicLabel = new System.Windows.Forms.Label();
+            this.PortraitsPanel = new System.Windows.Forms.Panel();
+            this.PortraitsLabel = new System.Windows.Forms.Label();
+            this.OptionsFlashTimer1 = new System.Windows.Forms.Timer(this.components);
+            this.OptionsFlashTimer2 = new System.Windows.Forms.Timer(this.components);
+            this.MOTD = new Contra.Marquee();
             this.panel1.SuspendLayout();
             this.PatchDLPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataFolder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GameFolder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            this.UnitVoicesPanel.SuspendLayout();
+            this.LanguagePanel.SuspendLayout();
+            this.MusicPanel.SuspendLayout();
+            this.PortraitsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // RadioEN
@@ -100,23 +117,6 @@ namespace Contra
             this.RadioRU.ForeColor = System.Drawing.Color.White;
             this.RadioRU.Name = "RadioRU";
             this.RadioRU.UseVisualStyleBackColor = true;
-            // 
-            // RadioOrigQuotes
-            // 
-            resources.ApplyResources(this.RadioOrigQuotes, "RadioOrigQuotes");
-            this.RadioOrigQuotes.Cursor = System.Windows.Forms.Cursors.Default;
-            this.RadioOrigQuotes.ForeColor = System.Drawing.Color.White;
-            this.RadioOrigQuotes.Name = "RadioOrigQuotes";
-            this.RadioOrigQuotes.UseVisualStyleBackColor = true;
-            // 
-            // RadioLocQuotes
-            // 
-            resources.ApplyResources(this.RadioLocQuotes, "RadioLocQuotes");
-            this.RadioLocQuotes.Checked = true;
-            this.RadioLocQuotes.ForeColor = System.Drawing.Color.White;
-            this.RadioLocQuotes.Name = "RadioLocQuotes";
-            this.RadioLocQuotes.TabStop = true;
-            this.RadioLocQuotes.UseVisualStyleBackColor = true;
             // 
             // MNew
             // 
@@ -166,41 +166,6 @@ namespace Contra
             this.GoofyPics.Name = "GoofyPics";
             this.GoofyPics.UseVisualStyleBackColor = true;
             // 
-            // voicespanel
-            // 
-            this.voicespanel.BackColor = System.Drawing.Color.Transparent;
-            this.voicespanel.Controls.Add(this.RadioOrigQuotes);
-            this.voicespanel.Controls.Add(this.RadioLocQuotes);
-            resources.ApplyResources(this.voicespanel, "voicespanel");
-            this.voicespanel.Name = "voicespanel";
-            // 
-            // languagepanel
-            // 
-            this.languagepanel.BackColor = System.Drawing.Color.Transparent;
-            this.languagepanel.Controls.Add(this.RadioRU);
-            this.languagepanel.Controls.Add(this.RadioEN);
-            this.languagepanel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            resources.ApplyResources(this.languagepanel, "languagepanel");
-            this.languagepanel.Name = "languagepanel";
-            // 
-            // musicpanel
-            // 
-            this.musicpanel.BackColor = System.Drawing.Color.Transparent;
-            this.musicpanel.Controls.Add(this.MStandard);
-            this.musicpanel.Controls.Add(this.MNew);
-            this.musicpanel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            resources.ApplyResources(this.musicpanel, "musicpanel");
-            this.musicpanel.Name = "musicpanel";
-            // 
-            // portraitspanel
-            // 
-            this.portraitspanel.BackColor = System.Drawing.Color.Transparent;
-            this.portraitspanel.Controls.Add(this.GoofyPics);
-            this.portraitspanel.Controls.Add(this.DefaultPics);
-            this.portraitspanel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            resources.ApplyResources(this.portraitspanel, "portraitspanel");
-            this.portraitspanel.Name = "portraitspanel";
-            // 
             // versionLabel
             // 
             this.versionLabel.BackColor = System.Drawing.Color.Transparent;
@@ -208,44 +173,9 @@ namespace Contra
             this.versionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(210)))), ((int)(((byte)(100)))));
             this.versionLabel.Name = "versionLabel";
             // 
-            // HelpBtn
-            // 
-            this.HelpBtn.BackColor = System.Drawing.Color.Transparent;
-            this.HelpBtn.BackgroundImage = global::Contra.Properties.Resources._button_help;
-            this.HelpBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.HelpBtn.FlatAppearance.BorderSize = 0;
-            this.HelpBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.HelpBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.HelpBtn, "HelpBtn");
-            this.HelpBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.HelpBtn.Name = "HelpBtn";
-            this.HelpBtn.UseVisualStyleBackColor = false;
-            this.HelpBtn.Click += new System.EventHandler(this.HelpBtn_Click);
-            this.HelpBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.HelpBtn_MouseDown);
-            this.HelpBtn.MouseEnter += new System.EventHandler(this.HelpBtn_MouseEnter);
-            this.HelpBtn.MouseLeave += new System.EventHandler(this.HelpBtn_MouseLeave);
-            // 
-            // DiscordBtn
-            // 
-            this.DiscordBtn.BackColor = System.Drawing.Color.Transparent;
-            this.DiscordBtn.BackgroundImage = global::Contra.Properties.Resources._button_discord;
-            this.DiscordBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DiscordBtn.FlatAppearance.BorderSize = 0;
-            this.DiscordBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.DiscordBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.DiscordBtn, "DiscordBtn");
-            this.DiscordBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.DiscordBtn.Name = "DiscordBtn";
-            this.DiscordBtn.UseVisualStyleBackColor = false;
-            this.DiscordBtn.Click += new System.EventHandler(this.DiscordBtn_Click);
-            this.DiscordBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DiscordBtn_MouseDown);
-            this.DiscordBtn.MouseEnter += new System.EventHandler(this.DiscordBtn_MouseEnter);
-            this.DiscordBtn.MouseLeave += new System.EventHandler(this.DiscordBtn_MouseLeave);
-            // 
             // ExitBtnSm
             // 
             this.ExitBtnSm.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ExitBtnSm.BackgroundImage = global::Contra.Properties.Resources._button_sm_exit;
             resources.ApplyResources(this.ExitBtnSm, "ExitBtnSm");
             this.ExitBtnSm.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ExitBtnSm.FlatAppearance.BorderSize = 0;
@@ -258,7 +188,6 @@ namespace Contra
             // MinBtnSm
             // 
             this.MinBtnSm.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.MinBtnSm.BackgroundImage = global::Contra.Properties.Resources._button_sm_min;
             resources.ApplyResources(this.MinBtnSm, "MinBtnSm");
             this.MinBtnSm.Cursor = System.Windows.Forms.Cursors.Hand;
             this.MinBtnSm.FlatAppearance.BorderSize = 0;
@@ -268,27 +197,10 @@ namespace Contra
             this.MinBtnSm.MouseEnter += new System.EventHandler(this.MinBtnSm_MouseEnter);
             this.MinBtnSm.MouseLeave += new System.EventHandler(this.MinBtnSm_MouseLeave);
             // 
-            // SiteBtn
-            // 
-            this.SiteBtn.BackColor = System.Drawing.Color.Transparent;
-            this.SiteBtn.BackgroundImage = global::Contra.Properties.Resources._button_website;
-            this.SiteBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SiteBtn.FlatAppearance.BorderSize = 0;
-            this.SiteBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.SiteBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.SiteBtn, "SiteBtn");
-            this.SiteBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.SiteBtn.Name = "SiteBtn";
-            this.SiteBtn.UseVisualStyleBackColor = false;
-            this.SiteBtn.Click += new System.EventHandler(this.SiteBtn_Click);
-            this.SiteBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SiteBtn_MouseDown);
-            this.SiteBtn.MouseEnter += new System.EventHandler(this.SiteBtn_MouseEnter);
-            this.SiteBtn.MouseLeave += new System.EventHandler(this.SiteBtn_MouseLeave);
-            // 
             // ExitBtn
             // 
             this.ExitBtn.BackColor = System.Drawing.Color.Transparent;
-            this.ExitBtn.BackgroundImage = global::Contra.Properties.Resources._button_exit;
+            this.ExitBtn.BackgroundImage = global::Contra.Properties.Resources._button_big;
             this.ExitBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ExitBtn.FlatAppearance.BorderSize = 0;
             this.ExitBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -302,27 +214,10 @@ namespace Contra
             this.ExitBtn.MouseEnter += new System.EventHandler(this.ExitBtn_MouseEnter);
             this.ExitBtn.MouseLeave += new System.EventHandler(this.ExitBtn_MouseLeave);
             // 
-            // ReadMeBtn
-            // 
-            this.ReadMeBtn.BackColor = System.Drawing.Color.Transparent;
-            this.ReadMeBtn.BackgroundImage = global::Contra.Properties.Resources._button_readme;
-            this.ReadMeBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ReadMeBtn.FlatAppearance.BorderSize = 0;
-            this.ReadMeBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.ReadMeBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ReadMeBtn, "ReadMeBtn");
-            this.ReadMeBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ReadMeBtn.Name = "ReadMeBtn";
-            this.ReadMeBtn.UseVisualStyleBackColor = false;
-            this.ReadMeBtn.Click += new System.EventHandler(this.ReadMeBtn_Click);
-            this.ReadMeBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ReadMeBtn_MouseDown);
-            this.ReadMeBtn.MouseEnter += new System.EventHandler(this.ReadMeBtn_MouseEnter);
-            this.ReadMeBtn.MouseLeave += new System.EventHandler(this.ReadMeBtn_MouseLeave);
-            // 
             // WBBtn
             // 
             this.WBBtn.BackColor = System.Drawing.Color.Transparent;
-            this.WBBtn.BackgroundImage = global::Contra.Properties.Resources._button_wb;
+            this.WBBtn.BackgroundImage = global::Contra.Properties.Resources._button_big;
             this.WBBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.WBBtn.FlatAppearance.BorderSize = 0;
             this.WBBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -332,32 +227,14 @@ namespace Contra
             this.WBBtn.Name = "WBBtn";
             this.WBBtn.UseVisualStyleBackColor = false;
             this.WBBtn.Click += new System.EventHandler(this.WBBtn_Click);
-            this.WBBtn.Enter += new System.EventHandler(this.WBBtn_Enter);
             this.WBBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.WBBtn_MouseDown);
             this.WBBtn.MouseEnter += new System.EventHandler(this.WBBtn_MouseEnter);
             this.WBBtn.MouseLeave += new System.EventHandler(this.WBBtn_MouseLeave);
             // 
-            // ModDBBtn
-            // 
-            this.ModDBBtn.BackColor = System.Drawing.Color.Transparent;
-            this.ModDBBtn.BackgroundImage = global::Contra.Properties.Resources._button_moddb;
-            this.ModDBBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ModDBBtn.FlatAppearance.BorderSize = 0;
-            this.ModDBBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.ModDBBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.ModDBBtn, "ModDBBtn");
-            this.ModDBBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ModDBBtn.Name = "ModDBBtn";
-            this.ModDBBtn.UseVisualStyleBackColor = false;
-            this.ModDBBtn.Click += new System.EventHandler(this.ModDBBtn_Click);
-            this.ModDBBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ModDBBtn_MouseDown);
-            this.ModDBBtn.MouseEnter += new System.EventHandler(this.ModDBBtn_MouseEnter);
-            this.ModDBBtn.MouseLeave += new System.EventHandler(this.ModDBBtn_MouseLeave);
-            // 
             // LaunchBtn
             // 
             this.LaunchBtn.BackColor = System.Drawing.Color.Transparent;
-            this.LaunchBtn.BackgroundImage = global::Contra.Properties.Resources._button_launch;
+            this.LaunchBtn.BackgroundImage = global::Contra.Properties.Resources._button_huge;
             this.LaunchBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LaunchBtn.FlatAppearance.BorderSize = 0;
             this.LaunchBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -473,18 +350,6 @@ namespace Contra
             this.toolTip1.InitialDelay = 50;
             this.toolTip1.ReshowDelay = 100;
             // 
-            // moreOptions
-            // 
-            this.moreOptions.BackColor = System.Drawing.Color.Transparent;
-            this.moreOptions.Cursor = System.Windows.Forms.Cursors.Hand;
-            resources.ApplyResources(this.moreOptions, "moreOptions");
-            this.moreOptions.ForeColor = System.Drawing.Color.White;
-            this.moreOptions.Name = "moreOptions";
-            this.moreOptions.Click += new System.EventHandler(this.OptionsForm_Click);
-            this.moreOptions.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OptionsForm_MouseDown);
-            this.moreOptions.MouseEnter += new System.EventHandler(this.OptionsForm_MouseEnter);
-            this.moreOptions.MouseLeave += new System.EventHandler(this.OptionsForm_MouseLeave);
-            // 
             // PatchDLProgressBar
             // 
             resources.ApplyResources(this.PatchDLProgressBar, "PatchDLProgressBar");
@@ -542,21 +407,6 @@ namespace Contra
             this.ModDLLabel.ForeColor = System.Drawing.Color.White;
             this.ModDLLabel.Name = "ModDLLabel";
             // 
-            // DonateBtn
-            // 
-            this.DonateBtn.BackColor = System.Drawing.Color.Transparent;
-            this.DonateBtn.BackgroundImage = global::Contra.Properties.Resources._button_donate;
-            this.DonateBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DonateBtn.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.DonateBtn, "DonateBtn");
-            this.DonateBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.DonateBtn.Name = "DonateBtn";
-            this.DonateBtn.UseVisualStyleBackColor = false;
-            this.DonateBtn.Click += new System.EventHandler(this.DonateBtn_Click);
-            this.DonateBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DonateBtn_MouseDown);
-            this.DonateBtn.MouseEnter += new System.EventHandler(this.DonateBtn_MouseEnter);
-            this.DonateBtn.MouseLeave += new System.EventHandler(this.DonateBtn_MouseLeave);
-            // 
             // optionsToolTip
             // 
             this.optionsToolTip.IsBalloon = true;
@@ -568,7 +418,7 @@ namespace Contra
             this.onlineInstructionsLabel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.onlineInstructionsLabel.ForeColor = System.Drawing.Color.White;
             this.onlineInstructionsLabel.Name = "onlineInstructionsLabel";
-            this.onlineInstructionsLabel.Click += new System.EventHandler(this.onlineInstructionsLabel_Click_1);
+            this.onlineInstructionsLabel.Click += new System.EventHandler(this.onlineInstructionsLabel_Click);
             this.onlineInstructionsLabel.MouseEnter += new System.EventHandler(this.onlineInstructionsLabel_MouseEnter);
             this.onlineInstructionsLabel.MouseLeave += new System.EventHandler(this.onlineInstructionsLabel_MouseLeave);
             // 
@@ -594,15 +444,6 @@ namespace Contra
             this.customAddonsLabel.MouseEnter += new System.EventHandler(this.customAddonsLabel_MouseEnter);
             this.customAddonsLabel.MouseLeave += new System.EventHandler(this.customAddonsLabel_MouseLeave);
             // 
-            // MOTD
-            // 
-            this.MOTD.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.MOTD, "MOTD");
-            this.MOTD.ForeColor = System.Drawing.Color.White;
-            this.MOTD.Name = "MOTD";
-            this.MOTD.Speed = 1;
-            this.MOTD.yOffset = 0;
-            // 
             // supportLabel
             // 
             resources.ApplyResources(this.supportLabel, "supportLabel");
@@ -614,58 +455,313 @@ namespace Contra
             this.supportLabel.MouseEnter += new System.EventHandler(this.supportLabel_MouseEnter);
             this.supportLabel.MouseLeave += new System.EventHandler(this.supportLabel_MouseLeave);
             // 
-            // Form1
+            // OptionsBtn
+            // 
+            this.OptionsBtn.BackColor = System.Drawing.Color.Transparent;
+            this.OptionsBtn.BackgroundImage = global::Contra.Properties.Resources._button_big;
+            this.OptionsBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OptionsBtn.FlatAppearance.BorderSize = 0;
+            this.OptionsBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.OptionsBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.OptionsBtn, "OptionsBtn");
+            this.OptionsBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.OptionsBtn.Name = "OptionsBtn";
+            this.OptionsBtn.UseVisualStyleBackColor = false;
+            this.OptionsBtn.Click += new System.EventHandler(this.optionsBtn_Click);
+            this.OptionsBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.optionsBtn_MouseDown);
+            this.OptionsBtn.MouseEnter += new System.EventHandler(this.optionsBtn_MouseEnter);
+            this.OptionsBtn.MouseLeave += new System.EventHandler(this.optionsBtn_MouseLeave);
+            // 
+            // DiscordBtn
+            // 
+            this.DiscordBtn.BackColor = System.Drawing.Color.Transparent;
+            this.DiscordBtn.BackgroundImage = global::Contra.Properties.Resources._button_medium;
+            this.DiscordBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DiscordBtn.FlatAppearance.BorderSize = 0;
+            this.DiscordBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.DiscordBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.DiscordBtn, "DiscordBtn");
+            this.DiscordBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.DiscordBtn.Name = "DiscordBtn";
+            this.DiscordBtn.UseVisualStyleBackColor = false;
+            this.DiscordBtn.Click += new System.EventHandler(this.DiscordBtn_Click);
+            this.DiscordBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DiscordBtn_MouseDown);
+            this.DiscordBtn.MouseEnter += new System.EventHandler(this.DiscordBtn_MouseEnter);
+            this.DiscordBtn.MouseLeave += new System.EventHandler(this.DiscordBtn_MouseLeave);
+            // 
+            // ModDBBtn
+            // 
+            this.ModDBBtn.BackColor = System.Drawing.Color.Transparent;
+            this.ModDBBtn.BackgroundImage = global::Contra.Properties.Resources._button_medium;
+            this.ModDBBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ModDBBtn.FlatAppearance.BorderSize = 0;
+            this.ModDBBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ModDBBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ModDBBtn, "ModDBBtn");
+            this.ModDBBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ModDBBtn.Name = "ModDBBtn";
+            this.ModDBBtn.UseVisualStyleBackColor = false;
+            this.ModDBBtn.Click += new System.EventHandler(this.ModDBBtn_Click);
+            this.ModDBBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ModDBBtn_MouseDown);
+            this.ModDBBtn.MouseEnter += new System.EventHandler(this.ModDBBtn_MouseEnter);
+            this.ModDBBtn.MouseLeave += new System.EventHandler(this.ModDBBtn_MouseLeave);
+            // 
+            // DonateBtn
+            // 
+            this.DonateBtn.BackColor = System.Drawing.Color.Transparent;
+            this.DonateBtn.BackgroundImage = global::Contra.Properties.Resources._button_medium;
+            this.DonateBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DonateBtn.FlatAppearance.BorderSize = 0;
+            this.DonateBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.DonateBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.DonateBtn, "DonateBtn");
+            this.DonateBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.DonateBtn.Name = "DonateBtn";
+            this.DonateBtn.UseVisualStyleBackColor = false;
+            this.DonateBtn.Click += new System.EventHandler(this.DonateBtn_Click);
+            this.DonateBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DonateBtn_MouseDown);
+            this.DonateBtn.MouseEnter += new System.EventHandler(this.DonateBtn_MouseEnter);
+            this.DonateBtn.MouseLeave += new System.EventHandler(this.DonateBtn_MouseLeave);
+            // 
+            // DataFolder
+            // 
+            this.DataFolder.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.DataFolder, "DataFolder");
+            this.DataFolder.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DataFolder.Name = "DataFolder";
+            this.DataFolder.TabStop = false;
+            this.DataFolder.Click += new System.EventHandler(this.DataFolder_Click);
+            this.DataFolder.MouseEnter += new System.EventHandler(this.DataFolder_MouseEnter);
+            this.DataFolder.MouseLeave += new System.EventHandler(this.DataFolder_MouseLeave);
+            // 
+            // DataFolderLabel
+            // 
+            resources.ApplyResources(this.DataFolderLabel, "DataFolderLabel");
+            this.DataFolderLabel.BackColor = System.Drawing.Color.Transparent;
+            this.DataFolderLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DataFolderLabel.ForeColor = System.Drawing.Color.White;
+            this.DataFolderLabel.Name = "DataFolderLabel";
+            this.DataFolderLabel.Click += new System.EventHandler(this.DataFolderLabel_Click);
+            this.DataFolderLabel.MouseEnter += new System.EventHandler(this.DataFolderLabel_MouseEnter);
+            this.DataFolderLabel.MouseLeave += new System.EventHandler(this.DataFolderLabel_MouseLeave);
+            // 
+            // GameFolder
+            // 
+            this.GameFolder.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.GameFolder, "GameFolder");
+            this.GameFolder.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GameFolder.Name = "GameFolder";
+            this.GameFolder.TabStop = false;
+            this.GameFolder.Click += new System.EventHandler(this.GameFolder_Click);
+            this.GameFolder.MouseEnter += new System.EventHandler(this.GameFolder_MouseEnter);
+            this.GameFolder.MouseLeave += new System.EventHandler(this.GameFolder_MouseLeave);
+            // 
+            // GameFolderLabel
+            // 
+            resources.ApplyResources(this.GameFolderLabel, "GameFolderLabel");
+            this.GameFolderLabel.BackColor = System.Drawing.Color.Transparent;
+            this.GameFolderLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GameFolderLabel.ForeColor = System.Drawing.Color.White;
+            this.GameFolderLabel.Name = "GameFolderLabel";
+            this.GameFolderLabel.Click += new System.EventHandler(this.GameFolderLabel_Click);
+            this.GameFolderLabel.MouseEnter += new System.EventHandler(this.GameFolderLabel_MouseEnter);
+            this.GameFolderLabel.MouseLeave += new System.EventHandler(this.GameFolderLabel_MouseLeave);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.BackgroundImage = global::Contra.Properties.Resources.link;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.BackgroundImage = global::Contra.Properties.Resources.link;
+            resources.ApplyResources(this.pictureBox2, "pictureBox2");
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox5.BackgroundImage = global::Contra.Properties.Resources.link;
+            resources.ApplyResources(this.pictureBox5, "pictureBox5");
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox6.BackgroundImage = global::Contra.Properties.Resources.link;
+            resources.ApplyResources(this.pictureBox6, "pictureBox6");
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.TabStop = false;
+            // 
+            // UnitVoicesPanel
+            // 
+            this.UnitVoicesPanel.BackColor = System.Drawing.Color.Transparent;
+            this.UnitVoicesPanel.Controls.Add(this.UnitVoicesLabel);
+            this.UnitVoicesPanel.Controls.Add(this.RadioOrigQuotes);
+            this.UnitVoicesPanel.Controls.Add(this.RadioLocQuotes);
+            resources.ApplyResources(this.UnitVoicesPanel, "UnitVoicesPanel");
+            this.UnitVoicesPanel.Name = "UnitVoicesPanel";
+            // 
+            // UnitVoicesLabel
+            // 
+            resources.ApplyResources(this.UnitVoicesLabel, "UnitVoicesLabel");
+            this.UnitVoicesLabel.BackColor = System.Drawing.Color.Transparent;
+            this.UnitVoicesLabel.ForeColor = System.Drawing.Color.White;
+            this.UnitVoicesLabel.Name = "UnitVoicesLabel";
+            // 
+            // RadioOrigQuotes
+            // 
+            resources.ApplyResources(this.RadioOrigQuotes, "RadioOrigQuotes");
+            this.RadioOrigQuotes.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RadioOrigQuotes.ForeColor = System.Drawing.Color.White;
+            this.RadioOrigQuotes.Name = "RadioOrigQuotes";
+            this.RadioOrigQuotes.UseVisualStyleBackColor = true;
+            // 
+            // RadioLocQuotes
+            // 
+            resources.ApplyResources(this.RadioLocQuotes, "RadioLocQuotes");
+            this.RadioLocQuotes.Checked = true;
+            this.RadioLocQuotes.ForeColor = System.Drawing.Color.White;
+            this.RadioLocQuotes.Name = "RadioLocQuotes";
+            this.RadioLocQuotes.TabStop = true;
+            this.RadioLocQuotes.UseVisualStyleBackColor = true;
+            // 
+            // LanguagePanel
+            // 
+            this.LanguagePanel.BackColor = System.Drawing.Color.Transparent;
+            this.LanguagePanel.Controls.Add(this.LanguageLabel);
+            this.LanguagePanel.Controls.Add(this.RadioEN);
+            this.LanguagePanel.Controls.Add(this.RadioRU);
+            resources.ApplyResources(this.LanguagePanel, "LanguagePanel");
+            this.LanguagePanel.Name = "LanguagePanel";
+            // 
+            // LanguageLabel
+            // 
+            resources.ApplyResources(this.LanguageLabel, "LanguageLabel");
+            this.LanguageLabel.BackColor = System.Drawing.Color.Transparent;
+            this.LanguageLabel.ForeColor = System.Drawing.Color.White;
+            this.LanguageLabel.Name = "LanguageLabel";
+            // 
+            // MusicPanel
+            // 
+            this.MusicPanel.BackColor = System.Drawing.Color.Transparent;
+            this.MusicPanel.Controls.Add(this.MusicLabel);
+            this.MusicPanel.Controls.Add(this.MNew);
+            this.MusicPanel.Controls.Add(this.MStandard);
+            resources.ApplyResources(this.MusicPanel, "MusicPanel");
+            this.MusicPanel.Name = "MusicPanel";
+            // 
+            // MusicLabel
+            // 
+            resources.ApplyResources(this.MusicLabel, "MusicLabel");
+            this.MusicLabel.BackColor = System.Drawing.Color.Transparent;
+            this.MusicLabel.ForeColor = System.Drawing.Color.White;
+            this.MusicLabel.Name = "MusicLabel";
+            // 
+            // PortraitsPanel
+            // 
+            this.PortraitsPanel.BackColor = System.Drawing.Color.Transparent;
+            this.PortraitsPanel.Controls.Add(this.PortraitsLabel);
+            this.PortraitsPanel.Controls.Add(this.DefaultPics);
+            this.PortraitsPanel.Controls.Add(this.GoofyPics);
+            resources.ApplyResources(this.PortraitsPanel, "PortraitsPanel");
+            this.PortraitsPanel.Name = "PortraitsPanel";
+            // 
+            // PortraitsLabel
+            // 
+            resources.ApplyResources(this.PortraitsLabel, "PortraitsLabel");
+            this.PortraitsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.PortraitsLabel.ForeColor = System.Drawing.Color.White;
+            this.PortraitsLabel.Name = "PortraitsLabel";
+            // 
+            // OptionsFlashTimer1
+            // 
+            this.OptionsFlashTimer1.Interval = 500;
+            this.OptionsFlashTimer1.Tick += new System.EventHandler(this.OptionsFlashTimer1_Tick);
+            // 
+            // OptionsFlashTimer2
+            // 
+            this.OptionsFlashTimer2.Interval = 500;
+            this.OptionsFlashTimer2.Tick += new System.EventHandler(this.OptionsFlashTimer2_Tick);
+            // 
+            // MOTD
+            // 
+            this.MOTD.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.MOTD, "MOTD");
+            this.MOTD.ForeColor = System.Drawing.Color.White;
+            this.MOTD.Name = "MOTD";
+            this.MOTD.Speed = 1;
+            this.MOTD.yOffset = 0;
+            // 
+            // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = global::Contra.Properties.Resources.background;
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
-            this.Controls.Add(this.PatchDLPanel);
+            this.Controls.Add(this.PortraitsPanel);
+            this.Controls.Add(this.MusicPanel);
+            this.Controls.Add(this.LanguagePanel);
+            this.Controls.Add(this.UnitVoicesPanel);
+            this.Controls.Add(this.pictureBox5);
+            this.Controls.Add(this.pictureBox6);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.GameFolder);
+            this.Controls.Add(this.GameFolderLabel);
+            this.Controls.Add(this.DataFolder);
+            this.Controls.Add(this.DataFolderLabel);
+            this.Controls.Add(this.DonateBtn);
+            this.Controls.Add(this.ModDBBtn);
+            this.Controls.Add(this.DiscordBtn);
+            this.Controls.Add(this.OptionsBtn);
             this.Controls.Add(this.supportLabel);
             this.Controls.Add(this.customAddonsLabel);
             this.Controls.Add(this.replaysLabel);
             this.Controls.Add(this.onlineInstructionsLabel);
-            this.Controls.Add(this.DonateBtn);
             this.Controls.Add(this.MOTD);
+            this.Controls.Add(this.LaunchBtn);
             this.Controls.Add(this.WBBtn);
-            this.Controls.Add(this.moreOptions);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.QSCheckBox);
             this.Controls.Add(this.WinCheckBox);
-            this.Controls.Add(this.voicespanel);
-            this.Controls.Add(this.languagepanel);
-            this.Controls.Add(this.portraitspanel);
-            this.Controls.Add(this.musicpanel);
-            this.Controls.Add(this.HelpBtn);
-            this.Controls.Add(this.DiscordBtn);
             this.Controls.Add(this.ExitBtnSm);
             this.Controls.Add(this.MinBtnSm);
-            this.Controls.Add(this.SiteBtn);
             this.Controls.Add(this.ExitBtn);
-            this.Controls.Add(this.ReadMeBtn);
-            this.Controls.Add(this.ModDBBtn);
-            this.Controls.Add(this.LaunchBtn);
+            this.Controls.Add(this.PatchDLPanel);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
-            this.voicespanel.ResumeLayout(false);
-            this.voicespanel.PerformLayout();
-            this.languagepanel.ResumeLayout(false);
-            this.languagepanel.PerformLayout();
-            this.musicpanel.ResumeLayout(false);
-            this.musicpanel.PerformLayout();
-            this.portraitspanel.ResumeLayout(false);
-            this.portraitspanel.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.PatchDLPanel.ResumeLayout(false);
             this.PatchDLPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataFolder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GameFolder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            this.UnitVoicesPanel.ResumeLayout(false);
+            this.UnitVoicesPanel.PerformLayout();
+            this.LanguagePanel.ResumeLayout(false);
+            this.LanguagePanel.PerformLayout();
+            this.MusicPanel.ResumeLayout(false);
+            this.MusicPanel.PerformLayout();
+            this.PortraitsPanel.ResumeLayout(false);
+            this.PortraitsPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -677,26 +773,15 @@ namespace Contra
         private System.Windows.Forms.Button ExitBtn;
         private System.Windows.Forms.RadioButton RadioEN;
         private System.Windows.Forms.RadioButton RadioRU;
-        private System.Windows.Forms.RadioButton RadioOrigQuotes;
-        private System.Windows.Forms.RadioButton RadioLocQuotes;
-        private System.Windows.Forms.Button ModDBBtn;
         private System.Windows.Forms.Button WBBtn;
         private System.Windows.Forms.CheckBox QSCheckBox;
-        private System.Windows.Forms.Button ReadMeBtn;
         private System.Windows.Forms.RadioButton MStandard;
         private System.Windows.Forms.RadioButton MNew;
         private System.Windows.Forms.CheckBox WinCheckBox;
-        private System.Windows.Forms.Button SiteBtn;
         private System.Windows.Forms.Button MinBtnSm;
         private System.Windows.Forms.Button ExitBtnSm;
-        private System.Windows.Forms.Button DiscordBtn;
-        private System.Windows.Forms.Button HelpBtn;
         private System.Windows.Forms.RadioButton DefaultPics;
         private System.Windows.Forms.RadioButton GoofyPics;
-        private System.Windows.Forms.Panel voicespanel;
-        private System.Windows.Forms.Panel languagepanel;
-        private System.Windows.Forms.Panel musicpanel;
-        private System.Windows.Forms.Panel portraitspanel;
         private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.RadioButton RadioFlag_GB;
         private System.Windows.Forms.Panel panel1;
@@ -704,7 +789,6 @@ namespace Contra
         private System.Windows.Forms.RadioButton RadioFlag_UA;
         private System.Windows.Forms.RadioButton RadioFlag_RU;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Label moreOptions;
         private System.Windows.Forms.RadioButton RadioFlag_DE;
         private Marquee MOTD;
         private System.Windows.Forms.ProgressBar PatchDLProgressBar;
@@ -714,12 +798,35 @@ namespace Contra
         private System.Windows.Forms.Label ModDLFileSizeLabel;
         private System.Windows.Forms.Label DLPercentLabel;
         private System.Windows.Forms.Label ModDLCurrentFileLabel;
-        private System.Windows.Forms.Button DonateBtn;
         private System.Windows.Forms.ToolTip optionsToolTip;
         private System.Windows.Forms.Label onlineInstructionsLabel;
         private System.Windows.Forms.Label replaysLabel;
         private System.Windows.Forms.Label customAddonsLabel;
         private System.Windows.Forms.Label supportLabel;
+        private System.Windows.Forms.Button OptionsBtn;
+        private System.Windows.Forms.Button DiscordBtn;
+        private System.Windows.Forms.Button ModDBBtn;
+        private System.Windows.Forms.Button DonateBtn;
+        private System.Windows.Forms.PictureBox DataFolder;
+        private System.Windows.Forms.Label DataFolderLabel;
+        private System.Windows.Forms.PictureBox GameFolder;
+        private System.Windows.Forms.Label GameFolderLabel;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.Panel UnitVoicesPanel;
+        private System.Windows.Forms.RadioButton RadioOrigQuotes;
+        private System.Windows.Forms.RadioButton RadioLocQuotes;
+        private System.Windows.Forms.Label UnitVoicesLabel;
+        private System.Windows.Forms.Panel LanguagePanel;
+        private System.Windows.Forms.Label LanguageLabel;
+        private System.Windows.Forms.Panel MusicPanel;
+        private System.Windows.Forms.Label MusicLabel;
+        private System.Windows.Forms.Panel PortraitsPanel;
+        private System.Windows.Forms.Label PortraitsLabel;
+        private System.Windows.Forms.Timer OptionsFlashTimer1;
+        private System.Windows.Forms.Timer OptionsFlashTimer2;
     }
 }
 

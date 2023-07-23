@@ -13,10 +13,10 @@ namespace Contra
         public TrackBar()
             : base()
         {
-            this.SetStyle(ControlStyles.SupportsTransparentBackColor | ControlStyles.OptimizedDoubleBuffer |
+            SetStyle(ControlStyles.SupportsTransparentBackColor | ControlStyles.OptimizedDoubleBuffer |
                           ControlStyles.AllPaintingInWmPaint | ControlStyles.Selectable | ControlStyles.UserMouse, true);
-            this.Thumb = new Rectangle();
-            this.LayoutTrackBarParts();
+            Thumb = new Rectangle();
+            LayoutTrackBarParts();
         }
 
         protected override Size DefaultSize
@@ -62,18 +62,18 @@ namespace Contra
         [DefaultValue(typeof(Orientation), "Horizontal")]
         public Orientation Orientation
         {
-            get { return this.orientation; }
+            get { return orientation; }
             set
             {
-                if (this.orientation != value)
+                if (orientation != value)
                 {
-                    this.orientation = value;
+                    orientation = value;
                     int w, h;
-                    w = this.Height;
-                    h = this.Width;
-                    this.Size = new Size(w, h);
-                    this.LayoutTrackBarParts();
-                    this.Invalidate();
+                    w = Height;
+                    h = Width;
+                    Size = new Size(w, h);
+                    LayoutTrackBarParts();
+                    Invalidate();
                 }
             }
         }
@@ -90,8 +90,8 @@ namespace Contra
                     minimum = value;
                     if (maximum <= value)
                         Maximum = value;
-                    this.LayoutTrackBarParts();
-                    this.Invalidate();
+                    LayoutTrackBarParts();
+                    Invalidate();
                 }
             }
         }
@@ -107,8 +107,8 @@ namespace Contra
                     maximum = value;
                     if (minimum >= value)
                         Minimum = value;
-                    this.LayoutTrackBarParts();
-                    this.Invalidate();
+                    LayoutTrackBarParts();
+                    Invalidate();
                 }
             }
         }
@@ -139,32 +139,32 @@ namespace Contra
         {
             get
             {
-                if (_value < this.minimum)
-                    return this.minimum;
+                if (_value < minimum)
+                    return minimum;
                 return _value;
             }
             set
             {
-                if (value < this.minimum)
-                    value = this.minimum;
-                if (value > this.maximum)
-                    value = this.maximum;
+                if (value < minimum)
+                    value = minimum;
+                if (value > maximum)
+                    value = maximum;
                 if (value != _value)
                 {
                     _value = value;
-                    this.LayoutTrackBarParts();
-                    this.OnValueChanged(EventArgs.Empty);
+                    LayoutTrackBarParts();
+                    OnValueChanged(EventArgs.Empty);
                 }
             }
         }
 
         private bool ShouldSerializeValue()
         {
-            return this._value != this.minimum;
+            return _value != minimum;
         }
         private void ResetValue()
         {
-            this._value = this.minimum;
+            _value = minimum;
         }
 
         [DefaultValue(false)]
@@ -186,13 +186,13 @@ namespace Contra
         [DefaultValue(typeof(TickStyle), "BottomRight")]
         public TickStyle TickStyle
         {
-            get { return this.tickStyle; }
+            get { return tickStyle; }
             set
             {
-                if (this.tickStyle != value)
+                if (tickStyle != value)
                 {
-                    this.tickStyle = value;
-                    this.Invalidate();
+                    tickStyle = value;
+                    Invalidate();
                 }
             }
         }
@@ -200,13 +200,13 @@ namespace Contra
         [DefaultValue(1)]
         public int TickFrequency
         {
-            get { return this.tickFrequency; }
+            get { return tickFrequency; }
             set
             {
-                if (this.tickFrequency != value)
+                if (tickFrequency != value)
                 {
-                    this.tickFrequency = value;
-                    this.Invalidate();
+                    tickFrequency = value;
+                    Invalidate();
                 }
             }
         }
@@ -217,7 +217,7 @@ namespace Contra
 
         private bool Horizontal
         {
-            get { return this.orientation == Orientation.Horizontal; }
+            get { return orientation == Orientation.Horizontal; }
         }
 
         private bool ThumbDragging
@@ -228,7 +228,7 @@ namespace Contra
                 if (thumbDragging != value)
                 {
                     thumbDragging = value;
-                    this.Invalidate();
+                    Invalidate();
                 }
             }
         }
@@ -246,39 +246,40 @@ namespace Contra
             DrawTicks(e.Graphics);
 
             //Draw Channel
-            Rectangle channelBounds = this.Horizontal ?
-                new Rectangle(6, this.Height / 2 - 2, this.Width - 16, 4) :
-                new Rectangle(this.Width / 2 - 2, 6, 4, this.Height - 16);
+            Rectangle channelBounds = Horizontal ?
+                new Rectangle(6, Height / 2 - 2, Width - 16, 4) :
+                new Rectangle(Width / 2 - 2, 6, 4, Height - 16);
             ControlPaint.DrawBorder3D(e.Graphics, channelBounds, Border3DStyle.Sunken);
 
             // Draw the Thumb Object
             using (SolidBrush brush = new SolidBrush(Color.FromArgb(125, 90, 70)))
             {
-                //if (ThumbFocused)
-                //    brush.Color = Color.Green;
                 if (ThumbDragging)
-                    brush.Color = (Color.FromArgb(255, 210, 100));
-                e.Graphics.FillRectangle(brush, this.Thumb);
+                {
+                    brush.Color = Color.FromArgb(255, 210, 100);
+                    Cursor = Cursors.Hand;
+                }
+                else Cursor = Cursors.Default;
+                e.Graphics.FillRectangle(brush, Thumb);
             }
 
             //Draw Focus
-            if (this.Focused && this.ShowFocusCues)
-                ControlPaint.DrawFocusRectangle(e.Graphics, this.ClientRectangle);
-
+            if (Focused && ShowFocusCues)
+                ControlPaint.DrawFocusRectangle(e.Graphics, ClientRectangle);
         }
 
         protected override void OnGotFocus(EventArgs e)
         {
             base.OnGotFocus(e);
-            ThumbFocused = (this.Focused && this.ShowFocusCues);
-            this.Invalidate();
+            ThumbFocused = Focused && ShowFocusCues;
+            Invalidate();
         }
 
         protected override void OnLostFocus(EventArgs e)
         {
             base.OnLostFocus(e);
-            ThumbFocused = (this.Focused && this.ShowFocusCues);
-            this.Invalidate();
+            ThumbFocused = Focused && ShowFocusCues;
+            Invalidate();
         }
 
         protected override bool IsInputKey(Keys keyData)
@@ -303,23 +304,23 @@ namespace Contra
             {
                 case Keys.Up:
                 case Keys.Left:
-                    this.Value += this.Horizontal ? -this.smallChange : this.smallChange;
+                    Value += Horizontal ? -smallChange : smallChange;
                     break;
                 case Keys.Down:
                 case Keys.Right:
-                    this.Value += this.Horizontal ? this.smallChange : -this.smallChange;
+                    Value += Horizontal ? smallChange : -smallChange;
                     break;
                 case Keys.PageDown:
-                    this.Value += this.Horizontal ? this.largeChange : -this.largeChange;
+                    Value += Horizontal ? largeChange : -largeChange;
                     break;
                 case Keys.PageUp:
-                    this.Value += this.Horizontal ? -this.largeChange : this.largeChange;
+                    Value += Horizontal ? -largeChange : largeChange;
                     break;
                 case Keys.Home:
-                    this.Value = this.Horizontal ? this.minimum : this.maximum;
+                    Value = Horizontal ? minimum : maximum;
                     break;
                 case Keys.End:
-                    this.Value = this.Horizontal ? this.maximum : this.minimum;
+                    Value = Horizontal ? maximum : minimum;
                     break;
             }
         }
@@ -327,7 +328,7 @@ namespace Contra
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);
-            this.Value += (e.Delta / WHEEL_DELTA) * WHEEL_LINES;
+            Value += (e.Delta / WHEEL_DELTA) * WHEEL_LINES;
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -340,7 +341,7 @@ namespace Contra
 
                 if (!ThumbDragging)
                 {
-                    scrollUp = this.Horizontal ? e.X > Thumb.Right : e.Y < Thumb.Top;
+                    scrollUp = Horizontal ? e.X > Thumb.Right : e.Y < Thumb.Top;
                     if (scrollTimer == null)
                         InitTimer();
                     scrollTimer.Start();
@@ -354,8 +355,8 @@ namespace Contra
         {
             base.OnMouseUp(e);
             ThumbDragging = false;
-            if (this.scrollTimer != null)
-                this.scrollTimer.Stop();
+            if (scrollTimer != null)
+                scrollTimer.Stop();
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -364,7 +365,7 @@ namespace Contra
 
             if (ThumbDragging)
             {
-                this.Value = ValueFromPoint(e.Location);
+                Value = ValueFromPoint(e.Location);
             }
 
         }
@@ -372,14 +373,14 @@ namespace Contra
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
-            if (this.Visible)
-                this.LayoutTrackBarParts();
+            if (Visible)
+                LayoutTrackBarParts();
         }
 
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
-            this.LayoutTrackBarParts();
+            LayoutTrackBarParts();
         }
 
         #endregion
@@ -388,17 +389,17 @@ namespace Contra
 
         protected virtual void OnScroll(EventArgs e)
         {
-            if (this.Scroll != null)
-                this.Scroll(this, e);
+            if (Scroll != null)
+                Scroll(this, e);
         }
 
         protected virtual void OnValueChanged(EventArgs eventArgs)
         {
-            if (this.ValueChanged != null)
+            if (ValueChanged != null)
                 ValueChanged(this, eventArgs);
-            this.LayoutTrackBarParts();
-            this.OnScroll(eventArgs);
-            this.Invalidate();
+            LayoutTrackBarParts();
+            OnScroll(eventArgs);
+            Invalidate();
         }
 
         #endregion
@@ -410,66 +411,66 @@ namespace Contra
             if (Thumb == null)
                 return;
 
-            Thumb.Size = this.Horizontal ?
+            Thumb.Size = Horizontal ?
                 new Size(14, 28) :
                 new Size(28, 14);
 
-            float channelLength = this.Horizontal ?
-                this.Width - 26 : // Channel Left margin + Channel Right margin + Thumb.Width
-                this.Height - 26; // Channel Top margin + Channel Bottom margin + Thumb.Height
+            float channelLength = Horizontal ?
+                Width - 26 : // Channel Left margin + Channel Right margin + Thumb.Width
+                Height - 26; // Channel Top margin + Channel Bottom margin + Thumb.Height
 
-            float stepCount = (this.Maximum - this.Minimum);
+            float stepCount = (Maximum - Minimum);
 
             float stepSize = stepCount > 0 ? channelLength / stepCount : 0;
 
-            float thumbOffset = (stepSize) * (this.Value - this.minimum);
+            float thumbOffset = (stepSize) * (Value - minimum);
 
-            Thumb.Location = this.Horizontal ?
-                Point.Round(new PointF(6 + thumbOffset, this.Height / 2 - 14)) :
-                Point.Round(new PointF(this.Width / 2 - 14, channelLength - thumbOffset + 6));
+            Thumb.Location = Horizontal ?
+                Point.Round(new PointF(6 + thumbOffset, Height / 2 - 14)) :
+                Point.Round(new PointF(Width / 2 - 14, channelLength - thumbOffset + 6));
 
         }
 
         private void InitTimer()
         {
-            this.scrollTimer = new Timer();
-            this.scrollTimer.Interval = 500;
-            this.scrollTimer.Tick += new EventHandler(scrollTimer_Tick);
+            scrollTimer = new Timer();
+            scrollTimer.Interval = 500;
+            scrollTimer.Tick += new EventHandler(scrollTimer_Tick);
         }
 
         private void scrollTimer_Tick(object sender, EventArgs e)
         {
-            this.Value += this.scrollUp ? this.largeChange : -this.largeChange;
+            Value += scrollUp ? largeChange : -largeChange;
 
-            if (this._value == this.minimum || this._value == this.maximum)
-                this.scrollTimer.Stop();
+            if (_value == minimum || _value == maximum)
+                scrollTimer.Stop();
 
-            int val = this.ValueFromPoint(this.PointToClient(Cursor.Position));
+            int val = ValueFromPoint(PointToClient(Cursor.Position));
 
-            if (this.scrollUp && this._value > val)
-                this.scrollTimer.Stop();
+            if (scrollUp && _value > val)
+                scrollTimer.Stop();
 
-            if (!this.scrollUp && this._value < val)
-                this.scrollTimer.Stop();
+            if (!scrollUp && _value < val)
+                scrollTimer.Stop();
         }
 
         private int ValueFromPoint(Point point)
         {
-            float channelLength = this.Horizontal ?
-                this.Width - 26 : // Channel Left margin + Channel Right margin + Thumb.Width
-                this.Height - 26; // Channel Top margin + Channel Bottom margin + Thumb.Height
+            float channelLength = Horizontal ?
+                Width - 26 : // Channel Left margin + Channel Right margin + Thumb.Width
+                Height - 26; // Channel Top margin + Channel Bottom margin + Thumb.Height
 
-            float stepCount = (this.maximum - this.minimum);
+            float stepCount = (maximum - minimum);
 
             float stepSize = stepCount > 0 ? channelLength / stepCount : 0;
 
-            if (this.Horizontal)
+            if (Horizontal)
             {
                 point.Offset(-7, 0);
-                return (int)(point.X / stepSize) + this.minimum;
+                return (int)(point.X / stepSize) + minimum;
             }
             point.Offset(0, -7);
-            return this.maximum - (int)(point.Y / stepSize) + this.minimum;
+            return maximum - (int)(point.Y / stepSize) + minimum;
         }
 
         private void DrawTicks(Graphics graphics)
