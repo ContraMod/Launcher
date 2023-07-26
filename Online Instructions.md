@@ -8,10 +8,10 @@
 1. Install **Contra X Beta** on top of clean, working, unmodded Zero Hour v1.04.
 
 Download mirrors (**choose one**):
-[.exe Setup from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup);
-[.exe Setup from MEGA](https://mega.nz/file/MQ5lyJiQ#Yi_vGN0vN_8WHgeaBK7q-EX70QoP-0ffELdGNwbPWFU);
-[.zip Archive from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-archive);
-[.zip Archive from MEGA](https://mega.nz/file/ZRxDWIDJ#1O40yHg6pgv0JDx72b-A3c7C7a1dtOtownnt-GHmPOQ).
+[.exe установочный файл из ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup);
+[.exe установочный файл из MEGA](https://mega.nz/file/MQ5lyJiQ#Yi_vGN0vN_8WHgeaBK7q-EX70QoP-0ffELdGNwbPWFU);
+[.zip архив из ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-archive);
+[.zip архив из MEGA](https://mega.nz/file/ZRxDWIDJ#1O40yHg6pgv0JDx72b-A3c7C7a1dtOtownnt-GHmPOQ).
 
 2. Run ***Contra_Launcher.exe***.
 
