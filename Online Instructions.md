@@ -54,7 +54,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 * ### Способ №1 (используя официальный Contra Launcher)
 1. Установите **Contra X Beta** поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
 
-Зеркала для скачивания (**выберите одно**):
+Ссылки (**выберите одна**):
 [.exe Setup from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup);
 [.exe Setup from MEGA](https://mega.nz/file/MQ5lyJiQ#Yi_vGN0vN_8WHgeaBK7q-EX70QoP-0ffELdGNwbPWFU);
 [.zip Archive from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-archive);
