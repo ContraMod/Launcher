@@ -5,7 +5,14 @@
 ### Contra installation methods (choose one):
 
 * ### Method №1 (using official Contra Launcher)
-1. Install [Contra X Beta](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup) on top of clean, working, unmodded Zero Hour v1.04.
+1. Install **Contra X Beta** on top of clean, working, unmodded Zero Hour v1.04.
+
+Download mirrors (**choose one**):
+[.exe Setup from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup);
+[.exe Setup from MEGA](https://mega.nz/file/MQ5lyJiQ#Yi_vGN0vN_8WHgeaBK7q-EX70QoP-0ffELdGNwbPWFU);
+[.zip Archive from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-archive);
+[.zip Archive from MEGA](https://mega.nz/file/ZRxDWIDJ#1O40yHg6pgv0JDx72b-A3c7C7a1dtOtownnt-GHmPOQ).
+
 2. Run ***Contra_Launcher.exe***.
 
 ![image](https://github.com/ContraMod/Launcher/assets/32432772/bf1f75f0-eedb-43fe-aec6-e62b6573818f)
@@ -45,7 +52,14 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 ### Способы установки Contra (выберите один):
 
 * ### Способ №1 (используя официальный Contra Launcher)
-1. Установите [Contra X Beta](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup) поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
+1. Установите **Contra X Beta** поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
+
+Зеркала для скачивания (**выберите одно**):
+[.exe Setup from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup);
+[.exe Setup from MEGA](https://mega.nz/file/MQ5lyJiQ#Yi_vGN0vN_8WHgeaBK7q-EX70QoP-0ffELdGNwbPWFU);
+[.zip Archive from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-archive);
+[.zip Archive from MEGA](https://mega.nz/file/ZRxDWIDJ#1O40yHg6pgv0JDx72b-A3c7C7a1dtOtownnt-GHmPOQ).
+
 2. Запустите ***Contra_Launcher.exe***.
 
 ![image](https://github.com/ContraMod/Launcher/assets/32432772/bf1f75f0-eedb-43fe-aec6-e62b6573818f)
