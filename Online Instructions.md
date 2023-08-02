@@ -43,7 +43,8 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 4. Play using **VPN / LAN lobby** (not GameSpy / CnC Online!)
 
-![4](https://media.discordapp.net/attachments/410501978784006144/795777286874857542/unknown.png)
+![4](https://github.com/ContraMod/Launcher/assets/32432772/faa20aad-2032-46d5-ab1b-a64065c84642)
+
 
 ---
 ### РУССКИЙ ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg)
@@ -89,4 +90,5 @@ https://www.gentool.net/download (извлеките последнюю верс
 
 4. Выберите лобби **VPN / LAN** (не GameSpy / CnC Online!)
 
-![4](https://media.discordapp.net/attachments/410501978784006144/795777032054112306/unknown.png)
+![4](https://github.com/ContraMod/Launcher/assets/32432772/0849827a-432a-485f-8a97-6d2b82d2df85)
+
