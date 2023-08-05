@@ -4,7 +4,7 @@
 
 You're having a problem with the mod but need help finding a solution? Before you continue, if you have a problem with installing the mod, [visit this page](https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md#ENGLISH-) and check steps 1. and 2.
 
-**1.** [Join our Discord](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches).
+**1.** [Join our Discord](https://discord.gg/015E6KXXHmdWFXCtt).
 
 **2.** Navigate to the **#🔧troubleshooting** channel.
 
@@ -21,7 +21,7 @@ The chance of someone having already asked the same question is high. If you sti
 
 У вас возникла проблема с модом, но вам нужна помощь в поиске решения? Прежде чем продолжить, если у вас возникли проблемы с установкой мода, [посетите эту страницу](https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md#РУССКИЙ-) и проверьте шаги 1. и 2.
 
-**1.** [Присоединяйтесь к нашему Discord](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches).
+**1.** [Присоединяйтесь к нашему Discord](https://discord.gg/015E6KXXHmdWFXCtt).
 
 **2.** Перейдите на канал **#🔧устранение-неполадок**.
 
