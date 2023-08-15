@@ -5,7 +5,14 @@
 ### Contra installation methods (choose one):
 
 * ### Method №1 (using official Contra Launcher)
-1. Install [Contra X Beta](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup) on top of clean, working, unmodded Zero Hour v1.04.
+1. Install **Contra X Beta** on top of clean, working, unmodded Zero Hour v1.04.
+
+Download mirrors (**choose one**):
+[.exe Setup from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup);
+[.exe Setup from MEGA](https://mega.nz/file/MQ5lyJiQ#Yi_vGN0vN_8WHgeaBK7q-EX70QoP-0ffELdGNwbPWFU);
+[.zip Archive from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-archive);
+[.zip Archive from MEGA](https://mega.nz/file/ZRxDWIDJ#1O40yHg6pgv0JDx72b-A3c7C7a1dtOtownnt-GHmPOQ).
+
 2. Run ***Contra_Launcher.exe***.
 
 ![image](https://github.com/ContraMod/Launcher/assets/32432772/bf1f75f0-eedb-43fe-aec6-e62b6573818f)
@@ -36,7 +43,8 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 4. Play using **VPN / LAN lobby** (not GameSpy / CnC Online!)
 
-![4](https://media.discordapp.net/attachments/410501978784006144/795777286874857542/unknown.png)
+![4](https://github.com/ContraMod/Launcher/assets/32432772/faa20aad-2032-46d5-ab1b-a64065c84642)
+
 
 ---
 ### РУССКИЙ ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg)
@@ -45,10 +53,18 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 ### Способы установки Contra (выберите один):
 
 * ### Способ №1 (используя официальный Contra Launcher)
-1. Установите [Contra X Beta](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup) поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
+1. Установите **Contra X Beta** поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
+
+Ссылки (**выберите одна**):
+[.exe установочный файл из ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup);
+[.exe установочный файл из MEGA](https://mega.nz/file/MQ5lyJiQ#Yi_vGN0vN_8WHgeaBK7q-EX70QoP-0ffELdGNwbPWFU);
+[.zip архив из ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-archive);
+[.zip архив из MEGA](https://mega.nz/file/ZRxDWIDJ#1O40yHg6pgv0JDx72b-A3c7C7a1dtOtownnt-GHmPOQ).
+
 2. Запустите ***Contra_Launcher.exe***.
 
-![image](https://github.com/ContraMod/Launcher/assets/32432772/bf1f75f0-eedb-43fe-aec6-e62b6573818f)
+![image](https://cdn.discordapp.com/attachments/1139832928650661908/1140622945044136046/image.png)
+
 
 
 * ### Способ №2 (используя GenLauncher)
@@ -75,4 +91,5 @@ https://www.gentool.net/download (извлеките последнюю верс
 
 4. Выберите лобби **VPN / LAN** (не GameSpy / CnC Online!)
 
-![4](https://media.discordapp.net/attachments/410501978784006144/795777032054112306/unknown.png)
+![4](https://github.com/ContraMod/Launcher/assets/32432772/0849827a-432a-485f-8a97-6d2b82d2df85)
+

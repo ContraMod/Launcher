@@ -4,7 +4,7 @@
 
 Here's how to find all the custom addons for Contra:
 
-**1.** [Join our Discord](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches).
+**1.** [Join our Discord](https://discord.gg/015E6KXXHmdWFXCtt).
 
 **2.** Navigate to the **#addons** channel.
 
@@ -23,7 +23,7 @@ Here's how to find all the custom addons for Contra:
 
 Вот как найти все пользовательские дополнения для Contra:
 
-**1.** [Присоединяйтесь к нашему Discord](https://www.moddb.com/mods/contra/downloads/contra-009-final-all-patches).
+**1.** [Присоединяйтесь к нашему Discord](https://discord.gg/015E6KXXHmdWFXCtt).
 
 **2.** Перейдите на канал **#addons**.
 
