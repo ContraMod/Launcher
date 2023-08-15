@@ -742,7 +742,7 @@ namespace Contra
         private void LaunchBtn_MouseEnter(object sender, EventArgs e)
         {
             LaunchBtn.BackgroundImage = Properties.Resources._button_huge_hover;
-            LaunchBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            LaunchBtn.ForeColor = Globals.buttonHighlight;
             LaunchBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void LaunchBtn_MouseLeave(object sender, EventArgs e)
@@ -754,7 +754,7 @@ namespace Contra
         private void LaunchBtn_MouseDown(object sender, MouseEventArgs e)
         {
             LaunchBtn.BackgroundImage = Properties.Resources._button_huge_down;
-            LaunchBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            LaunchBtn.ForeColor = Globals.buttonHighlight;
             LaunchBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void LaunchBtn_Click(object sender, EventArgs e)
@@ -987,7 +987,7 @@ namespace Contra
         private void ModDBBtn_MouseEnter(object sender, EventArgs e)
         {
             ModDBBtn.BackgroundImage = Properties.Resources._button_medium_hover;
-            ModDBBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            ModDBBtn.ForeColor = Globals.buttonHighlight;
             ModDBBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void ModDBBtn_MouseLeave(object sender, EventArgs e)
@@ -999,7 +999,7 @@ namespace Contra
         private void ModDBBtn_MouseDown(object sender, MouseEventArgs e)
         {
             ModDBBtn.BackgroundImage = Properties.Resources._button_medium_down;
-            ModDBBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            ModDBBtn.ForeColor = Globals.buttonHighlight;
             ModDBBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void ModDBBtn_Click(object sender, EventArgs e)
@@ -1010,7 +1010,7 @@ namespace Contra
         private void WBBtn_MouseEnter(object sender, EventArgs e)
         {
             WBBtn.BackgroundImage = Properties.Resources._button_big_hover;
-            WBBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            WBBtn.ForeColor = Globals.buttonHighlight;
             WBBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void WBBtn_MouseLeave(object sender, EventArgs e)
@@ -1022,7 +1022,7 @@ namespace Contra
         private void WBBtn_MouseDown(object sender, MouseEventArgs e)
         {
             WBBtn.BackgroundImage = Properties.Resources._button_big_down;
-            WBBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            WBBtn.ForeColor = Globals.buttonHighlight;
             WBBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void WBBtn_Click(object sender, EventArgs e)
@@ -1092,13 +1092,13 @@ namespace Contra
         private void DiscordBtn_MouseDown(object sender, MouseEventArgs e)
         {
             DiscordBtn.BackgroundImage = Properties.Resources._button_medium_down;
-            DiscordBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            DiscordBtn.ForeColor = Globals.buttonHighlight;
             DiscordBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void DiscordBtn_MouseEnter(object sender, EventArgs e)
         {
             DiscordBtn.BackgroundImage = Properties.Resources._button_medium_hover;
-            DiscordBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            DiscordBtn.ForeColor = Globals.buttonHighlight;
             DiscordBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void DiscordBtn_MouseLeave(object sender, EventArgs e)
@@ -1115,7 +1115,7 @@ namespace Contra
         private void optionsBtn_MouseEnter(object sender, EventArgs e)
         {
             OptionsBtn.BackgroundImage = Properties.Resources._button_big_hover;
-            OptionsBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            OptionsBtn.ForeColor = Globals.buttonHighlight;
             OptionsBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void optionsBtn_MouseLeave(object sender, EventArgs e)
@@ -1127,7 +1127,7 @@ namespace Contra
         private void optionsBtn_MouseDown(object sender, MouseEventArgs e)
         {
             OptionsBtn.BackgroundImage = Properties.Resources._button_big_down;
-            OptionsBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            OptionsBtn.ForeColor = Globals.buttonHighlight;
             OptionsBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void optionsBtn_Click(object sender, EventArgs e)
@@ -1266,7 +1266,7 @@ namespace Contra
         private void ExitBtn_MouseEnter(object sender, EventArgs e)
         {
             ExitBtn.BackgroundImage = Properties.Resources._button_big_hover;
-            ExitBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            ExitBtn.ForeColor = Globals.buttonHighlight;
             ExitBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void ExitBtn_MouseLeave(object sender, EventArgs e)
@@ -1278,7 +1278,7 @@ namespace Contra
         private void ExitBtn_MouseDown(object sender, MouseEventArgs e)
         {
             ExitBtn.BackgroundImage = Properties.Resources._button_big_down;
-            ExitBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            ExitBtn.ForeColor = Globals.buttonHighlight;
             ExitBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void ExitBtn_Click(object sender, EventArgs e)
@@ -1291,13 +1291,13 @@ namespace Contra
         private void DonateBtn_MouseDown(object sender, MouseEventArgs e)
         {
             DonateBtn.BackgroundImage = Properties.Resources._button_medium_down;
-            DonateBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            DonateBtn.ForeColor = Globals.buttonHighlight;
             DonateBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void DonateBtn_MouseEnter(object sender, EventArgs e)
         {
             DonateBtn.BackgroundImage = Properties.Resources._button_medium_hover;
-            DonateBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            DonateBtn.ForeColor = Globals.buttonHighlight;
             DonateBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void DonateBtn_MouseLeave(object sender, EventArgs e)

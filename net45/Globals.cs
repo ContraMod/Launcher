@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace Contra
 {
     public static class Globals
@@ -11,5 +13,6 @@ namespace Contra
         public static string userOS;
         public static string myDocPath;
         public static int cpuSpeed;
+        public static Color buttonHighlight = Color.FromArgb(244, 250, 175);
     }
 }

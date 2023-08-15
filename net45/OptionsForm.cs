@@ -108,6 +108,8 @@ namespace Contra
                 IconQualityLabel.Text = "Кач. иконок";
                 ExtraBuildingPropsCheckBox.Text = "Доп. объекты к зданиям";
                 NoPreviewText.Text = "Предварительный просмотр недоступен";
+                AcceptBtn.Text = "ПРИНЯТЬ";
+                CloseBtn.Text = "ОТМЕНА";
             }
             else if (Globals.UA_Checked == true)
             {
@@ -134,6 +136,8 @@ namespace Contra
                 IconQualityLabel.Text = "Якість ікон";
                 ExtraBuildingPropsCheckBox.Text = "Дод. об'єкти до будівель";
                 NoPreviewText.Text = "Попередній перегляд недоступний";
+                AcceptBtn.Text = "ПРИЙНЯТИ";
+                CloseBtn.Text = "ВІДМІНА";
             }
             else if (Globals.BG_Checked == true)
             {
@@ -160,6 +164,8 @@ namespace Contra
                 IconQualityLabel.Text = "Кач. на икон.";
                 ExtraBuildingPropsCheckBox.Text = "Доп. елементи на сградите";
                 NoPreviewText.Text = "Няма налична визуализация";
+                AcceptBtn.Text = "ПРИЕМИ";
+                CloseBtn.Text = "ОТКАЗ";
             }
             else if (Globals.DE_Checked == true)
             {
@@ -186,6 +192,8 @@ namespace Contra
                 IconQualityLabel.Text = "Cameo-Qual.";
                 ExtraBuildingPropsCheckBox.Text = "Zusätzliche Gebäudeobjekte";
                 NoPreviewText.Text = "Keine Vorschau vorhanden";
+                AcceptBtn.Text = "AKZEPTIEREN";
+                CloseBtn.Text = "SCHLIESSEN";
             }
             //TextureResLabel.Text = Messages.GenerateMessage("TextureRes", Globals.currentLanguage);
 
@@ -485,13 +493,13 @@ namespace Contra
         private void AcceptBtn_MouseDown(object sender, MouseEventArgs e)
         {
             AcceptBtn.BackgroundImage = Properties.Resources._button_big_down;
-            AcceptBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            AcceptBtn.ForeColor = Globals.buttonHighlight;
             AcceptBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void AcceptBtn_MouseEnter(object sender, EventArgs e)
         {
             AcceptBtn.BackgroundImage = Properties.Resources._button_big_hover;
-            AcceptBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            AcceptBtn.ForeColor = Globals.buttonHighlight;
             AcceptBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void AcceptBtn_MouseLeave(object sender, EventArgs e)
@@ -680,13 +688,13 @@ namespace Contra
         private void CloseBtn_MouseDown(object sender, MouseEventArgs e)
         {
             CloseBtn.BackgroundImage = Properties.Resources._button_big_down;
-            CloseBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            CloseBtn.ForeColor = Globals.buttonHighlight;
             CloseBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void CloseBtn_MouseEnter(object sender, EventArgs e)
         {
             CloseBtn.BackgroundImage = Properties.Resources._button_big_hover;
-            CloseBtn.ForeColor = Color.FromArgb(186, 255, 12);
+            CloseBtn.ForeColor = Globals.buttonHighlight;
             CloseBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
         }
         private void CloseBtn_MouseLeave(object sender, EventArgs e)
