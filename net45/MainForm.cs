@@ -2210,6 +2210,33 @@ namespace Contra
                 // Add Firewall exceptions.
                 CheckFirewallExceptions();
 
+                // Select default control bar and cameo size depending on screen aspect ratio and GenTool presence + version
+                if (AspectRatio(ScreenResolutionX, ScreenResolutionY) == "16:9")
+                {
+                    if (isGentoolInstalled("d3d8.dll") && !isGentoolOutdated("d3d8.dll", 85))
+                    {
+                        Properties.Settings.Default.ControlBarPro = true;
+                        Properties.Settings.Default.ControlBarContra = false;
+                        Properties.Settings.Default.ControlBarStandard = false;
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.ControlBarPro = false;
+                        Properties.Settings.Default.ControlBarContra = true;
+                        Properties.Settings.Default.ControlBarStandard = false;
+                    }
+                    Properties.Settings.Default.CameosDouble = true;
+                    Properties.Settings.Default.CameosStandard = false;
+                }
+                else
+                {
+                    Properties.Settings.Default.ControlBarPro = false;
+                    Properties.Settings.Default.ControlBarContra = true;
+                    Properties.Settings.Default.ControlBarStandard = false;
+                    Properties.Settings.Default.CameosDouble = false;
+                    Properties.Settings.Default.CameosStandard = true;
+                }
+
                 Properties.Settings.Default.FirstRun = false;
                 Properties.Settings.Default.Save();
             }
@@ -2282,34 +2309,6 @@ namespace Contra
                 }
             }
             catch { }
-
-            // Select default control bar and cameo size depending on screen aspect ratio and GenTool presence + version
-            if (AspectRatio(ScreenResolutionX, ScreenResolutionY) == "16:9")
-            {
-                if (isGentoolInstalled("d3d8.dll") && !isGentoolOutdated("d3d8.dll", 85))
-                {
-                    Properties.Settings.Default.ControlBarPro = true;
-                    Properties.Settings.Default.ControlBarContra = false;
-                    Properties.Settings.Default.ControlBarStandard = false;
-                }
-                else
-                {
-                    Properties.Settings.Default.ControlBarPro = false;
-                    Properties.Settings.Default.ControlBarContra = true;
-                    Properties.Settings.Default.ControlBarStandard = false;
-                }
-                Properties.Settings.Default.CameosDouble = true;
-                Properties.Settings.Default.CameosStandard = false;
-            }
-            else
-            {
-                Properties.Settings.Default.ControlBarPro = false;
-                Properties.Settings.Default.ControlBarContra = true;
-                Properties.Settings.Default.ControlBarStandard = false;
-                Properties.Settings.Default.CameosDouble = false;
-                Properties.Settings.Default.CameosStandard = true;
-            }
-            Properties.Settings.Default.Save();
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)

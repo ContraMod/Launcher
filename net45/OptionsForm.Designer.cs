@@ -514,7 +514,6 @@ namespace Contra
             this.ParticleCapTrackBar.Minimum = 100;
             this.ParticleCapTrackBar.Name = "ParticleCapTrackBar";
             this.ParticleCapTrackBar.TabStop = true;
-            this.ParticleCapTrackBar.Value = 100;
             this.ParticleCapTrackBar.Scroll += new System.EventHandler(this.ParticleCapTrackBar_Scroll);
             this.ParticleCapTrackBar.MouseLeave += new System.EventHandler(this.Option_MouseLeave);
             this.ParticleCapTrackBar.MouseHover += new System.EventHandler(this.ParticleCapTrackBar_MouseHover);
@@ -528,7 +527,6 @@ namespace Contra
             this.TextureResTrackBar.Minimum = 1;
             this.TextureResTrackBar.Name = "TextureResTrackBar";
             this.TextureResTrackBar.TabStop = true;
-            this.TextureResTrackBar.Value = 1;
             this.TextureResTrackBar.Scroll += new System.EventHandler(this.TextureResTrackBar_Scroll);
             this.TextureResTrackBar.MouseLeave += new System.EventHandler(this.Option_MouseLeave);
             this.TextureResTrackBar.MouseHover += new System.EventHandler(this.TextureResTrackBar_MouseHover);
@@ -542,6 +540,7 @@ namespace Contra
             this.CameraHeightTrackBar.Minimum = 392;
             this.CameraHeightTrackBar.Name = "CameraHeightTrackBar";
             this.CameraHeightTrackBar.TabStop = true;
+            this.CameraHeightTrackBar.Value = 392;
             this.CameraHeightTrackBar.Scroll += new System.EventHandler(this.CameraHeightTrackBar_Scroll);
             this.CameraHeightTrackBar.MouseLeave += new System.EventHandler(this.Option_MouseLeave);
             this.CameraHeightTrackBar.MouseHover += new System.EventHandler(this.CameraHeightTrackBar_MouseHover);

@@ -199,7 +199,7 @@
     <value>NoControl</value>
   </data>
   <data name="MNew.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 18</value>
+    <value>6, 40</value>
   </data>
   <data name="MNew.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 22</value>
@@ -265,7 +265,7 @@
     <value>NoControl</value>
   </data>
   <data name="MStandard.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 40</value>
+    <value>6, 18</value>
   </data>
   <data name="MStandard.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 22</value>
@@ -1845,7 +1845,7 @@
     <value>MOTD</value>
   </data>
   <data name="&gt;&gt;MOTD.Type" xml:space="preserve">
-    <value>Contra.Marquee, Contra_Launcher, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Contra.Marquee, Contra_Launcher, Version=2.0.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;MOTD.Parent" xml:space="preserve">
     <value>$this</value>

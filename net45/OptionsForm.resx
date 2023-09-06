@@ -649,7 +649,7 @@
     <value>NoControl</value>
   </data>
   <data name="LegacyHotkeysRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 40</value>
+    <value>6, 18</value>
   </data>
   <data name="LegacyHotkeysRadioButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 22</value>
@@ -682,7 +682,7 @@
     <value>NoControl</value>
   </data>
   <data name="LeikezeHotkeysRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 18</value>
+    <value>6, 40</value>
   </data>
   <data name="LeikezeHotkeysRadioButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 22</value>
@@ -1028,6 +1028,51 @@
   <data name="&gt;&gt;GraphicsInfoDescriptionLabel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="&gt;&gt;GraphicsInfoHeaderLabel.Name" xml:space="preserve">
+    <value>GraphicsInfoHeaderLabel</value>
+  </data>
+  <data name="&gt;&gt;GraphicsInfoHeaderLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GraphicsInfoHeaderLabel.Parent" xml:space="preserve">
+    <value>GraphicsInfoTextPanel</value>
+  </data>
+  <data name="&gt;&gt;GraphicsInfoHeaderLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;GraphicsInfoPerformanceLabel.Name" xml:space="preserve">
+    <value>GraphicsInfoPerformanceLabel</value>
+  </data>
+  <data name="&gt;&gt;GraphicsInfoPerformanceLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GraphicsInfoPerformanceLabel.Parent" xml:space="preserve">
+    <value>GraphicsInfoTextPanel</value>
+  </data>
+  <data name="&gt;&gt;GraphicsInfoPerformanceLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="GraphicsInfoTextPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>476, 418</value>
+  </data>
+  <data name="GraphicsInfoTextPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 99</value>
+  </data>
+  <data name="GraphicsInfoTextPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
+  </data>
+  <data name="&gt;&gt;GraphicsInfoTextPanel.Name" xml:space="preserve">
+    <value>GraphicsInfoTextPanel</value>
+  </data>
+  <data name="&gt;&gt;GraphicsInfoTextPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GraphicsInfoTextPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;GraphicsInfoTextPanel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
   <data name="GraphicsInfoHeaderLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1100,26 +1145,38 @@
   <data name="&gt;&gt;GraphicsInfoPerformanceLabel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="GraphicsInfoTextPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>476, 418</value>
+  <data name="&gt;&gt;HotkeyStyleLabel.Name" xml:space="preserve">
+    <value>HotkeyStyleLabel</value>
   </data>
-  <data name="GraphicsInfoTextPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 99</value>
+  <data name="&gt;&gt;HotkeyStyleLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="GraphicsInfoTextPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>83</value>
+  <data name="&gt;&gt;HotkeyStyleLabel.Parent" xml:space="preserve">
+    <value>HotkeyStylePanel</value>
   </data>
-  <data name="&gt;&gt;GraphicsInfoTextPanel.Name" xml:space="preserve">
-    <value>GraphicsInfoTextPanel</value>
+  <data name="&gt;&gt;HotkeyStyleLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
-  <data name="&gt;&gt;GraphicsInfoTextPanel.Type" xml:space="preserve">
+  <data name="HotkeyStylePanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>665, 308</value>
+  </data>
+  <data name="HotkeyStylePanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 65</value>
+  </data>
+  <data name="HotkeyStylePanel.TabIndex" type="System.Int32, mscorlib">
+    <value>99</value>
+  </data>
+  <data name="&gt;&gt;HotkeyStylePanel.Name" xml:space="preserve">
+    <value>HotkeyStylePanel</value>
+  </data>
+  <data name="&gt;&gt;HotkeyStylePanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;GraphicsInfoTextPanel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;HotkeyStylePanel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;GraphicsInfoTextPanel.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="&gt;&gt;HotkeyStylePanel.ZOrder" xml:space="preserve">
+    <value>33</value>
   </data>
   <data name="HotkeyStyleLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1153,27 +1210,6 @@
   </data>
   <data name="&gt;&gt;HotkeyStyleLabel.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="HotkeyStylePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>665, 308</value>
-  </data>
-  <data name="HotkeyStylePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 65</value>
-  </data>
-  <data name="HotkeyStylePanel.TabIndex" type="System.Int32, mscorlib">
-    <value>99</value>
-  </data>
-  <data name="&gt;&gt;HotkeyStylePanel.Name" xml:space="preserve">
-    <value>HotkeyStylePanel</value>
-  </data>
-  <data name="&gt;&gt;HotkeyStylePanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HotkeyStylePanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;HotkeyStylePanel.ZOrder" xml:space="preserve">
-    <value>33</value>
   </data>
   <data name="AnisoCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1218,7 +1254,7 @@
     <value>NoControl</value>
   </data>
   <data name="ControlBarStandardRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 62</value>
+    <value>6, 18</value>
   </data>
   <data name="ControlBarStandardRadioButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 22</value>
@@ -1284,7 +1320,7 @@
     <value>NoControl</value>
   </data>
   <data name="ControlBarProRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 18</value>
+    <value>6, 62</value>
   </data>
   <data name="ControlBarProRadioButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 22</value>
@@ -1361,6 +1397,63 @@
   <data name="&gt;&gt;ControlBarPanel.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="&gt;&gt;IconQualityLabel.Name" xml:space="preserve">
+    <value>IconQualityLabel</value>
+  </data>
+  <data name="&gt;&gt;IconQualityLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;IconQualityLabel.Parent" xml:space="preserve">
+    <value>CameoResPanel</value>
+  </data>
+  <data name="&gt;&gt;IconQualityLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;CameosStandardRadioButton.Name" xml:space="preserve">
+    <value>CameosStandardRadioButton</value>
+  </data>
+  <data name="&gt;&gt;CameosStandardRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CameosStandardRadioButton.Parent" xml:space="preserve">
+    <value>CameoResPanel</value>
+  </data>
+  <data name="&gt;&gt;CameosStandardRadioButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;CameosDoubleRadioButton.Name" xml:space="preserve">
+    <value>CameosDoubleRadioButton</value>
+  </data>
+  <data name="&gt;&gt;CameosDoubleRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CameosDoubleRadioButton.Parent" xml:space="preserve">
+    <value>CameoResPanel</value>
+  </data>
+  <data name="&gt;&gt;CameosDoubleRadioButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="CameoResPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>572, 308</value>
+  </data>
+  <data name="CameoResPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 65</value>
+  </data>
+  <data name="CameoResPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>101</value>
+  </data>
+  <data name="&gt;&gt;CameoResPanel.Name" xml:space="preserve">
+    <value>CameoResPanel</value>
+  </data>
+  <data name="&gt;&gt;CameoResPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CameoResPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;CameoResPanel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="IconQualityLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1404,7 +1497,7 @@
     <value>NoControl</value>
   </data>
   <data name="CameosStandardRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 40</value>
+    <value>6, 18</value>
   </data>
   <data name="CameosStandardRadioButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>81, 22</value>
@@ -1437,7 +1530,7 @@
     <value>NoControl</value>
   </data>
   <data name="CameosDoubleRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 18</value>
+    <value>6, 40</value>
   </data>
   <data name="CameosDoubleRadioButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 22</value>
@@ -1458,27 +1551,6 @@
     <value>CameoResPanel</value>
   </data>
   <data name="&gt;&gt;CameosDoubleRadioButton.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="CameoResPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>572, 308</value>
-  </data>
-  <data name="CameoResPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 65</value>
-  </data>
-  <data name="CameoResPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>101</value>
-  </data>
-  <data name="&gt;&gt;CameoResPanel.Name" xml:space="preserve">
-    <value>CameoResPanel</value>
-  </data>
-  <data name="&gt;&gt;CameoResPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CameoResPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;CameoResPanel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="ExtraBuildingPropsCheckBox.AutoSize" type="System.Boolean, mscorlib">
@@ -1560,7 +1632,7 @@
     <value>ParticleCapTrackBar</value>
   </data>
   <data name="&gt;&gt;ParticleCapTrackBar.Type" xml:space="preserve">
-    <value>Contra.TrackBar, Contra_Launcher, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Contra.TrackBar, Contra_Launcher, Version=2.0.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ParticleCapTrackBar.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1581,7 +1653,7 @@
     <value>TextureResTrackBar</value>
   </data>
   <data name="&gt;&gt;TextureResTrackBar.Type" xml:space="preserve">
-    <value>Contra.TrackBar, Contra_Launcher, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Contra.TrackBar, Contra_Launcher, Version=2.0.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;TextureResTrackBar.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1602,7 +1674,7 @@
     <value>CameraHeightTrackBar</value>
   </data>
   <data name="&gt;&gt;CameraHeightTrackBar.Type" xml:space="preserve">
-    <value>Contra.TrackBar, Contra_Launcher, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>Contra.TrackBar, Contra_Launcher, Version=2.0.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;CameraHeightTrackBar.Parent" xml:space="preserve">
     <value>$this</value>
