@@ -47,7 +47,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 
 ---
-### РУССКИЙ ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg)
+### РУССКИЙ <img src="https://discord.com/assets/1710858579c863d586e0.svg" width="30">
 # Contra X Beta Установка и Инструкции по сетевой игре
 
 ### Способы установки Contra (выберите один):
