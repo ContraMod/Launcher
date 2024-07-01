@@ -63,7 +63,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 2. Запустите ***Contra_Launcher.exe***.
 
-![image](https://imgur.com/a/HSfiwWP)
+![image](https://i.imgur.com/lXScRFf.png)
 
 
 
