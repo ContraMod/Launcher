@@ -29,8 +29,7 @@ Download mirrors (**choose one**):
 ### Installing the VPN software
 
 1. Install RadminVPN. Go to https://www.radmin-vpn.com/ then click Free Download and Install
-2. In Radmin, search and join the gaming network:
-**Command & Conquer: Generals - Zero Hour - Contra 009**
+2. In Radmin, search and join one of the **Command & Conquer: Generals - Zero Hour - Contra 009** gaming networks:
 
 ![2](https://i.imgur.com/PkCotOP.png)
 
@@ -77,8 +76,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 ### Установка программного обеспечения VPN
 
 1. Установите RadminVPN: https://www.radmin-vpn.com/ru/ затем нажмите Скачать бесплатно и установите
-2. В Radmin найдите и присоединитесь к игровой сети:
-**Command & Conquer: Generals - Zero Hour - Contra 009**
+В Radmin найдите и присоединитесь к одной из игровых сетей **Command & Conquer: Generals - Zero Hour - Contra 009**:
 
 ![2](https://i.imgur.com/PkCotOP.png)
 
