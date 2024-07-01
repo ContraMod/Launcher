@@ -32,7 +32,7 @@ Download mirrors (**choose one**):
 2. In Radmin, search and join the gaming network:
 **Command & Conquer: Generals - Zero Hour - Contra 009**
 
-![2](https://imgur.com/a/i6S18LE.png)
+![2](https://i.imgur.com/PkCotOP.png)
 
 3. Switch **LAN IP** to **26.X.X.X** inside the game's options.
 
@@ -80,7 +80,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 2. В Radmin найдите и присоединитесь к игровой сети:
 **Command & Conquer: Generals - Zero Hour - Contra 009**
 
-![2](https://imgur.com/a/i6S18LE.png)
+![2](https://i.imgur.com/PkCotOP.png)
 
 3. Переключите **IP сети** на **26.X.X.X** внутри опций игры.
 
