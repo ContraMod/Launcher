@@ -1,5 +1,5 @@
-![0](https://cdn.discordapp.com/attachments/410500983198580740/948933165177765938/flag-gb.jpg) [ENGLISH](#ENGLISH-) | ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg) [РУССКИЙ](#РУССКИЙ-)
-### ENGLISH ![0](https://cdn.discordapp.com/attachments/410500983198580740/948933165177765938/flag-gb.jpg)
+![0](https://discord.com/assets/09598dcec149fda6bebb.svg) [ENGLISH](#ENGLISH-) | ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg) [РУССКИЙ](#РУССКИЙ-)
+### ENGLISH ![0](https://discord.com/assets/09598dcec149fda6bebb.svg)
 # Contra X Beta Setup and Online Play Instructions
 
 ### Contra installation methods (choose one):
