@@ -19,8 +19,9 @@ Download mirrors (**choose one**):
 
 
 * ### Method №2 (using GenLauncher)
-1. Join [GenLauncher Discord](https://discord.com/invite/fFGpudz5hV)
-2. [Download the latest version](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) and place ***GenLauncher.exe*** in your Zero Hour game folder. Run it, add Contra mod, and wait for it to get downloaded.
+1. Download the latest version from [ModDB link](https://www.moddb.com/mods/genlauncher/downloads) or [Discord link](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) and place ***GenLauncher.exe*** in your Zero Hour game folder. Run it, add Contra mod, and wait for it to get downloaded.
+
+If you want to join GenLauncher Discord (for support, etc.) - [Discord invite link](https://discord.com/invite/fFGpudz5hV)
 
 ![image](https://github.com/ContraMod/Launcher/assets/32432772/91cb8342-73a8-471c-9476-8ab922bbf75c)
 
@@ -67,8 +68,9 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 
 * ### Способ №2 (используя GenLauncher)
-1. Присоединитесь [GenLauncher Discord](https://discord.com/invite/fFGpudz5hV)
-2. [Скачать последнюю версию](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) и поместите ***GenLauncher.exe*** в папку с игрой Zero Hour. Запустите его, добавьте мод Contra и дождитесь его загрузки.
+1. Загрузите последнюю версию с [ссылки ModDB](https://www.moddb.com/mods/genlauncher/downloads) или [ссылки Discord](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) и поместите ***GenLauncher.exe*** в папку с игрой Zero Hour. Запустите его, добавьте мод Contra и дождитесь его загрузки.
+
+Если вы хотите присоединиться к GenLauncher Discord (для поддержки и т.д.) - [ссылка для приглашения в Discord](https://discord.com/invite/fFGpudz5hV)
 
 ![image](https://github.com/ContraMod/Launcher/assets/32432772/91cb8342-73a8-471c-9476-8ab922bbf75c)
 
