@@ -1,5 +1,5 @@
-![0](https://cdn.discordapp.com/attachments/410500983198580740/948933165177765938/flag-gb.jpg) [ENGLISH](#ENGLISH-) | ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg) [РУССКИЙ](#РУССКИЙ-)
-### ENGLISH ![0](https://cdn.discordapp.com/attachments/410500983198580740/948933165177765938/flag-gb.jpg)
+<img src="https://discord.com/assets/09598dcec149fda6bebb.svg" width="30"> [ENGLISH](#ENGLISH-) | <img src="https://discord.com/assets/1710858579c863d586e0.svg" width="30"> [РУССКИЙ](#РУССКИЙ-)
+### ENGLISH <img src="https://discord.com/assets/09598dcec149fda6bebb.svg" width="30">
 # Contra X Beta Setup and Online Play Instructions
 
 ### Contra installation methods (choose one):
@@ -19,8 +19,9 @@ Download mirrors (**choose one**):
 
 
 * ### Method №2 (using GenLauncher)
-1. Join [GenLauncher Discord](https://discord.com/invite/fFGpudz5hV)
-2. [Download the latest version](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) and place ***GenLauncher.exe*** in your Zero Hour game folder. Run it, add Contra mod, and wait for it to get downloaded.
+1. Download the latest version from [ModDB link](https://www.moddb.com/mods/genlauncher/downloads) or [Discord link](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) and place ***GenLauncher.exe*** in your Zero Hour game folder. Run it, add Contra mod, and wait for it to get downloaded.
+
+If you want to join GenLauncher Discord (for support, etc.) - [Discord invite link](https://discord.com/invite/fFGpudz5hV)
 
 ![image](https://github.com/ContraMod/Launcher/assets/32432772/91cb8342-73a8-471c-9476-8ab922bbf75c)
 
@@ -29,14 +30,13 @@ Download mirrors (**choose one**):
 ### Installing the VPN software
 
 1. Install RadminVPN. Go to https://www.radmin-vpn.com/ then click Free Download and Install
-2. In Radmin, search and join the gaming network:
-**Command & Conquer: Generals - Zero Hour - Contra 009**
+2. In Radmin, search and join one of the **Command & Conquer: Generals - Zero Hour - Contra 009** gaming networks:
 
-![2](https://media.discordapp.net/attachments/410501978784006144/795776427739971604/unknown.png)
+![2](https://i.imgur.com/PkCotOP.png)
 
 3. Switch **LAN IP** to **26.X.X.X** inside the game's options.
 
-![3](https://media.discordapp.net/attachments/410501978784006144/795781301134819348/unknown.png)
+![3](https://i.imgur.com/vlmByV3.png)
 - Gentool zip is needed to preserve custom resolution:
 https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 - Please also disable 3D shadows from custom graphics options for improved performance
@@ -47,7 +47,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 
 ---
-### РУССКИЙ ![0](https://cdn.discordapp.com/attachments/410500983198580740/948934837664878592/flag-ru.jpg)
+### РУССКИЙ <img src="https://discord.com/assets/1710858579c863d586e0.svg" width="30">
 # Contra X Beta Установка и Инструкции по сетевой игре
 
 ### Способы установки Contra (выберите один):
@@ -63,13 +63,14 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 2. Запустите ***Contra_Launcher.exe***.
 
-![image](https://cdn.discordapp.com/attachments/1139832928650661908/1140622945044136046/image.png)
+![image](https://i.imgur.com/lXScRFf.png)
 
 
 
 * ### Способ №2 (используя GenLauncher)
-1. Присоединитесь [GenLauncher Discord](https://discord.com/invite/fFGpudz5hV)
-2. [Скачать последнюю версию](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) и поместите ***GenLauncher.exe*** в папку с игрой Zero Hour. Запустите его, добавьте мод Contra и дождитесь его загрузки.
+1. Загрузите последнюю версию с [ссылки ModDB](https://www.moddb.com/mods/genlauncher/downloads) или [ссылки Discord](https://discord.com/channels/886293575128739860/886296846882996274/926436133775233075) и поместите ***GenLauncher.exe*** в папку с игрой Zero Hour. Запустите его, добавьте мод Contra и дождитесь его загрузки.
+
+Если вы хотите присоединиться к GenLauncher Discord (для поддержки и т.д.) - [ссылка для приглашения в Discord](https://discord.com/invite/fFGpudz5hV)
 
 ![image](https://github.com/ContraMod/Launcher/assets/32432772/91cb8342-73a8-471c-9476-8ab922bbf75c)
 
@@ -77,14 +78,13 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 ### Установка программного обеспечения VPN
 
 1. Установите RadminVPN: https://www.radmin-vpn.com/ru/ затем нажмите Скачать бесплатно и установите
-2. В Radmin найдите и присоединитесь к игровой сети:
-**Command & Conquer: Generals - Zero Hour - Contra 009**
+В Radmin найдите и присоединитесь к одной из игровых сетей **Command & Conquer: Generals - Zero Hour - Contra 009**:
 
-![2](https://media.discordapp.net/attachments/194120076054495232/768127932320710676/unknown.png)
+![2](https://i.imgur.com/PkCotOP.png)
 
 3. Переключите **IP сети** на **26.X.X.X** внутри опций игры.
 
-![3](https://media.discordapp.net/attachments/410501978784006144/795781594764804106/unknown.png)
+![3](https://i.imgur.com/LDuEnlA.png)
 - Gentool zip необходим для сохранения нестандартного разрешения:
 https://www.gentool.net/download (извлеките последнюю версию d3d8.dll в папку ZH из архива)
 - Также отключите 3D-тени в пользовательских графических параметрах для повышения производительности

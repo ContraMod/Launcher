@@ -2,8 +2,8 @@
 Mod Text: 009 Final Patch 3 Hotfix 4$
 Launcher: 1.2.1.3$
 ZeroTier: 1.4.6$
-MOTD-EN: We're playing via RadminVPN at "Contra 009" Gaming Network$
-MOTD-RU: Играем через RadminVPN в игровой сети: "Contra 009"$
-MOTD-UA: Граємо через RadminVPN в ігровій мережі "Contra 009"$
-MOTD-BG: Играем чрез RadminVPN в игрова мрежа "Contra 009"$
-MOTD-DE: Wir spielen mit RadminVPN im "Contra 009" Gaming Network$
+MOTD-EN: We're playing version X Beta via RadminVPN at "Contra 009" Gaming Network$
+MOTD-RU: Играем версия X Beta через RadminVPN в игровой сети: "Contra 009"$
+MOTD-UA: Граємо версія X Beta через RadminVPN в ігровій мережі "Contra 009"$
+MOTD-BG: Играем версия X Beta чрез RadminVPN в игрова мрежа "Contra 009"$
+MOTD-DE: Wir spielen Version X Beta über RadminVPN im "Contra 009" Gaming Network$
