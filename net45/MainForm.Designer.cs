@@ -82,11 +82,16 @@ namespace Contra
             this.LanguagePanel = new System.Windows.Forms.Panel();
             this.LanguageLabel = new System.Windows.Forms.Label();
             this.MusicPanel = new System.Windows.Forms.Panel();
+            this.MTheScore = new System.Windows.Forms.RadioButton();
             this.MusicLabel = new System.Windows.Forms.Label();
             this.PortraitsPanel = new System.Windows.Forms.Panel();
             this.PortraitsLabel = new System.Windows.Forms.Label();
             this.OptionsFlashTimer1 = new System.Windows.Forms.Timer(this.components);
             this.OptionsFlashTimer2 = new System.Windows.Forms.Timer(this.components);
+            this.donateFlashTimer1 = new System.Windows.Forms.Timer(this.components);
+            this.donateFlashTimer2 = new System.Windows.Forms.Timer(this.components);
+            this.linkYouTubePred = new System.Windows.Forms.PictureBox();
+            this.linkYouTubeDce = new System.Windows.Forms.PictureBox();
             this.MOTD = new Contra.Marquee();
             this.panel1.SuspendLayout();
             this.PatchDLPanel.SuspendLayout();
@@ -100,6 +105,8 @@ namespace Contra
             this.LanguagePanel.SuspendLayout();
             this.MusicPanel.SuspendLayout();
             this.PortraitsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.linkYouTubePred)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkYouTubeDce)).BeginInit();
             this.SuspendLayout();
             // 
             // RadioEN
@@ -121,10 +128,8 @@ namespace Contra
             // MNew
             // 
             resources.ApplyResources(this.MNew, "MNew");
-            this.MNew.Checked = true;
             this.MNew.ForeColor = System.Drawing.Color.White;
             this.MNew.Name = "MNew";
-            this.MNew.TabStop = true;
             this.MNew.UseVisualStyleBackColor = true;
             // 
             // QSCheckBox
@@ -138,8 +143,10 @@ namespace Contra
             // MStandard
             // 
             resources.ApplyResources(this.MStandard, "MStandard");
+            this.MStandard.Checked = true;
             this.MStandard.ForeColor = System.Drawing.Color.White;
             this.MStandard.Name = "MStandard";
+            this.MStandard.TabStop = true;
             this.MStandard.UseVisualStyleBackColor = true;
             // 
             // WinCheckBox
@@ -651,11 +658,19 @@ namespace Contra
             // MusicPanel
             // 
             this.MusicPanel.BackColor = System.Drawing.Color.Transparent;
+            this.MusicPanel.Controls.Add(this.MTheScore);
             this.MusicPanel.Controls.Add(this.MusicLabel);
             this.MusicPanel.Controls.Add(this.MNew);
             this.MusicPanel.Controls.Add(this.MStandard);
             resources.ApplyResources(this.MusicPanel, "MusicPanel");
             this.MusicPanel.Name = "MusicPanel";
+            // 
+            // MTheScore
+            // 
+            resources.ApplyResources(this.MTheScore, "MTheScore");
+            this.MTheScore.ForeColor = System.Drawing.Color.White;
+            this.MTheScore.Name = "MTheScore";
+            this.MTheScore.UseVisualStyleBackColor = true;
             // 
             // MusicLabel
             // 
@@ -690,6 +705,35 @@ namespace Contra
             this.OptionsFlashTimer2.Interval = 500;
             this.OptionsFlashTimer2.Tick += new System.EventHandler(this.OptionsFlashTimer2_Tick);
             // 
+            // donateFlashTimer1
+            // 
+            this.donateFlashTimer1.Interval = 1000;
+            this.donateFlashTimer1.Tick += new System.EventHandler(this.donateFlashTimer1_Tick);
+            // 
+            // donateFlashTimer2
+            // 
+            this.donateFlashTimer2.Interval = 1000;
+            this.donateFlashTimer2.Tick += new System.EventHandler(this.donateFlashTimer2_Tick);
+            // 
+            // linkYouTubePred
+            // 
+            this.linkYouTubePred.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.linkYouTubePred, "linkYouTubePred");
+            this.linkYouTubePred.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkYouTubePred.Name = "linkYouTubePred";
+            this.linkYouTubePred.TabStop = false;
+            this.linkYouTubePred.Click += new System.EventHandler(this.linkYouTubePred_Click);
+            // 
+            // linkYouTubeDce
+            // 
+            this.linkYouTubeDce.BackColor = System.Drawing.Color.Transparent;
+            this.linkYouTubeDce.BackgroundImage = global::Contra.Properties.Resources.youtube_dce;
+            resources.ApplyResources(this.linkYouTubeDce, "linkYouTubeDce");
+            this.linkYouTubeDce.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkYouTubeDce.Name = "linkYouTubeDce";
+            this.linkYouTubeDce.TabStop = false;
+            this.linkYouTubeDce.Click += new System.EventHandler(this.linkYouTubeDce_Click);
+            // 
             // MOTD
             // 
             this.MOTD.BackColor = System.Drawing.Color.Transparent;
@@ -705,6 +749,8 @@ namespace Contra
             this.BackgroundImage = global::Contra.Properties.Resources.background;
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
+            this.Controls.Add(this.linkYouTubeDce);
+            this.Controls.Add(this.linkYouTubePred);
             this.Controls.Add(this.PortraitsPanel);
             this.Controls.Add(this.MusicPanel);
             this.Controls.Add(this.LanguagePanel);
@@ -762,6 +808,8 @@ namespace Contra
             this.MusicPanel.PerformLayout();
             this.PortraitsPanel.ResumeLayout(false);
             this.PortraitsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.linkYouTubePred)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linkYouTubeDce)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -827,6 +875,11 @@ namespace Contra
         private System.Windows.Forms.Label PortraitsLabel;
         private System.Windows.Forms.Timer OptionsFlashTimer1;
         private System.Windows.Forms.Timer OptionsFlashTimer2;
+        private System.Windows.Forms.RadioButton MTheScore;
+        private System.Windows.Forms.Timer donateFlashTimer1;
+        private System.Windows.Forms.Timer donateFlashTimer2;
+        private System.Windows.Forms.PictureBox linkYouTubePred;
+        private System.Windows.Forms.PictureBox linkYouTubeDce;
     }
 }
 

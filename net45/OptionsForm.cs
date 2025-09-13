@@ -314,9 +314,9 @@ namespace Contra
             AnisoCheckBox.Checked = Properties.Settings.Default.Anisotropic;
 
             // Get current camera height
-            if (File.Exists("!ContraXBeta_GameData.big"))
+            if (File.Exists("!" + MainForm.betaPrefix + "_GameData.big"))
             {
-                try {ReadCameraHeight(File.ReadAllText("!ContraXBeta_GameData.big"));}
+                try {ReadCameraHeight(File.ReadAllText("!" + MainForm.betaPrefix + "_GameData.big"));}
                 catch (IOException) {Messages.GenerateMessageBox("E_CloseGameDataP3", Globals.currentLanguage);}
             }
         }
@@ -419,7 +419,7 @@ namespace Contra
         {
             //if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr"))
             //{
-                CamHeightRegexReplace("!ContraXBeta_GameData.big", "E_NotFound_GameDataP3");
+                CamHeightRegexReplace("!" + MainForm.betaPrefix + "_GameData.big", "E_NotFound_GameDataP3");
             //}
             //else Messages.GenerateMessageBox("E_MissingFiles_CouldNotChangeCamHeight", Globals.currentLanguage);
         }

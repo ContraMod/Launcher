@@ -167,6 +167,7 @@
   <ItemGroup>
     <Content Include="ContraIco.ico" />
     <Content Include="LICENSE.txt" />
+    <None Include="Resources\background.jpg" />
     <None Include="Resources\_button_sm_exit_tr.png" />
     <None Include="Resources\_button_sm_min_tr.png" />
     <None Include="Resources\_button_big_hover.png" />

@@ -202,14 +202,8 @@
   <data name="_button_sm_min_tr" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\_button_sm_min_tr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\netcore\Resources\background.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="comp_3d" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\netcore\Resources\comp_3d.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_bg_options" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\netcore\Resources\_bg_options.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="comp_2d" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\netcore\Resources\comp_2d.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -279,5 +273,17 @@
   </data>
   <data name="btnOk1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\netcore\Resources\btnOk1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_bg_options" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\netcore\Resources\_bg_options.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="youtube-pred" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\netcore\Resources\youtube-pred.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\netcore\Resources\background.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="youtube-dce" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\netcore\Resources\youtube-dce.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -49,7 +49,7 @@ namespace Contra.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool MusicNew {
             get {
                 return ((bool)(this["MusicNew"]));
@@ -61,7 +61,7 @@ namespace Contra.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool MusicStandard {
             get {
                 return ((bool)(this["MusicStandard"]));
@@ -440,6 +440,18 @@ namespace Contra.Properties {
             }
             set {
                 this["ExtraBuildingProps"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MusicTheScore {
+            get {
+                return ((bool)(this["MusicTheScore"]));
+            }
+            set {
+                this["MusicTheScore"] = value;
             }
         }
     }

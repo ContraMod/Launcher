@@ -202,13 +202,13 @@
     <value>6, 40</value>
   </data>
   <data name="MNew.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 22</value>
+    <value>86, 22</value>
   </data>
   <data name="MNew.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="MNew.Text" xml:space="preserve">
-    <value>New</value>
+    <value>Enhanced</value>
   </data>
   <data name="&gt;&gt;MNew.Name" xml:space="preserve">
     <value>MNew</value>
@@ -220,7 +220,7 @@
     <value>MusicPanel</value>
   </data>
   <data name="&gt;&gt;MNew.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="QSCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -232,7 +232,7 @@
     <value>NoControl</value>
   </data>
   <data name="QSCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>300, 205</value>
+    <value>300, 200</value>
   </data>
   <data name="QSCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 22</value>
@@ -253,7 +253,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;QSCheckBox.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>27</value>
   </data>
   <data name="MStandard.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -286,7 +286,7 @@
     <value>MusicPanel</value>
   </data>
   <data name="&gt;&gt;MStandard.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="WinCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -298,7 +298,7 @@
     <value>NoControl</value>
   </data>
   <data name="WinCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>410, 205</value>
+    <value>410, 200</value>
   </data>
   <data name="WinCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 22</value>
@@ -319,7 +319,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;WinCheckBox.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>28</value>
   </data>
   <data name="DefaultPics.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -403,7 +403,7 @@
     <value>45</value>
   </data>
   <data name="versionLabel.Text" xml:space="preserve">
-    <value>Contra Project Team 2018 - Version 009 Final</value>
+    <value>Contra Project Team - Version ?</value>
   </data>
   <data name="versionLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -418,7 +418,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;versionLabel.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>26</value>
   </data>
   <data name="ExitBtnSm.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -466,7 +466,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ExitBtnSm.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>29</value>
   </data>
   <data name="MinBtnSm.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -513,7 +513,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MinBtnSm.ZOrder" xml:space="preserve">
-    <value>28</value>
+    <value>30</value>
   </data>
   <data name="ExitBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -546,7 +546,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ExitBtn.ZOrder" xml:space="preserve">
-    <value>29</value>
+    <value>31</value>
   </data>
   <data name="WBBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -579,7 +579,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;WBBtn.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>24</value>
   </data>
   <data name="LaunchBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -612,7 +612,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;LaunchBtn.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>23</value>
   </data>
   <data name="RadioFlag_GB.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -801,7 +801,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>25</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>21, 17</value>
@@ -996,7 +996,7 @@
     <value>4</value>
   </data>
   <data name="PatchDLPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>782, 12</value>
+    <value>792, 590</value>
   </data>
   <data name="PatchDLPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 300</value>
@@ -1017,7 +1017,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;PatchDLPanel.ZOrder" xml:space="preserve">
-    <value>30</value>
+    <value>32</value>
   </data>
   <metadata name="optionsToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>108, 17</value>
@@ -1053,7 +1053,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;onlineInstructionsLabel.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>21</value>
   </data>
   <data name="replaysLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1086,7 +1086,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;replaysLabel.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>20</value>
   </data>
   <data name="customAddonsLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1119,7 +1119,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;customAddonsLabel.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>19</value>
   </data>
   <data name="supportLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1152,7 +1152,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;supportLabel.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>18</value>
   </data>
   <data name="OptionsBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1185,7 +1185,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;OptionsBtn.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>17</value>
   </data>
   <data name="DiscordBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1218,7 +1218,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;DiscordBtn.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
   </data>
   <data name="ModDBBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1251,7 +1251,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ModDBBtn.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="DonateBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -1284,7 +1284,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;DonateBtn.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="DataFolder.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1329,7 +1329,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;DataFolder.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="DataFolderLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1362,7 +1362,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;DataFolderLabel.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="GameFolder.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1407,7 +1407,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;GameFolder.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="GameFolderLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1440,7 +1440,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;GameFolderLabel.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="pictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1464,7 +1464,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="pictureBox2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1488,7 +1488,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox2.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="pictureBox5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1512,7 +1512,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox5.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="pictureBox6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1536,7 +1536,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pictureBox6.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="UnitVoicesLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1548,7 +1548,7 @@
     <value>NoControl</value>
   </data>
   <data name="UnitVoicesLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 1</value>
+    <value>6, 2</value>
   </data>
   <data name="UnitVoicesLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>66, 15</value>
@@ -1638,7 +1638,7 @@
     <value>2</value>
   </data>
   <data name="UnitVoicesPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>300, 230</value>
+    <value>300, 225</value>
   </data>
   <data name="UnitVoicesPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 65</value>
@@ -1656,7 +1656,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;UnitVoicesPanel.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="LanguageLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1668,7 +1668,7 @@
     <value>NoControl</value>
   </data>
   <data name="LanguageLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 1</value>
+    <value>6, 2</value>
   </data>
   <data name="LanguageLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 15</value>
@@ -1692,7 +1692,7 @@
     <value>0</value>
   </data>
   <data name="LanguagePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>410, 230</value>
+    <value>410, 225</value>
   </data>
   <data name="LanguagePanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 65</value>
@@ -1710,7 +1710,40 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;LanguagePanel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
+  </data>
+  <data name="MTheScore.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="MTheScore.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Calibri, 15px, style=Bold</value>
+  </data>
+  <data name="MTheScore.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="MTheScore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 62</value>
+  </data>
+  <data name="MTheScore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>86, 22</value>
+  </data>
+  <data name="MTheScore.TabIndex" type="System.Int32, mscorlib">
+    <value>98</value>
+  </data>
+  <data name="MTheScore.Text" xml:space="preserve">
+    <value>The Score</value>
+  </data>
+  <data name="&gt;&gt;MTheScore.Name" xml:space="preserve">
+    <value>MTheScore</value>
+  </data>
+  <data name="&gt;&gt;MTheScore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MTheScore.Parent" xml:space="preserve">
+    <value>MusicPanel</value>
+  </data>
+  <data name="&gt;&gt;MTheScore.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="MusicLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1722,7 +1755,7 @@
     <value>NoControl</value>
   </data>
   <data name="MusicLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 1</value>
+    <value>6, 2</value>
   </data>
   <data name="MusicLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>38, 15</value>
@@ -1743,13 +1776,13 @@
     <value>MusicPanel</value>
   </data>
   <data name="&gt;&gt;MusicLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="MusicPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>300, 305</value>
+    <value>300, 290</value>
   </data>
   <data name="MusicPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 65</value>
+    <value>90, 87</value>
   </data>
   <data name="MusicPanel.TabIndex" type="System.Int32, mscorlib">
     <value>99</value>
@@ -1764,7 +1797,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MusicPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="PortraitsLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1776,7 +1809,7 @@
     <value>NoControl</value>
   </data>
   <data name="PortraitsLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 1</value>
+    <value>6, 2</value>
   </data>
   <data name="PortraitsLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 15</value>
@@ -1800,7 +1833,7 @@
     <value>0</value>
   </data>
   <data name="PortraitsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>410, 305</value>
+    <value>410, 290</value>
   </data>
   <data name="PortraitsPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 65</value>
@@ -1818,7 +1851,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;PortraitsPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <metadata name="OptionsFlashTimer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>241, 17</value>
@@ -1826,6 +1859,132 @@
   <metadata name="OptionsFlashTimer2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>392, 18</value>
   </metadata>
+  <metadata name="donateFlashTimer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>552, 18</value>
+  </metadata>
+  <metadata name="donateFlashTimer2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>707, 18</value>
+  </metadata>
+  <data name="linkYouTubePred.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        hWDUTzQ0AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="linkYouTubePred.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="linkYouTubePred.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkYouTubePred.Location" type="System.Drawing.Point, System.Drawing">
+    <value>93, 311</value>
+  </data>
+  <data name="linkYouTubePred.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="linkYouTubePred.TabIndex" type="System.Int32, mscorlib">
+    <value>101</value>
+  </data>
+  <data name="&gt;&gt;linkYouTubePred.Name" xml:space="preserve">
+    <value>linkYouTubePred</value>
+  </data>
+  <data name="&gt;&gt;linkYouTubePred.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkYouTubePred.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;linkYouTubePred.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="linkYouTubeDce.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="linkYouTubeDce.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkYouTubeDce.Location" type="System.Drawing.Point, System.Drawing">
+    <value>167, 311</value>
+  </data>
+  <data name="linkYouTubeDce.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 50</value>
+  </data>
+  <data name="linkYouTubeDce.TabIndex" type="System.Int32, mscorlib">
+    <value>102</value>
+  </data>
+  <data name="&gt;&gt;linkYouTubeDce.Name" xml:space="preserve">
+    <value>linkYouTubeDce</value>
+  </data>
+  <data name="&gt;&gt;linkYouTubeDce.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkYouTubeDce.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;linkYouTubeDce.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="MOTD.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 15px, style=Bold</value>
   </data>
@@ -1851,7 +2010,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MOTD.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>22</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -1975,6 +2134,18 @@
     <value>OptionsFlashTimer2</value>
   </data>
   <data name="&gt;&gt;OptionsFlashTimer2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;donateFlashTimer1.Name" xml:space="preserve">
+    <value>donateFlashTimer1</value>
+  </data>
+  <data name="&gt;&gt;donateFlashTimer1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;donateFlashTimer2.Name" xml:space="preserve">
+    <value>donateFlashTimer2</value>
+  </data>
+  <data name="&gt;&gt;donateFlashTimer2.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

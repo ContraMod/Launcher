@@ -28,6 +28,7 @@ namespace Contra
         {
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
             InitializeComponent();
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             Application.ApplicationExit += new EventHandler(OnApplicationExit);
             LaunchBtn.TabStop = false;
             ExitBtn.TabStop = false;
@@ -52,6 +53,7 @@ namespace Contra
             OptionsBtn.TabStop = false;
             DonateBtn.FlatAppearance.MouseOverBackColor = Color.Transparent;
             DonateBtn.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            MTheScore.TabStop = false;
 
             // Determine OS bitness
             if (IntPtr.Size == 8)
@@ -95,18 +97,20 @@ namespace Contra
 
         //**********DRAG FORM CODE START**********
         const int WM_NCLBUTTONDBLCLK = 0xA3;
+        const int WM_NCHITTEST = 0x84;
+        const int HTCLIENT = 0x1;
+        const int HTCAPTION = 0x2;
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == WM_NCLBUTTONDBLCLK)
                 return;
 
-            base.WndProc(ref m);
             switch (m.Msg)
             {
-                case 0x84:
+                case WM_NCHITTEST:
                     base.WndProc(ref m);
-                    if ((int)m.Result == 0x1)
-                        m.Result = (IntPtr)0x2;
+                    if ((int)m.Result == HTCLIENT)
+                        m.Result = (IntPtr)HTCAPTION;
                     return;
             }
             base.WndProc(ref m);
@@ -144,8 +148,71 @@ namespace Contra
         public static extern bool VerQueryValue(byte[] pBlock, string lpSubBlock, out IntPtr lplpBuffer, out int puLen);
 
         public static readonly CancellationTokenSource httpCancellationToken = new CancellationTokenSource();
+        private static readonly SemaphoreSlim httpSemaphore = new SemaphoreSlim(1, 1);
 
-        public async void GetLauncherUpdate(string versionsTXT, string launcher_url)
+        private static T ChooseByLanguage<T>(T en, T ru, T ua, T bg, T de)
+        {
+            if (Globals.GB_Checked) return en;
+            if (Globals.RU_Checked) return ru;
+            if (Globals.UA_Checked) return ua;
+            if (Globals.BG_Checked) return bg;
+            if (Globals.DE_Checked) return de;
+            return en;
+        }
+
+        private static void ShowTopMostInfo(string text, string caption)
+        {
+            using (var owner = new Form { TopMost = true })
+            {
+                MessageBox.Show(owner, text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private static void SetLanguage(string code)
+        {
+            Globals.BG_Checked = false;
+            Globals.RU_Checked = false;
+            Globals.UA_Checked = false;
+            Globals.DE_Checked = false;
+            Globals.GB_Checked = false;
+            switch (code)
+            {
+                case "EN": Globals.GB_Checked = true; break;
+                case "RU": Globals.RU_Checked = true; break;
+                case "UA": Globals.UA_Checked = true; break;
+                case "BG": Globals.BG_Checked = true; break;
+                case "DE": Globals.DE_Checked = true; break;
+            }
+            Globals.currentLanguage = code;
+        }
+
+        private void ApplyLanguageSelection(string cultureName, string languageCode, Action applyTexts)
+        {
+            if (!string.IsNullOrEmpty(cultureName))
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureName);
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(MainForm));
+            resources.ApplyResources(this, "$this");
+            applyResources(resources, Controls);
+            if (!string.IsNullOrEmpty(languageCode))
+                SetLanguage(languageCode);
+            applyTexts?.Invoke();
+            try { RetrieveMOTD(); }
+            catch { }
+
+            // Enable The Score music by default if file exists
+            if (File.Exists($"!ContraXBeta2_MusicTheScore.ctr") || File.Exists($"!ContraXBeta2_MusicTheScore.big"))
+            {
+                MTheScore.Checked = true;
+            }
+        }
+
+        private void OpenByLanguage(string enUrl, string ruUaUrl, string bgUrl, string deUrl = null)
+        {
+            string chosen = ChooseByLanguage(enUrl, ruUaUrl, ruUaUrl, bgUrl, deUrl ?? enUrl);
+            Url_open(chosen);
+        }
+
+        public async Task GetLauncherUpdate(string versionsTXT, string launcher_url)
         {
             string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
             newVersion = launcher_ver.Substring(0, launcher_ver.IndexOf("$"));
@@ -157,15 +224,14 @@ namespace Contra
             {
                 try
                 {
-                    var updatePendingText = new Dictionary<Tuple<string, string>, bool>
-                    {
-                        { Tuple.Create($"Contra Launcher version {newVersion} is available! Click OK to update and restart!", "Update Available"), Globals.GB_Checked},
-                        { Tuple.Create($"Версия Contra Launcher {newVersion} доступна! Нажмите «ОК», чтобы обновить и перезапустить!", "Доступно обновление"), Globals.RU_Checked},
-                        { Tuple.Create($"Версія Contra Launcher {newVersion} доступна! Натисніть кнопку ОК, щоб оновити та перезапустити!", "Доступне оновлення"), Globals.UA_Checked},
-                        { Tuple.Create($"Contra Launcher версия {newVersion} е достъпна! Щракнете OK, за да обновите и рестартирате!", "Достъпна е актуализация"), Globals.BG_Checked},
-                        { Tuple.Create($"Contra Launcher version {newVersion} ist verfьgbar! Klicke OK zum aktualisieren und neu starten!", "Aktualisierung verfьgbar"), Globals.DE_Checked},
-                    }.Single(l => l.Value).Key;
-                    MessageBox.Show(new Form { TopMost = true }, updatePendingText.Item1, updatePendingText.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    var pendingText = ChooseByLanguage(
+                        Tuple.Create($"Contra Launcher version {newVersion} is available! Click OK to update and restart!", "Update Available"),
+                        Tuple.Create($"Версия Contra Launcher {newVersion} доступна! Нажмите «ОК», чтобы обновить и перезапустить!", "Доступно обновление"),
+                        Tuple.Create($"Версія Contra Launcher {newVersion} доступна! Натисніть кнопку ОК, щоб оновити та перезапустити!", "Доступне оновлення"),
+                        Tuple.Create($"Contra Launcher версия {newVersion} е достъпна! Щракнете OK, за да обновите и рестартирате!", "Достъпна е актуализация"),
+                        Tuple.Create($"Contra Launcher version {newVersion} ist verfьgbar! Klicke OK zum aktualisieren und neu starten!", "Aktualisierung verfьgbar")
+                    );
+                    ShowTopMostInfo(pendingText.Item1, pendingText.Item2);
 
                     await DownloadFile(zip_url, zip_path, TimeSpan.FromMinutes(5), httpCancellationToken.Token);
 
@@ -182,19 +248,18 @@ namespace Contra
                     applyNewLauncher = true;
 
                     // Show a message when the launcher download has completed
-                    var updateDoneText = new Dictionary<Tuple<string, string>, bool>
-                    {
-                        { Tuple.Create("Your application is now up-to-date!\n\nThe application will now restart!", "Update Complete"), Globals.GB_Checked},
-                        { Tuple.Create("Ваше приложение теперь обновлено!\n\nПриложение будет перезагружено!", "Обновление завершено"), Globals.RU_Checked},
-                        { Tuple.Create("Ваша готова до оновлення!\n\nПрограма буде перезавантажена!", "Оновлення завершено"), Globals.UA_Checked},
-                        { Tuple.Create("Приложението е вече обновено!\n\nСега ще се рестартира!", "Обновяването е завършено"), Globals.BG_Checked},
-                        { Tuple.Create("Ihr Programm ist jetzt auf dem neuesten Stand!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen"), Globals.DE_Checked},
-                    }.Single(l => l.Value).Key;
-                    MessageBox.Show(new Form { TopMost = true }, updateDoneText.Item1, updateDoneText.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    var doneText = ChooseByLanguage(
+                        Tuple.Create("Your application is now up-to-date!\n\nThe application will now restart!", "Update Complete"),
+                        Tuple.Create("Ваше приложение теперь обновлено!\n\nПриложение будет перезагружено!", "Обновление завершено"),
+                        Tuple.Create("Ваша готова до оновлення!\n\nПрограма буде перезавантажена!", "Оновлення завершено"),
+                        Tuple.Create("Приложението е вече обновено!\n\nСега ще се рестартира!", "Обновяването е завършено"),
+                        Tuple.Create("Ihr Programm ist jetzt auf dem neuesten Stand!\n\nDas Programm wird sich jetzt neu starten!", "Aktualisierung abgeschlossen")
+                    );
+                    ShowTopMostInfo(doneText.Item1, doneText.Item2);
 
-                    //Close();
+                    // Force close the form and restart
+                    this.Close();
                     Application.Restart();
-                    Environment.Exit(0);
                 }
                 catch (OperationCanceledException)
                 {
@@ -212,12 +277,15 @@ namespace Contra
             }
         }
 
-        private void UpdateLogic()
+        private async Task UpdateLogic()
         {
-            string versionsTXT = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString(versions_url);
+            await httpSemaphore.WaitAsync();
+            try
+            {
+                string versionsTXT = await httpclient.GetStringAsync(versions_url);
 
             // Update launcher
-            GetLauncherUpdate(versionsTXT, launcher_url);
+            await GetLauncherUpdate(versionsTXT, launcher_url);
 
             // Update patch
             string launcher_ver = versionsTXT.Substring(versionsTXT.LastIndexOf("Launcher: ") + 10);
@@ -239,14 +307,32 @@ namespace Contra
 
             ////Load MOTD
             //new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
+            }
+            finally
+            {
+                httpSemaphore.Release();
+            }
         }
 
-        private void RetrieveMOTD()
+        private async void RetrieveMOTD()
         {
-            string versionsTXT = (new WebClient { Encoding = Encoding.UTF8 }).DownloadString(versions_url);
+            await httpSemaphore.WaitAsync();
+            try
+            {
+                string versionsTXT = await httpclient.GetStringAsync(versions_url);
 
-            //Load MOTD
-            new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
+                //Load MOTD
+                new Thread(() => ThreadProcSafeMOTD(versionsTXT)) { IsBackground = true }.Start();
+            }
+            catch (Exception ex)
+            {
+                // Silently handle HTTP errors to avoid interrupting the user
+                System.Diagnostics.Debug.WriteLine($"RetrieveMOTD error: {ex.Message}");
+            }
+            finally
+            {
+                httpSemaphore.Release();
+            }
         }
 
         private void applyResources(ComponentResourceManager resources, Control.ControlCollection ctls)
@@ -258,42 +344,35 @@ namespace Contra
             }
         }
 
+        string verString;
+        string yearString = "2025";
+
         private void RadioFlag_GB_CheckedChanged(object sender, EventArgs e)
         {
             if (RadioFlag_GB.Checked)
             {
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-                ComponentResourceManager resources = new ComponentResourceManager(typeof(MainForm));
-                resources.ApplyResources(this, "$this");
-                applyResources(resources, Controls);
-                Globals.BG_Checked = false;
-                Globals.RU_Checked = false;
-                Globals.UA_Checked = false;
-                Globals.DE_Checked = false;
-                Globals.GB_Checked = true;
-                Globals.currentLanguage = "EN";
-                toolTip1.SetToolTip(RadioLocQuotes, "Units of all three factions will speak English.");
-                toolTip1.SetToolTip(RadioOrigQuotes, "Each faction's units will speak their native language.");
-                toolTip1.SetToolTip(RadioEN, "English in-game language.");
-                toolTip1.SetToolTip(RadioRU, "Russian in-game language.");
-                toolTip1.SetToolTip(MNew, "Use new soundtracks.");
-                toolTip1.SetToolTip(MStandard, "Use standard Zero Hour soundtracks.");
-                toolTip1.SetToolTip(DefaultPics, "Use default general portraits.");
-                toolTip1.SetToolTip(GoofyPics, "Use funny general portraits.");
-                toolTip1.SetToolTip(WinCheckBox, "Starts Contra in a window instead of full screen.");
-                toolTip1.SetToolTip(QSCheckBox, "Disables intro and shellmap (game starts up faster).");
-                toolTip1.SetToolTip(DonateBtn, "Make a donation.");
-                currentFileLabel = "File: ";
-                ModDLLabel.Text = "Download progress: ";
-                CancelModDLBtn.Text = "Cancel";
-
-                string verString = "X Beta";
-                string yearString = "2023";
-                versionLabel.Text = "Contra Project Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
-
-                // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
-                try { RetrieveMOTD(); }
-                catch { }
+                ApplyLanguageSelection("en-US", "EN", () =>
+                {
+                    toolTip1.SetToolTip(RadioLocQuotes, "Units of all three factions will speak English.");
+                    toolTip1.SetToolTip(RadioOrigQuotes, "Each faction's units will speak their native language.");
+                    toolTip1.SetToolTip(RadioEN, "English in-game language.");
+                    toolTip1.SetToolTip(RadioRU, "Russian in-game language.");
+                    toolTip1.SetToolTip(MNew, "Use \"Enhanced\" soundtrack by Charlie Lockwood.");
+                    toolTip1.SetToolTip(MStandard, "Use the standard Zero Hour soundtrack.");
+                    toolTip1.SetToolTip(MTheScore, "Use \"The Score\" soundtrack by Daniel Marcello.");
+                    toolTip1.SetToolTip(DefaultPics, "Use default general portraits.");
+                    toolTip1.SetToolTip(GoofyPics, "Use funny general portraits.");
+                    toolTip1.SetToolTip(WinCheckBox, "Starts Contra in a window instead of full screen.");
+                    toolTip1.SetToolTip(QSCheckBox, "Disables intro and shellmap (game starts up faster).");
+                    toolTip1.SetToolTip(DonateBtn, "Donate to Contra Project Team.");
+                    toolTip1.SetToolTip(linkYouTubePred, "Visit PredatoR's YouTube channel.");
+                    toolTip1.SetToolTip(linkYouTubeDce, "Visit dce's YouTube channel.");
+                    currentFileLabel = "File: ";
+                    ModDLLabel.Text = "Download progress: ";
+                    CancelModDLBtn.Text = "Cancel";
+                    verString = (betaPrefix == "ContraXBeta") ? "X Beta" : "X Beta 2";
+                    versionLabel.Text = "Contra Project Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
+                });
             }
         }
 
@@ -301,62 +380,52 @@ namespace Contra
         {
             if (RadioFlag_RU.Checked)
             {
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("ru-RU");
-                ComponentResourceManager resources = new ComponentResourceManager(typeof(MainForm));
-                resources.ApplyResources(this, "$this");
-                applyResources(resources, Controls);
-                Globals.GB_Checked = false;
-                Globals.BG_Checked = false;
-                Globals.UA_Checked = false;
-                Globals.DE_Checked = false;
-                Globals.RU_Checked = true;
-                Globals.currentLanguage = "RU";
-                toolTip1.SetToolTip(RadioLocQuotes, "Юниты всех трех фракций будут разговаривать на английском.");
-                toolTip1.SetToolTip(RadioOrigQuotes, "Юниты каждой фракции будут разговаривать на их родном языке.");
-                toolTip1.SetToolTip(RadioEN, "Английский язык.");
-                toolTip1.SetToolTip(RadioRU, "Русский язык.");
-                toolTip1.SetToolTip(MNew, "Включить новые саундтреки.");
-                toolTip1.SetToolTip(MStandard, "Включить стандартные саундтреки Zero Hour.");
-                toolTip1.SetToolTip(DefaultPics, "Включить портреты Генералов по умолчанию.");
-                toolTip1.SetToolTip(GoofyPics, "Включить смешные портреты Генералов.");
-                toolTip1.SetToolTip(WinCheckBox, "Запуск Contra в режиме окна вместо полноэкранного.");
-                toolTip1.SetToolTip(QSCheckBox, "Отключает интро и шелмапу (игра запускается быстрее).");
-                toolTip1.SetToolTip(DonateBtn, "Дарить команду проекта.");
-                RadioLocQuotes.Text = "Англ.";
-                RadioOrigQuotes.Text = "Родные";
-                MNew.Text = "Новая";
-                DefaultPics.Text = MStandard.Text = "Стандарт.";
-                WinCheckBox.Text = "Режим окна"; /*WinCheckBox.Left = 254;*/
-                QSCheckBox.Text = "Быстр. старт"; /*QSCheckBox.Left = 254;*/
-                RadioEN.Text = "Англ.";
-                RadioRU.Text = "Русский";
-                GoofyPics.Text = "Специал.";
-                LaunchBtn.Text = "ЗАПУСК";
-                OptionsBtn.Text = "НАСТРОЙКИ";
-                WBBtn.Text = "РЕДАКТОР КАРТ";
-                ExitBtn.Text = "ВЫХОД";
-                DonateBtn.Text = "ПОДДЕРЖАТЬ";
-                currentFileLabel = "Файл: ";
-                ModDLLabel.Text = "Прогресс загрузки: ";
-                CancelModDLBtn.Text = "Отмена";
-                onlineInstructionsLabel.Text = "Как играть по сети?";
-                replaysLabel.Text = "Повторы игр";
-                customAddonsLabel.Text = "Карты и дополнения";
-                supportLabel.Text = "У меня проблема";
-                GameFolderLabel.Text = "Игра";
-                DataFolderLabel.Text = "Данные";
-                UnitVoicesLabel.Text = "Голоса";
-                LanguageLabel.Text = "Язык";
-                MusicLabel.Text = "Музыка";
-                PortraitsLabel.Text = "Портреты";
-
-                string verString = "X Бета";
-                string yearString = "2023";
-                versionLabel.Text = "Contra Project Team " + yearString + " - Версия " + verString + " - Launcher: " + Application.ProductVersion;
-
-                // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
-                try { RetrieveMOTD(); }
-                catch { }
+                ApplyLanguageSelection("ru-RU", "RU", () =>
+                {
+                    toolTip1.SetToolTip(RadioLocQuotes, "Юниты всех трех фракций будут разговаривать на английском.");
+                    toolTip1.SetToolTip(RadioOrigQuotes, "Юниты каждой фракции будут разговаривать на их родном языке.");
+                    toolTip1.SetToolTip(RadioEN, "Английский язык.");
+                    toolTip1.SetToolTip(RadioRU, "Русский язык.");
+                    toolTip1.SetToolTip(MNew, "Используйте саундтрек «Enhanced» Чарли Локвуда.");
+                    toolTip1.SetToolTip(MStandard, "Используйте стандартный саундтрек Zero Hour.");
+                    toolTip1.SetToolTip(MTheScore, "Используйте саундтрек «The Score» Дэниела Марчелло.");
+                    toolTip1.SetToolTip(DefaultPics, "Включить портреты Генералов по умолчанию.");
+                    toolTip1.SetToolTip(GoofyPics, "Включить смешные портреты Генералов.");
+                    toolTip1.SetToolTip(WinCheckBox, "Запуск Contra в режиме окна вместо полноэкранного.");
+                    toolTip1.SetToolTip(QSCheckBox, "Отключает интро и шелмапу (игра запускается быстрее).");
+                    toolTip1.SetToolTip(DonateBtn, "Дарить команду проекта.");
+                    toolTip1.SetToolTip(linkYouTubePred, "Посетите канал PredatoR на YouTube.");
+                    toolTip1.SetToolTip(linkYouTubeDce, "Посетите канал Dce на YouTube.");
+                    RadioLocQuotes.Text = "Англ.";
+                    RadioOrigQuotes.Text = "Родные";
+                    //MNew.Text = "Новая";
+                    DefaultPics.Text = MStandard.Text = "Стандарт.";
+                    WinCheckBox.Text = "Режим окна"; /*WinCheckBox.Left = 254;*/
+                    QSCheckBox.Text = "Быстр. старт"; /*QSCheckBox.Left = 254;*/
+                    RadioEN.Text = "Англ.";
+                    RadioRU.Text = "Русский";
+                    GoofyPics.Text = "Специал.";
+                    LaunchBtn.Text = "ЗАПУСК";
+                    OptionsBtn.Text = "НАСТРОЙКИ";
+                    WBBtn.Text = "РЕДАКТОР КАРТ";
+                    ExitBtn.Text = "ВЫХОД";
+                    DonateBtn.Text = "ПОДДЕРЖАТЬ";
+                    currentFileLabel = "Файл: ";
+                    ModDLLabel.Text = "Прогресс загрузки: ";
+                    CancelModDLBtn.Text = "Отмена";
+                    onlineInstructionsLabel.Text = "Как играть по сети?";
+                    replaysLabel.Text = "Повторы игр";
+                    customAddonsLabel.Text = "Карты и дополнения";
+                    supportLabel.Text = "У меня проблема";
+                    GameFolderLabel.Text = "Игра";
+                    DataFolderLabel.Text = "Данные";
+                    UnitVoicesLabel.Text = "Голоса";
+                    LanguageLabel.Text = "Язык";
+                    MusicLabel.Text = "Музыка";
+                    PortraitsLabel.Text = "Портреты";
+                    verString = (betaPrefix == "ContraXBeta") ? "X Бета" : "X Бета 2";
+                    versionLabel.Text = "Contra Project Team " + yearString + " - Версия " + verString + " - Launcher: " + Application.ProductVersion;
+                });
             }
         }
 
@@ -364,62 +433,52 @@ namespace Contra
         {
             if (RadioFlag_UA.Checked)
             {
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("uk-UA");
-                ComponentResourceManager resources = new ComponentResourceManager(typeof(MainForm));
-                resources.ApplyResources(this, "$this");
-                applyResources(resources, Controls);
-                Globals.GB_Checked = false;
-                Globals.RU_Checked = false;
-                Globals.BG_Checked = false;
-                Globals.DE_Checked = false;
-                Globals.UA_Checked = true;
-                Globals.currentLanguage = "UA";
-                toolTip1.SetToolTip(RadioLocQuotes, "Юніти всіх трьох фракцій розмовлятимуть англійською.");
-                toolTip1.SetToolTip(RadioOrigQuotes, "Юніти кожної фракції розмовлятимуть їхньою рідною мовою.");
-                toolTip1.SetToolTip(RadioEN, "Англійська мова.");
-                toolTip1.SetToolTip(RadioRU, "Російська мова.");
-                toolTip1.SetToolTip(MNew, "Використовуйте нові саундтреки.");
-                toolTip1.SetToolTip(MStandard, "Використовуйте стандартні саундтреки Zero Hour.");
-                toolTip1.SetToolTip(DefaultPics, "Використовуйте портрети Генералів за замовчуванням.");
-                toolTip1.SetToolTip(GoofyPics, "Використовуйте смішні портрети Генералів.");
-                toolTip1.SetToolTip(WinCheckBox, "Запускає Contra у віконному режимі замість повноекранного.");
-                toolTip1.SetToolTip(QSCheckBox, "Вимикає інтро і шелмапу (гра запускається швидше).");
-                toolTip1.SetToolTip(DonateBtn, "Дарить команду проекту.");
-                RadioLocQuotes.Text = "Англ.";
-                RadioOrigQuotes.Text = "Рідні";
-                MNew.Text = "Нова";
-                DefaultPics.Text = MStandard.Text = "Стандарт.";
-                WinCheckBox.Text = "Віконний";
-                QSCheckBox.Text = "Шв. старт";
-                RadioEN.Text = "Англ.";
-                RadioRU.Text = "Рос.";
-                GoofyPics.Text = "Спеціал.";
-                LaunchBtn.Text = "ЗАПУСК";
-                OptionsBtn.Text = "НАСТРОЙКИ";
-                WBBtn.Text = "РЕДАКТОР КАРТИ";
-                ExitBtn.Text = "ВИХІД";
-                DonateBtn.Text = "ПІДТРИМАТИ";
-                currentFileLabel = "Файл: ";
-                ModDLLabel.Text = "Прогрес завантаження: ";
-                CancelModDLBtn.Text = "Скасувати";
-                onlineInstructionsLabel.Text = "Як грати по мережі?";
-                replaysLabel.Text = "Повтори гри";
-                customAddonsLabel.Text = "Карти та доповнення";
-                supportLabel.Text = "У мене є проблема";
-                GameFolderLabel.Text = "Гра";
-                DataFolderLabel.Text = "Даних";
-                UnitVoicesLabel.Text = "Голоси";
-                LanguageLabel.Text = "Мову";
-                MusicLabel.Text = "Музика";
-                PortraitsLabel.Text = "Портрети";
-
-                string verString = "X Бета";
-                string yearString = "2023";
-                versionLabel.Text = "Contra Project Team " + yearString + " - Версія " + verString + " - Launcher: " + Application.ProductVersion;
-
-                // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
-                try { RetrieveMOTD(); }
-                catch { }
+                ApplyLanguageSelection("uk-UA", "UA", () =>
+                {
+                    toolTip1.SetToolTip(RadioLocQuotes, "Юніти всіх трьох фракцій розмовлятимуть англійською.");
+                    toolTip1.SetToolTip(RadioOrigQuotes, "Юніти кожної фракції розмовлятимуть їхньою рідною мовою.");
+                    toolTip1.SetToolTip(RadioEN, "Англійська мова.");
+                    toolTip1.SetToolTip(RadioRU, "Російська мова.");
+                    toolTip1.SetToolTip(MNew, "Використовуйте саундтрек «Enhanced» Чарлі Локвуда.");
+                    toolTip1.SetToolTip(MStandard, "Використовуйте стандартний саундтрек Zero Hour.");
+                    toolTip1.SetToolTip(MTheScore, "Використовуйте саундтрек «The Score» Даніеля Марчелло.");
+                    toolTip1.SetToolTip(DefaultPics, "Використовуйте портрети Генералів за замовчуванням.");
+                    toolTip1.SetToolTip(GoofyPics, "Використовуйте смішні портрети Генералів.");
+                    toolTip1.SetToolTip(WinCheckBox, "Запускає Contra у віконному режимі замість повноекранного.");
+                    toolTip1.SetToolTip(QSCheckBox, "Вимикає інтро і шелмапу (гра запускається швидше).");
+                    toolTip1.SetToolTip(DonateBtn, "Дарить команду проекту.");
+                    toolTip1.SetToolTip(linkYouTubePred, "Відвідайте YouTube-канал PredatoR.");
+                    toolTip1.SetToolTip(linkYouTubeDce, "Відвідайте YouTube-канал Dce.");
+                    RadioLocQuotes.Text = "Англ.";
+                    RadioOrigQuotes.Text = "Рідні";
+                    //MNew.Text = "Нова";
+                    DefaultPics.Text = MStandard.Text = "Стандарт.";
+                    WinCheckBox.Text = "Віконний";
+                    QSCheckBox.Text = "Шв. старт";
+                    RadioEN.Text = "Англ.";
+                    RadioRU.Text = "Рос.";
+                    GoofyPics.Text = "Спеціал.";
+                    LaunchBtn.Text = "ЗАПУСК";
+                    OptionsBtn.Text = "НАСТРОЙКИ";
+                    WBBtn.Text = "РЕДАКТОР КАРТИ";
+                    ExitBtn.Text = "ВИХІД";
+                    DonateBtn.Text = "ПІДТРИМАТИ";
+                    currentFileLabel = "Файл: ";
+                    ModDLLabel.Text = "Прогрес завантаження: ";
+                    CancelModDLBtn.Text = "Скасувати";
+                    onlineInstructionsLabel.Text = "Як грати по мережі?";
+                    replaysLabel.Text = "Повтори гри";
+                    customAddonsLabel.Text = "Карти та доповнення";
+                    supportLabel.Text = "У мене є проблема";
+                    GameFolderLabel.Text = "Гра";
+                    DataFolderLabel.Text = "Даних";
+                    UnitVoicesLabel.Text = "Голоси";
+                    LanguageLabel.Text = "Мову";
+                    MusicLabel.Text = "Музика";
+                    PortraitsLabel.Text = "Портрети";
+                    verString = (betaPrefix == "ContraXBeta") ? "X Бета" : "X Бета 2";
+                    versionLabel.Text = "Contra Project Team " + yearString + " - Версія " + verString + " - Launcher: " + Application.ProductVersion;
+                });
             }
         }
 
@@ -427,62 +486,52 @@ namespace Contra
         {
             if (RadioFlag_BG.Checked)
             {
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("bg-BG");
-                ComponentResourceManager resources = new ComponentResourceManager(typeof(MainForm));
-                resources.ApplyResources(this, "$this");
-                applyResources(resources, Controls);
-                Globals.GB_Checked = false;
-                Globals.RU_Checked = false;
-                Globals.UA_Checked = false;
-                Globals.DE_Checked = false;
-                Globals.BG_Checked = true;
-                Globals.currentLanguage = "BG";
-                toolTip1.SetToolTip(RadioLocQuotes, "Единиците на трите фракции ще говорят на английски.");
-                toolTip1.SetToolTip(RadioOrigQuotes, "Единиците на трите фракции ще говорят на техния роден език.");
-                toolTip1.SetToolTip(RadioEN, "Английски език в играта.");
-                toolTip1.SetToolTip(RadioRU, "Руски език в играта.");
-                toolTip1.SetToolTip(MNew, "Използвайте новата музика.");
-                toolTip1.SetToolTip(MStandard, "Използвайте стандартната музика в Zero Hour.");
-                toolTip1.SetToolTip(DefaultPics, "Използвайте оригиналните генералски портрети.");
-                toolTip1.SetToolTip(GoofyPics, "Използвайте забавните генералски портрети.");
-                toolTip1.SetToolTip(WinCheckBox, "Стартира Contra в нов прозорец вместо на цял екран.");
-                toolTip1.SetToolTip(QSCheckBox, "Изключва интрото и анимираната карта (шелмапа). Играта стартира по-бързо.");
-                toolTip1.SetToolTip(DonateBtn, "Направете дарение.");
-                RadioLocQuotes.Text = "Англ.";
-                RadioOrigQuotes.Text = "Родни";
-                MNew.Text = "Нова";
-                DefaultPics.Text = MStandard.Text = "Стандарт.";
-                WinCheckBox.Text = "В прозорец"; /*WinCheckBox.Left = 267;*/
-                QSCheckBox.Text = "Бърз старт"; /*QSCheckBox.Left = 267;*/
-                RadioEN.Text = "Англ.";
-                RadioRU.Text = "Руски";
-                GoofyPics.Text = "Специал.";
-                LaunchBtn.Text = "СТАРТИРАНЕ";
-                OptionsBtn.Text = "НАСТРОЙКИ";
-                WBBtn.Text = "КАРТОВ РЕДАКТОР";
-                ExitBtn.Text = "ИЗХОД";
-                DonateBtn.Text = "ПОДКРЕПИ";
-                currentFileLabel = "Файл: ";
-                ModDLLabel.Text = "Прогрес на изтегляне: ";
-                CancelModDLBtn.Text = "Отмени";
-                onlineInstructionsLabel.Text = "Как да играя онлайн?";
-                replaysLabel.Text = "Игрови повторения";
-                customAddonsLabel.Text = "Карти и добавки";
-                supportLabel.Text = "Имам проблем";
-                GameFolderLabel.Text = "Игра";
-                DataFolderLabel.Text = "Данни";
-                UnitVoicesLabel.Text = "Гласове";
-                LanguageLabel.Text = "Език";
-                MusicLabel.Text = "Музика";
-                PortraitsLabel.Text = "Портрети";
-
-                string verString = "X Бета";
-                string yearString = "2023";
-                versionLabel.Text = "Contra Екип " + yearString + " - Версия " + verString + " - Launcher: " + Application.ProductVersion;
-
-                // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
-                try { RetrieveMOTD(); }
-                catch { }
+                ApplyLanguageSelection("bg-BG", "BG", () =>
+                {
+                    toolTip1.SetToolTip(RadioLocQuotes, "Единиците на трите фракции ще говорят на английски.");
+                    toolTip1.SetToolTip(RadioOrigQuotes, "Единиците на трите фракции ще говорят на техния роден език.");
+                    toolTip1.SetToolTip(RadioEN, "Английски език в играта.");
+                    toolTip1.SetToolTip(RadioRU, "Руски език в играта.");
+                    toolTip1.SetToolTip(MNew, "Използвайте „Enhanced“ саундтрака от Чарли Локууд.");
+                    toolTip1.SetToolTip(MStandard, "Използвайте стандартната музика в Zero Hour.");
+                    toolTip1.SetToolTip(MTheScore, "Използвайте „The Score“ саундтрака от Даниел Марчело.");
+                    toolTip1.SetToolTip(DefaultPics, "Използвайте оригиналните генералски портрети.");
+                    toolTip1.SetToolTip(GoofyPics, "Използвайте забавните генералски портрети.");
+                    toolTip1.SetToolTip(WinCheckBox, "Стартира Contra в нов прозорец вместо на цял екран.");
+                    toolTip1.SetToolTip(QSCheckBox, "Изключва интрото и анимираната карта (шелмапа). Играта стартира по-бързо.");
+                    toolTip1.SetToolTip(DonateBtn, "Направете дарение към разработчиците.");
+                    toolTip1.SetToolTip(linkYouTubePred, "Посетете YouTube канала на PredatoR.");
+                    toolTip1.SetToolTip(linkYouTubeDce, "Посетете YouTube канала на Dce.");
+                    RadioLocQuotes.Text = "Англ.";
+                    RadioOrigQuotes.Text = "Родни";
+                    //MNew.Text = "Нова";
+                    DefaultPics.Text = MStandard.Text = "Стандарт.";
+                    WinCheckBox.Text = "В прозорец"; /*WinCheckBox.Left = 267;*/
+                    QSCheckBox.Text = "Бърз старт"; /*QSCheckBox.Left = 267;*/
+                    RadioEN.Text = "Англ.";
+                    RadioRU.Text = "Руски";
+                    GoofyPics.Text = "Специал.";
+                    LaunchBtn.Text = "СТАРТИРАНЕ";
+                    OptionsBtn.Text = "НАСТРОЙКИ";
+                    WBBtn.Text = "КАРТОВ РЕДАКТОР";
+                    ExitBtn.Text = "ИЗХОД";
+                    DonateBtn.Text = "ПОДКРЕПИ";
+                    currentFileLabel = "Файл: ";
+                    ModDLLabel.Text = "Прогрес на изтегляне: ";
+                    CancelModDLBtn.Text = "Отмени";
+                    onlineInstructionsLabel.Text = "Как да играя онлайн?";
+                    replaysLabel.Text = "Игрови повторения";
+                    customAddonsLabel.Text = "Карти и добавки";
+                    supportLabel.Text = "Имам проблем";
+                    GameFolderLabel.Text = "Игра";
+                    DataFolderLabel.Text = "Данни";
+                    UnitVoicesLabel.Text = "Гласове";
+                    LanguageLabel.Text = "Език";
+                    MusicLabel.Text = "Музика";
+                    PortraitsLabel.Text = "Портрети";
+                    verString = (betaPrefix == "ContraXBeta") ? "X Бета" : "X Бета 2";
+                    versionLabel.Text = "Contra Екип " + yearString + " - Версия " + verString + " - Launcher: " + Application.ProductVersion;
+                });
             }
         }
 
@@ -490,64 +539,54 @@ namespace Contra
         {
             if (RadioFlag_DE.Checked)
             {
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("de-DE");
-                ComponentResourceManager resources = new ComponentResourceManager(typeof(MainForm));
-                resources.ApplyResources(this, "$this");
-                applyResources(resources, Controls);
-                Globals.GB_Checked = false;
-                Globals.RU_Checked = false;
-                Globals.UA_Checked = false;
-                Globals.BG_Checked = false;
-                Globals.DE_Checked = true;
-                Globals.currentLanguage = "DE";
-                toolTip1.SetToolTip(RadioLocQuotes, "Einheiten von allen drei Fraktionen werden Englisch sprechen.");
-                toolTip1.SetToolTip(RadioOrigQuotes, "Die Einheiten jeder Fraktion sprechen ihre Muttersprache.");
-                toolTip1.SetToolTip(RadioEN, "Englische in-game Sprache.");
-                toolTip1.SetToolTip(RadioRU, "Russische in-game Sprache.");
-                toolTip1.SetToolTip(MNew, "Verwende den neuen Soundtrack.");
-                toolTip1.SetToolTip(MStandard, "Verwende den Standard Zero Hour Soundtrack.");
-                toolTip1.SetToolTip(DefaultPics, "Verwende normale General Portraits.");
-                toolTip1.SetToolTip(GoofyPics, "Verwende lustige General Portraits.");
-                toolTip1.SetToolTip(WinCheckBox, "Startet Contra in einem Fenster anstatt im Vollbild.");
-                toolTip1.SetToolTip(QSCheckBox, "Deaktiviert das Intro und die shellmap (Spiel startet schneller).");
-                toolTip1.SetToolTip(DonateBtn, "Spende an das Contra-Team.");
-                //VoicesGroupBox.Left = 260;
-                //VoicesGroupBox.Size = new Size(95, 61);
-                RadioLocQuotes.Text = "Englisch"; /*RadioLocQuotes.Left = 0;*/
-                RadioOrigQuotes.Text = "Einheim."; /*RadioOrigQuotes.Left = 0;*/
-                MNew.Text = "Neu";
-                DefaultPics.Text = MStandard.Text = "Standard";
-                WinCheckBox.Text = "Fenstermodus"; WinCheckBox.Left = 400;
-                QSCheckBox.Text = "Schnellstart"; /*QSCheckBox.Left = 260;*/
-                RadioEN.Text = "Englisch";
-                RadioRU.Text = "Russisch";
-                GoofyPics.Text = "Spezial";
-                LaunchBtn.Text = "STARTEN";
-                OptionsBtn.Text = "OPTIONEN";
-                WBBtn.Text = "KARTENEDITOR";
-                ExitBtn.Text = "AUSFAHRT";
-                DonateBtn.Text = "UNTERSTÜTZE";
-                currentFileLabel = "Datei: ";
-                ModDLLabel.Text = "Downloadfortschritt: ";
-                CancelModDLBtn.Text = "Stornieren";
-                onlineInstructionsLabel.Text = "Wie spiele ich online?";
-                replaysLabel.Text = "Spielwiederholungen";
-                customAddonsLabel.Text = "Karten und Addons";
-                supportLabel.Text = "Ich habe ein Problem";
-                GameFolderLabel.Text = "Spiel";
-                DataFolderLabel.Text = "Daten";
-                UnitVoicesLabel.Text = "Stimmen";
-                LanguageLabel.Text = "Sprache";
-                MusicLabel.Text = "Musik";
-                PortraitsLabel.Text = "Porträts";
-
-                string verString = "X Beta";
-                string yearString = "2023";
-                versionLabel.Text = "Contra Projekt Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
-
-                // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
-                try { RetrieveMOTD(); }
-                catch { }
+                ApplyLanguageSelection("de-DE", "DE", () =>
+                {
+                    toolTip1.SetToolTip(RadioLocQuotes, "Einheiten von allen drei Fraktionen werden Englisch sprechen.");
+                    toolTip1.SetToolTip(RadioOrigQuotes, "Die Einheiten jeder Fraktion sprechen ihre Muttersprache.");
+                    toolTip1.SetToolTip(RadioEN, "Englische in-game Sprache.");
+                    toolTip1.SetToolTip(RadioRU, "Russische in-game Sprache.");
+                    toolTip1.SetToolTip(MNew, "Verwenden Sie den Soundtrack „Enhanced“ von Charlie Lockwood.");
+                    toolTip1.SetToolTip(MStandard, "Verwende den Standard Zero Hour Soundtrack.");
+                    toolTip1.SetToolTip(MTheScore, "Verwenden Sie den Soundtrack „The Score“ von Daniel Marcello.");
+                    toolTip1.SetToolTip(DefaultPics, "Verwende normale General Portraits.");
+                    toolTip1.SetToolTip(GoofyPics, "Verwende lustige General Portraits.");
+                    toolTip1.SetToolTip(WinCheckBox, "Startet Contra in einem Fenster anstatt im Vollbild.");
+                    toolTip1.SetToolTip(QSCheckBox, "Deaktiviert das Intro und die shellmap (Spiel startet schneller).");
+                    toolTip1.SetToolTip(DonateBtn, "Spende an das Contra-Team.");
+                    toolTip1.SetToolTip(linkYouTubePred, "Besuchen Sie den YouTube-Kanal von PredatoR.");
+                    toolTip1.SetToolTip(linkYouTubeDce, "Besuchen Sie den YouTube-Kanal von Dce.");
+                    //VoicesGroupBox.Left = 260;
+                    //VoicesGroupBox.Size = new Size(95, 61);
+                    RadioLocQuotes.Text = "Englisch"; /*RadioLocQuotes.Left = 0;*/
+                    RadioOrigQuotes.Text = "Einheim."; /*RadioOrigQuotes.Left = 0;*/
+                    //MNew.Text = "Neu";
+                    DefaultPics.Text = MStandard.Text = "Standard";
+                    WinCheckBox.Text = "Fenstermodus"; WinCheckBox.Left = 400;
+                    QSCheckBox.Text = "Schnellstart"; /*QSCheckBox.Left = 260;*/
+                    RadioEN.Text = "Englisch";
+                    RadioRU.Text = "Russisch";
+                    GoofyPics.Text = "Spezial";
+                    LaunchBtn.Text = "STARTEN";
+                    OptionsBtn.Text = "OPTIONEN";
+                    WBBtn.Text = "KARTENEDITOR";
+                    ExitBtn.Text = "AUSFAHRT";
+                    DonateBtn.Text = "UNTERSTÜTZE";
+                    currentFileLabel = "Datei: ";
+                    ModDLLabel.Text = "Downloadfortschritt: ";
+                    CancelModDLBtn.Text = "Stornieren";
+                    onlineInstructionsLabel.Text = "Wie spiele ich online?";
+                    replaysLabel.Text = "Spielwiederholungen";
+                    customAddonsLabel.Text = "Karten und Addons";
+                    supportLabel.Text = "Ich habe ein Problem";
+                    GameFolderLabel.Text = "Spiel";
+                    DataFolderLabel.Text = "Daten";
+                    UnitVoicesLabel.Text = "Stimmen";
+                    LanguageLabel.Text = "Sprache";
+                    MusicLabel.Text = "Musik";
+                    PortraitsLabel.Text = "Porträts";
+                    verString = (betaPrefix == "ContraXBeta") ? "X Beta" : "X Beta 2";
+                    versionLabel.Text = "Contra Projekt Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
+                });
             }
         }
 
@@ -622,9 +661,9 @@ namespace Contra
                         }.Single(l => l.Value).Key;
                     MessageBox.Show(new Form { TopMost = true }, updateDoneText.Item1, updateDoneText.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    //Close();
+                    // Force close the form and restart
+                    this.Close();
                     Application.Restart();
-                    Environment.Exit(0);
                 }
                 else
                 { }
@@ -644,7 +683,13 @@ namespace Contra
             }
         }
 
-        public static readonly HttpClient httpclient = new HttpClient();
+        public static readonly HttpClient httpclient = new HttpClient(new HttpClientHandler
+        {
+            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+        })
+        {
+            Timeout = TimeSpan.FromMinutes(5)
+        };
 
         public static Tuple<double, string> ByteToSizeType(long value)
         {
@@ -671,8 +716,8 @@ namespace Contra
 
         public async Task DownloadFile(string url, string outPath, TimeSpan timeout, CancellationToken cancellationToken = default)
         {
-            httpclient.Timeout = timeout;
-            var response = httpclient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead).Result;
+            // Use the default timeout set on the static HttpClient
+            var response = await httpclient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
             response.EnsureSuccessStatusCode();
 
             var contentLength = response.Content.Headers.ContentLength.GetValueOrDefault();
@@ -715,8 +760,8 @@ namespace Contra
 
         public static async Task DownloadFileSimple(string url, string outPath, TimeSpan timeout)
         {
-            httpclient.Timeout = timeout;
-            var response = httpclient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead).Result;
+            // Use the default timeout set on the static HttpClient
+            var response = await httpclient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
 
             using (var contentStream = new FileStream(outPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true))
@@ -787,15 +832,15 @@ namespace Contra
                 {
                     List<string> ctrs = new List<string>
                     {
-                        "!ContraXBeta_INI.ctr",
-                        "!ContraXBeta_Maps.ctr",
-                        "!ContraXBeta_AI.ctr",
-                        "!ContraXBeta_Terrain.ctr",
-                        "!ContraXBeta_Textures.ctr",
-                        "!ContraXBeta_W3D.ctr",
-                        "!ContraXBeta_Window.ctr",
-                        "!ContraXBeta_Audio.ctr",
-                        "!ContraXBeta_GameData.ctr",
+                        $"!{betaPrefix}_INI.ctr",
+                        $"!{betaPrefix}_Maps.ctr",
+                        $"!{betaPrefix}_AI.ctr",
+                        $"!{betaPrefix}_Terrain.ctr",
+                        $"!{betaPrefix}_Textures.ctr",
+                        $"!{betaPrefix}_W3D.ctr",
+                        $"!{betaPrefix}_Window.ctr",
+                        $"!{betaPrefix}_Audio.ctr",
+                        $"!{betaPrefix}_GameData.ctr",
                     };
                     foreach (string ctr in ctrs)
                     {
@@ -828,53 +873,69 @@ namespace Contra
                 //    else { return; }
                 //}
 
-                if (RadioOrigQuotes.Checked && File.Exists("!ContraXBeta_UnitVoicesNative.ctr"))
-                    File.Move("!ContraXBeta_UnitVoicesNative.ctr", "!ContraXBeta_UnitVoicesNative.big");
+                if (RadioOrigQuotes.Checked && File.Exists($"!{betaPrefix}_UnitVoicesNative.ctr"))
+                    File.Move($"!{betaPrefix}_UnitVoicesNative.ctr", $"!{betaPrefix}_UnitVoicesNative.big");
 
-                if (RadioLocQuotes.Checked && File.Exists("!ContraXBeta_UnitVoicesEnglish.ctr"))
-                    File.Move("!ContraXBeta_UnitVoicesEnglish.ctr", "!ContraXBeta_UnitVoicesEnglish.big");
+                if (RadioLocQuotes.Checked && File.Exists($"!{betaPrefix}_UnitVoicesEnglish.ctr"))
+                    File.Move($"!{betaPrefix}_UnitVoicesEnglish.ctr", $"!{betaPrefix}_UnitVoicesEnglish.big");
 
-                if (RadioEN.Checked && (Properties.Settings.Default.LeikezeHotkeys == true) && File.Exists("!ContraXBeta_HotkeysLeikeze_English.ctr"))
-                    File.Move("!ContraXBeta_HotkeysLeikeze_English.ctr", "!ContraXBeta_HotkeysLeikeze_English.big");
-                else if (RadioEN.Checked && (Properties.Settings.Default.LegacyHotkeys == true) && File.Exists("!ContraXBeta_HotkeysOriginal_English.ctr"))
-                    File.Move("!ContraXBeta_HotkeysOriginal_English.ctr", "!ContraXBeta_HotkeysOriginal_English.big");
+                if (RadioEN.Checked && (Properties.Settings.Default.LeikezeHotkeys == true) && File.Exists($"!{betaPrefix}_HotkeysLeikeze_English.ctr"))
+                    File.Move($"!{betaPrefix}_HotkeysLeikeze_English.ctr", $"!{betaPrefix}_HotkeysLeikeze_English.big");
+                else if (RadioEN.Checked && (Properties.Settings.Default.LegacyHotkeys == true) && File.Exists($"!{betaPrefix}_HotkeysOriginal_English.ctr"))
+                    File.Move($"!{betaPrefix}_HotkeysOriginal_English.ctr", $"!{betaPrefix}_HotkeysOriginal_English.big");
 
-                if (RadioRU.Checked && (Properties.Settings.Default.LeikezeHotkeys == true) && File.Exists("!ContraXBeta_HotkeysLeikeze_Russian.ctr"))
-                    File.Move("!ContraXBeta_HotkeysLeikeze_Russian.ctr", "!ContraXBeta_HotkeysLeikeze_Russian.big");
-                else if (RadioRU.Checked && (Properties.Settings.Default.LegacyHotkeys == true) && File.Exists("!ContraXBeta_HotkeysOriginal_Russian.ctr"))
-                    File.Move("!ContraXBeta_HotkeysOriginal_Russian.ctr", "!ContraXBeta_HotkeysOriginal_Russian.big");
+                if (RadioRU.Checked && (Properties.Settings.Default.LeikezeHotkeys == true) && File.Exists($"!{betaPrefix}_HotkeysLeikeze_Russian.ctr"))
+                    File.Move($"!{betaPrefix}_HotkeysLeikeze_Russian.ctr", $"!{betaPrefix}_HotkeysLeikeze_Russian.big");
+                else if (RadioRU.Checked && (Properties.Settings.Default.LegacyHotkeys == true) && File.Exists($"!{betaPrefix}_HotkeysOriginal_Russian.ctr"))
+                    File.Move($"!{betaPrefix}_HotkeysOriginal_Russian.ctr", $"!{betaPrefix}_HotkeysOriginal_Russian.big");
 
-                if (MNew.Checked && File.Exists("!ContraXBeta_NewMusic.ctr"))
-                    File.Move("!ContraXBeta_NewMusic.ctr", "!ContraXBeta_NewMusic.big");
+                if (MNew.Checked && File.Exists($"!ContraXBeta_NewMusic.ctr"))
+                    File.Move($"!ContraXBeta_NewMusic.ctr", $"!ContraXBeta_NewMusic.big");
 
-                if ((Properties.Settings.Default.Fog == false) && (File.Exists("!!ContraXBeta_DisableFogEffects.ctr")))
-                    File.Move("!!ContraXBeta_DisableFogEffects.ctr", "!!ContraXBeta_DisableFogEffects.big");
+                if (MNew.Checked && File.Exists($"!{betaPrefix}_MusicEnhanced.ctr"))
+                    File.Move($"!{betaPrefix}_MusicEnhanced.ctr", $"!{betaPrefix}_MusicEnhanced.big");
 
-                if ((Properties.Settings.Default.WaterEffects == false) && (File.Exists("!!ContraXBeta_DisableWaterEffects.ctr")))
-                    File.Move("!!ContraXBeta_DisableWaterEffects.ctr", "!!ContraXBeta_DisableWaterEffects.big");
+                if (MTheScore.Checked && File.Exists($"!{betaPrefix}_MusicTheScore.ctr"))
+                    File.Move($"!{betaPrefix}_MusicTheScore.ctr", $"!{betaPrefix}_MusicTheScore.big");
 
-                if (GoofyPics.Checked && File.Exists("!!ContraXBeta_FunnyGeneralPortraits.ctr"))
-                    File.Move("!!ContraXBeta_FunnyGeneralPortraits.ctr", "!!ContraXBeta_FunnyGeneralPortraits.big");
+                if ((Properties.Settings.Default.Fog == false) && (File.Exists($"!!{betaPrefix}_DisableFogEffects.ctr")))
+                    File.Move($"!!{betaPrefix}_DisableFogEffects.ctr", $"!!{betaPrefix}_DisableFogEffects.big");
 
-                if ((Properties.Settings.Default.ControlBarPro == true) && File.Exists("!!ContraXBeta_ControlBarPro.ctr"))
-                    File.Move("!!ContraXBeta_ControlBarPro.ctr", "!!ContraXBeta_ControlBarPro.big");
-                else if ((Properties.Settings.Default.ControlBarStandard == true) && File.Exists("!!ContraXBeta_ControlBarStandard.ctr"))
-                    File.Move("!!ContraXBeta_ControlBarStandard.ctr", "!!ContraXBeta_ControlBarStandard.big");
+                if ((Properties.Settings.Default.WaterEffects == false) && (File.Exists($"!!{betaPrefix}_DisableWaterEffects.ctr")))
+                    File.Move($"!!{betaPrefix}_DisableWaterEffects.ctr", $"!!{betaPrefix}_DisableWaterEffects.big");
 
-                if ((Properties.Settings.Default.CameosDouble == true) && File.Exists("!!ContraXBeta_CameosHD.ctr"))
-                    File.Move("!!ContraXBeta_CameosHD.ctr", "!!ContraXBeta_CameosHD.big");
+                if (GoofyPics.Checked && File.Exists($"!!{betaPrefix}_FunnyGeneralPortraits.ctr"))
+                    File.Move($"!!{betaPrefix}_FunnyGeneralPortraits.ctr", $"!!{betaPrefix}_FunnyGeneralPortraits.big");
 
-                if ((Properties.Settings.Default.ExtraBuildingProps == false) && (File.Exists("!!ContraXBeta_DisableExtraBuildingProps.ctr")))
-                    File.Move("!!ContraXBeta_DisableExtraBuildingProps.ctr", "!!ContraXBeta_DisableExtraBuildingProps.big");
+                if ((Properties.Settings.Default.ControlBarPro == true) && File.Exists($"!!{betaPrefix}_ControlBarPro.ctr"))
+                    File.Move($"!!{betaPrefix}_ControlBarPro.ctr", $"!!{betaPrefix}_ControlBarPro.big");
+                else if ((Properties.Settings.Default.ControlBarStandard == true) && File.Exists($"!!{betaPrefix}_ControlBarStandard.ctr"))
+                    File.Move($"!!{betaPrefix}_ControlBarStandard.ctr", $"!!{betaPrefix}_ControlBarStandard.big");
+
+                if ((Properties.Settings.Default.CameosDouble == true) && File.Exists($"!!{betaPrefix}_CameosHD.ctr"))
+                    File.Move($"!!{betaPrefix}_CameosHD.ctr", $"!!{betaPrefix}_CameosHD.big");
+
+                if ((Properties.Settings.Default.ExtraBuildingProps == false) && (File.Exists($"!!{betaPrefix}_DisableExtraBuildingProps.ctr")))
+                    File.Move($"!!{betaPrefix}_DisableExtraBuildingProps.ctr", $"!!{betaPrefix}_DisableExtraBuildingProps.big");
 
                 if ((Properties.Settings.Default.LangF == false) && File.Exists("langdata.dat"))
                     File.Move("langdata.dat", "langdata1.dat");
 
-                if (Directory.Exists(@"Data\Scripts")) {
+                if (Directory.Exists(@"Data\Scripts"))
+                {
                     DirectoryInfo DIScripts = new DirectoryInfo(@"Data\Scripts");
                     foreach (FileInfo file in DIScripts.GetFiles())
                     {
-                        file.CopyTo(file.FullName + ".backup");
+                        // Skip if this is already a backup file
+                        if (file.Extension.Equals(".backup", StringComparison.OrdinalIgnoreCase))
+                            continue;
+
+                        string backupPath = file.FullName + ".backup";
+
+                        // Always overwrite the backup if it exists
+                        file.CopyTo(backupPath, true);
+
+                        // Delete the original after copying
                         file.Delete();
                     }
                 }
@@ -1034,17 +1095,17 @@ namespace Contra
             {
                 List<string> ctrs = new List<string>
                 {
-                    "!ContraXBeta_INI.ctr",
-                    "!ContraXBeta_Maps.ctr",
-                    "!ContraXBeta_AI.ctr",
-                    "!ContraXBeta_Terrain.ctr",
-                    "!ContraXBeta_Textures.ctr",
-                    "!ContraXBeta_W3D.ctr",
-                    "!ContraXBeta_Window.ctr",
-                    "!ContraXBeta_Audio.ctr",
-                    "!ContraXBeta_GameData.ctr",
-                    "!ContraXBeta_HotkeysOriginal_English.ctr",
-                    "!ContraXBeta_UnitVoicesEnglish.ctr",
+                    $"!{betaPrefix}_INI.ctr",
+                    $"!{betaPrefix}_Maps.ctr",
+                    $"!{betaPrefix}_AI.ctr",
+                    $"!{betaPrefix}_Terrain.ctr",
+                    $"!{betaPrefix}_Textures.ctr",
+                    $"!{betaPrefix}_W3D.ctr",
+                    $"!{betaPrefix}_Window.ctr",
+                    $"!{betaPrefix}_Audio.ctr",
+                    $"!{betaPrefix}_GameData.ctr",
+                    $"!{betaPrefix}_HotkeysOriginal_English.ctr",
+                    $"!{betaPrefix}_UnitVoicesEnglish.ctr",
                 };
                 foreach (string ctr in ctrs)
                 {
@@ -1055,10 +1116,10 @@ namespace Contra
             }
             catch { }
 
-            if ((Properties.Settings.Default.WaterEffects == false) && (File.Exists("!!ContraXBeta_DisableWaterEffects.ctr")))
-                File.Move("!!ContraXBeta_DisableWaterEffects.ctr", "!!ContraXBeta_DisableWaterEffects.big");
-            else if ((Properties.Settings.Default.WaterEffects == true) && (File.Exists("!!ContraXBeta_DisableWaterEffects.big")))
-                File.Move("!!ContraXBeta_DisableWaterEffects.big", "!!ContraXBeta_DisableWaterEffects.ctr");
+            if ((Properties.Settings.Default.WaterEffects == false) && (File.Exists($"!!{betaPrefix}_DisableWaterEffects.ctr")))
+                File.Move($"!!{betaPrefix}_DisableWaterEffects.ctr", $"!!{betaPrefix}_DisableWaterEffects.big");
+            else if ((Properties.Settings.Default.WaterEffects == true) && (File.Exists($"!!{betaPrefix}_DisableWaterEffects.big")))
+                File.Move($"!!{betaPrefix}_DisableWaterEffects.big", $"!!{betaPrefix}_DisableWaterEffects.ctr");
 
             if (Properties.Settings.Default.Anisotropic == true)
                 EnableAnisotropicFiltering();
@@ -1136,14 +1197,14 @@ namespace Contra
             OptionsFlashTimer2.Enabled = false;
 
             // Delete duplicate GameData if such exists
-            if (File.Exists("!ContraXBeta_GameData.ctr") && File.Exists("!ContraXBeta_GameData.big"))
+            if (File.Exists($"!{betaPrefix}_GameData.ctr") && File.Exists($"!{betaPrefix}_GameData.big"))
             {
-                File.Delete("!ContraXBeta_GameData.big");
+                File.Delete($"!{betaPrefix}_GameData.big");
             }
             // Enable GameData so that we can show current camera height in Options
-            if (File.Exists("!ContraXBeta_GameData.ctr"))
+            if (File.Exists($"!{betaPrefix}_GameData.ctr"))
             {
-                File.Move("!ContraXBeta_GameData.ctr", "!ContraXBeta_GameData.big");
+                File.Move($"!{betaPrefix}_GameData.ctr", $"!{betaPrefix}_GameData.big");
             }
 
             if (File.Exists(Globals.myDocPath + "Options.ini"))
@@ -1308,7 +1369,19 @@ namespace Contra
         }
         private void DonateBtn_Click(object sender, EventArgs e)
         {
+            donateFlashTimer1.Enabled = false;
+            donateFlashTimer2.Enabled = false;
             Url_open("https://www.paypal.com/paypalme2/Contramod");
+        }
+
+        private void linkYouTubePred_Click(object sender, EventArgs e)
+        {
+            Url_open("https://www.youtube.com/@ThePredatorbg");
+        }
+
+        private void linkYouTubeDce_Click(object sender, EventArgs e)
+        {
+            Url_open("https://www.youtube.com/@d_ce");
         }
 
         private void onlineInstructionsLabel_MouseEnter(object sender, EventArgs e)
@@ -1321,12 +1394,12 @@ namespace Contra
         }
         private void onlineInstructionsLabel_Click(object sender, EventArgs e)
         {
-            if (Globals.GB_Checked == true || Globals.DE_Checked == true)
-                Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md#ENGLISH-");
-            else if (Globals.RU_Checked == true || Globals.UA_Checked == true)
-                Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md#РУССКИЙ-");
-            else if (Globals.BG_Checked == true)
-                Url_open("https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md");
+            OpenByLanguage(
+                "https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md#ENGLISH-",
+                "https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md#РУССКИЙ-",
+                "https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md",
+                "https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md#ENGLISH-"
+            );
         }
 
         private void replaysLabel_MouseEnter(object sender, EventArgs e)
@@ -1352,12 +1425,12 @@ namespace Contra
         }
         private void customAddonsLabel_Click(object sender, EventArgs e)
         {
-            if (Globals.GB_Checked == true || Globals.DE_Checked == true)
-                Url_open("https://github.com/ContraMod/Launcher/blob/master/Mod%20Addons.md#ENGLISH-");
-            else if (Globals.RU_Checked == true || Globals.UA_Checked == true)
-                Url_open("https://github.com/ContraMod/Launcher/blob/master/Mod%20Addons.md#РУССКИЙ-");
-            else if (Globals.BG_Checked == true)
-                Url_open("https://github.com/ContraMod/Launcher/blob/master/Mod%20Addons.md");
+            OpenByLanguage(
+                "https://github.com/ContraMod/Launcher/blob/master/Mod%20Addons.md#ENGLISH-",
+                "https://github.com/ContraMod/Launcher/blob/master/Mod%20Addons.md#РУССКИЙ-",
+                "https://github.com/ContraMod/Launcher/blob/master/Mod%20Addons.md",
+                "https://github.com/ContraMod/Launcher/blob/master/Mod%20Addons.md#ENGLISH-"
+            );
         }
 
         private void supportLabel_MouseEnter(object sender, EventArgs e)
@@ -1370,12 +1443,12 @@ namespace Contra
         }
         private void supportLabel_Click(object sender, EventArgs e)
         {
-            if (Globals.GB_Checked == true || Globals.DE_Checked == true)
-                Url_open("https://github.com/ContraMod/Launcher/blob/master/Mod%20Support.md#ENGLISH-");
-            else if (Globals.RU_Checked == true || Globals.UA_Checked == true)
-                Url_open("https://github.com/ContraMod/Launcher/blob/master/Mod%20Support.md#РУССКИЙ-");
-            else if (Globals.BG_Checked == true)
-                Url_open("https://github.com/ContraMod/Launcher/blob/master/Mod%20Support.md");
+            OpenByLanguage(
+                "https://github.com/ContraMod/Launcher/blob/master/Mod%20Support.md#ENGLISH-",
+                "https://github.com/ContraMod/Launcher/blob/master/Mod%20Support.md#РУССКИЙ-",
+                "https://github.com/ContraMod/Launcher/blob/master/Mod%20Support.md",
+                "https://github.com/ContraMod/Launcher/blob/master/Mod%20Support.md#ENGLISH-"
+            );
         }
 
         private void CancelModDLBtn_Click(object sender, EventArgs e)
@@ -1419,29 +1492,31 @@ namespace Contra
         {
             List<string> filenames = new List<string>
                 {
-                    "!!ContraXBeta_DisableExtraBuildingProps",
-                    "!!ContraXBeta_CameosHD",
-                    "!!ContraXBeta_ControlBarPro",
-                    "!!ContraXBeta_ControlBarStandard",
-                    "!ContraXBeta_GameData",
-                    "!!ContraXBeta_DisableFogEffects",
-                    "!!ContraXBeta_DisableWaterEffects",
-                    "!!ContraXBeta_FunnyGeneralPortraits",
-                    "!ContraXBeta_INI",
-                    "!ContraXBeta_Maps",
-                    "!ContraXBeta_AI",
-                    "!ContraXBeta_Terrain",
-                    "!ContraXBeta_Textures",
-                    "!ContraXBeta_W3D",
-                    "!ContraXBeta_Window",
-                    "!ContraXBeta_Audio",
-                    "!ContraXBeta_UnitVoicesNative",
-                    "!ContraXBeta_UnitVoicesEnglish",
-                    "!ContraXBeta_NewMusic",
-                    "!ContraXBeta_HotkeysLeikeze_English",
-                    "!ContraXBeta_HotkeysLeikeze_Russian",
-                    "!ContraXBeta_HotkeysOriginal_English",
-                    "!ContraXBeta_HotkeysOriginal_Russian"
+                    $"!!{betaPrefix}_DisableExtraBuildingProps",
+                    $"!!{betaPrefix}_CameosHD",
+                    $"!!{betaPrefix}_ControlBarPro",
+                    $"!!{betaPrefix}_ControlBarStandard",
+                    $"!{betaPrefix}_GameData",
+                    $"!!{betaPrefix}_DisableFogEffects",
+                    $"!!{betaPrefix}_DisableWaterEffects",
+                    $"!!{betaPrefix}_FunnyGeneralPortraits",
+                    $"!{betaPrefix}_INI",
+                    $"!{betaPrefix}_Maps",
+                    $"!{betaPrefix}_AI",
+                    $"!{betaPrefix}_Terrain",
+                    $"!{betaPrefix}_Textures",
+                    $"!{betaPrefix}_W3D",
+                    $"!{betaPrefix}_Window",
+                    $"!{betaPrefix}_Audio",
+                    $"!{betaPrefix}_UnitVoicesNative",
+                    $"!{betaPrefix}_UnitVoicesEnglish",
+                    $"!{betaPrefix}_NewMusic",
+                    $"!{betaPrefix}_MusicEnhanced",
+                    $"!{betaPrefix}_MusicTheScore",
+                    $"!{betaPrefix}_HotkeysLeikeze_English",
+                    $"!{betaPrefix}_HotkeysLeikeze_Russian",
+                    $"!{betaPrefix}_HotkeysOriginal_English",
+                    $"!{betaPrefix}_HotkeysOriginal_Russian"
                 };
             foreach (string filename in filenames)
             {
@@ -1467,29 +1542,31 @@ namespace Contra
             {
                 List<string> bigs = new List<string>
                 {
-                    "!!ContraXBeta_DisableExtraBuildingProps.big",
-                    "!!ContraXBeta_CameosHD.big",
-                    "!!ContraXBeta_ControlBarPro.big",
-                    "!!ContraXBeta_ControlBarStandard.big",
-                    "!ContraXBeta_GameData.big",
-                    "!!ContraXBeta_DisableFogEffects.big",
-                    "!!ContraXBeta_DisableWaterEffects.big",
-                    "!!ContraXBeta_FunnyGeneralPortraits.big",
-                    "!ContraXBeta_INI.big",
-                    "!ContraXBeta_Maps.big",
-                    "!ContraXBeta_AI.big",
-                    "!ContraXBeta_Terrain.big",
-                    "!ContraXBeta_Textures.big",
-                    "!ContraXBeta_W3D.big",
-                    "!ContraXBeta_Window.big",
-                    "!ContraXBeta_Audio.big",
-                    "!ContraXBeta_UnitVoicesNative.big",
-                    "!ContraXBeta_UnitVoicesEnglish.big",
-                    "!ContraXBeta_NewMusic.big",
-                    "!ContraXBeta_HotkeysLeikeze_English.big",
-                    "!ContraXBeta_HotkeysLeikeze_Russian.big",
-                    "!ContraXBeta_HotkeysOriginal_English.big",
-                    "!ContraXBeta_HotkeysOriginal_Russian.big"
+                    $"!!{betaPrefix}_DisableExtraBuildingProps.big",
+                    $"!!{betaPrefix}_CameosHD.big",
+                    $"!!{betaPrefix}_ControlBarPro.big",
+                    $"!!{betaPrefix}_ControlBarStandard.big",
+                    $"!{betaPrefix}_GameData.big",
+                    $"!!{betaPrefix}_DisableFogEffects.big",
+                    $"!!{betaPrefix}_DisableWaterEffects.big",
+                    $"!!{betaPrefix}_FunnyGeneralPortraits.big",
+                    $"!{betaPrefix}_INI.big",
+                    $"!{betaPrefix}_Maps.big",
+                    $"!{betaPrefix}_AI.big",
+                    $"!{betaPrefix}_Terrain.big",
+                    $"!{betaPrefix}_Textures.big",
+                    $"!{betaPrefix}_W3D.big",
+                    $"!{betaPrefix}_Window.big",
+                    $"!{betaPrefix}_Audio.big",
+                    $"!{betaPrefix}_UnitVoicesNative.big",
+                    $"!{betaPrefix}_UnitVoicesEnglish.big",
+                    $"!{betaPrefix}_NewMusic.big",
+                    $"!{betaPrefix}_MusicEnhanced.big",
+                    $"!{betaPrefix}_MusicTheScore.big",
+                    $"!{betaPrefix}_HotkeysLeikeze_English.big",
+                    $"!{betaPrefix}_HotkeysLeikeze_Russian.big",
+                    $"!{betaPrefix}_HotkeysOriginal_English.big",
+                    $"!{betaPrefix}_HotkeysOriginal_Russian.big"
                 };
                 foreach (string big in bigs)
                 {
@@ -1509,8 +1586,11 @@ namespace Contra
                     DirectoryInfo DIScripts = new DirectoryInfo(@"Data\Scripts");
                     foreach (FileInfo file in DIScripts.GetFiles())
                     {
-                        file.CopyTo(file.FullName.Replace(".backup", ""));
-                        file.Delete();
+                        try {
+                            file.CopyTo(file.FullName.Replace(".backup", ""));
+                            file.Delete();
+                        }
+                        catch { }
                     }
                 }
 
@@ -1589,10 +1669,7 @@ namespace Contra
                     Process generals = new Process();
                     generals.StartInfo.FileName = "generals.exe";
 
-                    if (!QSCheckBox.Checked && !WinCheckBox.Checked) { }
-                    else if (QSCheckBox.Checked && !WinCheckBox.Checked) generals.StartInfo.Arguments = "-quickstart -nologo";
-                    else if (QSCheckBox.Checked && WinCheckBox.Checked) generals.StartInfo.Arguments = "-win -quickstart -nologo";
-                    else generals.StartInfo.Arguments = "-win";
+                    generals.StartInfo.Arguments = BuildGeneralsArguments();
 
                     generals.EnableRaisingEvents = true;
                     generals.Exited += (sender1, e1) =>
@@ -1604,6 +1681,9 @@ namespace Contra
                     try
                     {
                         generals.Start();
+
+                        // Enable Donate button flash timer
+                        donateFlashTimer1.Enabled = true;
                     }
                     catch (Exception ex)
                     {
@@ -1612,6 +1692,16 @@ namespace Contra
                 }
             }
             else CheckInstallDir();
+        }
+
+        private string BuildGeneralsArguments()
+        {
+            bool quickStart = QSCheckBox.Checked;
+            bool windowed = WinCheckBox.Checked;
+            if (!quickStart && !windowed) return string.Empty;
+            if (quickStart && !windowed) return "-quickstart -nologo";
+            if (quickStart && windowed) return "-win -quickstart -nologo";
+            return "-win";
         }
 
         internal static bool Url_open(string url)
@@ -1648,6 +1738,7 @@ namespace Contra
             RadioEN.Checked = Properties.Settings.Default.LangEN;
             RadioRU.Checked = Properties.Settings.Default.LangRU;
             MNew.Checked = Properties.Settings.Default.MusicNew;
+            MTheScore.Checked = Properties.Settings.Default.MusicTheScore;
             MStandard.Checked = Properties.Settings.Default.MusicStandard;
             RadioOrigQuotes.Checked = Properties.Settings.Default.VoNew;
             RadioLocQuotes.Checked = Properties.Settings.Default.VoStandard;
@@ -1665,6 +1756,9 @@ namespace Contra
 
         private void OnApplicationExit(object sender, EventArgs e)
         {
+            // Cancel any ongoing HTTP operations
+            httpCancellationToken.Cancel();
+            
             DeleteDuplicateFiles();
             RenameBigToCtr();
 
@@ -1687,6 +1781,7 @@ namespace Contra
             Properties.Settings.Default.LangEN = RadioEN.Checked;
             Properties.Settings.Default.LangRU = RadioRU.Checked;
             Properties.Settings.Default.MusicNew = MNew.Checked;
+            Properties.Settings.Default.MusicTheScore = MTheScore.Checked;
             Properties.Settings.Default.MusicStandard = MStandard.Checked;
             Properties.Settings.Default.VoNew = RadioOrigQuotes.Checked;
             Properties.Settings.Default.VoStandard = RadioLocQuotes.Checked;
@@ -1942,28 +2037,32 @@ namespace Contra
                 return "4:3";
         }
 
-        private void ChangeCamHeight()
-        {
-            if (File.Exists("!ContraXBeta_INI.big") || File.Exists("!ContraXBeta_INI.ctr"))
-            {
-                if (File.Exists("!ContraXBeta_GameData.big"))
-                {
-                    Encoding encoding = Encoding.GetEncoding("windows-1252");
-                    var regex = Regex.Replace(File.ReadAllText("!ContraXBeta_GameData.big", encoding), "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = 282.0 ;350.0\r\n");
-                    File.WriteAllText("!ContraXBeta_GameData.big", regex, encoding);
-                }
-                else Messages.GenerateMessageBox("E_NotFound_GameDataP3", Globals.currentLanguage);
-            }
-        }
+        //private void ChangeCamHeight()
+        //{
+        //    if (File.Exists($"!{betaPrefix}_INI.big") || File.Exists($"!{betaPrefix}_INI.ctr"))
+        //    {
+        //        if (File.Exists($"!{betaPrefix}_GameData.big"))
+        //        {
+        //            Encoding encoding = Encoding.GetEncoding("windows-1252");
+        //            var regex = Regex.Replace($"!{betaPrefix}_GameData.big", "  MaxCameraHeight = .*\r?\n", "  MaxCameraHeight = 282.0 ;350.0\r\n");
+        //            File.WriteAllText($"!{betaPrefix}_GameData.big", regex, encoding);
+        //        }
+        //        else Messages.GenerateMessageBox("E_NotFound_GameDataP3", Globals.currentLanguage);
+        //    }
+        //}
 
-        private void Form1_Shown(object sender, EventArgs e)
+        private async void Form1_Shown(object sender, EventArgs e)
         {
             // Temporary hack so update runs on main thread, versionsTXT should be rewritten to be async if possible
             try
             {
-                UpdateLogic();
+                await UpdateLogic();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                // Log the exception but don't show it to avoid interrupting the user
+                System.Diagnostics.Debug.WriteLine($"UpdateLogic error: {ex.Message}");
+            }
 
             string gtHash = null;
             try
@@ -2066,6 +2165,11 @@ namespace Contra
             }
             catch { }
 
+            // Enable The Score radio button if file exists
+            if (File.Exists($"!ContraXBeta2_MusicTheScore.ctr") || File.Exists($"!ContraXBeta2_MusicTheScore.big")) {
+                MTheScore.Enabled = true;
+            }
+            
             // Actions taken on first launcher run.
             if (Properties.Settings.Default.FirstRun)
             {
@@ -2082,19 +2186,19 @@ namespace Contra
                 catch { }
 
                 // Enable GameData
-                if (File.Exists("!ContraXBeta_GameData.ctr"))
-                {
-                    File.Move("!ContraXBeta_GameData.ctr", "!ContraXBeta_GameData.big");
-                }
+                //if (File.Exists($"!{betaPrefix}_GameData.ctr"))
+                //{
+                //    File.Move($"!{betaPrefix}_GameData.ctr", $"!{betaPrefix}_GameData.big");
+                //}
                 // Set default cam height
-                try
-                {
-                    if (AspectRatio(ScreenResolutionX, ScreenResolutionY) == "16:9" && isGentoolInstalled("d3d8.dll"))
-                    {
-                        ChangeCamHeight();
-                    }
-                }
-                catch { }
+                //try
+                //{
+                //    if (AspectRatio(ScreenResolutionX, ScreenResolutionY) == "16:9" && isGentoolInstalled("d3d8.dll"))
+                //    {
+                //        ChangeCamHeight();
+                //    }
+                //}
+                //catch { }
 
                 // Delete tinc vpn files
                 try
@@ -2122,7 +2226,16 @@ namespace Contra
 
                 // Zero Hour has a 'DeleteFile("Data\INI\INIZH.big");' line in GameEngine::init with no condition whatsoever (will always try to delete it if exists)
                 // an identical copy of this file exists in root ZH folder so we can safely delete it before ZH runs to prevent unwanted crashes
-                try { File.Delete(@"Data\INI\INIZH.big"); } catch { }
+                try {
+                    File.Delete(@"Data\INI\INIZH.big");
+                }
+                catch {
+                    DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("E_Cannot_Delete_INIZH", Globals.currentLanguage),
+                    Messages.GenerateMessage("Error", Globals.currentLanguage), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                    if (dialogResult == DialogResult.Yes)
+                        Process.Start(Environment.CurrentDirectory + @"\Data\INI");
+                    return;
+                }
 
                 // Determine user language and apply.
                 if (GetCurrentCulture() == "en-US") RadioFlag_GB.Checked = true;
@@ -2150,39 +2263,39 @@ namespace Contra
                 catch { }
 
                 // Get CPU specs to determine default graphical settings
-                ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_Processor");
-                ManagementObjectSearcher searcher = new ManagementObjectSearcher(wql);
-                ManagementObjectCollection results = searcher.Get();
-                foreach (ManagementObject result in results)
-                {
-                    Globals.cpuSpeed = Convert.ToInt32(result["MaxClockSpeed"]);
+                //ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_Processor");
+                //ManagementObjectSearcher searcher = new ManagementObjectSearcher(wql);
+                //ManagementObjectCollection results = searcher.Get();
+                //foreach (ManagementObject result in results)
+                //{
+                //    Globals.cpuSpeed = Convert.ToInt32(result["MaxClockSpeed"]);
 
-                    if (Globals.cpuSpeed < 3400) // We consider base clock less than 3400 MHz to be insufficient for stable FPS.
-                                                 // If that's the case, we disable 3D shadows, water reflections, extra building props and enable Dynamic LOD,
-                                                 // as they are the most demanding graphical settings.
-                    {
-                        Messages.GenerateMessageBox("I_WeakCPU", Globals.currentLanguage);
+                //    if (Globals.cpuSpeed < 3300) // We consider base clock less than 3300 MHz to be insufficient for stable FPS.
+                //                                 // If that's the case, we disable 3D shadows, water reflections, extra building props and enable Dynamic LOD,
+                //                                 // as they are the most demanding graphical settings.
+                //    {
+                //        Messages.GenerateMessageBox("I_WeakCPU", Globals.currentLanguage);
 
-                        // Switch Water Effects, Extra Building Props and 3D Shadows off, and Enable Dynamic LOD for better performance.
-                        Properties.Settings.Default.WaterEffects = false;
-                        Properties.Settings.Default.ExtraBuildingProps = false;
-                        try
-                        {
-                            File.WriteAllText(Globals.myDocPath + "Options.ini",
-                                Regex.Replace(File.ReadAllText(Globals.myDocPath + "Options.ini"),
-                                "\r?\nUseShadowVolumes = Yes",
-                                "\r\nUseShadowVolumes = No",
-                                RegexOptions.IgnoreCase));
+                //        // Switch Water Effects, Extra Building Props and 3D Shadows off, and Enable Dynamic LOD for better performance.
+                //        Properties.Settings.Default.WaterEffects = false;
+                //        Properties.Settings.Default.ExtraBuildingProps = false;
+                //        try
+                //        {
+                //            File.WriteAllText(Globals.myDocPath + "Options.ini",
+                //                Regex.Replace(File.ReadAllText(Globals.myDocPath + "Options.ini"),
+                //                "\r?\nUseShadowVolumes = Yes",
+                //                "\r\nUseShadowVolumes = No",
+                //                RegexOptions.IgnoreCase));
 
-                            File.WriteAllText(Globals.myDocPath + "Options.ini",
-                                Regex.Replace(File.ReadAllText(Globals.myDocPath + "Options.ini"),
-                                "\r?\nDynamicLOD = No",
-                                "\r\nDynamicLOD = Yes",
-                                RegexOptions.IgnoreCase));
-                        }
-                        catch { }
-                    }
-                }
+                //            File.WriteAllText(Globals.myDocPath + "Options.ini",
+                //                Regex.Replace(File.ReadAllText(Globals.myDocPath + "Options.ini"),
+                //                "\r?\nDynamicLOD = No",
+                //                "\r\nDynamicLOD = Yes",
+                //                RegexOptions.IgnoreCase));
+                //        }
+                //        catch { }
+                //    }
+                //}
 
                 // Delete old Contra config folders
                 DirectoryInfo di = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Contra");
@@ -2242,7 +2355,7 @@ namespace Contra
             }
 
             // Show warning if the base mod isn't found.
-            if (!File.Exists("!ContraXBeta_INI.ctr") && !File.Exists("!ContraXBeta_INI.big")
+            if (!File.Exists($"!{betaPrefix}_INI.ctr") && !File.Exists($"!{betaPrefix}_INI.big")
                 && Application.StartupPath.Contains(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)))
             {
                 Messages.GenerateMessageBox("W_NotFound_ContraOnDesktop", Globals.currentLanguage);
@@ -2254,58 +2367,30 @@ namespace Contra
 
             try
             {
-                // Show warning if there are .ini files in "Data\INI" folder or its subfolders.
-                if (Directory.GetFiles(Environment.CurrentDirectory + @"\Data\INI", "*.ini", SearchOption.AllDirectories).Length > 0)
-                {
-                    DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("W_FoundIniFiles", Globals.currentLanguage),
-                        Messages.GenerateMessage("Warning", Globals.currentLanguage), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                    if (dialogResult == DialogResult.Yes)
-                        Process.Start(Environment.CurrentDirectory + @"\Data\INI");
-                }
+                ShowWarningIfFilesExist(@"\Data\INI", "*.ini", "W_FoundIniFiles");
+                ShowWarningIfFilesExist(@"\Art\W3D", "*.w3d", "W_FoundW3DFiles");
+                ShowWarningIfFilesExist(@"\Window", "*.wnd", "W_FoundWndFiles");
+                ShowWarningIfFilesExist(@"\Data", "*.str", "W_FoundStrFiles");
+                ShowWarningIfFilesExist(@"\Data\English", "*.csf", "W_FoundCsfFiles");
+                ShowWarningIfFilesExist(@"\Data\English", "*.ini", "W_FoundIniFilesInEnglishFolder");
+            }
+            catch { }
+        }
 
-                // Show warning if there are .W3D files in "W3D" folder or its subfolders.
-                if (Directory.GetFiles(Environment.CurrentDirectory + @"\Art\W3D", "*.w3d", SearchOption.AllDirectories).Length > 0)
+        private void ShowWarningIfFilesExist(string relativeFolder, string pattern, string messageKey)
+        {
+            string absoluteFolder = Environment.CurrentDirectory + relativeFolder;
+            try
+            {
+                int count = Directory.GetFiles(absoluteFolder, pattern, SearchOption.AllDirectories).Length;
+                if (count > 0)
                 {
-                    DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("W_FoundW3DFiles", Globals.currentLanguage),
-                        Messages.GenerateMessage("Warning", Globals.currentLanguage), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    DialogResult dialogResult = MessageBox.Show(
+                        Messages.GenerateMessage(messageKey, Globals.currentLanguage),
+                        Messages.GenerateMessage("Warning", Globals.currentLanguage),
+                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                     if (dialogResult == DialogResult.Yes)
-                        Process.Start(Environment.CurrentDirectory + @"\Art\W3D");
-                }
-
-                // Show warning if there are .wnd files in "Window" folder or its subfolders.
-                if (Directory.GetFiles(Environment.CurrentDirectory + @"\Window", "*.wnd", SearchOption.AllDirectories).Length > 0)
-                {
-                    DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("W_FoundWndFiles", Globals.currentLanguage),
-                        Messages.GenerateMessage("Warning", Globals.currentLanguage), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                    if (dialogResult == DialogResult.Yes)
-                        Process.Start(Environment.CurrentDirectory + @"\Window");
-                }
-
-                // Show warning if there are .str files in "Data" folder.
-                if (Directory.GetFiles(Environment.CurrentDirectory + @"\Data", "*.str").Length > 0)
-                {
-                    DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("W_FoundStrFiles", Globals.currentLanguage),
-                        Messages.GenerateMessage("Warning", Globals.currentLanguage), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                    if (dialogResult == DialogResult.Yes)
-                        Process.Start(Environment.CurrentDirectory + @"\Data");
-                }
-
-                // Show warning if there are .csf files in "Data\English" folder.
-                if (Directory.GetFiles(Environment.CurrentDirectory + @"\Data\English", "*.csf").Length > 0)
-                {
-                    DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("W_FoundCsfFiles", Globals.currentLanguage),
-                        Messages.GenerateMessage("Warning", Globals.currentLanguage), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                    if (dialogResult == DialogResult.Yes)
-                        Process.Start(Environment.CurrentDirectory + @"\Data\English");
-                }
-
-                // Show warning if there are .ini files in "Data\English" folder.
-                if (Directory.GetFiles(Environment.CurrentDirectory + @"\Data\English", "*.ini").Length > 0)
-                {
-                    DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("W_FoundIniFilesInEnglishFolder", Globals.currentLanguage),
-                        Messages.GenerateMessage("Warning", Globals.currentLanguage), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                    if (dialogResult == DialogResult.Yes)
-                        Process.Start(Environment.CurrentDirectory + @"\Data\English");
+                        Process.Start(absoluteFolder);
                 }
             }
             catch { }
@@ -2363,6 +2448,20 @@ namespace Contra
             OptionsFlashTimer2.Enabled = false;
         }
 
+        private void donateFlashTimer1_Tick(object sender, EventArgs e)
+        {
+            DonateBtn.BackgroundImage = Properties.Resources._button_medium_hover;
+            donateFlashTimer2.Enabled = true;
+            donateFlashTimer1.Enabled = false;
+        }
+
+        private void donateFlashTimer2_Tick(object sender, EventArgs e)
+        {
+            DonateBtn.BackgroundImage = Properties.Resources._button_medium;
+            donateFlashTimer1.Enabled = true;
+            donateFlashTimer2.Enabled = false;
+        }
+
         public static bool isGentoolOutdated(string gentoolPath, int minVersion)
         {
             try
@@ -2381,6 +2480,47 @@ namespace Contra
             {
                 MessageBox.Show(ex.ToString());
                 return false;
+            }
+        }
+
+        // Beta2 detection and file prefix
+        public static string betaPrefix = "ContraXBeta";
+        private static bool isBeta2 = false;
+
+        static MainForm()
+        {
+            // 1. Check for any !ContraXBeta2_*.ctr or .big file in the current directory
+            bool foundBeta2File = Directory.GetFiles(Directory.GetCurrentDirectory(), "!ContraXBeta2_*.ctr").Length > 0 ||
+                                  Directory.GetFiles(Directory.GetCurrentDirectory(), "!ContraXBeta2_*.big").Length > 0;
+            if (foundBeta2File)
+            {
+                isBeta2 = true;
+                betaPrefix = "ContraXBeta2";
+                return;
+            }
+            // 2. Fallback: check for Beta2 in content of !ContraXBeta.big/.ctr
+            string[] filesToCheck = { $"!{betaPrefix}.big", $"!{betaPrefix}.ctr" };
+            foreach (var file in filesToCheck)
+            {
+                if (File.Exists(file))
+                {
+                    try
+                    {
+                        using (var reader = new StreamReader(file))
+                        {
+                            char[] buffer = new char[4096];
+                            int read = reader.Read(buffer, 0, buffer.Length);
+                            string content = new string(buffer, 0, read);
+                            if (content.Contains("Beta2"))
+                            {
+                                isBeta2 = true;
+                                betaPrefix = "ContraXBeta2";
+                                break;
+                            }
+                        }
+                    }
+                    catch { }
+                }
             }
         }
     }

@@ -25,6 +25,10 @@
     <Compile Remove="..\net45\obj\Debug\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="..\net45\ControlColorHelper.cs" />
+    <Compile Remove="..\net45\DisabledTextColorExample.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Resources\_bg_update.jpg" />
   </ItemGroup>
   <ItemGroup>
