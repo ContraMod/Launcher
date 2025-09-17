@@ -198,12 +198,6 @@ namespace Contra
             applyTexts?.Invoke();
             try { RetrieveMOTD(); }
             catch { }
-
-            // Enable The Score music by default if file exists
-            if (File.Exists($"!ContraXBeta2_MusicTheScore.ctr") || File.Exists($"!ContraXBeta2_MusicTheScore.big"))
-            {
-                MTheScore.Checked = true;
-            }
         }
 
         private void OpenByLanguage(string enUrl, string ruUaUrl, string bgUrl, string deUrl = null)
@@ -2226,15 +2220,20 @@ namespace Contra
 
                 // Zero Hour has a 'DeleteFile("Data\INI\INIZH.big");' line in GameEngine::init with no condition whatsoever (will always try to delete it if exists)
                 // an identical copy of this file exists in root ZH folder so we can safely delete it before ZH runs to prevent unwanted crashes
-                try {
-                    File.Delete(@"Data\INI\INIZH.big");
-                }
-                catch {
-                    DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("E_Cannot_Delete_INIZH", Globals.currentLanguage),
-                    Messages.GenerateMessage("Error", Globals.currentLanguage), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
-                    if (dialogResult == DialogResult.Yes)
-                        Process.Start(Environment.CurrentDirectory + @"\Data\INI");
-                    return;
+                if (File.Exists(@"Data\INI\INIZH.big"))
+                {
+                    try
+                    {
+                        File.Delete(@"Data\INI\INIZH.big");
+                    }
+                    catch
+                    {
+                        DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("E_Cannot_Delete_INIZH", Globals.currentLanguage),
+                        Messages.GenerateMessage("Error", Globals.currentLanguage), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Error);
+                        if (dialogResult == DialogResult.Yes)
+                            Process.Start(Environment.CurrentDirectory + @"\Data\INI");
+                        return;
+                    }
                 }
 
                 // Determine user language and apply.
@@ -2322,6 +2321,12 @@ namespace Contra
 
                 // Add Firewall exceptions.
                 CheckFirewallExceptions();
+
+                // Enable The Score music by default if file exists
+                if (File.Exists($"!ContraXBeta2_MusicTheScore.ctr") || File.Exists($"!ContraXBeta2_MusicTheScore.big"))
+                {
+                    MTheScore.Checked = true;
+                }
 
                 // Select default control bar and cameo size depending on screen aspect ratio and GenTool presence + version
                 if (AspectRatio(ScreenResolutionX, ScreenResolutionY) == "16:9")
