@@ -8,10 +8,8 @@
 1. Install **Contra X Beta** on top of clean, working, unmodded Zero Hour v1.04.
 
 Download mirrors (**choose one**):
-[.exe Setup from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup);
-[.exe Setup from MEGA](https://mega.nz/file/MQ5lyJiQ#Yi_vGN0vN_8WHgeaBK7q-EX70QoP-0ffELdGNwbPWFU);
-[.zip Archive from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-archive);
-[.zip Archive from MEGA](https://mega.nz/file/ZRxDWIDJ#1O40yHg6pgv0JDx72b-A3c7C7a1dtOtownnt-GHmPOQ).
+[.exe Setup from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-2-setup);
+[.zip Archive from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-2-archive).
 
 2. Run ***Contra_Launcher.exe***.
 
@@ -56,10 +54,8 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 1. Установите **Contra X Beta** поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
 
 Ссылки (**выберите одна**):
-[.exe установочный файл из ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-setup);
-[.exe установочный файл из MEGA](https://mega.nz/file/MQ5lyJiQ#Yi_vGN0vN_8WHgeaBK7q-EX70QoP-0ffELdGNwbPWFU);
-[.zip архив из ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-archive);
-[.zip архив из MEGA](https://mega.nz/file/ZRxDWIDJ#1O40yHg6pgv0JDx72b-A3c7C7a1dtOtownnt-GHmPOQ).
+[.exe установочный файл из ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-2-setup);
+[.zip архив из ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-2-archive).
 
 2. Запустите ***Contra_Launcher.exe***.
 
