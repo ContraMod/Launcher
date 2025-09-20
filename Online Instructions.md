@@ -1,11 +1,11 @@
 <img src="https://discord.com/assets/09598dcec149fda6bebb.svg" width="30"> [ENGLISH](#ENGLISH-) | <img src="https://discord.com/assets/1710858579c863d586e0.svg" width="30"> [РУССКИЙ](#РУССКИЙ-)
 ### ENGLISH <img src="https://discord.com/assets/09598dcec149fda6bebb.svg" width="30">
-# Contra X Beta Setup and Online Play Instructions
+# Contra X Beta 2 Setup and Online Play Instructions
 
 ### Contra installation methods (choose one):
 
 * ### Method №1 (using official Contra Launcher)
-1. Install **Contra X Beta** on top of clean, working, unmodded Zero Hour v1.04.
+1. Install **Contra X Beta 2** on top of clean, working, unmodded Zero Hour v1.04.
 
 Download mirrors (**choose one**):
 [.exe Setup from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-2-setup);
@@ -46,12 +46,12 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 
 ---
 ### РУССКИЙ <img src="https://discord.com/assets/1710858579c863d586e0.svg" width="30">
-# Contra X Beta Установка и Инструкции по сетевой игре
+# Contra X Beta 2 Установка и Инструкции по сетевой игре
 
 ### Способы установки Contra (выберите один):
 
 * ### Способ №1 (используя официальный Contra Launcher)
-1. Установите **Contra X Beta** поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
+1. Установите **Contra X Beta 2** поверх чистой, рабочей, немодифицированной Zero Hour v1.04.
 
 Ссылки (**выберите одна**):
 [.exe установочный файл из ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-2-setup);
