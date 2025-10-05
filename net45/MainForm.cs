@@ -253,6 +253,8 @@ namespace Contra
 
                     // Force close the form and restart
                     this.Close();
+                    // Give the process time to properly clean up before restart
+                    Thread.Sleep(1000);
                     Application.Restart();
                 }
                 catch (OperationCanceledException)
@@ -365,6 +367,8 @@ namespace Contra
                     ModDLLabel.Text = "Download progress: ";
                     CancelModDLBtn.Text = "Cancel";
                     verString = (betaPrefix == "ContraXBeta") ? "X Beta" : "X Beta 2";
+                    if (betaPrefix != "ContraXBeta" && (File.Exists($"!!{betaPrefix}_Patch1.ctr") || File.Exists($"!!{betaPrefix}_Patch1.big")))
+                        verString += " Patch 1";
                     versionLabel.Text = "Contra Project Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
                 });
             }
@@ -418,6 +422,8 @@ namespace Contra
                     MusicLabel.Text = "Музыка";
                     PortraitsLabel.Text = "Портреты";
                     verString = (betaPrefix == "ContraXBeta") ? "X Бета" : "X Бета 2";
+                    if (betaPrefix != "ContraXBeta" && (File.Exists($"!!{betaPrefix}_Patch1.ctr") || File.Exists($"!!{betaPrefix}_Patch1.big")))
+                        verString += " Патч 1";
                     versionLabel.Text = "Contra Project Team " + yearString + " - Версия " + verString + " - Launcher: " + Application.ProductVersion;
                 });
             }
@@ -471,6 +477,8 @@ namespace Contra
                     MusicLabel.Text = "Музика";
                     PortraitsLabel.Text = "Портрети";
                     verString = (betaPrefix == "ContraXBeta") ? "X Бета" : "X Бета 2";
+                    if (betaPrefix != "ContraXBeta" && (File.Exists($"!!{betaPrefix}_Patch1.ctr") || File.Exists($"!!{betaPrefix}_Patch1.big")))
+                        verString += " Патч 1";
                     versionLabel.Text = "Contra Project Team " + yearString + " - Версія " + verString + " - Launcher: " + Application.ProductVersion;
                 });
             }
@@ -524,6 +532,8 @@ namespace Contra
                     MusicLabel.Text = "Музика";
                     PortraitsLabel.Text = "Портрети";
                     verString = (betaPrefix == "ContraXBeta") ? "X Бета" : "X Бета 2";
+                    if (betaPrefix != "ContraXBeta" && (File.Exists($"!!{betaPrefix}_Patch1.ctr") || File.Exists($"!!{betaPrefix}_Patch1.big")))
+                        verString += " Патч 1";
                     versionLabel.Text = "Contra Екип " + yearString + " - Версия " + verString + " - Launcher: " + Application.ProductVersion;
                 });
             }
@@ -579,6 +589,8 @@ namespace Contra
                     MusicLabel.Text = "Musik";
                     PortraitsLabel.Text = "Porträts";
                     verString = (betaPrefix == "ContraXBeta") ? "X Beta" : "X Beta 2";
+                    if (betaPrefix != "ContraXBeta" && (File.Exists($"!!{betaPrefix}_Patch1.ctr") || File.Exists($"!!{betaPrefix}_Patch1.big")))
+                        verString += " Patch 1";
                     versionLabel.Text = "Contra Projekt Team " + yearString + " - Version " + verString + " - Launcher: " + Application.ProductVersion;
                 });
             }
@@ -657,6 +669,8 @@ namespace Contra
 
                     // Force close the form and restart
                     this.Close();
+                    // Give the process time to properly clean up before restart
+                    Thread.Sleep(1000);
                     Application.Restart();
                 }
                 else
@@ -886,11 +900,11 @@ namespace Contra
                 if (MNew.Checked && File.Exists($"!ContraXBeta_NewMusic.ctr"))
                     File.Move($"!ContraXBeta_NewMusic.ctr", $"!ContraXBeta_NewMusic.big");
 
-                if (MNew.Checked && File.Exists($"!{betaPrefix}_MusicEnhanced.ctr"))
-                    File.Move($"!{betaPrefix}_MusicEnhanced.ctr", $"!{betaPrefix}_MusicEnhanced.big");
+                if (MNew.Checked && File.Exists($"!!{betaPrefix}_MusicEnhanced.ctr"))
+                    File.Move($"!!{betaPrefix}_MusicEnhanced.ctr", $"!!{betaPrefix}_MusicEnhanced.big");
 
-                if (MTheScore.Checked && File.Exists($"!{betaPrefix}_MusicTheScore.ctr"))
-                    File.Move($"!{betaPrefix}_MusicTheScore.ctr", $"!{betaPrefix}_MusicTheScore.big");
+                if (MTheScore.Checked && File.Exists($"!!{betaPrefix}_MusicTheScore.ctr"))
+                    File.Move($"!!{betaPrefix}_MusicTheScore.ctr", $"!!{betaPrefix}_MusicTheScore.big");
 
                 if ((Properties.Settings.Default.Fog == false) && (File.Exists($"!!{betaPrefix}_DisableFogEffects.ctr")))
                     File.Move($"!!{betaPrefix}_DisableFogEffects.ctr", $"!!{betaPrefix}_DisableFogEffects.big");
@@ -911,6 +925,9 @@ namespace Contra
 
                 if ((Properties.Settings.Default.ExtraBuildingProps == false) && (File.Exists($"!!{betaPrefix}_DisableExtraBuildingProps.ctr")))
                     File.Move($"!!{betaPrefix}_DisableExtraBuildingProps.ctr", $"!!{betaPrefix}_DisableExtraBuildingProps.big");
+
+                if (File.Exists($"!!{betaPrefix}_Patch1.ctr"))
+                    File.Move($"!!{betaPrefix}_Patch1.ctr", $"!!{betaPrefix}_Patch1.big");
 
                 if ((Properties.Settings.Default.LangF == false) && File.Exists("langdata.dat"))
                     File.Move("langdata.dat", "langdata1.dat");
@@ -1494,6 +1511,7 @@ namespace Contra
                     $"!!{betaPrefix}_DisableFogEffects",
                     $"!!{betaPrefix}_DisableWaterEffects",
                     $"!!{betaPrefix}_FunnyGeneralPortraits",
+                    $"!!{betaPrefix}_Patch1",
                     $"!{betaPrefix}_INI",
                     $"!{betaPrefix}_Maps",
                     $"!{betaPrefix}_AI",
@@ -1505,8 +1523,8 @@ namespace Contra
                     $"!{betaPrefix}_UnitVoicesNative",
                     $"!{betaPrefix}_UnitVoicesEnglish",
                     $"!{betaPrefix}_NewMusic",
-                    $"!{betaPrefix}_MusicEnhanced",
-                    $"!{betaPrefix}_MusicTheScore",
+                    $"!!{betaPrefix}_MusicEnhanced",
+                    $"!!{betaPrefix}_MusicTheScore",
                     $"!{betaPrefix}_HotkeysLeikeze_English",
                     $"!{betaPrefix}_HotkeysLeikeze_Russian",
                     $"!{betaPrefix}_HotkeysOriginal_English",
@@ -1544,6 +1562,7 @@ namespace Contra
                     $"!!{betaPrefix}_DisableFogEffects.big",
                     $"!!{betaPrefix}_DisableWaterEffects.big",
                     $"!!{betaPrefix}_FunnyGeneralPortraits.big",
+                    $"!!{betaPrefix}_Patch1.big",
                     $"!{betaPrefix}_INI.big",
                     $"!{betaPrefix}_Maps.big",
                     $"!{betaPrefix}_AI.big",
@@ -1555,8 +1574,8 @@ namespace Contra
                     $"!{betaPrefix}_UnitVoicesNative.big",
                     $"!{betaPrefix}_UnitVoicesEnglish.big",
                     $"!{betaPrefix}_NewMusic.big",
-                    $"!{betaPrefix}_MusicEnhanced.big",
-                    $"!{betaPrefix}_MusicTheScore.big",
+                    $"!!{betaPrefix}_MusicEnhanced.big",
+                    $"!!{betaPrefix}_MusicTheScore.big",
                     $"!{betaPrefix}_HotkeysLeikeze_English.big",
                     $"!{betaPrefix}_HotkeysLeikeze_Russian.big",
                     $"!{betaPrefix}_HotkeysOriginal_English.big",
@@ -2160,8 +2179,47 @@ namespace Contra
             catch { }
 
             // Enable The Score radio button if file exists
-            if (File.Exists($"!ContraXBeta2_MusicTheScore.ctr") || File.Exists($"!ContraXBeta2_MusicTheScore.big")) {
+            if (File.Exists($"!!ContraXBeta2_MusicTheScore.ctr") || File.Exists($"!!ContraXBeta2_MusicTheScore.big")) {
                 MTheScore.Enabled = true;
+            }
+            
+            // Fix file prefixes for MusicEnhanced and MusicTheScore files - add extra "!" if they only have single "!"
+            try
+            {
+                // Check and fix MusicEnhanced files
+                string musicEnhancedCtr = $"!{betaPrefix}_MusicEnhanced.ctr";
+                string musicEnhancedBig = $"!{betaPrefix}_MusicEnhanced.big";
+                string musicEnhancedDoubleCtr = $"!!{betaPrefix}_MusicEnhanced.ctr";
+                string musicEnhancedDoubleBig = $"!!{betaPrefix}_MusicEnhanced.big";
+                
+                if (File.Exists(musicEnhancedCtr) && !File.Exists(musicEnhancedDoubleCtr))
+                {
+                    File.Move(musicEnhancedCtr, musicEnhancedDoubleCtr);
+                }
+                if (File.Exists(musicEnhancedBig) && !File.Exists(musicEnhancedDoubleBig))
+                {
+                    File.Move(musicEnhancedBig, musicEnhancedDoubleBig);
+                }
+                
+                // Check and fix MusicTheScore files
+                string musicTheScoreCtr = $"!{betaPrefix}_MusicTheScore.ctr";
+                string musicTheScoreBig = $"!{betaPrefix}_MusicTheScore.big";
+                string musicTheScoreDoubleCtr = $"!!{betaPrefix}_MusicTheScore.ctr";
+                string musicTheScoreDoubleBig = $"!!{betaPrefix}_MusicTheScore.big";
+                
+                if (File.Exists(musicTheScoreCtr) && !File.Exists(musicTheScoreDoubleCtr))
+                {
+                    File.Move(musicTheScoreCtr, musicTheScoreDoubleCtr);
+                }
+                if (File.Exists(musicTheScoreBig) && !File.Exists(musicTheScoreDoubleBig))
+                {
+                    File.Move(musicTheScoreBig, musicTheScoreDoubleBig);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception but don't show it to avoid interrupting the user
+                System.Diagnostics.Debug.WriteLine($"Error fixing music file prefixes: {ex.Message}");
             }
             
             // Actions taken on first launcher run.
@@ -2323,7 +2381,7 @@ namespace Contra
                 CheckFirewallExceptions();
 
                 // Enable The Score music by default if file exists
-                if (File.Exists($"!ContraXBeta2_MusicTheScore.ctr") || File.Exists($"!ContraXBeta2_MusicTheScore.big"))
+                if (File.Exists($"!!ContraXBeta2_MusicTheScore.ctr") || File.Exists($"!!ContraXBeta2_MusicTheScore.big"))
                 {
                     MTheScore.Checked = true;
                 }
@@ -2369,6 +2427,15 @@ namespace Contra
             //{
             //    Messages.GenerateMessageBox("W_NotFound_Contra009Final", Globals.currentLanguage);
             //}
+
+            // Check for Contra X Beta 2 Patch 1
+            if (betaPrefix == "ContraXBeta2" && !File.Exists($"!!{betaPrefix}_Patch1.ctr") && !File.Exists($"!!{betaPrefix}_Patch1.big"))
+            {
+                DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("I_Patch1NotFound", Globals.currentLanguage),
+                    Messages.GenerateMessage("Information", Globals.currentLanguage), MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (dialogResult == DialogResult.Yes)
+                    Url_open("https://www.moddb.com/mods/contra/downloads");
+            }
 
             try
             {

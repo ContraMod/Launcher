@@ -2,12 +2,38 @@
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
+using System.Diagnostics;
 
 namespace Contra
 {
     static class Program
     {
         private static Mutex mutex;
+
+        private static bool IsLikelyUpdateRestart()
+        {
+            try
+            {
+                // Check if there are any Contra_Launcher processes that started recently (within last 10 seconds)
+                Process[] processes = Process.GetProcessesByName("Contra_Launcher");
+                foreach (Process proc in processes)
+                {
+                    if (proc.Id != Process.GetCurrentProcess().Id)
+                    {
+                        TimeSpan runtime = DateTime.Now - proc.StartTime;
+                        if (runtime.TotalSeconds < 10)
+                        {
+                            return true; // Another launcher started recently, likely an update restart
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // If we can't check processes, assume it's not an update restart
+            }
+            return false;
+        }
 
         [STAThread]
         static void Main()
@@ -32,38 +58,93 @@ namespace Contra
 
             try
             {
-                try
+                // First, try a quick acquisition to detect if launcher is actually running
+                bool mutexAcquired = mutex.WaitOne(100); // Quick 100ms check
+                
+                if (!mutexAcquired)
                 {
-                    if (!mutex.WaitOne(5))
+                    // Check if this is likely an update restart scenario
+                    bool isUpdateRestart = IsLikelyUpdateRestart();
+                    
+                    if (isUpdateRestart)
                     {
-                        mutex.Dispose();
-                        mutex = null;
+                        // This is likely an update restart, wait for previous instance to shut down
+                        Thread.Sleep(500);
+                        
+                        int retryCount = 0;
+                        const int maxRetries = 2;
+                        const int timeoutMs = 1000; // 1 second timeout for retries
 
-                        if (Properties.Settings.Default.Flag_GB == true)
+                        while (!mutexAcquired && retryCount < maxRetries)
                         {
-                            MessageBox.Show("Contra Launcher is already running!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            try
+                            {
+                                mutexAcquired = mutex.WaitOne(timeoutMs);
+                                if (!mutexAcquired)
+                                {
+                                    retryCount++;
+                                    if (retryCount < maxRetries)
+                                    {
+                                        // Wait a bit before retrying
+                                        Thread.Sleep(300);
+                                    }
+                                }
+                            }
+                            catch (AbandonedMutexException) 
+                            { 
+                                // Mutex was abandoned by previous instance, we can acquire it
+                                mutexAcquired = true;
+                            }
+                            catch (Exception)
+                            {
+                                // If there's any other mutex-related exception, try to create a new mutex
+                                if (retryCount == maxRetries - 1)
+                                {
+                                    try
+                                    {
+                                        mutex.Dispose();
+                                        mutex = new Mutex(false, "Contra_Launcher");
+                                        mutexAcquired = mutex.WaitOne(1000);
+                                    }
+                                    catch
+                                    {
+                                        // If all else fails, continue without mutex protection
+                                        mutexAcquired = true;
+                                    }
+                                }
+                            }
                         }
-                        else if (Properties.Settings.Default.Flag_RU == true)
-                        {
-                            MessageBox.Show("Contra Launcher уже запущен!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (Properties.Settings.Default.Flag_UA == true)
-                        {
-                            MessageBox.Show("Contra Launcher вже працює!", "Повідомлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (Properties.Settings.Default.Flag_BG == true)
-                        {
-                            MessageBox.Show("Contra Launcher е вече стартиран!", "Известие", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (Properties.Settings.Default.Flag_DE == true)
-                        {
-                            MessageBox.Show("Contra Launcher läuft bereits!", "Beachten", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        return;
-
                     }
+                    // If not an update restart, we'll show the "already running" message immediately
                 }
-                catch (AbandonedMutexException) { } // Mutex wasn't fully released previous instance
+
+                if (!mutexAcquired)
+                {
+                    mutex.Dispose();
+                    mutex = null;
+
+                    if (Properties.Settings.Default.Flag_GB == true)
+                    {
+                        MessageBox.Show("Contra Launcher is already running!", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (Properties.Settings.Default.Flag_RU == true)
+                    {
+                        MessageBox.Show("Contra Launcher уже запущен!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (Properties.Settings.Default.Flag_UA == true)
+                    {
+                        MessageBox.Show("Contra Launcher вже працює!", "Повідомлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (Properties.Settings.Default.Flag_BG == true)
+                    {
+                        MessageBox.Show("Contra Launcher е вече стартиран!", "Известие", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (Properties.Settings.Default.Flag_DE == true)
+                    {
+                        MessageBox.Show("Contra Launcher läuft bereits!", "Beachten", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    return;
+                }
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
