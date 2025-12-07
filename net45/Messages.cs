@@ -140,7 +140,7 @@ namespace Contra
             
             ["ParticleCap"] = lang => ChooseByLanguage(lang, "Max Particle Count: ", "Количество частиц: ", "Кількість частинок: ", "Количество частици: ", "Partikelzahl: "),
             
-            ["TextureRes"] = lang => ChooseByLanguage(lang, "Texture Resolution: ", "Разр. текстуры: ", "Розр. текстури: ", "Текстурна резол.: ", "Texturauflösung: "),
+            ["TextureRes"] = lang => ChooseByLanguage(lang, "Texture Resolution: ", "Разр. текстур: ", "Розр. текстур: ", "Текстурна резол.: ", "Texturauflösung: "),
             
             ["Low"] = lang => ChooseByLanguage(lang, "Low", "Низкое", "Низьке", "Ниска", "Niedrige"),
             
@@ -204,8 +204,8 @@ namespace Contra
             
             ["ExtraAnimationsDescription"] = lang => ChooseByLanguage(lang, 
                 "Shows additional animations\nsuch as tree sway.",
-                "Показывает дополнительные анимации,\nтакие как раскачивание дерева.",
-                "Показує додаткові анімації,\nнаприклад коливання дерев.",
+                "Показывает дополнительные анимации,\nтакие как покачивания деревьев.",
+                "Показує додаткові анімації,\nтакі як похитування дерев.",
                 "Показва допълнителни анимации,\nкато люлеене на дървета.",
                 "Zeigt zusätzliche Animationen\nwie Baumschwingen."),
             
@@ -237,7 +237,7 @@ namespace Contra
                 "Симулира реалистични отражения на\nслънцето и облаците върху водата.",
                 "Simuliert realistische Sonnen- und\nWolkenreflexionen auf dem Wasser."),
             
-            ["LangFilterDescription"] = lang => ChooseByLanguage(lang, "Hides bad words in chat.", "Скрывает плохие слова в чате.", "Приховує погані слова в чаті.", "Скрива лошите думи в чата.", "Versteckt böse Worte im Chat."),
+            ["LangFilterDescription"] = lang => ChooseByLanguage(lang, "Hides offensive words in chat.", "Скрывает оскорбительные слова в чате\n(только на английском).", "Приховує образливі слова в чаті\n(тільки англійською).", "Скрива обидните думи в чата\n(само на английски).", "Versteckt böse Worte im Chat\n(Nur auf Englisch verfügbar)."),
             
             ["AnisoDescription"] = lang => ChooseByLanguage(lang, 
                 "Improves texture quality of surfaces\nwhen viewed at an angle.",
@@ -248,8 +248,8 @@ namespace Contra
             
             ["ExtraBuildingPropsDescription"] = lang => ChooseByLanguage(lang, 
                 "Shows extra building props\nunique per each general.",
-                "Показывает дополнит. строительные\nрекв., уникальные для каждого генерала.",
-                "Показує додатковий будівельний реквізит,\nунікальний для кожного генерала.",
+                "Показывает доп. косметические\nэлементы на зданиях разных генералов.",
+                "Показує дод. косметичні елементи на\nбудинках різних генералів.",
                 "Показва допълнителни сградни\nреквизити, уникални за всеки генерал.",
                 "Zeigt zusätzliche Gebäudeobjekte an,\ndie für jeden General einzigartig sind."),
             
@@ -284,8 +284,8 @@ namespace Contra
             
             ["IconQualityDoubleDescription"] = lang => ChooseByLanguage(lang, 
                 "Small buttons will use larger\nicon/cameo resolution. Best\nlooking on large displays.",
-                "Маленькие кнопки будут использовать\nбольшее разрешение значков.\nЛучше смотрится на больших дисплеях.",
-                "Маленькі кнопки використовуватимуть\nбільшу роздільну здатність значків.\nНайкраще виглядає на великих\nдисплеях.",
+                "Иконки будут в высоком разрешении.\nЛучше смотрится на больших дисплеях.",
+                "Іконки будуть у високій якості.\nНайкраще виглядає на великих\nдисплеях.",
                 "Малките бутони ще ползват по-висока\nрезолюция на иконите. Препоръчва\nсе за големи дисплеи.",
                 "Kleine Schaltflächen verwenden\neine größere Symbolauflösung. Sieht\nam besten auf großen Displays aus."),
             
@@ -293,18 +293,18 @@ namespace Contra
             
             ["IconQualityStandardDescription"] = lang => ChooseByLanguage(lang, 
                 "Small buttons will use standard\nicon/cameo resolution. Best\nlooking on small displays.",
-                "Маленькие кнопки будут использовать\nстандартное разрешение значков.\nЛучше смотрится на маленьких дисплеях.",
-                "Маленькі кнопки використовуватимуть\nстандартну роздільну здатність\nзначків. Найкраще виглядає на\nневеликих дисплеях.",
+                "Иконки будут в стандартном разрешении.\nЛучше смотрится на маленьких дисплеях.",
+                "Іконки будуть у стандартному дозволі.\nНайкраще виглядає на невеликих дисплеях.",
                 "Малките бутони ще ползват стандартна\nрезолюция на иконите. Препоръчва\nсе за малки дисплеи.",
                 "Kleine Schaltflächen verwenden\ndie Standardsymbolauflösung. Sieht\nam besten auf kleinen Displays aus."),
             
             ["HotkeysLeikeze"] = lang => ChooseByLanguage(lang, "LEIKEZE HOTKEYS", "ГОРЯЧИЕ КЛАВИШИ LEIKEZE", "ГАРЯЧІ КЛАВІШІ LEIKEZE", "БЪРЗИ КЛАВИШИ LEIKEZE", "LEIKEZE-HOTKEYS"),
             
-            ["HotkeysLeikezeDescription"] = lang => ChooseByLanguage(lang, "Use hotkeys by Leikeze.", "Используйте горячие клавиши от Leikeze.", "Використовуйте гарячі клавіші від Leikeze.", "Използвайте бързи клавиши от Leikeze.", "Verwenden Sie Hotkeys von Leikeze."),
+            ["HotkeysLeikezeDescription"] = lang => ChooseByLanguage(lang, "Modern hotkeys with the same pattern for all generals.", "Современные хоткеи с одинаковым\nпаттерном для всех генералов.", "Сучасні хоткеї з однаковим патерном\nдля всіх генералів.", "Модерни клавишни комбинации с\nеднакъв модел за всички генерали.", "Moderne Hotkeys mit dem gleichen\nMuster für alle Generäle."),
             
             ["HotkeysStandard"] = lang => ChooseByLanguage(lang, "STANDARD HOTKEYS", "СТАНДАРТНЫЕ ГОРЯЧИЕ КЛАВИШИ", "СТАНДАРТНІ ГАРЯЧІ КЛАВІШІ", "СТАНДАРТНИ БЪРЗИ КЛАВИШИ", "STANDARD-HOTKEYS"),
             
-            ["HotkeysStandardDescription"] = lang => ChooseByLanguage(lang, "Use standard hotkeys.", "Используйте стандартные горячие\nклавиши.", "Використовуйте стандартні гарячі клавіші.", "Използвайте стандартни бързи клавиши.", "Verwenden Sie Standard-Hotkeys."),
+            ["HotkeysStandardDescription"] = lang => ChooseByLanguage(lang, "Standard hotkeys by object names.", "Стандартные хоткеи по названиям\nобъектов.", "Стандартні хоткеї за назвами об'єктів.", "Стандартни клавишни комбинации,\nпо имената на обектите.", "Standard-Hotkeys anhand von Objektnamen."),
             
             ["E_NotFound_DLLs"] = lang => ChooseByLanguage(lang,
                 "There are missing base game files in the current directory - please install the mod into the main folder of the game (C&C Generals Zero Hour)!\n\nWould you like to visit a page with installation instructions?",

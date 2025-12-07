@@ -91,7 +91,7 @@ namespace Contra
                 CloudShadowsCheckBox.Text = "Тени облаков";
                 ExtraGroundLightingCheckBox.Text = "Освещение земли";
                 SmoothWaterBordersCheckBox.Text = "Ровные края воды";
-                BehindBuildingsCheckBox.Text = "Единицы через здания";
+                BehindBuildingsCheckBox.Text = "Юниты через здания";
                 ShowPropsCheckBox.Text = "Маленькие объекты";
                 ExtraAnimationsCheckBox.Text = "Дополнит. анимации";
                 DisableDynamicLODCheckBox.Text = "Откл. динам. ур. детал.";
@@ -108,7 +108,7 @@ namespace Contra
                 IconQualityLabel.Text = "Кач. иконок";
                 ExtraBuildingPropsCheckBox.Text = "Доп. объекты к зданиям";
                 NoPreviewText.Text = "Предварительный просмотр недоступен";
-                AcceptBtn.Text = "ПРИНЯТЬ";
+                AcceptBtn.Text = "ПРИМЕНИТЬ";
                 CloseBtn.Text = "ОТМЕНА";
             }
             else if (Globals.UA_Checked == true)
@@ -119,7 +119,7 @@ namespace Contra
                 CloudShadowsCheckBox.Text = "Тіні хмар";
                 ExtraGroundLightingCheckBox.Text = "Освітлення землі";
                 SmoothWaterBordersCheckBox.Text = "Рівні краї води";
-                BehindBuildingsCheckBox.Text = "Одиниць через будівлі";
+                BehindBuildingsCheckBox.Text = "Юніти через будинки";
                 ShowPropsCheckBox.Text = "Маленькі об'єкти";
                 ExtraAnimationsCheckBox.Text = "Додаткова анімація";
                 DisableDynamicLODCheckBox.Text = "Вимк. дин. рівень детал.";
@@ -136,7 +136,7 @@ namespace Contra
                 IconQualityLabel.Text = "Якість ікон";
                 ExtraBuildingPropsCheckBox.Text = "Дод. об'єкти до будівель";
                 NoPreviewText.Text = "Попередній перегляд недоступний";
-                AcceptBtn.Text = "ПРИЙНЯТИ";
+                AcceptBtn.Text = "ЗАСТОСУВАТИ";
                 CloseBtn.Text = "ВІДМІНА";
             }
             else if (Globals.BG_Checked == true)

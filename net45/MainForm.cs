@@ -391,7 +391,7 @@ namespace Contra
                     toolTip1.SetToolTip(GoofyPics, "Включить смешные портреты Генералов.");
                     toolTip1.SetToolTip(WinCheckBox, "Запуск Contra в режиме окна вместо полноэкранного.");
                     toolTip1.SetToolTip(QSCheckBox, "Отключает интро и шелмапу (игра запускается быстрее).");
-                    toolTip1.SetToolTip(DonateBtn, "Дарить команду проекта.");
+                    toolTip1.SetToolTip(DonateBtn, "Оформить донат команде проекта.");
                     toolTip1.SetToolTip(linkYouTubePred, "Посетите канал PredatoR на YouTube.");
                     toolTip1.SetToolTip(linkYouTubeDce, "Посетите канал Dce на YouTube.");
                     RadioLocQuotes.Text = "Англ.";
@@ -407,7 +407,7 @@ namespace Contra
                     OptionsBtn.Text = "НАСТРОЙКИ";
                     WBBtn.Text = "РЕДАКТОР КАРТ";
                     ExitBtn.Text = "ВЫХОД";
-                    DonateBtn.Text = "ПОДДЕРЖАТЬ";
+                    DonateBtn.Text = "ЗАДОНАТИТЬ";
                     currentFileLabel = "Файл: ";
                     ModDLLabel.Text = "Прогресс загрузки: ";
                     CancelModDLBtn.Text = "Отмена";
@@ -446,7 +446,7 @@ namespace Contra
                     toolTip1.SetToolTip(GoofyPics, "Використовуйте смішні портрети Генералів.");
                     toolTip1.SetToolTip(WinCheckBox, "Запускає Contra у віконному режимі замість повноекранного.");
                     toolTip1.SetToolTip(QSCheckBox, "Вимикає інтро і шелмапу (гра запускається швидше).");
-                    toolTip1.SetToolTip(DonateBtn, "Дарить команду проекту.");
+                    toolTip1.SetToolTip(DonateBtn, "Оформити донат команді проекту.");
                     toolTip1.SetToolTip(linkYouTubePred, "Відвідайте YouTube-канал PredatoR.");
                     toolTip1.SetToolTip(linkYouTubeDce, "Відвідайте YouTube-канал Dce.");
                     RadioLocQuotes.Text = "Англ.";
@@ -462,7 +462,7 @@ namespace Contra
                     OptionsBtn.Text = "НАСТРОЙКИ";
                     WBBtn.Text = "РЕДАКТОР КАРТИ";
                     ExitBtn.Text = "ВИХІД";
-                    DonateBtn.Text = "ПІДТРИМАТИ";
+                    DonateBtn.Text = "ЗАДОНАТИТИ";
                     currentFileLabel = "Файл: ";
                     ModDLLabel.Text = "Прогрес завантаження: ";
                     CancelModDLBtn.Text = "Скасувати";
