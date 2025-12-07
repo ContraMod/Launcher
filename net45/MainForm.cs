@@ -1106,6 +1106,7 @@ namespace Contra
             {
                 List<string> ctrs = new List<string>
                 {
+                    $"!!{betaPrefix}_Patch1.ctr",
                     $"!{betaPrefix}_INI.ctr",
                     $"!{betaPrefix}_Maps.ctr",
                     $"!{betaPrefix}_AI.ctr",
