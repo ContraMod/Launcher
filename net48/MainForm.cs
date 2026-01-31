@@ -341,7 +341,7 @@ namespace Contra
         }
 
         string verString;
-        string yearString = "2025";
+        string yearString = "2026";
 
         private void RadioFlag_GB_CheckedChanged(object sender, EventArgs e)
         {
