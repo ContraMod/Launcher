@@ -1,4 +1,4 @@
-Launcher: 2.0.0.7$
+Launcher: 2.0.0.8$
 MOTD-EN: We're playing via RadminVPN at "Contra 009" Gaming Network$
 MOTD-RU: Играем через RadminVPN в игровой сети: "Contra 009"$
 MOTD-UA: Граємо через RadminVPN в ігровій мережі "Contra 009"$
