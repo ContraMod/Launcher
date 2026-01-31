@@ -518,11 +518,11 @@ namespace Contra
             this.DonateBtn.BackColor = System.Drawing.Color.Transparent;
             this.DonateBtn.BackgroundImage = global::Contra.Properties.Resources._button_medium;
             this.DonateBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            resources.ApplyResources(this.DonateBtn, "DonateBtn");
             this.DonateBtn.FlatAppearance.BorderSize = 0;
             this.DonateBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.DonateBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.DonateBtn, "DonateBtn");
-            this.DonateBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.DonateBtn.ForeColor = System.Drawing.SystemColors.GrayText;
             this.DonateBtn.Name = "DonateBtn";
             this.DonateBtn.UseVisualStyleBackColor = false;
             this.DonateBtn.Click += new System.EventHandler(this.DonateBtn_Click);

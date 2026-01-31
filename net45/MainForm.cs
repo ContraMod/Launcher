@@ -1697,7 +1697,7 @@ namespace Contra
                         generals.Start();
 
                         // Enable Donate button flash timer
-                        donateFlashTimer1.Enabled = true;
+                        //donateFlashTimer1.Enabled = true;
                     }
                     catch (Exception ex)
                     {

@@ -6,8 +6,8 @@
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>Contra</RootNamespace>
     <AssemblyName>Contra_Launcher</AssemblyName>
-    <ApplicationIcon>..\net45\ContraIco.ico</ApplicationIcon>
-    <ApplicationManifest>..\net45\app.manifest</ApplicationManifest>
+    <ApplicationIcon>..\net48\ContraIco.ico</ApplicationIcon>
+    <ApplicationManifest>..\net48\app.manifest</ApplicationManifest>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
 	<GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -18,15 +18,15 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\net45\**\*.cs" />
-    <EmbeddedResource Include="..\net45\**\*.resx" />
+    <Compile Include="..\net48\**\*.cs" />
+    <EmbeddedResource Include="..\net48\**\*.resx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="..\net45\obj\Debug\**" />
+    <Compile Remove="..\net48\obj\Debug\**" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="..\net45\ControlColorHelper.cs" />
-    <Compile Remove="..\net45\DisabledTextColorExample.cs" />
+    <Compile Remove="..\net48\ControlColorHelper.cs" />
+    <Compile Remove="..\net48\DisabledTextColorExample.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\_bg_update.jpg" />
