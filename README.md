@@ -17,11 +17,11 @@ Requires Windows 7 or higher and one of the following SDKs:
 
 Build Location: `netcore\bin\Release\netcoreapp3.1\win-x86\publish\Contra_Launcher.exe`
 
-**.Net Framework 4.5**
+**.Net Framework 4.8**
 
-`msbuild /p:Configuration=Release /p:Platform=AnyCPU net45`
+`msbuild /p:Configuration=Release /p:Platform=AnyCPU net48`
 
-Build Location: `net45\bin\Release\Contra_Launcher.exe`
+Build Location: `net48\bin\Release\Contra_Launcher.exe`
 
 Instead of command-line you can also open the solution in Visual Studio 2019 and built from there.
 
