@@ -11,7 +11,7 @@ Download mirrors (**choose one**):
 [.exe Setup from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-2-setup);
 [.zip Archive from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-2-archive).
 
-Apply **Patch 1** by extracting to game folder and overwriting existing files: [.zip Archive from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-2-patch-1).
+After installation, apply **Patch 1** by extracting to game folder and overwriting existing files: [.zip Archive from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-2-patch-1).
 
 2. Run ***Contra_Launcher.exe***.
 
@@ -59,7 +59,7 @@ https://www.gentool.net/download (extract latest d3d8.dll to ZH folder from zip)
 [.exe установочный файл из ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-2-setup);
 [.zip архив из ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-2-archive).
 
-Примените **патч 1**, распаковав архив в папку с игрой и заменив существующие файлы: [.zip Archive from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-2-patch-1).
+После установки, примените **патч 1**, распаковав архив в папку с игрой и заменив существующие файлы: [.zip Archive from ModDB](https://www.moddb.com/mods/contra/downloads/contra-x-beta-2-patch-1).
 
 2. Запустите ***Contra_Launcher.exe***.
 
