@@ -60,6 +60,12 @@
             this.OverlayGreenUpDown = new System.Windows.Forms.NumericUpDown();
             this.OverlayBlueUpDown = new System.Windows.Forms.NumericUpDown();
             this.OverlayRgbHintLabel = new System.Windows.Forms.Label();
+            this.BackdropColourLabel = new System.Windows.Forms.Label();
+            this.BackdropRedUpDown = new System.Windows.Forms.NumericUpDown();
+            this.BackdropGreenUpDown = new System.Windows.Forms.NumericUpDown();
+            this.BackdropBlueUpDown = new System.Windows.Forms.NumericUpDown();
+            this.BackdropOpacityUpDown = new System.Windows.Forms.NumericUpDown();
+            this.BackdropRgbHintLabel = new System.Windows.Forms.Label();
             this.GraphicsPage = new System.Windows.Forms.Panel();
             this.GameOptionsPage = new System.Windows.Forms.Panel();
             this.GraphicsTabButton = new System.Windows.Forms.Button();
@@ -112,6 +118,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.OverlayRedUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OverlayGreenUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OverlayBlueUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BackdropRedUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BackdropGreenUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BackdropBlueUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BackdropOpacityUpDown)).BeginInit();
             this.GameOptionsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GraphicsInfoPictureBox)).BeginInit();
             this.GraphicsInfoTextPanel.SuspendLayout();
@@ -326,6 +336,44 @@
             this.OverlayRgbHintLabel.ForeColor = System.Drawing.Color.White;
             this.OverlayRgbHintLabel.Name = "OverlayRgbHintLabel";
             // 
+            // BackdropColourLabel
+            // 
+            resources.ApplyResources(this.BackdropColourLabel, "BackdropColourLabel");
+            this.BackdropColourLabel.BackColor = System.Drawing.Color.Transparent;
+            this.BackdropColourLabel.ForeColor = System.Drawing.Color.White;
+            this.BackdropColourLabel.Name = "BackdropColourLabel";
+            // 
+            // BackdropRedUpDown
+            // 
+            resources.ApplyResources(this.BackdropRedUpDown, "BackdropRedUpDown");
+            this.BackdropRedUpDown.Name = "BackdropRedUpDown";
+            this.BackdropRedUpDown.TabStop = false;
+            // 
+            // BackdropGreenUpDown
+            // 
+            resources.ApplyResources(this.BackdropGreenUpDown, "BackdropGreenUpDown");
+            this.BackdropGreenUpDown.Name = "BackdropGreenUpDown";
+            this.BackdropGreenUpDown.TabStop = false;
+            // 
+            // BackdropBlueUpDown
+            // 
+            resources.ApplyResources(this.BackdropBlueUpDown, "BackdropBlueUpDown");
+            this.BackdropBlueUpDown.Name = "BackdropBlueUpDown";
+            this.BackdropBlueUpDown.TabStop = false;
+            // 
+            // BackdropOpacityUpDown
+            // 
+            resources.ApplyResources(this.BackdropOpacityUpDown, "BackdropOpacityUpDown");
+            this.BackdropOpacityUpDown.Name = "BackdropOpacityUpDown";
+            this.BackdropOpacityUpDown.TabStop = false;
+            // 
+            // BackdropRgbHintLabel
+            // 
+            resources.ApplyResources(this.BackdropRgbHintLabel, "BackdropRgbHintLabel");
+            this.BackdropRgbHintLabel.BackColor = System.Drawing.Color.Transparent;
+            this.BackdropRgbHintLabel.ForeColor = System.Drawing.Color.White;
+            this.BackdropRgbHintLabel.Name = "BackdropRgbHintLabel";
+            // 
             // GraphicsPage
             // 
             this.GraphicsPage.BackColor = System.Drawing.Color.Transparent;
@@ -363,6 +411,12 @@
             this.GameOptionsPage.Controls.Add(this.OverlayGreenUpDown);
             this.GameOptionsPage.Controls.Add(this.OverlayBlueUpDown);
             this.GameOptionsPage.Controls.Add(this.OverlayRgbHintLabel);
+            this.GameOptionsPage.Controls.Add(this.BackdropColourLabel);
+            this.GameOptionsPage.Controls.Add(this.BackdropRedUpDown);
+            this.GameOptionsPage.Controls.Add(this.BackdropGreenUpDown);
+            this.GameOptionsPage.Controls.Add(this.BackdropBlueUpDown);
+            this.GameOptionsPage.Controls.Add(this.BackdropOpacityUpDown);
+            this.GameOptionsPage.Controls.Add(this.BackdropRgbHintLabel);
             resources.ApplyResources(this.GameOptionsPage, "GameOptionsPage");
             this.GameOptionsPage.Name = "GameOptionsPage";
             // 
@@ -895,6 +949,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.OverlayRedUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OverlayGreenUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OverlayBlueUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BackdropRedUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BackdropGreenUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BackdropBlueUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BackdropOpacityUpDown)).EndInit();
             this.GameOptionsPage.ResumeLayout(false);
             this.GameOptionsPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GraphicsInfoPictureBox)).EndInit();
@@ -992,6 +1050,12 @@
         private System.Windows.Forms.NumericUpDown OverlayGreenUpDown;
         private System.Windows.Forms.NumericUpDown OverlayBlueUpDown;
         private System.Windows.Forms.Label OverlayRgbHintLabel;
+        private System.Windows.Forms.Label BackdropColourLabel;
+        private System.Windows.Forms.NumericUpDown BackdropRedUpDown;
+        private System.Windows.Forms.NumericUpDown BackdropGreenUpDown;
+        private System.Windows.Forms.NumericUpDown BackdropBlueUpDown;
+        private System.Windows.Forms.NumericUpDown BackdropOpacityUpDown;
+        private System.Windows.Forms.Label BackdropRgbHintLabel;
         private System.Windows.Forms.Panel GraphicsPage;
         private System.Windows.Forms.Panel GameOptionsPage;
         private System.Windows.Forms.Button GraphicsTabButton;

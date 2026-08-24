@@ -639,7 +639,7 @@
     <value>Arial, 9pt, style=Bold</value>
   </data>
   <data name="HotkeyOverlayHeaderLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>486, 282</value>
+    <value>486, 222</value>
   </data>
   <data name="HotkeyOverlayHeaderLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 15</value>
@@ -666,7 +666,7 @@
     <value>True</value>
   </data>
   <data name="KeyboardOverlayCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>486, 306</value>
+    <value>486, 246</value>
   </data>
   <data name="KeyboardOverlayCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 17</value>
@@ -693,7 +693,7 @@
     <value>True</value>
   </data>
   <data name="KeyboardOverlayBackdropCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>486, 332</value>
+    <value>486, 272</value>
   </data>
   <data name="KeyboardOverlayBackdropCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 17</value>
@@ -720,7 +720,7 @@
     <value>True</value>
   </data>
   <data name="OverlayColourLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>486, 362</value>
+    <value>486, 302</value>
   </data>
   <data name="OverlayColourLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 13</value>
@@ -744,7 +744,7 @@
     <value>23</value>
   </data>
   <data name="OverlayRedUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>486, 384</value>
+    <value>486, 324</value>
   </data>
   <data name="OverlayRedUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 20</value>
@@ -765,7 +765,7 @@
     <value>24</value>
   </data>
   <data name="OverlayGreenUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>552, 384</value>
+    <value>552, 324</value>
   </data>
   <data name="OverlayGreenUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 20</value>
@@ -786,7 +786,7 @@
     <value>25</value>
   </data>
   <data name="OverlayBlueUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>618, 384</value>
+    <value>618, 324</value>
   </data>
   <data name="OverlayBlueUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 20</value>
@@ -810,7 +810,7 @@
     <value>True</value>
   </data>
   <data name="OverlayRgbHintLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>486, 410</value>
+    <value>486, 350</value>
   </data>
   <data name="OverlayRgbHintLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 13</value>
@@ -826,6 +826,144 @@
   </data>
   <data name="&gt;&gt;OverlayRgbHintLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BackdropColourLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="BackdropColourLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>486, 376</value>
+  </data>
+  <data name="BackdropColourLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 13</value>
+  </data>
+  <data name="BackdropColourLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="BackdropColourLabel.Text" xml:space="preserve">
+    <value>Backdrop colour:</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourLabel.Name" xml:space="preserve">
+    <value>BackdropColourLabel</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourLabel.ZOrder" xml:space="preserve">
+    <value>28</value>
+  </data>
+  <data name="BackdropRedUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>486, 398</value>
+  </data>
+  <data name="BackdropRedUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="BackdropRedUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="&gt;&gt;BackdropRedUpDown.Name" xml:space="preserve">
+    <value>BackdropRedUpDown</value>
+  </data>
+  <data name="&gt;&gt;BackdropRedUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BackdropRedUpDown.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BackdropRedUpDown.ZOrder" xml:space="preserve">
+    <value>29</value>
+  </data>
+  <data name="BackdropGreenUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>552, 398</value>
+  </data>
+  <data name="BackdropGreenUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="BackdropGreenUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="&gt;&gt;BackdropGreenUpDown.Name" xml:space="preserve">
+    <value>BackdropGreenUpDown</value>
+  </data>
+  <data name="&gt;&gt;BackdropGreenUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BackdropGreenUpDown.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BackdropGreenUpDown.ZOrder" xml:space="preserve">
+    <value>30</value>
+  </data>
+  <data name="BackdropBlueUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>618, 398</value>
+  </data>
+  <data name="BackdropBlueUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="BackdropBlueUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="&gt;&gt;BackdropBlueUpDown.Name" xml:space="preserve">
+    <value>BackdropBlueUpDown</value>
+  </data>
+  <data name="&gt;&gt;BackdropBlueUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BackdropBlueUpDown.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BackdropBlueUpDown.ZOrder" xml:space="preserve">
+    <value>31</value>
+  </data>
+  <data name="BackdropOpacityUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>684, 398</value>
+  </data>
+  <data name="BackdropOpacityUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="BackdropOpacityUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="&gt;&gt;BackdropOpacityUpDown.Name" xml:space="preserve">
+    <value>BackdropOpacityUpDown</value>
+  </data>
+  <data name="&gt;&gt;BackdropOpacityUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BackdropOpacityUpDown.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BackdropOpacityUpDown.ZOrder" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="BackdropRgbHintLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="BackdropRgbHintLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>486, 424</value>
+  </data>
+  <data name="BackdropRgbHintLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 13</value>
+  </data>
+  <data name="BackdropRgbHintLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="BackdropRgbHintLabel.Text" xml:space="preserve">
+    <value>red / green / blue / opacity</value>
+  </data>
+  <data name="&gt;&gt;BackdropRgbHintLabel.Name" xml:space="preserve">
+    <value>BackdropRgbHintLabel</value>
+  </data>
+  <data name="&gt;&gt;BackdropRgbHintLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BackdropRgbHintLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BackdropRgbHintLabel.ZOrder" xml:space="preserve">
+    <value>33</value>
   </data>
   <data name="&gt;&gt;OverlayRgbHintLabel.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>

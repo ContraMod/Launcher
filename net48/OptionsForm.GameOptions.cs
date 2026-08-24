@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -74,6 +74,7 @@ namespace Contra
             // The overlay colours only matter when the overlay is on, and the grid fields only when
             // grid hotkeys are, so grey each group out with its switch.
             KeyboardOverlayCheckBox.CheckedChanged += delegate { UpdateOverlayEnabledState(); };
+            KeyboardOverlayBackdropCheckBox.CheckedChanged += delegate { UpdateOverlayEnabledState(); };
             GridHotkeysCheckBox.CheckedChanged += delegate { UpdateGridEnabledState(); };
 
             ApplyGameOptionsLanguage();
@@ -97,8 +98,14 @@ namespace Contra
             SetChannelRange(OverlayRedUpDown);
             SetChannelRange(OverlayGreenUpDown);
             SetChannelRange(OverlayBlueUpDown);
+            SetChannelRange(BackdropRedUpDown);
+            SetChannelRange(BackdropGreenUpDown);
+            SetChannelRange(BackdropBlueUpDown);
+            // Opacity is the backdrop alpha, so it takes the same 0-255 range as a channel.
+            SetChannelRange(BackdropOpacityUpDown);
 
             OverlayRgbHintLabel.ForeColor = TabInactiveColor;
+            BackdropRgbHintLabel.ForeColor = TabInactiveColor;
         }
 
         private static void SetChannelRange(NumericUpDown n)
@@ -149,6 +156,13 @@ namespace Contra
             OverlayRedUpDown.Enabled = on;
             OverlayGreenUpDown.Enabled = on;
             OverlayBlueUpDown.Enabled = on;
+
+            // The backdrop colours only do anything when there is a backdrop to paint.
+            bool backdrop = on && KeyboardOverlayBackdropCheckBox.Checked;
+            BackdropRedUpDown.Enabled = backdrop;
+            BackdropGreenUpDown.Enabled = backdrop;
+            BackdropBlueUpDown.Enabled = backdrop;
+            BackdropOpacityUpDown.Enabled = backdrop;
         }
 
         private void UpdateGridEnabledState()
@@ -193,6 +207,11 @@ namespace Contra
             OverlayRedUpDown.Value = Clamp(GameOptionsIni.GetInt(s, "KeyboardOverlayRed", 255), OverlayRedUpDown);
             OverlayGreenUpDown.Value = Clamp(GameOptionsIni.GetInt(s, "KeyboardOverlayGreen", 255), OverlayGreenUpDown);
             OverlayBlueUpDown.Value = Clamp(GameOptionsIni.GetInt(s, "KeyboardOverlayBlue", 255), OverlayBlueUpDown);
+            // Black at half alpha in the engine, which is what makes a light letter readable.
+            BackdropRedUpDown.Value = Clamp(GameOptionsIni.GetInt(s, "KeyboardOverlayBackdropRed", 0), BackdropRedUpDown);
+            BackdropGreenUpDown.Value = Clamp(GameOptionsIni.GetInt(s, "KeyboardOverlayBackdropGreen", 0), BackdropGreenUpDown);
+            BackdropBlueUpDown.Value = Clamp(GameOptionsIni.GetInt(s, "KeyboardOverlayBackdropBlue", 0), BackdropBlueUpDown);
+            BackdropOpacityUpDown.Value = Clamp(GameOptionsIni.GetInt(s, "KeyboardOverlayBackdropOpacity", 128), BackdropOpacityUpDown);
 
             UpdateOverlayEnabledState();
             UpdateGridEnabledState();
@@ -258,6 +277,10 @@ namespace Contra
             s = GameOptionsIni.SetInt(s, "KeyboardOverlayRed", (int)OverlayRedUpDown.Value);
             s = GameOptionsIni.SetInt(s, "KeyboardOverlayGreen", (int)OverlayGreenUpDown.Value);
             s = GameOptionsIni.SetInt(s, "KeyboardOverlayBlue", (int)OverlayBlueUpDown.Value);
+            s = GameOptionsIni.SetInt(s, "KeyboardOverlayBackdropRed", (int)BackdropRedUpDown.Value);
+            s = GameOptionsIni.SetInt(s, "KeyboardOverlayBackdropGreen", (int)BackdropGreenUpDown.Value);
+            s = GameOptionsIni.SetInt(s, "KeyboardOverlayBackdropBlue", (int)BackdropBlueUpDown.Value);
+            s = GameOptionsIni.SetInt(s, "KeyboardOverlayBackdropOpacity", (int)BackdropOpacityUpDown.Value);
 
             GameOptionsIni.WriteAll(s);
         }
@@ -302,6 +325,8 @@ namespace Contra
                 KeyboardOverlayBackdropCheckBox.Text = "Подложка под буквой";
                 OverlayColourLabel.Text = "Цвет букв:";
                 OverlayRgbHintLabel.Text = "красный / зелёный / синий";
+                BackdropColourLabel.Text = "Цвет подложки:";
+                BackdropRgbHintLabel.Text = "красный / зелёный / синий / непрозрачность";
                 return;
             }
 
@@ -326,6 +351,8 @@ namespace Contra
             KeyboardOverlayBackdropCheckBox.Text = "Hintergrundplatte";
             OverlayColourLabel.Text = "Farbe der Buchstaben:";
             OverlayRgbHintLabel.Text = "Rot / Grün / Blau";
+            BackdropColourLabel.Text = "Farbe der Hintergrundplatte:";
+            BackdropRgbHintLabel.Text = "Rot / Grün / Blau / Deckkraft";
         }
     }
 }
