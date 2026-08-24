@@ -21,8 +21,15 @@
     <Compile Include="..\net48\**\*.cs" />
     <EmbeddedResource Include="..\net48\**\*.resx" />
   </ItemGroup>
+  <!-- net48 builds into its own obj/bin next door, and the globs above would otherwise pull that
+       output back in: obj holds a generated TargetFrameworkAttribute that collides with this
+       project's own, and duplicate .resx copies. Only Debug was excluded, so a Release build of
+       net48 broke this one with CS0579 depending on which project compiled first. -->
   <ItemGroup>
-    <Compile Remove="..\net48\obj\Debug\**" />
+    <Compile Remove="..\net48\obj\**" />
+    <Compile Remove="..\net48\bin\**" />
+    <EmbeddedResource Remove="..\net48\obj\**" />
+    <EmbeddedResource Remove="..\net48\bin\**" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="..\net48\ControlColorHelper.cs" />
