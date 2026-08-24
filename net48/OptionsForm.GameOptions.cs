@@ -76,6 +76,7 @@ namespace Contra
             KeyboardOverlayCheckBox.CheckedChanged += delegate { UpdateOverlayEnabledState(); };
             KeyboardOverlayBackdropCheckBox.CheckedChanged += delegate { UpdateOverlayEnabledState(); };
             GridHotkeysCheckBox.CheckedChanged += delegate { UpdateGridEnabledState(); };
+            TextureFilterComboBox.SelectedIndexChanged += delegate { UpdateTextureFilterEnabledState(); };
 
             ApplyGameOptionsLanguage();
             ShowPage(false);
@@ -91,6 +92,9 @@ namespace Contra
             HealthBarModeComboBox.Items.AddRange(new object[] { "Classic", "Damaged", "Always" });
             BuildTimerComboBox.Items.AddRange(new object[] { "None", "Seconds", "Auto" });
             CastModeComboBox.Items.AddRange(new object[] { "Normal", "QuickCast", "QuickCastWithIndicator" });
+            TextureFilterComboBox.Items.AddRange(new object[] { "Bilinear", "Trilinear", "Anisotropic" });
+            // The engine rounds down to one of these, so offering anything else would only mislead.
+            AnisotropicLevelComboBox.Items.AddRange(new object[] { "2", "4", "8", "16" });
 
             GridHotkeyColumnsUpDown.Minimum = 0;
             GridHotkeyColumnsUpDown.Maximum = 20;
@@ -165,6 +169,16 @@ namespace Contra
             BackdropOpacityUpDown.Enabled = backdrop;
         }
 
+        /// <summary>
+        /// The sample count is only read when the filter is Anisotropic, so grey it out otherwise
+        /// rather than letting it look like it does something.
+        /// </summary>
+        private void UpdateTextureFilterEnabledState()
+        {
+            AnisotropicLevelComboBox.Enabled = string.Equals(
+                SelectedText(TextureFilterComboBox, "Bilinear"), "Anisotropic", StringComparison.OrdinalIgnoreCase);
+        }
+
         private void UpdateGridEnabledState()
         {
             bool on = GridHotkeysCheckBox.Checked;
@@ -187,6 +201,12 @@ namespace Contra
                 MatchOrFirst(BuildTimerComboBox, GameOptionsIni.GetValue(s, "BuildTimerDisplayMode", "None"));
             CastModeComboBox.SelectedItem =
                 MatchOrFirst(CastModeComboBox, GameOptionsIni.GetValue(s, "CastMode", "Normal"));
+
+            // Bilinear and 2 are the retail defaults the engine falls back to.
+            TextureFilterComboBox.SelectedItem =
+                MatchOrFirst(TextureFilterComboBox, GameOptionsIni.GetValue(s, "TextureFilter", "Bilinear"));
+            AnisotropicLevelComboBox.SelectedItem =
+                MatchOrFirst(AnisotropicLevelComboBox, NearestAnisotropicLevel(GameOptionsIni.GetInt(s, "AnisotropicLevel", 2)));
 
             NumericalHealthCheckBox.Checked = GameOptionsIni.GetBool(s, "NumericalHealth", false);
             SmartPipsCheckBox.Checked = GameOptionsIni.GetBool(s, "SmartPips", false);
@@ -215,6 +235,7 @@ namespace Contra
 
             UpdateOverlayEnabledState();
             UpdateGridEnabledState();
+            UpdateTextureFilterEnabledState();
         }
 
         private static decimal Clamp(int value, NumericUpDown control)
@@ -230,6 +251,31 @@ namespace Contra
             }
 
             return value;
+        }
+
+        /// <summary>
+        /// Round down to a level the engine accepts, the same way getAnisotropicLevel does, so a
+        /// hand edited value shows as the one the game will actually use rather than snapping to
+        /// the first item.
+        /// </summary>
+        private static string NearestAnisotropicLevel(int level)
+        {
+            if (level >= 16)
+            {
+                return "16";
+            }
+
+            if (level >= 8)
+            {
+                return "8";
+            }
+
+            if (level >= 4)
+            {
+                return "4";
+            }
+
+            return "2";
         }
 
         private static object MatchOrFirst(ComboBox box, string value)
@@ -261,6 +307,8 @@ namespace Contra
             s = GameOptionsIni.SetValue(s, "HealthBarDisplayMode", SelectedText(HealthBarModeComboBox, "Classic"));
             s = GameOptionsIni.SetValue(s, "BuildTimerDisplayMode", SelectedText(BuildTimerComboBox, "None"));
             s = GameOptionsIni.SetValue(s, "CastMode", SelectedText(CastModeComboBox, "Normal"));
+            s = GameOptionsIni.SetValue(s, "TextureFilter", SelectedText(TextureFilterComboBox, "Bilinear"));
+            s = GameOptionsIni.SetValue(s, "AnisotropicLevel", SelectedText(AnisotropicLevelComboBox, "2"));
 
             s = GameOptionsIni.SetBool(s, "NumericalHealth", NumericalHealthCheckBox.Checked);
             s = GameOptionsIni.SetBool(s, "SmartPips", SmartPipsCheckBox.Checked);
@@ -327,6 +375,9 @@ namespace Contra
                 OverlayRgbHintLabel.Text = "красный / зелёный / синий";
                 BackdropColourLabel.Text = "Цвет подложки:";
                 BackdropRgbHintLabel.Text = "красный / зелёный / синий / непрозрачность";
+                GameOptGraphicsLabel.Text = "Графика";
+                TextureFilterLabel.Text = "Фильтрация текстур:";
+                AnisotropicLevelLabel.Text = "Уровень анизотропии:";
                 return;
             }
 
@@ -353,6 +404,9 @@ namespace Contra
             OverlayRgbHintLabel.Text = "Rot / Grün / Blau";
             BackdropColourLabel.Text = "Farbe der Hintergrundplatte:";
             BackdropRgbHintLabel.Text = "Rot / Grün / Blau / Deckkraft";
+            GameOptGraphicsLabel.Text = "Grafik";
+            TextureFilterLabel.Text = "Texturfilter:";
+            AnisotropicLevelLabel.Text = "Anisotropie-Stufe:";
         }
     }
 }

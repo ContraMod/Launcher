@@ -959,6 +959,132 @@
   <data name="&gt;&gt;BackdropRgbHintLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="GameOptGraphicsLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="GameOptGraphicsLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="GameOptGraphicsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 330</value>
+  </data>
+  <data name="GameOptGraphicsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 15</value>
+  </data>
+  <data name="GameOptGraphicsLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="GameOptGraphicsLabel.Text" xml:space="preserve">
+    <value>Graphics</value>
+  </data>
+  <data name="&gt;&gt;GameOptGraphicsLabel.Name" xml:space="preserve">
+    <value>GameOptGraphicsLabel</value>
+  </data>
+  <data name="&gt;&gt;GameOptGraphicsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GameOptGraphicsLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;GameOptGraphicsLabel.ZOrder" xml:space="preserve">
+    <value>34</value>
+  </data>
+  <data name="TextureFilterLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="TextureFilterLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 358</value>
+  </data>
+  <data name="TextureFilterLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 13</value>
+  </data>
+  <data name="TextureFilterLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="TextureFilterLabel.Text" xml:space="preserve">
+    <value>Texture filter:</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterLabel.Name" xml:space="preserve">
+    <value>TextureFilterLabel</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterLabel.ZOrder" xml:space="preserve">
+    <value>35</value>
+  </data>
+  <data name="TextureFilterComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 354</value>
+  </data>
+  <data name="TextureFilterComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 21</value>
+  </data>
+  <data name="TextureFilterComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterComboBox.Name" xml:space="preserve">
+    <value>TextureFilterComboBox</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterComboBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterComboBox.ZOrder" xml:space="preserve">
+    <value>36</value>
+  </data>
+  <data name="AnisotropicLevelLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="AnisotropicLevelLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 388</value>
+  </data>
+  <data name="AnisotropicLevelLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 13</value>
+  </data>
+  <data name="AnisotropicLevelLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="AnisotropicLevelLabel.Text" xml:space="preserve">
+    <value>Anisotropic level:</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelLabel.Name" xml:space="preserve">
+    <value>AnisotropicLevelLabel</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelLabel.ZOrder" xml:space="preserve">
+    <value>37</value>
+  </data>
+  <data name="AnisotropicLevelComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 384</value>
+  </data>
+  <data name="AnisotropicLevelComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 21</value>
+  </data>
+  <data name="AnisotropicLevelComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelComboBox.Name" xml:space="preserve">
+    <value>AnisotropicLevelComboBox</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelComboBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelComboBox.ZOrder" xml:space="preserve">
+    <value>38</value>
+  </data>
   <data name="&gt;&gt;BackdropRgbHintLabel.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
   </data>
@@ -2124,39 +2250,6 @@
   </data>
   <data name="&gt;&gt;HotkeyStylePanel.ZOrder" xml:space="preserve">
     <value>34</value>
-  </data>
-  <data name="AnisoCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="AnisoCheckBox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Calibri, 15px, style=Bold</value>
-  </data>
-  <data name="AnisoCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="AnisoCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>464, 258</value>
-  </data>
-  <data name="AnisoCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 22</value>
-  </data>
-  <data name="AnisoCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="AnisoCheckBox.Text" xml:space="preserve">
-    <value>Anisotropic Filtering</value>
-  </data>
-  <data name="&gt;&gt;AnisoCheckBox.Name" xml:space="preserve">
-    <value>AnisoCheckBox</value>
-  </data>
-  <data name="&gt;&gt;AnisoCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AnisoCheckBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;AnisoCheckBox.ZOrder" xml:space="preserve">
-    <value>8</value>
   </data>
   <data name="ControlBarStandardRadioButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>

@@ -102,7 +102,6 @@ namespace Contra
                 CameraHeightLabel.Text = "Высота камеры: ?";
                 HotkeyStyleLabel.Text = "Горячие клав.";
                 LegacyHotkeysRadioButton.Text = "Оригинальный";
-                AnisoCheckBox.Text = "Анизотропная фильтрация";
                 CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Стандарт.";
                 ControlBarLabel.Text = "Панель упр.";
                 IconQualityLabel.Text = "Кач. иконок";
@@ -130,7 +129,6 @@ namespace Contra
                 CameraHeightLabel.Text = "Висота камери: ?";
                 HotkeyStyleLabel.Text = "Гарячі клавіші";
                 LegacyHotkeysRadioButton.Text = "Оригінальний";
-                AnisoCheckBox.Text = "Анізотропна фільтрація";
                 CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Стандарт.";
                 ControlBarLabel.Text = "Панель кер.";
                 IconQualityLabel.Text = "Якість ікон";
@@ -158,7 +156,6 @@ namespace Contra
                 CameraHeightLabel.Text = "Вис. на камерата: ?";
                 HotkeyStyleLabel.Text = "Горещи клав.";
                 LegacyHotkeysRadioButton.Text = "Оригинален";
-                AnisoCheckBox.Text = "Анизотропно филтриране";
                 CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Стандарт.";
                 ControlBarLabel.Text = "Контр. лента";
                 IconQualityLabel.Text = "Кач. на икон.";
@@ -186,7 +183,6 @@ namespace Contra
                 CameraHeightLabel.Text = "Kamerahöhe: ?";
                 HotkeyStyleLabel.Text = "Hotkey-Stil";
                 LegacyHotkeysRadioButton.Text = "Original";
-                AnisoCheckBox.Text = "Anisotrope Filterung";
                 CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Standard";
                 ControlBarLabel.Text = "Kontrollleiste";
                 IconQualityLabel.Text = "Cameo-Qual.";
@@ -311,7 +307,6 @@ namespace Contra
             CameosStandardRadioButton.Checked = Properties.Settings.Default.CameosStandard;
             LeikezeHotkeysRadioButton.Checked = Properties.Settings.Default.LeikezeHotkeys;
             LegacyHotkeysRadioButton.Checked = Properties.Settings.Default.LegacyHotkeys;
-            AnisoCheckBox.Checked = Properties.Settings.Default.Anisotropic;
 
             // Get current camera height
             if (File.Exists("!" + MainForm.betaPrefix + "_GameData.big"))
@@ -680,10 +675,11 @@ namespace Contra
                 Properties.Settings.Default.LegacyHotkeys = true;
             }
 
-            // Enable ENB Series distribution for Anisotropic Filtering
-            if (AnisoCheckBox.Checked)
-                Properties.Settings.Default.Anisotropic = true;
-            else Properties.Settings.Default.Anisotropic = false;
+            // The ENB Series d3d8 wrapper used to be how anisotropic filtering was reached, since
+            // retail never called Set_Texture_Filter. The engine exposes TextureFilter directly now,
+            // so the wrapper is redundant and its checkbox is gone. Leaving this false makes the
+            // DisableAnisotropicFiltering() call on launch uninstall it for anyone who had it on.
+            Properties.Settings.Default.Anisotropic = false;
 
             // Game Options page. Written as one read/modify/write over Options.ini, and after
             // the retail settings above so it sees their edits rather than overwriting them.
@@ -819,14 +815,6 @@ namespace Contra
                 Messages.GenerateMessage("PerformanceEffectNone", Globals.currentLanguage),
                 Messages.GenerateMessage("LangFilterDescription", Globals.currentLanguage));
         }
-        private void AnisoCheckBox_MouseHover(object sender, EventArgs e)
-        {
-            GraphicsInfoPictureBox.Image = Properties.Resources.comp_aniso;
-            ShowGraphicsInfo(AnisoCheckBox.Text,
-                Messages.GenerateMessage("PerformanceEffectLow", Globals.currentLanguage),
-                Messages.GenerateMessage("AnisoDescription", Globals.currentLanguage));
-        }
-
         private void ExtraBuildingPropsCheckBox_MouseHover(object sender, EventArgs e)
         {
             GraphicsInfoPictureBox.Image = Properties.Resources.comp_extraprops;

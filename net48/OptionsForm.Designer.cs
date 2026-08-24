@@ -66,6 +66,11 @@
             this.BackdropBlueUpDown = new System.Windows.Forms.NumericUpDown();
             this.BackdropOpacityUpDown = new System.Windows.Forms.NumericUpDown();
             this.BackdropRgbHintLabel = new System.Windows.Forms.Label();
+            this.GameOptGraphicsLabel = new System.Windows.Forms.Label();
+            this.TextureFilterLabel = new System.Windows.Forms.Label();
+            this.TextureFilterComboBox = new System.Windows.Forms.ComboBox();
+            this.AnisotropicLevelLabel = new System.Windows.Forms.Label();
+            this.AnisotropicLevelComboBox = new System.Windows.Forms.ComboBox();
             this.GraphicsPage = new System.Windows.Forms.Panel();
             this.GameOptionsPage = new System.Windows.Forms.Panel();
             this.GraphicsTabButton = new System.Windows.Forms.Button();
@@ -102,7 +107,6 @@
             this.GraphicsInfoPerformanceLabel = new System.Windows.Forms.Label();
             this.HotkeyStylePanel = new System.Windows.Forms.Panel();
             this.HotkeyStyleLabel = new System.Windows.Forms.Label();
-            this.AnisoCheckBox = new System.Windows.Forms.CheckBox();
             this.ControlBarPanel = new System.Windows.Forms.Panel();
             this.ControlBarStandardRadioButton = new System.Windows.Forms.RadioButton();
             this.ControlBarContraRadioButton = new System.Windows.Forms.RadioButton();
@@ -374,6 +378,43 @@
             this.BackdropRgbHintLabel.ForeColor = System.Drawing.Color.White;
             this.BackdropRgbHintLabel.Name = "BackdropRgbHintLabel";
             // 
+            // GameOptGraphicsLabel
+            // 
+            resources.ApplyResources(this.GameOptGraphicsLabel, "GameOptGraphicsLabel");
+            this.GameOptGraphicsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.GameOptGraphicsLabel.ForeColor = System.Drawing.Color.White;
+            this.GameOptGraphicsLabel.Name = "GameOptGraphicsLabel";
+            // 
+            // TextureFilterLabel
+            // 
+            resources.ApplyResources(this.TextureFilterLabel, "TextureFilterLabel");
+            this.TextureFilterLabel.BackColor = System.Drawing.Color.Transparent;
+            this.TextureFilterLabel.ForeColor = System.Drawing.Color.White;
+            this.TextureFilterLabel.Name = "TextureFilterLabel";
+            // 
+            // TextureFilterComboBox
+            // 
+            resources.ApplyResources(this.TextureFilterComboBox, "TextureFilterComboBox");
+            this.TextureFilterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TextureFilterComboBox.FormattingEnabled = true;
+            this.TextureFilterComboBox.Name = "TextureFilterComboBox";
+            this.TextureFilterComboBox.TabStop = false;
+            // 
+            // AnisotropicLevelLabel
+            // 
+            resources.ApplyResources(this.AnisotropicLevelLabel, "AnisotropicLevelLabel");
+            this.AnisotropicLevelLabel.BackColor = System.Drawing.Color.Transparent;
+            this.AnisotropicLevelLabel.ForeColor = System.Drawing.Color.White;
+            this.AnisotropicLevelLabel.Name = "AnisotropicLevelLabel";
+            // 
+            // AnisotropicLevelComboBox
+            // 
+            resources.ApplyResources(this.AnisotropicLevelComboBox, "AnisotropicLevelComboBox");
+            this.AnisotropicLevelComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.AnisotropicLevelComboBox.FormattingEnabled = true;
+            this.AnisotropicLevelComboBox.Name = "AnisotropicLevelComboBox";
+            this.AnisotropicLevelComboBox.TabStop = false;
+            // 
             // GraphicsPage
             // 
             this.GraphicsPage.BackColor = System.Drawing.Color.Transparent;
@@ -417,6 +458,11 @@
             this.GameOptionsPage.Controls.Add(this.BackdropBlueUpDown);
             this.GameOptionsPage.Controls.Add(this.BackdropOpacityUpDown);
             this.GameOptionsPage.Controls.Add(this.BackdropRgbHintLabel);
+            this.GameOptionsPage.Controls.Add(this.GameOptGraphicsLabel);
+            this.GameOptionsPage.Controls.Add(this.TextureFilterLabel);
+            this.GameOptionsPage.Controls.Add(this.TextureFilterComboBox);
+            this.GameOptionsPage.Controls.Add(this.AnisotropicLevelLabel);
+            this.GameOptionsPage.Controls.Add(this.AnisotropicLevelComboBox);
             resources.ApplyResources(this.GameOptionsPage, "GameOptionsPage");
             this.GameOptionsPage.Name = "GameOptionsPage";
             // 
@@ -744,18 +790,6 @@
             this.HotkeyStyleLabel.ForeColor = System.Drawing.Color.White;
             this.HotkeyStyleLabel.Name = "HotkeyStyleLabel";
             // 
-            // AnisoCheckBox
-            // 
-            resources.ApplyResources(this.AnisoCheckBox, "AnisoCheckBox");
-            this.AnisoCheckBox.BackColor = System.Drawing.Color.Transparent;
-            this.AnisoCheckBox.Checked = true;
-            this.AnisoCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.AnisoCheckBox.ForeColor = System.Drawing.Color.White;
-            this.AnisoCheckBox.Name = "AnisoCheckBox";
-            this.AnisoCheckBox.UseVisualStyleBackColor = false;
-            this.AnisoCheckBox.MouseLeave += new System.EventHandler(this.Option_MouseLeave);
-            this.AnisoCheckBox.MouseHover += new System.EventHandler(this.AnisoCheckBox_MouseHover);
-            // 
             // ControlBarPanel
             // 
             this.ControlBarPanel.BackColor = System.Drawing.Color.Transparent;
@@ -914,7 +948,6 @@
             this.Controls.Add(this.ExtraBuildingPropsCheckBox);
             this.Controls.Add(this.CameoResPanel);
             this.Controls.Add(this.ControlBarPanel);
-            this.Controls.Add(this.AnisoCheckBox);
             this.Controls.Add(this.GraphicsInfoTextPanel);
             this.Controls.Add(this.GraphicsInfoPictureBox);
             this.Controls.Add(this.CloseBtn);
@@ -1005,7 +1038,6 @@
         private System.Windows.Forms.Label GraphicsInfoPerformanceLabel;
         private System.Windows.Forms.Panel HotkeyStylePanel;
         private System.Windows.Forms.Label HotkeyStyleLabel;
-        private System.Windows.Forms.CheckBox AnisoCheckBox;
         private System.Windows.Forms.Panel ControlBarPanel;
         private System.Windows.Forms.RadioButton ControlBarContraRadioButton;
         private System.Windows.Forms.RadioButton ControlBarProRadioButton;
@@ -1056,6 +1088,11 @@
         private System.Windows.Forms.NumericUpDown BackdropBlueUpDown;
         private System.Windows.Forms.NumericUpDown BackdropOpacityUpDown;
         private System.Windows.Forms.Label BackdropRgbHintLabel;
+        private System.Windows.Forms.Label GameOptGraphicsLabel;
+        private System.Windows.Forms.Label TextureFilterLabel;
+        private System.Windows.Forms.ComboBox TextureFilterComboBox;
+        private System.Windows.Forms.Label AnisotropicLevelLabel;
+        private System.Windows.Forms.ComboBox AnisotropicLevelComboBox;
         private System.Windows.Forms.Panel GraphicsPage;
         private System.Windows.Forms.Panel GameOptionsPage;
         private System.Windows.Forms.Button GraphicsTabButton;
