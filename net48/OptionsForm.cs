@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -319,6 +319,11 @@ namespace Contra
                 try {ReadCameraHeight(File.ReadAllText("!" + MainForm.betaPrefix + "_GameData.big"));}
                 catch (IOException) {Messages.GenerateMessageBox("E_CloseGameDataP3", Globals.currentLanguage);}
             }
+
+            // Build the Game Options page and fill it in. Done last so every control the
+            // graphics page owns already exists and can be moved onto its panel.
+            BuildGameOptionsPage();
+            LoadGameOptions();
         }
 
         private void ReadCameraHeight(string fileToRead)
@@ -680,6 +685,10 @@ namespace Contra
                 Properties.Settings.Default.Anisotropic = true;
             else Properties.Settings.Default.Anisotropic = false;
 
+            // Game Options page. Written as one read/modify/write over Options.ini, and after
+            // the retail settings above so it sees their edits rather than overwriting them.
+            SaveGameOptions();
+
             IsGeneralsRunning();
             Properties.Settings.Default.Save();
             Close();
@@ -926,6 +935,11 @@ namespace Contra
                     return;
                 }
             }
+        }
+
+        private void GameOptionsTabButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

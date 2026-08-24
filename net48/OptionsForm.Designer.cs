@@ -1,4 +1,4 @@
-namespace Contra
+﻿namespace Contra
 {
     partial class OptionsForm
     {
@@ -29,6 +29,41 @@ namespace Contra
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsForm));
+            this.CameraHeightTrackBar = new Contra.TrackBar();
+            this.ParticleCapTrackBar = new Contra.TrackBar();
+            this.TextureResTrackBar = new Contra.TrackBar();
+            this.GameOptDisplayLabel = new System.Windows.Forms.Label();
+            this.HealthBarModeLabel = new System.Windows.Forms.Label();
+            this.HealthBarModeComboBox = new System.Windows.Forms.ComboBox();
+            this.NumericalHealthCheckBox = new System.Windows.Forms.CheckBox();
+            this.SmartPipsCheckBox = new System.Windows.Forms.CheckBox();
+            this.SelectionCircleCheckBox = new System.Windows.Forms.CheckBox();
+            this.BuildTimerLabel = new System.Windows.Forms.Label();
+            this.BuildTimerComboBox = new System.Windows.Forms.ComboBox();
+            this.GameOptInputLabel = new System.Windows.Forms.Label();
+            this.CastModeLabel = new System.Windows.Forms.Label();
+            this.CastModeComboBox = new System.Windows.Forms.ComboBox();
+            this.EasyMilitaryDragCheckBox = new System.Windows.Forms.CheckBox();
+            this.GridHotkeysHeaderLabel = new System.Windows.Forms.Label();
+            this.GridHotkeysCheckBox = new System.Windows.Forms.CheckBox();
+            this.GridHotkeyLayoutLabel = new System.Windows.Forms.Label();
+            this.GridHotkeyLayoutTextBox = new System.Windows.Forms.TextBox();
+            this.GridHotkeyColumnsLabel = new System.Windows.Forms.Label();
+            this.GridHotkeyColumnsUpDown = new System.Windows.Forms.NumericUpDown();
+            this.NonGridHotkeysLabel = new System.Windows.Forms.Label();
+            this.NonGridHotkeysTextBox = new System.Windows.Forms.TextBox();
+            this.HotkeyOverlayHeaderLabel = new System.Windows.Forms.Label();
+            this.KeyboardOverlayCheckBox = new System.Windows.Forms.CheckBox();
+            this.KeyboardOverlayBackdropCheckBox = new System.Windows.Forms.CheckBox();
+            this.OverlayColourLabel = new System.Windows.Forms.Label();
+            this.OverlayRedUpDown = new System.Windows.Forms.NumericUpDown();
+            this.OverlayGreenUpDown = new System.Windows.Forms.NumericUpDown();
+            this.OverlayBlueUpDown = new System.Windows.Forms.NumericUpDown();
+            this.OverlayRgbHintLabel = new System.Windows.Forms.Label();
+            this.GraphicsPage = new System.Windows.Forms.Panel();
+            this.GameOptionsPage = new System.Windows.Forms.Panel();
+            this.GraphicsTabButton = new System.Windows.Forms.Button();
+            this.GameOptionsTabButton = new System.Windows.Forms.Button();
             this.LangFilterCheckBox = new System.Windows.Forms.CheckBox();
             this.FogCheckBox = new System.Windows.Forms.CheckBox();
             this.resolutionComboBox = new System.Windows.Forms.ComboBox();
@@ -73,15 +108,278 @@ namespace Contra
             this.CameosDoubleRadioButton = new System.Windows.Forms.RadioButton();
             this.ExtraBuildingPropsCheckBox = new System.Windows.Forms.CheckBox();
             this.NoPreviewText = new System.Windows.Forms.Label();
-            this.ParticleCapTrackBar = new Contra.TrackBar();
-            this.TextureResTrackBar = new Contra.TrackBar();
-            this.CameraHeightTrackBar = new Contra.TrackBar();
+            ((System.ComponentModel.ISupportInitialize)(this.GridHotkeyColumnsUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OverlayRedUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OverlayGreenUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OverlayBlueUpDown)).BeginInit();
+            this.GameOptionsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GraphicsInfoPictureBox)).BeginInit();
             this.GraphicsInfoTextPanel.SuspendLayout();
             this.HotkeyStylePanel.SuspendLayout();
             this.ControlBarPanel.SuspendLayout();
             this.CameoResPanel.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // GameOptDisplayLabel
+            // 
+            resources.ApplyResources(this.GameOptDisplayLabel, "GameOptDisplayLabel");
+            this.GameOptDisplayLabel.BackColor = System.Drawing.Color.Transparent;
+            this.GameOptDisplayLabel.ForeColor = System.Drawing.Color.White;
+            this.GameOptDisplayLabel.Name = "GameOptDisplayLabel";
+            // 
+            // HealthBarModeLabel
+            // 
+            resources.ApplyResources(this.HealthBarModeLabel, "HealthBarModeLabel");
+            this.HealthBarModeLabel.BackColor = System.Drawing.Color.Transparent;
+            this.HealthBarModeLabel.ForeColor = System.Drawing.Color.White;
+            this.HealthBarModeLabel.Name = "HealthBarModeLabel";
+            // 
+            // HealthBarModeComboBox
+            // 
+            this.HealthBarModeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.HealthBarModeComboBox, "HealthBarModeComboBox");
+            this.HealthBarModeComboBox.Name = "HealthBarModeComboBox";
+            this.HealthBarModeComboBox.TabStop = false;
+            // 
+            // NumericalHealthCheckBox
+            // 
+            resources.ApplyResources(this.NumericalHealthCheckBox, "NumericalHealthCheckBox");
+            this.NumericalHealthCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.NumericalHealthCheckBox.ForeColor = System.Drawing.Color.White;
+            this.NumericalHealthCheckBox.Name = "NumericalHealthCheckBox";
+            this.NumericalHealthCheckBox.TabStop = false;
+            this.NumericalHealthCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // SmartPipsCheckBox
+            // 
+            resources.ApplyResources(this.SmartPipsCheckBox, "SmartPipsCheckBox");
+            this.SmartPipsCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.SmartPipsCheckBox.ForeColor = System.Drawing.Color.White;
+            this.SmartPipsCheckBox.Name = "SmartPipsCheckBox";
+            this.SmartPipsCheckBox.TabStop = false;
+            this.SmartPipsCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // SelectionCircleCheckBox
+            // 
+            resources.ApplyResources(this.SelectionCircleCheckBox, "SelectionCircleCheckBox");
+            this.SelectionCircleCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.SelectionCircleCheckBox.ForeColor = System.Drawing.Color.White;
+            this.SelectionCircleCheckBox.Name = "SelectionCircleCheckBox";
+            this.SelectionCircleCheckBox.TabStop = false;
+            this.SelectionCircleCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // BuildTimerLabel
+            // 
+            resources.ApplyResources(this.BuildTimerLabel, "BuildTimerLabel");
+            this.BuildTimerLabel.BackColor = System.Drawing.Color.Transparent;
+            this.BuildTimerLabel.ForeColor = System.Drawing.Color.White;
+            this.BuildTimerLabel.Name = "BuildTimerLabel";
+            // 
+            // BuildTimerComboBox
+            // 
+            this.BuildTimerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.BuildTimerComboBox, "BuildTimerComboBox");
+            this.BuildTimerComboBox.Name = "BuildTimerComboBox";
+            this.BuildTimerComboBox.TabStop = false;
+            // 
+            // GameOptInputLabel
+            // 
+            resources.ApplyResources(this.GameOptInputLabel, "GameOptInputLabel");
+            this.GameOptInputLabel.BackColor = System.Drawing.Color.Transparent;
+            this.GameOptInputLabel.ForeColor = System.Drawing.Color.White;
+            this.GameOptInputLabel.Name = "GameOptInputLabel";
+            // 
+            // CastModeLabel
+            // 
+            resources.ApplyResources(this.CastModeLabel, "CastModeLabel");
+            this.CastModeLabel.BackColor = System.Drawing.Color.Transparent;
+            this.CastModeLabel.ForeColor = System.Drawing.Color.White;
+            this.CastModeLabel.Name = "CastModeLabel";
+            // 
+            // CastModeComboBox
+            // 
+            this.CastModeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.CastModeComboBox, "CastModeComboBox");
+            this.CastModeComboBox.Name = "CastModeComboBox";
+            this.CastModeComboBox.TabStop = false;
+            // 
+            // EasyMilitaryDragCheckBox
+            // 
+            resources.ApplyResources(this.EasyMilitaryDragCheckBox, "EasyMilitaryDragCheckBox");
+            this.EasyMilitaryDragCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.EasyMilitaryDragCheckBox.ForeColor = System.Drawing.Color.White;
+            this.EasyMilitaryDragCheckBox.Name = "EasyMilitaryDragCheckBox";
+            this.EasyMilitaryDragCheckBox.TabStop = false;
+            this.EasyMilitaryDragCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // GridHotkeysHeaderLabel
+            // 
+            resources.ApplyResources(this.GridHotkeysHeaderLabel, "GridHotkeysHeaderLabel");
+            this.GridHotkeysHeaderLabel.BackColor = System.Drawing.Color.Transparent;
+            this.GridHotkeysHeaderLabel.ForeColor = System.Drawing.Color.White;
+            this.GridHotkeysHeaderLabel.Name = "GridHotkeysHeaderLabel";
+            // 
+            // GridHotkeysCheckBox
+            // 
+            resources.ApplyResources(this.GridHotkeysCheckBox, "GridHotkeysCheckBox");
+            this.GridHotkeysCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.GridHotkeysCheckBox.ForeColor = System.Drawing.Color.White;
+            this.GridHotkeysCheckBox.Name = "GridHotkeysCheckBox";
+            this.GridHotkeysCheckBox.TabStop = false;
+            this.GridHotkeysCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // GridHotkeyLayoutLabel
+            // 
+            resources.ApplyResources(this.GridHotkeyLayoutLabel, "GridHotkeyLayoutLabel");
+            this.GridHotkeyLayoutLabel.BackColor = System.Drawing.Color.Transparent;
+            this.GridHotkeyLayoutLabel.ForeColor = System.Drawing.Color.White;
+            this.GridHotkeyLayoutLabel.Name = "GridHotkeyLayoutLabel";
+            // 
+            // GridHotkeyLayoutTextBox
+            // 
+            this.GridHotkeyLayoutTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            resources.ApplyResources(this.GridHotkeyLayoutTextBox, "GridHotkeyLayoutTextBox");
+            this.GridHotkeyLayoutTextBox.Name = "GridHotkeyLayoutTextBox";
+            this.GridHotkeyLayoutTextBox.TabStop = false;
+            // 
+            // GridHotkeyColumnsLabel
+            // 
+            resources.ApplyResources(this.GridHotkeyColumnsLabel, "GridHotkeyColumnsLabel");
+            this.GridHotkeyColumnsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.GridHotkeyColumnsLabel.ForeColor = System.Drawing.Color.White;
+            this.GridHotkeyColumnsLabel.Name = "GridHotkeyColumnsLabel";
+            // 
+            // GridHotkeyColumnsUpDown
+            // 
+            resources.ApplyResources(this.GridHotkeyColumnsUpDown, "GridHotkeyColumnsUpDown");
+            this.GridHotkeyColumnsUpDown.Name = "GridHotkeyColumnsUpDown";
+            this.GridHotkeyColumnsUpDown.TabStop = false;
+            // 
+            // NonGridHotkeysLabel
+            // 
+            resources.ApplyResources(this.NonGridHotkeysLabel, "NonGridHotkeysLabel");
+            this.NonGridHotkeysLabel.BackColor = System.Drawing.Color.Transparent;
+            this.NonGridHotkeysLabel.ForeColor = System.Drawing.Color.White;
+            this.NonGridHotkeysLabel.Name = "NonGridHotkeysLabel";
+            // 
+            // NonGridHotkeysTextBox
+            // 
+            this.NonGridHotkeysTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            resources.ApplyResources(this.NonGridHotkeysTextBox, "NonGridHotkeysTextBox");
+            this.NonGridHotkeysTextBox.Name = "NonGridHotkeysTextBox";
+            this.NonGridHotkeysTextBox.TabStop = false;
+            // 
+            // HotkeyOverlayHeaderLabel
+            // 
+            resources.ApplyResources(this.HotkeyOverlayHeaderLabel, "HotkeyOverlayHeaderLabel");
+            this.HotkeyOverlayHeaderLabel.BackColor = System.Drawing.Color.Transparent;
+            this.HotkeyOverlayHeaderLabel.ForeColor = System.Drawing.Color.White;
+            this.HotkeyOverlayHeaderLabel.Name = "HotkeyOverlayHeaderLabel";
+            // 
+            // KeyboardOverlayCheckBox
+            // 
+            resources.ApplyResources(this.KeyboardOverlayCheckBox, "KeyboardOverlayCheckBox");
+            this.KeyboardOverlayCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.KeyboardOverlayCheckBox.ForeColor = System.Drawing.Color.White;
+            this.KeyboardOverlayCheckBox.Name = "KeyboardOverlayCheckBox";
+            this.KeyboardOverlayCheckBox.TabStop = false;
+            this.KeyboardOverlayCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // KeyboardOverlayBackdropCheckBox
+            // 
+            resources.ApplyResources(this.KeyboardOverlayBackdropCheckBox, "KeyboardOverlayBackdropCheckBox");
+            this.KeyboardOverlayBackdropCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.KeyboardOverlayBackdropCheckBox.ForeColor = System.Drawing.Color.White;
+            this.KeyboardOverlayBackdropCheckBox.Name = "KeyboardOverlayBackdropCheckBox";
+            this.KeyboardOverlayBackdropCheckBox.TabStop = false;
+            this.KeyboardOverlayBackdropCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // OverlayColourLabel
+            // 
+            resources.ApplyResources(this.OverlayColourLabel, "OverlayColourLabel");
+            this.OverlayColourLabel.BackColor = System.Drawing.Color.Transparent;
+            this.OverlayColourLabel.ForeColor = System.Drawing.Color.White;
+            this.OverlayColourLabel.Name = "OverlayColourLabel";
+            // 
+            // OverlayRedUpDown
+            // 
+            resources.ApplyResources(this.OverlayRedUpDown, "OverlayRedUpDown");
+            this.OverlayRedUpDown.Name = "OverlayRedUpDown";
+            this.OverlayRedUpDown.TabStop = false;
+            // 
+            // OverlayGreenUpDown
+            // 
+            resources.ApplyResources(this.OverlayGreenUpDown, "OverlayGreenUpDown");
+            this.OverlayGreenUpDown.Name = "OverlayGreenUpDown";
+            this.OverlayGreenUpDown.TabStop = false;
+            // 
+            // OverlayBlueUpDown
+            // 
+            resources.ApplyResources(this.OverlayBlueUpDown, "OverlayBlueUpDown");
+            this.OverlayBlueUpDown.Name = "OverlayBlueUpDown";
+            this.OverlayBlueUpDown.TabStop = false;
+            // 
+            // OverlayRgbHintLabel
+            // 
+            resources.ApplyResources(this.OverlayRgbHintLabel, "OverlayRgbHintLabel");
+            this.OverlayRgbHintLabel.BackColor = System.Drawing.Color.Transparent;
+            this.OverlayRgbHintLabel.ForeColor = System.Drawing.Color.White;
+            this.OverlayRgbHintLabel.Name = "OverlayRgbHintLabel";
+            // 
+            // GraphicsPage
+            // 
+            this.GraphicsPage.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.GraphicsPage, "GraphicsPage");
+            this.GraphicsPage.Name = "GraphicsPage";
+            // 
+            // GameOptionsPage
+            // 
+            this.GameOptionsPage.BackColor = System.Drawing.Color.Transparent;
+            this.GameOptionsPage.Controls.Add(this.GameOptDisplayLabel);
+            this.GameOptionsPage.Controls.Add(this.HealthBarModeLabel);
+            this.GameOptionsPage.Controls.Add(this.HealthBarModeComboBox);
+            this.GameOptionsPage.Controls.Add(this.NumericalHealthCheckBox);
+            this.GameOptionsPage.Controls.Add(this.SmartPipsCheckBox);
+            this.GameOptionsPage.Controls.Add(this.SelectionCircleCheckBox);
+            this.GameOptionsPage.Controls.Add(this.BuildTimerLabel);
+            this.GameOptionsPage.Controls.Add(this.BuildTimerComboBox);
+            this.GameOptionsPage.Controls.Add(this.GameOptInputLabel);
+            this.GameOptionsPage.Controls.Add(this.CastModeLabel);
+            this.GameOptionsPage.Controls.Add(this.CastModeComboBox);
+            this.GameOptionsPage.Controls.Add(this.EasyMilitaryDragCheckBox);
+            this.GameOptionsPage.Controls.Add(this.GridHotkeysHeaderLabel);
+            this.GameOptionsPage.Controls.Add(this.GridHotkeysCheckBox);
+            this.GameOptionsPage.Controls.Add(this.GridHotkeyLayoutLabel);
+            this.GameOptionsPage.Controls.Add(this.GridHotkeyLayoutTextBox);
+            this.GameOptionsPage.Controls.Add(this.GridHotkeyColumnsLabel);
+            this.GameOptionsPage.Controls.Add(this.GridHotkeyColumnsUpDown);
+            this.GameOptionsPage.Controls.Add(this.NonGridHotkeysLabel);
+            this.GameOptionsPage.Controls.Add(this.NonGridHotkeysTextBox);
+            this.GameOptionsPage.Controls.Add(this.HotkeyOverlayHeaderLabel);
+            this.GameOptionsPage.Controls.Add(this.KeyboardOverlayCheckBox);
+            this.GameOptionsPage.Controls.Add(this.KeyboardOverlayBackdropCheckBox);
+            this.GameOptionsPage.Controls.Add(this.OverlayColourLabel);
+            this.GameOptionsPage.Controls.Add(this.OverlayRedUpDown);
+            this.GameOptionsPage.Controls.Add(this.OverlayGreenUpDown);
+            this.GameOptionsPage.Controls.Add(this.OverlayBlueUpDown);
+            this.GameOptionsPage.Controls.Add(this.OverlayRgbHintLabel);
+            resources.ApplyResources(this.GameOptionsPage, "GameOptionsPage");
+            this.GameOptionsPage.Name = "GameOptionsPage";
+            // 
+            // GraphicsTabButton
+            // 
+            this.GraphicsTabButton.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.GraphicsTabButton, "GraphicsTabButton");
+            this.GraphicsTabButton.Name = "GraphicsTabButton";
+            this.GraphicsTabButton.UseVisualStyleBackColor = false;
+            // 
+            // GameOptionsTabButton
+            // 
+            this.GameOptionsTabButton.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.GameOptionsTabButton, "GameOptionsTabButton");
+            this.GameOptionsTabButton.Name = "GameOptionsTabButton";
+            this.GameOptionsTabButton.UseVisualStyleBackColor = false;
+            this.GameOptionsTabButton.Click += new System.EventHandler(this.GameOptionsTabButton_Click);
             // 
             // LangFilterCheckBox
             // 
@@ -505,6 +803,20 @@ namespace Contra
             this.NoPreviewText.ForeColor = System.Drawing.Color.White;
             this.NoPreviewText.Name = "NoPreviewText";
             // 
+            // CameraHeightTrackBar
+            // 
+            this.CameraHeightTrackBar.BackColor = System.Drawing.Color.Transparent;
+            this.CameraHeightTrackBar.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.CameraHeightTrackBar, "CameraHeightTrackBar");
+            this.CameraHeightTrackBar.Maximum = 750;
+            this.CameraHeightTrackBar.Minimum = 392;
+            this.CameraHeightTrackBar.Name = "CameraHeightTrackBar";
+            this.CameraHeightTrackBar.TabStop = true;
+            this.CameraHeightTrackBar.Value = 392;
+            this.CameraHeightTrackBar.Scroll += new System.EventHandler(this.CameraHeightTrackBar_Scroll);
+            this.CameraHeightTrackBar.MouseLeave += new System.EventHandler(this.Option_MouseLeave);
+            this.CameraHeightTrackBar.MouseHover += new System.EventHandler(this.CameraHeightTrackBar_MouseHover);
+            // 
             // ParticleCapTrackBar
             // 
             this.ParticleCapTrackBar.BackColor = System.Drawing.Color.Transparent;
@@ -531,26 +843,19 @@ namespace Contra
             this.TextureResTrackBar.MouseLeave += new System.EventHandler(this.Option_MouseLeave);
             this.TextureResTrackBar.MouseHover += new System.EventHandler(this.TextureResTrackBar_MouseHover);
             // 
-            // CameraHeightTrackBar
-            // 
-            this.CameraHeightTrackBar.BackColor = System.Drawing.Color.Transparent;
-            this.CameraHeightTrackBar.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.CameraHeightTrackBar, "CameraHeightTrackBar");
-            this.CameraHeightTrackBar.Maximum = 750;
-            this.CameraHeightTrackBar.Minimum = 392;
-            this.CameraHeightTrackBar.Name = "CameraHeightTrackBar";
-            this.CameraHeightTrackBar.TabStop = true;
-            this.CameraHeightTrackBar.Value = 392;
-            this.CameraHeightTrackBar.Scroll += new System.EventHandler(this.CameraHeightTrackBar_Scroll);
-            this.CameraHeightTrackBar.MouseLeave += new System.EventHandler(this.Option_MouseLeave);
-            this.CameraHeightTrackBar.MouseHover += new System.EventHandler(this.CameraHeightTrackBar_MouseHover);
-            // 
             // OptionsForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = global::Contra.Properties.Resources._bg_options;
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
+            this.Controls.Add(this.GraphicsTabButton);
+            this.Controls.Add(this.GraphicsPage);
+            this.Controls.Add(this.GameOptionsPage);
+            this.Controls.Add(this.GameOptionsTabButton);
+            this.Controls.Add(this.CameraHeightTrackBar);
+            this.Controls.Add(this.ParticleCapTrackBar);
+            this.Controls.Add(this.TextureResTrackBar);
             this.Controls.Add(this.NoPreviewText);
             this.Controls.Add(this.ExtraBuildingPropsCheckBox);
             this.Controls.Add(this.CameoResPanel);
@@ -562,8 +867,6 @@ namespace Contra
             this.Controls.Add(this.AcceptBtn);
             this.Controls.Add(this.ParticleCapLabel);
             this.Controls.Add(this.TextureResLabel);
-            this.Controls.Add(this.ParticleCapTrackBar);
-            this.Controls.Add(this.TextureResTrackBar);
             this.Controls.Add(this.Shadows3DCheckBox);
             this.Controls.Add(this.Shadows2DCheckBox);
             this.Controls.Add(this.CloudShadowsCheckBox);
@@ -575,7 +878,6 @@ namespace Contra
             this.Controls.Add(this.DisableDynamicLODCheckBox);
             this.Controls.Add(this.WaterEffectsCheckBox);
             this.Controls.Add(this.CameraHeightLabel);
-            this.Controls.Add(this.CameraHeightTrackBar);
             this.Controls.Add(this.camOkButton);
             this.Controls.Add(this.HeatEffectsCheckBox);
             this.Controls.Add(this.labelResolution);
@@ -589,6 +891,12 @@ namespace Contra
             this.MaximizeBox = false;
             this.Name = "OptionsForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            ((System.ComponentModel.ISupportInitialize)(this.GridHotkeyColumnsUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OverlayRedUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OverlayGreenUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OverlayBlueUpDown)).EndInit();
+            this.GameOptionsPage.ResumeLayout(false);
+            this.GameOptionsPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GraphicsInfoPictureBox)).EndInit();
             this.GraphicsInfoTextPanel.ResumeLayout(false);
             this.GraphicsInfoTextPanel.PerformLayout();
@@ -652,5 +960,41 @@ namespace Contra
         private System.Windows.Forms.RadioButton ControlBarStandardRadioButton;
         private System.Windows.Forms.CheckBox ExtraBuildingPropsCheckBox;
         private System.Windows.Forms.Label NoPreviewText;
+
+        // TheSuperHackers @feature Game Options page controls. Declared here with the rest so
+        // the WinForms designer renders them on the canvas; their behaviour lives in
+        // OptionsForm.GameOptions.cs and their geometry in OptionsForm.resx.
+        private System.Windows.Forms.Label GameOptDisplayLabel;
+        private System.Windows.Forms.Label HealthBarModeLabel;
+        private System.Windows.Forms.ComboBox HealthBarModeComboBox;
+        private System.Windows.Forms.CheckBox NumericalHealthCheckBox;
+        private System.Windows.Forms.CheckBox SmartPipsCheckBox;
+        private System.Windows.Forms.CheckBox SelectionCircleCheckBox;
+        private System.Windows.Forms.Label BuildTimerLabel;
+        private System.Windows.Forms.ComboBox BuildTimerComboBox;
+        private System.Windows.Forms.Label GameOptInputLabel;
+        private System.Windows.Forms.Label CastModeLabel;
+        private System.Windows.Forms.ComboBox CastModeComboBox;
+        private System.Windows.Forms.CheckBox EasyMilitaryDragCheckBox;
+        private System.Windows.Forms.Label GridHotkeysHeaderLabel;
+        private System.Windows.Forms.CheckBox GridHotkeysCheckBox;
+        private System.Windows.Forms.Label GridHotkeyLayoutLabel;
+        private System.Windows.Forms.TextBox GridHotkeyLayoutTextBox;
+        private System.Windows.Forms.Label GridHotkeyColumnsLabel;
+        private System.Windows.Forms.NumericUpDown GridHotkeyColumnsUpDown;
+        private System.Windows.Forms.Label NonGridHotkeysLabel;
+        private System.Windows.Forms.TextBox NonGridHotkeysTextBox;
+        private System.Windows.Forms.Label HotkeyOverlayHeaderLabel;
+        private System.Windows.Forms.CheckBox KeyboardOverlayCheckBox;
+        private System.Windows.Forms.CheckBox KeyboardOverlayBackdropCheckBox;
+        private System.Windows.Forms.Label OverlayColourLabel;
+        private System.Windows.Forms.NumericUpDown OverlayRedUpDown;
+        private System.Windows.Forms.NumericUpDown OverlayGreenUpDown;
+        private System.Windows.Forms.NumericUpDown OverlayBlueUpDown;
+        private System.Windows.Forms.Label OverlayRgbHintLabel;
+        private System.Windows.Forms.Panel GraphicsPage;
+        private System.Windows.Forms.Panel GameOptionsPage;
+        private System.Windows.Forms.Button GraphicsTabButton;
+        private System.Windows.Forms.Button GameOptionsTabButton;
     }
 }

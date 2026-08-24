@@ -1,0 +1,331 @@
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace Contra
+{
+    /// <summary>
+    /// The "Game Options" page: the contraZH engine settings, which the retail options screen
+    /// knows nothing about.
+    ///
+    /// The controls are declared and positioned in OptionsForm.Designer.cs / OptionsForm.resx
+    /// with the rest of the form, so they show on the WinForms designer canvas and can be
+    /// dragged there. This file holds only the behaviour: page swapping, enable/disable rules,
+    /// translations, and reading and writing Options.ini.
+    ///
+    /// The page swap has to happen in code. The form is a fixed 800x600 skinned window and a real
+    /// TabControl would paint its own grey page over the background image, so instead the existing
+    /// controls are gathered onto one panel at startup, the new ones sit on another, and two flat
+    /// transparent buttons switch between them.
+    /// </summary>
+    public partial class OptionsForm
+    {
+        private static readonly Color TabActiveColor = Color.White;
+        private static readonly Color TabInactiveColor = Color.FromArgb(150, 150, 150);
+
+        // The vertical band the existing controls occupy, from OptionsForm.resx. The graphics
+        // content starts at the "Resolution:" / "Camera Height" labels on y=72, so the page has to
+        // begin above those rather than below them -- they belong to the graphics page and must
+        // hide with it. That leaves y=57..72 for the tab row, the gap between the window buttons
+        // (which end at y=57) and those labels. Accept/Close at y=525 stay on the form, shared.
+        //
+        // Keep PageTop in step with the GraphicsPage/GameOptionsPage Location in the resx: the
+        // controls moved onto the graphics page are shifted up by exactly this much.
+        private const int PageTop = 70;
+        private const int PageBottom = 515;
+
+        private void BuildGameOptionsPage()
+        {
+            // The controls, their geometry and their parenting all come from the designer now.
+            // What is left is the part the designer cannot express: moving the pre-existing
+            // graphics controls onto their page so the two can be swapped.
+            //
+            // Captured before the loop because reparenting mutates Controls while it runs.
+            Control[] existing = new Control[Controls.Count];
+            Controls.CopyTo(existing, 0);
+
+            foreach (Control c in existing)
+            {
+                // The pages themselves and the tab row are not graphics content.
+                if (c == GraphicsPage || c == GameOptionsPage
+                        || c == GraphicsTabButton || c == GameOptionsTabButton)
+                {
+                    continue;
+                }
+
+                if (c.Top < PageTop || c.Top > PageBottom)
+                {
+                    continue;
+                }
+
+                Point where = c.Location;
+                Controls.Remove(c);
+                GraphicsPage.Controls.Add(c);
+                c.Location = new Point(where.X, where.Y - PageTop);
+            }
+
+            ConfigureGameOptionControls();
+            StyleTabButton(GraphicsTabButton);
+            StyleTabButton(GameOptionsTabButton);
+
+            GraphicsTabButton.Click += delegate { ShowPage(false); };
+            GameOptionsTabButton.Click += delegate { ShowPage(true); };
+
+            // The overlay colours only matter when the overlay is on, and the grid fields only when
+            // grid hotkeys are, so grey each group out with its switch.
+            KeyboardOverlayCheckBox.CheckedChanged += delegate { UpdateOverlayEnabledState(); };
+            GridHotkeysCheckBox.CheckedChanged += delegate { UpdateGridEnabledState(); };
+
+            ApplyGameOptionsLanguage();
+            ShowPage(false);
+        }
+
+        /// <summary>
+        /// The bits of setup the designer cannot serialise: combo box items, numeric ranges and
+        /// the hint colour. Positions and parenting come from the designer.
+        /// </summary>
+        private void ConfigureGameOptionControls()
+        {
+
+            HealthBarModeComboBox.Items.AddRange(new object[] { "Classic", "Damaged", "Always" });
+            BuildTimerComboBox.Items.AddRange(new object[] { "None", "Seconds", "Auto" });
+            CastModeComboBox.Items.AddRange(new object[] { "Normal", "QuickCast", "QuickCastWithIndicator" });
+
+            GridHotkeyColumnsUpDown.Minimum = 0;
+            GridHotkeyColumnsUpDown.Maximum = 20;
+
+            SetChannelRange(OverlayRedUpDown);
+            SetChannelRange(OverlayGreenUpDown);
+            SetChannelRange(OverlayBlueUpDown);
+
+            OverlayRgbHintLabel.ForeColor = TabInactiveColor;
+        }
+
+        private static void SetChannelRange(NumericUpDown n)
+        {
+            n.Minimum = 0;
+            n.Maximum = 255;
+        }
+
+        /// <summary>
+        /// Flat, borderless and transparent, so the tabs read as text on the skin rather than as
+        /// Windows buttons sitting on top of it. Not expressible in the resx, hence in code.
+        /// </summary>
+        private static void StyleTabButton(Button b)
+        {
+            b.FlatStyle = FlatStyle.Flat;
+            b.FlatAppearance.BorderSize = 0;
+            b.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            b.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            b.TabStop = false;
+            b.Cursor = Cursors.Hand;
+        }
+
+        private void ShowPage(bool gameOptions)
+        {
+            Panel wanted = gameOptions ? GameOptionsPage : GraphicsPage;
+            Panel other = gameOptions ? GraphicsPage : GameOptionsPage;
+
+            // Hide first, then show and raise. Both panels cover the same rectangle, and
+            // BackColor.Transparent on a WinForms panel means "let whatever is behind me show
+            // through", not "draw nothing" -- so leaving the old page visible underneath lets its
+            // controls paint through the new one.
+            other.Visible = false;
+            wanted.Visible = true;
+            wanted.BringToFront();
+
+            // The tab buttons live on the form, not on a page, so they have to stay above both.
+            GraphicsTabButton.BringToFront();
+            GameOptionsTabButton.BringToFront();
+
+            GraphicsTabButton.ForeColor = gameOptions ? TabInactiveColor : TabActiveColor;
+            GameOptionsTabButton.ForeColor = gameOptions ? TabActiveColor : TabInactiveColor;
+        }
+
+        private void UpdateOverlayEnabledState()
+        {
+            bool on = KeyboardOverlayCheckBox.Checked;
+            KeyboardOverlayBackdropCheckBox.Enabled = on;
+            OverlayRedUpDown.Enabled = on;
+            OverlayGreenUpDown.Enabled = on;
+            OverlayBlueUpDown.Enabled = on;
+        }
+
+        private void UpdateGridEnabledState()
+        {
+            bool on = GridHotkeysCheckBox.Checked;
+            GridHotkeyLayoutTextBox.Enabled = on;
+            GridHotkeyColumnsUpDown.Enabled = on;
+            NonGridHotkeysTextBox.Enabled = on;
+        }
+
+        /// <summary>
+        /// Read the engine settings out of Options.ini. Every fallback here matches the engine's own
+        /// default in OptionPreferences.cpp, so an absent key shows what the game will actually do.
+        /// </summary>
+        private void LoadGameOptions()
+        {
+            string s = GameOptionsIni.ReadAll();
+
+            HealthBarModeComboBox.SelectedItem =
+                MatchOrFirst(HealthBarModeComboBox, GameOptionsIni.GetValue(s, "HealthBarDisplayMode", "Classic"));
+            BuildTimerComboBox.SelectedItem =
+                MatchOrFirst(BuildTimerComboBox, GameOptionsIni.GetValue(s, "BuildTimerDisplayMode", "None"));
+            CastModeComboBox.SelectedItem =
+                MatchOrFirst(CastModeComboBox, GameOptionsIni.GetValue(s, "CastMode", "Normal"));
+
+            NumericalHealthCheckBox.Checked = GameOptionsIni.GetBool(s, "NumericalHealth", false);
+            SmartPipsCheckBox.Checked = GameOptionsIni.GetBool(s, "SmartPips", false);
+            SelectionCircleCheckBox.Checked = GameOptionsIni.GetBool(s, "SelectionCircle", false);
+            EasyMilitaryDragCheckBox.Checked = GameOptionsIni.GetBool(s, "EasyMilitaryDrag", false);
+
+            GridHotkeysCheckBox.Checked = GameOptionsIni.GetBool(s, "GridHotkeys", false);
+            GridHotkeyLayoutTextBox.Text =
+                GameOptionsIni.GetValue(s, "GridHotkeyLayout", "QWERTYUIOASDFGHJKL");
+            GridHotkeyColumnsUpDown.Value =
+                Clamp(GameOptionsIni.GetInt(s, "GridHotkeyColumns", 9), GridHotkeyColumnsUpDown);
+            NonGridHotkeysTextBox.Text = GameOptionsIni.GetValue(s, "NonGridHotkeys", string.Empty);
+
+            KeyboardOverlayCheckBox.Checked = GameOptionsIni.GetBool(s, "KeyboardOverlay", false);
+            // On by default in the engine: it is what makes the letter readable.
+            KeyboardOverlayBackdropCheckBox.Checked =
+                GameOptionsIni.GetBool(s, "KeyboardOverlayBackdrop", true);
+            OverlayRedUpDown.Value = Clamp(GameOptionsIni.GetInt(s, "KeyboardOverlayRed", 255), OverlayRedUpDown);
+            OverlayGreenUpDown.Value = Clamp(GameOptionsIni.GetInt(s, "KeyboardOverlayGreen", 255), OverlayGreenUpDown);
+            OverlayBlueUpDown.Value = Clamp(GameOptionsIni.GetInt(s, "KeyboardOverlayBlue", 255), OverlayBlueUpDown);
+
+            UpdateOverlayEnabledState();
+            UpdateGridEnabledState();
+        }
+
+        private static decimal Clamp(int value, NumericUpDown control)
+        {
+            if (value < control.Minimum)
+            {
+                return control.Minimum;
+            }
+
+            if (value > control.Maximum)
+            {
+                return control.Maximum;
+            }
+
+            return value;
+        }
+
+        private static object MatchOrFirst(ComboBox box, string value)
+        {
+            foreach (object item in box.Items)
+            {
+                if (string.Equals(item.ToString(), value, StringComparison.OrdinalIgnoreCase))
+                {
+                    return item;
+                }
+            }
+
+            return box.Items.Count > 0 ? box.Items[0] : null;
+        }
+
+        /// <summary>
+        /// Write the engine settings back. One read and one write for the whole page, rather than a
+        /// read/write pair per setting as the retail options do.
+        /// </summary>
+        private void SaveGameOptions()
+        {
+            if (!GameOptionsIni.Exists())
+            {
+                return;
+            }
+
+            string s = GameOptionsIni.ReadAll();
+
+            s = GameOptionsIni.SetValue(s, "HealthBarDisplayMode", SelectedText(HealthBarModeComboBox, "Classic"));
+            s = GameOptionsIni.SetValue(s, "BuildTimerDisplayMode", SelectedText(BuildTimerComboBox, "None"));
+            s = GameOptionsIni.SetValue(s, "CastMode", SelectedText(CastModeComboBox, "Normal"));
+
+            s = GameOptionsIni.SetBool(s, "NumericalHealth", NumericalHealthCheckBox.Checked);
+            s = GameOptionsIni.SetBool(s, "SmartPips", SmartPipsCheckBox.Checked);
+            s = GameOptionsIni.SetBool(s, "SelectionCircle", SelectionCircleCheckBox.Checked);
+            s = GameOptionsIni.SetBool(s, "EasyMilitaryDrag", EasyMilitaryDragCheckBox.Checked);
+
+            s = GameOptionsIni.SetBool(s, "GridHotkeys", GridHotkeysCheckBox.Checked);
+            s = GameOptionsIni.SetValue(s, "GridHotkeyLayout", GridHotkeyLayoutTextBox.Text.Trim());
+            s = GameOptionsIni.SetInt(s, "GridHotkeyColumns", (int)GridHotkeyColumnsUpDown.Value);
+            s = GameOptionsIni.SetValue(s, "NonGridHotkeys", NonGridHotkeysTextBox.Text.Trim());
+
+            s = GameOptionsIni.SetBool(s, "KeyboardOverlay", KeyboardOverlayCheckBox.Checked);
+            s = GameOptionsIni.SetBool(s, "KeyboardOverlayBackdrop", KeyboardOverlayBackdropCheckBox.Checked);
+            s = GameOptionsIni.SetInt(s, "KeyboardOverlayRed", (int)OverlayRedUpDown.Value);
+            s = GameOptionsIni.SetInt(s, "KeyboardOverlayGreen", (int)OverlayGreenUpDown.Value);
+            s = GameOptionsIni.SetInt(s, "KeyboardOverlayBlue", (int)OverlayBlueUpDown.Value);
+
+            GameOptionsIni.WriteAll(s);
+        }
+
+        private static string SelectedText(ComboBox box, string fallback)
+        {
+            return box.SelectedItem != null ? box.SelectedItem.ToString() : fallback;
+        }
+
+        /// <summary>
+        /// Russian and German overrides. The English text is the designer default in the resx, so
+        /// this only replaces it when the launcher is running in another language -- matching how
+        /// the rest of OptionsForm handles translation.
+        /// </summary>
+        private void ApplyGameOptionsLanguage()
+        {
+            if (!Globals.RU_Checked && !Globals.DE_Checked)
+            {
+                return;
+            }
+
+            if (Globals.RU_Checked)
+            {
+                GraphicsTabButton.Text = "ГРАФИКА";
+                GameOptionsTabButton.Text = "ИГРА";
+                GameOptDisplayLabel.Text = "Отображение";
+                HealthBarModeLabel.Text = "Полосы здоровья:";
+                NumericalHealthCheckBox.Text = "Показывать числа здоровья";
+                SmartPipsCheckBox.Text = "Всегда показывать боезапас";
+                SelectionCircleCheckBox.Text = "Круг выделения";
+                BuildTimerLabel.Text = "Таймеры постройки:";
+                GameOptInputLabel.Text = "Управление";
+                CastModeLabel.Text = "Спецспособности:";
+                EasyMilitaryDragCheckBox.Text = "Рамка не выделяет рабочих";
+                GridHotkeysHeaderLabel.Text = "Сетка горячих клавиш";
+                GridHotkeysCheckBox.Text = "Включить сетку";
+                GridHotkeyLayoutLabel.Text = "Раскладка (клавиша на слот):";
+                GridHotkeyColumnsLabel.Text = "Столбцов:";
+                NonGridHotkeysLabel.Text = "Клавиши вне сетки:";
+                HotkeyOverlayHeaderLabel.Text = "Подписи горячих клавиш";
+                KeyboardOverlayCheckBox.Text = "Показывать буквы";
+                KeyboardOverlayBackdropCheckBox.Text = "Подложка под буквой";
+                OverlayColourLabel.Text = "Цвет букв:";
+                OverlayRgbHintLabel.Text = "красный / зелёный / синий";
+                return;
+            }
+
+            GraphicsTabButton.Text = "GRAFIK";
+            GameOptionsTabButton.Text = "SPIEL";
+            GameOptDisplayLabel.Text = "Anzeige";
+            HealthBarModeLabel.Text = "Lebensbalken:";
+            NumericalHealthCheckBox.Text = "Lebenspunkte als Zahl";
+            SmartPipsCheckBox.Text = "Munition immer anzeigen";
+            SelectionCircleCheckBox.Text = "Auswahlring";
+            BuildTimerLabel.Text = "Bauzeit-Anzeige:";
+            GameOptInputLabel.Text = "Steuerung";
+            CastModeLabel.Text = "Spezialfähigkeiten:";
+            EasyMilitaryDragCheckBox.Text = "Auswahlrahmen ohne Bauarbeiter";
+            GridHotkeysHeaderLabel.Text = "Raster-Hotkeys";
+            GridHotkeysCheckBox.Text = "Raster-Hotkeys benutzen";
+            GridHotkeyLayoutLabel.Text = "Belegung (Taste je Feld):";
+            GridHotkeyColumnsLabel.Text = "Spalten:";
+            NonGridHotkeysLabel.Text = "Tasten ohne Raster:";
+            HotkeyOverlayHeaderLabel.Text = "Hotkey-Anzeige";
+            KeyboardOverlayCheckBox.Text = "Buchstaben anzeigen";
+            KeyboardOverlayBackdropCheckBox.Text = "Hintergrundplatte";
+            OverlayColourLabel.Text = "Farbe der Buchstaben:";
+            OverlayRgbHintLabel.Text = "Rot / Grün / Blau";
+        }
+    }
+}
