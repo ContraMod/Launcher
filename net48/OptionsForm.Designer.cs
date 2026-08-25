@@ -71,6 +71,8 @@
             this.TextureFilterComboBox = new System.Windows.Forms.ComboBox();
             this.AnisotropicLevelLabel = new System.Windows.Forms.Label();
             this.AnisotropicLevelComboBox = new System.Windows.Forms.ComboBox();
+            this.OverlayColourButton = new System.Windows.Forms.Button();
+            this.BackdropColourButton = new System.Windows.Forms.Button();
             this.GraphicsPage = new System.Windows.Forms.Panel();
             this.GameOptionsPage = new System.Windows.Forms.Panel();
             this.GraphicsTabButton = new System.Windows.Forms.Button();
@@ -415,6 +417,22 @@
             this.AnisotropicLevelComboBox.Name = "AnisotropicLevelComboBox";
             this.AnisotropicLevelComboBox.TabStop = false;
             // 
+            // OverlayColourButton
+            // 
+            resources.ApplyResources(this.OverlayColourButton, "OverlayColourButton");
+            this.OverlayColourButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OverlayColourButton.Name = "OverlayColourButton";
+            this.OverlayColourButton.TabStop = false;
+            this.OverlayColourButton.UseVisualStyleBackColor = false;
+            // 
+            // BackdropColourButton
+            // 
+            resources.ApplyResources(this.BackdropColourButton, "BackdropColourButton");
+            this.BackdropColourButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BackdropColourButton.Name = "BackdropColourButton";
+            this.BackdropColourButton.TabStop = false;
+            this.BackdropColourButton.UseVisualStyleBackColor = false;
+            // 
             // GraphicsPage
             // 
             this.GraphicsPage.BackColor = System.Drawing.Color.Transparent;
@@ -463,6 +481,8 @@
             this.GameOptionsPage.Controls.Add(this.TextureFilterComboBox);
             this.GameOptionsPage.Controls.Add(this.AnisotropicLevelLabel);
             this.GameOptionsPage.Controls.Add(this.AnisotropicLevelComboBox);
+            this.GameOptionsPage.Controls.Add(this.OverlayColourButton);
+            this.GameOptionsPage.Controls.Add(this.BackdropColourButton);
             resources.ApplyResources(this.GameOptionsPage, "GameOptionsPage");
             this.GameOptionsPage.Name = "GameOptionsPage";
             // 
@@ -1093,6 +1113,8 @@
         private System.Windows.Forms.ComboBox TextureFilterComboBox;
         private System.Windows.Forms.Label AnisotropicLevelLabel;
         private System.Windows.Forms.ComboBox AnisotropicLevelComboBox;
+        private System.Windows.Forms.Button OverlayColourButton;
+        private System.Windows.Forms.Button BackdropColourButton;
         private System.Windows.Forms.Panel GraphicsPage;
         private System.Windows.Forms.Panel GameOptionsPage;
         private System.Windows.Forms.Button GraphicsTabButton;

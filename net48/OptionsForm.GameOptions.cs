@@ -78,6 +78,18 @@ namespace Contra
             GridHotkeysCheckBox.CheckedChanged += delegate { UpdateGridEnabledState(); };
             TextureFilterComboBox.SelectedIndexChanged += delegate { UpdateTextureFilterEnabledState(); };
 
+            // The swatch and the channels are two views of one colour, so each updates the other.
+            OverlayColourButton.Click += delegate { PickColour(OverlayRedUpDown, OverlayGreenUpDown, OverlayBlueUpDown); };
+            BackdropColourButton.Click += delegate { PickColour(BackdropRedUpDown, BackdropGreenUpDown, BackdropBlueUpDown); };
+
+            EventHandler overlaySwatch = delegate { UpdateColourSwatches(); };
+            OverlayRedUpDown.ValueChanged += overlaySwatch;
+            OverlayGreenUpDown.ValueChanged += overlaySwatch;
+            OverlayBlueUpDown.ValueChanged += overlaySwatch;
+            BackdropRedUpDown.ValueChanged += overlaySwatch;
+            BackdropGreenUpDown.ValueChanged += overlaySwatch;
+            BackdropBlueUpDown.ValueChanged += overlaySwatch;
+
             ApplyGameOptionsLanguage();
             ShowPage(false);
         }
@@ -160,6 +172,7 @@ namespace Contra
             OverlayRedUpDown.Enabled = on;
             OverlayGreenUpDown.Enabled = on;
             OverlayBlueUpDown.Enabled = on;
+            OverlayColourButton.Enabled = on;
 
             // The backdrop colours only do anything when there is a backdrop to paint.
             bool backdrop = on && KeyboardOverlayBackdropCheckBox.Checked;
@@ -167,6 +180,7 @@ namespace Contra
             BackdropGreenUpDown.Enabled = backdrop;
             BackdropBlueUpDown.Enabled = backdrop;
             BackdropOpacityUpDown.Enabled = backdrop;
+            BackdropColourButton.Enabled = backdrop;
         }
 
         /// <summary>
@@ -177,6 +191,59 @@ namespace Contra
         {
             AnisotropicLevelComboBox.Enabled = string.Equals(
                 SelectedText(TextureFilterComboBox, "Bilinear"), "Anisotropic", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Open the standard colour picker on the colour the three channels currently describe, and
+        /// write the choice back into them. Typing three numbers to guess at a colour is the part
+        /// of this page that most wanted a real control.
+        /// </summary>
+        private void PickColour(NumericUpDown red, NumericUpDown green, NumericUpDown blue)
+        {
+            using (ColorDialog picker = new ColorDialog())
+            {
+                picker.Color = ChannelColour(red, green, blue);
+                // The engine takes any 0-255 triple, so let the user mix one rather than limiting
+                // them to the basic swatches.
+                picker.FullOpen = true;
+                picker.AnyColor = true;
+
+                if (picker.ShowDialog(this) != DialogResult.OK)
+                {
+                    return;
+                }
+
+                red.Value = picker.Color.R;
+                green.Value = picker.Color.G;
+                blue.Value = picker.Color.B;
+            }
+
+            UpdateColourSwatches();
+        }
+
+        private static Color ChannelColour(NumericUpDown red, NumericUpDown green, NumericUpDown blue)
+        {
+            return Color.FromArgb((int)red.Value, (int)green.Value, (int)blue.Value);
+        }
+
+        /// <summary>
+        /// Paint each swatch with the colour its channels describe, and pick a readable caption
+        /// colour for it -- the text sits on the swatch, so a dark colour needs a light label.
+        /// </summary>
+        private void UpdateColourSwatches()
+        {
+            PaintSwatch(OverlayColourButton, ChannelColour(OverlayRedUpDown, OverlayGreenUpDown, OverlayBlueUpDown));
+            PaintSwatch(BackdropColourButton, ChannelColour(BackdropRedUpDown, BackdropGreenUpDown, BackdropBlueUpDown));
+        }
+
+        private static void PaintSwatch(Button swatch, Color colour)
+        {
+            swatch.BackColor = colour;
+            swatch.FlatAppearance.BorderColor = Color.FromArgb(96, 96, 96);
+
+            // Rec. 601 luma, the usual cheap test for whether a colour reads as light or dark.
+            int luma = (299 * colour.R + 587 * colour.G + 114 * colour.B) / 1000;
+            swatch.ForeColor = luma < 128 ? Color.White : Color.Black;
         }
 
         private void UpdateGridEnabledState()
@@ -236,6 +303,7 @@ namespace Contra
             UpdateOverlayEnabledState();
             UpdateGridEnabledState();
             UpdateTextureFilterEnabledState();
+            UpdateColourSwatches();
         }
 
         private static decimal Clamp(int value, NumericUpDown control)
@@ -375,6 +443,8 @@ namespace Contra
                 OverlayRgbHintLabel.Text = "красный / зелёный / синий";
                 BackdropColourLabel.Text = "Цвет подложки:";
                 BackdropRgbHintLabel.Text = "красный / зелёный / синий / непрозрачность";
+                OverlayColourButton.Text = "Выбрать…";
+                BackdropColourButton.Text = "Выбрать…";
                 GameOptGraphicsLabel.Text = "Графика";
                 TextureFilterLabel.Text = "Фильтрация текстур:";
                 AnisotropicLevelLabel.Text = "Уровень анизотропии:";
@@ -404,6 +474,8 @@ namespace Contra
             OverlayRgbHintLabel.Text = "Rot / Grün / Blau";
             BackdropColourLabel.Text = "Farbe der Hintergrundplatte:";
             BackdropRgbHintLabel.Text = "Rot / Grün / Blau / Deckkraft";
+            OverlayColourButton.Text = "Wählen…";
+            BackdropColourButton.Text = "Wählen…";
             GameOptGraphicsLabel.Text = "Grafik";
             TextureFilterLabel.Text = "Texturfilter:";
             AnisotropicLevelLabel.Text = "Anisotropie-Stufe:";

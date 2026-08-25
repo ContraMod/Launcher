@@ -1079,6 +1079,54 @@
   <data name="&gt;&gt;AnisotropicLevelComboBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="OverlayColourButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>684, 324</value>
+  </data>
+  <data name="OverlayColourButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="OverlayColourButton.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="OverlayColourButton.Text" xml:space="preserve">
+    <value>Pick...</value>
+  </data>
+  <data name="&gt;&gt;OverlayColourButton.Name" xml:space="preserve">
+    <value>OverlayColourButton</value>
+  </data>
+  <data name="&gt;&gt;OverlayColourButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OverlayColourButton.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;OverlayColourButton.ZOrder" xml:space="preserve">
+    <value>39</value>
+  </data>
+  <data name="BackdropColourButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>684, 422</value>
+  </data>
+  <data name="BackdropColourButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="BackdropColourButton.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="BackdropColourButton.Text" xml:space="preserve">
+    <value>Pick...</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourButton.Name" xml:space="preserve">
+    <value>BackdropColourButton</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourButton.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourButton.ZOrder" xml:space="preserve">
+    <value>40</value>
+  </data>
   <data name="&gt;&gt;AnisotropicLevelComboBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
   </data>
