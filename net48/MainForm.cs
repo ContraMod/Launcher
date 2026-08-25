@@ -812,7 +812,12 @@ namespace Contra
         }
         private void LaunchBtn_Click(object sender, EventArgs e)
         {
+            // Either binary may be the one running: "generals" for the retail/.ctr swap, and
+            // "generalszh" for the contraZH build. Checking only the first let a second copy start.
             Process[] generalsByName = Process.GetProcessesByName("generals");
+            if (generalsByName.Length == 0)
+                generalsByName = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(GameExeName));
+
             if (generalsByName.Length > 0)
             {
                 if (generalsByName[0].Responding)
@@ -1635,6 +1640,12 @@ namespace Contra
             catch { }
         }
 
+        /// <summary>
+        /// The contraZH engine build. Installed alongside the retail generals.exe rather than over
+        /// it, so its presence is what tells us the fork is available to launch.
+        /// </summary>
+        private const string GameExeName = "generalszh.exe";
+
         public bool wbRunningDialogResultYes()
         {
             Process[] wbByName = Process.GetProcessesByName("worldbuilder_ctr");
@@ -1661,8 +1672,13 @@ namespace Contra
                 return;
             }
 
+            // The contraZH engine ships as its own generalszh.exe rather than replacing
+            // generals.exe, so when it is there it is what we launch. The .ctr swap below only
+            // exists to get the mod binary into generals.exe, which that build does not need.
+            string exeToLaunch = File.Exists(GameExeName) ? GameExeName : "generals.exe";
+
             // Rename generals.exes
-            if (File.Exists("generals.exe") && (File.Exists("generals.ctr")))
+            if (exeToLaunch == "generals.exe" && File.Exists("generals.exe") && (File.Exists("generals.ctr")))
             {
                 try
                 {
@@ -1676,12 +1692,12 @@ namespace Contra
                 catch { }
             }
 
-            if (File.Exists("generals.exe"))
+            if (File.Exists(exeToLaunch))
             {
                 if (wbRunningDialogResultYes() == true)
                 {
                     Process generals = new Process();
-                    generals.StartInfo.FileName = "generals.exe";
+                    generals.StartInfo.FileName = exeToLaunch;
 
                     generals.StartInfo.Arguments = BuildGeneralsArguments();
 
@@ -1690,7 +1706,7 @@ namespace Contra
                     {
                         WindowState = FormWindowState.Normal;
                     };
-                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
+                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName(exeToLaunch);
                     WindowState = FormWindowState.Minimized;
                     try
                     {
