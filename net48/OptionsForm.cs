@@ -909,22 +909,6 @@ namespace Contra
             NoPreviewText.Visible = true;
         }
 
-        private void ControlBarProRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            RadioButton rb = sender as RadioButton;
-            if (rb != null && rb.Checked)
-            {
-                if (!MainForm.isGentoolInstalled("d3d8.dll") || MainForm.isGentoolOutdated("d3d8.dll", 85))
-                {
-                    DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("W_GenToolNotInstalledOrNotUpToDate", Globals.currentLanguage),
-                    Messages.GenerateMessage("Warning", Globals.currentLanguage), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                    if (dialogResult == DialogResult.Yes)
-                        MainForm.Url_open("https://www.gentool.net/");
-                    return;
-                }
-            }
-        }
-
         private void GameOptionsTabButton_Click(object sender, EventArgs e)
         {
 

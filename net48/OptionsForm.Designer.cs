@@ -846,7 +846,6 @@
             this.ControlBarProRadioButton.Name = "ControlBarProRadioButton";
             this.ControlBarProRadioButton.TabStop = true;
             this.ControlBarProRadioButton.UseVisualStyleBackColor = true;
-            this.ControlBarProRadioButton.CheckedChanged += new System.EventHandler(this.ControlBarProRadioButton_CheckedChanged);
             this.ControlBarProRadioButton.MouseLeave += new System.EventHandler(this.Option_MouseLeave);
             this.ControlBarProRadioButton.MouseHover += new System.EventHandler(this.ControlBarProRadioButton_MouseHover);
             // 

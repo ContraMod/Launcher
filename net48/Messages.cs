@@ -390,12 +390,6 @@ namespace Contra
                 "Предпочитанията за глас, език и горещи клавиши може да не се заредят правилно, тъй като World Builder е стартиран.\n\nИскате ли да стартирате играта все пак?",
                 "Stimmen der Einheit, Spielsprache und Hotkey-Einstellungen werden möglicherweise nicht richtig geladen, da World Builder ausgeführt wird.\n\nMöchten Sie das Spiel trotzdem starten?"),
             
-            ["W_GenToolNotInstalledOrNotUpToDate"] = lang => ChooseByLanguage(lang, 
-                "GenTool is not installed or not up to date. That means you will have a black line behind the Control Bar Pro.\n\nWould you like to visit https://www.gentool.net/ and install the latest version?\nIf not, we recommend you to select a different control bar for its proper display.",
-                "GenTool не установлен или не обновлен. Это означает, что вы увидите черную линию за панелью управления Pro.\n\nХотите посетить https://www.gentool.net/ и установить последнюю версию?\nЕсли нет, мы рекомендуем вам выбрать другую панель управления для ее правильного отображения.",
-                "GenTool не встановлено або не оновлено. Це означає, що ви побачите чорну лінію позаду Control Bar Pro.\n\nБажаєте відвідати https://www.gentool.net/ і встановити останню версію?\nЯкщо ні, рекомендуємо вибрати іншу панель керування для її належного відображення.",
-                "GenTool не е инсталиран или не е обновен. Това означава, че ще виждате черна линия зад Control Bar Pro.\n\nЖелаете ли да посетите https://www.gentool.net/ и да инсталирате последната версия?\nВ противен случай, препоръчваме Ви да изберете друга контролна лента за правилното й изображение.",
-                "GenTool ist nicht installiert oder nicht auf dem neuesten Stand. Das bedeutet, dass Sie hinter der Control Bar Pro eine schwarze Linie haben.\n\nMöchten Sie https://www.gentool.net/ besuchen und die neueste Version installieren?\nnWenn nicht, empfehlen wir Ihnen, für die korrekte Anzeige eine andere Steuerleiste auszuwählen."),
             
             ["I_GeneralsAlreadyRunning"] = lang => ChooseByLanguage(lang, "Generals.exe is already running.", "Generals.exe уже запущен.", "Generals.exe вже працює.", "Generals.exe е вече стартиран.", "Generals.exe ist bereits gestartet."),
             

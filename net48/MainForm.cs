@@ -1,4 +1,4 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -133,7 +133,7 @@ namespace Contra
         //**********MINIMIZE FORM CODE END**********
 
         string currentFileLabel;
-        string newVersion, genToolFileName = "";
+        string newVersion = "";
         string versions_url = "https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions_X.txt";
         string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
         string patch_url = "http://contra.cncguild.net/Downloads/";
@@ -1948,58 +1948,6 @@ namespace Contra
             catch { }
         }
 
-        void gtwc_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            // Extract zip
-            string zipPath = launcherExecutingPath + @"\" + genToolFileName;
-
-            // To prevent crash
-            try
-            {
-                using (ZipArchive archive = ZipFile.OpenRead(zipPath))
-                {
-                    foreach (ZipArchiveEntry entry in archive.Entries.Where(a => a.FullName.Contains("d3d8.dll")))
-                    {
-                        entry.ExtractToFile(Path.Combine(launcherExecutingPath, entry.FullName), true);
-                    }
-                }
-            }
-            catch { }
-
-            try
-            {
-                File.Delete(genToolFileName);
-            }
-            catch { }
-
-            // Show a message when the patch download has completed
-            var gtLangText = new Dictionary<Tuple<string, string>, bool>
-                {
-                    { Tuple.Create("A new version of Gentool has been downloaded!", "Gentool update Complete"), Globals.GB_Checked},
-                    { Tuple.Create("Новая версия GenTool был загружен!", "Gentool обновление завершено"), Globals.RU_Checked},
-                    { Tuple.Create("Новий GenTool завантажено!", "Оновлення GenTool завершено"), Globals.UA_Checked},
-                    { Tuple.Create("Нова версия на GenTool беше изтегленa!", "Обновяването на GenTool е завършено"), Globals.BG_Checked},
-                    { Tuple.Create("Ein neuer GenTool wurde heruntergeladen!", "Aktualisierung GenTool abgeschlossen"), Globals.DE_Checked},
-                }.Single(l => l.Value).Key;
-            MessageBox.Show(new Form { TopMost = true }, gtLangText.Item1, gtLangText.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        public void DownloadGentool(string url)
-        {
-            try
-            {
-                WebClient gtwc = new WebClient();
-                gtwc.DownloadFileCompleted += new AsyncCompletedEventHandler(gtwc_DownloadCompleted);
-
-                //CheckIfFileIsAvailable(url);
-                //gtwc.OpenRead(url + genToolFileName);
-                //bytes_total = Convert.ToInt64(gtwc.ResponseHeaders["Content-Length"]);
-
-                gtwc.DownloadFileAsync(new Uri(url), launcherExecutingPath + @"\" + genToolFileName);
-            }
-            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
-        }
-
         public static Tuple<int, int> getScreenResolution() => Tuple.Create(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
         readonly int ScreenResolutionX = getScreenResolution().Item1;
         readonly int ScreenResolutionY = getScreenResolution().Item2;
@@ -2092,45 +2040,6 @@ namespace Contra
             {
                 // Log the exception but don't show it to avoid interrupting the user
                 System.Diagnostics.Debug.WriteLine($"UpdateLogic error: {ex.Message}");
-            }
-
-            string gtHash = null;
-            try
-            {
-                gtHash = CalculateMD5("d3d8.dll");
-            }
-            catch { }
-
-            if (isGentoolInstalled("d3d8.dll") && isGentoolOutdated("d3d8.dll", 79) || (gtHash == "70c28745f6e9a9a59cfa1be00df6836a" || gtHash == "13a13584d97922de92443631931d46c3"))
-            {
-                //try
-                //{
-                //    {
-                //        System.Threading.Thread demoThread =
-                //           new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafeGentool));
-                //        demoThread.Start();
-                //    }
-                //}
-                //catch (Exception ex) { MessageBox.Show(ex.ToString()); }
-
-                try
-                {
-                    using (WebClient client = new WebClient())
-                    {
-                        genToolFileName = client.DownloadString("http://www.gentool.net/download/patch");
-                        genToolFileName = genToolFileName.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)[1];
-
-                        //MessageBox.Show(genToolFileName);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                    return;
-                }
-
-                string gtURL = "http://www.gentool.net/download/" + genToolFileName;
-                DownloadGentool(gtURL);
             }
 
             // Cleanup old Launcher file after update
@@ -2259,16 +2168,6 @@ namespace Contra
                 //{
                 //    File.Move($"!{betaPrefix}_GameData.ctr", $"!{betaPrefix}_GameData.big");
                 //}
-                // Set default cam height
-                //try
-                //{
-                //    if (AspectRatio(ScreenResolutionX, ScreenResolutionY) == "16:9" && isGentoolInstalled("d3d8.dll"))
-                //    {
-                //        ChangeCamHeight();
-                //    }
-                //}
-                //catch { }
-
                 // Delete tinc vpn files
                 try
                 {
@@ -2403,21 +2302,12 @@ namespace Contra
                     MTheScore.Checked = true;
                 }
 
-                // Select default control bar and cameo size depending on screen aspect ratio and GenTool presence + version
+                // Select default control bar and cameo size depending on screen aspect ratio
                 if (AspectRatio(ScreenResolutionX, ScreenResolutionY) == "16:9")
                 {
-                    if (isGentoolInstalled("d3d8.dll") && !isGentoolOutdated("d3d8.dll", 85))
-                    {
-                        Properties.Settings.Default.ControlBarPro = true;
-                        Properties.Settings.Default.ControlBarContra = false;
-                        Properties.Settings.Default.ControlBarStandard = false;
-                    }
-                    else
-                    {
-                        Properties.Settings.Default.ControlBarPro = false;
-                        Properties.Settings.Default.ControlBarContra = true;
-                        Properties.Settings.Default.ControlBarStandard = false;
-                    }
+                    Properties.Settings.Default.ControlBarPro = true;
+                    Properties.Settings.Default.ControlBarContra = false;
+                    Properties.Settings.Default.ControlBarStandard = false;
                     Properties.Settings.Default.CameosDouble = true;
                     Properties.Settings.Default.CameosStandard = false;
                 }
@@ -2507,22 +2397,6 @@ namespace Contra
             //}
         }
 
-        public static bool isGentoolInstalled(string gentoolPath)
-        {
-            try
-            {
-                var size = GetFileVersionInfoSize(gentoolPath, out _);
-                if (size == 0) { throw new Win32Exception(); };
-                var bytes = new byte[size];
-                bool success = GetFileVersionInfo(gentoolPath, 0, size, bytes);
-                if (!success) { throw new Win32Exception(); }
-
-                VerQueryValue(bytes, @"\StringFileInfo\040904E4\ProductName", out IntPtr ptr, out _);
-                return Marshal.PtrToStringUni(ptr) == "GenTool";
-            }
-            catch { return false; }
-        }
-
         private void OptionsFlashTimer1_Tick(object sender, EventArgs e)
         {
             OptionsBtn.BackgroundImage = Properties.Resources._button_big_hover;
@@ -2549,27 +2423,6 @@ namespace Contra
             DonateBtn.BackgroundImage = Properties.Resources._button_medium;
             donateFlashTimer1.Enabled = true;
             donateFlashTimer2.Enabled = false;
-        }
-
-        public static bool isGentoolOutdated(string gentoolPath, int minVersion)
-        {
-            try
-            {
-                var size = GetFileVersionInfoSize(gentoolPath, out _);
-                if (size == 0) { throw new Win32Exception(); };
-                var bytes = new byte[size];
-                bool success = GetFileVersionInfo(gentoolPath, 0, size, bytes);
-                if (!success) { throw new Win32Exception(); }
-
-                // 040904E4 US English + CP_USASCII
-                VerQueryValue(bytes, @"\StringFileInfo\040904E4\ProductVersion", out IntPtr ptr, out _);
-                return int.Parse(Marshal.PtrToStringUni(ptr)) < minVersion;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-                return false;
-            }
         }
 
         // Beta2 detection and file prefix
