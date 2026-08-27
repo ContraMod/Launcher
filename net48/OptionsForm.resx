@@ -515,25 +515,25 @@
   <data name="&gt;&gt;GridHotkeyLayoutLabel.ZOrder" xml:space="preserve">
     <value>14</value>
   </data>
-  <data name="GridHotkeyLayoutTextBox.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="GridHotkeyEditor.Location" type="System.Drawing.Point, System.Drawing">
     <value>432, 100</value>
   </data>
-  <data name="GridHotkeyLayoutTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 20</value>
+  <data name="GridHotkeyEditor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>234, 52</value>
   </data>
-  <data name="GridHotkeyLayoutTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="GridHotkeyEditor.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
   </data>
-  <data name="&gt;&gt;GridHotkeyLayoutTextBox.Name" xml:space="preserve">
-    <value>GridHotkeyLayoutTextBox</value>
+  <data name="&gt;&gt;GridHotkeyEditor.Name" xml:space="preserve">
+    <value>GridHotkeyEditor</value>
   </data>
-  <data name="&gt;&gt;GridHotkeyLayoutTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;GridHotkeyEditor.Type" xml:space="preserve">
+    <value>Contra.GridHotkeyEditor, Contra_Launcher, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;GridHotkeyLayoutTextBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;GridHotkeyEditor.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
   </data>
-  <data name="&gt;&gt;GridHotkeyLayoutTextBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;GridHotkeyEditor.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
   <data name="GridHotkeyColumnsLabel.AutoSize" type="System.Boolean, mscorlib">
@@ -597,7 +597,7 @@
     <value>18</value>
   </data>
   <data name="NonGridHotkeysLabel.Text" xml:space="preserve">
-    <value>Keys to leave out:</value>
+    <value>Excluded, off grid:</value>
   </data>
   <data name="&gt;&gt;NonGridHotkeysLabel.Name" xml:space="preserve">
     <value>NonGridHotkeysLabel</value>
@@ -611,25 +611,25 @@
   <data name="&gt;&gt;NonGridHotkeysLabel.ZOrder" xml:space="preserve">
     <value>18</value>
   </data>
-  <data name="NonGridHotkeysTextBox.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="NonGridOverflowTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>432, 176</value>
   </data>
-  <data name="NonGridHotkeysTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 20</value>
+  <data name="NonGridOverflowTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 20</value>
   </data>
-  <data name="NonGridHotkeysTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="NonGridOverflowTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
   </data>
-  <data name="&gt;&gt;NonGridHotkeysTextBox.Name" xml:space="preserve">
-    <value>NonGridHotkeysTextBox</value>
+  <data name="&gt;&gt;NonGridOverflowTextBox.Name" xml:space="preserve">
+    <value>NonGridOverflowTextBox</value>
   </data>
-  <data name="&gt;&gt;NonGridHotkeysTextBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;NonGridOverflowTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;NonGridHotkeysTextBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;NonGridOverflowTextBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
   </data>
-  <data name="&gt;&gt;NonGridHotkeysTextBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;NonGridOverflowTextBox.ZOrder" xml:space="preserve">
     <value>19</value>
   </data>
   <data name="HotkeyOverlayHeaderLabel.AutoSize" type="System.Boolean, mscorlib">

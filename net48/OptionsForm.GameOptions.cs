@@ -81,6 +81,12 @@ namespace Contra
             KeyboardOverlayCheckBox.CheckedChanged += delegate { UpdateOverlayEnabledState(); };
             KeyboardOverlayBackdropCheckBox.CheckedChanged += delegate { UpdateOverlayEnabledState(); };
             GridHotkeysCheckBox.CheckedChanged += delegate { UpdateGridEnabledState(); };
+
+            // The column count is what folds the layout into rows, so the grid has to follow it.
+            GridHotkeyColumnsUpDown.ValueChanged += delegate
+            {
+                GridHotkeyEditor.Columns = (int)GridHotkeyColumnsUpDown.Value;
+            };
             TextureFilterComboBox.SelectedIndexChanged += delegate { UpdateTextureFilterEnabledState(); };
 
             // The swatch and the channels are two views of one colour, so each updates the other.
@@ -311,9 +317,9 @@ namespace Contra
         private void UpdateGridEnabledState()
         {
             bool on = GridHotkeysCheckBox.Checked;
-            GridHotkeyLayoutTextBox.Enabled = on;
+            GridHotkeyEditor.Enabled = on;
             GridHotkeyColumnsUpDown.Enabled = on;
-            NonGridHotkeysTextBox.Enabled = on;
+            NonGridOverflowTextBox.Enabled = on;
         }
 
         /// <summary>
@@ -345,11 +351,16 @@ namespace Contra
             EasyMilitaryDragCheckBox.Checked = GameOptionsIni.GetBool(s, "EasyMilitaryDrag", false);
 
             GridHotkeysCheckBox.Checked = GameOptionsIni.GetBool(s, "GridHotkeys", false);
-            GridHotkeyLayoutTextBox.Text =
-                GameOptionsIni.GetValue(s, "GridHotkeyLayout", "QWERTYUIOASDFGHJKL");
             GridHotkeyColumnsUpDown.Value =
                 Clamp(GameOptionsIni.GetInt(s, "GridHotkeyColumns", 9), GridHotkeyColumnsUpDown);
-            NonGridHotkeysTextBox.Text = GameOptionsIni.GetValue(s, "NonGridHotkeys", string.Empty);
+
+            // Columns before layout, so the grid is already the right shape when the keys land, and
+            // exclusions last, since which cells they mark depends on the layout being in place.
+            GridHotkeyEditor.Columns = (int)GridHotkeyColumnsUpDown.Value;
+            GridHotkeyEditor.Layout =
+                GameOptionsIni.GetValue(s, "GridHotkeyLayout", "QWERTYUIOASDFGHJKL");
+            GridHotkeyEditor.Exclusions = GameOptionsIni.GetValue(s, "NonGridHotkeys", string.Empty);
+            NonGridOverflowTextBox.Text = GridHotkeyEditor.OverflowExclusions;
 
             KeyboardOverlayCheckBox.Checked = GameOptionsIni.GetBool(s, "KeyboardOverlay", false);
             // On by default in the engine: it is what makes the letter readable.
@@ -467,9 +478,13 @@ namespace Contra
             s = GameOptionsIni.SetBool(s, "EasyMilitaryDrag", EasyMilitaryDragCheckBox.Checked);
 
             s = GameOptionsIni.SetBool(s, "GridHotkeys", GridHotkeysCheckBox.Checked);
-            s = GameOptionsIni.SetValue(s, "GridHotkeyLayout", GridHotkeyLayoutTextBox.Text.Trim());
+            // Whatever is typed in the overflow box is the authority on keys with no slot; the
+            // editor supplies the ones that do.
+            GridHotkeyEditor.OverflowExclusions = NonGridOverflowTextBox.Text.Trim();
+
+            s = GameOptionsIni.SetValue(s, "GridHotkeyLayout", GridHotkeyEditor.Layout);
             s = GameOptionsIni.SetInt(s, "GridHotkeyColumns", (int)GridHotkeyColumnsUpDown.Value);
-            s = GameOptionsIni.SetValue(s, "NonGridHotkeys", NonGridHotkeysTextBox.Text.Trim());
+            s = GameOptionsIni.SetValue(s, "NonGridHotkeys", GridHotkeyEditor.Exclusions);
 
             s = GameOptionsIni.SetBool(s, "KeyboardOverlay", KeyboardOverlayCheckBox.Checked);
             s = GameOptionsIni.SetBool(s, "KeyboardOverlayBackdrop", KeyboardOverlayBackdropCheckBox.Checked);
@@ -550,22 +565,32 @@ namespace Contra
                    AnisotropicLevelLabel, AnisotropicLevelComboBox);
 
             // Grid hotkeys
-            SetTip(Tip("Command buttons follow keyboard layout: key position = button position, same for every unit.",
-                       "Кнопки команд повторяют раскладку: положение клавиши = положение кнопки, одинаково для всех юнитов.",
-                       "Befehlsschaltflächen folgen der Tastaturanordnung: Tastenposition = Schaltflächenposition, bei jeder Einheit gleich."),
+            // Rows come from the layout's length over the column count, so the shipped 18 letters
+            // at 9 columns are two rows -- hence no row letters here, they would be wrong for any
+            // other layout. Ctrl and Alt keep their meta events; Shift deliberately does not,
+            // being how the command bar batches. See MetaEvent.cpp's (keyModState & ~SHIFT) test.
+            SetTip(Tip("The command bar mirrors your keyboard: each row of slots answers to the matching row of layout keys, "
+                     + "by position rather than by what the command is. Replaces per-command mnemonic hotkeys while enabled. "
+                     + "Ctrl and Alt combinations keep their normal bindings.",
+                       "Панель команд повторяет клавиатуру: каждый ряд ячеек отвечает соответствующему ряду клавиш раскладки, "
+                     + "по положению, а не по названию команды. Пока включено, заменяет мнемонические горячие клавиши команд. "
+                     + "Сочетания с Ctrl и Alt сохраняют обычные назначения.",
+                       "Die Befehlsleiste spiegelt die Tastatur: Jede Reihe von Feldern folgt der entsprechenden Reihe der Belegung, "
+                     + "nach Position statt nach Befehl. Ersetzt bei Aktivierung die mnemonischen Befehlstasten. "
+                     + "Kombinationen mit Strg und Alt behalten ihre normalen Belegungen."),
                    GridHotkeysCheckBox);
-            SetTip(Tip("Keys for the grid slots, in reading order, one per slot.",
-                       "Клавиши для ячеек сетки, в порядке чтения, по одной на ячейку.",
-                       "Tasten für die Rasterfelder, in Lesereihenfolge, eine pro Feld."),
-                   GridHotkeyLayoutLabel, GridHotkeyLayoutTextBox);
+            SetTip(Tip("One key per slot, laid out as the command bar is. Type to set a key; click a key to exclude it.",
+                       "По одной клавише на ячейку, в порядке панели команд. Введите клавишу; щёлкните по ней, чтобы исключить.",
+                       "Eine Taste pro Feld, angeordnet wie die Befehlsleiste. Tippen setzt eine Taste; Klicken schließt sie aus."),
+                   GridHotkeyLayoutLabel, GridHotkeyEditor);
             SetTip(Tip("Keys per row before wrapping. Match the command bar's columns.",
                        "Клавиш в строке до переноса. Должно совпадать со столбцами панели команд.",
                        "Tasten pro Zeile bis zum Umbruch. Muss den Spalten der Befehlsleiste entsprechen."),
                    GridHotkeyColumnsLabel, GridHotkeyColumnsUpDown);
-            SetTip(Tip("These keys keep their original function (S = stop, G = guard...).",
-                       "Эти клавиши сохраняют исходное назначение (S — стоп, G — охрана...).",
-                       "Diese Tasten behalten ihre ursprüngliche Funktion (S = Halt, G = Bewachen...)."),
-                   NonGridHotkeysLabel, NonGridHotkeysTextBox);
+            SetTip(Tip("Excluded keys that are not on the grid. Keys on the grid are excluded by clicking them.",
+                       "Исключённые клавиши, которых нет в сетке. Клавиши из сетки исключаются щелчком по ним.",
+                       "Ausgeschlossene Tasten, die nicht im Raster liegen. Tasten im Raster werden per Klick ausgeschlossen."),
+                   NonGridHotkeysLabel, NonGridOverflowTextBox);
 
             // Hotkey letters on cameos
             SetTip(Tip("Show each button's hotkey on its icon.",
@@ -658,7 +683,7 @@ namespace Contra
                 GridHotkeysCheckBox.Text = "Включить сетку";
                 GridHotkeyLayoutLabel.Text = "Раскладка (клавиша на слот):";
                 GridHotkeyColumnsLabel.Text = "Столбцов:";
-                NonGridHotkeysLabel.Text = "Клавиши вне сетки:";
+                NonGridHotkeysLabel.Text = "Исключения вне сетки:";
                 HotkeyOverlayHeaderLabel.Text = "Подписи горячих клавиш";
                 KeyboardOverlayCheckBox.Text = "Показывать буквы";
                 KeyboardOverlayBackdropCheckBox.Text = "Подложка под буквой";
@@ -689,7 +714,7 @@ namespace Contra
             GridHotkeysCheckBox.Text = "Raster-Hotkeys benutzen";
             GridHotkeyLayoutLabel.Text = "Belegung (Taste je Feld):";
             GridHotkeyColumnsLabel.Text = "Spalten:";
-            NonGridHotkeysLabel.Text = "Tasten ohne Raster:";
+            NonGridHotkeysLabel.Text = "Ausschlüsse ohne Raster:";
             HotkeyOverlayHeaderLabel.Text = "Hotkey-Anzeige";
             KeyboardOverlayCheckBox.Text = "Buchstaben anzeigen";
             KeyboardOverlayBackdropCheckBox.Text = "Hintergrundplatte";

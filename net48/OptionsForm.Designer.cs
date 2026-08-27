@@ -49,11 +49,11 @@
             this.GridHotkeysHeaderLabel = new System.Windows.Forms.Label();
             this.GridHotkeysCheckBox = new System.Windows.Forms.CheckBox();
             this.GridHotkeyLayoutLabel = new System.Windows.Forms.Label();
-            this.GridHotkeyLayoutTextBox = new System.Windows.Forms.TextBox();
+            this.GridHotkeyEditor = new Contra.GridHotkeyEditor();
             this.GridHotkeyColumnsLabel = new System.Windows.Forms.Label();
             this.GridHotkeyColumnsUpDown = new System.Windows.Forms.NumericUpDown();
             this.NonGridHotkeysLabel = new System.Windows.Forms.Label();
-            this.NonGridHotkeysTextBox = new System.Windows.Forms.TextBox();
+            this.NonGridOverflowTextBox = new System.Windows.Forms.TextBox();
             this.HotkeyOverlayHeaderLabel = new System.Windows.Forms.Label();
             this.KeyboardOverlayCheckBox = new System.Windows.Forms.CheckBox();
             this.KeyboardOverlayBackdropCheckBox = new System.Windows.Forms.CheckBox();
@@ -253,12 +253,12 @@
             this.GridHotkeyLayoutLabel.ForeColor = System.Drawing.Color.White;
             this.GridHotkeyLayoutLabel.Name = "GridHotkeyLayoutLabel";
             // 
-            // GridHotkeyLayoutTextBox
+            // GridHotkeyEditor
             // 
-            this.GridHotkeyLayoutTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            resources.ApplyResources(this.GridHotkeyLayoutTextBox, "GridHotkeyLayoutTextBox");
-            this.GridHotkeyLayoutTextBox.Name = "GridHotkeyLayoutTextBox";
-            this.GridHotkeyLayoutTextBox.TabStop = false;
+            resources.ApplyResources(this.GridHotkeyEditor, "GridHotkeyEditor");
+            this.GridHotkeyEditor.BackColor = System.Drawing.Color.Transparent;
+            this.GridHotkeyEditor.Name = "GridHotkeyEditor";
+            this.GridHotkeyEditor.TabStop = false;
             // 
             // GridHotkeyColumnsLabel
             // 
@@ -280,12 +280,12 @@
             this.NonGridHotkeysLabel.ForeColor = System.Drawing.Color.White;
             this.NonGridHotkeysLabel.Name = "NonGridHotkeysLabel";
             // 
-            // NonGridHotkeysTextBox
+            // NonGridOverflowTextBox
             // 
-            this.NonGridHotkeysTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            resources.ApplyResources(this.NonGridHotkeysTextBox, "NonGridHotkeysTextBox");
-            this.NonGridHotkeysTextBox.Name = "NonGridHotkeysTextBox";
-            this.NonGridHotkeysTextBox.TabStop = false;
+            this.NonGridOverflowTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            resources.ApplyResources(this.NonGridOverflowTextBox, "NonGridOverflowTextBox");
+            this.NonGridOverflowTextBox.Name = "NonGridOverflowTextBox";
+            this.NonGridOverflowTextBox.TabStop = false;
             // 
             // HotkeyOverlayHeaderLabel
             // 
@@ -459,11 +459,11 @@
             this.GameOptionsPage.Controls.Add(this.GridHotkeysHeaderLabel);
             this.GameOptionsPage.Controls.Add(this.GridHotkeysCheckBox);
             this.GameOptionsPage.Controls.Add(this.GridHotkeyLayoutLabel);
-            this.GameOptionsPage.Controls.Add(this.GridHotkeyLayoutTextBox);
+            this.GameOptionsPage.Controls.Add(this.GridHotkeyEditor);
             this.GameOptionsPage.Controls.Add(this.GridHotkeyColumnsLabel);
             this.GameOptionsPage.Controls.Add(this.GridHotkeyColumnsUpDown);
             this.GameOptionsPage.Controls.Add(this.NonGridHotkeysLabel);
-            this.GameOptionsPage.Controls.Add(this.NonGridHotkeysTextBox);
+            this.GameOptionsPage.Controls.Add(this.NonGridOverflowTextBox);
             this.GameOptionsPage.Controls.Add(this.HotkeyOverlayHeaderLabel);
             this.GameOptionsPage.Controls.Add(this.KeyboardOverlayCheckBox);
             this.GameOptionsPage.Controls.Add(this.KeyboardOverlayBackdropCheckBox);
@@ -1090,11 +1090,11 @@
         private System.Windows.Forms.Label GridHotkeysHeaderLabel;
         private System.Windows.Forms.CheckBox GridHotkeysCheckBox;
         private System.Windows.Forms.Label GridHotkeyLayoutLabel;
-        private System.Windows.Forms.TextBox GridHotkeyLayoutTextBox;
+        private Contra.GridHotkeyEditor GridHotkeyEditor;
         private System.Windows.Forms.Label GridHotkeyColumnsLabel;
         private System.Windows.Forms.NumericUpDown GridHotkeyColumnsUpDown;
         private System.Windows.Forms.Label NonGridHotkeysLabel;
-        private System.Windows.Forms.TextBox NonGridHotkeysTextBox;
+        private System.Windows.Forms.TextBox NonGridOverflowTextBox;
         private System.Windows.Forms.Label HotkeyOverlayHeaderLabel;
         private System.Windows.Forms.CheckBox KeyboardOverlayCheckBox;
         private System.Windows.Forms.CheckBox KeyboardOverlayBackdropCheckBox;
