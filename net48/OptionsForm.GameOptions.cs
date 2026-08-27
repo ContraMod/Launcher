@@ -506,41 +506,104 @@ namespace Contra
             GameOptionsToolTip.AutoPopDelay = 20000;
 
             // Display
-            SetTip("Classic: original look. Damaged: only on damaged units. Always: on every unit. "
-                + "Cycle in game with Ctrl+`.", HealthBarModeLabel, HealthBarModeComboBox);
-            SetTip("Show exact hit points beside the health bar.", NumericalHealthCheckBox);
-            SetTip("Never hide ammo and passenger pips.", SmartPipsCheckBox);
-            SetTip("Draw a ring under selected units.", SelectionCircleCheckBox);
-            SetTip("Show remaining build time. Auto: only when useful.", BuildTimerLabel, BuildTimerComboBox);
+            SetTip(Tip("Classic: original look. Damaged: only on damaged units. Always: on every unit. Cycle in game with Ctrl+`.",
+                       "Classic: обычный вид. Damaged: только у повреждённых. Always: у всех. В игре переключается через Ctrl+`.",
+                       "Classic: normale Ansicht. Damaged: nur bei beschädigten Einheiten. Always: bei allen. Im Spiel mit Strg+` umschaltbar."),
+                   HealthBarModeLabel, HealthBarModeComboBox);
+            SetTip(Tip("Show exact hit points beside the health bar.",
+                       "Показывать точное число очков здоровья рядом с полосой.",
+                       "Genaue Trefferpunkte neben dem Lebensbalken anzeigen."),
+                   NumericalHealthCheckBox);
+            SetTip(Tip("Never hide ammo and passenger pips.",
+                       "Всегда показывать метки боезапаса и пассажиров.",
+                       "Munitions- und Passagieranzeigen nie ausblenden."),
+                   SmartPipsCheckBox);
+            SetTip(Tip("Draw a ring under selected units.",
+                       "Рисовать круг под выделенными юнитами.",
+                       "Einen Ring unter ausgewählten Einheiten zeichnen."),
+                   SelectionCircleCheckBox);
+            SetTip(Tip("Show remaining build time. Auto: only when useful.",
+                       "Показывать оставшееся время постройки. Auto: только когда полезно.",
+                       "Verbleibende Bauzeit anzeigen. Auto: nur wenn sinnvoll."),
+                   BuildTimerLabel, BuildTimerComboBox);
 
             // Input
-            SetTip("QuickCast: fire at the cursor on key press, no second click.", CastModeLabel, CastModeComboBox);
-            SetTip("Drag selection picks combat units only. Click a builder to select it.", EasyMilitaryDragCheckBox);
+            SetTip(Tip("QuickCast: fire at the cursor on key press, no second click.",
+                       "QuickCast: применять по курсору сразу при нажатии, без второго щелчка.",
+                       "QuickCast: auf Tastendruck sofort am Cursor auslösen, ohne zweiten Klick."),
+                   CastModeLabel, CastModeComboBox);
+            SetTip(Tip("Drag selection picks combat units only. Click a builder to select it.",
+                       "Рамка выделяет только боевые юниты. Рабочего можно выделить щелчком.",
+                       "Der Auswahlrahmen erfasst nur Kampfeinheiten. Bauarbeiter per Klick auswählen."),
+                   EasyMilitaryDragCheckBox);
 
             // Graphics
-            SetTip("Texture smoothing at distance. Anisotropic = best quality, negligible cost.",
-                TextureFilterLabel, TextureFilterComboBox);
-            SetTip("Higher = sharper ground textures at flat angles. 16 is safe on modern GPUs.",
-                AnisotropicLevelLabel, AnisotropicLevelComboBox);
+            SetTip(Tip("Texture smoothing at distance. Anisotropic = best quality, negligible cost.",
+                       "Сглаживание текстур на расстоянии. Anisotropic — лучшее качество почти без затрат.",
+                       "Texturglättung in der Ferne. Anisotropic = beste Qualität, kaum Kosten."),
+                   TextureFilterLabel, TextureFilterComboBox);
+            SetTip(Tip("Higher = sharper ground textures at flat angles. 16 is safe on modern GPUs.",
+                       "Больше — чётче текстуры земли под острым углом. 16 безопасно на современных видеокартах.",
+                       "Höher = schärfere Bodentexturen bei flachen Winkeln. 16 ist auf modernen GPUs unbedenklich."),
+                   AnisotropicLevelLabel, AnisotropicLevelComboBox);
 
             // Grid hotkeys
-            SetTip("Command buttons follow keyboard layout: key position = button position, "
-                + "same for every unit.", GridHotkeysCheckBox);
-            SetTip("Keys for the grid slots, in reading order, one per slot.",
-                GridHotkeyLayoutLabel, GridHotkeyLayoutTextBox);
-            SetTip("Keys per row before wrapping. Match the command bar's columns.",
-                GridHotkeyColumnsLabel, GridHotkeyColumnsUpDown);
-            SetTip("These keys keep their original function (S = stop, G = guard...).",
-                NonGridHotkeysLabel, NonGridHotkeysTextBox);
+            SetTip(Tip("Command buttons follow keyboard layout: key position = button position, same for every unit.",
+                       "Кнопки команд повторяют раскладку: положение клавиши = положение кнопки, одинаково для всех юнитов.",
+                       "Befehlsschaltflächen folgen der Tastaturanordnung: Tastenposition = Schaltflächenposition, bei jeder Einheit gleich."),
+                   GridHotkeysCheckBox);
+            SetTip(Tip("Keys for the grid slots, in reading order, one per slot.",
+                       "Клавиши для ячеек сетки, в порядке чтения, по одной на ячейку.",
+                       "Tasten für die Rasterfelder, in Lesereihenfolge, eine pro Feld."),
+                   GridHotkeyLayoutLabel, GridHotkeyLayoutTextBox);
+            SetTip(Tip("Keys per row before wrapping. Match the command bar's columns.",
+                       "Клавиш в строке до переноса. Должно совпадать со столбцами панели команд.",
+                       "Tasten pro Zeile bis zum Umbruch. Muss den Spalten der Befehlsleiste entsprechen."),
+                   GridHotkeyColumnsLabel, GridHotkeyColumnsUpDown);
+            SetTip(Tip("These keys keep their original function (S = stop, G = guard...).",
+                       "Эти клавиши сохраняют исходное назначение (S — стоп, G — охрана...).",
+                       "Diese Tasten behalten ihre ursprüngliche Funktion (S = Halt, G = Bewachen...)."),
+                   NonGridHotkeysLabel, NonGridHotkeysTextBox);
 
             // Hotkey letters on cameos
-            SetTip("Show each button's hotkey on its icon.", KeyboardOverlayCheckBox);
-            SetTip("Dark panel behind letters for readability.", KeyboardOverlayBackdropCheckBox);
-            SetTip("Letter colour (RGB, 0-255).", OverlayColourLabel, OverlayRedUpDown,
-                OverlayGreenUpDown, OverlayBlueUpDown, OverlayRgbHintLabel, OverlayColourButton);
-            SetTip("Panel colour and opacity (RGBA, 0-255).", BackdropColourLabel, BackdropRedUpDown,
-                BackdropGreenUpDown, BackdropBlueUpDown, BackdropOpacityUpDown, BackdropRgbHintLabel,
-                BackdropColourButton);
+            SetTip(Tip("Show each button's hotkey on its icon.",
+                       "Показывать горячую клавишу каждой кнопки на её значке.",
+                       "Das Tastenkürzel jeder Schaltfläche auf ihrem Symbol anzeigen."),
+                   KeyboardOverlayCheckBox);
+            SetTip(Tip("Dark panel behind letters for readability.",
+                       "Тёмная подложка за буквами для читаемости.",
+                       "Dunkle Platte hinter den Buchstaben für bessere Lesbarkeit."),
+                   KeyboardOverlayBackdropCheckBox);
+            SetTip(Tip("Letter colour (RGB, 0-255).",
+                       "Цвет букв (RGB, 0-255).",
+                       "Farbe der Buchstaben (RGB, 0-255)."),
+                   OverlayColourLabel, OverlayRedUpDown, OverlayGreenUpDown, OverlayBlueUpDown,
+                   OverlayRgbHintLabel, OverlayColourButton);
+            SetTip(Tip("Panel colour and opacity (RGBA, 0-255).",
+                       "Цвет и непрозрачность подложки (RGBA, 0-255).",
+                       "Farbe und Deckkraft der Platte (RGBA, 0-255)."),
+                   BackdropColourLabel, BackdropRedUpDown, BackdropGreenUpDown, BackdropBlueUpDown,
+                   BackdropOpacityUpDown, BackdropRgbHintLabel, BackdropColourButton);
+        }
+
+        /// <summary>
+        /// Pick the tip for the language the launcher is running in. English is the fallback, as it
+        /// is for the captions -- the launcher has five languages but the other three have no
+        /// translated tips, so they read the English rather than nothing.
+        /// </summary>
+        private static string Tip(string english, string russian, string german)
+        {
+            if (Globals.RU_Checked)
+            {
+                return russian;
+            }
+
+            if (Globals.DE_Checked)
+            {
+                return german;
+            }
+
+            return english;
         }
 
         /// <summary>
