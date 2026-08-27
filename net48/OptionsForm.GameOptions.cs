@@ -579,17 +579,17 @@ namespace Contra
                      + "nach Position statt nach Befehl. Ersetzt bei Aktivierung die mnemonischen Befehlstasten. "
                      + "Kombinationen mit Strg und Alt behalten ihre normalen Belegungen."),
                    GridHotkeysCheckBox);
-            SetTip(Tip("One key per slot, laid out as the command bar is. Type to set a key; click a key to exclude it.",
-                       "По одной клавише на ячейку, в порядке панели команд. Введите клавишу; щёлкните по ней, чтобы исключить.",
-                       "Eine Taste pro Feld, angeordnet wie die Befehlsleiste. Tippen setzt eine Taste; Klicken schließt sie aus."),
+            SetTip(Tip("One key per slot, laid out as the command bar is. Click a slot and type to set its key; right click to exclude it.",
+                       "По одной клавише на ячейку, в порядке панели команд. Щёлкните ячейку и введите клавишу; правый щелчок исключает её.",
+                       "Eine Taste pro Feld, angeordnet wie die Befehlsleiste. Feld anklicken und tippen setzt die Taste; Rechtsklick schließt sie aus."),
                    GridHotkeyLayoutLabel, GridHotkeyEditor);
             SetTip(Tip("Keys per row before wrapping. Match the command bar's columns.",
                        "Клавиш в строке до переноса. Должно совпадать со столбцами панели команд.",
                        "Tasten pro Zeile bis zum Umbruch. Muss den Spalten der Befehlsleiste entsprechen."),
                    GridHotkeyColumnsLabel, GridHotkeyColumnsUpDown);
-            SetTip(Tip("Excluded keys that are not on the grid. Keys on the grid are excluded by clicking them.",
-                       "Исключённые клавиши, которых нет в сетке. Клавиши из сетки исключаются щелчком по ним.",
-                       "Ausgeschlossene Tasten, die nicht im Raster liegen. Tasten im Raster werden per Klick ausgeschlossen."),
+            SetTip(Tip("Excluded keys that are not on the grid. Keys on the grid are excluded by right clicking them.",
+                       "Исключённые клавиши, которых нет в сетке. Клавиши из сетки исключаются правым щелчком.",
+                       "Ausgeschlossene Tasten, die nicht im Raster liegen. Tasten im Raster werden per Rechtsklick ausgeschlossen."),
                    NonGridHotkeysLabel, NonGridOverflowTextBox);
 
             // Hotkey letters on cameos

@@ -17,7 +17,7 @@ namespace Contra
     /// in their head. Here the layout is typed into the slots themselves, the column count reshapes
     /// the grid as it changes, and an excluded key is struck through in the slot it would occupy.
     ///
-    /// Type in a cell to set its key. Click a cell to toggle whether that key is excluded.
+    /// Left click a cell and type to set its key. Right click a cell to exclude that key.
     /// </summary>
     internal sealed class GridHotkeyEditor : Panel
     {
@@ -317,9 +317,10 @@ namespace Contra
 
             protected override void OnMouseDown(MouseEventArgs e)
             {
-                // Click toggles the exclusion; typing is how the key itself is changed. Both act on
-                // the slot the player is pointing at, which is the reason this is a grid at all.
-                if (e.Button == MouseButtons.Left && ModifierKeys == Keys.None && Key != '\0')
+                // Left click has to stay what it is everywhere else -- put the caret in the box --
+                // because typing a key is the main thing done here. Excluding is the rarer action,
+                // so it takes the right button and leaves editing alone.
+                if (e.Button == MouseButtons.Right && Key != '\0')
                 {
                     Excluded = !Excluded;
 
