@@ -522,9 +522,11 @@ namespace Contra
                        "Рисовать круг под выделенными юнитами.",
                        "Einen Ring unter ausgewählten Einheiten zeichnen."),
                    SelectionCircleCheckBox);
-            SetTip(Tip("Show remaining build time. Auto: only when useful.",
-                       "Показывать оставшееся время постройки. Auto: только когда полезно.",
-                       "Verbleibende Bauzeit anzeigen. Auto: nur wenn sinnvoll."),
+            // Auto switches to m:ss once a minute or more is left, and shows plain seconds below
+            // that -- see the countdown formatting in W3DPushButton.cpp.
+            SetTip(Tip("Show remaining build time. Seconds: always in seconds. Auto: minutes and seconds from 1:00 up.",
+                       "Показывать оставшееся время постройки. Seconds: всегда в секундах. Auto: минуты и секунды от 1:00.",
+                       "Verbleibende Bauzeit anzeigen. Seconds: immer in Sekunden. Auto: Minuten und Sekunden ab 1:00."),
                    BuildTimerLabel, BuildTimerComboBox);
 
             // Input
