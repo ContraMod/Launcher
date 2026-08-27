@@ -285,6 +285,12 @@ namespace Contra
         /// </summary>
         private sealed class CellBox : TextBox
         {
+            // Arial bold, as the rest of this form uses. A cell holds one centred capital, so the
+            // fixed widths of a monospace face buy little here and would be the only such font on
+            // the page.
+            private static readonly Font NormalFont = new Font("Arial", 9F, FontStyle.Bold);
+            private static readonly Font ExcludedFont = new Font("Arial", 9F, FontStyle.Bold | FontStyle.Strikeout);
+
             private bool isExcluded;
 
             public event EventHandler KeyEdited;
@@ -297,7 +303,7 @@ namespace Contra
                 TextAlign = HorizontalAlignment.Center;
                 BorderStyle = BorderStyle.FixedSingle;
                 Size = new Size(CellSize, CellSize);
-                Font = new Font("Consolas", 11F, FontStyle.Bold);
+                Font = NormalFont;
                 CharacterCasing = CharacterCasing.Upper;
 
                 // Suppress the built in cut/copy/paste menu: right click is the exclude gesture
@@ -328,7 +334,10 @@ namespace Contra
             {
                 // Struck through and greyed: the key is still shown, because which key it is remains
                 // the point -- it just no longer belongs to the grid.
-                Font = new Font(Font, isExcluded ? FontStyle.Bold | FontStyle.Strikeout : FontStyle.Bold);
+                //
+                // Both fonts are made once and shared. Building one per call leaked a GDI handle on
+                // every toggle, and deriving from the current font compounded the styles.
+                Font = isExcluded ? ExcludedFont : NormalFont;
                 ForeColor = isExcluded ? Color.FromArgb(128, 128, 128) : Color.Black;
             }
 
