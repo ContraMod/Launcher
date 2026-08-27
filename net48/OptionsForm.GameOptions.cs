@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Contra
@@ -63,6 +65,9 @@ namespace Contra
                 GraphicsPage.Controls.Add(c);
                 c.Location = new Point(where.X, where.Y - PageTop);
             }
+
+            EnableDoubleBuffering(GraphicsPage);
+            EnableDoubleBuffering(GameOptionsPage);
 
             ConfigureGameOptionControls();
             StyleTabButton(GraphicsTabButton);
@@ -134,6 +139,46 @@ namespace Contra
         /// Flat, borderless and transparent, so the tabs read as text on the skin rather than as
         /// Windows buttons sitting on top of it. Not expressible in the resx, hence in code.
         /// </summary>
+        private const int WM_SETREDRAW = 0x000B;
+
+        [DllImport("user32.dll")]
+        private static extern int SendMessage(IntPtr hWnd, int wMsg, bool wParam, int lParam);
+
+        /// <summary>
+        /// Stop the control painting at all. Paired with ResumeDrawing in a finally, so a throw
+        /// mid-swap cannot leave the window frozen.
+        /// </summary>
+        private static void SuspendDrawing(Control control)
+        {
+            if (control.IsHandleCreated)
+            {
+                SendMessage(control.Handle, WM_SETREDRAW, false, 0);
+            }
+        }
+
+        private static void ResumeDrawing(Control control)
+        {
+            if (control.IsHandleCreated)
+            {
+                SendMessage(control.Handle, WM_SETREDRAW, true, 0);
+            }
+
+            // WM_SETREDRAW leaves the window unpainted rather than dirty, so it needs an explicit
+            // invalidate to come back -- and the children with it, they were frozen too.
+            control.Invalidate(true);
+        }
+
+        /// <summary>
+        /// Panel.DoubleBuffered is protected and these panels come from the designer, so it has to
+        /// go on through the property rather than a subclass.
+        /// </summary>
+        private static void EnableDoubleBuffering(Control control)
+        {
+            typeof(Control)
+                .GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic)
+                .SetValue(control, true, null);
+        }
+
         private static void StyleTabButton(Button b)
         {
             b.FlatStyle = FlatStyle.Flat;
@@ -149,20 +194,36 @@ namespace Contra
             Panel wanted = gameOptions ? GameOptionsPage : GraphicsPage;
             Panel other = gameOptions ? GraphicsPage : GameOptionsPage;
 
-            // Hide first, then show and raise. Both panels cover the same rectangle, and
-            // BackColor.Transparent on a WinForms panel means "let whatever is behind me show
-            // through", not "draw nothing" -- so leaving the old page visible underneath lets its
-            // controls paint through the new one.
-            other.Visible = false;
-            wanted.Visible = true;
-            wanted.BringToFront();
+            // Every control on these pages is BackColor.Transparent over the form's background
+            // image, so each one repaints by compositing against its parent. Flipping the two
+            // panels sends that through as a cascade of individual paints, which is what made the
+            // swap feel sluggish. Freeze painting for the whole swap and send one paint at the end.
+            SuspendDrawing(this);
+            try
+            {
+                SuspendLayout();
 
-            // The tab buttons live on the form, not on a page, so they have to stay above both.
-            GraphicsTabButton.BringToFront();
-            GameOptionsTabButton.BringToFront();
+                // Hide first, then show and raise. Both panels cover the same rectangle, and
+                // BackColor.Transparent on a WinForms panel means "let whatever is behind me show
+                // through", not "draw nothing" -- so leaving the old page visible underneath lets
+                // its controls paint through the new one.
+                other.Visible = false;
+                wanted.Visible = true;
+                wanted.BringToFront();
 
-            GraphicsTabButton.ForeColor = gameOptions ? TabInactiveColor : TabActiveColor;
-            GameOptionsTabButton.ForeColor = gameOptions ? TabActiveColor : TabInactiveColor;
+                // The tab buttons live on the form, not on a page, so they have to stay above both.
+                GraphicsTabButton.BringToFront();
+                GameOptionsTabButton.BringToFront();
+
+                GraphicsTabButton.ForeColor = gameOptions ? TabInactiveColor : TabActiveColor;
+                GameOptionsTabButton.ForeColor = gameOptions ? TabActiveColor : TabInactiveColor;
+
+                ResumeLayout(false);
+            }
+            finally
+            {
+                ResumeDrawing(this);
+            }
         }
 
         private void UpdateOverlayEnabledState()
