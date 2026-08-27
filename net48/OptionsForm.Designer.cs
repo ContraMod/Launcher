@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsForm));
+            this.GameOptionsToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.CameraHeightTrackBar = new Contra.TrackBar();
             this.ParticleCapTrackBar = new Contra.TrackBar();
             this.TextureResTrackBar = new Contra.TrackBar();
@@ -1114,6 +1116,7 @@
         private System.Windows.Forms.ComboBox AnisotropicLevelComboBox;
         private System.Windows.Forms.Button OverlayColourButton;
         private System.Windows.Forms.Button BackdropColourButton;
+        private System.Windows.Forms.ToolTip GameOptionsToolTip;
         private System.Windows.Forms.Panel GraphicsPage;
         private System.Windows.Forms.Panel GameOptionsPage;
         private System.Windows.Forms.Button GraphicsTabButton;

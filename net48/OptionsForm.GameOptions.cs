@@ -96,6 +96,7 @@ namespace Contra
             BackdropBlueUpDown.ValueChanged += overlaySwatch;
 
             ApplyGameOptionsLanguage();
+            ApplyGameOptionTooltips();
             ShowPage(false);
         }
 
@@ -486,6 +487,81 @@ namespace Contra
         private static string SelectedText(ComboBox box, string fallback)
         {
             return box.SelectedItem != null ? box.SelectedItem.ToString() : fallback;
+        }
+
+        /// <summary>
+        /// One line of help per setting, shown on hover. The graphics page has its own info panel
+        /// for this, but that panel is part of the graphics layout rather than the form, so these
+        /// use a plain ToolTip instead of borrowing it.
+        ///
+        /// English only, like the rest of the tooltips the launcher does not translate -- the
+        /// captions are translated above, and a half translated tip would read worse than a
+        /// consistent English one.
+        /// </summary>
+        private void ApplyGameOptionTooltips()
+        {
+            // A long tip on a slow popup is easy to miss, so show them quickly and leave them up.
+            GameOptionsToolTip.InitialDelay = 350;
+            GameOptionsToolTip.ReshowDelay = 100;
+            GameOptionsToolTip.AutoPopDelay = 20000;
+
+            // Display
+            SetTip("Classic: original look. Damaged: only on damaged units. Always: on every unit. "
+                + "Cycle in game with Ctrl+`.", HealthBarModeLabel, HealthBarModeComboBox);
+            SetTip("Show exact hit points beside the health bar.", NumericalHealthCheckBox);
+            SetTip("Never hide ammo and passenger pips.", SmartPipsCheckBox);
+            SetTip("Draw a ring under selected units.", SelectionCircleCheckBox);
+            SetTip("Show remaining build time. Auto: only when useful.", BuildTimerLabel, BuildTimerComboBox);
+
+            // Input
+            SetTip("QuickCast: fire at the cursor on key press, no second click.", CastModeLabel, CastModeComboBox);
+            SetTip("Drag selection picks combat units only. Click a builder to select it.", EasyMilitaryDragCheckBox);
+
+            // Graphics
+            SetTip("Texture smoothing at distance. Anisotropic = best quality, negligible cost.",
+                TextureFilterLabel, TextureFilterComboBox);
+            SetTip("Higher = sharper ground textures at flat angles. 16 is safe on modern GPUs.",
+                AnisotropicLevelLabel, AnisotropicLevelComboBox);
+
+            // Grid hotkeys
+            SetTip("Command buttons follow keyboard layout: key position = button position, "
+                + "same for every unit.", GridHotkeysCheckBox);
+            SetTip("Keys for the grid slots, in reading order, one per slot.",
+                GridHotkeyLayoutLabel, GridHotkeyLayoutTextBox);
+            SetTip("Keys per row before wrapping. Match the command bar's columns.",
+                GridHotkeyColumnsLabel, GridHotkeyColumnsUpDown);
+            SetTip("These keys keep their original function (S = stop, G = guard...).",
+                NonGridHotkeysLabel, NonGridHotkeysTextBox);
+
+            // Hotkey letters on cameos
+            SetTip("Show each button's hotkey on its icon.", KeyboardOverlayCheckBox);
+            SetTip("Dark panel behind letters for readability.", KeyboardOverlayBackdropCheckBox);
+            SetTip("Letter colour (RGB, 0-255).", OverlayColourLabel, OverlayRedUpDown,
+                OverlayGreenUpDown, OverlayBlueUpDown, OverlayRgbHintLabel, OverlayColourButton);
+            SetTip("Panel colour and opacity (RGBA, 0-255).", BackdropColourLabel, BackdropRedUpDown,
+                BackdropGreenUpDown, BackdropBlueUpDown, BackdropOpacityUpDown, BackdropRgbHintLabel,
+                BackdropColourButton);
+        }
+
+        /// <summary>
+        /// Put one tip on every control that makes up a setting -- the label, the input, and any
+        /// hint beside it -- so hovering anywhere over the row explains it rather than only the
+        /// part that happens to carry the text.
+        /// </summary>
+        private void SetTip(string text, params Control[] controls)
+        {
+            foreach (Control c in controls)
+            {
+                GameOptionsToolTip.SetToolTip(c, text);
+
+                // A NumericUpDown is a composite: the text box and the arrows are separate child
+                // windows that take the mouse themselves, so a tip on the parent alone never shows
+                // when hovering the part the user actually points at.
+                foreach (Control child in c.Controls)
+                {
+                    GameOptionsToolTip.SetToolTip(child, text);
+                }
+            }
         }
 
         /// <summary>
