@@ -46,7 +46,12 @@ namespace Contra
         /// </summary>
         public string OverflowExclusions { get; set; }
 
-        public string Layout
+        /// <summary>
+        /// The layout string as Options.ini holds it: the cells in reading order. Named KeyLayout
+        /// rather than Layout because Control already has a Layout event, and a property of the
+        /// same name on a Panel subclass silently shadows it.
+        /// </summary>
+        public string KeyLayout
         {
             get { return CollectLayout(); }
             set
@@ -268,6 +273,12 @@ namespace Contra
                 Size = new Size(CellSize, CellSize);
                 Font = new Font("Consolas", 11F, FontStyle.Bold);
                 CharacterCasing = CharacterCasing.Upper;
+
+                // Suppress the built in cut/copy/paste menu: right click is the exclude gesture
+                // here, and the default menu would open on top of it. Null means "use the default",
+                // so it takes an empty menu to actually get rid of it. ContextMenuStrip rather than
+                // ContextMenu because the netcore build of this form has no ContextMenu.
+                ContextMenuStrip = new ContextMenuStrip();
                 Text = key == '\0' ? string.Empty : key.ToString();
                 Repaint();
             }
@@ -304,14 +315,31 @@ namespace Contra
                 {
                     edited(this, EventArgs.Empty);
                 }
+            }
 
-                if (Text.Length == 1)
+            /// <summary>
+            /// A slot holds exactly one key, so a keypress replaces what is there rather than being
+            /// appended. Left to itself a MaxLength of 1 refuses the keystroke on a cell that is
+            /// already full and Windows answers with the error ding, which is what typing over a
+            /// key sounded like.
+            /// </summary>
+            protected override void OnKeyPress(KeyPressEventArgs e)
+            {
+                if (char.IsControl(e.KeyChar))
                 {
-                    EventHandler advance = AdvanceRequested;
-                    if (advance != null)
-                    {
-                        advance(this, EventArgs.Empty);
-                    }
+                    base.OnKeyPress(e);
+                    return;
+                }
+
+                e.Handled = true;
+
+                Text = char.ToUpperInvariant(e.KeyChar).ToString();
+                SelectAll();
+
+                EventHandler advance = AdvanceRequested;
+                if (advance != null)
+                {
+                    advance(this, EventArgs.Empty);
                 }
             }
 

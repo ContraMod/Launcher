@@ -357,7 +357,7 @@ namespace Contra
             // Columns before layout, so the grid is already the right shape when the keys land, and
             // exclusions last, since which cells they mark depends on the layout being in place.
             GridHotkeyEditor.Columns = (int)GridHotkeyColumnsUpDown.Value;
-            GridHotkeyEditor.Layout =
+            GridHotkeyEditor.KeyLayout =
                 GameOptionsIni.GetValue(s, "GridHotkeyLayout", "QWERTYUIOASDFGHJKL");
             GridHotkeyEditor.Exclusions = GameOptionsIni.GetValue(s, "NonGridHotkeys", string.Empty);
             NonGridOverflowTextBox.Text = GridHotkeyEditor.OverflowExclusions;
@@ -482,7 +482,7 @@ namespace Contra
             // editor supplies the ones that do.
             GridHotkeyEditor.OverflowExclusions = NonGridOverflowTextBox.Text.Trim();
 
-            s = GameOptionsIni.SetValue(s, "GridHotkeyLayout", GridHotkeyEditor.Layout);
+            s = GameOptionsIni.SetValue(s, "GridHotkeyLayout", GridHotkeyEditor.KeyLayout);
             s = GameOptionsIni.SetInt(s, "GridHotkeyColumns", (int)GridHotkeyColumnsUpDown.Value);
             s = GameOptionsIni.SetValue(s, "NonGridHotkeys", GridHotkeyEditor.Exclusions);
 
