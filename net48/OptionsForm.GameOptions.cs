@@ -104,7 +104,7 @@ namespace Contra
             HealthBarModeComboBox.Items.AddRange(new object[] { "Classic", "Damaged", "Always" });
             BuildTimerComboBox.Items.AddRange(new object[] { "None", "Seconds", "Auto" });
             CastModeComboBox.Items.AddRange(new object[] { "Normal", "QuickCast", "QuickCastWithIndicator" });
-            TextureFilterComboBox.Items.AddRange(new object[] { "Bilinear", "Trilinear", "Anisotropic" });
+            TextureFilterComboBox.Items.AddRange(new object[] { "None", "Point", "Bilinear", "Trilinear", "Anisotropic" });
             // The engine rounds down to one of these, so offering anything else would only mislead.
             AnisotropicLevelComboBox.Items.AddRange(new object[] { "2", "4", "8", "16" });
 
@@ -269,11 +269,13 @@ namespace Contra
             CastModeComboBox.SelectedItem =
                 MatchOrFirst(CastModeComboBox, GameOptionsIni.GetValue(s, "CastMode", "Normal"));
 
-            // Bilinear and 2 are the retail defaults the engine falls back to.
+            // Bilinear and 2 are what the engine falls back to when the key is absent. Match on the
+            // value rather than MatchOrFirst: "None" is a real mode and sits first in the list, so a
+            // value that does not match would otherwise land there and silently turn filtering off.
             TextureFilterComboBox.SelectedItem =
-                MatchOrFirst(TextureFilterComboBox, GameOptionsIni.GetValue(s, "TextureFilter", "Bilinear"));
+                MatchOrDefault(TextureFilterComboBox, GameOptionsIni.GetValue(s, "TextureFilter", "Bilinear"), "Bilinear");
             AnisotropicLevelComboBox.SelectedItem =
-                MatchOrFirst(AnisotropicLevelComboBox, NearestAnisotropicLevel(GameOptionsIni.GetInt(s, "AnisotropicLevel", 2)));
+                MatchOrFirst(AnisotropicLevelComboBox, NearestAnisotropyLevel(GameOptionsIni.GetInt(s, "AnisotropyLevel", 2)));
 
             NumericalHealthCheckBox.Checked = GameOptionsIni.GetBool(s, "NumericalHealth", false);
             SmartPipsCheckBox.Checked = GameOptionsIni.GetBool(s, "SmartPips", false);
@@ -322,28 +324,47 @@ namespace Contra
         }
 
         /// <summary>
-        /// Round down to a level the engine accepts, the same way getAnisotropicLevel does, so a
-        /// hand edited value shows as the one the game will actually use rather than snapping to
-        /// the first item.
+        /// Mirror what getTextureAnisotropyLevel does to a hand edited value: clamp it into 2..16
+        /// and then keep only the highest set bit, so the list shows the level the game will
+        /// actually use rather than snapping to the first item.
         /// </summary>
-        private static string NearestAnisotropicLevel(int level)
+        private static string NearestAnisotropyLevel(int level)
         {
-            if (level >= 16)
+            if (level < 2)
+            {
+                return "2";
+            }
+
+            if (level > 16)
             {
                 return "16";
             }
 
-            if (level >= 8)
+            // Highest set bit, matching the engine's highestBit().
+            int highest = 2;
+            while (highest * 2 <= level)
             {
-                return "8";
+                highest *= 2;
             }
 
-            if (level >= 4)
+            return highest.ToString();
+        }
+
+        /// <summary>
+        /// Like MatchOrFirst, but falls back to a named item instead of the first one. Used where
+        /// the first entry is a meaningful setting in its own right rather than a safe default.
+        /// </summary>
+        private static object MatchOrDefault(ComboBox box, string value, string fallback)
+        {
+            foreach (object item in box.Items)
             {
-                return "4";
+                if (string.Equals(item.ToString(), value, StringComparison.OrdinalIgnoreCase))
+                {
+                    return item;
+                }
             }
 
-            return "2";
+            return MatchOrFirst(box, fallback);
         }
 
         private static object MatchOrFirst(ComboBox box, string value)
@@ -376,7 +397,7 @@ namespace Contra
             s = GameOptionsIni.SetValue(s, "BuildTimerDisplayMode", SelectedText(BuildTimerComboBox, "None"));
             s = GameOptionsIni.SetValue(s, "CastMode", SelectedText(CastModeComboBox, "Normal"));
             s = GameOptionsIni.SetValue(s, "TextureFilter", SelectedText(TextureFilterComboBox, "Bilinear"));
-            s = GameOptionsIni.SetValue(s, "AnisotropicLevel", SelectedText(AnisotropicLevelComboBox, "2"));
+            s = GameOptionsIni.SetValue(s, "AnisotropyLevel", SelectedText(AnisotropicLevelComboBox, "2"));
 
             s = GameOptionsIni.SetBool(s, "NumericalHealth", NumericalHealthCheckBox.Checked);
             s = GameOptionsIni.SetBool(s, "SmartPips", SmartPipsCheckBox.Checked);
