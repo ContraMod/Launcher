@@ -93,7 +93,6 @@
             this.donateFlashTimer2 = new System.Windows.Forms.Timer(this.components);
             this.linkYouTubePred = new System.Windows.Forms.PictureBox();
             this.linkYouTubeDce = new System.Windows.Forms.PictureBox();
-            this.MOTD = new Contra.Marquee();
             this.panel1.SuspendLayout();
             this.PatchDLPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataFolder)).BeginInit();
@@ -133,14 +132,6 @@
             this.MNew.Name = "MNew";
             this.MNew.UseVisualStyleBackColor = true;
             // 
-            // GOCheckBox
-            // 
-            resources.ApplyResources(this.GOCheckBox, "GOCheckBox");
-            this.GOCheckBox.BackColor = System.Drawing.Color.Transparent;
-            this.GOCheckBox.ForeColor = System.Drawing.Color.White;
-            this.GOCheckBox.Name = "GOCheckBox";
-            this.GOCheckBox.UseVisualStyleBackColor = false;
-            // 
             // QSCheckBox
             // 
             resources.ApplyResources(this.QSCheckBox, "QSCheckBox");
@@ -148,6 +139,14 @@
             this.QSCheckBox.ForeColor = System.Drawing.Color.White;
             this.QSCheckBox.Name = "QSCheckBox";
             this.QSCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // GOCheckBox
+            // 
+            resources.ApplyResources(this.GOCheckBox, "GOCheckBox");
+            this.GOCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.GOCheckBox.ForeColor = System.Drawing.Color.White;
+            this.GOCheckBox.Name = "GOCheckBox";
+            this.GOCheckBox.UseVisualStyleBackColor = false;
             // 
             // MStandard
             // 
@@ -743,15 +742,6 @@
             this.linkYouTubeDce.TabStop = false;
             this.linkYouTubeDce.Click += new System.EventHandler(this.linkYouTubeDce_Click);
             // 
-            // MOTD
-            // 
-            this.MOTD.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.MOTD, "MOTD");
-            this.MOTD.ForeColor = System.Drawing.Color.White;
-            this.MOTD.Name = "MOTD";
-            this.MOTD.Speed = 1;
-            this.MOTD.yOffset = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -780,7 +770,6 @@
             this.Controls.Add(this.customAddonsLabel);
             this.Controls.Add(this.replaysLabel);
             this.Controls.Add(this.onlineInstructionsLabel);
-            this.Controls.Add(this.MOTD);
             this.Controls.Add(this.LaunchBtn);
             this.Controls.Add(this.WBBtn);
             this.Controls.Add(this.panel1);

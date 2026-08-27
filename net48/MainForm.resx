@@ -243,14 +243,26 @@
   <data name="QSCheckBox.Text" xml:space="preserve">
     <value>QuickStart</value>
   </data>
+  <data name="&gt;&gt;QSCheckBox.Name" xml:space="preserve">
+    <value>QSCheckBox</value>
+  </data>
+  <data name="&gt;&gt;QSCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;QSCheckBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;QSCheckBox.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
   <data name="GOCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="GOCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>400, 200</value>
+    <value>520, 136</value>
   </data>
   <data name="GOCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 22</value>
+    <value>42, 17</value>
   </data>
   <data name="GOCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
@@ -268,18 +280,6 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;GOCheckBox.ZOrder" xml:space="preserve">
-    <value>48</value>
-  </data>
-  <data name="&gt;&gt;QSCheckBox.Name" xml:space="preserve">
-    <value>QSCheckBox</value>
-  </data>
-  <data name="&gt;&gt;QSCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;QSCheckBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;QSCheckBox.ZOrder" xml:space="preserve">
     <value>27</value>
   </data>
   <data name="MStandard.AutoSize" type="System.Boolean, mscorlib">
@@ -325,7 +325,7 @@
     <value>NoControl</value>
   </data>
   <data name="WinCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>465, 200</value>
+    <value>400, 200</value>
   </data>
   <data name="WinCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 22</value>
@@ -445,7 +445,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;versionLabel.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>25</value>
   </data>
   <data name="ExitBtnSm.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -608,7 +608,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;WBBtn.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>23</value>
   </data>
   <data name="LaunchBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -641,7 +641,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;LaunchBtn.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>22</value>
   </data>
   <data name="RadioFlag_GB.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
@@ -830,7 +830,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>24</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>21, 17</value>
@@ -1726,7 +1726,7 @@
     <value>0</value>
   </data>
   <data name="LanguagePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>465, 225</value>
+    <value>408, 224</value>
   </data>
   <data name="LanguagePanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 65</value>
@@ -2017,33 +2017,6 @@
   </data>
   <data name="&gt;&gt;linkYouTubeDce.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="MOTD.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Calibri, 15px, style=Bold</value>
-  </data>
-  <data name="MOTD.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="MOTD.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 578</value>
-  </data>
-  <data name="MOTD.Size" type="System.Drawing.Size, System.Drawing">
-    <value>750, 22</value>
-  </data>
-  <data name="MOTD.TabIndex" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="&gt;&gt;MOTD.Name" xml:space="preserve">
-    <value>MOTD</value>
-  </data>
-  <data name="&gt;&gt;MOTD.Type" xml:space="preserve">
-    <value>Contra.Marquee, Contra_Launcher, Version=2.0.0.6, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;MOTD.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;MOTD.ZOrder" xml:space="preserve">
-    <value>22</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

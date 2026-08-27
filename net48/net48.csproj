@@ -118,6 +118,7 @@
     </Compile>
     <Compile Include="OptionsForm.GameOptions.cs">
       <DependentUpon>OptionsForm.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="GameOptionsIni.cs" />
     <Compile Include="Program.cs" />
