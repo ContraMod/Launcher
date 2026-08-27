@@ -1,4 +1,4 @@
-namespace Contra
+﻿namespace Contra
 {
     partial class MainForm
     {
@@ -34,6 +34,7 @@ namespace Contra
             this.RadioRU = new System.Windows.Forms.RadioButton();
             this.MNew = new System.Windows.Forms.RadioButton();
             this.QSCheckBox = new System.Windows.Forms.CheckBox();
+            this.GOCheckBox = new System.Windows.Forms.CheckBox();
             this.MStandard = new System.Windows.Forms.RadioButton();
             this.WinCheckBox = new System.Windows.Forms.CheckBox();
             this.DefaultPics = new System.Windows.Forms.RadioButton();
@@ -131,6 +132,14 @@ namespace Contra
             this.MNew.ForeColor = System.Drawing.Color.White;
             this.MNew.Name = "MNew";
             this.MNew.UseVisualStyleBackColor = true;
+            // 
+            // GOCheckBox
+            // 
+            resources.ApplyResources(this.GOCheckBox, "GOCheckBox");
+            this.GOCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.GOCheckBox.ForeColor = System.Drawing.Color.White;
+            this.GOCheckBox.Name = "GOCheckBox";
+            this.GOCheckBox.UseVisualStyleBackColor = false;
             // 
             // QSCheckBox
             // 
@@ -777,6 +786,7 @@ namespace Contra
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.QSCheckBox);
+            this.Controls.Add(this.GOCheckBox);
             this.Controls.Add(this.WinCheckBox);
             this.Controls.Add(this.ExitBtnSm);
             this.Controls.Add(this.MinBtnSm);
@@ -823,6 +833,7 @@ namespace Contra
         private System.Windows.Forms.RadioButton RadioRU;
         private System.Windows.Forms.Button WBBtn;
         private System.Windows.Forms.CheckBox QSCheckBox;
+        private System.Windows.Forms.CheckBox GOCheckBox;
         private System.Windows.Forms.RadioButton MStandard;
         private System.Windows.Forms.RadioButton MNew;
         private System.Windows.Forms.CheckBox WinCheckBox;

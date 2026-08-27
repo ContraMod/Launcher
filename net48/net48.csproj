@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Globals.cs" />
+    <Compile Include="GoFiles.cs" />
     <Compile Include="GridHotkeyEditor.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -146,6 +147,7 @@
       <DependentUpon>OptionsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="GoDlls.zip" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>

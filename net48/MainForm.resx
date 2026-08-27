@@ -243,6 +243,33 @@
   <data name="QSCheckBox.Text" xml:space="preserve">
     <value>QuickStart</value>
   </data>
+  <data name="GOCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="GOCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>400, 200</value>
+  </data>
+  <data name="GOCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 22</value>
+  </data>
+  <data name="GOCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="GOCheckBox.Text" xml:space="preserve">
+    <value>GO</value>
+  </data>
+  <data name="&gt;&gt;GOCheckBox.Name" xml:space="preserve">
+    <value>GOCheckBox</value>
+  </data>
+  <data name="&gt;&gt;GOCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GOCheckBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;GOCheckBox.ZOrder" xml:space="preserve">
+    <value>48</value>
+  </data>
   <data name="&gt;&gt;QSCheckBox.Name" xml:space="preserve">
     <value>QSCheckBox</value>
   </data>
@@ -298,7 +325,7 @@
     <value>NoControl</value>
   </data>
   <data name="WinCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>410, 200</value>
+    <value>465, 200</value>
   </data>
   <data name="WinCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 22</value>
@@ -1699,7 +1726,7 @@
     <value>0</value>
   </data>
   <data name="LanguagePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>410, 225</value>
+    <value>465, 225</value>
   </data>
   <data name="LanguagePanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 65</value>

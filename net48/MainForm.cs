@@ -1646,6 +1646,12 @@ namespace Contra
         /// </summary>
         private const string GameExeName = "generalszh.exe";
 
+        /// <summary>
+        /// The GO mod archive, passed to the game with -mod rather than being renamed into place
+        /// the way the other archives are.
+        /// </summary>
+        private const string GoModArchive = "contraGO.big";
+
         public bool wbRunningDialogResultYes()
         {
             Process[] wbByName = Process.GetProcessesByName("worldbuilder_ctr");
@@ -1672,10 +1678,34 @@ namespace Contra
                 return;
             }
 
-            // The contraZH engine ships as its own generalszh.exe rather than replacing
-            // generals.exe, so when it is there it is what we launch. The .ctr swap below only
-            // exists to get the mod binary into generals.exe, which that build does not need.
-            string exeToLaunch = File.Exists(GameExeName) ? GameExeName : "generals.exe";
+            // The GO build is a separate executable beside the retail one, so it is only used
+            // when GO is ticked. Everything else launches generals.exe as it always did, through
+            // the .ctr swap below.
+            string exeToLaunch = GOCheckBox.Checked && File.Exists(GameExeName)
+                ? GameExeName
+                : "generals.exe";
+
+            if (GOCheckBox.Checked)
+            {
+                if (!File.Exists(GameExeName))
+                {
+                    MessageBox.Show(GameExeName + " was not found. GO cannot be launched without it.",
+                        Messages.GenerateMessage("Error", Globals.currentLanguage),
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // The libraries are imports, not optional extras: the game will not start without
+                // them, so a failure here has to stop the launch rather than be reported after it.
+                string extractError;
+                if (!GoFiles.EnsureExtracted(launcherExecutingPath, out extractError))
+                {
+                    MessageBox.Show("The GO libraries could not be unpacked:" + Environment.NewLine + Environment.NewLine + extractError,
+                        Messages.GenerateMessage("Error", Globals.currentLanguage),
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
 
             // Rename generals.exes
             if (exeToLaunch == "generals.exe" && File.Exists("generals.exe") && (File.Exists("generals.ctr")))
@@ -1728,10 +1758,22 @@ namespace Contra
         {
             bool quickStart = QSCheckBox.Checked;
             bool windowed = WinCheckBox.Checked;
-            if (!quickStart && !windowed) return string.Empty;
-            if (quickStart && !windowed) return "-quickstart -nologo";
-            if (quickStart && windowed) return "-win -quickstart -nologo";
-            return "-win";
+
+            string args;
+            if (!quickStart && !windowed) args = string.Empty;
+            else if (quickStart && !windowed) args = "-quickstart -nologo";
+            else if (quickStart && windowed) args = "-win -quickstart -nologo";
+            else args = "-win";
+
+            if (GOCheckBox.Checked)
+            {
+                // A bare name here would be looked for under the user data folder, not beside the
+                // game -- see parseMod in CommandLine.cpp -- so the full path is what gets passed.
+                string mod = Path.Combine(launcherExecutingPath, GoModArchive);
+                args = (args.Length > 0 ? args + " " : string.Empty) + "-mod \"" + mod + "\"";
+            }
+
+            return args;
         }
 
         internal static bool Url_open(string url)
@@ -1773,6 +1815,7 @@ namespace Contra
             RadioOrigQuotes.Checked = Properties.Settings.Default.VoNew;
             RadioLocQuotes.Checked = Properties.Settings.Default.VoStandard;
             QSCheckBox.Checked = Properties.Settings.Default.Quickstart;
+            GOCheckBox.Checked = Properties.Settings.Default.GoBuild;
             WinCheckBox.Checked = Properties.Settings.Default.Windowed;
             DefaultPics.Checked = Properties.Settings.Default.GenPicDef;
             GoofyPics.Checked = Properties.Settings.Default.GenPicGoo;
@@ -1816,6 +1859,7 @@ namespace Contra
             Properties.Settings.Default.VoNew = RadioOrigQuotes.Checked;
             Properties.Settings.Default.VoStandard = RadioLocQuotes.Checked;
             Properties.Settings.Default.Quickstart = QSCheckBox.Checked;
+            Properties.Settings.Default.GoBuild = GOCheckBox.Checked;
             Properties.Settings.Default.Windowed = WinCheckBox.Checked;
             Properties.Settings.Default.GenPicDef = DefaultPics.Checked;
             Properties.Settings.Default.GenPicGoo = GoofyPics.Checked;
