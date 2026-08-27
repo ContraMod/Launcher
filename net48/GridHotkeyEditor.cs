@@ -25,10 +25,17 @@ namespace Contra
         private const int CellGap = 2;
 
         /// <summary>
-        /// How tall the grid may get before it scrolls -- the space it has on the page, which is
-        /// two rows at the default nine columns.
+        /// How tall the grid may get before it scrolls. The page gives it the band from its top
+        /// down to the column count row, which is two rows of cells -- the shape the default nine
+        /// columns produces. Three rows would reach into the label below it.
         /// </summary>
-        private const int MaxHeight = 3 * (CellSize + CellGap);
+        private const int MaxHeight = 2 * (CellSize + CellGap);
+
+        /// <summary>
+        /// How wide the grid may get before it scrolls -- the room between its left edge and the
+        /// right side of the page.
+        /// </summary>
+        private const int MaxWidth = 234;
 
         private readonly List<CellBox> cells = new List<CellBox>();
         private readonly HashSet<char> excluded = new HashSet<char>();
@@ -206,10 +213,17 @@ namespace Contra
             int rows = perRow > 0 ? (text.Length + perRow - 1) / perRow : 1;
             int wanted = Math.Max(1, Math.Max(rows, 1) * (CellSize + CellGap));
 
-            AutoScroll = wanted > MaxHeight;
+            int wantedWidth = Math.Max(1, perRow * (CellSize + CellGap));
+
+            // Both axes are bounded: a high column count runs off the right of the page just as a
+            // low one runs into the controls below. Whichever way it overflows, it scrolls.
+            bool scrollY = wanted > MaxHeight;
+            bool scrollX = wantedWidth > MaxWidth;
+
+            AutoScroll = scrollY || scrollX;
             Size = new Size(
-                Math.Max(1, perRow * (CellSize + CellGap)) + (AutoScroll ? SystemInformation.VerticalScrollBarWidth : 0),
-                Math.Min(wanted, MaxHeight));
+                Math.Min(wantedWidth + (scrollY ? SystemInformation.VerticalScrollBarWidth : 0), MaxWidth),
+                Math.Min(wanted + (scrollX ? SystemInformation.HorizontalScrollBarHeight : 0), MaxHeight));
 
             ResumeLayout();
             Invalidate();
