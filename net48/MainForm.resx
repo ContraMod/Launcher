@@ -631,6 +631,33 @@
   <data name="LaunchBtn.Text" xml:space="preserve">
     <value>LAUNCH</value>
   </data>
+  <data name="MOTD.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Calibri, 15px, style=Bold</value>
+  </data>
+  <data name="MOTD.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="MOTD.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 578</value>
+  </data>
+  <data name="MOTD.Size" type="System.Drawing.Size, System.Drawing">
+    <value>750, 22</value>
+  </data>
+  <data name="MOTD.TabIndex" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="&gt;&gt;MOTD.Name" xml:space="preserve">
+    <value>MOTD</value>
+  </data>
+  <data name="&gt;&gt;MOTD.Type" xml:space="preserve">
+    <value>Contra.Marquee, Contra_Launcher, Version=2.0.0.6, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MOTD.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MOTD.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
   <data name="&gt;&gt;LaunchBtn.Name" xml:space="preserve">
     <value>LaunchBtn</value>
   </data>
