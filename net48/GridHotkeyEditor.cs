@@ -24,6 +24,12 @@ namespace Contra
         private const int CellSize = 24;
         private const int CellGap = 2;
 
+        /// <summary>
+        /// How tall the grid may get before it scrolls -- the space it has on the page, which is
+        /// two rows at the default nine columns.
+        /// </summary>
+        private const int MaxHeight = 3 * (CellSize + CellGap);
+
         private readonly List<CellBox> cells = new List<CellBox>();
         private readonly HashSet<char> excluded = new HashSet<char>();
 
@@ -194,10 +200,16 @@ namespace Contra
 
             ApplyExclusions(null);
 
+            // The control sits in a fixed band on the page, so it cannot simply grow to fit: a low
+            // column count folds the same keys into many more rows, and at three or fewer the grid
+            // would run over the controls beneath it. Past that height it scrolls instead.
             int rows = perRow > 0 ? (text.Length + perRow - 1) / perRow : 1;
+            int wanted = Math.Max(1, Math.Max(rows, 1) * (CellSize + CellGap));
+
+            AutoScroll = wanted > MaxHeight;
             Size = new Size(
-                Math.Max(1, perRow * (CellSize + CellGap)),
-                Math.Max(1, Math.Max(rows, 1) * (CellSize + CellGap)));
+                Math.Max(1, perRow * (CellSize + CellGap)) + (AutoScroll ? SystemInformation.VerticalScrollBarWidth : 0),
+                Math.Min(wanted, MaxHeight));
 
             ResumeLayout();
             Invalidate();
