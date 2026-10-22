@@ -589,7 +589,7 @@
             // 
             // GridHotkeyLayoutComboBox
             // 
-            this.GridHotkeyLayoutComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.GridHotkeyLayoutComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             resources.ApplyResources(this.GridHotkeyLayoutComboBox, "GridHotkeyLayoutComboBox");
             this.GridHotkeyLayoutComboBox.Name = "GridHotkeyLayoutComboBox";
             this.GridHotkeyLayoutComboBox.TabStop = false;

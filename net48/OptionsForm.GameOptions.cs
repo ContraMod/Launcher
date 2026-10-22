@@ -45,6 +45,14 @@ namespace Contra
 
         private const string DefaultGridLayout = "QWERTYUIOASDFGHJKL";
 
+        // The in-game menu's three layout presets, in the drop-down's order. The box shows the
+        // rows each one puts on the command bar rather than the eighteen-key string.
+        private static readonly string[] GridLayouts = { "QWERTYUIOASDFGHJKL", "ASDFGHJKLZXCVBNM,.", "QWERTYUIOZXCVBNM,." };
+
+        // A layout written into Options.ini by hand, kept until a preset is picked -- as the
+        // in-game menu does. Null when the file holds one of the presets.
+        private string handWrittenGridLayout;
+
         // The values behind the drop-downs that show something friendlier than the raw number.
         // Each list is in the same order as the box's items.
         private static readonly int[] AnisotropyLevels = { 2, 4, 8, 16 };
@@ -167,12 +175,8 @@ namespace Contra
             CastModeComboBox.Items.AddRange(new object[] { "Normal", "QuickCast", "QuickCastWithIndicator" });
             ActionLinesComboBox.Items.AddRange(new object[] { "Off", "All", "AttackOnly" });
 
-            // The three presets the in-game menu offers. The box stays editable because the game
-            // takes any string from the file and uses it as written.
-            GridHotkeyLayoutComboBox.Items.AddRange(new object[]
-            {
-                "QWERTYUIOASDFGHJKL", "ASDFGHJKLZXCVBNM,.", "QWERTYUIOZXCVBNM,."
-            });
+            GridHotkeyLayoutComboBox.Items.AddRange(new object[] { "QWER / ASDF", "ASDF / ZXCV", "QWER / ZXCV" });
+            GridHotkeyLayoutComboBox.SelectedIndexChanged += delegate { handWrittenGridLayout = null; };
 
             // Graphics.
             TextureFilterComboBox.Items.AddRange(new object[] { "None", "Point", "Bilinear", "Trilinear", "Anisotropic" });
@@ -564,9 +568,13 @@ namespace Contra
             SmartCommandGroupCheckBox.Checked = GameOptionsIni.GetFlag(s, "SmartCommandGroup", true);
             LowLatencyCheckBox.Checked = GameOptionsIni.GetFlag(s, "LowLatency", false);
 
-            // Grid hotkeys. Any layout string is kept as written; the presets are only suggestions.
+            // Grid hotkeys. A layout that is not one of the presets shows as the first one, as in
+            // the game, but is written back unchanged unless a preset is chosen.
             GridHotkeysCheckBox.Checked = GameOptionsIni.GetBool(s, "GridHotkeys", false);
-            GridHotkeyLayoutComboBox.Text = GameOptionsIni.GetValue(s, "GridHotkeyLayout", DefaultGridLayout);
+            string layout = GameOptionsIni.GetValue(s, "GridHotkeyLayout", DefaultGridLayout);
+            int preset = Array.FindIndex(GridLayouts, l => string.Equals(l, layout, StringComparison.OrdinalIgnoreCase));
+            GridHotkeyLayoutComboBox.SelectedIndex = Math.Max(preset, 0);
+            handWrittenGridLayout = preset < 0 ? layout : null;
             GridHotkeyUnitOrdersCheckBox.Checked = GameOptionsIni.GetFlag(s, "GridHotkeyUnitOrders", true);
 
             // Hotkey letters
@@ -756,9 +764,9 @@ namespace Contra
             s = GameOptionsIni.SetBool(s, "LowLatency", LowLatencyCheckBox.Checked);
 
             // Grid hotkeys
-            string layout = GridHotkeyLayoutComboBox.Text.Trim();
             s = GameOptionsIni.SetBool(s, "GridHotkeys", GridHotkeysCheckBox.Checked);
-            s = GameOptionsIni.SetValue(s, "GridHotkeyLayout", layout.Length > 0 ? layout : DefaultGridLayout);
+            s = GameOptionsIni.SetValue(s, "GridHotkeyLayout",
+                handWrittenGridLayout ?? GridLayouts[Math.Max(GridHotkeyLayoutComboBox.SelectedIndex, 0)]);
             s = GameOptionsIni.SetBool(s, "GridHotkeyUnitOrders", GridHotkeyUnitOrdersCheckBox.Checked);
 
             // Hotkey letters
@@ -909,9 +917,9 @@ namespace Contra
                      + "nach Position statt nach Befehl. Ersetzt bei Aktivierung die mnemonischen Befehlstasten. "
                      + "Kombinationen mit Strg und Alt behalten ihre normalen Belegungen."),
                    GridHotkeysCheckBox);
-            SetTip(Tip("One key per command bar slot, in reading order, split evenly over the rows. Pick a preset or type your own. Leave out digits: they are control group keys.",
-                       "По одной клавише на ячейку, в порядке чтения, поровну на ряды. Выберите готовый вариант или введите свой. Без цифр: это клавиши групп.",
-                       "Eine Taste pro Feld, in Lesereihenfolge, gleichmäßig auf die Reihen verteilt. Vorlage wählen oder eigene eingeben. Keine Ziffern: das sind Gruppentasten."),
+            SetTip(Tip("Which rows of keys the command bar answers to, top row first. A layout written into Options.ini by hand is kept until you pick one here.",
+                       "Какие ряды клавиш отвечают панели команд, верхний ряд первым. Раскладка, вписанная в Options.ini вручную, сохраняется, пока вы не выберете вариант здесь.",
+                       "Welche Tastenreihen die Befehlsleiste bedienen, obere Reihe zuerst. Eine von Hand in Options.ini eingetragene Belegung bleibt, bis hier eine gewählt wird."),
                    GridHotkeyLayoutLabel, GridHotkeyLayoutComboBox);
             SetTip(Tip("Unit orders such as stop and guard keep their own letter instead of taking a grid key.",
                        "Приказы юнитов, например стоп и охрана, сохраняют свою букву вместо клавиши сетки.",
