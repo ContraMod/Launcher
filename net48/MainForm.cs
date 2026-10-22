@@ -1146,16 +1146,10 @@ namespace Contra
             wb.StartInfo.Verb = "runas";
             try
             {
-                if (File.Exists("WorldBuilder_Ctr.exe"))
+                if (File.Exists(WorldBuilderExe))
                 {
-                    wb.StartInfo.FileName = "WorldBuilder_Ctr.exe";
-                    wb.StartInfo.WorkingDirectory = Path.GetDirectoryName("WorldBuilder_Ctr.exe");
-                    wb.Start();
-                }
-                else if (File.Exists("WorldBuilder.exe"))
-                {
-                    wb.StartInfo.FileName = "WorldBuilder.exe";
-                    wb.StartInfo.WorkingDirectory = Path.GetDirectoryName("WorldBuilder.exe");
+                    wb.StartInfo.FileName = WorldBuilderExe;
+                    wb.StartInfo.WorkingDirectory = Path.GetDirectoryName(WorldBuilderExe);
                     wb.Start();
                 }
                 else Messages.GenerateMessageBox("E_NotFound_WB", Globals.currentLanguage);
@@ -1350,7 +1344,7 @@ namespace Contra
         }
         private void ExitBtn_Click(object sender, EventArgs e)
         {
-            Process[] wbByName = Process.GetProcessesByName("worldbuilder_ctr");
+            Process[] wbByName = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(WorldBuilderExe));
             if (wbByName.Length > 0) Messages.GenerateMessageBox("W_WBCouldNotUnloadMod", Globals.currentLanguage);
             Close(); // Application.Exit(); //OnApplicationExit(sender, e);
         }
@@ -1641,9 +1635,12 @@ namespace Contra
         /// </summary>
         private const string GoModArchive = "contraGO.big";
 
+        /// <summary>The contraZH World Builder: the Qt build on Direct3D 9.</summary>
+        private const string WorldBuilderExe = "WorldBuilderZH_Qt_D3D9.exe";
+
         public bool wbRunningDialogResultYes()
         {
-            Process[] wbByName = Process.GetProcessesByName("worldbuilder_ctr");
+            Process[] wbByName = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(WorldBuilderExe));
             if (wbByName.Length > 0)
             {
                 DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("W_PreferencesMayNotLoad", Globals.currentLanguage),
