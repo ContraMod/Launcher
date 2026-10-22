@@ -110,6 +110,18 @@ namespace Contra.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool GoBuild {
+            get {
+                return ((bool)(this["GoBuild"]));
+            }
+            set {
+                this["GoBuild"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Windowed {
             get {
                 return ((bool)(this["Windowed"]));

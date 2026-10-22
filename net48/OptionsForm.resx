@@ -118,10 +118,985 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="LangFilterCheckBox.AutoSize" type="System.Boolean, mscorlib">
+  <data name="GameOptDisplayLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="GameOptDisplayLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="GameOptDisplayLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 8</value>
+  </data>
+  <data name="GameOptDisplayLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 15</value>
+  </data>
+  <data name="GameOptDisplayLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="GameOptDisplayLabel.Text" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="&gt;&gt;GameOptDisplayLabel.Name" xml:space="preserve">
+    <value>GameOptDisplayLabel</value>
+  </data>
+  <data name="&gt;&gt;GameOptDisplayLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GameOptDisplayLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;GameOptDisplayLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="HealthBarModeLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HealthBarModeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 34</value>
+  </data>
+  <data name="HealthBarModeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 13</value>
+  </data>
+  <data name="HealthBarModeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="HealthBarModeLabel.Text" xml:space="preserve">
+    <value>Health bars:</value>
+  </data>
+  <data name="&gt;&gt;HealthBarModeLabel.Name" xml:space="preserve">
+    <value>HealthBarModeLabel</value>
+  </data>
+  <data name="&gt;&gt;HealthBarModeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HealthBarModeLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;HealthBarModeLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="HealthBarModeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 30</value>
+  </data>
+  <data name="HealthBarModeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 21</value>
+  </data>
+  <data name="HealthBarModeComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;HealthBarModeComboBox.Name" xml:space="preserve">
+    <value>HealthBarModeComboBox</value>
+  </data>
+  <data name="&gt;&gt;HealthBarModeComboBox.Type" xml:space="preserve">
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;HealthBarModeComboBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;HealthBarModeComboBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="NumericalHealthCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="NumericalHealthCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 108</value>
+  </data>
+  <data name="NumericalHealthCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 17</value>
+  </data>
+  <data name="NumericalHealthCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="NumericalHealthCheckBox.Text" xml:space="preserve">
+    <value>Show health as numbers</value>
+  </data>
+  <data name="&gt;&gt;NumericalHealthCheckBox.Name" xml:space="preserve">
+    <value>NumericalHealthCheckBox</value>
+  </data>
+  <data name="&gt;&gt;NumericalHealthCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;NumericalHealthCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;NumericalHealthCheckBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="SmartPipsCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="SmartPipsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 130</value>
+  </data>
+  <data name="SmartPipsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>191, 17</value>
+  </data>
+  <data name="SmartPipsCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="SmartPipsCheckBox.Text" xml:space="preserve">
+    <value>Always show ammo and cargo pips</value>
+  </data>
+  <data name="&gt;&gt;SmartPipsCheckBox.Name" xml:space="preserve">
+    <value>SmartPipsCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SmartPipsCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SmartPipsCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;SmartPipsCheckBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="SelectionCircleCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="SelectionCircleCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 152</value>
+  </data>
+  <data name="SelectionCircleCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 17</value>
+  </data>
+  <data name="SelectionCircleCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="SelectionCircleCheckBox.Text" xml:space="preserve">
+    <value>Selection ring under units</value>
+  </data>
+  <data name="&gt;&gt;SelectionCircleCheckBox.Name" xml:space="preserve">
+    <value>SelectionCircleCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SelectionCircleCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SelectionCircleCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;SelectionCircleCheckBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="BuildTimerLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="BuildTimerLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 60</value>
+  </data>
+  <data name="BuildTimerLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 13</value>
+  </data>
+  <data name="BuildTimerLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="BuildTimerLabel.Text" xml:space="preserve">
+    <value>Build timers:</value>
+  </data>
+  <data name="&gt;&gt;BuildTimerLabel.Name" xml:space="preserve">
+    <value>BuildTimerLabel</value>
+  </data>
+  <data name="&gt;&gt;BuildTimerLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BuildTimerLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BuildTimerLabel.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="BuildTimerComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 56</value>
+  </data>
+  <data name="BuildTimerComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 21</value>
+  </data>
+  <data name="BuildTimerComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;BuildTimerComboBox.Name" xml:space="preserve">
+    <value>BuildTimerComboBox</value>
+  </data>
+  <data name="&gt;&gt;BuildTimerComboBox.Type" xml:space="preserve">
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BuildTimerComboBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BuildTimerComboBox.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="GameOptInputLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="GameOptInputLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="GameOptInputLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 256</value>
+  </data>
+  <data name="GameOptInputLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 15</value>
+  </data>
+  <data name="GameOptInputLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="GameOptInputLabel.Text" xml:space="preserve">
+    <value>Input</value>
+  </data>
+  <data name="&gt;&gt;GameOptInputLabel.Name" xml:space="preserve">
+    <value>GameOptInputLabel</value>
+  </data>
+  <data name="&gt;&gt;GameOptInputLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GameOptInputLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;GameOptInputLabel.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="CastModeLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CastModeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 282</value>
+  </data>
+  <data name="CastModeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 13</value>
+  </data>
+  <data name="CastModeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="CastModeLabel.Text" xml:space="preserve">
+    <value>Special powers:</value>
+  </data>
+  <data name="&gt;&gt;CastModeLabel.Name" xml:space="preserve">
+    <value>CastModeLabel</value>
+  </data>
+  <data name="&gt;&gt;CastModeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CastModeLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;CastModeLabel.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="CastModeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 278</value>
+  </data>
+  <data name="CastModeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 21</value>
+  </data>
+  <data name="CastModeComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;CastModeComboBox.Name" xml:space="preserve">
+    <value>CastModeComboBox</value>
+  </data>
+  <data name="&gt;&gt;CastModeComboBox.Type" xml:space="preserve">
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;CastModeComboBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;CastModeComboBox.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="EasyMilitaryDragCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="EasyMilitaryDragCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 330</value>
+  </data>
+  <data name="EasyMilitaryDragCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 17</value>
+  </data>
+  <data name="EasyMilitaryDragCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="EasyMilitaryDragCheckBox.Text" xml:space="preserve">
+    <value>Drag select skips builders</value>
+  </data>
+  <data name="&gt;&gt;EasyMilitaryDragCheckBox.Name" xml:space="preserve">
+    <value>EasyMilitaryDragCheckBox</value>
+  </data>
+  <data name="&gt;&gt;EasyMilitaryDragCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;EasyMilitaryDragCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;EasyMilitaryDragCheckBox.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="GridHotkeysHeaderLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="GridHotkeysHeaderLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="GridHotkeysHeaderLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>430, 8</value>
+  </data>
+  <data name="GridHotkeysHeaderLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 15</value>
+  </data>
+  <data name="GridHotkeysHeaderLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="GridHotkeysHeaderLabel.Text" xml:space="preserve">
+    <value>Grid hotkeys</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeysHeaderLabel.Name" xml:space="preserve">
+    <value>GridHotkeysHeaderLabel</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeysHeaderLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeysHeaderLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeysHeaderLabel.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="GridHotkeysCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="GridHotkeysCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 30</value>
+  </data>
+  <data name="GridHotkeysCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 17</value>
+  </data>
+  <data name="GridHotkeysCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="GridHotkeysCheckBox.Text" xml:space="preserve">
+    <value>Use grid hotkeys</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeysCheckBox.Name" xml:space="preserve">
+    <value>GridHotkeysCheckBox</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeysCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeysCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeysCheckBox.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="GridHotkeyLayoutLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="GridHotkeyLayoutLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 58</value>
+  </data>
+  <data name="GridHotkeyLayoutLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 13</value>
+  </data>
+  <data name="GridHotkeyLayoutLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="GridHotkeyLayoutLabel.Text" xml:space="preserve">
+    <value>Layout:</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeyLayoutLabel.Name" xml:space="preserve">
+    <value>GridHotkeyLayoutLabel</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeyLayoutLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeyLayoutLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeyLayoutLabel.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="HotkeyOverlayHeaderLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HotkeyOverlayHeaderLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="HotkeyOverlayHeaderLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>430, 118</value>
+  </data>
+  <data name="HotkeyOverlayHeaderLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 15</value>
+  </data>
+  <data name="HotkeyOverlayHeaderLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="HotkeyOverlayHeaderLabel.Text" xml:space="preserve">
+    <value>Hotkey letters on cameos</value>
+  </data>
+  <data name="&gt;&gt;HotkeyOverlayHeaderLabel.Name" xml:space="preserve">
+    <value>HotkeyOverlayHeaderLabel</value>
+  </data>
+  <data name="&gt;&gt;HotkeyOverlayHeaderLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HotkeyOverlayHeaderLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;HotkeyOverlayHeaderLabel.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="KeyboardOverlayCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="KeyboardOverlayCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 140</value>
+  </data>
+  <data name="KeyboardOverlayCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 17</value>
+  </data>
+  <data name="KeyboardOverlayCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="KeyboardOverlayCheckBox.Text" xml:space="preserve">
+    <value>Show hotkey letters</value>
+  </data>
+  <data name="&gt;&gt;KeyboardOverlayCheckBox.Name" xml:space="preserve">
+    <value>KeyboardOverlayCheckBox</value>
+  </data>
+  <data name="&gt;&gt;KeyboardOverlayCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;KeyboardOverlayCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;KeyboardOverlayCheckBox.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="KeyboardOverlayBackdropCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="KeyboardOverlayBackdropCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 162</value>
+  </data>
+  <data name="KeyboardOverlayBackdropCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 17</value>
+  </data>
+  <data name="KeyboardOverlayBackdropCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="KeyboardOverlayBackdropCheckBox.Text" xml:space="preserve">
+    <value>Backdrop behind letter</value>
+  </data>
+  <data name="&gt;&gt;KeyboardOverlayBackdropCheckBox.Name" xml:space="preserve">
+    <value>KeyboardOverlayBackdropCheckBox</value>
+  </data>
+  <data name="&gt;&gt;KeyboardOverlayBackdropCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;KeyboardOverlayBackdropCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;KeyboardOverlayBackdropCheckBox.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="OverlayColourLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="OverlayColourLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 184</value>
+  </data>
+  <data name="OverlayColourLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 13</value>
+  </data>
+  <data name="OverlayColourLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="OverlayColourLabel.Text" xml:space="preserve">
+    <value>Letter colour:</value>
+  </data>
+  <data name="&gt;&gt;OverlayColourLabel.Name" xml:space="preserve">
+    <value>OverlayColourLabel</value>
+  </data>
+  <data name="&gt;&gt;OverlayColourLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OverlayColourLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;OverlayColourLabel.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="OverlayRedUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 202</value>
+  </data>
+  <data name="OverlayRedUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="OverlayRedUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;OverlayRedUpDown.Name" xml:space="preserve">
+    <value>OverlayRedUpDown</value>
+  </data>
+  <data name="&gt;&gt;OverlayRedUpDown.Type" xml:space="preserve">
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;OverlayRedUpDown.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;OverlayRedUpDown.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="OverlayGreenUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>498, 202</value>
+  </data>
+  <data name="OverlayGreenUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="OverlayGreenUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;OverlayGreenUpDown.Name" xml:space="preserve">
+    <value>OverlayGreenUpDown</value>
+  </data>
+  <data name="&gt;&gt;OverlayGreenUpDown.Type" xml:space="preserve">
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;OverlayGreenUpDown.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;OverlayGreenUpDown.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="OverlayBlueUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>564, 202</value>
+  </data>
+  <data name="OverlayBlueUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="OverlayBlueUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;OverlayBlueUpDown.Name" xml:space="preserve">
+    <value>OverlayBlueUpDown</value>
+  </data>
+  <data name="&gt;&gt;OverlayBlueUpDown.Type" xml:space="preserve">
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;OverlayBlueUpDown.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;OverlayBlueUpDown.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="OverlayRgbHintLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="OverlayRgbHintLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 224</value>
+  </data>
+  <data name="OverlayRgbHintLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 13</value>
+  </data>
+  <data name="OverlayRgbHintLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="OverlayRgbHintLabel.Text" xml:space="preserve">
+    <value>red / green / blue</value>
+  </data>
+  <data name="&gt;&gt;OverlayRgbHintLabel.Name" xml:space="preserve">
+    <value>OverlayRgbHintLabel</value>
+  </data>
+  <data name="&gt;&gt;OverlayRgbHintLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BackdropColourLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="BackdropColourLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 242</value>
+  </data>
+  <data name="BackdropColourLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 13</value>
+  </data>
+  <data name="BackdropColourLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="BackdropColourLabel.Text" xml:space="preserve">
+    <value>Backdrop colour:</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourLabel.Name" xml:space="preserve">
+    <value>BackdropColourLabel</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourLabel.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <data name="BackdropRedUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 260</value>
+  </data>
+  <data name="BackdropRedUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="BackdropRedUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="&gt;&gt;BackdropRedUpDown.Name" xml:space="preserve">
+    <value>BackdropRedUpDown</value>
+  </data>
+  <data name="&gt;&gt;BackdropRedUpDown.Type" xml:space="preserve">
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BackdropRedUpDown.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BackdropRedUpDown.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="BackdropGreenUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>498, 260</value>
+  </data>
+  <data name="BackdropGreenUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="BackdropGreenUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="&gt;&gt;BackdropGreenUpDown.Name" xml:space="preserve">
+    <value>BackdropGreenUpDown</value>
+  </data>
+  <data name="&gt;&gt;BackdropGreenUpDown.Type" xml:space="preserve">
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BackdropGreenUpDown.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BackdropGreenUpDown.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="BackdropBlueUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>564, 260</value>
+  </data>
+  <data name="BackdropBlueUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="BackdropBlueUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="&gt;&gt;BackdropBlueUpDown.Name" xml:space="preserve">
+    <value>BackdropBlueUpDown</value>
+  </data>
+  <data name="&gt;&gt;BackdropBlueUpDown.Type" xml:space="preserve">
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BackdropBlueUpDown.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BackdropBlueUpDown.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="BackdropOpacityUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>630, 260</value>
+  </data>
+  <data name="BackdropOpacityUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="BackdropOpacityUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;BackdropOpacityUpDown.Name" xml:space="preserve">
+    <value>BackdropOpacityUpDown</value>
+  </data>
+  <data name="&gt;&gt;BackdropOpacityUpDown.Type" xml:space="preserve">
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BackdropOpacityUpDown.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BackdropOpacityUpDown.ZOrder" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="BackdropRgbHintLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="BackdropRgbHintLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 282</value>
+  </data>
+  <data name="BackdropRgbHintLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 13</value>
+  </data>
+  <data name="BackdropRgbHintLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="BackdropRgbHintLabel.Text" xml:space="preserve">
+    <value>red / green / blue / opacity</value>
+  </data>
+  <data name="&gt;&gt;BackdropRgbHintLabel.Name" xml:space="preserve">
+    <value>BackdropRgbHintLabel</value>
+  </data>
+  <data name="&gt;&gt;BackdropRgbHintLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TextureFilterLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="TextureFilterLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 34</value>
+  </data>
+  <data name="TextureFilterLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 13</value>
+  </data>
+  <data name="TextureFilterLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="TextureFilterLabel.Text" xml:space="preserve">
+    <value>Texture filter:</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterLabel.Name" xml:space="preserve">
+    <value>TextureFilterLabel</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterLabel.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TextureFilterComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 30</value>
+  </data>
+  <data name="TextureFilterComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 21</value>
+  </data>
+  <data name="TextureFilterComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterComboBox.Name" xml:space="preserve">
+    <value>TextureFilterComboBox</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterComboBox.Type" xml:space="preserve">
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterComboBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;TextureFilterComboBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="AnisotropicLevelLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="AnisotropicLevelLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 60</value>
+  </data>
+  <data name="AnisotropicLevelLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 13</value>
+  </data>
+  <data name="AnisotropicLevelLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="AnisotropicLevelLabel.Text" xml:space="preserve">
+    <value>Anisotropic level:</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelLabel.Name" xml:space="preserve">
+    <value>AnisotropicLevelLabel</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelLabel.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="AnisotropicLevelComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 56</value>
+  </data>
+  <data name="AnisotropicLevelComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 21</value>
+  </data>
+  <data name="AnisotropicLevelComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelComboBox.Name" xml:space="preserve">
+    <value>AnisotropicLevelComboBox</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelComboBox.Type" xml:space="preserve">
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="OverlayColourButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>630, 202</value>
+  </data>
+  <data name="OverlayColourButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="OverlayColourButton.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="OverlayColourButton.Text" xml:space="preserve">
+    <value>Pick...</value>
+  </data>
+  <data name="&gt;&gt;OverlayColourButton.Name" xml:space="preserve">
+    <value>OverlayColourButton</value>
+  </data>
+  <data name="&gt;&gt;OverlayColourButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OverlayColourButton.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;OverlayColourButton.ZOrder" xml:space="preserve">
+    <value>29</value>
+  </data>
+  <data name="BackdropColourButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>696, 260</value>
+  </data>
+  <data name="BackdropColourButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="BackdropColourButton.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="BackdropColourButton.Text" xml:space="preserve">
+    <value>Pick...</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourButton.Name" xml:space="preserve">
+    <value>BackdropColourButton</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourButton.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BackdropColourButton.ZOrder" xml:space="preserve">
+    <value>30</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelComboBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;AnisotropicLevelComboBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;BackdropRgbHintLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BackdropRgbHintLabel.ZOrder" xml:space="preserve">
+    <value>28</value>
+  </data>
+  <data name="&gt;&gt;OverlayRgbHintLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;OverlayRgbHintLabel.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="GraphicsPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 70</value>
+  </data>
+  <data name="GraphicsPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>800, 445</value>
+  </data>
+  <data name="GraphicsPage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;GraphicsPage.Name" xml:space="preserve">
+    <value>GraphicsPage</value>
+  </data>
+  <data name="&gt;&gt;GraphicsPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GraphicsPage.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;GraphicsPage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="GameOptionsPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 70</value>
+  </data>
+  <data name="GameOptionsPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>800, 445</value>
+  </data>
+  <data name="GameOptionsPage.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;GameOptionsPage.Name" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;GameOptionsPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GameOptionsPage.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;GameOptionsPage.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="GraphicsTabButton.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="GraphicsTabButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>170, 34</value>
+  </data>
+  <data name="GraphicsTabButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 24</value>
+  </data>
+  <data name="GraphicsTabButton.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="GraphicsTabButton.Text" xml:space="preserve">
+    <value>DISPLAY</value>
+  </data>
+  <data name="&gt;&gt;GraphicsTabButton.Name" xml:space="preserve">
+    <value>GraphicsTabButton</value>
+  </data>
+  <data name="&gt;&gt;GraphicsTabButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GraphicsTabButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;GraphicsTabButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="GameOptionsTabButton.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="GameOptionsTabButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>490, 34</value>
+  </data>
+  <data name="GameOptionsTabButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 24</value>
+  </data>
+  <data name="GameOptionsTabButton.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="GameOptionsTabButton.Text" xml:space="preserve">
+    <value>GAME OPTIONS</value>
+  </data>
+  <data name="&gt;&gt;GameOptionsTabButton.Name" xml:space="preserve">
+    <value>GameOptionsTabButton</value>
+  </data>
+  <data name="&gt;&gt;GameOptionsTabButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GameOptionsTabButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;GameOptionsTabButton.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="LangFilterCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="LangFilterCheckBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 15px, style=Bold</value>
   </data>
@@ -145,13 +1120,13 @@
     <value>LangFilterCheckBox</value>
   </data>
   <data name="&gt;&gt;LangFilterCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;LangFilterCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;LangFilterCheckBox.ZOrder" xml:space="preserve">
-    <value>29</value>
+    <value>30</value>
   </data>
   <data name="FogCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -178,13 +1153,13 @@
     <value>FogCheckBox</value>
   </data>
   <data name="&gt;&gt;FogCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;FogCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;FogCheckBox.ZOrder" xml:space="preserve">
-    <value>30</value>
+    <value>31</value>
   </data>
   <data name="resolutionComboBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 15px</value>
@@ -202,13 +1177,13 @@
     <value>resolutionComboBox</value>
   </data>
   <data name="&gt;&gt;resolutionComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;resolutionComboBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;resolutionComboBox.ZOrder" xml:space="preserve">
-    <value>28</value>
+    <value>29</value>
   </data>
   <data name="labelResolution.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -241,7 +1216,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;labelResolution.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>28</value>
   </data>
   <data name="HeatEffectsCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -268,46 +1243,46 @@
     <value>HeatEffectsCheckBox</value>
   </data>
   <data name="&gt;&gt;HeatEffectsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;HeatEffectsCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;HeatEffectsCheckBox.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>27</value>
   </data>
-  <data name="CameraHeightLabel.AutoSize" type="System.Boolean, mscorlib">
+  <data name="CameraHeightCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="CameraHeightLabel.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="CameraHeightCheckBox.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 15px, style=Bold</value>
   </data>
-  <data name="CameraHeightLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="CameraHeightCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="CameraHeightLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>172, 72</value>
+  <data name="CameraHeightCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>156, 72</value>
   </data>
-  <data name="CameraHeightLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 18</value>
+  <data name="CameraHeightCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 19</value>
   </data>
-  <data name="CameraHeightLabel.TabIndex" type="System.Int32, mscorlib">
+  <data name="CameraHeightCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>63</value>
   </data>
-  <data name="CameraHeightLabel.Text" xml:space="preserve">
-    <value>Camera Height: ?</value>
+  <data name="CameraHeightCheckBox.Text" xml:space="preserve">
+    <value>Camera Height</value>
   </data>
-  <data name="&gt;&gt;CameraHeightLabel.Name" xml:space="preserve">
-    <value>CameraHeightLabel</value>
+  <data name="&gt;&gt;CameraHeightCheckBox.Name" xml:space="preserve">
+    <value>CameraHeightCheckBox</value>
   </data>
-  <data name="&gt;&gt;CameraHeightLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;CameraHeightCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;CameraHeightLabel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;CameraHeightCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;CameraHeightLabel.ZOrder" xml:space="preserve">
-    <value>23</value>
+  <data name="&gt;&gt;CameraHeightCheckBox.ZOrder" xml:space="preserve">
+    <value>25</value>
   </data>
   <data name="WaterEffectsCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -334,13 +1309,13 @@
     <value>WaterEffectsCheckBox</value>
   </data>
   <data name="&gt;&gt;WaterEffectsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;WaterEffectsCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;WaterEffectsCheckBox.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>24</value>
   </data>
   <data name="DisableDynamicLODCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -367,13 +1342,13 @@
     <value>DisableDynamicLODCheckBox</value>
   </data>
   <data name="&gt;&gt;DisableDynamicLODCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;DisableDynamicLODCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;DisableDynamicLODCheckBox.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>23</value>
   </data>
   <data name="ExtraAnimationsCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -400,13 +1375,13 @@
     <value>ExtraAnimationsCheckBox</value>
   </data>
   <data name="&gt;&gt;ExtraAnimationsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ExtraAnimationsCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ExtraAnimationsCheckBox.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>22</value>
   </data>
   <data name="ShowPropsCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -433,13 +1408,13 @@
     <value>ShowPropsCheckBox</value>
   </data>
   <data name="&gt;&gt;ShowPropsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ShowPropsCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ShowPropsCheckBox.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>21</value>
   </data>
   <data name="BehindBuildingsCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -466,13 +1441,13 @@
     <value>BehindBuildingsCheckBox</value>
   </data>
   <data name="&gt;&gt;BehindBuildingsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;BehindBuildingsCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BehindBuildingsCheckBox.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>20</value>
   </data>
   <data name="Shadows3DCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -499,13 +1474,13 @@
     <value>Shadows3DCheckBox</value>
   </data>
   <data name="&gt;&gt;Shadows3DCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Shadows3DCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Shadows3DCheckBox.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="Shadows2DCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -532,13 +1507,13 @@
     <value>Shadows2DCheckBox</value>
   </data>
   <data name="&gt;&gt;Shadows2DCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Shadows2DCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Shadows2DCheckBox.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
   </data>
   <data name="CloudShadowsCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -565,13 +1540,13 @@
     <value>CloudShadowsCheckBox</value>
   </data>
   <data name="&gt;&gt;CloudShadowsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;CloudShadowsCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;CloudShadowsCheckBox.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>17</value>
   </data>
   <data name="ExtraGroundLightingCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -598,13 +1573,13 @@
     <value>ExtraGroundLightingCheckBox</value>
   </data>
   <data name="&gt;&gt;ExtraGroundLightingCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ExtraGroundLightingCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ExtraGroundLightingCheckBox.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>18</value>
   </data>
   <data name="SmoothWaterBordersCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -631,13 +1606,13 @@
     <value>SmoothWaterBordersCheckBox</value>
   </data>
   <data name="&gt;&gt;SmoothWaterBordersCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;SmoothWaterBordersCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;SmoothWaterBordersCheckBox.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>19</value>
   </data>
   <data name="LegacyHotkeysRadioButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -664,7 +1639,7 @@
     <value>LegacyHotkeysRadioButton</value>
   </data>
   <data name="&gt;&gt;LegacyHotkeysRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;LegacyHotkeysRadioButton.Parent" xml:space="preserve">
     <value>HotkeyStylePanel</value>
@@ -697,7 +1672,7 @@
     <value>LeikezeHotkeysRadioButton</value>
   </data>
   <data name="&gt;&gt;LeikezeHotkeysRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;LeikezeHotkeysRadioButton.Parent" xml:space="preserve">
     <value>HotkeyStylePanel</value>
@@ -708,18 +1683,20 @@
   <data name="MinBtnSm.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAIAAABLixI0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAu
-        IgAALiIBquLdkgAAAplJREFUSEud0UlPU2EYBeC3ibrRqNGNCd24KBoxLaUgCCgCDogiU/wFLo2AcQEr
-        F4K7YktLGWxRRCsiBUGETrSKiiI4oYg4ASqTsz/BU1/6eb1yGUyeNPd+3zknLZBaHWErSRprz5rozJ7s
-        yply58K0J4/NePOlxDnHkEcLXSxgh6pKEr54D331ZX/z53zvzoUfgTz4GcxXwgEOo4UuFiqL42myI/OT
-        ++BnTxbwKO9KcUeKY8hzEQvYofG2jOnOTJjpOgA4FdO8LiXOOcYVdKdu7McOjTSlT1zfN9mRATgCnhbr
-        MuKWw1zEAnZouDH1Q9se+Ni+F3DKODQnkeEK17FDQ86UsZa08dZ0eH9tN+PreYgkF7GAHRpsSH7XvAtG
-        XakMF6OuNHzOT+S5jh16Up/4+sqON0072durKTIcBdk5iBYWsEMP6+JHLiexV43JUkj8S5YRXexQvz3u
-        xcWE4UvbZV46E5XIkoAF7FBfreH5hW1SQw3xiyFrYYfuVccMno+DZ/X/ievYod4q/dNzsUoe18lPlGCH
-        blfqHzlilQzY5SdKsEM91ugBu+EvZw39tQtARtbCDt20RD+oNQh9NQb/GZ3teKS5QDPrWPiTFWgcxZvx
-        LaQtwA4FzLr7NTGAPx70WPWnjmxcv3r52lXLpNas/PO8Yd0K58ktnAeuY4f8Jl1vVYxw16b3GLXVJyKt
-        RRpLYQgeKvBQFHrgV0fxpqBZh6S0iB3ylmvv2PSArx1iXYrfFa5jh9xGLX4X3LJEM/zyxRB5rmOHfKbQ
-        RbAiJGBeMi5iATuE/xqfdpt0gFfwLYRjXOE6XqnwsFqUveU6j2DUKgpnkBfT2CGVio7mRjSXRrWe3tpS
-        FuIqi5pVOpfwLYfRQhcLKhX9Ao9Q8sMNny28AAAAAElFTkSuQmCC
+        IgAALiIBquLdkgAAAwxJREFUSEudzEtTUmEcx/GHmWpTU01tmpFNC6xJh8MBTfOSinnDC6DjK2jppDYt
+        dNUidScXuYpommZqiIGK3CW838ooNbMUU8C79hKa41+PR5TUZj7DHJ7n930QnR6mLI/3GnN9Jr6/TxAw
+        CwNm4ZolH6xbC6jIc5j5+wQ+E99rzFWWx9PpYUhVHrtlzdu28Xfsgl2HcNch3HPm7znz//QXhAIDGO/Y
+        Bds2/pY1T1EWg/w9vA1zzqYld9OSC4/Cu1TQUMFsy5oH4YY5x9/DQ8uGzDUTb83EW+/LXu/L3jDnkE/D
+        61TkOcwgWTPxAr1Zy4ZMNN+R6uvO8Pdk+nsyA71Zgd4seJp8PQh5C2MIfd0Z8x2paK4tZcWQtmJIWzWm
+        rxrTfd0ZAEanIjeQQD7XloJmWpO8eu5yV+pyV+rvD08AXP8DuYTQq+fOtCYhT3PCoi55UZe81JkCvHru
+        UifXqz8DuYfc05yAppviFtoTf3Y8Br/eJwWB6aIu+eQVWS20J043xaGphpj5d/HgR1sC1UJ74klBG7Kd
+        aohBE9ro2ZbYubePgnxvjQvl5Hi2JXZCG43GNJxvbx5SzTTHnEdQNabhoBE129MY7WmM/tr0nyAfUbPR
+        sAr/8joqlM8NwSehDKtwNKDAP9VHhTKpDT4JZUCBI7ecNanlHFPHmdCcYbLueKLluOUs5JKxxjUc0lgt
+        xy7GlM/DpcWMA88Of0Exo77s/oACp1bjGo5LxkJOKTZayx6tZY+oCW45/urp3dvXL9+8donqxtWj7zu3
+        rrS+fAD7ETXRjtaynVIM2SXYsIpNGlLilmqm+kW4vJQhKyHISxk1JQxZKfEBf+vL7vVLsSElTg3tEgxZ
+        RcxBJT6oxAcU++QXsZ9AbhUxkbma6Zbjbjn+UcYCrvMh95Cbq5nIJiEu+msITumFQeiSsWwSFrKLMTh1
+        SDCHBLOLCbazwAwSyO1iDJUU0snYKsIspGpmSIcbq+jo6ZJCOqLRUJEwTFcR0VUVqa8kdFZGHKg4zeEt
+        jLuqInUVEUXCMBoN/QWPUPLDyHDcCAAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="MinBtnSm.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
@@ -750,24 +1727,24 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MinBtnSm.ZOrder" xml:space="preserve">
-    <value>31</value>
+    <value>32</value>
   </data>
   <data name="ExitBtnSm.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAu
-        IgAALiIBquLdkgAAAtpJREFUSEutlFdPFFEYhr9JCNkLE00sCStYMDExorsLK1JEEBVQYCkavPDOEo0l
-        coV/QL1DwRVFgihBFAtFKUpT7CJqEAtWVIpd/8LnvCeccfYwy+6FF09Oznfe9zmTncmS3R7G3qJ4HmrK
-        4uHmbB5p8fBoa47BWFtuQMx59OGBD174qWz/cv5+LYt/XM/mn+0e/tWRI/jdmevDn668CagZ2YUHPni9
-        RbFMI1cy+Gvrev7WlinAgbxUXhwImZVd6YIXfhpqSOOx5gzBl5Z1AhyaLw4G2ZEO6YSfButSebhprX5j
-        mmD0arpAhoJF9oB0wQs/vahN5k8NqwWfG9cYIKAiy1KgYu5LJ/w0UJPEHy6l8NDlVQYf61N9kAUr1KzZ
-        Ay/81F+dyO8urBS8v5jsw6LI6bzFM1+E/YFz5NSudMJPT6ri+M35FQZv65IMNqdHsM1m48JNC4ySmX0F
-        keIcOXPP7IOf+ipjebA2weD1uUQf9m6cx6GhoWINZg7MPvipt8LNL2viJvDqbLzB7vw5HBISogvnij1W
-        7DE356w88NOD8mh+Xh0bkF15s1nTNE5cMk2s2FvlVOCn+yei+dnpZTxwJjCuhVOYiEqxWp2rwAs/3Tvu
-        4v4q9+To4Z05dlzACVFTxYo95pZ5E/DTnTIXPz3lnpTtWfo/qS7e4bGLPVbsMVezKvDT7WMuflzp9su2
-        8QuwBjNXgZ96vE7uq4ixJDdphhBtzQzjR/peBXOcI2fVB/DTjVIn956MMXhY/o+IWTbekDLTZ6aCc+TM
-        M7MPfuoucYjPDF/B/wZe+KnzsEP/AqIFd/WXpIIXFwirnnTCT+3FS0UQL0jg9eVWEKgd6YIXfuoqcRrh
-        nqNOwU0F/K7+ULPSIZ3wU9cRhyHq1gdWIOMPqzyQD4AMFRaEi6Es4TcEHQrtxRNRM7JrfgD4SdOI9+SH
-        c/2Bxdx0KErQOE7DweCRHemAD15NI/4LalA2kHIFZrMAAAAASUVORK5CYII=
+        IgAALiIBquLdkgAAAtdJREFUSEutkllPU0EYhr8mhPTCRBOXhAoumJgYUVooCFQEUQEFyiLBC+9colGJ
+        XOEfUO9QsIJIECSI4sImm0BRXFARNYgLrqgs7voXPvNOmOM505b2wosnk/nmfZ85OeeQxRLCruJ4Hm/N
+        5In2LJ7scPJUZ7bGdFeOX/R59OGBD174qfzIOv7enck/bmTxzx4n/+rNFvzuyzHwx53rgZqRXXjgg9dV
+        HMs02ZbOXzu38beuDAEO5KXyYn/IrOxKF7zw03hzKk+3pwu+dGwV4FB/cSDIjnRIJ/w01pjCE61beLIt
+        VTB1PU0gQ4Eie0C64IWfXjQk8afmTYLPLZs1EFCRZSlQ0felE34arU/kD1eTefzaRo2PTSkGZMEbalbv
+        gRd+Gqlz8LvLGwTvryQZWBU+n3c5l4uwL3COnNqVTvjpSU0cv7m0XuNtY6LGzrQwNpvNXLRjhVbSc7gg
+        XJwjp+/pffDTcHUsjzUkaLy+6DBQmL+Mg4ODxRrIHOh98NNQlZ1f1sd58OpCvMbBvCUcFBTEhflLxR4r
+        9pjrc6oDwE8PKqP4eV2sXw7kLmaTycSONfPEir2a8Qb8dP9MFD+rjeHR8/6xrZzDRFSGVT3zBrzw02CF
+        jUdq7LNTG8P7sy24gBMi5ooVe8w9sgrw091yGz89Z5+VvZkhQrzPaRF7rNhjrmZV4Kc7p238uNrukz0z
+        F2ANZK4CPw24rDxcFe2VnMQFQrQ7I4QfVUV7gDnOkVO7EvjpZpmVh85Gazys/EfYIjNvT15omKngHDn9
+        TO+Dn/pLI8Vvhr/gfwMv/NR3IpIHK6IE98ptHuDD+UPtAOmEn3pK1oogPpDAZeR2AKgd6YIXfnKXWrXw
+        wCmr4JYC3qsv1Kx0SCf85D4ZqYn6S72DjC/UrEQ+ADJUVBBqEOEdgl6FnhJP1Izs6h8AfjKZiA/lhXLT
+        0dXcejxC0DJD87HAkR3pgA9e+P8CalA2kFJEwEYAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="ExitBtnSm.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
@@ -798,7 +1775,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ExitBtnSm.ZOrder" xml:space="preserve">
-    <value>32</value>
+    <value>33</value>
   </data>
   <data name="TextureResLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -831,7 +1808,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;TextureResLabel.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>14</value>
   </data>
   <data name="ParticleCapLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -864,7 +1841,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ParticleCapLabel.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>13</value>
   </data>
   <data name="AcceptBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -897,7 +1874,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;AcceptBtn.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>12</value>
   </data>
   <data name="CloseBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -930,7 +1907,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;CloseBtn.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>11</value>
   </data>
   <data name="camOkButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
@@ -966,7 +1943,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;camOkButton.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>26</value>
   </data>
   <data name="GraphicsInfoPictureBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -990,7 +1967,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;GraphicsInfoPictureBox.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>10</value>
   </data>
   <data name="GraphicsInfoDescriptionLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1027,51 +2004,6 @@
   </data>
   <data name="&gt;&gt;GraphicsInfoDescriptionLabel.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="&gt;&gt;GraphicsInfoHeaderLabel.Name" xml:space="preserve">
-    <value>GraphicsInfoHeaderLabel</value>
-  </data>
-  <data name="&gt;&gt;GraphicsInfoHeaderLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GraphicsInfoHeaderLabel.Parent" xml:space="preserve">
-    <value>GraphicsInfoTextPanel</value>
-  </data>
-  <data name="&gt;&gt;GraphicsInfoHeaderLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;GraphicsInfoPerformanceLabel.Name" xml:space="preserve">
-    <value>GraphicsInfoPerformanceLabel</value>
-  </data>
-  <data name="&gt;&gt;GraphicsInfoPerformanceLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GraphicsInfoPerformanceLabel.Parent" xml:space="preserve">
-    <value>GraphicsInfoTextPanel</value>
-  </data>
-  <data name="&gt;&gt;GraphicsInfoPerformanceLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="GraphicsInfoTextPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>476, 418</value>
-  </data>
-  <data name="GraphicsInfoTextPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>280, 99</value>
-  </data>
-  <data name="GraphicsInfoTextPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>83</value>
-  </data>
-  <data name="&gt;&gt;GraphicsInfoTextPanel.Name" xml:space="preserve">
-    <value>GraphicsInfoTextPanel</value>
-  </data>
-  <data name="&gt;&gt;GraphicsInfoTextPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GraphicsInfoTextPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;GraphicsInfoTextPanel.ZOrder" xml:space="preserve">
-    <value>5</value>
   </data>
   <data name="GraphicsInfoHeaderLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1145,38 +2077,26 @@
   <data name="&gt;&gt;GraphicsInfoPerformanceLabel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;HotkeyStyleLabel.Name" xml:space="preserve">
-    <value>HotkeyStyleLabel</value>
+  <data name="GraphicsInfoTextPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>476, 418</value>
   </data>
-  <data name="&gt;&gt;HotkeyStyleLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="GraphicsInfoTextPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 99</value>
   </data>
-  <data name="&gt;&gt;HotkeyStyleLabel.Parent" xml:space="preserve">
-    <value>HotkeyStylePanel</value>
+  <data name="GraphicsInfoTextPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>83</value>
   </data>
-  <data name="&gt;&gt;HotkeyStyleLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;GraphicsInfoTextPanel.Name" xml:space="preserve">
+    <value>GraphicsInfoTextPanel</value>
   </data>
-  <data name="HotkeyStylePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>665, 308</value>
-  </data>
-  <data name="HotkeyStylePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 65</value>
-  </data>
-  <data name="HotkeyStylePanel.TabIndex" type="System.Int32, mscorlib">
-    <value>99</value>
-  </data>
-  <data name="&gt;&gt;HotkeyStylePanel.Name" xml:space="preserve">
-    <value>HotkeyStylePanel</value>
-  </data>
-  <data name="&gt;&gt;HotkeyStylePanel.Type" xml:space="preserve">
+  <data name="&gt;&gt;GraphicsInfoTextPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;HotkeyStylePanel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;GraphicsInfoTextPanel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;HotkeyStylePanel.ZOrder" xml:space="preserve">
-    <value>33</value>
+  <data name="&gt;&gt;GraphicsInfoTextPanel.ZOrder" xml:space="preserve">
+    <value>9</value>
   </data>
   <data name="HotkeyStyleLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1211,38 +2131,26 @@
   <data name="&gt;&gt;HotkeyStyleLabel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="AnisoCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="HotkeyStylePanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>665, 308</value>
   </data>
-  <data name="AnisoCheckBox.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Calibri, 15px, style=Bold</value>
+  <data name="HotkeyStylePanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 65</value>
   </data>
-  <data name="AnisoCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="HotkeyStylePanel.TabIndex" type="System.Int32, mscorlib">
+    <value>99</value>
   </data>
-  <data name="AnisoCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>464, 258</value>
+  <data name="&gt;&gt;HotkeyStylePanel.Name" xml:space="preserve">
+    <value>HotkeyStylePanel</value>
   </data>
-  <data name="AnisoCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 22</value>
+  <data name="&gt;&gt;HotkeyStylePanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="AnisoCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="AnisoCheckBox.Text" xml:space="preserve">
-    <value>Anisotropic Filtering</value>
-  </data>
-  <data name="&gt;&gt;AnisoCheckBox.Name" xml:space="preserve">
-    <value>AnisoCheckBox</value>
-  </data>
-  <data name="&gt;&gt;AnisoCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AnisoCheckBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;HotkeyStylePanel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;AnisoCheckBox.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;HotkeyStylePanel.ZOrder" xml:space="preserve">
+    <value>34</value>
   </data>
   <data name="ControlBarStandardRadioButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1269,7 +2177,7 @@
     <value>ControlBarStandardRadioButton</value>
   </data>
   <data name="&gt;&gt;ControlBarStandardRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ControlBarStandardRadioButton.Parent" xml:space="preserve">
     <value>ControlBarPanel</value>
@@ -1302,7 +2210,7 @@
     <value>ControlBarContraRadioButton</value>
   </data>
   <data name="&gt;&gt;ControlBarContraRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ControlBarContraRadioButton.Parent" xml:space="preserve">
     <value>ControlBarPanel</value>
@@ -1335,7 +2243,7 @@
     <value>ControlBarProRadioButton</value>
   </data>
   <data name="&gt;&gt;ControlBarProRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ControlBarProRadioButton.Parent" xml:space="preserve">
     <value>ControlBarPanel</value>
@@ -1395,64 +2303,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ControlBarPanel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;IconQualityLabel.Name" xml:space="preserve">
-    <value>IconQualityLabel</value>
-  </data>
-  <data name="&gt;&gt;IconQualityLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;IconQualityLabel.Parent" xml:space="preserve">
-    <value>CameoResPanel</value>
-  </data>
-  <data name="&gt;&gt;IconQualityLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;CameosStandardRadioButton.Name" xml:space="preserve">
-    <value>CameosStandardRadioButton</value>
-  </data>
-  <data name="&gt;&gt;CameosStandardRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CameosStandardRadioButton.Parent" xml:space="preserve">
-    <value>CameoResPanel</value>
-  </data>
-  <data name="&gt;&gt;CameosStandardRadioButton.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;CameosDoubleRadioButton.Name" xml:space="preserve">
-    <value>CameosDoubleRadioButton</value>
-  </data>
-  <data name="&gt;&gt;CameosDoubleRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CameosDoubleRadioButton.Parent" xml:space="preserve">
-    <value>CameoResPanel</value>
-  </data>
-  <data name="&gt;&gt;CameosDoubleRadioButton.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="CameoResPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>572, 308</value>
-  </data>
-  <data name="CameoResPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 65</value>
-  </data>
-  <data name="CameoResPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>101</value>
-  </data>
-  <data name="&gt;&gt;CameoResPanel.Name" xml:space="preserve">
-    <value>CameoResPanel</value>
-  </data>
-  <data name="&gt;&gt;CameoResPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CameoResPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;CameoResPanel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>7</value>
   </data>
   <data name="IconQualityLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1512,7 +2363,7 @@
     <value>CameosStandardRadioButton</value>
   </data>
   <data name="&gt;&gt;CameosStandardRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;CameosStandardRadioButton.Parent" xml:space="preserve">
     <value>CameoResPanel</value>
@@ -1545,13 +2396,34 @@
     <value>CameosDoubleRadioButton</value>
   </data>
   <data name="&gt;&gt;CameosDoubleRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;CameosDoubleRadioButton.Parent" xml:space="preserve">
     <value>CameoResPanel</value>
   </data>
   <data name="&gt;&gt;CameosDoubleRadioButton.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="CameoResPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>572, 308</value>
+  </data>
+  <data name="CameoResPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 65</value>
+  </data>
+  <data name="CameoResPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>101</value>
+  </data>
+  <data name="&gt;&gt;CameoResPanel.Name" xml:space="preserve">
+    <value>CameoResPanel</value>
+  </data>
+  <data name="&gt;&gt;CameoResPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CameoResPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;CameoResPanel.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="ExtraBuildingPropsCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1578,13 +2450,13 @@
     <value>ExtraBuildingPropsCheckBox</value>
   </data>
   <data name="&gt;&gt;ExtraBuildingPropsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ExtraBuildingPropsCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ExtraBuildingPropsCheckBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>5</value>
   </data>
   <data name="NoPreviewText.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 20px, style=Bold</value>
@@ -1617,70 +2489,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;NoPreviewText.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="ParticleCapTrackBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>361, 96</value>
-  </data>
-  <data name="ParticleCapTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 30</value>
-  </data>
-  <data name="ParticleCapTrackBar.TabIndex" type="System.Int32, mscorlib">
-    <value>76</value>
-  </data>
-  <data name="&gt;&gt;ParticleCapTrackBar.Name" xml:space="preserve">
-    <value>ParticleCapTrackBar</value>
-  </data>
-  <data name="&gt;&gt;ParticleCapTrackBar.Type" xml:space="preserve">
-    <value>Contra.TrackBar, Contra_Launcher, Version=2.0.0.2, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;ParticleCapTrackBar.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ParticleCapTrackBar.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="TextureResTrackBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>548, 96</value>
-  </data>
-  <data name="TextureResTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 30</value>
-  </data>
-  <data name="TextureResTrackBar.TabIndex" type="System.Int32, mscorlib">
-    <value>75</value>
-  </data>
-  <data name="&gt;&gt;TextureResTrackBar.Name" xml:space="preserve">
-    <value>TextureResTrackBar</value>
-  </data>
-  <data name="&gt;&gt;TextureResTrackBar.Type" xml:space="preserve">
-    <value>Contra.TrackBar, Contra_Launcher, Version=2.0.0.2, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;TextureResTrackBar.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;TextureResTrackBar.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="CameraHeightTrackBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>175, 96</value>
-  </data>
-  <data name="CameraHeightTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 30</value>
-  </data>
-  <data name="CameraHeightTrackBar.TabIndex" type="System.Int32, mscorlib">
-    <value>62</value>
-  </data>
-  <data name="&gt;&gt;CameraHeightTrackBar.Name" xml:space="preserve">
-    <value>CameraHeightTrackBar</value>
-  </data>
-  <data name="&gt;&gt;CameraHeightTrackBar.Type" xml:space="preserve">
-    <value>Contra.TrackBar, Contra_Launcher, Version=2.0.0.2, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;CameraHeightTrackBar.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;CameraHeightTrackBar.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>4</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -1778,5 +2587,1421 @@
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="CameraHeightTrackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>175, 96</value>
+  </data>
+  <data name="CameraHeightTrackBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 30</value>
+  </data>
+  <data name="CameraHeightTrackBar.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="&gt;&gt;CameraHeightTrackBar.Name" xml:space="preserve">
+    <value>CameraHeightTrackBar</value>
+  </data>
+  <data name="&gt;&gt;CameraHeightTrackBar.Type" xml:space="preserve">
+    <value>Contra.TrackBar, Contra_Launcher, Version=2.0.0.2, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;CameraHeightTrackBar.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;CameraHeightTrackBar.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="ParticleCapTrackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>361, 96</value>
+  </data>
+  <data name="ParticleCapTrackBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 30</value>
+  </data>
+  <data name="ParticleCapTrackBar.TabIndex" type="System.Int32, mscorlib">
+    <value>76</value>
+  </data>
+  <data name="&gt;&gt;ParticleCapTrackBar.Name" xml:space="preserve">
+    <value>ParticleCapTrackBar</value>
+  </data>
+  <data name="&gt;&gt;ParticleCapTrackBar.Type" xml:space="preserve">
+    <value>Contra.TrackBar, Contra_Launcher, Version=2.0.0.2, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ParticleCapTrackBar.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ParticleCapTrackBar.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="TextureResTrackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>548, 96</value>
+  </data>
+  <data name="TextureResTrackBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 30</value>
+  </data>
+  <data name="TextureResTrackBar.TabIndex" type="System.Int32, mscorlib">
+    <value>75</value>
+  </data>
+  <data name="&gt;&gt;TextureResTrackBar.Name" xml:space="preserve">
+    <value>TextureResTrackBar</value>
+  </data>
+  <data name="&gt;&gt;TextureResTrackBar.Type" xml:space="preserve">
+    <value>Contra.TrackBar, Contra_Launcher, Version=2.0.0.2, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;TextureResTrackBar.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;TextureResTrackBar.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="ShadersPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 70</value>
+  </data>
+  <data name="ShadersPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>800, 445</value>
+  </data>
+  <data name="ShadersPage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ShadersPage.Name" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;ShadersPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShadersPage.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ShadersPage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ShadersTabButton.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="ShadersTabButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>330, 34</value>
+  </data>
+  <data name="ShadersTabButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 24</value>
+  </data>
+  <data name="ShadersTabButton.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="ShadersTabButton.Text" xml:space="preserve">
+    <value>GRAPHICS</value>
+  </data>
+  <data name="&gt;&gt;ShadersTabButton.Name" xml:space="preserve">
+    <value>ShadersTabButton</value>
+  </data>
+  <data name="&gt;&gt;ShadersTabButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShadersTabButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ShadersTabButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="AlliedDecalLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="AlliedDecalLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 86</value>
+  </data>
+  <data name="AlliedDecalLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 13</value>
+  </data>
+  <data name="AlliedDecalLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="AlliedDecalLabel.Text" xml:space="preserve">
+    <value>Allied power decals:</value>
+  </data>
+  <data name="&gt;&gt;AlliedDecalLabel.Name" xml:space="preserve">
+    <value>AlliedDecalLabel</value>
+  </data>
+  <data name="&gt;&gt;AlliedDecalLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AlliedDecalLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;AlliedDecalLabel.ZOrder" xml:space="preserve">
+    <value>31</value>
+  </data>
+  <data name="AlliedDecalComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 82</value>
+  </data>
+  <data name="AlliedDecalComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 21</value>
+  </data>
+  <data name="AlliedDecalComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="&gt;&gt;AlliedDecalComboBox.Name" xml:space="preserve">
+    <value>AlliedDecalComboBox</value>
+  </data>
+  <data name="&gt;&gt;AlliedDecalComboBox.Type" xml:space="preserve">
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;AlliedDecalComboBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;AlliedDecalComboBox.ZOrder" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="ObjectDecalsCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ObjectDecalsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 174</value>
+  </data>
+  <data name="ObjectDecalsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 17</value>
+  </data>
+  <data name="ObjectDecalsCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="ObjectDecalsCheckBox.Text" xml:space="preserve">
+    <value>Object decals</value>
+  </data>
+  <data name="&gt;&gt;ObjectDecalsCheckBox.Name" xml:space="preserve">
+    <value>ObjectDecalsCheckBox</value>
+  </data>
+  <data name="&gt;&gt;ObjectDecalsCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ObjectDecalsCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;ObjectDecalsCheckBox.ZOrder" xml:space="preserve">
+    <value>33</value>
+  </data>
+  <data name="DefensesRangeCircleCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DefensesRangeCircleCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 196</value>
+  </data>
+  <data name="DefensesRangeCircleCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 17</value>
+  </data>
+  <data name="DefensesRangeCircleCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="DefensesRangeCircleCheckBox.Text" xml:space="preserve">
+    <value>Attack range ring while placing</value>
+  </data>
+  <data name="&gt;&gt;DefensesRangeCircleCheckBox.Name" xml:space="preserve">
+    <value>DefensesRangeCircleCheckBox</value>
+  </data>
+  <data name="&gt;&gt;DefensesRangeCircleCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;DefensesRangeCircleCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;DefensesRangeCircleCheckBox.ZOrder" xml:space="preserve">
+    <value>34</value>
+  </data>
+  <data name="SmoothUnitMotionCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="SmoothUnitMotionCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 218</value>
+  </data>
+  <data name="SmoothUnitMotionCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 17</value>
+  </data>
+  <data name="SmoothUnitMotionCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="SmoothUnitMotionCheckBox.Text" xml:space="preserve">
+    <value>Smooth unit motion</value>
+  </data>
+  <data name="&gt;&gt;SmoothUnitMotionCheckBox.Name" xml:space="preserve">
+    <value>SmoothUnitMotionCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SmoothUnitMotionCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SmoothUnitMotionCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;SmoothUnitMotionCheckBox.ZOrder" xml:space="preserve">
+    <value>35</value>
+  </data>
+  <data name="ActionLinesLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ActionLinesLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 308</value>
+  </data>
+  <data name="ActionLinesLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 13</value>
+  </data>
+  <data name="ActionLinesLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="ActionLinesLabel.Text" xml:space="preserve">
+    <value>Action lines:</value>
+  </data>
+  <data name="&gt;&gt;ActionLinesLabel.Name" xml:space="preserve">
+    <value>ActionLinesLabel</value>
+  </data>
+  <data name="&gt;&gt;ActionLinesLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ActionLinesLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;ActionLinesLabel.ZOrder" xml:space="preserve">
+    <value>36</value>
+  </data>
+  <data name="ActionLinesComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 304</value>
+  </data>
+  <data name="ActionLinesComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 21</value>
+  </data>
+  <data name="ActionLinesComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="&gt;&gt;ActionLinesComboBox.Name" xml:space="preserve">
+    <value>ActionLinesComboBox</value>
+  </data>
+  <data name="&gt;&gt;ActionLinesComboBox.Type" xml:space="preserve">
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ActionLinesComboBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;ActionLinesComboBox.ZOrder" xml:space="preserve">
+    <value>37</value>
+  </data>
+  <data name="SmartSelectionCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="SmartSelectionCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 352</value>
+  </data>
+  <data name="SmartSelectionCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 17</value>
+  </data>
+  <data name="SmartSelectionCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="SmartSelectionCheckBox.Text" xml:space="preserve">
+    <value>Smart selection</value>
+  </data>
+  <data name="&gt;&gt;SmartSelectionCheckBox.Name" xml:space="preserve">
+    <value>SmartSelectionCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SmartSelectionCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SmartSelectionCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;SmartSelectionCheckBox.ZOrder" xml:space="preserve">
+    <value>38</value>
+  </data>
+  <data name="SmartSelectionUseMouseCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="SmartSelectionUseMouseCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 374</value>
+  </data>
+  <data name="SmartSelectionUseMouseCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 17</value>
+  </data>
+  <data name="SmartSelectionUseMouseCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="SmartSelectionUseMouseCheckBox.Text" xml:space="preserve">
+    <value>Smart selection follows mouse</value>
+  </data>
+  <data name="&gt;&gt;SmartSelectionUseMouseCheckBox.Name" xml:space="preserve">
+    <value>SmartSelectionUseMouseCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SmartSelectionUseMouseCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SmartSelectionUseMouseCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;SmartSelectionUseMouseCheckBox.ZOrder" xml:space="preserve">
+    <value>39</value>
+  </data>
+  <data name="SmartCommandGroupCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="SmartCommandGroupCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 396</value>
+  </data>
+  <data name="SmartCommandGroupCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>125, 17</value>
+  </data>
+  <data name="SmartCommandGroupCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="SmartCommandGroupCheckBox.Text" xml:space="preserve">
+    <value>Command group row</value>
+  </data>
+  <data name="&gt;&gt;SmartCommandGroupCheckBox.Name" xml:space="preserve">
+    <value>SmartCommandGroupCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SmartCommandGroupCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SmartCommandGroupCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;SmartCommandGroupCheckBox.ZOrder" xml:space="preserve">
+    <value>40</value>
+  </data>
+  <data name="LowLatencyCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LowLatencyCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 418</value>
+  </data>
+  <data name="LowLatencyCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 17</value>
+  </data>
+  <data name="LowLatencyCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="LowLatencyCheckBox.Text" xml:space="preserve">
+    <value>Low latency mode</value>
+  </data>
+  <data name="&gt;&gt;LowLatencyCheckBox.Name" xml:space="preserve">
+    <value>LowLatencyCheckBox</value>
+  </data>
+  <data name="&gt;&gt;LowLatencyCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;LowLatencyCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;LowLatencyCheckBox.ZOrder" xml:space="preserve">
+    <value>41</value>
+  </data>
+  <data name="GridHotkeyLayoutComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>520, 54</value>
+  </data>
+  <data name="GridHotkeyLayoutComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 21</value>
+  </data>
+  <data name="GridHotkeyLayoutComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeyLayoutComboBox.Name" xml:space="preserve">
+    <value>GridHotkeyLayoutComboBox</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeyLayoutComboBox.Type" xml:space="preserve">
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeyLayoutComboBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeyLayoutComboBox.ZOrder" xml:space="preserve">
+    <value>42</value>
+  </data>
+  <data name="GridHotkeyUnitOrdersCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="GridHotkeyUnitOrdersCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 80</value>
+  </data>
+  <data name="GridHotkeyUnitOrdersCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 17</value>
+  </data>
+  <data name="GridHotkeyUnitOrdersCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="GridHotkeyUnitOrdersCheckBox.Text" xml:space="preserve">
+    <value>Unit orders keep their keys</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeyUnitOrdersCheckBox.Name" xml:space="preserve">
+    <value>GridHotkeyUnitOrdersCheckBox</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeyUnitOrdersCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeyUnitOrdersCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;GridHotkeyUnitOrdersCheckBox.ZOrder" xml:space="preserve">
+    <value>43</value>
+  </data>
+  <data name="RadarHeaderLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="RadarHeaderLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="RadarHeaderLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>430, 322</value>
+  </data>
+  <data name="RadarHeaderLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 15</value>
+  </data>
+  <data name="RadarHeaderLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="RadarHeaderLabel.Text" xml:space="preserve">
+    <value>Radar</value>
+  </data>
+  <data name="&gt;&gt;RadarHeaderLabel.Name" xml:space="preserve">
+    <value>RadarHeaderLabel</value>
+  </data>
+  <data name="&gt;&gt;RadarHeaderLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RadarHeaderLabel.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;RadarHeaderLabel.ZOrder" xml:space="preserve">
+    <value>44</value>
+  </data>
+  <data name="NewRadarCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="NewRadarCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 344</value>
+  </data>
+  <data name="NewRadarCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 17</value>
+  </data>
+  <data name="NewRadarCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="NewRadarCheckBox.Text" xml:space="preserve">
+    <value>Simplified radar</value>
+  </data>
+  <data name="&gt;&gt;NewRadarCheckBox.Name" xml:space="preserve">
+    <value>NewRadarCheckBox</value>
+  </data>
+  <data name="&gt;&gt;NewRadarCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;NewRadarCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;NewRadarCheckBox.ZOrder" xml:space="preserve">
+    <value>45</value>
+  </data>
+  <data name="BlipSizeCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="BlipSizeCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>448, 366</value>
+  </data>
+  <data name="BlipSizeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 17</value>
+  </data>
+  <data name="BlipSizeCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="BlipSizeCheckBox.Text" xml:space="preserve">
+    <value>Large radar blips</value>
+  </data>
+  <data name="&gt;&gt;BlipSizeCheckBox.Name" xml:space="preserve">
+    <value>BlipSizeCheckBox</value>
+  </data>
+  <data name="&gt;&gt;BlipSizeCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BlipSizeCheckBox.Parent" xml:space="preserve">
+    <value>GameOptionsPage</value>
+  </data>
+  <data name="&gt;&gt;BlipSizeCheckBox.ZOrder" xml:space="preserve">
+    <value>46</value>
+  </data>
+  <data name="ShadersQualityLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ShadersQualityLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="ShadersQualityLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 8</value>
+  </data>
+  <data name="ShadersQualityLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 15</value>
+  </data>
+  <data name="ShadersQualityLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="ShadersQualityLabel.Text" xml:space="preserve">
+    <value>Image quality</value>
+  </data>
+  <data name="&gt;&gt;ShadersQualityLabel.Name" xml:space="preserve">
+    <value>ShadersQualityLabel</value>
+  </data>
+  <data name="&gt;&gt;ShadersQualityLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShadersQualityLabel.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;ShadersQualityLabel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="AntiAliasingLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="AntiAliasingLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 86</value>
+  </data>
+  <data name="AntiAliasingLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 13</value>
+  </data>
+  <data name="AntiAliasingLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="AntiAliasingLabel.Text" xml:space="preserve">
+    <value>Anti-aliasing:</value>
+  </data>
+  <data name="&gt;&gt;AntiAliasingLabel.Name" xml:space="preserve">
+    <value>AntiAliasingLabel</value>
+  </data>
+  <data name="&gt;&gt;AntiAliasingLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AntiAliasingLabel.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;AntiAliasingLabel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="AntiAliasingComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 82</value>
+  </data>
+  <data name="AntiAliasingComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 21</value>
+  </data>
+  <data name="AntiAliasingComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;AntiAliasingComboBox.Name" xml:space="preserve">
+    <value>AntiAliasingComboBox</value>
+  </data>
+  <data name="&gt;&gt;AntiAliasingComboBox.Type" xml:space="preserve">
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;AntiAliasingComboBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;AntiAliasingComboBox.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="SuperSamplingLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="SuperSamplingLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 112</value>
+  </data>
+  <data name="SuperSamplingLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 13</value>
+  </data>
+  <data name="SuperSamplingLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="SuperSamplingLabel.Text" xml:space="preserve">
+    <value>Supersampling:</value>
+  </data>
+  <data name="&gt;&gt;SuperSamplingLabel.Name" xml:space="preserve">
+    <value>SuperSamplingLabel</value>
+  </data>
+  <data name="&gt;&gt;SuperSamplingLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SuperSamplingLabel.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;SuperSamplingLabel.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="SuperSamplingComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 108</value>
+  </data>
+  <data name="SuperSamplingComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 21</value>
+  </data>
+  <data name="SuperSamplingComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;SuperSamplingComboBox.Name" xml:space="preserve">
+    <value>SuperSamplingComboBox</value>
+  </data>
+  <data name="&gt;&gt;SuperSamplingComboBox.Type" xml:space="preserve">
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SuperSamplingComboBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;SuperSamplingComboBox.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="AmbientOcclusionCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="AmbientOcclusionCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 134</value>
+  </data>
+  <data name="AmbientOcclusionCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 17</value>
+  </data>
+  <data name="AmbientOcclusionCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="AmbientOcclusionCheckBox.Text" xml:space="preserve">
+    <value>Ambient occlusion</value>
+  </data>
+  <data name="&gt;&gt;AmbientOcclusionCheckBox.Name" xml:space="preserve">
+    <value>AmbientOcclusionCheckBox</value>
+  </data>
+  <data name="&gt;&gt;AmbientOcclusionCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;AmbientOcclusionCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;AmbientOcclusionCheckBox.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="SoftParticlesCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="SoftParticlesCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 156</value>
+  </data>
+  <data name="SoftParticlesCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 17</value>
+  </data>
+  <data name="SoftParticlesCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="SoftParticlesCheckBox.Text" xml:space="preserve">
+    <value>Soft particles</value>
+  </data>
+  <data name="&gt;&gt;SoftParticlesCheckBox.Name" xml:space="preserve">
+    <value>SoftParticlesCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SoftParticlesCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SoftParticlesCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;SoftParticlesCheckBox.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="ShadersShadowsLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ShadersShadowsLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="ShadersShadowsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 194</value>
+  </data>
+  <data name="ShadersShadowsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 15</value>
+  </data>
+  <data name="ShadersShadowsLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="ShadersShadowsLabel.Text" xml:space="preserve">
+    <value>Shadows</value>
+  </data>
+  <data name="&gt;&gt;ShadersShadowsLabel.Name" xml:space="preserve">
+    <value>ShadersShadowsLabel</value>
+  </data>
+  <data name="&gt;&gt;ShadersShadowsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShadersShadowsLabel.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;ShadersShadowsLabel.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="ShadowMapCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ShadowMapCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 216</value>
+  </data>
+  <data name="ShadowMapCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 17</value>
+  </data>
+  <data name="ShadowMapCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="ShadowMapCheckBox.Text" xml:space="preserve">
+    <value>Shadow mapping</value>
+  </data>
+  <data name="&gt;&gt;ShadowMapCheckBox.Name" xml:space="preserve">
+    <value>ShadowMapCheckBox</value>
+  </data>
+  <data name="&gt;&gt;ShadowMapCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ShadowMapCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;ShadowMapCheckBox.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="ShadowMapResolutionLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ShadowMapResolutionLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 242</value>
+  </data>
+  <data name="ShadowMapResolutionLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 13</value>
+  </data>
+  <data name="ShadowMapResolutionLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="ShadowMapResolutionLabel.Text" xml:space="preserve">
+    <value>Shadow resolution:</value>
+  </data>
+  <data name="&gt;&gt;ShadowMapResolutionLabel.Name" xml:space="preserve">
+    <value>ShadowMapResolutionLabel</value>
+  </data>
+  <data name="&gt;&gt;ShadowMapResolutionLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShadowMapResolutionLabel.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;ShadowMapResolutionLabel.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="ShadowMapResolutionComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 238</value>
+  </data>
+  <data name="ShadowMapResolutionComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 21</value>
+  </data>
+  <data name="ShadowMapResolutionComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;ShadowMapResolutionComboBox.Name" xml:space="preserve">
+    <value>ShadowMapResolutionComboBox</value>
+  </data>
+  <data name="&gt;&gt;ShadowMapResolutionComboBox.Type" xml:space="preserve">
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ShadowMapResolutionComboBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;ShadowMapResolutionComboBox.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="ShadersGlowLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ShadersGlowLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="ShadersGlowLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 280</value>
+  </data>
+  <data name="ShadersGlowLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>34, 15</value>
+  </data>
+  <data name="ShadersGlowLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="ShadersGlowLabel.Text" xml:space="preserve">
+    <value>Glow</value>
+  </data>
+  <data name="&gt;&gt;ShadersGlowLabel.Name" xml:space="preserve">
+    <value>ShadersGlowLabel</value>
+  </data>
+  <data name="&gt;&gt;ShadersGlowLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShadersGlowLabel.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;ShadersGlowLabel.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="BloomCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="BloomCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 302</value>
+  </data>
+  <data name="BloomCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 17</value>
+  </data>
+  <data name="BloomCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="BloomCheckBox.Text" xml:space="preserve">
+    <value>Bloom</value>
+  </data>
+  <data name="&gt;&gt;BloomCheckBox.Name" xml:space="preserve">
+    <value>BloomCheckBox</value>
+  </data>
+  <data name="&gt;&gt;BloomCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BloomCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;BloomCheckBox.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="BloomStrengthLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="BloomStrengthLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>126, 304</value>
+  </data>
+  <data name="BloomStrengthLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 13</value>
+  </data>
+  <data name="BloomStrengthLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="BloomStrengthLabel.Text" xml:space="preserve">
+    <value>Strength %:</value>
+  </data>
+  <data name="&gt;&gt;BloomStrengthLabel.Name" xml:space="preserve">
+    <value>BloomStrengthLabel</value>
+  </data>
+  <data name="&gt;&gt;BloomStrengthLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BloomStrengthLabel.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;BloomStrengthLabel.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="BloomStrengthUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 300</value>
+  </data>
+  <data name="BloomStrengthUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 20</value>
+  </data>
+  <data name="BloomStrengthUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;BloomStrengthUpDown.Name" xml:space="preserve">
+    <value>BloomStrengthUpDown</value>
+  </data>
+  <data name="&gt;&gt;BloomStrengthUpDown.Type" xml:space="preserve">
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BloomStrengthUpDown.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;BloomStrengthUpDown.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="LaserRefCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LaserRefCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 326</value>
+  </data>
+  <data name="LaserRefCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 17</value>
+  </data>
+  <data name="LaserRefCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="LaserRefCheckBox.Text" xml:space="preserve">
+    <value>Lasers light the ground</value>
+  </data>
+  <data name="&gt;&gt;LaserRefCheckBox.Name" xml:space="preserve">
+    <value>LaserRefCheckBox</value>
+  </data>
+  <data name="&gt;&gt;LaserRefCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;LaserRefCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;LaserRefCheckBox.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="ShadersD3D9HintLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ShadersD3D9HintLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>46, 420</value>
+  </data>
+  <data name="ShadersD3D9HintLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 13</value>
+  </data>
+  <data name="ShadersD3D9HintLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="ShadersD3D9HintLabel.Text" xml:space="preserve">
+    <value>Most of these settings need the Direct3D 9 build of the game.</value>
+  </data>
+  <data name="&gt;&gt;ShadersD3D9HintLabel.Name" xml:space="preserve">
+    <value>ShadersD3D9HintLabel</value>
+  </data>
+  <data name="&gt;&gt;ShadersD3D9HintLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShadersD3D9HintLabel.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;ShadersD3D9HintLabel.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="ShadersSurfacesLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ShadersSurfacesLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="ShadersSurfacesLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>430, 8</value>
+  </data>
+  <data name="ShadersSurfacesLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 15</value>
+  </data>
+  <data name="ShadersSurfacesLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="ShadersSurfacesLabel.Text" xml:space="preserve">
+    <value>Surfaces</value>
+  </data>
+  <data name="&gt;&gt;ShadersSurfacesLabel.Name" xml:space="preserve">
+    <value>ShadersSurfacesLabel</value>
+  </data>
+  <data name="&gt;&gt;ShadersSurfacesLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShadersSurfacesLabel.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;ShadersSurfacesLabel.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="SpecularCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="SpecularCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 30</value>
+  </data>
+  <data name="SpecularCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 17</value>
+  </data>
+  <data name="SpecularCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="SpecularCheckBox.Text" xml:space="preserve">
+    <value>Specular highlights</value>
+  </data>
+  <data name="&gt;&gt;SpecularCheckBox.Name" xml:space="preserve">
+    <value>SpecularCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SpecularCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;SpecularCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;SpecularCheckBox.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="NormalMapsCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="NormalMapsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 52</value>
+  </data>
+  <data name="NormalMapsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 17</value>
+  </data>
+  <data name="NormalMapsCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="NormalMapsCheckBox.Text" xml:space="preserve">
+    <value>Surface detail</value>
+  </data>
+  <data name="&gt;&gt;NormalMapsCheckBox.Name" xml:space="preserve">
+    <value>NormalMapsCheckBox</value>
+  </data>
+  <data name="&gt;&gt;NormalMapsCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;NormalMapsCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;NormalMapsCheckBox.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <data name="HeightBlendCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HeightBlendCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 74</value>
+  </data>
+  <data name="HeightBlendCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 17</value>
+  </data>
+  <data name="HeightBlendCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="HeightBlendCheckBox.Text" xml:space="preserve">
+    <value>Height blending</value>
+  </data>
+  <data name="&gt;&gt;HeightBlendCheckBox.Name" xml:space="preserve">
+    <value>HeightBlendCheckBox</value>
+  </data>
+  <data name="&gt;&gt;HeightBlendCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;HeightBlendCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;HeightBlendCheckBox.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="ShadersLightsLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ShadersLightsLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="ShadersLightsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>430, 112</value>
+  </data>
+  <data name="ShadersLightsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 15</value>
+  </data>
+  <data name="ShadersLightsLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="ShadersLightsLabel.Text" xml:space="preserve">
+    <value>Lights</value>
+  </data>
+  <data name="&gt;&gt;ShadersLightsLabel.Name" xml:space="preserve">
+    <value>ShadersLightsLabel</value>
+  </data>
+  <data name="&gt;&gt;ShadersLightsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShadersLightsLabel.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;ShadersLightsLabel.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="DynamicLightsCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DynamicLightsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 134</value>
+  </data>
+  <data name="DynamicLightsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 17</value>
+  </data>
+  <data name="DynamicLightsCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="DynamicLightsCheckBox.Text" xml:space="preserve">
+    <value>Dynamic lights</value>
+  </data>
+  <data name="&gt;&gt;DynamicLightsCheckBox.Name" xml:space="preserve">
+    <value>DynamicLightsCheckBox</value>
+  </data>
+  <data name="&gt;&gt;DynamicLightsCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;DynamicLightsCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;DynamicLightsCheckBox.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="PixelLightsCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="PixelLightsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>448, 156</value>
+  </data>
+  <data name="PixelLightsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 17</value>
+  </data>
+  <data name="PixelLightsCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="PixelLightsCheckBox.Text" xml:space="preserve">
+    <value>Per-pixel lights</value>
+  </data>
+  <data name="&gt;&gt;PixelLightsCheckBox.Name" xml:space="preserve">
+    <value>PixelLightsCheckBox</value>
+  </data>
+  <data name="&gt;&gt;PixelLightsCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;PixelLightsCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;PixelLightsCheckBox.ZOrder" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="ShadersSkyWaterLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ShadersSkyWaterLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="ShadersSkyWaterLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>430, 194</value>
+  </data>
+  <data name="ShadersSkyWaterLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 15</value>
+  </data>
+  <data name="ShadersSkyWaterLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="ShadersSkyWaterLabel.Text" xml:space="preserve">
+    <value>Sky and water</value>
+  </data>
+  <data name="&gt;&gt;ShadersSkyWaterLabel.Name" xml:space="preserve">
+    <value>ShadersSkyWaterLabel</value>
+  </data>
+  <data name="&gt;&gt;ShadersSkyWaterLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShadersSkyWaterLabel.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;ShadersSkyWaterLabel.ZOrder" xml:space="preserve">
+    <value>28</value>
+  </data>
+  <data name="HQSkyCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="HQSkyCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 216</value>
+  </data>
+  <data name="HQSkyCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 17</value>
+  </data>
+  <data name="HQSkyCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="HQSkyCheckBox.Text" xml:space="preserve">
+    <value>HQ sky</value>
+  </data>
+  <data name="&gt;&gt;HQSkyCheckBox.Name" xml:space="preserve">
+    <value>HQSkyCheckBox</value>
+  </data>
+  <data name="&gt;&gt;HQSkyCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;HQSkyCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;HQSkyCheckBox.ZOrder" xml:space="preserve">
+    <value>29</value>
+  </data>
+  <data name="WaterReflectionsCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="WaterReflectionsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 238</value>
+  </data>
+  <data name="WaterReflectionsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 17</value>
+  </data>
+  <data name="WaterReflectionsCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="WaterReflectionsCheckBox.Text" xml:space="preserve">
+    <value>Water reflections</value>
+  </data>
+  <data name="&gt;&gt;WaterReflectionsCheckBox.Name" xml:space="preserve">
+    <value>WaterReflectionsCheckBox</value>
+  </data>
+  <data name="&gt;&gt;WaterReflectionsCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;WaterReflectionsCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;WaterReflectionsCheckBox.ZOrder" xml:space="preserve">
+    <value>30</value>
+  </data>
+  <data name="ShorelineFoamCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ShorelineFoamCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 260</value>
+  </data>
+  <data name="ShorelineFoamCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 17</value>
+  </data>
+  <data name="ShorelineFoamCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="ShorelineFoamCheckBox.Text" xml:space="preserve">
+    <value>Shoreline foam</value>
+  </data>
+  <data name="&gt;&gt;ShorelineFoamCheckBox.Name" xml:space="preserve">
+    <value>ShorelineFoamCheckBox</value>
+  </data>
+  <data name="&gt;&gt;ShorelineFoamCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ShorelineFoamCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;ShorelineFoamCheckBox.ZOrder" xml:space="preserve">
+    <value>31</value>
+  </data>
+  <data name="ShadersEffectsLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ShadersEffectsLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 9pt, style=Bold</value>
+  </data>
+  <data name="ShadersEffectsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>430, 298</value>
+  </data>
+  <data name="ShadersEffectsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 15</value>
+  </data>
+  <data name="ShadersEffectsLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="ShadersEffectsLabel.Text" xml:space="preserve">
+    <value>Effect shaders</value>
+  </data>
+  <data name="&gt;&gt;ShadersEffectsLabel.Name" xml:space="preserve">
+    <value>ShadersEffectsLabel</value>
+  </data>
+  <data name="&gt;&gt;ShadersEffectsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShadersEffectsLabel.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;ShadersEffectsLabel.ZOrder" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="FlameShadersCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="FlameShadersCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 320</value>
+  </data>
+  <data name="FlameShadersCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 17</value>
+  </data>
+  <data name="FlameShadersCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="FlameShadersCheckBox.Text" xml:space="preserve">
+    <value>Flame</value>
+  </data>
+  <data name="&gt;&gt;FlameShadersCheckBox.Name" xml:space="preserve">
+    <value>FlameShadersCheckBox</value>
+  </data>
+  <data name="&gt;&gt;FlameShadersCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;FlameShadersCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;FlameShadersCheckBox.ZOrder" xml:space="preserve">
+    <value>33</value>
+  </data>
+  <data name="ElectricShadersCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ElectricShadersCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>560, 320</value>
+  </data>
+  <data name="ElectricShadersCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 17</value>
+  </data>
+  <data name="ElectricShadersCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="ElectricShadersCheckBox.Text" xml:space="preserve">
+    <value>Electric</value>
+  </data>
+  <data name="&gt;&gt;ElectricShadersCheckBox.Name" xml:space="preserve">
+    <value>ElectricShadersCheckBox</value>
+  </data>
+  <data name="&gt;&gt;ElectricShadersCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;ElectricShadersCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;ElectricShadersCheckBox.ZOrder" xml:space="preserve">
+    <value>34</value>
+  </data>
+  <data name="LaserShadersCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LaserShadersCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 342</value>
+  </data>
+  <data name="LaserShadersCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 17</value>
+  </data>
+  <data name="LaserShadersCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="LaserShadersCheckBox.Text" xml:space="preserve">
+    <value>Laser</value>
+  </data>
+  <data name="&gt;&gt;LaserShadersCheckBox.Name" xml:space="preserve">
+    <value>LaserShadersCheckBox</value>
+  </data>
+  <data name="&gt;&gt;LaserShadersCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;LaserShadersCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;LaserShadersCheckBox.ZOrder" xml:space="preserve">
+    <value>35</value>
+  </data>
+  <data name="CryoShadersCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CryoShadersCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>560, 342</value>
+  </data>
+  <data name="CryoShadersCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 17</value>
+  </data>
+  <data name="CryoShadersCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="CryoShadersCheckBox.Text" xml:space="preserve">
+    <value>Cryo</value>
+  </data>
+  <data name="&gt;&gt;CryoShadersCheckBox.Name" xml:space="preserve">
+    <value>CryoShadersCheckBox</value>
+  </data>
+  <data name="&gt;&gt;CryoShadersCheckBox.Type" xml:space="preserve">
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;CryoShadersCheckBox.Parent" xml:space="preserve">
+    <value>ShadersPage</value>
+  </data>
+  <data name="&gt;&gt;CryoShadersCheckBox.ZOrder" xml:space="preserve">
+    <value>36</value>
   </data>
 </root>

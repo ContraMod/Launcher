@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -99,10 +99,8 @@ namespace Contra
                 FogCheckBox.Text = "Эффект тумана";
                 LangFilterCheckBox.Text = "Языковый фильтр";
                 WaterEffectsCheckBox.Text = "Эффект воды";
-                CameraHeightLabel.Text = "Высота камеры: ?";
                 HotkeyStyleLabel.Text = "Горячие клав.";
                 LegacyHotkeysRadioButton.Text = "Оригинальный";
-                AnisoCheckBox.Text = "Анизотропная фильтрация";
                 CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Стандарт.";
                 ControlBarLabel.Text = "Панель упр.";
                 IconQualityLabel.Text = "Кач. иконок";
@@ -127,10 +125,8 @@ namespace Contra
                 FogCheckBox.Text = "Ефект туману";
                 LangFilterCheckBox.Text = "Мовний фільтр";
                 WaterEffectsCheckBox.Text = "Водний ефект";
-                CameraHeightLabel.Text = "Висота камери: ?";
                 HotkeyStyleLabel.Text = "Гарячі клавіші";
                 LegacyHotkeysRadioButton.Text = "Оригінальний";
-                AnisoCheckBox.Text = "Анізотропна фільтрація";
                 CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Стандарт.";
                 ControlBarLabel.Text = "Панель кер.";
                 IconQualityLabel.Text = "Якість ікон";
@@ -155,10 +151,8 @@ namespace Contra
                 FogCheckBox.Text = "Мъглявинен ефект";
                 LangFilterCheckBox.Text = "Езиков филтър";
                 WaterEffectsCheckBox.Text = "Водни ефекти";
-                CameraHeightLabel.Text = "Вис. на камерата: ?";
                 HotkeyStyleLabel.Text = "Горещи клав.";
                 LegacyHotkeysRadioButton.Text = "Оригинален";
-                AnisoCheckBox.Text = "Анизотропно филтриране";
                 CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Стандарт.";
                 ControlBarLabel.Text = "Контр. лента";
                 IconQualityLabel.Text = "Кач. на икон.";
@@ -183,10 +177,8 @@ namespace Contra
                 FogCheckBox.Text = "Nebel Effekte";
                 LangFilterCheckBox.Text = "Sprache Filter";
                 WaterEffectsCheckBox.Text = "Wassereffekt";
-                CameraHeightLabel.Text = "Kamerahöhe: ?";
                 HotkeyStyleLabel.Text = "Hotkey-Stil";
                 LegacyHotkeysRadioButton.Text = "Original";
-                AnisoCheckBox.Text = "Anisotrope Filterung";
                 CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Standard";
                 ControlBarLabel.Text = "Kontrollleiste";
                 IconQualityLabel.Text = "Cameo-Qual.";
@@ -311,43 +303,11 @@ namespace Contra
             CameosStandardRadioButton.Checked = Properties.Settings.Default.CameosStandard;
             LeikezeHotkeysRadioButton.Checked = Properties.Settings.Default.LeikezeHotkeys;
             LegacyHotkeysRadioButton.Checked = Properties.Settings.Default.LegacyHotkeys;
-            AnisoCheckBox.Checked = Properties.Settings.Default.Anisotropic;
 
-            // Get current camera height
-            if (File.Exists("!" + MainForm.betaPrefix + "_GameData.big"))
-            {
-                try {ReadCameraHeight(File.ReadAllText("!" + MainForm.betaPrefix + "_GameData.big"));}
-                catch (IOException) {Messages.GenerateMessageBox("E_CloseGameDataP3", Globals.currentLanguage);}
-            }
-        }
-
-        private void ReadCameraHeight(string fileToRead)
-        {
-            List<string> found = new List<string>();
-            string line;
-            using (StringReader file = new StringReader(fileToRead))
-            {
-                while ((line = file.ReadLine()) != null)
-                {
-                    if (line.Contains(" MaxCameraHeight ="))
-                    {
-                        found.Add(line);
-                        line = line.Substring(0, line.IndexOf(".") + 1);
-                        line = Regex.Replace(line, @"[^\d]", "");
-                        if (AspectRatio(x, y) == "16:9")
-                        {
-                            int value;
-                            value = Convert.ToInt32(line);
-                            CameraHeightTrackBar.Value = value + 110;
-                        }
-                        else
-                        {
-                            CameraHeightTrackBar.Value = Convert.ToInt32(line);
-                        }
-                        CameraHeightLabel.Text = Messages.GenerateMessage("CameraHeightString", Globals.currentLanguage) + CameraHeightTrackBar.Value.ToString() + ".0";
-                    }
-                }
-            }
+            // Build the Game Options page and fill it in. Done last so every control the
+            // graphics page owns already exists and can be moved onto its panel.
+            BuildGameOptionsPage();
+            LoadGameOptions();
         }
 
         //**********DRAG FORM CODE START**********
@@ -402,69 +362,9 @@ namespace Contra
             WindowState = FormWindowState.Minimized;
         }
 
-        public static Tuple<int, int> getScreenResolution() => Tuple.Create(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-        int x = getScreenResolution().Item1;
-        int y = getScreenResolution().Item2;
-
-        public string AspectRatio(int x, int y)
-        {
-            double value = (double)x / y;
-            if (value > 1.7)
-                return "16:9";
-            else
-                return "4:3";
-        }
-
-        private void ChangeCamHeight()
-        {
-            //if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr"))
-            //{
-                CamHeightRegexReplace("!" + MainForm.betaPrefix + "_GameData.big", "E_NotFound_GameDataP3");
-            //}
-            //else Messages.GenerateMessageBox("E_MissingFiles_CouldNotChangeCamHeight", Globals.currentLanguage);
-        }
-
-        private void CamHeightRegexReplace(string gameDataFilename, string gameDataNotFoundMsg)
-        {
-            if (File.Exists(gameDataFilename))
-            {
-                Encoding encoding = Encoding.GetEncoding("windows-1252");
-                var regex = ""; var regex2 = "";
-
-                if (AspectRatio(x, y) == "16:9")
-                {
-                    regex = Regex.Replace(File.ReadAllText(gameDataFilename, encoding),
-                        "  MaxCameraHeight = .*\r?\n",
-                        "  MaxCameraHeight = " + (CameraHeightTrackBar.Value - 110) + ".0" + " ;350.0\r\n");
-                }
-                else
-                {
-                    regex = Regex.Replace(File.ReadAllText(gameDataFilename, encoding),
-                        "  MaxCameraHeight = .*\r?\n",
-                        "  MaxCameraHeight = " + CameraHeightTrackBar.Value + ".0" + " ;350.0\r\n");
-                }
-                File.WriteAllText(gameDataFilename, regex, encoding);
-
-                if (CameraHeightTrackBar.Value > 392)
-                {
-                    regex2 = Regex.Replace(File.ReadAllText(gameDataFilename, encoding),
-                        "  DrawEntireTerrain = No\r?\n",
-                        "  DrawEntireTerrain = Yes\r\n");
-                }
-                else
-                {
-                    regex2 = Regex.Replace(File.ReadAllText(gameDataFilename, encoding),
-                        "  DrawEntireTerrain = Yes\r?\n",
-                        "  DrawEntireTerrain = No\r\n");
-                }
-                File.WriteAllText(gameDataFilename, regex2, encoding);
-            }
-            else Messages.GenerateMessageBox(gameDataNotFoundMsg, Globals.currentLanguage);
-        }
-
         private void CameraHeightTrackBar_Scroll(object sender, EventArgs e)
         {
-            CameraHeightLabel.Text = Messages.GenerateMessage("CameraHeightString", Globals.currentLanguage) + CameraHeightTrackBar.Value.ToString() + ".0";
+            UpdateCameraHeightState();
         }
 
         public void IsGeneralsRunning()
@@ -609,14 +509,6 @@ namespace Contra
             }
             else Messages.GenerateMessageBox("E_NotFound_OptionsIni", Globals.currentLanguage);
 
-            // Apply Camera Height
-            try { ChangeCamHeight(); }
-            catch (IOException)
-            {
-                if (File.Exists("!ContraXBeta_GameData.big")) Messages.GenerateMessageBox("E_CloseGameDataP3", Globals.currentLanguage);
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
-
             // .big-file Options
             if (FogCheckBox.Checked)
                 Properties.Settings.Default.Fog = true;
@@ -675,10 +567,15 @@ namespace Contra
                 Properties.Settings.Default.LegacyHotkeys = true;
             }
 
-            // Enable ENB Series distribution for Anisotropic Filtering
-            if (AnisoCheckBox.Checked)
-                Properties.Settings.Default.Anisotropic = true;
-            else Properties.Settings.Default.Anisotropic = false;
+            // The ENB Series d3d8 wrapper used to be how anisotropic filtering was reached, since
+            // retail never called Set_Texture_Filter. The engine exposes TextureFilter directly now,
+            // so the wrapper is redundant and its checkbox is gone. Leaving this false makes the
+            // DisableAnisotropicFiltering() call on launch uninstall it for anyone who had it on.
+            Properties.Settings.Default.Anisotropic = false;
+
+            // Game Options page. Written as one read/modify/write over Options.ini, and after
+            // the retail settings above so it sees their edits rather than overwriting them.
+            SaveGameOptions();
 
             IsGeneralsRunning();
             Properties.Settings.Default.Save();
@@ -810,14 +707,6 @@ namespace Contra
                 Messages.GenerateMessage("PerformanceEffectNone", Globals.currentLanguage),
                 Messages.GenerateMessage("LangFilterDescription", Globals.currentLanguage));
         }
-        private void AnisoCheckBox_MouseHover(object sender, EventArgs e)
-        {
-            GraphicsInfoPictureBox.Image = Properties.Resources.comp_aniso;
-            ShowGraphicsInfo(AnisoCheckBox.Text,
-                Messages.GenerateMessage("PerformanceEffectLow", Globals.currentLanguage),
-                Messages.GenerateMessage("AnisoDescription", Globals.currentLanguage));
-        }
-
         private void ExtraBuildingPropsCheckBox_MouseHover(object sender, EventArgs e)
         {
             GraphicsInfoPictureBox.Image = Properties.Resources.comp_extraprops;
@@ -912,20 +801,9 @@ namespace Contra
             NoPreviewText.Visible = true;
         }
 
-        private void ControlBarProRadioButton_CheckedChanged(object sender, EventArgs e)
+        private void GameOptionsTabButton_Click(object sender, EventArgs e)
         {
-            RadioButton rb = sender as RadioButton;
-            if (rb != null && rb.Checked)
-            {
-                if (!MainForm.isGentoolInstalled("d3d8.dll") || MainForm.isGentoolOutdated("d3d8.dll", 85))
-                {
-                    DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("W_GenToolNotInstalledOrNotUpToDate", Globals.currentLanguage),
-                    Messages.GenerateMessage("Warning", Globals.currentLanguage), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                    if (dialogResult == DialogResult.Yes)
-                        MainForm.Url_open("https://www.gentool.net/");
-                    return;
-                }
-            }
+
         }
     }
 }

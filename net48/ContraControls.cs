@@ -1,0 +1,586 @@
+﻿using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+namespace Contra
+{
+    /// <summary>
+    /// The launcher's colours for the controls Windows would otherwise draw in its own grey and
+    /// blue: the skin's gold frame for borders, its dark brown for fills, and the pale yellow the
+    /// buttons already use on hover.
+    /// </summary>
+    internal static class ContraTheme
+    {
+        public static readonly Color Border = Color.FromArgb(171, 150, 57);
+        public static readonly Color BorderHot = Globals.buttonHighlight;
+        public static readonly Color Fill = Color.FromArgb(28, 19, 9);
+        public static readonly Color Mark = Color.FromArgb(240, 190, 70);
+        public static readonly Color Selection = Color.FromArgb(110, 80, 30);
+        public static readonly Color DisabledBorder = Color.FromArgb(95, 85, 65);
+        public static readonly Color DisabledMark = Color.FromArgb(120, 110, 90);
+        public static readonly Color DisabledText = Globals.disabledTextColor;
+
+        // For the native text fields, which take their colours from a GDI brush and DC settings.
+        [DllImport("gdi32.dll")]
+        public static extern int SetTextColor(IntPtr hdc, int color);
+
+        [DllImport("gdi32.dll")]
+        public static extern int SetBkColor(IntPtr hdc, int color);
+
+        [DllImport("gdi32.dll")]
+        public static extern IntPtr CreateSolidBrush(int color);
+
+        [DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr handle);
+
+        /// <summary>
+        /// The glyph and the caption beside it, laid out where Windows puts them, so AutoSize --
+        /// which still measures the standard 13px glyph -- leaves exactly the right room.
+        /// </summary>
+        public static void PaintToggle(ButtonBase control, PaintEventArgs e, bool hot, bool on, bool round)
+        {
+            const int glyph = 13;
+            Graphics g = e.Graphics;
+            Rectangle box = new Rectangle(0, (control.Height - glyph) / 2, glyph - 1, glyph - 1);
+
+            Color border = !control.Enabled ? DisabledBorder : hot ? BorderHot : Border;
+            Color mark = control.Enabled ? Mark : DisabledMark;
+
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            using (SolidBrush fill = new SolidBrush(Fill))
+            using (Pen pen = new Pen(border))
+            {
+                if (round)
+                {
+                    g.FillEllipse(fill, box);
+                    g.DrawEllipse(pen, box);
+                }
+                else
+                {
+                    g.FillRectangle(fill, box);
+                    g.DrawRectangle(pen, box);
+                }
+            }
+
+            if (on)
+            {
+                if (round)
+                {
+                    using (SolidBrush dot = new SolidBrush(mark))
+                    {
+                        g.FillEllipse(dot, box.X + 3, box.Y + 3, box.Width - 6, box.Height - 6);
+                    }
+                }
+                else
+                {
+                    using (Pen tick = new Pen(mark, 2f))
+                    {
+                        tick.StartCap = LineCap.Round;
+                        tick.EndCap = LineCap.Round;
+                        tick.LineJoin = LineJoin.Round;
+                        g.DrawLines(tick, new[]
+                        {
+                            new Point(box.X + 3, box.Y + 6),
+                            new Point(box.X + 5, box.Y + 9),
+                            new Point(box.X + 9, box.Y + 3)
+                        });
+                    }
+                }
+            }
+
+            g.SmoothingMode = SmoothingMode.Default;
+
+            TextFormatFlags flags = TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.SingleLine;
+            if (!control.UseMnemonic)
+            {
+                flags |= TextFormatFlags.NoPrefix;
+            }
+
+            Rectangle text = new Rectangle(glyph + 3, 0, control.Width - glyph - 3, control.Height);
+            TextRenderer.DrawText(g, control.Text, control.Font, text,
+                control.Enabled ? control.ForeColor : DisabledText, flags);
+        }
+    }
+
+    /// <summary>A check box in the launcher's colours. Behaves exactly like the standard one.</summary>
+    internal class ContraCheckBox : CheckBox
+    {
+        private bool hot;
+
+        public ContraCheckBox()
+        {
+            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer
+                | ControlStyles.SupportsTransparentBackColor | ControlStyles.ResizeRedraw, true);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (Appearance == Appearance.Button)
+            {
+                base.OnPaint(e);
+                return;
+            }
+
+            // Transparent, like every control on the skin: the parent paints what is behind.
+            OnPaintBackground(e);
+            ContraTheme.PaintToggle(this, e, hot, CheckState != CheckState.Unchecked, false);
+        }
+
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            hot = true;
+            Invalidate();
+            base.OnMouseEnter(e);
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            hot = false;
+            Invalidate();
+            base.OnMouseLeave(e);
+        }
+    }
+
+    /// <summary>A radio button in the launcher's colours. Behaves exactly like the standard one.</summary>
+    internal class ContraRadioButton : RadioButton
+    {
+        private bool hot;
+
+        public ContraRadioButton()
+        {
+            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer
+                | ControlStyles.SupportsTransparentBackColor | ControlStyles.ResizeRedraw, true);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            // The language flags are radio buttons drawn as buttons: the flag is the control, and
+            // a glyph painted on top would only hide it.
+            if (Appearance == Appearance.Button)
+            {
+                base.OnPaint(e);
+                return;
+            }
+
+            OnPaintBackground(e);
+            ContraTheme.PaintToggle(this, e, hot, Checked, true);
+        }
+
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            hot = true;
+            Invalidate();
+            base.OnMouseEnter(e);
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            hot = false;
+            Invalidate();
+            base.OnMouseLeave(e);
+        }
+    }
+
+    /// <summary>
+    /// A number box in the launcher's colours. NumericUpDown is a text field and a pair of arrow
+    /// buttons; the field takes the colours directly, and the buttons -- an internal class that
+    /// cannot be subclassed -- are painted over from their Paint event.
+    /// </summary>
+    internal class ContraNumericUpDown : NumericUpDown
+    {
+        private const int WM_CTLCOLORSTATIC = 0x0138;
+
+        private Control buttons;
+        private int pressed; // 0 none, 1 up, 2 down
+        private IntPtr fillBrush;
+
+        public ContraNumericUpDown()
+        {
+            BackColor = ContraTheme.Fill;
+            ForeColor = Color.White;
+            BorderStyle = BorderStyle.FixedSingle;
+
+            foreach (Control child in Controls)
+            {
+                if (!(child is TextBox))
+                {
+                    buttons = child;
+                    buttons.Paint += PaintButtons;
+                    buttons.MouseDown += (s, e) => { pressed = e.Y < buttons.Height / 2 ? 1 : 2; buttons.Invalidate(); };
+                    buttons.MouseUp += (s, e) => { pressed = 0; buttons.Invalidate(); };
+                }
+            }
+        }
+
+        protected override void OnEnabledChanged(EventArgs e)
+        {
+            base.OnEnabledChanged(e);
+            Invalidate(true);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            // Disabled, the box paints the margin round its text field in the system colour.
+            if (!Enabled)
+            {
+                using (SolidBrush fill = new SolidBrush(ContraTheme.Fill))
+                {
+                    e.Graphics.FillRectangle(fill, ClientRectangle);
+                }
+            }
+
+            using (Pen pen = new Pen(Enabled ? ContraTheme.Border : ContraTheme.DisabledBorder))
+            {
+                e.Graphics.DrawRectangle(pen, 0, 0, Width - 1, Height - 1);
+            }
+        }
+
+        private void PaintButtons(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            int w = buttons.Width, h = buttons.Height, half = h / 2;
+            Color line = Enabled ? ContraTheme.Border : ContraTheme.DisabledBorder;
+
+            using (SolidBrush fill = new SolidBrush(ContraTheme.Fill))
+            using (SolidBrush down = new SolidBrush(ContraTheme.Selection))
+            using (SolidBrush arrow = new SolidBrush(Enabled ? ContraTheme.Mark : ContraTheme.DisabledMark))
+            using (Pen pen = new Pen(line))
+            {
+                g.FillRectangle(pressed == 1 && Enabled ? down : fill, 0, 0, w, half);
+                g.FillRectangle(pressed == 2 && Enabled ? down : fill, 0, half, w, h - half);
+                g.DrawLine(pen, 0, 0, 0, h);
+                g.DrawLine(pen, 0, half, w, half);
+
+                int cx = w / 2, up = half / 2, dn = half + (h - half) / 2;
+                g.FillPolygon(arrow, new[] { new Point(cx - 3, up + 2), new Point(cx + 4, up + 2), new Point(cx, up - 2) });
+                g.FillPolygon(arrow, new[] { new Point(cx - 3, dn - 1), new Point(cx + 4, dn - 1), new Point(cx, dn + 3) });
+            }
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            // The text field asks for its colours with WM_CTLCOLORSTATIC once disabled, and would
+            // otherwise get the system grey.
+            if (m.Msg == WM_CTLCOLORSTATIC && !Enabled)
+            {
+                if (fillBrush == IntPtr.Zero)
+                {
+                    fillBrush = ContraTheme.CreateSolidBrush(ColorTranslator.ToWin32(ContraTheme.Fill));
+                }
+
+                ContraTheme.SetTextColor(m.WParam, ColorTranslator.ToWin32(ContraTheme.DisabledText));
+                ContraTheme.SetBkColor(m.WParam, ColorTranslator.ToWin32(ContraTheme.Fill));
+                m.Result = fillBrush;
+                return;
+            }
+
+            base.WndProc(ref m);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (fillBrush != IntPtr.Zero)
+            {
+                ContraTheme.DeleteObject(fillBrush);
+                fillBrush = IntPtr.Zero;
+            }
+
+            base.Dispose(disposing);
+        }
+    }
+
+    /// <summary>
+    /// A combo box in the launcher's colours. The items, and in a drop-down list the selected item
+    /// shown in the box, are owner-drawn; the border and the arrow button are painted over the
+    /// native ones after each paint, which works for both the drop-down list and the editable
+    /// style -- a fully user-painted combo box loses its edit field.
+    /// </summary>
+    internal class ContraComboBox : ComboBox
+    {
+        private const int WM_PAINT = 0x000F;
+        private const int WM_CTLCOLORSTATIC = 0x0138;
+
+        private IntPtr fillBrush;
+
+        public ContraComboBox()
+        {
+            DrawMode = DrawMode.OwnerDrawFixed;
+            FlatStyle = FlatStyle.Flat;
+            BackColor = ContraTheme.Fill;
+            ForeColor = Color.White;
+            // Owner-drawn combo boxes are ItemHeight + 6 tall; 15 keeps the standard 21px.
+            ItemHeight = 15;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct RECT
+        {
+            public int Left, Top, Right, Bottom;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct COMBOBOXINFO
+        {
+            public int cbSize;
+            public RECT rcItem;
+            public RECT rcButton;
+            public int stateButton;
+            public IntPtr hwndCombo;
+            public IntPtr hwndItem;
+            public IntPtr hwndList;
+        }
+
+        [DllImport("user32.dll")]
+        private static extern bool GetComboBoxInfo(IntPtr hwnd, ref COMBOBOXINFO info);
+
+        [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
+        private static extern int SetWindowTheme(IntPtr hwnd, string subAppName, string subIdList);
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct PAINTSTRUCT
+        {
+            public IntPtr hdc;
+            public bool fErase;
+            public RECT rcPaint;
+            public bool fRestore;
+            public bool fIncUpdate;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
+            public byte[] rgbReserved;
+        }
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr BeginPaint(IntPtr hwnd, out PAINTSTRUCT paint);
+
+        [DllImport("user32.dll")]
+        private static extern bool EndPaint(IntPtr hwnd, ref PAINTSTRUCT paint);
+
+        /// <summary>
+        /// The drop-down list is its own native window, whose scroll bar Windows draws light grey.
+        /// The dark Explorer theme gives it a dark one where Windows has it (10 1809 and later);
+        /// elsewhere the call does nothing.
+        /// </summary>
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+
+            COMBOBOXINFO info = new COMBOBOXINFO();
+            info.cbSize = Marshal.SizeOf(info);
+            if (GetComboBoxInfo(Handle, ref info) && info.hwndList != IntPtr.Zero)
+            {
+                SetWindowTheme(info.hwndList, "DarkMode_Explorer", null);
+            }
+
+            // The themed box fades its border and button in and out on hover, repainting a dozen
+            // times for each, and every one of those showed the native look for a moment before
+            // the gold went back on top. Unthemed it repaints once per hover, and it is all painted
+            // over anyway.
+            SetWindowTheme(Handle, string.Empty, string.Empty);
+
+            ClearSelectionUnlessFocused();
+        }
+
+        /// <summary>A larger font needs taller rows, or the text is clipped in the box and the list.</summary>
+        protected override void OnFontChanged(EventArgs e)
+        {
+            base.OnFontChanged(e);
+            ItemHeight = Math.Max(15, Font.Height + 2);
+        }
+
+        // The editable style selects all its text whenever the text is set, and Windows keeps the
+        // blue highlight on show even when the box does not have focus -- so the resolution sat
+        // highlighted from the moment the window opened. Clear it unless the box is being typed in.
+        protected override void OnTextChanged(EventArgs e)
+        {
+            base.OnTextChanged(e);
+            ClearSelectionUnlessFocused();
+        }
+
+        protected override void OnSelectedIndexChanged(EventArgs e)
+        {
+            base.OnSelectedIndexChanged(e);
+            ClearSelectionUnlessFocused();
+        }
+
+        protected override void OnLostFocus(EventArgs e)
+        {
+            base.OnLostFocus(e);
+            ClearSelectionUnlessFocused();
+        }
+
+        private void ClearSelectionUnlessFocused()
+        {
+            if (DropDownStyle != ComboBoxStyle.DropDown || !IsHandleCreated)
+            {
+                return;
+            }
+
+            // After the current message, since the select-all comes after the text is set.
+            BeginInvoke((MethodInvoker)delegate
+            {
+                if (!Focused && !DroppedDown)
+                {
+                    Select(Text.Length, 0);
+                }
+            });
+        }
+
+        protected override void OnDrawItem(DrawItemEventArgs e)
+        {
+            bool inBox = (e.State & DrawItemState.ComboBoxEdit) != 0;
+            bool selected = !inBox && (e.State & DrawItemState.Selected) != 0;
+
+            using (SolidBrush back = new SolidBrush(selected ? ContraTheme.Selection : ContraTheme.Fill))
+            {
+                e.Graphics.FillRectangle(back, e.Bounds);
+            }
+
+            if (e.Index >= 0)
+            {
+                Color text = !Enabled ? ContraTheme.DisabledText : selected ? ContraTheme.BorderHot : ForeColor;
+                TextRenderer.DrawText(e.Graphics, GetItemText(Items[e.Index]), Font, e.Bounds, text,
+                    TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.SingleLine
+                    | TextFormatFlags.NoPrefix | TextFormatFlags.EndEllipsis);
+            }
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            // The editable style's text field is a native edit, which asks its combo box for colours
+            // with WM_CTLCOLORSTATIC once disabled -- and would otherwise get the system grey.
+            if (m.Msg == WM_CTLCOLORSTATIC && DropDownStyle == ComboBoxStyle.DropDown)
+            {
+                if (fillBrush == IntPtr.Zero)
+                {
+                    fillBrush = ContraTheme.CreateSolidBrush(ColorTranslator.ToWin32(ContraTheme.Fill));
+                }
+
+                ContraTheme.SetTextColor(m.WParam, ColorTranslator.ToWin32(ContraTheme.DisabledText));
+                ContraTheme.SetBkColor(m.WParam, ColorTranslator.ToWin32(ContraTheme.Fill));
+                m.Result = fillBrush;
+                return;
+            }
+
+            if (m.Msg == WM_PAINT && m.WParam == IntPtr.Zero && Width > 0 && Height > 0)
+            {
+                PaintBuffered();
+                return;
+            }
+
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_PAINT)
+            {
+                // Painting into a DC someone else supplied, such as a print: just finish it.
+                using (Graphics g = Graphics.FromHdc(m.WParam))
+                {
+                    PaintChrome(g);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Let Windows paint the box into an off-screen bitmap, put the border and arrow on top
+        /// there, and copy the result to the screen once. Painting straight to the screen in two
+        /// passes let the native look show between them, which on hover read as a flash.
+        /// </summary>
+        private void PaintBuffered()
+        {
+            // 24bpp: GDI leaves the alpha of a 32bpp bitmap at zero, which would draw as clear.
+            using (Bitmap buffer = new Bitmap(Width, Height, PixelFormat.Format24bppRgb))
+            using (Graphics g = Graphics.FromImage(buffer))
+            {
+                // Paint into the bitmap before BeginPaint: WinForms clips the native paint to the
+                // window's update region, and BeginPaint empties that region -- done the other way
+                // round the selected item came out blank.
+                IntPtr dc = g.GetHdc();
+                try
+                {
+                    Message native = Message.Create(Handle, WM_PAINT, dc, IntPtr.Zero);
+                    base.WndProc(ref native);
+                }
+                finally
+                {
+                    g.ReleaseHdc(dc);
+                }
+
+                PaintChrome(g);
+
+                PAINTSTRUCT paint;
+                IntPtr screen = BeginPaint(Handle, out paint);
+                try
+                {
+                    using (Graphics target = Graphics.FromHdc(screen))
+                    {
+                        // The editable style's text field is its own window and paints itself;
+                        // copying over it would wipe its text until it next repainted.
+                        COMBOBOXINFO info = new COMBOBOXINFO();
+                        info.cbSize = Marshal.SizeOf(info);
+                        if (DropDownStyle == ComboBoxStyle.DropDown && GetComboBoxInfo(Handle, ref info))
+                        {
+                            target.ExcludeClip(Rectangle.FromLTRB(info.rcItem.Left, info.rcItem.Top,
+                                info.rcItem.Right, info.rcItem.Bottom));
+                        }
+
+                        target.DrawImageUnscaled(buffer, 0, 0);
+                    }
+                }
+                finally
+                {
+                    EndPaint(Handle, ref paint);
+                }
+            }
+        }
+
+        private void PaintChrome(Graphics g)
+        {
+            int buttonWidth = SystemInformation.HorizontalScrollBarArrowWidth;
+            Rectangle all = new Rectangle(0, 0, Width - 1, Height - 1);
+            Rectangle button = new Rectangle(Width - buttonWidth - 1, 1, buttonWidth, Height - 2);
+            Color border = Enabled ? ContraTheme.Border : ContraTheme.DisabledBorder;
+
+            using (SolidBrush fill = new SolidBrush(ContraTheme.Fill))
+            using (Pen pen = new Pen(border))
+            using (SolidBrush arrow = new SolidBrush(Enabled ? ContraTheme.Mark : ContraTheme.DisabledMark))
+            {
+                // A disabled flat combo box is painted white by Windows and never asks for its
+                // item to be drawn, so in a drop-down list paint the whole box and its text here.
+                if (!Enabled && DropDownStyle == ComboBoxStyle.DropDownList)
+                {
+                    Rectangle inner = new Rectangle(1, 1, Width - 2, Height - 2);
+                    g.FillRectangle(fill, inner);
+                    TextRenderer.DrawText(g, Text, Font, new Rectangle(3, 1, Width - buttonWidth - 5, Height - 2),
+                        ContraTheme.DisabledText, TextFormatFlags.Left | TextFormatFlags.VerticalCenter
+                        | TextFormatFlags.SingleLine | TextFormatFlags.NoPrefix | TextFormatFlags.EndEllipsis);
+                }
+
+                // The editable style keeps its own text field, but the white frame Windows draws
+                // round it when disabled sits outside that field, so cover just the frame.
+                if (!Enabled && DropDownStyle == ComboBoxStyle.DropDown)
+                {
+                    using (Pen frame = new Pen(ContraTheme.Fill, 2f))
+                    {
+                        g.DrawRectangle(frame, 2, 2, Width - 4, Height - 4);
+                    }
+                }
+
+                // Two pixels left of the button too: the native button's edge lies there, white
+                // when disabled. Enabled it is box colour already, so painting it costs nothing.
+                g.FillRectangle(fill, button.Left - 2, button.Top, button.Width + 2, button.Height);
+                g.DrawLine(pen, button.Left, button.Top, button.Left, button.Bottom - 1);
+                g.DrawRectangle(pen, all);
+
+                int cx = button.Left + button.Width / 2;
+                int cy = Height / 2;
+                g.FillPolygon(arrow, new[]
+                {
+                    new Point(cx - 4, cy - 2), new Point(cx + 5, cy - 2), new Point(cx, cy + 3)
+                });
+            }
+        }
+    }
+}
