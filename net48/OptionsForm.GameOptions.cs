@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -53,6 +56,22 @@ namespace Contra
         private Panel[] pages;
         private Button[] tabs;
 
+        // The skin's own boxes were drawn for the retail settings, so on the two newer pages they
+        // cut straight through the controls. Those pages get a background of their own instead:
+        // the same art blurred, with a box drawn round each group of settings. Made on first view
+        // and kept, so switching tabs costs the same as it did with the plain image.
+        private Image skinBackground;
+        private readonly Dictionary<Panel, Image> pageBackgrounds = new Dictionary<Panel, Image>();
+
+        // The skin's measurements: everything inside its gold frame line, the box behind
+        // Accept/Close, and where the two columns of boxes sit -- the right one starting just
+        // left of the settings in it.
+        private static readonly Rectangle SkinInterior = new Rectangle(25, 25, 750, 550);
+        private static readonly Rectangle ButtonBarBox = new Rectangle(290, 520, 472, 50);
+        private const int LeftBoxLeft = 38, LeftBoxRight = 410, RightBoxLeft = 422, RightBoxRight = 762;
+        private static readonly Color BoxBorder = Color.FromArgb(80, 53, 23);
+        private static readonly Color BoxFill = Color.FromArgb(80, 0, 0, 0);
+
         private void BuildGameOptionsPage()
         {
             // The controls, their geometry and their parenting all come from the designer now.
@@ -82,6 +101,15 @@ namespace Contra
                 GraphicsPage.Controls.Add(c);
                 c.Location = new Point(where.X, where.Y - PageTop);
             }
+
+            skinBackground = BackgroundImage;
+            Disposed += delegate
+            {
+                foreach (Image generated in pageBackgrounds.Values)
+                {
+                    generated.Dispose();
+                }
+            };
 
             pages = new[] { GraphicsPage, ShadersPage, GameOptionsPage };
             tabs = new[] { GraphicsTabButton, ShadersTabButton, GameOptionsTabButton };
@@ -261,6 +289,12 @@ namespace Contra
                 wanted.Visible = true;
                 wanted.BringToFront();
 
+                Image background = wanted == GraphicsPage ? skinBackground : PageBackground(wanted);
+                if (BackgroundImage != background)
+                {
+                    BackgroundImage = background;
+                }
+
                 // The tab buttons live on the form, not on a page, so they have to stay above all.
                 for (int i = 0; i < tabs.Length; i++)
                 {
@@ -273,6 +307,157 @@ namespace Contra
             finally
             {
                 ResumeDrawing(this);
+            }
+        }
+
+        private Image PageBackground(Panel page)
+        {
+            Image background;
+            if (!pageBackgrounds.TryGetValue(page, out background))
+            {
+                background = MakePageBackground(page);
+                pageBackgrounds[page] = background;
+            }
+
+            return background;
+        }
+
+        /// <summary>
+        /// The skin with its interior blurred -- which takes out the old boxes' thin lines while
+        /// keeping the art's colour and glow -- and a box drawn round every group on the page,
+        /// plus the one behind Accept/Close that the blur took with it.
+        /// </summary>
+        private Image MakePageBackground(Panel page)
+        {
+            Bitmap result = new Bitmap(skinBackground.Width, skinBackground.Height);
+            using (Graphics g = Graphics.FromImage(result))
+            {
+                g.DrawImage(skinBackground, 0, 0, skinBackground.Width, skinBackground.Height);
+
+                using (Bitmap blurred = Blur(skinBackground, SkinInterior))
+                {
+                    g.DrawImage(blurred, SkinInterior);
+                }
+
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                foreach (Rectangle box in GroupBoxes(page))
+                {
+                    DrawBox(g, box);
+                }
+
+                DrawBox(g, ButtonBarBox);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Shrink the area right down and stretch it back: a cheap, strong blur with no per-pixel
+        /// work. TileFlipXY keeps the stretch from pulling in dark edges.
+        /// </summary>
+        private static Bitmap Blur(Image source, Rectangle area)
+        {
+            const int factor = 12;
+            using (Bitmap small = new Bitmap(area.Width / factor, area.Height / factor))
+            using (ImageAttributes edges = new ImageAttributes())
+            {
+                edges.SetWrapMode(WrapMode.TileFlipXY);
+
+                using (Graphics g = Graphics.FromImage(small))
+                {
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.DrawImage(source, new Rectangle(0, 0, small.Width, small.Height),
+                        area.X, area.Y, area.Width, area.Height, GraphicsUnit.Pixel, edges);
+                }
+
+                Bitmap big = new Bitmap(area.Width, area.Height);
+                using (Graphics g = Graphics.FromImage(big))
+                {
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                    g.DrawImage(small, new Rectangle(0, 0, big.Width, big.Height),
+                        0, 0, small.Width, small.Height, GraphicsUnit.Pixel, edges);
+                }
+
+                return big;
+            }
+        }
+
+        /// <summary>
+        /// One box per group, in form coordinates. A group is a bold header label and the controls
+        /// stacked directly beneath it in the same column; a gap of more than a couple of rows ends
+        /// it, which leaves a lone note such as the Direct3D 9 hint outside every box. Read from
+        /// the controls themselves, so the boxes follow when the layout changes in the designer.
+        /// </summary>
+        private static List<Rectangle> GroupBoxes(Panel page)
+        {
+            const int split = (LeftBoxRight + RightBoxLeft) / 2;
+            const int maxGap = 24;
+
+            List<Control> headers = new List<Control>();
+            List<Control> rest = new List<Control>();
+            foreach (Control c in page.Controls)
+            {
+                (c is Label && c.Font.Bold ? headers : rest).Add(c);
+            }
+
+            rest.Sort((a, b) => a.Top.CompareTo(b.Top));
+
+            List<Rectangle> boxes = new List<Rectangle>();
+            foreach (Control header in headers)
+            {
+                bool left = header.Left < split;
+                int bottom = header.Bottom;
+
+                foreach (Control c in rest)
+                {
+                    if ((c.Left < split) != left || c.Top < header.Top)
+                    {
+                        continue;
+                    }
+
+                    if (c.Top - bottom > maxGap)
+                    {
+                        break;
+                    }
+
+                    bottom = Math.Max(bottom, c.Bottom);
+                }
+
+                // A header further down the same column starts its own group.
+                foreach (Control other in headers)
+                {
+                    if (other != header && (other.Left < split) == left && other.Top > header.Top)
+                    {
+                        bottom = Math.Min(bottom, other.Top - 8);
+                    }
+                }
+
+                int top = page.Top + header.Top - 4;
+                int x = left ? LeftBoxLeft : RightBoxLeft;
+                int right = left ? LeftBoxRight : RightBoxRight;
+                boxes.Add(new Rectangle(x, top, right - x, page.Top + bottom + 3 - top));
+            }
+
+            return boxes;
+        }
+
+        /// <summary>The skin's box: a thin muted-gold rounded border over a dark wash.</summary>
+        private static void DrawBox(Graphics g, Rectangle box)
+        {
+            const int r = 8;
+            using (GraphicsPath path = new GraphicsPath())
+            using (SolidBrush fill = new SolidBrush(BoxFill))
+            using (Pen border = new Pen(BoxBorder))
+            {
+                path.AddArc(box.Left, box.Top, r * 2, r * 2, 180, 90);
+                path.AddArc(box.Right - r * 2, box.Top, r * 2, r * 2, 270, 90);
+                path.AddArc(box.Right - r * 2, box.Bottom - r * 2, r * 2, r * 2, 0, 90);
+                path.AddArc(box.Left, box.Bottom - r * 2, r * 2, r * 2, 90, 90);
+                path.CloseFigure();
+
+                g.FillPath(fill, path);
+                g.DrawPath(border, path);
             }
         }
 
