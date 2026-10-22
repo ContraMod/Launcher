@@ -333,7 +333,7 @@
     <value>Arial, 9pt, style=Bold</value>
   </data>
   <data name="GameOptInputLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 248</value>
+    <value>46, 256</value>
   </data>
   <data name="GameOptInputLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 15</value>
@@ -360,7 +360,7 @@
     <value>True</value>
   </data>
   <data name="CastModeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 274</value>
+    <value>48, 282</value>
   </data>
   <data name="CastModeLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>82, 13</value>
@@ -384,7 +384,7 @@
     <value>9</value>
   </data>
   <data name="CastModeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>208, 270</value>
+    <value>208, 278</value>
   </data>
   <data name="CastModeComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>150, 21</value>
@@ -408,7 +408,7 @@
     <value>True</value>
   </data>
   <data name="EasyMilitaryDragCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 322</value>
+    <value>48, 330</value>
   </data>
   <data name="EasyMilitaryDragCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>146, 17</value>
@@ -522,7 +522,7 @@
     <value>Arial, 9pt, style=Bold</value>
   </data>
   <data name="HotkeyOverlayHeaderLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>430, 110</value>
+    <value>430, 118</value>
   </data>
   <data name="HotkeyOverlayHeaderLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 15</value>
@@ -549,7 +549,7 @@
     <value>True</value>
   </data>
   <data name="KeyboardOverlayCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 132</value>
+    <value>432, 140</value>
   </data>
   <data name="KeyboardOverlayCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 17</value>
@@ -576,7 +576,7 @@
     <value>True</value>
   </data>
   <data name="KeyboardOverlayBackdropCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 154</value>
+    <value>432, 162</value>
   </data>
   <data name="KeyboardOverlayBackdropCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 17</value>
@@ -603,7 +603,7 @@
     <value>True</value>
   </data>
   <data name="OverlayColourLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 176</value>
+    <value>432, 184</value>
   </data>
   <data name="OverlayColourLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 13</value>
@@ -627,7 +627,7 @@
     <value>18</value>
   </data>
   <data name="OverlayRedUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 194</value>
+    <value>432, 202</value>
   </data>
   <data name="OverlayRedUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 20</value>
@@ -648,7 +648,7 @@
     <value>19</value>
   </data>
   <data name="OverlayGreenUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>498, 194</value>
+    <value>498, 202</value>
   </data>
   <data name="OverlayGreenUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 20</value>
@@ -669,7 +669,7 @@
     <value>20</value>
   </data>
   <data name="OverlayBlueUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>564, 194</value>
+    <value>564, 202</value>
   </data>
   <data name="OverlayBlueUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 20</value>
@@ -693,7 +693,7 @@
     <value>True</value>
   </data>
   <data name="OverlayRgbHintLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 216</value>
+    <value>432, 224</value>
   </data>
   <data name="OverlayRgbHintLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 13</value>
@@ -714,7 +714,7 @@
     <value>True</value>
   </data>
   <data name="BackdropColourLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 234</value>
+    <value>432, 242</value>
   </data>
   <data name="BackdropColourLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 13</value>
@@ -738,7 +738,7 @@
     <value>23</value>
   </data>
   <data name="BackdropRedUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 252</value>
+    <value>432, 260</value>
   </data>
   <data name="BackdropRedUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 20</value>
@@ -759,7 +759,7 @@
     <value>24</value>
   </data>
   <data name="BackdropGreenUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>498, 252</value>
+    <value>498, 260</value>
   </data>
   <data name="BackdropGreenUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 20</value>
@@ -780,7 +780,7 @@
     <value>25</value>
   </data>
   <data name="BackdropBlueUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>564, 252</value>
+    <value>564, 260</value>
   </data>
   <data name="BackdropBlueUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 20</value>
@@ -801,7 +801,7 @@
     <value>26</value>
   </data>
   <data name="BackdropOpacityUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>630, 252</value>
+    <value>630, 260</value>
   </data>
   <data name="BackdropOpacityUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 20</value>
@@ -825,7 +825,7 @@
     <value>True</value>
   </data>
   <data name="BackdropRgbHintLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 274</value>
+    <value>432, 282</value>
   </data>
   <data name="BackdropRgbHintLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>145, 13</value>
@@ -933,7 +933,7 @@
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="OverlayColourButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>630, 194</value>
+    <value>630, 202</value>
   </data>
   <data name="OverlayColourButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 20</value>
@@ -957,7 +957,7 @@
     <value>29</value>
   </data>
   <data name="BackdropColourButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>696, 252</value>
+    <value>696, 260</value>
   </data>
   <data name="BackdropColourButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 20</value>
@@ -2832,7 +2832,7 @@
     <value>True</value>
   </data>
   <data name="ActionLinesLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 300</value>
+    <value>48, 308</value>
   </data>
   <data name="ActionLinesLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 13</value>
@@ -2856,7 +2856,7 @@
     <value>36</value>
   </data>
   <data name="ActionLinesComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>208, 296</value>
+    <value>208, 304</value>
   </data>
   <data name="ActionLinesComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>150, 21</value>
@@ -2880,7 +2880,7 @@
     <value>True</value>
   </data>
   <data name="SmartSelectionCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 344</value>
+    <value>48, 352</value>
   </data>
   <data name="SmartSelectionCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 17</value>
@@ -2907,7 +2907,7 @@
     <value>True</value>
   </data>
   <data name="SmartSelectionUseMouseCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 366</value>
+    <value>48, 374</value>
   </data>
   <data name="SmartSelectionUseMouseCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 17</value>
@@ -2934,7 +2934,7 @@
     <value>True</value>
   </data>
   <data name="SmartCommandGroupCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 388</value>
+    <value>48, 396</value>
   </data>
   <data name="SmartCommandGroupCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>125, 17</value>
@@ -2961,7 +2961,7 @@
     <value>True</value>
   </data>
   <data name="LowLatencyCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 410</value>
+    <value>48, 418</value>
   </data>
   <data name="LowLatencyCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>113, 17</value>
@@ -3039,7 +3039,7 @@
     <value>Arial, 9pt, style=Bold</value>
   </data>
   <data name="RadarHeaderLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>430, 306</value>
+    <value>430, 322</value>
   </data>
   <data name="RadarHeaderLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>40, 15</value>
@@ -3066,7 +3066,7 @@
     <value>True</value>
   </data>
   <data name="NewRadarCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 328</value>
+    <value>432, 344</value>
   </data>
   <data name="NewRadarCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>110, 17</value>
@@ -3093,7 +3093,7 @@
     <value>True</value>
   </data>
   <data name="BlipSizeCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>448, 350</value>
+    <value>448, 366</value>
   </data>
   <data name="BlipSizeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 17</value>
@@ -3303,7 +3303,7 @@
     <value>Arial, 9pt, style=Bold</value>
   </data>
   <data name="ShadersShadowsLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 186</value>
+    <value>46, 194</value>
   </data>
   <data name="ShadersShadowsLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 15</value>
@@ -3330,7 +3330,7 @@
     <value>True</value>
   </data>
   <data name="ShadowMapCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 208</value>
+    <value>48, 216</value>
   </data>
   <data name="ShadowMapCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>106, 17</value>
@@ -3357,7 +3357,7 @@
     <value>True</value>
   </data>
   <data name="ShadowMapResolutionLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 234</value>
+    <value>48, 242</value>
   </data>
   <data name="ShadowMapResolutionLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>98, 13</value>
@@ -3381,7 +3381,7 @@
     <value>13</value>
   </data>
   <data name="ShadowMapResolutionComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>208, 230</value>
+    <value>208, 238</value>
   </data>
   <data name="ShadowMapResolutionComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>150, 21</value>
@@ -3408,7 +3408,7 @@
     <value>Arial, 9pt, style=Bold</value>
   </data>
   <data name="ShadersGlowLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 264</value>
+    <value>46, 280</value>
   </data>
   <data name="ShadersGlowLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>34, 15</value>
@@ -3435,7 +3435,7 @@
     <value>True</value>
   </data>
   <data name="BloomCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 286</value>
+    <value>48, 302</value>
   </data>
   <data name="BloomCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 17</value>
@@ -3462,7 +3462,7 @@
     <value>True</value>
   </data>
   <data name="BloomStrengthLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>126, 288</value>
+    <value>126, 304</value>
   </data>
   <data name="BloomStrengthLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 13</value>
@@ -3486,7 +3486,7 @@
     <value>17</value>
   </data>
   <data name="BloomStrengthUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>208, 284</value>
+    <value>208, 300</value>
   </data>
   <data name="BloomStrengthUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 20</value>
@@ -3510,7 +3510,7 @@
     <value>True</value>
   </data>
   <data name="LaserRefCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 310</value>
+    <value>48, 326</value>
   </data>
   <data name="LaserRefCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>142, 17</value>
@@ -3678,7 +3678,7 @@
     <value>Arial, 9pt, style=Bold</value>
   </data>
   <data name="ShadersLightsLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>430, 104</value>
+    <value>430, 112</value>
   </data>
   <data name="ShadersLightsLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 15</value>
@@ -3705,7 +3705,7 @@
     <value>True</value>
   </data>
   <data name="DynamicLightsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 126</value>
+    <value>432, 134</value>
   </data>
   <data name="DynamicLightsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 17</value>
@@ -3732,7 +3732,7 @@
     <value>True</value>
   </data>
   <data name="PixelLightsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>448, 148</value>
+    <value>448, 156</value>
   </data>
   <data name="PixelLightsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>104, 17</value>
@@ -3762,7 +3762,7 @@
     <value>Arial, 9pt, style=Bold</value>
   </data>
   <data name="ShadersSkyWaterLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>430, 178</value>
+    <value>430, 194</value>
   </data>
   <data name="ShadersSkyWaterLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 15</value>
@@ -3789,7 +3789,7 @@
     <value>True</value>
   </data>
   <data name="HQSkyCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 200</value>
+    <value>432, 216</value>
   </data>
   <data name="HQSkyCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 17</value>
@@ -3816,7 +3816,7 @@
     <value>True</value>
   </data>
   <data name="WaterReflectionsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 222</value>
+    <value>432, 238</value>
   </data>
   <data name="WaterReflectionsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 17</value>
@@ -3843,7 +3843,7 @@
     <value>True</value>
   </data>
   <data name="ShorelineFoamCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 244</value>
+    <value>432, 260</value>
   </data>
   <data name="ShorelineFoamCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 17</value>
@@ -3873,7 +3873,7 @@
     <value>Arial, 9pt, style=Bold</value>
   </data>
   <data name="ShadersEffectsLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>430, 274</value>
+    <value>430, 298</value>
   </data>
   <data name="ShadersEffectsLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>98, 15</value>
@@ -3900,7 +3900,7 @@
     <value>True</value>
   </data>
   <data name="FlameShadersCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 296</value>
+    <value>432, 320</value>
   </data>
   <data name="FlameShadersCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 17</value>
@@ -3927,7 +3927,7 @@
     <value>True</value>
   </data>
   <data name="ElectricShadersCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>560, 296</value>
+    <value>560, 320</value>
   </data>
   <data name="ElectricShadersCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 17</value>
@@ -3954,7 +3954,7 @@
     <value>True</value>
   </data>
   <data name="LaserShadersCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 318</value>
+    <value>432, 342</value>
   </data>
   <data name="LaserShadersCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 17</value>
@@ -3981,7 +3981,7 @@
     <value>True</value>
   </data>
   <data name="CryoShadersCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>560, 318</value>
+    <value>560, 342</value>
   </data>
   <data name="CryoShadersCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 17</value>

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -58,16 +57,14 @@ namespace Contra
 
         // The skin's own boxes were drawn for the retail settings, so on the two newer pages they
         // cut straight through the controls. Those pages get a background of their own instead:
-        // the same art blurred, with a box drawn round each group of settings. Made on first view
-        // and kept, so switching tabs costs the same as it did with the plain image.
+        // _bg_options_plain -- the same art with the page boxes taken out, made once from the skin
+        // -- with a box drawn round each group of settings. Made on first view and kept, so
+        // switching tabs costs the same as it did with the plain image.
         private Image skinBackground;
         private readonly Dictionary<Panel, Image> pageBackgrounds = new Dictionary<Panel, Image>();
 
-        // The skin's measurements: everything inside its gold frame line, the box behind
-        // Accept/Close, and where the two columns of boxes sit -- the right one starting just
-        // left of the settings in it.
-        private static readonly Rectangle SkinInterior = new Rectangle(25, 25, 750, 550);
-        private static readonly Rectangle ButtonBarBox = new Rectangle(290, 520, 472, 50);
+        // Where the two columns of boxes sit, inside the skin's frame -- the right one starting
+        // just left of the settings in it.
         private const int LeftBoxLeft = 38, LeftBoxRight = 410, RightBoxLeft = 422, RightBoxRight = 762;
         private static readonly Color BoxBorder = Color.FromArgb(80, 53, 23);
         private static readonly Color BoxFill = Color.FromArgb(80, 0, 0, 0);
@@ -323,64 +320,25 @@ namespace Contra
         }
 
         /// <summary>
-        /// The skin with its interior blurred -- which takes out the old boxes' thin lines while
-        /// keeping the art's colour and glow -- and a box drawn round every group on the page,
-        /// plus the one behind Accept/Close that the blur took with it.
+        /// The box-free copy of the skin with a box drawn round every group on the page. The art
+        /// is untouched, so it stays as sharp as on the DISPLAY tab.
         /// </summary>
         private Image MakePageBackground(Panel page)
         {
             Bitmap result = new Bitmap(skinBackground.Width, skinBackground.Height);
+            using (Image plain = Properties.Resources._bg_options_plain)
             using (Graphics g = Graphics.FromImage(result))
             {
-                g.DrawImage(skinBackground, 0, 0, skinBackground.Width, skinBackground.Height);
-
-                using (Bitmap blurred = Blur(skinBackground, SkinInterior))
-                {
-                    g.DrawImage(blurred, SkinInterior);
-                }
+                g.DrawImage(plain, 0, 0, result.Width, result.Height);
 
                 g.SmoothingMode = SmoothingMode.AntiAlias;
                 foreach (Rectangle box in GroupBoxes(page))
                 {
                     DrawBox(g, box);
                 }
-
-                DrawBox(g, ButtonBarBox);
             }
 
             return result;
-        }
-
-        /// <summary>
-        /// Shrink the area right down and stretch it back: a cheap, strong blur with no per-pixel
-        /// work. TileFlipXY keeps the stretch from pulling in dark edges.
-        /// </summary>
-        private static Bitmap Blur(Image source, Rectangle area)
-        {
-            const int factor = 12;
-            using (Bitmap small = new Bitmap(area.Width / factor, area.Height / factor))
-            using (ImageAttributes edges = new ImageAttributes())
-            {
-                edges.SetWrapMode(WrapMode.TileFlipXY);
-
-                using (Graphics g = Graphics.FromImage(small))
-                {
-                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    g.DrawImage(source, new Rectangle(0, 0, small.Width, small.Height),
-                        area.X, area.Y, area.Width, area.Height, GraphicsUnit.Pixel, edges);
-                }
-
-                Bitmap big = new Bitmap(area.Width, area.Height);
-                using (Graphics g = Graphics.FromImage(big))
-                {
-                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                    g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                    g.DrawImage(small, new Rectangle(0, 0, big.Width, big.Height),
-                        0, 0, small.Width, small.Height, GraphicsUnit.Pixel, edges);
-                }
-
-                return big;
-            }
         }
 
         /// <summary>
@@ -429,14 +387,14 @@ namespace Contra
                 {
                     if (other != header && (other.Left < split) == left && other.Top > header.Top)
                     {
-                        bottom = Math.Min(bottom, other.Top - 8);
+                        bottom = Math.Min(bottom, other.Top - 12);
                     }
                 }
 
-                int top = page.Top + header.Top - 4;
+                int top = page.Top + header.Top - 6;
                 int x = left ? LeftBoxLeft : RightBoxLeft;
                 int right = left ? LeftBoxRight : RightBoxRight;
-                boxes.Add(new Rectangle(x, top, right - x, page.Top + bottom + 3 - top));
+                boxes.Add(new Rectangle(x, top, right - x, page.Top + bottom + 5 - top));
             }
 
             return boxes;
