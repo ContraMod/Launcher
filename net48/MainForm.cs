@@ -1003,7 +1003,7 @@ namespace Contra
 
         private void EnableAnisotropicFiltering()
         {
-            // If a file named d3d8.dll (e.g. GenTool) doesn't exist or if it's ENB
+            // If a file named d3d8.dll doesn't exist or if it's ENB
             if (!File.Exists("d3d8.dll") || (CalculateMD5("d3d8.dll") == "b7036b32233008279074003c4c408a1f"))
             {
                 try
