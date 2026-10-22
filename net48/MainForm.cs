@@ -2368,15 +2368,6 @@ namespace Contra
             //    Messages.GenerateMessageBox("W_NotFound_Contra009Final", Globals.currentLanguage);
             //}
 
-            // Check for Contra X Beta 2 Patch 1
-            if (betaPrefix == "ContraXBeta2" && !File.Exists($"!!{betaPrefix}_Patch1.ctr") && !File.Exists($"!!{betaPrefix}_Patch1.big"))
-            {
-                DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("I_Patch1NotFound", Globals.currentLanguage),
-                    Messages.GenerateMessage("Information", Globals.currentLanguage), MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (dialogResult == DialogResult.Yes)
-                    Url_open("https://www.moddb.com/mods/contra/downloads");
-            }
-
             try
             {
                 ShowWarningIfFilesExist(@"\Data\INI", "*.ini", "W_FoundIniFiles");

@@ -378,13 +378,6 @@ namespace Contra
             
             
             ["I_GeneralsAlreadyRunning"] = lang => ChooseByLanguage(lang, "Generals.exe is already running.", "Generals.exe уже запущен.", "Generals.exe вже працює.", "Generals.exe е вече стартиран.", "Generals.exe ist bereits gestartet."),
-            
-            ["I_Patch1NotFound"] = lang => ChooseByLanguage(lang,
-                "Contra X Beta 2 Patch 1 is not installed.\n\nThis patch contains important updates and fixes for Contra X Beta 2.\n\nWould you like to visit the downloads page to get the latest patch?",
-                "Contra X Beta 2 Patch 1 не установлен.\n\nЭтот патч содержит важные обновления и исправления для Contra X Beta 2.\n\nХотите ли вы посетить страницу загрузок, чтобы получить последний патч?",
-                "Contra X Beta 2 Patch 1 не встановлений.\n\nЦей патч містить важливі оновлення та виправлення для Contra X Beta 2.\n\nЧи хочете ви відвідати сторінку завантажень, щоб отримати останній патч?",
-                "Contra X Beta 2 Patch 1 не е инсталиран.\n\nТози патч съдържа важни актуализации и корекции за Contra X Beta 2.\n\nИскате ли да посетите страницата за изтегляне, за да получите най-новия патч?",
-                "Contra X Beta 2 Patch 1 ist nicht installiert.\n\nDieser Patch enthält wichtige Updates und Fehlerbehebungen für Contra X Beta 2.\n\nMöchten Sie die Download-Seite besuchen, um den neuesten Patch zu erhalten?")
         };
 
         public static void GenerateMessageBox(string type, string lang)
