@@ -45,6 +45,7 @@ namespace Contra
 
         // The values behind the drop-downs that show something friendlier than the raw number.
         // Each list is in the same order as the box's items.
+        private static readonly int[] AnisotropyLevels = { 2, 4, 8, 16 };
         private static readonly int[] AntiAliasingValues = { 0, 2, 4, 8 };
         private static readonly int[] SuperSamplingValues = { 100, 150, 200 };
         private static readonly int[] ShadowMapSizes = { 512, 1024, 2048, 4096 };
@@ -448,8 +449,9 @@ namespace Contra
             // so a typo shows as None here too rather than as the default it is not getting.
             TextureFilterComboBox.SelectedItem =
                 MatchMode(TextureFilterComboBox, GameOptionsIni.GetValue(s, "TextureFilter", "Bilinear"), "None", false);
-            AnisotropicLevelComboBox.SelectedItem =
-                MatchMode(AnisotropicLevelComboBox, NearestAnisotropyLevel(GameOptionsIni.GetInt(s, "AnisotropyLevel", 2)), "2", false);
+            // Clamped to 2..16 and rounded down to a power of two by the game, as snapping down does.
+            AnisotropicLevelComboBox.SelectedIndex =
+                SnapDown(GameOptionsIni.GetInt(s, "AnisotropyLevel", 2), AnisotropyLevels);
             // Anything else is clamped and rounded down by the game, which snapping down mirrors.
             AntiAliasingComboBox.SelectedIndex =
                 SnapDown(GameOptionsIni.GetInt(s, "AntiAliasing", 0), AntiAliasingValues);
@@ -552,33 +554,6 @@ namespace Contra
         }
 
         /// <summary>
-        /// Mirror what getTextureAnisotropyLevel does to a hand edited value: clamp it into 2..16
-        /// and then keep only the highest set bit, so the list shows the level the game will
-        /// actually use rather than snapping to the first item.
-        /// </summary>
-        private static string NearestAnisotropyLevel(int level)
-        {
-            if (level < 2)
-            {
-                return "2";
-            }
-
-            if (level > 16)
-            {
-                return "16";
-            }
-
-            // Highest set bit, matching the engine's highestBit().
-            int highest = 2;
-            while (highest * 2 <= level)
-            {
-                highest *= 2;
-            }
-
-            return highest.ToString();
-        }
-
-        /// <summary>
         /// The item a stored mode names. Named modes take the name, case-insensitively, or -- when
         /// acceptIndex is set -- their 0-based index, as the engine reads them. Anything else is
         /// whatever the engine falls back to, which is not always the first item: None is a real
@@ -586,29 +561,21 @@ namespace Contra
         /// </summary>
         private static object MatchMode(ComboBox box, string value, string fallback, bool acceptIndex)
         {
-            foreach (object item in box.Items)
-            {
-                if (string.Equals(item.ToString(), value, StringComparison.OrdinalIgnoreCase))
-                {
-                    return item;
-                }
-            }
+            // FindStringExact ignores case, as the game does for these names.
+            int found = box.FindStringExact(value);
 
             int index;
-            if (acceptIndex && int.TryParse(value, out index) && index >= 0 && index < box.Items.Count)
+            if (found < 0 && acceptIndex && int.TryParse(value, out index) && index >= 0 && index < box.Items.Count)
             {
-                return box.Items[index];
+                found = index;
             }
 
-            foreach (object item in box.Items)
+            if (found < 0)
             {
-                if (string.Equals(item.ToString(), fallback, StringComparison.OrdinalIgnoreCase))
-                {
-                    return item;
-                }
+                found = box.FindStringExact(fallback);
             }
 
-            return box.Items.Count > 0 ? box.Items[0] : null;
+            return found >= 0 ? box.Items[found] : null;
         }
 
         /// <summary>

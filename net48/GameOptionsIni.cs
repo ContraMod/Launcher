@@ -48,17 +48,22 @@ namespace Contra
                 return fallback;
             }
 
-            Match m = Regex.Match(contents,
+            MatchCollection lines = Regex.Matches(contents,
                 @"^[ \t]*" + Regex.Escape(key) + @"[ \t]*=[ \t]*(.*)$",
                 RegexOptions.Multiline);
 
-            if (!m.Success)
+            // A hand-edited file can hold a key twice. The game reads it into a table, skipping
+            // lines with no value, so the last line with a value is the one in effect.
+            for (int i = lines.Count - 1; i >= 0; i--)
             {
-                return fallback;
+                string value = lines[i].Groups[1].Value.Trim();
+                if (value.Length > 0)
+                {
+                    return value;
+                }
             }
 
-            string value = m.Groups[1].Value.Trim();
-            return value.Length == 0 ? fallback : value;
+            return fallback;
         }
 
         /// <summary>
@@ -133,7 +138,11 @@ namespace Contra
 
             if (existing.IsMatch(contents))
             {
-                return existing.Replace(contents, key + " = " + value, 1);
+                // Every copy, so a duplicate further down cannot keep overriding the change. Through
+                // an evaluator so a "$" in the value is written as typed rather than read as a
+                // substitution -- the grid layout is free text.
+                string line = key + " = " + value;
+                return existing.Replace(contents, m => line);
             }
 
             if (contents.Length > 0 && !contents.EndsWith("\n"))
