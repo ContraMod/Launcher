@@ -49,11 +49,6 @@
             this.GridHotkeysHeaderLabel = new System.Windows.Forms.Label();
             this.GridHotkeysCheckBox = new System.Windows.Forms.CheckBox();
             this.GridHotkeyLayoutLabel = new System.Windows.Forms.Label();
-            this.GridHotkeyEditor = new Contra.GridHotkeyEditor();
-            this.GridHotkeyColumnsLabel = new System.Windows.Forms.Label();
-            this.GridHotkeyColumnsUpDown = new System.Windows.Forms.NumericUpDown();
-            this.NonGridHotkeysLabel = new System.Windows.Forms.Label();
-            this.NonGridOverflowTextBox = new System.Windows.Forms.TextBox();
             this.HotkeyOverlayHeaderLabel = new System.Windows.Forms.Label();
             this.KeyboardOverlayCheckBox = new System.Windows.Forms.CheckBox();
             this.KeyboardOverlayBackdropCheckBox = new System.Windows.Forms.CheckBox();
@@ -68,7 +63,6 @@
             this.BackdropBlueUpDown = new System.Windows.Forms.NumericUpDown();
             this.BackdropOpacityUpDown = new System.Windows.Forms.NumericUpDown();
             this.BackdropRgbHintLabel = new System.Windows.Forms.Label();
-            this.GameOptGraphicsLabel = new System.Windows.Forms.Label();
             this.TextureFilterLabel = new System.Windows.Forms.Label();
             this.TextureFilterComboBox = new System.Windows.Forms.ComboBox();
             this.AnisotropicLevelLabel = new System.Windows.Forms.Label();
@@ -77,6 +71,57 @@
             this.BackdropColourButton = new System.Windows.Forms.Button();
             this.GraphicsPage = new System.Windows.Forms.Panel();
             this.GameOptionsPage = new System.Windows.Forms.Panel();
+            this.CryoShadersCheckBox = new System.Windows.Forms.CheckBox();
+            this.LaserShadersCheckBox = new System.Windows.Forms.CheckBox();
+            this.ElectricShadersCheckBox = new System.Windows.Forms.CheckBox();
+            this.FlameShadersCheckBox = new System.Windows.Forms.CheckBox();
+            this.ShadersEffectsLabel = new System.Windows.Forms.Label();
+            this.ShorelineFoamCheckBox = new System.Windows.Forms.CheckBox();
+            this.WaterReflectionsCheckBox = new System.Windows.Forms.CheckBox();
+            this.HQSkyCheckBox = new System.Windows.Forms.CheckBox();
+            this.ShadersSkyWaterLabel = new System.Windows.Forms.Label();
+            this.PixelLightsCheckBox = new System.Windows.Forms.CheckBox();
+            this.DynamicLightsCheckBox = new System.Windows.Forms.CheckBox();
+            this.ShadersLightsLabel = new System.Windows.Forms.Label();
+            this.HeightBlendCheckBox = new System.Windows.Forms.CheckBox();
+            this.NormalMapsCheckBox = new System.Windows.Forms.CheckBox();
+            this.SpecularCheckBox = new System.Windows.Forms.CheckBox();
+            this.ShadersSurfacesLabel = new System.Windows.Forms.Label();
+            this.ShadersD3D9HintLabel = new System.Windows.Forms.Label();
+            this.LaserRefCheckBox = new System.Windows.Forms.CheckBox();
+            this.BloomStrengthUpDown = new System.Windows.Forms.NumericUpDown();
+            this.BloomStrengthLabel = new System.Windows.Forms.Label();
+            this.BloomCheckBox = new System.Windows.Forms.CheckBox();
+            this.ShadersGlowLabel = new System.Windows.Forms.Label();
+            this.ShadowMapResolutionComboBox = new System.Windows.Forms.ComboBox();
+            this.ShadowMapResolutionLabel = new System.Windows.Forms.Label();
+            this.ShadowMapCheckBox = new System.Windows.Forms.CheckBox();
+            this.ShadersShadowsLabel = new System.Windows.Forms.Label();
+            this.SoftParticlesCheckBox = new System.Windows.Forms.CheckBox();
+            this.AmbientOcclusionCheckBox = new System.Windows.Forms.CheckBox();
+            this.SuperSamplingComboBox = new System.Windows.Forms.ComboBox();
+            this.SuperSamplingLabel = new System.Windows.Forms.Label();
+            this.AntiAliasingComboBox = new System.Windows.Forms.ComboBox();
+            this.AntiAliasingLabel = new System.Windows.Forms.Label();
+            this.ShadersQualityLabel = new System.Windows.Forms.Label();
+            this.BlipSizeCheckBox = new System.Windows.Forms.CheckBox();
+            this.NewRadarCheckBox = new System.Windows.Forms.CheckBox();
+            this.RadarHeaderLabel = new System.Windows.Forms.Label();
+            this.GridHotkeyUnitOrdersCheckBox = new System.Windows.Forms.CheckBox();
+            this.GridHotkeyLayoutComboBox = new System.Windows.Forms.ComboBox();
+            this.LowLatencyCheckBox = new System.Windows.Forms.CheckBox();
+            this.SmartCommandGroupCheckBox = new System.Windows.Forms.CheckBox();
+            this.SmartSelectionUseMouseCheckBox = new System.Windows.Forms.CheckBox();
+            this.SmartSelectionCheckBox = new System.Windows.Forms.CheckBox();
+            this.ActionLinesComboBox = new System.Windows.Forms.ComboBox();
+            this.ActionLinesLabel = new System.Windows.Forms.Label();
+            this.SmoothUnitMotionCheckBox = new System.Windows.Forms.CheckBox();
+            this.DefensesRangeCircleCheckBox = new System.Windows.Forms.CheckBox();
+            this.ObjectDecalsCheckBox = new System.Windows.Forms.CheckBox();
+            this.AlliedDecalComboBox = new System.Windows.Forms.ComboBox();
+            this.AlliedDecalLabel = new System.Windows.Forms.Label();
+            this.ShadersTabButton = new System.Windows.Forms.Button();
+            this.ShadersPage = new System.Windows.Forms.Panel();
             this.GraphicsTabButton = new System.Windows.Forms.Button();
             this.GameOptionsTabButton = new System.Windows.Forms.Button();
             this.LangFilterCheckBox = new System.Windows.Forms.CheckBox();
@@ -122,7 +167,6 @@
             this.CameosDoubleRadioButton = new System.Windows.Forms.RadioButton();
             this.ExtraBuildingPropsCheckBox = new System.Windows.Forms.CheckBox();
             this.NoPreviewText = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.GridHotkeyColumnsUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OverlayRedUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OverlayGreenUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OverlayBlueUpDown)).BeginInit();
@@ -130,7 +174,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.BackdropGreenUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackdropBlueUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackdropOpacityUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BloomStrengthUpDown)).BeginInit();
             this.GameOptionsPage.SuspendLayout();
+            this.ShadersPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GraphicsInfoPictureBox)).BeginInit();
             this.GraphicsInfoTextPanel.SuspendLayout();
             this.HotkeyStylePanel.SuspendLayout();
@@ -253,40 +299,6 @@
             this.GridHotkeyLayoutLabel.ForeColor = System.Drawing.Color.White;
             this.GridHotkeyLayoutLabel.Name = "GridHotkeyLayoutLabel";
             // 
-            // GridHotkeyEditor
-            // 
-            resources.ApplyResources(this.GridHotkeyEditor, "GridHotkeyEditor");
-            this.GridHotkeyEditor.BackColor = System.Drawing.Color.Transparent;
-            this.GridHotkeyEditor.Name = "GridHotkeyEditor";
-            this.GridHotkeyEditor.TabStop = false;
-            // 
-            // GridHotkeyColumnsLabel
-            // 
-            resources.ApplyResources(this.GridHotkeyColumnsLabel, "GridHotkeyColumnsLabel");
-            this.GridHotkeyColumnsLabel.BackColor = System.Drawing.Color.Transparent;
-            this.GridHotkeyColumnsLabel.ForeColor = System.Drawing.Color.White;
-            this.GridHotkeyColumnsLabel.Name = "GridHotkeyColumnsLabel";
-            // 
-            // GridHotkeyColumnsUpDown
-            // 
-            resources.ApplyResources(this.GridHotkeyColumnsUpDown, "GridHotkeyColumnsUpDown");
-            this.GridHotkeyColumnsUpDown.Name = "GridHotkeyColumnsUpDown";
-            this.GridHotkeyColumnsUpDown.TabStop = false;
-            // 
-            // NonGridHotkeysLabel
-            // 
-            resources.ApplyResources(this.NonGridHotkeysLabel, "NonGridHotkeysLabel");
-            this.NonGridHotkeysLabel.BackColor = System.Drawing.Color.Transparent;
-            this.NonGridHotkeysLabel.ForeColor = System.Drawing.Color.White;
-            this.NonGridHotkeysLabel.Name = "NonGridHotkeysLabel";
-            // 
-            // NonGridOverflowTextBox
-            // 
-            this.NonGridOverflowTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            resources.ApplyResources(this.NonGridOverflowTextBox, "NonGridOverflowTextBox");
-            this.NonGridOverflowTextBox.Name = "NonGridOverflowTextBox";
-            this.NonGridOverflowTextBox.TabStop = false;
-            // 
             // HotkeyOverlayHeaderLabel
             // 
             resources.ApplyResources(this.HotkeyOverlayHeaderLabel, "HotkeyOverlayHeaderLabel");
@@ -382,13 +394,6 @@
             this.BackdropRgbHintLabel.ForeColor = System.Drawing.Color.White;
             this.BackdropRgbHintLabel.Name = "BackdropRgbHintLabel";
             // 
-            // GameOptGraphicsLabel
-            // 
-            resources.ApplyResources(this.GameOptGraphicsLabel, "GameOptGraphicsLabel");
-            this.GameOptGraphicsLabel.BackColor = System.Drawing.Color.Transparent;
-            this.GameOptGraphicsLabel.ForeColor = System.Drawing.Color.White;
-            this.GameOptGraphicsLabel.Name = "GameOptGraphicsLabel";
-            // 
             // TextureFilterLabel
             // 
             resources.ApplyResources(this.TextureFilterLabel, "TextureFilterLabel");
@@ -441,6 +446,452 @@
             resources.ApplyResources(this.GraphicsPage, "GraphicsPage");
             this.GraphicsPage.Name = "GraphicsPage";
             // 
+            // ShadersPage
+            // 
+            this.ShadersPage.BackColor = System.Drawing.Color.Transparent;
+            this.ShadersPage.Controls.Add(this.TextureFilterLabel);
+            this.ShadersPage.Controls.Add(this.TextureFilterComboBox);
+            this.ShadersPage.Controls.Add(this.AnisotropicLevelLabel);
+            this.ShadersPage.Controls.Add(this.AnisotropicLevelComboBox);
+            this.ShadersPage.Controls.Add(this.ShadersQualityLabel);
+            this.ShadersPage.Controls.Add(this.AntiAliasingLabel);
+            this.ShadersPage.Controls.Add(this.AntiAliasingComboBox);
+            this.ShadersPage.Controls.Add(this.SuperSamplingLabel);
+            this.ShadersPage.Controls.Add(this.SuperSamplingComboBox);
+            this.ShadersPage.Controls.Add(this.AmbientOcclusionCheckBox);
+            this.ShadersPage.Controls.Add(this.SoftParticlesCheckBox);
+            this.ShadersPage.Controls.Add(this.ShadersShadowsLabel);
+            this.ShadersPage.Controls.Add(this.ShadowMapCheckBox);
+            this.ShadersPage.Controls.Add(this.ShadowMapResolutionLabel);
+            this.ShadersPage.Controls.Add(this.ShadowMapResolutionComboBox);
+            this.ShadersPage.Controls.Add(this.ShadersGlowLabel);
+            this.ShadersPage.Controls.Add(this.BloomCheckBox);
+            this.ShadersPage.Controls.Add(this.BloomStrengthLabel);
+            this.ShadersPage.Controls.Add(this.BloomStrengthUpDown);
+            this.ShadersPage.Controls.Add(this.LaserRefCheckBox);
+            this.ShadersPage.Controls.Add(this.ShadersD3D9HintLabel);
+            this.ShadersPage.Controls.Add(this.ShadersSurfacesLabel);
+            this.ShadersPage.Controls.Add(this.SpecularCheckBox);
+            this.ShadersPage.Controls.Add(this.NormalMapsCheckBox);
+            this.ShadersPage.Controls.Add(this.HeightBlendCheckBox);
+            this.ShadersPage.Controls.Add(this.ShadersLightsLabel);
+            this.ShadersPage.Controls.Add(this.DynamicLightsCheckBox);
+            this.ShadersPage.Controls.Add(this.PixelLightsCheckBox);
+            this.ShadersPage.Controls.Add(this.ShadersSkyWaterLabel);
+            this.ShadersPage.Controls.Add(this.HQSkyCheckBox);
+            this.ShadersPage.Controls.Add(this.WaterReflectionsCheckBox);
+            this.ShadersPage.Controls.Add(this.ShorelineFoamCheckBox);
+            this.ShadersPage.Controls.Add(this.ShadersEffectsLabel);
+            this.ShadersPage.Controls.Add(this.FlameShadersCheckBox);
+            this.ShadersPage.Controls.Add(this.ElectricShadersCheckBox);
+            this.ShadersPage.Controls.Add(this.LaserShadersCheckBox);
+            this.ShadersPage.Controls.Add(this.CryoShadersCheckBox);
+            resources.ApplyResources(this.ShadersPage, "ShadersPage");
+            this.ShadersPage.Name = "ShadersPage";
+            // 
+            // ShadersTabButton
+            // 
+            this.ShadersTabButton.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ShadersTabButton, "ShadersTabButton");
+            this.ShadersTabButton.Name = "ShadersTabButton";
+            this.ShadersTabButton.UseVisualStyleBackColor = false;
+            // 
+            // AlliedDecalLabel
+            // 
+            resources.ApplyResources(this.AlliedDecalLabel, "AlliedDecalLabel");
+            this.AlliedDecalLabel.BackColor = System.Drawing.Color.Transparent;
+            this.AlliedDecalLabel.ForeColor = System.Drawing.Color.White;
+            this.AlliedDecalLabel.Name = "AlliedDecalLabel";
+            // 
+            // AlliedDecalComboBox
+            // 
+            this.AlliedDecalComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.AlliedDecalComboBox, "AlliedDecalComboBox");
+            this.AlliedDecalComboBox.Name = "AlliedDecalComboBox";
+            this.AlliedDecalComboBox.TabStop = false;
+            // 
+            // ObjectDecalsCheckBox
+            // 
+            resources.ApplyResources(this.ObjectDecalsCheckBox, "ObjectDecalsCheckBox");
+            this.ObjectDecalsCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.ObjectDecalsCheckBox.ForeColor = System.Drawing.Color.White;
+            this.ObjectDecalsCheckBox.Name = "ObjectDecalsCheckBox";
+            this.ObjectDecalsCheckBox.TabStop = false;
+            this.ObjectDecalsCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // DefensesRangeCircleCheckBox
+            // 
+            resources.ApplyResources(this.DefensesRangeCircleCheckBox, "DefensesRangeCircleCheckBox");
+            this.DefensesRangeCircleCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.DefensesRangeCircleCheckBox.ForeColor = System.Drawing.Color.White;
+            this.DefensesRangeCircleCheckBox.Name = "DefensesRangeCircleCheckBox";
+            this.DefensesRangeCircleCheckBox.TabStop = false;
+            this.DefensesRangeCircleCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // SmoothUnitMotionCheckBox
+            // 
+            resources.ApplyResources(this.SmoothUnitMotionCheckBox, "SmoothUnitMotionCheckBox");
+            this.SmoothUnitMotionCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.SmoothUnitMotionCheckBox.ForeColor = System.Drawing.Color.White;
+            this.SmoothUnitMotionCheckBox.Name = "SmoothUnitMotionCheckBox";
+            this.SmoothUnitMotionCheckBox.TabStop = false;
+            this.SmoothUnitMotionCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // ActionLinesLabel
+            // 
+            resources.ApplyResources(this.ActionLinesLabel, "ActionLinesLabel");
+            this.ActionLinesLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ActionLinesLabel.ForeColor = System.Drawing.Color.White;
+            this.ActionLinesLabel.Name = "ActionLinesLabel";
+            // 
+            // ActionLinesComboBox
+            // 
+            this.ActionLinesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.ActionLinesComboBox, "ActionLinesComboBox");
+            this.ActionLinesComboBox.Name = "ActionLinesComboBox";
+            this.ActionLinesComboBox.TabStop = false;
+            // 
+            // SmartSelectionCheckBox
+            // 
+            resources.ApplyResources(this.SmartSelectionCheckBox, "SmartSelectionCheckBox");
+            this.SmartSelectionCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.SmartSelectionCheckBox.ForeColor = System.Drawing.Color.White;
+            this.SmartSelectionCheckBox.Name = "SmartSelectionCheckBox";
+            this.SmartSelectionCheckBox.TabStop = false;
+            this.SmartSelectionCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // SmartSelectionUseMouseCheckBox
+            // 
+            resources.ApplyResources(this.SmartSelectionUseMouseCheckBox, "SmartSelectionUseMouseCheckBox");
+            this.SmartSelectionUseMouseCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.SmartSelectionUseMouseCheckBox.ForeColor = System.Drawing.Color.White;
+            this.SmartSelectionUseMouseCheckBox.Name = "SmartSelectionUseMouseCheckBox";
+            this.SmartSelectionUseMouseCheckBox.TabStop = false;
+            this.SmartSelectionUseMouseCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // SmartCommandGroupCheckBox
+            // 
+            resources.ApplyResources(this.SmartCommandGroupCheckBox, "SmartCommandGroupCheckBox");
+            this.SmartCommandGroupCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.SmartCommandGroupCheckBox.ForeColor = System.Drawing.Color.White;
+            this.SmartCommandGroupCheckBox.Name = "SmartCommandGroupCheckBox";
+            this.SmartCommandGroupCheckBox.TabStop = false;
+            this.SmartCommandGroupCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // LowLatencyCheckBox
+            // 
+            resources.ApplyResources(this.LowLatencyCheckBox, "LowLatencyCheckBox");
+            this.LowLatencyCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.LowLatencyCheckBox.ForeColor = System.Drawing.Color.White;
+            this.LowLatencyCheckBox.Name = "LowLatencyCheckBox";
+            this.LowLatencyCheckBox.TabStop = false;
+            this.LowLatencyCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // GridHotkeyLayoutComboBox
+            // 
+            this.GridHotkeyLayoutComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            resources.ApplyResources(this.GridHotkeyLayoutComboBox, "GridHotkeyLayoutComboBox");
+            this.GridHotkeyLayoutComboBox.Name = "GridHotkeyLayoutComboBox";
+            this.GridHotkeyLayoutComboBox.TabStop = false;
+            // 
+            // GridHotkeyUnitOrdersCheckBox
+            // 
+            resources.ApplyResources(this.GridHotkeyUnitOrdersCheckBox, "GridHotkeyUnitOrdersCheckBox");
+            this.GridHotkeyUnitOrdersCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.GridHotkeyUnitOrdersCheckBox.ForeColor = System.Drawing.Color.White;
+            this.GridHotkeyUnitOrdersCheckBox.Name = "GridHotkeyUnitOrdersCheckBox";
+            this.GridHotkeyUnitOrdersCheckBox.TabStop = false;
+            this.GridHotkeyUnitOrdersCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // RadarHeaderLabel
+            // 
+            resources.ApplyResources(this.RadarHeaderLabel, "RadarHeaderLabel");
+            this.RadarHeaderLabel.BackColor = System.Drawing.Color.Transparent;
+            this.RadarHeaderLabel.ForeColor = System.Drawing.Color.White;
+            this.RadarHeaderLabel.Name = "RadarHeaderLabel";
+            // 
+            // NewRadarCheckBox
+            // 
+            resources.ApplyResources(this.NewRadarCheckBox, "NewRadarCheckBox");
+            this.NewRadarCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.NewRadarCheckBox.ForeColor = System.Drawing.Color.White;
+            this.NewRadarCheckBox.Name = "NewRadarCheckBox";
+            this.NewRadarCheckBox.TabStop = false;
+            this.NewRadarCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // BlipSizeCheckBox
+            // 
+            resources.ApplyResources(this.BlipSizeCheckBox, "BlipSizeCheckBox");
+            this.BlipSizeCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.BlipSizeCheckBox.ForeColor = System.Drawing.Color.White;
+            this.BlipSizeCheckBox.Name = "BlipSizeCheckBox";
+            this.BlipSizeCheckBox.TabStop = false;
+            this.BlipSizeCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // ShadersQualityLabel
+            // 
+            resources.ApplyResources(this.ShadersQualityLabel, "ShadersQualityLabel");
+            this.ShadersQualityLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ShadersQualityLabel.ForeColor = System.Drawing.Color.White;
+            this.ShadersQualityLabel.Name = "ShadersQualityLabel";
+            // 
+            // AntiAliasingLabel
+            // 
+            resources.ApplyResources(this.AntiAliasingLabel, "AntiAliasingLabel");
+            this.AntiAliasingLabel.BackColor = System.Drawing.Color.Transparent;
+            this.AntiAliasingLabel.ForeColor = System.Drawing.Color.White;
+            this.AntiAliasingLabel.Name = "AntiAliasingLabel";
+            // 
+            // AntiAliasingComboBox
+            // 
+            this.AntiAliasingComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.AntiAliasingComboBox, "AntiAliasingComboBox");
+            this.AntiAliasingComboBox.Name = "AntiAliasingComboBox";
+            this.AntiAliasingComboBox.TabStop = false;
+            // 
+            // SuperSamplingLabel
+            // 
+            resources.ApplyResources(this.SuperSamplingLabel, "SuperSamplingLabel");
+            this.SuperSamplingLabel.BackColor = System.Drawing.Color.Transparent;
+            this.SuperSamplingLabel.ForeColor = System.Drawing.Color.White;
+            this.SuperSamplingLabel.Name = "SuperSamplingLabel";
+            // 
+            // SuperSamplingComboBox
+            // 
+            this.SuperSamplingComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.SuperSamplingComboBox, "SuperSamplingComboBox");
+            this.SuperSamplingComboBox.Name = "SuperSamplingComboBox";
+            this.SuperSamplingComboBox.TabStop = false;
+            // 
+            // AmbientOcclusionCheckBox
+            // 
+            resources.ApplyResources(this.AmbientOcclusionCheckBox, "AmbientOcclusionCheckBox");
+            this.AmbientOcclusionCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.AmbientOcclusionCheckBox.ForeColor = System.Drawing.Color.White;
+            this.AmbientOcclusionCheckBox.Name = "AmbientOcclusionCheckBox";
+            this.AmbientOcclusionCheckBox.TabStop = false;
+            this.AmbientOcclusionCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // SoftParticlesCheckBox
+            // 
+            resources.ApplyResources(this.SoftParticlesCheckBox, "SoftParticlesCheckBox");
+            this.SoftParticlesCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.SoftParticlesCheckBox.ForeColor = System.Drawing.Color.White;
+            this.SoftParticlesCheckBox.Name = "SoftParticlesCheckBox";
+            this.SoftParticlesCheckBox.TabStop = false;
+            this.SoftParticlesCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // ShadersShadowsLabel
+            // 
+            resources.ApplyResources(this.ShadersShadowsLabel, "ShadersShadowsLabel");
+            this.ShadersShadowsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ShadersShadowsLabel.ForeColor = System.Drawing.Color.White;
+            this.ShadersShadowsLabel.Name = "ShadersShadowsLabel";
+            // 
+            // ShadowMapCheckBox
+            // 
+            resources.ApplyResources(this.ShadowMapCheckBox, "ShadowMapCheckBox");
+            this.ShadowMapCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.ShadowMapCheckBox.ForeColor = System.Drawing.Color.White;
+            this.ShadowMapCheckBox.Name = "ShadowMapCheckBox";
+            this.ShadowMapCheckBox.TabStop = false;
+            this.ShadowMapCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // ShadowMapResolutionLabel
+            // 
+            resources.ApplyResources(this.ShadowMapResolutionLabel, "ShadowMapResolutionLabel");
+            this.ShadowMapResolutionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ShadowMapResolutionLabel.ForeColor = System.Drawing.Color.White;
+            this.ShadowMapResolutionLabel.Name = "ShadowMapResolutionLabel";
+            // 
+            // ShadowMapResolutionComboBox
+            // 
+            this.ShadowMapResolutionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.ShadowMapResolutionComboBox, "ShadowMapResolutionComboBox");
+            this.ShadowMapResolutionComboBox.Name = "ShadowMapResolutionComboBox";
+            this.ShadowMapResolutionComboBox.TabStop = false;
+            // 
+            // ShadersGlowLabel
+            // 
+            resources.ApplyResources(this.ShadersGlowLabel, "ShadersGlowLabel");
+            this.ShadersGlowLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ShadersGlowLabel.ForeColor = System.Drawing.Color.White;
+            this.ShadersGlowLabel.Name = "ShadersGlowLabel";
+            // 
+            // BloomCheckBox
+            // 
+            resources.ApplyResources(this.BloomCheckBox, "BloomCheckBox");
+            this.BloomCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.BloomCheckBox.ForeColor = System.Drawing.Color.White;
+            this.BloomCheckBox.Name = "BloomCheckBox";
+            this.BloomCheckBox.TabStop = false;
+            this.BloomCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // BloomStrengthLabel
+            // 
+            resources.ApplyResources(this.BloomStrengthLabel, "BloomStrengthLabel");
+            this.BloomStrengthLabel.BackColor = System.Drawing.Color.Transparent;
+            this.BloomStrengthLabel.ForeColor = System.Drawing.Color.White;
+            this.BloomStrengthLabel.Name = "BloomStrengthLabel";
+            // 
+            // BloomStrengthUpDown
+            // 
+            resources.ApplyResources(this.BloomStrengthUpDown, "BloomStrengthUpDown");
+            this.BloomStrengthUpDown.Name = "BloomStrengthUpDown";
+            this.BloomStrengthUpDown.TabStop = false;
+            // 
+            // LaserRefCheckBox
+            // 
+            resources.ApplyResources(this.LaserRefCheckBox, "LaserRefCheckBox");
+            this.LaserRefCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.LaserRefCheckBox.ForeColor = System.Drawing.Color.White;
+            this.LaserRefCheckBox.Name = "LaserRefCheckBox";
+            this.LaserRefCheckBox.TabStop = false;
+            this.LaserRefCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // ShadersD3D9HintLabel
+            // 
+            resources.ApplyResources(this.ShadersD3D9HintLabel, "ShadersD3D9HintLabel");
+            this.ShadersD3D9HintLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ShadersD3D9HintLabel.ForeColor = System.Drawing.Color.White;
+            this.ShadersD3D9HintLabel.Name = "ShadersD3D9HintLabel";
+            // 
+            // ShadersSurfacesLabel
+            // 
+            resources.ApplyResources(this.ShadersSurfacesLabel, "ShadersSurfacesLabel");
+            this.ShadersSurfacesLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ShadersSurfacesLabel.ForeColor = System.Drawing.Color.White;
+            this.ShadersSurfacesLabel.Name = "ShadersSurfacesLabel";
+            // 
+            // SpecularCheckBox
+            // 
+            resources.ApplyResources(this.SpecularCheckBox, "SpecularCheckBox");
+            this.SpecularCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.SpecularCheckBox.ForeColor = System.Drawing.Color.White;
+            this.SpecularCheckBox.Name = "SpecularCheckBox";
+            this.SpecularCheckBox.TabStop = false;
+            this.SpecularCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // NormalMapsCheckBox
+            // 
+            resources.ApplyResources(this.NormalMapsCheckBox, "NormalMapsCheckBox");
+            this.NormalMapsCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.NormalMapsCheckBox.ForeColor = System.Drawing.Color.White;
+            this.NormalMapsCheckBox.Name = "NormalMapsCheckBox";
+            this.NormalMapsCheckBox.TabStop = false;
+            this.NormalMapsCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // HeightBlendCheckBox
+            // 
+            resources.ApplyResources(this.HeightBlendCheckBox, "HeightBlendCheckBox");
+            this.HeightBlendCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.HeightBlendCheckBox.ForeColor = System.Drawing.Color.White;
+            this.HeightBlendCheckBox.Name = "HeightBlendCheckBox";
+            this.HeightBlendCheckBox.TabStop = false;
+            this.HeightBlendCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // ShadersLightsLabel
+            // 
+            resources.ApplyResources(this.ShadersLightsLabel, "ShadersLightsLabel");
+            this.ShadersLightsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ShadersLightsLabel.ForeColor = System.Drawing.Color.White;
+            this.ShadersLightsLabel.Name = "ShadersLightsLabel";
+            // 
+            // DynamicLightsCheckBox
+            // 
+            resources.ApplyResources(this.DynamicLightsCheckBox, "DynamicLightsCheckBox");
+            this.DynamicLightsCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.DynamicLightsCheckBox.ForeColor = System.Drawing.Color.White;
+            this.DynamicLightsCheckBox.Name = "DynamicLightsCheckBox";
+            this.DynamicLightsCheckBox.TabStop = false;
+            this.DynamicLightsCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // PixelLightsCheckBox
+            // 
+            resources.ApplyResources(this.PixelLightsCheckBox, "PixelLightsCheckBox");
+            this.PixelLightsCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.PixelLightsCheckBox.ForeColor = System.Drawing.Color.White;
+            this.PixelLightsCheckBox.Name = "PixelLightsCheckBox";
+            this.PixelLightsCheckBox.TabStop = false;
+            this.PixelLightsCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // ShadersSkyWaterLabel
+            // 
+            resources.ApplyResources(this.ShadersSkyWaterLabel, "ShadersSkyWaterLabel");
+            this.ShadersSkyWaterLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ShadersSkyWaterLabel.ForeColor = System.Drawing.Color.White;
+            this.ShadersSkyWaterLabel.Name = "ShadersSkyWaterLabel";
+            // 
+            // HQSkyCheckBox
+            // 
+            resources.ApplyResources(this.HQSkyCheckBox, "HQSkyCheckBox");
+            this.HQSkyCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.HQSkyCheckBox.ForeColor = System.Drawing.Color.White;
+            this.HQSkyCheckBox.Name = "HQSkyCheckBox";
+            this.HQSkyCheckBox.TabStop = false;
+            this.HQSkyCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // WaterReflectionsCheckBox
+            // 
+            resources.ApplyResources(this.WaterReflectionsCheckBox, "WaterReflectionsCheckBox");
+            this.WaterReflectionsCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.WaterReflectionsCheckBox.ForeColor = System.Drawing.Color.White;
+            this.WaterReflectionsCheckBox.Name = "WaterReflectionsCheckBox";
+            this.WaterReflectionsCheckBox.TabStop = false;
+            this.WaterReflectionsCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // ShorelineFoamCheckBox
+            // 
+            resources.ApplyResources(this.ShorelineFoamCheckBox, "ShorelineFoamCheckBox");
+            this.ShorelineFoamCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.ShorelineFoamCheckBox.ForeColor = System.Drawing.Color.White;
+            this.ShorelineFoamCheckBox.Name = "ShorelineFoamCheckBox";
+            this.ShorelineFoamCheckBox.TabStop = false;
+            this.ShorelineFoamCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // ShadersEffectsLabel
+            // 
+            resources.ApplyResources(this.ShadersEffectsLabel, "ShadersEffectsLabel");
+            this.ShadersEffectsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ShadersEffectsLabel.ForeColor = System.Drawing.Color.White;
+            this.ShadersEffectsLabel.Name = "ShadersEffectsLabel";
+            // 
+            // FlameShadersCheckBox
+            // 
+            resources.ApplyResources(this.FlameShadersCheckBox, "FlameShadersCheckBox");
+            this.FlameShadersCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.FlameShadersCheckBox.ForeColor = System.Drawing.Color.White;
+            this.FlameShadersCheckBox.Name = "FlameShadersCheckBox";
+            this.FlameShadersCheckBox.TabStop = false;
+            this.FlameShadersCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // ElectricShadersCheckBox
+            // 
+            resources.ApplyResources(this.ElectricShadersCheckBox, "ElectricShadersCheckBox");
+            this.ElectricShadersCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.ElectricShadersCheckBox.ForeColor = System.Drawing.Color.White;
+            this.ElectricShadersCheckBox.Name = "ElectricShadersCheckBox";
+            this.ElectricShadersCheckBox.TabStop = false;
+            this.ElectricShadersCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // LaserShadersCheckBox
+            // 
+            resources.ApplyResources(this.LaserShadersCheckBox, "LaserShadersCheckBox");
+            this.LaserShadersCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.LaserShadersCheckBox.ForeColor = System.Drawing.Color.White;
+            this.LaserShadersCheckBox.Name = "LaserShadersCheckBox";
+            this.LaserShadersCheckBox.TabStop = false;
+            this.LaserShadersCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // CryoShadersCheckBox
+            // 
+            resources.ApplyResources(this.CryoShadersCheckBox, "CryoShadersCheckBox");
+            this.CryoShadersCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.CryoShadersCheckBox.ForeColor = System.Drawing.Color.White;
+            this.CryoShadersCheckBox.Name = "CryoShadersCheckBox";
+            this.CryoShadersCheckBox.TabStop = false;
+            this.CryoShadersCheckBox.UseVisualStyleBackColor = false;
+            // 
             // GameOptionsPage
             // 
             this.GameOptionsPage.BackColor = System.Drawing.Color.Transparent;
@@ -459,11 +910,6 @@
             this.GameOptionsPage.Controls.Add(this.GridHotkeysHeaderLabel);
             this.GameOptionsPage.Controls.Add(this.GridHotkeysCheckBox);
             this.GameOptionsPage.Controls.Add(this.GridHotkeyLayoutLabel);
-            this.GameOptionsPage.Controls.Add(this.GridHotkeyEditor);
-            this.GameOptionsPage.Controls.Add(this.GridHotkeyColumnsLabel);
-            this.GameOptionsPage.Controls.Add(this.GridHotkeyColumnsUpDown);
-            this.GameOptionsPage.Controls.Add(this.NonGridHotkeysLabel);
-            this.GameOptionsPage.Controls.Add(this.NonGridOverflowTextBox);
             this.GameOptionsPage.Controls.Add(this.HotkeyOverlayHeaderLabel);
             this.GameOptionsPage.Controls.Add(this.KeyboardOverlayCheckBox);
             this.GameOptionsPage.Controls.Add(this.KeyboardOverlayBackdropCheckBox);
@@ -478,13 +924,24 @@
             this.GameOptionsPage.Controls.Add(this.BackdropBlueUpDown);
             this.GameOptionsPage.Controls.Add(this.BackdropOpacityUpDown);
             this.GameOptionsPage.Controls.Add(this.BackdropRgbHintLabel);
-            this.GameOptionsPage.Controls.Add(this.GameOptGraphicsLabel);
-            this.GameOptionsPage.Controls.Add(this.TextureFilterLabel);
-            this.GameOptionsPage.Controls.Add(this.TextureFilterComboBox);
-            this.GameOptionsPage.Controls.Add(this.AnisotropicLevelLabel);
-            this.GameOptionsPage.Controls.Add(this.AnisotropicLevelComboBox);
             this.GameOptionsPage.Controls.Add(this.OverlayColourButton);
             this.GameOptionsPage.Controls.Add(this.BackdropColourButton);
+            this.GameOptionsPage.Controls.Add(this.AlliedDecalLabel);
+            this.GameOptionsPage.Controls.Add(this.AlliedDecalComboBox);
+            this.GameOptionsPage.Controls.Add(this.ObjectDecalsCheckBox);
+            this.GameOptionsPage.Controls.Add(this.DefensesRangeCircleCheckBox);
+            this.GameOptionsPage.Controls.Add(this.SmoothUnitMotionCheckBox);
+            this.GameOptionsPage.Controls.Add(this.ActionLinesLabel);
+            this.GameOptionsPage.Controls.Add(this.ActionLinesComboBox);
+            this.GameOptionsPage.Controls.Add(this.SmartSelectionCheckBox);
+            this.GameOptionsPage.Controls.Add(this.SmartSelectionUseMouseCheckBox);
+            this.GameOptionsPage.Controls.Add(this.SmartCommandGroupCheckBox);
+            this.GameOptionsPage.Controls.Add(this.LowLatencyCheckBox);
+            this.GameOptionsPage.Controls.Add(this.GridHotkeyLayoutComboBox);
+            this.GameOptionsPage.Controls.Add(this.GridHotkeyUnitOrdersCheckBox);
+            this.GameOptionsPage.Controls.Add(this.RadarHeaderLabel);
+            this.GameOptionsPage.Controls.Add(this.NewRadarCheckBox);
+            this.GameOptionsPage.Controls.Add(this.BlipSizeCheckBox);
             resources.ApplyResources(this.GameOptionsPage, "GameOptionsPage");
             this.GameOptionsPage.Name = "GameOptionsPage";
             // 
@@ -961,6 +1418,8 @@
             this.Controls.Add(this.GraphicsTabButton);
             this.Controls.Add(this.GraphicsPage);
             this.Controls.Add(this.GameOptionsPage);
+            this.Controls.Add(this.ShadersTabButton);
+            this.Controls.Add(this.ShadersPage);
             this.Controls.Add(this.GameOptionsTabButton);
             this.Controls.Add(this.CameraHeightTrackBar);
             this.Controls.Add(this.ParticleCapTrackBar);
@@ -999,7 +1458,6 @@
             this.MaximizeBox = false;
             this.Name = "OptionsForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            ((System.ComponentModel.ISupportInitialize)(this.GridHotkeyColumnsUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OverlayRedUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OverlayGreenUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OverlayBlueUpDown)).EndInit();
@@ -1007,8 +1465,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.BackdropGreenUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackdropBlueUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BackdropOpacityUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BloomStrengthUpDown)).EndInit();
             this.GameOptionsPage.ResumeLayout(false);
             this.GameOptionsPage.PerformLayout();
+            this.ShadersPage.ResumeLayout(false);
+            this.ShadersPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GraphicsInfoPictureBox)).EndInit();
             this.GraphicsInfoTextPanel.ResumeLayout(false);
             this.GraphicsInfoTextPanel.PerformLayout();
@@ -1090,11 +1551,6 @@
         private System.Windows.Forms.Label GridHotkeysHeaderLabel;
         private System.Windows.Forms.CheckBox GridHotkeysCheckBox;
         private System.Windows.Forms.Label GridHotkeyLayoutLabel;
-        private Contra.GridHotkeyEditor GridHotkeyEditor;
-        private System.Windows.Forms.Label GridHotkeyColumnsLabel;
-        private System.Windows.Forms.NumericUpDown GridHotkeyColumnsUpDown;
-        private System.Windows.Forms.Label NonGridHotkeysLabel;
-        private System.Windows.Forms.TextBox NonGridOverflowTextBox;
         private System.Windows.Forms.Label HotkeyOverlayHeaderLabel;
         private System.Windows.Forms.CheckBox KeyboardOverlayCheckBox;
         private System.Windows.Forms.CheckBox KeyboardOverlayBackdropCheckBox;
@@ -1109,7 +1565,6 @@
         private System.Windows.Forms.NumericUpDown BackdropBlueUpDown;
         private System.Windows.Forms.NumericUpDown BackdropOpacityUpDown;
         private System.Windows.Forms.Label BackdropRgbHintLabel;
-        private System.Windows.Forms.Label GameOptGraphicsLabel;
         private System.Windows.Forms.Label TextureFilterLabel;
         private System.Windows.Forms.ComboBox TextureFilterComboBox;
         private System.Windows.Forms.Label AnisotropicLevelLabel;
@@ -1119,6 +1574,57 @@
         private System.Windows.Forms.ToolTip GameOptionsToolTip;
         private System.Windows.Forms.Panel GraphicsPage;
         private System.Windows.Forms.Panel GameOptionsPage;
+        private System.Windows.Forms.CheckBox CryoShadersCheckBox;
+        private System.Windows.Forms.CheckBox LaserShadersCheckBox;
+        private System.Windows.Forms.CheckBox ElectricShadersCheckBox;
+        private System.Windows.Forms.CheckBox FlameShadersCheckBox;
+        private System.Windows.Forms.Label ShadersEffectsLabel;
+        private System.Windows.Forms.CheckBox ShorelineFoamCheckBox;
+        private System.Windows.Forms.CheckBox WaterReflectionsCheckBox;
+        private System.Windows.Forms.CheckBox HQSkyCheckBox;
+        private System.Windows.Forms.Label ShadersSkyWaterLabel;
+        private System.Windows.Forms.CheckBox PixelLightsCheckBox;
+        private System.Windows.Forms.CheckBox DynamicLightsCheckBox;
+        private System.Windows.Forms.Label ShadersLightsLabel;
+        private System.Windows.Forms.CheckBox HeightBlendCheckBox;
+        private System.Windows.Forms.CheckBox NormalMapsCheckBox;
+        private System.Windows.Forms.CheckBox SpecularCheckBox;
+        private System.Windows.Forms.Label ShadersSurfacesLabel;
+        private System.Windows.Forms.Label ShadersD3D9HintLabel;
+        private System.Windows.Forms.CheckBox LaserRefCheckBox;
+        private System.Windows.Forms.NumericUpDown BloomStrengthUpDown;
+        private System.Windows.Forms.Label BloomStrengthLabel;
+        private System.Windows.Forms.CheckBox BloomCheckBox;
+        private System.Windows.Forms.Label ShadersGlowLabel;
+        private System.Windows.Forms.ComboBox ShadowMapResolutionComboBox;
+        private System.Windows.Forms.Label ShadowMapResolutionLabel;
+        private System.Windows.Forms.CheckBox ShadowMapCheckBox;
+        private System.Windows.Forms.Label ShadersShadowsLabel;
+        private System.Windows.Forms.CheckBox SoftParticlesCheckBox;
+        private System.Windows.Forms.CheckBox AmbientOcclusionCheckBox;
+        private System.Windows.Forms.ComboBox SuperSamplingComboBox;
+        private System.Windows.Forms.Label SuperSamplingLabel;
+        private System.Windows.Forms.ComboBox AntiAliasingComboBox;
+        private System.Windows.Forms.Label AntiAliasingLabel;
+        private System.Windows.Forms.Label ShadersQualityLabel;
+        private System.Windows.Forms.CheckBox BlipSizeCheckBox;
+        private System.Windows.Forms.CheckBox NewRadarCheckBox;
+        private System.Windows.Forms.Label RadarHeaderLabel;
+        private System.Windows.Forms.CheckBox GridHotkeyUnitOrdersCheckBox;
+        private System.Windows.Forms.ComboBox GridHotkeyLayoutComboBox;
+        private System.Windows.Forms.CheckBox LowLatencyCheckBox;
+        private System.Windows.Forms.CheckBox SmartCommandGroupCheckBox;
+        private System.Windows.Forms.CheckBox SmartSelectionUseMouseCheckBox;
+        private System.Windows.Forms.CheckBox SmartSelectionCheckBox;
+        private System.Windows.Forms.ComboBox ActionLinesComboBox;
+        private System.Windows.Forms.Label ActionLinesLabel;
+        private System.Windows.Forms.CheckBox SmoothUnitMotionCheckBox;
+        private System.Windows.Forms.CheckBox DefensesRangeCircleCheckBox;
+        private System.Windows.Forms.CheckBox ObjectDecalsCheckBox;
+        private System.Windows.Forms.ComboBox AlliedDecalComboBox;
+        private System.Windows.Forms.Label AlliedDecalLabel;
+        private System.Windows.Forms.Button ShadersTabButton;
+        private System.Windows.Forms.Panel ShadersPage;
         private System.Windows.Forms.Button GraphicsTabButton;
         private System.Windows.Forms.Button GameOptionsTabButton;
     }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -36,8 +36,10 @@ namespace Contra
 
         /// <summary>
         /// Value of a key, or the supplied fallback when the key is absent or empty.
-        /// Matched at the start of a line so a key is never picked up from inside another one --
-        /// "GridHotkeys" would otherwise also match "GridHotkeyColumns".
+        /// Matched from the start of a line up to the "=", so a key is never picked up from inside
+        /// another one -- "Bloom" would otherwise also match "BloomStrength", and "Lights"
+        /// "DynamicLights". Case-sensitive, as the game is: "bloom = yes" is a line it ignores, so
+        /// reading it would show a setting that is not in effect.
         /// </summary>
         public static string GetValue(string contents, string key, string fallback)
         {
@@ -48,7 +50,7 @@ namespace Contra
 
             Match m = Regex.Match(contents,
                 @"^[ \t]*" + Regex.Escape(key) + @"[ \t]*=[ \t]*(.*)$",
-                RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                RegexOptions.Multiline);
 
             if (!m.Success)
             {
@@ -59,10 +61,41 @@ namespace Contra
             return value.Length == 0 ? fallback : value;
         }
 
+        /// <summary>
+        /// A boolean in the legacy form: only "yes" is on, and "true" or "1" read as off. The
+        /// original game keys and the first contraZH ones are parsed this way.
+        /// </summary>
         public static bool GetBool(string contents, string key, bool fallback)
         {
             string value = GetValue(contents, key, fallback ? "Yes" : "No");
             return string.Equals(value, "Yes", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// A boolean in the newer form, which the engine reads more loosely: 1, t, true, y, yes or
+        /// ok is on, anything else off. Reading these with GetBool would turn a hand written
+        /// "true" off on the next save.
+        /// </summary>
+        public static bool GetFlag(string contents, string key, bool fallback)
+        {
+            string value = GetValue(contents, key, null);
+            if (value == null)
+            {
+                return fallback;
+            }
+
+            switch (value.ToLowerInvariant())
+            {
+                case "1":
+                case "t":
+                case "true":
+                case "y":
+                case "yes":
+                case "ok":
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         public static int GetInt(string contents, string key, int fallback)
@@ -92,9 +125,11 @@ namespace Contra
             // as CRLF, but a hand edited file may not be, and mixing the two upsets some parsers.
             string newLine = contents.Contains("\r\n") ? "\r\n" : "\n";
 
+            // [^\r\n] rather than "." so a CRLF file keeps the \r of the line being replaced; "."
+            // takes it, which left that one line ending in a bare \n.
             Regex existing = new Regex(
-                @"^[ \t]*" + Regex.Escape(key) + @"[ \t]*=.*$",
-                RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                @"^[ \t]*" + Regex.Escape(key) + @"[ \t]*=[^\r\n]*",
+                RegexOptions.Multiline);
 
             if (existing.IsMatch(contents))
             {
@@ -111,7 +146,8 @@ namespace Contra
 
         public static string SetBool(string contents, string key, bool value)
         {
-            return SetValue(contents, key, value ? "Yes" : "No");
+            // Lower case, as the game writes them, so saving an unchanged page leaves the file as it was.
+            return SetValue(contents, key, value ? "yes" : "no");
         }
 
         public static string SetInt(string contents, string key, int value)
@@ -126,7 +162,19 @@ namespace Contra
                 return;
             }
 
-            File.WriteAllText(IniPath, contents);
+            // Through a temporary file, so an interrupted write can never leave Options.ini
+            // half written. The game refuses to save a file it could not read at launch, which
+            // would quietly stop every in-game options change from sticking.
+            string temp = IniPath + ".tmp";
+            File.WriteAllText(temp, contents);
+            if (File.Exists(IniPath))
+            {
+                File.Replace(temp, IniPath, null);
+            }
+            else
+            {
+                File.Move(temp, IniPath);
+            }
         }
     }
 }
