@@ -99,7 +99,6 @@ namespace Contra
                 FogCheckBox.Text = "Эффект тумана";
                 LangFilterCheckBox.Text = "Языковый фильтр";
                 WaterEffectsCheckBox.Text = "Эффект воды";
-                CameraHeightLabel.Text = "Высота камеры: ?";
                 HotkeyStyleLabel.Text = "Горячие клав.";
                 LegacyHotkeysRadioButton.Text = "Оригинальный";
                 CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Стандарт.";
@@ -126,7 +125,6 @@ namespace Contra
                 FogCheckBox.Text = "Ефект туману";
                 LangFilterCheckBox.Text = "Мовний фільтр";
                 WaterEffectsCheckBox.Text = "Водний ефект";
-                CameraHeightLabel.Text = "Висота камери: ?";
                 HotkeyStyleLabel.Text = "Гарячі клавіші";
                 LegacyHotkeysRadioButton.Text = "Оригінальний";
                 CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Стандарт.";
@@ -153,7 +151,6 @@ namespace Contra
                 FogCheckBox.Text = "Мъглявинен ефект";
                 LangFilterCheckBox.Text = "Езиков филтър";
                 WaterEffectsCheckBox.Text = "Водни ефекти";
-                CameraHeightLabel.Text = "Вис. на камерата: ?";
                 HotkeyStyleLabel.Text = "Горещи клав.";
                 LegacyHotkeysRadioButton.Text = "Оригинален";
                 CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Стандарт.";
@@ -180,7 +177,6 @@ namespace Contra
                 FogCheckBox.Text = "Nebel Effekte";
                 LangFilterCheckBox.Text = "Sprache Filter";
                 WaterEffectsCheckBox.Text = "Wassereffekt";
-                CameraHeightLabel.Text = "Kamerahöhe: ?";
                 HotkeyStyleLabel.Text = "Hotkey-Stil";
                 LegacyHotkeysRadioButton.Text = "Original";
                 CameosStandardRadioButton.Text = LegacyHotkeysRadioButton.Text = ControlBarStandardRadioButton.Text = "Standard";
@@ -368,7 +364,7 @@ namespace Contra
 
         private void CameraHeightTrackBar_Scroll(object sender, EventArgs e)
         {
-            CameraHeightLabel.Text = Messages.GenerateMessage("CameraHeightString", Globals.currentLanguage) + CameraHeightTrackBar.Value.ToString() + ".0";
+            UpdateCameraHeightState();
         }
 
         public void IsGeneralsRunning()

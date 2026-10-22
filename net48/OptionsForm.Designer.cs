@@ -129,7 +129,7 @@
             this.resolutionComboBox = new Contra.ContraComboBox();
             this.labelResolution = new System.Windows.Forms.Label();
             this.HeatEffectsCheckBox = new Contra.ContraCheckBox();
-            this.CameraHeightLabel = new System.Windows.Forms.Label();
+            this.CameraHeightCheckBox = new Contra.ContraCheckBox();
             this.WaterEffectsCheckBox = new Contra.ContraCheckBox();
             this.DisableDynamicLODCheckBox = new Contra.ContraCheckBox();
             this.ExtraAnimationsCheckBox = new Contra.ContraCheckBox();
@@ -1007,12 +1007,16 @@
             this.HeatEffectsCheckBox.MouseLeave += new System.EventHandler(this.Option_MouseLeave);
             this.HeatEffectsCheckBox.MouseHover += new System.EventHandler(this.HeatEffectsCheckBox_MouseHover);
             // 
-            // CameraHeightLabel
+            // CameraHeightCheckBox
             // 
-            resources.ApplyResources(this.CameraHeightLabel, "CameraHeightLabel");
-            this.CameraHeightLabel.BackColor = System.Drawing.Color.Transparent;
-            this.CameraHeightLabel.ForeColor = System.Drawing.Color.Gray;
-            this.CameraHeightLabel.Name = "CameraHeightLabel";
+            resources.ApplyResources(this.CameraHeightCheckBox, "CameraHeightCheckBox");
+            this.CameraHeightCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.CameraHeightCheckBox.ForeColor = System.Drawing.Color.White;
+            this.CameraHeightCheckBox.Name = "CameraHeightCheckBox";
+            this.CameraHeightCheckBox.TabStop = false;
+            this.CameraHeightCheckBox.UseVisualStyleBackColor = false;
+            this.CameraHeightCheckBox.MouseLeave += new System.EventHandler(this.Option_MouseLeave);
+            this.CameraHeightCheckBox.MouseHover += new System.EventHandler(this.CameraHeightTrackBar_MouseHover);
             // 
             // WaterEffectsCheckBox
             // 
@@ -1373,10 +1377,9 @@
             // 
             this.CameraHeightTrackBar.BackColor = System.Drawing.Color.Transparent;
             this.CameraHeightTrackBar.Cursor = System.Windows.Forms.Cursors.Default;
-            this.CameraHeightTrackBar.Enabled = false;
             resources.ApplyResources(this.CameraHeightTrackBar, "CameraHeightTrackBar");
-            this.CameraHeightTrackBar.Maximum = 750;
-            this.CameraHeightTrackBar.Minimum = 392;
+            this.CameraHeightTrackBar.Maximum = 1000;
+            this.CameraHeightTrackBar.Minimum = 210;
             this.CameraHeightTrackBar.Name = "CameraHeightTrackBar";
             this.CameraHeightTrackBar.TabStop = true;
             this.CameraHeightTrackBar.Value = 392;
@@ -1445,7 +1448,7 @@
             this.Controls.Add(this.ExtraAnimationsCheckBox);
             this.Controls.Add(this.DisableDynamicLODCheckBox);
             this.Controls.Add(this.WaterEffectsCheckBox);
-            this.Controls.Add(this.CameraHeightLabel);
+            this.Controls.Add(this.CameraHeightCheckBox);
             this.Controls.Add(this.camOkButton);
             this.Controls.Add(this.HeatEffectsCheckBox);
             this.Controls.Add(this.labelResolution);
@@ -1495,7 +1498,7 @@
         private System.Windows.Forms.Label labelResolution;
         private Contra.ContraCheckBox HeatEffectsCheckBox;
         private TrackBar CameraHeightTrackBar;
-        private System.Windows.Forms.Label CameraHeightLabel;
+        private Contra.ContraCheckBox CameraHeightCheckBox;
         private Contra.ContraCheckBox WaterEffectsCheckBox;
         private Contra.ContraCheckBox DisableDynamicLODCheckBox;
         private Contra.ContraCheckBox ExtraAnimationsCheckBox;

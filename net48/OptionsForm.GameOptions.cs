@@ -136,6 +136,7 @@ namespace Contra
             KeyboardOverlayBackdropCheckBox.CheckedChanged += delegate { UpdateOverlayEnabledState(); };
             GridHotkeysCheckBox.CheckedChanged += delegate { UpdateGridEnabledState(); };
             NewRadarCheckBox.CheckedChanged += delegate { UpdateRadarEnabledState(); };
+            CameraHeightCheckBox.CheckedChanged += delegate { UpdateCameraHeightState(); };
 
             EventHandler graphics = delegate { UpdateGraphicsEnabledState(); };
             TextureFilterComboBox.SelectedIndexChanged += graphics;
@@ -448,6 +449,22 @@ namespace Contra
             GridHotkeyUnitOrdersCheckBox.Enabled = on;
         }
 
+        /// <summary>
+        /// MaxCameraHeight is only read while UseCustomMaxCameraHeight is on; otherwise the game
+        /// uses the mod's own limit, which the launcher cannot see -- so the slider greys out and
+        /// the caption drops its number.
+        /// </summary>
+        private void UpdateCameraHeightState()
+        {
+            bool custom = CameraHeightCheckBox.Checked;
+            string caption = Messages.GenerateMessage("CameraHeightString", Globals.currentLanguage);
+
+            CameraHeightTrackBar.Enabled = custom;
+            CameraHeightCheckBox.Text = custom
+                ? caption + CameraHeightTrackBar.Value
+                : caption.TrimEnd(' ', ':');
+        }
+
         /// <summary>BlipSize does nothing unless the simplified radar is on.</summary>
         private void UpdateRadarEnabledState()
         {
@@ -590,6 +607,16 @@ namespace Contra
             BackdropGreenUpDown.Value = Clamp(GameOptionsIni.GetInt(s, "KeyboardOverlayBackdropGreen", 0), BackdropGreenUpDown);
             BackdropBlueUpDown.Value = Clamp(GameOptionsIni.GetInt(s, "KeyboardOverlayBackdropBlue", 0), BackdropBlueUpDown);
             BackdropOpacityUpDown.Value = Clamp(GameOptionsIni.GetInt(s, "KeyboardOverlayBackdropOpacity", 128), BackdropOpacityUpDown);
+
+            // Camera height. The game clamps MaxCameraHeight into the slider's 210..1000, and a
+            // missing or zero value means the mod's own limit; the slider then starts from 350,
+            // a value only written once the custom height is switched on.
+            CameraHeightCheckBox.Checked = GameOptionsIni.GetFlag(s, "UseCustomMaxCameraHeight", false);
+            int cameraHeight = GameOptionsIni.GetInt(s, "MaxCameraHeight", 0);
+            CameraHeightTrackBar.Value = cameraHeight > 0
+                ? Math.Max(CameraHeightTrackBar.Minimum, Math.Min(CameraHeightTrackBar.Maximum, cameraHeight))
+                : 350;
+            UpdateCameraHeightState();
 
             // Radar. BlipSize is a named mode, Small or Large, with its index also accepted.
             NewRadarCheckBox.Checked = GameOptionsIni.GetBool(s, "NewRadar", false);
@@ -779,6 +806,13 @@ namespace Contra
             s = GameOptionsIni.SetInt(s, "KeyboardOverlayBackdropGreen", (int)BackdropGreenUpDown.Value);
             s = GameOptionsIni.SetInt(s, "KeyboardOverlayBackdropBlue", (int)BackdropBlueUpDown.Value);
             s = GameOptionsIni.SetInt(s, "KeyboardOverlayBackdropOpacity", (int)BackdropOpacityUpDown.Value);
+
+            // Camera height. Switched off, MaxCameraHeight is left as it is; the game ignores it.
+            s = GameOptionsIni.SetBool(s, "UseCustomMaxCameraHeight", CameraHeightCheckBox.Checked);
+            if (CameraHeightCheckBox.Checked)
+            {
+                s = GameOptionsIni.SetInt(s, "MaxCameraHeight", CameraHeightTrackBar.Value);
+            }
 
             // Radar
             s = GameOptionsIni.SetBool(s, "NewRadar", NewRadarCheckBox.Checked);
