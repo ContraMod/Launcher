@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -340,6 +341,24 @@ namespace Contra
         [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
         private static extern int SetWindowTheme(IntPtr hwnd, string subAppName, string subIdList);
 
+        [StructLayout(LayoutKind.Sequential)]
+        private struct PAINTSTRUCT
+        {
+            public IntPtr hdc;
+            public bool fErase;
+            public RECT rcPaint;
+            public bool fRestore;
+            public bool fIncUpdate;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
+            public byte[] rgbReserved;
+        }
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr BeginPaint(IntPtr hwnd, out PAINTSTRUCT paint);
+
+        [DllImport("user32.dll")]
+        private static extern bool EndPaint(IntPtr hwnd, ref PAINTSTRUCT paint);
+
         /// <summary>
         /// The drop-down list is its own native window, whose scroll bar Windows draws light grey.
         /// The dark Explorer theme gives it a dark one where Windows has it (10 1809 and later);
@@ -355,6 +374,12 @@ namespace Contra
             {
                 SetWindowTheme(info.hwndList, "DarkMode_Explorer", null);
             }
+
+            // The themed box fades its border and button in and out on hover, repainting a dozen
+            // times for each, and every one of those showed the native look for a moment before
+            // the gold went back on top. Unthemed it repaints once per hover, and it is all painted
+            // over anyway.
+            SetWindowTheme(Handle, string.Empty, string.Empty);
 
             ClearSelectionUnlessFocused();
         }
@@ -440,33 +465,84 @@ namespace Contra
                 return;
             }
 
+            if (m.Msg == WM_PAINT && m.WParam == IntPtr.Zero && Width > 0 && Height > 0)
+            {
+                PaintBuffered();
+                return;
+            }
+
             base.WndProc(ref m);
 
             if (m.Msg == WM_PAINT)
             {
-                PaintChrome();
+                // Painting into a DC someone else supplied, such as a print: just finish it.
+                using (Graphics g = Graphics.FromHdc(m.WParam))
+                {
+                    PaintChrome(g);
+                }
             }
         }
 
-        protected override void Dispose(bool disposing)
+        /// <summary>
+        /// Let Windows paint the box into an off-screen bitmap, put the border and arrow on top
+        /// there, and copy the result to the screen once. Painting straight to the screen in two
+        /// passes let the native look show between them, which on hover read as a flash.
+        /// </summary>
+        private void PaintBuffered()
         {
-            if (fillBrush != IntPtr.Zero)
+            // 24bpp: GDI leaves the alpha of a 32bpp bitmap at zero, which would draw as clear.
+            using (Bitmap buffer = new Bitmap(Width, Height, PixelFormat.Format24bppRgb))
+            using (Graphics g = Graphics.FromImage(buffer))
             {
-                ContraTheme.DeleteObject(fillBrush);
-                fillBrush = IntPtr.Zero;
-            }
+                // Paint into the bitmap before BeginPaint: WinForms clips the native paint to the
+                // window's update region, and BeginPaint empties that region -- done the other way
+                // round the selected item came out blank.
+                IntPtr dc = g.GetHdc();
+                try
+                {
+                    Message native = Message.Create(Handle, WM_PAINT, dc, IntPtr.Zero);
+                    base.WndProc(ref native);
+                }
+                finally
+                {
+                    g.ReleaseHdc(dc);
+                }
 
-            base.Dispose(disposing);
+                PaintChrome(g);
+
+                PAINTSTRUCT paint;
+                IntPtr screen = BeginPaint(Handle, out paint);
+                try
+                {
+                    using (Graphics target = Graphics.FromHdc(screen))
+                    {
+                        // The editable style's text field is its own window and paints itself;
+                        // copying over it would wipe its text until it next repainted.
+                        COMBOBOXINFO info = new COMBOBOXINFO();
+                        info.cbSize = Marshal.SizeOf(info);
+                        if (DropDownStyle == ComboBoxStyle.DropDown && GetComboBoxInfo(Handle, ref info))
+                        {
+                            target.ExcludeClip(Rectangle.FromLTRB(info.rcItem.Left, info.rcItem.Top,
+                                info.rcItem.Right, info.rcItem.Bottom));
+                        }
+
+                        target.DrawImageUnscaled(buffer, 0, 0);
+                    }
+                }
+                finally
+                {
+                    EndPaint(Handle, ref paint);
+                }
+            }
         }
 
-        private void PaintChrome()
+        private void PaintChrome(Graphics g)
         {
             int buttonWidth = SystemInformation.HorizontalScrollBarArrowWidth;
             Rectangle all = new Rectangle(0, 0, Width - 1, Height - 1);
             Rectangle button = new Rectangle(Width - buttonWidth - 1, 1, buttonWidth, Height - 2);
             Color border = Enabled ? ContraTheme.Border : ContraTheme.DisabledBorder;
 
-            using (Graphics g = Graphics.FromHwnd(Handle))
             using (SolidBrush fill = new SolidBrush(ContraTheme.Fill))
             using (Pen pen = new Pen(border))
             using (SolidBrush arrow = new SolidBrush(Enabled ? ContraTheme.Mark : ContraTheme.DisabledMark))
