@@ -316,6 +316,94 @@ namespace Contra
             ItemHeight = 15;
         }
 
+        [StructLayout(LayoutKind.Sequential)]
+        private struct RECT
+        {
+            public int Left, Top, Right, Bottom;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct COMBOBOXINFO
+        {
+            public int cbSize;
+            public RECT rcItem;
+            public RECT rcButton;
+            public int stateButton;
+            public IntPtr hwndCombo;
+            public IntPtr hwndItem;
+            public IntPtr hwndList;
+        }
+
+        [DllImport("user32.dll")]
+        private static extern bool GetComboBoxInfo(IntPtr hwnd, ref COMBOBOXINFO info);
+
+        [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
+        private static extern int SetWindowTheme(IntPtr hwnd, string subAppName, string subIdList);
+
+        /// <summary>
+        /// The drop-down list is its own native window, whose scroll bar Windows draws light grey.
+        /// The dark Explorer theme gives it a dark one where Windows has it (10 1809 and later);
+        /// elsewhere the call does nothing.
+        /// </summary>
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+
+            COMBOBOXINFO info = new COMBOBOXINFO();
+            info.cbSize = Marshal.SizeOf(info);
+            if (GetComboBoxInfo(Handle, ref info) && info.hwndList != IntPtr.Zero)
+            {
+                SetWindowTheme(info.hwndList, "DarkMode_Explorer", null);
+            }
+
+            ClearSelectionUnlessFocused();
+        }
+
+        /// <summary>A larger font needs taller rows, or the text is clipped in the box and the list.</summary>
+        protected override void OnFontChanged(EventArgs e)
+        {
+            base.OnFontChanged(e);
+            ItemHeight = Math.Max(15, Font.Height + 2);
+        }
+
+        // The editable style selects all its text whenever the text is set, and Windows keeps the
+        // blue highlight on show even when the box does not have focus -- so the resolution sat
+        // highlighted from the moment the window opened. Clear it unless the box is being typed in.
+        protected override void OnTextChanged(EventArgs e)
+        {
+            base.OnTextChanged(e);
+            ClearSelectionUnlessFocused();
+        }
+
+        protected override void OnSelectedIndexChanged(EventArgs e)
+        {
+            base.OnSelectedIndexChanged(e);
+            ClearSelectionUnlessFocused();
+        }
+
+        protected override void OnLostFocus(EventArgs e)
+        {
+            base.OnLostFocus(e);
+            ClearSelectionUnlessFocused();
+        }
+
+        private void ClearSelectionUnlessFocused()
+        {
+            if (DropDownStyle != ComboBoxStyle.DropDown || !IsHandleCreated)
+            {
+                return;
+            }
+
+            // After the current message, since the select-all comes after the text is set.
+            BeginInvoke((MethodInvoker)delegate
+            {
+                if (!Focused && !DroppedDown)
+                {
+                    Select(Text.Length, 0);
+                }
+            });
+        }
+
         protected override void OnDrawItem(DrawItemEventArgs e)
         {
             bool inBox = (e.State & DrawItemState.ComboBoxEdit) != 0;
