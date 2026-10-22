@@ -639,7 +639,7 @@
     <value>OverlayRedUpDown</value>
   </data>
   <data name="&gt;&gt;OverlayRedUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;OverlayRedUpDown.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -660,7 +660,7 @@
     <value>OverlayGreenUpDown</value>
   </data>
   <data name="&gt;&gt;OverlayGreenUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;OverlayGreenUpDown.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -681,7 +681,7 @@
     <value>OverlayBlueUpDown</value>
   </data>
   <data name="&gt;&gt;OverlayBlueUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;OverlayBlueUpDown.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -750,7 +750,7 @@
     <value>BackdropRedUpDown</value>
   </data>
   <data name="&gt;&gt;BackdropRedUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;BackdropRedUpDown.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -771,7 +771,7 @@
     <value>BackdropGreenUpDown</value>
   </data>
   <data name="&gt;&gt;BackdropGreenUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;BackdropGreenUpDown.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -792,7 +792,7 @@
     <value>BackdropBlueUpDown</value>
   </data>
   <data name="&gt;&gt;BackdropBlueUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;BackdropBlueUpDown.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -813,7 +813,7 @@
     <value>BackdropOpacityUpDown</value>
   </data>
   <data name="&gt;&gt;BackdropOpacityUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;BackdropOpacityUpDown.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -3498,7 +3498,7 @@
     <value>BloomStrengthUpDown</value>
   </data>
   <data name="&gt;&gt;BloomStrengthUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraNumericUpDown, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;BloomStrengthUpDown.Parent" xml:space="preserve">
     <value>ShadersPage</value>

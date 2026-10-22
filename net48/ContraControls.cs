@@ -22,6 +22,19 @@ namespace Contra
         public static readonly Color DisabledMark = Color.FromArgb(120, 110, 90);
         public static readonly Color DisabledText = Globals.disabledTextColor;
 
+        // For the native text fields, which take their colours from a GDI brush and DC settings.
+        [DllImport("gdi32.dll")]
+        public static extern int SetTextColor(IntPtr hdc, int color);
+
+        [DllImport("gdi32.dll")]
+        public static extern int SetBkColor(IntPtr hdc, int color);
+
+        [DllImport("gdi32.dll")]
+        public static extern IntPtr CreateSolidBrush(int color);
+
+        [DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr handle);
+
         /// <summary>
         /// The glyph and the caption beside it, laid out where Windows puts them, so AutoSize --
         /// which still measures the standard 13px glyph -- leaves exactly the right room.
@@ -104,6 +117,12 @@ namespace Contra
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            if (Appearance == Appearance.Button)
+            {
+                base.OnPaint(e);
+                return;
+            }
+
             // Transparent, like every control on the skin: the parent paints what is behind.
             OnPaintBackground(e);
             ContraTheme.PaintToggle(this, e, hot, CheckState != CheckState.Unchecked, false);
@@ -137,6 +156,14 @@ namespace Contra
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            // The language flags are radio buttons drawn as buttons: the flag is the control, and
+            // a glyph painted on top would only hide it.
+            if (Appearance == Appearance.Button)
+            {
+                base.OnPaint(e);
+                return;
+            }
+
             OnPaintBackground(e);
             ContraTheme.PaintToggle(this, e, hot, Checked, true);
         }
@@ -157,6 +184,116 @@ namespace Contra
     }
 
     /// <summary>
+    /// A number box in the launcher's colours. NumericUpDown is a text field and a pair of arrow
+    /// buttons; the field takes the colours directly, and the buttons -- an internal class that
+    /// cannot be subclassed -- are painted over from their Paint event.
+    /// </summary>
+    internal class ContraNumericUpDown : NumericUpDown
+    {
+        private const int WM_CTLCOLORSTATIC = 0x0138;
+
+        private Control buttons;
+        private int pressed; // 0 none, 1 up, 2 down
+        private IntPtr fillBrush;
+
+        public ContraNumericUpDown()
+        {
+            BackColor = ContraTheme.Fill;
+            ForeColor = Color.White;
+            BorderStyle = BorderStyle.FixedSingle;
+
+            foreach (Control child in Controls)
+            {
+                if (!(child is TextBox))
+                {
+                    buttons = child;
+                    buttons.Paint += PaintButtons;
+                    buttons.MouseDown += (s, e) => { pressed = e.Y < buttons.Height / 2 ? 1 : 2; buttons.Invalidate(); };
+                    buttons.MouseUp += (s, e) => { pressed = 0; buttons.Invalidate(); };
+                }
+            }
+        }
+
+        protected override void OnEnabledChanged(EventArgs e)
+        {
+            base.OnEnabledChanged(e);
+            Invalidate(true);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            // Disabled, the box paints the margin round its text field in the system colour.
+            if (!Enabled)
+            {
+                using (SolidBrush fill = new SolidBrush(ContraTheme.Fill))
+                {
+                    e.Graphics.FillRectangle(fill, ClientRectangle);
+                }
+            }
+
+            using (Pen pen = new Pen(Enabled ? ContraTheme.Border : ContraTheme.DisabledBorder))
+            {
+                e.Graphics.DrawRectangle(pen, 0, 0, Width - 1, Height - 1);
+            }
+        }
+
+        private void PaintButtons(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            int w = buttons.Width, h = buttons.Height, half = h / 2;
+            Color line = Enabled ? ContraTheme.Border : ContraTheme.DisabledBorder;
+
+            using (SolidBrush fill = new SolidBrush(ContraTheme.Fill))
+            using (SolidBrush down = new SolidBrush(ContraTheme.Selection))
+            using (SolidBrush arrow = new SolidBrush(Enabled ? ContraTheme.Mark : ContraTheme.DisabledMark))
+            using (Pen pen = new Pen(line))
+            {
+                g.FillRectangle(pressed == 1 && Enabled ? down : fill, 0, 0, w, half);
+                g.FillRectangle(pressed == 2 && Enabled ? down : fill, 0, half, w, h - half);
+                g.DrawLine(pen, 0, 0, 0, h);
+                g.DrawLine(pen, 0, half, w, half);
+
+                int cx = w / 2, up = half / 2, dn = half + (h - half) / 2;
+                g.FillPolygon(arrow, new[] { new Point(cx - 3, up + 2), new Point(cx + 4, up + 2), new Point(cx, up - 2) });
+                g.FillPolygon(arrow, new[] { new Point(cx - 3, dn - 1), new Point(cx + 4, dn - 1), new Point(cx, dn + 3) });
+            }
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            // The text field asks for its colours with WM_CTLCOLORSTATIC once disabled, and would
+            // otherwise get the system grey.
+            if (m.Msg == WM_CTLCOLORSTATIC && !Enabled)
+            {
+                if (fillBrush == IntPtr.Zero)
+                {
+                    fillBrush = ContraTheme.CreateSolidBrush(ColorTranslator.ToWin32(ContraTheme.Fill));
+                }
+
+                ContraTheme.SetTextColor(m.WParam, ColorTranslator.ToWin32(ContraTheme.DisabledText));
+                ContraTheme.SetBkColor(m.WParam, ColorTranslator.ToWin32(ContraTheme.Fill));
+                m.Result = fillBrush;
+                return;
+            }
+
+            base.WndProc(ref m);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (fillBrush != IntPtr.Zero)
+            {
+                ContraTheme.DeleteObject(fillBrush);
+                fillBrush = IntPtr.Zero;
+            }
+
+            base.Dispose(disposing);
+        }
+    }
+
+    /// <summary>
     /// A combo box in the launcher's colours. The items, and in a drop-down list the selected item
     /// shown in the box, are owner-drawn; the border and the arrow button are painted over the
     /// native ones after each paint, which works for both the drop-down list and the editable
@@ -166,18 +303,6 @@ namespace Contra
     {
         private const int WM_PAINT = 0x000F;
         private const int WM_CTLCOLORSTATIC = 0x0138;
-
-        [DllImport("gdi32.dll")]
-        private static extern int SetTextColor(IntPtr hdc, int color);
-
-        [DllImport("gdi32.dll")]
-        private static extern int SetBkColor(IntPtr hdc, int color);
-
-        [DllImport("gdi32.dll")]
-        private static extern IntPtr CreateSolidBrush(int color);
-
-        [DllImport("gdi32.dll")]
-        private static extern bool DeleteObject(IntPtr handle);
 
         private IntPtr fillBrush;
 
@@ -218,11 +343,11 @@ namespace Contra
             {
                 if (fillBrush == IntPtr.Zero)
                 {
-                    fillBrush = CreateSolidBrush(ColorTranslator.ToWin32(ContraTheme.Fill));
+                    fillBrush = ContraTheme.CreateSolidBrush(ColorTranslator.ToWin32(ContraTheme.Fill));
                 }
 
-                SetTextColor(m.WParam, ColorTranslator.ToWin32(ContraTheme.DisabledText));
-                SetBkColor(m.WParam, ColorTranslator.ToWin32(ContraTheme.Fill));
+                ContraTheme.SetTextColor(m.WParam, ColorTranslator.ToWin32(ContraTheme.DisabledText));
+                ContraTheme.SetBkColor(m.WParam, ColorTranslator.ToWin32(ContraTheme.Fill));
                 m.Result = fillBrush;
                 return;
             }
@@ -239,7 +364,7 @@ namespace Contra
         {
             if (fillBrush != IntPtr.Zero)
             {
-                DeleteObject(fillBrush);
+                ContraTheme.DeleteObject(fillBrush);
                 fillBrush = IntPtr.Zero;
             }
 
