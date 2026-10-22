@@ -308,46 +308,10 @@ namespace Contra
             LeikezeHotkeysRadioButton.Checked = Properties.Settings.Default.LeikezeHotkeys;
             LegacyHotkeysRadioButton.Checked = Properties.Settings.Default.LegacyHotkeys;
 
-            // Get current camera height
-            if (File.Exists("!" + MainForm.betaPrefix + "_GameData.big"))
-            {
-                try {ReadCameraHeight(File.ReadAllText("!" + MainForm.betaPrefix + "_GameData.big"));}
-                catch (IOException) {Messages.GenerateMessageBox("E_CloseGameDataP3", Globals.currentLanguage);}
-            }
-
             // Build the Game Options page and fill it in. Done last so every control the
             // graphics page owns already exists and can be moved onto its panel.
             BuildGameOptionsPage();
             LoadGameOptions();
-        }
-
-        private void ReadCameraHeight(string fileToRead)
-        {
-            List<string> found = new List<string>();
-            string line;
-            using (StringReader file = new StringReader(fileToRead))
-            {
-                while ((line = file.ReadLine()) != null)
-                {
-                    if (line.Contains(" MaxCameraHeight ="))
-                    {
-                        found.Add(line);
-                        line = line.Substring(0, line.IndexOf(".") + 1);
-                        line = Regex.Replace(line, @"[^\d]", "");
-                        if (AspectRatio(x, y) == "16:9")
-                        {
-                            int value;
-                            value = Convert.ToInt32(line);
-                            CameraHeightTrackBar.Value = value + 110;
-                        }
-                        else
-                        {
-                            CameraHeightTrackBar.Value = Convert.ToInt32(line);
-                        }
-                        CameraHeightLabel.Text = Messages.GenerateMessage("CameraHeightString", Globals.currentLanguage) + CameraHeightTrackBar.Value.ToString() + ".0";
-                    }
-                }
-            }
         }
 
         //**********DRAG FORM CODE START**********
@@ -400,66 +364,6 @@ namespace Contra
         private void MinBtnSm_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
-        }
-
-        public static Tuple<int, int> getScreenResolution() => Tuple.Create(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-        int x = getScreenResolution().Item1;
-        int y = getScreenResolution().Item2;
-
-        public string AspectRatio(int x, int y)
-        {
-            double value = (double)x / y;
-            if (value > 1.7)
-                return "16:9";
-            else
-                return "4:3";
-        }
-
-        private void ChangeCamHeight()
-        {
-            //if (File.Exists("!!!!Contra009Final_Patch3.big") || File.Exists("!!!!Contra009Final_Patch3.ctr"))
-            //{
-                CamHeightRegexReplace("!" + MainForm.betaPrefix + "_GameData.big", "E_NotFound_GameDataP3");
-            //}
-            //else Messages.GenerateMessageBox("E_MissingFiles_CouldNotChangeCamHeight", Globals.currentLanguage);
-        }
-
-        private void CamHeightRegexReplace(string gameDataFilename, string gameDataNotFoundMsg)
-        {
-            if (File.Exists(gameDataFilename))
-            {
-                Encoding encoding = Encoding.GetEncoding("windows-1252");
-                var regex = ""; var regex2 = "";
-
-                if (AspectRatio(x, y) == "16:9")
-                {
-                    regex = Regex.Replace(File.ReadAllText(gameDataFilename, encoding),
-                        "  MaxCameraHeight = .*\r?\n",
-                        "  MaxCameraHeight = " + (CameraHeightTrackBar.Value - 110) + ".0" + " ;350.0\r\n");
-                }
-                else
-                {
-                    regex = Regex.Replace(File.ReadAllText(gameDataFilename, encoding),
-                        "  MaxCameraHeight = .*\r?\n",
-                        "  MaxCameraHeight = " + CameraHeightTrackBar.Value + ".0" + " ;350.0\r\n");
-                }
-                File.WriteAllText(gameDataFilename, regex, encoding);
-
-                if (CameraHeightTrackBar.Value > 392)
-                {
-                    regex2 = Regex.Replace(File.ReadAllText(gameDataFilename, encoding),
-                        "  DrawEntireTerrain = No\r?\n",
-                        "  DrawEntireTerrain = Yes\r\n");
-                }
-                else
-                {
-                    regex2 = Regex.Replace(File.ReadAllText(gameDataFilename, encoding),
-                        "  DrawEntireTerrain = Yes\r?\n",
-                        "  DrawEntireTerrain = No\r\n");
-                }
-                File.WriteAllText(gameDataFilename, regex2, encoding);
-            }
-            else Messages.GenerateMessageBox(gameDataNotFoundMsg, Globals.currentLanguage);
         }
 
         private void CameraHeightTrackBar_Scroll(object sender, EventArgs e)
@@ -608,14 +512,6 @@ namespace Contra
                 }
             }
             else Messages.GenerateMessageBox("E_NotFound_OptionsIni", Globals.currentLanguage);
-
-            // Apply Camera Height
-            try { ChangeCamHeight(); }
-            catch (IOException)
-            {
-                if (File.Exists("!ContraXBeta_GameData.big")) Messages.GenerateMessageBox("E_CloseGameDataP3", Globals.currentLanguage);
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
 
             // .big-file Options
             if (FogCheckBox.Checked)

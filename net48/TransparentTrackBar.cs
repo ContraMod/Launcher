@@ -252,7 +252,7 @@ namespace Contra
             ControlPaint.DrawBorder3D(e.Graphics, channelBounds, Border3DStyle.Sunken);
 
             // Draw the Thumb Object
-            using (SolidBrush brush = new SolidBrush(Color.FromArgb(125, 90, 70)))
+            using (SolidBrush brush = new SolidBrush(Enabled ? Color.FromArgb(125, 90, 70) : Color.FromArgb(70, 64, 58)))
             {
                 if (ThumbDragging)
                 {
@@ -266,6 +266,12 @@ namespace Contra
             //Draw Focus
             if (Focused && ShowFocusCues)
                 ControlPaint.DrawFocusRectangle(e.Graphics, ClientRectangle);
+        }
+
+        protected override void OnEnabledChanged(EventArgs e)
+        {
+            base.OnEnabledChanged(e);
+            Invalidate();
         }
 
         protected override void OnGotFocus(EventArgs e)

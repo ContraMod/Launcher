@@ -1213,17 +1213,6 @@ namespace Contra
             OptionsFlashTimer1.Enabled = false;
             OptionsFlashTimer2.Enabled = false;
 
-            // Delete duplicate GameData if such exists
-            if (File.Exists($"!{betaPrefix}_GameData.ctr") && File.Exists($"!{betaPrefix}_GameData.big"))
-            {
-                File.Delete($"!{betaPrefix}_GameData.big");
-            }
-            // Enable GameData so that we can show current camera height in Options
-            if (File.Exists($"!{betaPrefix}_GameData.ctr"))
-            {
-                File.Move($"!{betaPrefix}_GameData.ctr", $"!{betaPrefix}_GameData.big");
-            }
-
             if (File.Exists(Globals.myDocPath + "Options.ini"))
             {
                 foreach (Form OptionsForm in Application.OpenForms)
@@ -2469,45 +2458,9 @@ namespace Contra
             donateFlashTimer2.Enabled = false;
         }
 
-        // Beta2 detection and file prefix
-        public static string betaPrefix = "ContraXBeta";
-        private static bool isBeta2 = false;
 
-        static MainForm()
-        {
-            // 1. Check for any !ContraXBeta2_*.ctr or .big file in the current directory
-            bool foundBeta2File = Directory.GetFiles(Directory.GetCurrentDirectory(), "!ContraXBeta2_*.ctr").Length > 0 ||
-                                  Directory.GetFiles(Directory.GetCurrentDirectory(), "!ContraXBeta2_*.big").Length > 0;
-            if (foundBeta2File)
-            {
-                isBeta2 = true;
-                betaPrefix = "ContraXBeta2";
-                return;
-            }
-            // 2. Fallback: check for Beta2 in content of !ContraXBeta.big/.ctr
-            string[] filesToCheck = { $"!{betaPrefix}.big", $"!{betaPrefix}.ctr" };
-            foreach (var file in filesToCheck)
-            {
-                if (File.Exists(file))
-                {
-                    try
-                    {
-                        using (var reader = new StreamReader(file))
-                        {
-                            char[] buffer = new char[4096];
-                            int read = reader.Read(buffer, 0, buffer.Length);
-                            string content = new string(buffer, 0, read);
-                            if (content.Contains("Beta2"))
-                            {
-                                isBeta2 = true;
-                                betaPrefix = "ContraXBeta2";
-                                break;
-                            }
-                        }
-                    }
-                    catch { }
-                }
-            }
-        }
+        // The mod's archives are all named !ContraXBeta2_*. Beta 1 is no longer supported, so
+        // the prefix is fixed rather than detected from the files present.
+        public const string betaPrefix = "ContraXBeta2";
     }
 }

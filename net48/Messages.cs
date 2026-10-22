@@ -50,20 +50,6 @@ namespace Contra
                 "World Builder не бе намерен.",
                 "World Builder wurde nicht gefunden."),
 
-            ["E_NotFound_GameDataP3"] = lang => ChooseByLanguage(lang,
-                "\"!ContraXBeta_GameData.big\" file not found!",
-                "Файл \"!ContraXBeta_GameData.big\" не найден!",
-                "Файл \"!ContraXBeta_GameData.big\" не знайдений!",
-                "Файлът \"!ContraXBeta_GameData.big\" не беше намерен!",
-                "\"!ContraXBeta_GameData.big\" nicht gefunden!"),
-
-            ["E_CloseGameDataP3"] = lang => ChooseByLanguage(lang,
-                "Please close !ContraXBeta_GameData.big in order to change camera height.",
-                "Пожалуйста, закройте !ContraXBeta_GameData.big, чтобы изменить высоту камеры.",
-                "Будь ласка, закрийте !ContraXBeta_GameData.big, щоб змінити висоту камери.",
-                "Моля, затворете !ContraXBeta_GameData.big, за да промените височината на камерата.",
-                "Bitte schließen Sie !ContraXBeta_GameData.big, um die Kamerahöhe zu ändern."),
-
             ["E_InvalidRes"] = lang => ChooseByLanguage(lang,
                 "This resolution is not valid.",
                 "Это разрешение экрана не является действительным.",

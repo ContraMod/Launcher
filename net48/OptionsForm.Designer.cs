@@ -1011,7 +1011,7 @@
             // 
             resources.ApplyResources(this.CameraHeightLabel, "CameraHeightLabel");
             this.CameraHeightLabel.BackColor = System.Drawing.Color.Transparent;
-            this.CameraHeightLabel.ForeColor = System.Drawing.Color.White;
+            this.CameraHeightLabel.ForeColor = System.Drawing.Color.Gray;
             this.CameraHeightLabel.Name = "CameraHeightLabel";
             // 
             // WaterEffectsCheckBox
@@ -1373,6 +1373,7 @@
             // 
             this.CameraHeightTrackBar.BackColor = System.Drawing.Color.Transparent;
             this.CameraHeightTrackBar.Cursor = System.Windows.Forms.Cursors.Default;
+            this.CameraHeightTrackBar.Enabled = false;
             resources.ApplyResources(this.CameraHeightTrackBar, "CameraHeightTrackBar");
             this.CameraHeightTrackBar.Maximum = 750;
             this.CameraHeightTrackBar.Minimum = 392;
