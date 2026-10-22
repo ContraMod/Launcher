@@ -148,7 +148,7 @@
     <value>RadioEN</value>
   </data>
   <data name="&gt;&gt;RadioEN.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;RadioEN.Parent" xml:space="preserve">
     <value>LanguagePanel</value>
@@ -181,7 +181,7 @@
     <value>RadioRU</value>
   </data>
   <data name="&gt;&gt;RadioRU.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;RadioRU.Parent" xml:space="preserve">
     <value>LanguagePanel</value>
@@ -214,7 +214,7 @@
     <value>MNew</value>
   </data>
   <data name="&gt;&gt;MNew.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;MNew.Parent" xml:space="preserve">
     <value>MusicPanel</value>
@@ -247,7 +247,7 @@
     <value>QSCheckBox</value>
   </data>
   <data name="&gt;&gt;QSCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;QSCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -274,7 +274,7 @@
     <value>GOCheckBox</value>
   </data>
   <data name="&gt;&gt;GOCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;GOCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -307,7 +307,7 @@
     <value>MStandard</value>
   </data>
   <data name="&gt;&gt;MStandard.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;MStandard.Parent" xml:space="preserve">
     <value>MusicPanel</value>
@@ -340,7 +340,7 @@
     <value>WinCheckBox</value>
   </data>
   <data name="&gt;&gt;WinCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;WinCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -373,7 +373,7 @@
     <value>DefaultPics</value>
   </data>
   <data name="&gt;&gt;DefaultPics.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;DefaultPics.Parent" xml:space="preserve">
     <value>PortraitsPanel</value>
@@ -406,7 +406,7 @@
     <value>GoofyPics</value>
   </data>
   <data name="&gt;&gt;GoofyPics.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;GoofyPics.Parent" xml:space="preserve">
     <value>PortraitsPanel</value>
@@ -695,7 +695,7 @@
     <value>RadioFlag_GB</value>
   </data>
   <data name="&gt;&gt;RadioFlag_GB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;RadioFlag_GB.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -731,7 +731,7 @@
     <value>RadioFlag_DE</value>
   </data>
   <data name="&gt;&gt;RadioFlag_DE.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;RadioFlag_DE.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -764,7 +764,7 @@
     <value>RadioFlag_BG</value>
   </data>
   <data name="&gt;&gt;RadioFlag_BG.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;RadioFlag_BG.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -797,7 +797,7 @@
     <value>RadioFlag_UA</value>
   </data>
   <data name="&gt;&gt;RadioFlag_UA.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;RadioFlag_UA.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -830,7 +830,7 @@
     <value>RadioFlag_RU</value>
   </data>
   <data name="&gt;&gt;RadioFlag_RU.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;RadioFlag_RU.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -1657,7 +1657,7 @@
     <value>RadioOrigQuotes</value>
   </data>
   <data name="&gt;&gt;RadioOrigQuotes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;RadioOrigQuotes.Parent" xml:space="preserve">
     <value>UnitVoicesPanel</value>
@@ -1690,7 +1690,7 @@
     <value>RadioLocQuotes</value>
   </data>
   <data name="&gt;&gt;RadioLocQuotes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;RadioLocQuotes.Parent" xml:space="preserve">
     <value>UnitVoicesPanel</value>
@@ -1798,7 +1798,7 @@
     <value>MTheScore</value>
   </data>
   <data name="&gt;&gt;MTheScore.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;MTheScore.Parent" xml:space="preserve">
     <value>MusicPanel</value>

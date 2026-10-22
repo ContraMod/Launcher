@@ -189,7 +189,7 @@
     <value>HealthBarModeComboBox</value>
   </data>
   <data name="&gt;&gt;HealthBarModeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;HealthBarModeComboBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -216,7 +216,7 @@
     <value>NumericalHealthCheckBox</value>
   </data>
   <data name="&gt;&gt;NumericalHealthCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;NumericalHealthCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -243,7 +243,7 @@
     <value>SmartPipsCheckBox</value>
   </data>
   <data name="&gt;&gt;SmartPipsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;SmartPipsCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -270,7 +270,7 @@
     <value>SelectionCircleCheckBox</value>
   </data>
   <data name="&gt;&gt;SelectionCircleCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;SelectionCircleCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -318,7 +318,7 @@
     <value>BuildTimerComboBox</value>
   </data>
   <data name="&gt;&gt;BuildTimerComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;BuildTimerComboBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -396,7 +396,7 @@
     <value>CastModeComboBox</value>
   </data>
   <data name="&gt;&gt;CastModeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;CastModeComboBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -423,7 +423,7 @@
     <value>EasyMilitaryDragCheckBox</value>
   </data>
   <data name="&gt;&gt;EasyMilitaryDragCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;EasyMilitaryDragCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -480,7 +480,7 @@
     <value>GridHotkeysCheckBox</value>
   </data>
   <data name="&gt;&gt;GridHotkeysCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;GridHotkeysCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -564,7 +564,7 @@
     <value>KeyboardOverlayCheckBox</value>
   </data>
   <data name="&gt;&gt;KeyboardOverlayCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;KeyboardOverlayCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -591,7 +591,7 @@
     <value>KeyboardOverlayBackdropCheckBox</value>
   </data>
   <data name="&gt;&gt;KeyboardOverlayBackdropCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;KeyboardOverlayBackdropCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -882,7 +882,7 @@
     <value>TextureFilterComboBox</value>
   </data>
   <data name="&gt;&gt;TextureFilterComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;TextureFilterComboBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -930,7 +930,7 @@
     <value>AnisotropicLevelComboBox</value>
   </data>
   <data name="&gt;&gt;AnisotropicLevelComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="OverlayColourButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>630, 202</value>
@@ -1120,7 +1120,7 @@
     <value>LangFilterCheckBox</value>
   </data>
   <data name="&gt;&gt;LangFilterCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;LangFilterCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1153,7 +1153,7 @@
     <value>FogCheckBox</value>
   </data>
   <data name="&gt;&gt;FogCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;FogCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1177,7 +1177,7 @@
     <value>resolutionComboBox</value>
   </data>
   <data name="&gt;&gt;resolutionComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;resolutionComboBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1243,7 +1243,7 @@
     <value>HeatEffectsCheckBox</value>
   </data>
   <data name="&gt;&gt;HeatEffectsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;HeatEffectsCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1309,7 +1309,7 @@
     <value>WaterEffectsCheckBox</value>
   </data>
   <data name="&gt;&gt;WaterEffectsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;WaterEffectsCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1342,7 +1342,7 @@
     <value>DisableDynamicLODCheckBox</value>
   </data>
   <data name="&gt;&gt;DisableDynamicLODCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;DisableDynamicLODCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1375,7 +1375,7 @@
     <value>ExtraAnimationsCheckBox</value>
   </data>
   <data name="&gt;&gt;ExtraAnimationsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ExtraAnimationsCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1408,7 +1408,7 @@
     <value>ShowPropsCheckBox</value>
   </data>
   <data name="&gt;&gt;ShowPropsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ShowPropsCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1441,7 +1441,7 @@
     <value>BehindBuildingsCheckBox</value>
   </data>
   <data name="&gt;&gt;BehindBuildingsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;BehindBuildingsCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1474,7 +1474,7 @@
     <value>Shadows3DCheckBox</value>
   </data>
   <data name="&gt;&gt;Shadows3DCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Shadows3DCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1507,7 +1507,7 @@
     <value>Shadows2DCheckBox</value>
   </data>
   <data name="&gt;&gt;Shadows2DCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;Shadows2DCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1540,7 +1540,7 @@
     <value>CloudShadowsCheckBox</value>
   </data>
   <data name="&gt;&gt;CloudShadowsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;CloudShadowsCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1573,7 +1573,7 @@
     <value>ExtraGroundLightingCheckBox</value>
   </data>
   <data name="&gt;&gt;ExtraGroundLightingCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ExtraGroundLightingCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1606,7 +1606,7 @@
     <value>SmoothWaterBordersCheckBox</value>
   </data>
   <data name="&gt;&gt;SmoothWaterBordersCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;SmoothWaterBordersCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1639,7 +1639,7 @@
     <value>LegacyHotkeysRadioButton</value>
   </data>
   <data name="&gt;&gt;LegacyHotkeysRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;LegacyHotkeysRadioButton.Parent" xml:space="preserve">
     <value>HotkeyStylePanel</value>
@@ -1672,7 +1672,7 @@
     <value>LeikezeHotkeysRadioButton</value>
   </data>
   <data name="&gt;&gt;LeikezeHotkeysRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;LeikezeHotkeysRadioButton.Parent" xml:space="preserve">
     <value>HotkeyStylePanel</value>
@@ -2177,7 +2177,7 @@
     <value>ControlBarStandardRadioButton</value>
   </data>
   <data name="&gt;&gt;ControlBarStandardRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ControlBarStandardRadioButton.Parent" xml:space="preserve">
     <value>ControlBarPanel</value>
@@ -2210,7 +2210,7 @@
     <value>ControlBarContraRadioButton</value>
   </data>
   <data name="&gt;&gt;ControlBarContraRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ControlBarContraRadioButton.Parent" xml:space="preserve">
     <value>ControlBarPanel</value>
@@ -2243,7 +2243,7 @@
     <value>ControlBarProRadioButton</value>
   </data>
   <data name="&gt;&gt;ControlBarProRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ControlBarProRadioButton.Parent" xml:space="preserve">
     <value>ControlBarPanel</value>
@@ -2363,7 +2363,7 @@
     <value>CameosStandardRadioButton</value>
   </data>
   <data name="&gt;&gt;CameosStandardRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;CameosStandardRadioButton.Parent" xml:space="preserve">
     <value>CameoResPanel</value>
@@ -2396,7 +2396,7 @@
     <value>CameosDoubleRadioButton</value>
   </data>
   <data name="&gt;&gt;CameosDoubleRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraRadioButton, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;CameosDoubleRadioButton.Parent" xml:space="preserve">
     <value>CameoResPanel</value>
@@ -2450,7 +2450,7 @@
     <value>ExtraBuildingPropsCheckBox</value>
   </data>
   <data name="&gt;&gt;ExtraBuildingPropsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ExtraBuildingPropsCheckBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -2739,7 +2739,7 @@
     <value>AlliedDecalComboBox</value>
   </data>
   <data name="&gt;&gt;AlliedDecalComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;AlliedDecalComboBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -2766,7 +2766,7 @@
     <value>ObjectDecalsCheckBox</value>
   </data>
   <data name="&gt;&gt;ObjectDecalsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ObjectDecalsCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -2793,7 +2793,7 @@
     <value>DefensesRangeCircleCheckBox</value>
   </data>
   <data name="&gt;&gt;DefensesRangeCircleCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;DefensesRangeCircleCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -2820,7 +2820,7 @@
     <value>SmoothUnitMotionCheckBox</value>
   </data>
   <data name="&gt;&gt;SmoothUnitMotionCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;SmoothUnitMotionCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -2868,7 +2868,7 @@
     <value>ActionLinesComboBox</value>
   </data>
   <data name="&gt;&gt;ActionLinesComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ActionLinesComboBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -2895,7 +2895,7 @@
     <value>SmartSelectionCheckBox</value>
   </data>
   <data name="&gt;&gt;SmartSelectionCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;SmartSelectionCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -2922,7 +2922,7 @@
     <value>SmartSelectionUseMouseCheckBox</value>
   </data>
   <data name="&gt;&gt;SmartSelectionUseMouseCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;SmartSelectionUseMouseCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -2949,7 +2949,7 @@
     <value>SmartCommandGroupCheckBox</value>
   </data>
   <data name="&gt;&gt;SmartCommandGroupCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;SmartCommandGroupCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -2976,7 +2976,7 @@
     <value>LowLatencyCheckBox</value>
   </data>
   <data name="&gt;&gt;LowLatencyCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;LowLatencyCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -2997,7 +2997,7 @@
     <value>GridHotkeyLayoutComboBox</value>
   </data>
   <data name="&gt;&gt;GridHotkeyLayoutComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;GridHotkeyLayoutComboBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -3024,7 +3024,7 @@
     <value>GridHotkeyUnitOrdersCheckBox</value>
   </data>
   <data name="&gt;&gt;GridHotkeyUnitOrdersCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;GridHotkeyUnitOrdersCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -3081,7 +3081,7 @@
     <value>NewRadarCheckBox</value>
   </data>
   <data name="&gt;&gt;NewRadarCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;NewRadarCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -3108,7 +3108,7 @@
     <value>BlipSizeCheckBox</value>
   </data>
   <data name="&gt;&gt;BlipSizeCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;BlipSizeCheckBox.Parent" xml:space="preserve">
     <value>GameOptionsPage</value>
@@ -3186,7 +3186,7 @@
     <value>AntiAliasingComboBox</value>
   </data>
   <data name="&gt;&gt;AntiAliasingComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;AntiAliasingComboBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3234,7 +3234,7 @@
     <value>SuperSamplingComboBox</value>
   </data>
   <data name="&gt;&gt;SuperSamplingComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;SuperSamplingComboBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3261,7 +3261,7 @@
     <value>AmbientOcclusionCheckBox</value>
   </data>
   <data name="&gt;&gt;AmbientOcclusionCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;AmbientOcclusionCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3288,7 +3288,7 @@
     <value>SoftParticlesCheckBox</value>
   </data>
   <data name="&gt;&gt;SoftParticlesCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;SoftParticlesCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3345,7 +3345,7 @@
     <value>ShadowMapCheckBox</value>
   </data>
   <data name="&gt;&gt;ShadowMapCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ShadowMapCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3393,7 +3393,7 @@
     <value>ShadowMapResolutionComboBox</value>
   </data>
   <data name="&gt;&gt;ShadowMapResolutionComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraComboBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ShadowMapResolutionComboBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3450,7 +3450,7 @@
     <value>BloomCheckBox</value>
   </data>
   <data name="&gt;&gt;BloomCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;BloomCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3525,7 +3525,7 @@
     <value>LaserRefCheckBox</value>
   </data>
   <data name="&gt;&gt;LaserRefCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;LaserRefCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3609,7 +3609,7 @@
     <value>SpecularCheckBox</value>
   </data>
   <data name="&gt;&gt;SpecularCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;SpecularCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3636,7 +3636,7 @@
     <value>NormalMapsCheckBox</value>
   </data>
   <data name="&gt;&gt;NormalMapsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;NormalMapsCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3663,7 +3663,7 @@
     <value>HeightBlendCheckBox</value>
   </data>
   <data name="&gt;&gt;HeightBlendCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;HeightBlendCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3720,7 +3720,7 @@
     <value>DynamicLightsCheckBox</value>
   </data>
   <data name="&gt;&gt;DynamicLightsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;DynamicLightsCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3747,7 +3747,7 @@
     <value>PixelLightsCheckBox</value>
   </data>
   <data name="&gt;&gt;PixelLightsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;PixelLightsCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3804,7 +3804,7 @@
     <value>HQSkyCheckBox</value>
   </data>
   <data name="&gt;&gt;HQSkyCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;HQSkyCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3831,7 +3831,7 @@
     <value>WaterReflectionsCheckBox</value>
   </data>
   <data name="&gt;&gt;WaterReflectionsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;WaterReflectionsCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3858,7 +3858,7 @@
     <value>ShorelineFoamCheckBox</value>
   </data>
   <data name="&gt;&gt;ShorelineFoamCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ShorelineFoamCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3915,7 +3915,7 @@
     <value>FlameShadersCheckBox</value>
   </data>
   <data name="&gt;&gt;FlameShadersCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;FlameShadersCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3942,7 +3942,7 @@
     <value>ElectricShadersCheckBox</value>
   </data>
   <data name="&gt;&gt;ElectricShadersCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ElectricShadersCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3969,7 +3969,7 @@
     <value>LaserShadersCheckBox</value>
   </data>
   <data name="&gt;&gt;LaserShadersCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;LaserShadersCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
@@ -3996,7 +3996,7 @@
     <value>CryoShadersCheckBox</value>
   </data>
   <data name="&gt;&gt;CryoShadersCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Contra.ContraCheckBox, Contra_Launcher, Version=2.0.0.8, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;CryoShadersCheckBox.Parent" xml:space="preserve">
     <value>ShadersPage</value>
