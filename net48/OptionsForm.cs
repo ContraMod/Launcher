@@ -567,12 +567,6 @@ namespace Contra
                 Properties.Settings.Default.LegacyHotkeys = true;
             }
 
-            // The ENB Series d3d8 wrapper used to be how anisotropic filtering was reached, since
-            // retail never called Set_Texture_Filter. The engine exposes TextureFilter directly now,
-            // so the wrapper is redundant and its checkbox is gone. Leaving this false makes the
-            // DisableAnisotropicFiltering() call on launch uninstall it for anyone who had it on.
-            Properties.Settings.Default.Anisotropic = false;
-
             // Game Options page. Written as one read/modify/write over Options.ini, and after
             // the retail settings above so it sees their edits rather than overwriting them.
             SaveGameOptions();

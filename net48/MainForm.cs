@@ -975,9 +975,7 @@ namespace Contra
                     catch { }
                 }
 
-                if (Properties.Settings.Default.Anisotropic == true)
-                    EnableAnisotropicFiltering();
-                else DisableAnisotropicFiltering();
+                RemoveEnbWrapper();
 
                 // Disable cyrillic letters, enable German umlauts.
                 if (File.Exists("GermanZH.big") && File.Exists("GenArial.ttf"))
@@ -1006,64 +1004,41 @@ namespace Contra
             return;
         }
 
-        private void EnableAnisotropicFiltering()
-        {
-            // If a file named d3d8.dll doesn't exist or if it's ENB
-            if (!File.Exists("d3d8.dll") || (CalculateMD5("d3d8.dll") == "b7036b32233008279074003c4c408a1f"))
-            {
-                try
-                {
-                    File.Copy("config.enb", "config.ini", true);
-                    File.Copy("d3d8.enb", "d3d8.dll", true);
-                }
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show(ex.Message);
-                //}
-                catch { }
-            }
-            // If a file named d3d8.dll exists which isn't ENB
-            else if (CalculateMD5("d3d8.dll") != "b7036b32233008279074003c4c408a1f")
-            {
-                try
-                {
-                    File.Copy("config.enb", "config.ini", true);
-                    File.Copy("d3d8x.enb", "d3d8x.dll", true);
-                }
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show(ex.Message);
-                //}
-                catch { }
-            }
-        }
-        private void DisableAnisotropicFiltering()
+        /// <summary>The hash of ENB's d3d8.dll / d3d8x.dll, as the launcher shipped it.</summary>
+        private const string EnbHash = "b7036b32233008279074003c4c408a1f";
+
+        /// <summary>
+        /// Take out the ENB wrapper the old anisotropic filtering checkbox installed. The checkbox
+        /// is gone -- the engine filters textures itself now -- so this runs on every launch for
+        /// anyone who once had it on: ENB's config.ini, and its d3d8.dll or d3d8x.dll, each
+        /// recognised by ENB's own hash and moved back to .enb. Another program's d3d8.dll is left
+        /// alone. Each file is tried on its own, so one that is missing or locked does not keep the
+        /// others in place.
+        /// </summary>
+        private void RemoveEnbWrapper()
         {
             try
             {
-                // If this is ENB's config.ini
-                string text = File.ReadAllText("config.ini");
-                if (text.Contains("MaxAnisotropy"))
+                if (File.Exists("config.ini") && File.ReadAllText("config.ini").Contains("MaxAnisotropy"))
                 {
-                    try
-                    {
-                        File.Copy("config.ini", "config.enb", true);
-                        File.Delete("config.ini");
-                    }
-                    catch { }
-                }
-                // If this is ENB's d3d8x.dll
-                if (CalculateMD5("d3d8x.dll") == "b7036b32233008279074003c4c408a1f")
-                {
-                    try
-                    {
-                        File.Copy("d3d8x.dll", "d3d8x.enb", true);
-                        File.Delete("d3d8x.dll");
-                    }
-                    catch { }
+                    File.Copy("config.ini", "config.enb", true);
+                    File.Delete("config.ini");
                 }
             }
             catch { }
+
+            foreach (string dll in new[] { "d3d8.dll", "d3d8x.dll" })
+            {
+                try
+                {
+                    if (File.Exists(dll) && CalculateMD5(dll) == EnbHash)
+                    {
+                        File.Copy(dll, Path.ChangeExtension(dll, ".enb"), true);
+                        File.Delete(dll);
+                    }
+                }
+                catch { }
+            }
         }
 
         private void ModDBBtn_MouseEnter(object sender, EventArgs e)
@@ -1143,9 +1118,7 @@ namespace Contra
             else if ((Properties.Settings.Default.WaterEffects == true) && (File.Exists($"!!{betaPrefix}_DisableWaterEffects.big")))
                 File.Move($"!!{betaPrefix}_DisableWaterEffects.big", $"!!{betaPrefix}_DisableWaterEffects.ctr");
 
-            if (Properties.Settings.Default.Anisotropic == true)
-                EnableAnisotropicFiltering();
-            else DisableAnisotropicFiltering();
+            RemoveEnbWrapper();
 
             Process wb = new Process();
             wb.StartInfo.Verb = "runas";
@@ -1849,7 +1822,7 @@ namespace Contra
             }
             catch { }
 
-            DisableAnisotropicFiltering();
+            RemoveEnbWrapper();
 
             Properties.Settings.Default.LangEN = RadioEN.Checked;
             Properties.Settings.Default.LangRU = RadioRU.Checked;
