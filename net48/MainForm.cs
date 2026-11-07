@@ -1,4 +1,4 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -133,7 +133,7 @@ namespace Contra
         //**********MINIMIZE FORM CODE END**********
 
         string currentFileLabel;
-        string newVersion, genToolFileName = "";
+        string newVersion = "";
         string versions_url = "https://raw.githubusercontent.com/ContraMod/Launcher/master/Versions_X.txt";
         string launcher_url = "https://github.com/ContraMod/Launcher/releases/download/";
         string patch_url = "http://contra.cncguild.net/Downloads/";
@@ -360,6 +360,7 @@ namespace Contra
                     toolTip1.SetToolTip(GoofyPics, "Use funny general portraits.");
                     toolTip1.SetToolTip(WinCheckBox, "Starts Contra in a window instead of full screen.");
                     toolTip1.SetToolTip(QSCheckBox, "Disables intro and shellmap (game starts up faster).");
+                    toolTip1.SetToolTip(D3D9CheckBox, "Starts the game on a plain Direct3D 9 device instead of Direct3D 9Ex. Try it if the game misbehaves on your setup.");
                     toolTip1.SetToolTip(DonateBtn, "Donate to Contra Project Team.");
                     toolTip1.SetToolTip(linkYouTubePred, "Visit PredatoR's YouTube channel.");
                     toolTip1.SetToolTip(linkYouTubeDce, "Visit dce's YouTube channel.");
@@ -391,6 +392,7 @@ namespace Contra
                     toolTip1.SetToolTip(GoofyPics, "Включить смешные портреты Генералов.");
                     toolTip1.SetToolTip(WinCheckBox, "Запуск Contra в режиме окна вместо полноэкранного.");
                     toolTip1.SetToolTip(QSCheckBox, "Отключает интро и шелмапу (игра запускается быстрее).");
+                    toolTip1.SetToolTip(D3D9CheckBox, "Запускает игру на обычном Direct3D 9 вместо Direct3D 9Ex. Попробуйте, если игра работает неправильно.");
                     toolTip1.SetToolTip(DonateBtn, "Оформить донат команде проекта.");
                     toolTip1.SetToolTip(linkYouTubePred, "Посетите канал PredatoR на YouTube.");
                     toolTip1.SetToolTip(linkYouTubeDce, "Посетите канал Dce на YouTube.");
@@ -446,6 +448,7 @@ namespace Contra
                     toolTip1.SetToolTip(GoofyPics, "Використовуйте смішні портрети Генералів.");
                     toolTip1.SetToolTip(WinCheckBox, "Запускає Contra у віконному режимі замість повноекранного.");
                     toolTip1.SetToolTip(QSCheckBox, "Вимикає інтро і шелмапу (гра запускається швидше).");
+                    toolTip1.SetToolTip(D3D9CheckBox, "Запускає гру на звичайному Direct3D 9 замість Direct3D 9Ex. Спробуйте, якщо гра працює неправильно.");
                     toolTip1.SetToolTip(DonateBtn, "Оформити донат команді проекту.");
                     toolTip1.SetToolTip(linkYouTubePred, "Відвідайте YouTube-канал PredatoR.");
                     toolTip1.SetToolTip(linkYouTubeDce, "Відвідайте YouTube-канал Dce.");
@@ -501,6 +504,7 @@ namespace Contra
                     toolTip1.SetToolTip(GoofyPics, "Използвайте забавните генералски портрети.");
                     toolTip1.SetToolTip(WinCheckBox, "Стартира Contra в нов прозорец вместо на цял екран.");
                     toolTip1.SetToolTip(QSCheckBox, "Изключва интрото и анимираната карта (шелмапа). Играта стартира по-бързо.");
+                    toolTip1.SetToolTip(D3D9CheckBox, "Стартира играта с обикновен Direct3D 9 вместо Direct3D 9Ex. Опитайте, ако играта не работи правилно.");
                     toolTip1.SetToolTip(DonateBtn, "Направете дарение към разработчиците.");
                     toolTip1.SetToolTip(linkYouTubePred, "Посетете YouTube канала на PredatoR.");
                     toolTip1.SetToolTip(linkYouTubeDce, "Посетете YouTube канала на Dce.");
@@ -556,6 +560,7 @@ namespace Contra
                     toolTip1.SetToolTip(GoofyPics, "Verwende lustige General Portraits.");
                     toolTip1.SetToolTip(WinCheckBox, "Startet Contra in einem Fenster anstatt im Vollbild.");
                     toolTip1.SetToolTip(QSCheckBox, "Deaktiviert das Intro und die shellmap (Spiel startet schneller).");
+                    toolTip1.SetToolTip(D3D9CheckBox, "Startet das Spiel mit einfachem Direct3D 9 statt Direct3D 9Ex. Probieren Sie es, wenn das Spiel Probleme macht.");
                     toolTip1.SetToolTip(DonateBtn, "Spende an das Contra-Team.");
                     toolTip1.SetToolTip(linkYouTubePred, "Besuchen Sie den YouTube-Kanal von PredatoR.");
                     toolTip1.SetToolTip(linkYouTubeDce, "Besuchen Sie den YouTube-Kanal von Dce.");
@@ -812,7 +817,12 @@ namespace Contra
         }
         private void LaunchBtn_Click(object sender, EventArgs e)
         {
+            // Either binary may be the one running: "generals" for the retail/.ctr swap, and
+            // "generalszh" for the contraZH build. Checking only the first let a second copy start.
             Process[] generalsByName = Process.GetProcessesByName("generals");
+            if (generalsByName.Length == 0)
+                generalsByName = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(GameExeName));
+
             if (generalsByName.Length > 0)
             {
                 if (generalsByName[0].Responding)
@@ -998,7 +1008,7 @@ namespace Contra
 
         private void EnableAnisotropicFiltering()
         {
-            // If a file named d3d8.dll (e.g. GenTool) doesn't exist or if it's ENB
+            // If a file named d3d8.dll doesn't exist or if it's ENB
             if (!File.Exists("d3d8.dll") || (CalculateMD5("d3d8.dll") == "b7036b32233008279074003c4c408a1f"))
             {
                 try
@@ -1141,16 +1151,10 @@ namespace Contra
             wb.StartInfo.Verb = "runas";
             try
             {
-                if (File.Exists("WorldBuilder_Ctr.exe"))
+                if (File.Exists(WorldBuilderExe))
                 {
-                    wb.StartInfo.FileName = "WorldBuilder_Ctr.exe";
-                    wb.StartInfo.WorkingDirectory = Path.GetDirectoryName("WorldBuilder_Ctr.exe");
-                    wb.Start();
-                }
-                else if (File.Exists("WorldBuilder.exe"))
-                {
-                    wb.StartInfo.FileName = "WorldBuilder.exe";
-                    wb.StartInfo.WorkingDirectory = Path.GetDirectoryName("WorldBuilder.exe");
+                    wb.StartInfo.FileName = WorldBuilderExe;
+                    wb.StartInfo.WorkingDirectory = Path.GetDirectoryName(WorldBuilderExe);
                     wb.Start();
                 }
                 else Messages.GenerateMessageBox("E_NotFound_WB", Globals.currentLanguage);
@@ -1207,17 +1211,6 @@ namespace Contra
         {
             OptionsFlashTimer1.Enabled = false;
             OptionsFlashTimer2.Enabled = false;
-
-            // Delete duplicate GameData if such exists
-            if (File.Exists($"!{betaPrefix}_GameData.ctr") && File.Exists($"!{betaPrefix}_GameData.big"))
-            {
-                File.Delete($"!{betaPrefix}_GameData.big");
-            }
-            // Enable GameData so that we can show current camera height in Options
-            if (File.Exists($"!{betaPrefix}_GameData.ctr"))
-            {
-                File.Move($"!{betaPrefix}_GameData.ctr", $"!{betaPrefix}_GameData.big");
-            }
 
             if (File.Exists(Globals.myDocPath + "Options.ini"))
             {
@@ -1356,7 +1349,7 @@ namespace Contra
         }
         private void ExitBtn_Click(object sender, EventArgs e)
         {
-            Process[] wbByName = Process.GetProcessesByName("worldbuilder_ctr");
+            Process[] wbByName = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(WorldBuilderExe));
             if (wbByName.Length > 0) Messages.GenerateMessageBox("W_WBCouldNotUnloadMod", Globals.currentLanguage);
             Close(); // Application.Exit(); //OnApplicationExit(sender, e);
         }
@@ -1635,9 +1628,24 @@ namespace Contra
             catch { }
         }
 
+        /// <summary>
+        /// The contraZH engine build. Installed alongside the retail generals.exe rather than over
+        /// it, so its presence is what tells us the fork is available to launch.
+        /// </summary>
+        private const string GameExeName = "generalszh.exe";
+
+        /// <summary>
+        /// The GO mod archive, passed to the game with -mod rather than being renamed into place
+        /// the way the other archives are.
+        /// </summary>
+        private const string GoModArchive = "contraGO.big";
+
+        /// <summary>The contraZH World Builder: the Qt build on Direct3D 9.</summary>
+        private const string WorldBuilderExe = "WorldBuilderZH_Qt_D3D9.exe";
+
         public bool wbRunningDialogResultYes()
         {
-            Process[] wbByName = Process.GetProcessesByName("worldbuilder_ctr");
+            Process[] wbByName = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(WorldBuilderExe));
             if (wbByName.Length > 0)
             {
                 DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("W_PreferencesMayNotLoad", Globals.currentLanguage),
@@ -1661,8 +1669,37 @@ namespace Contra
                 return;
             }
 
+            // The GO build is a separate executable beside the retail one, so it is only used
+            // when GO is ticked. Everything else launches generals.exe as it always did, through
+            // the .ctr swap below.
+            string exeToLaunch = GOCheckBox.Checked && File.Exists(GameExeName)
+                ? GameExeName
+                : "generals.exe";
+
+            if (GOCheckBox.Checked)
+            {
+                if (!File.Exists(GameExeName))
+                {
+                    MessageBox.Show(GameExeName + " was not found. GO cannot be launched without it.",
+                        Messages.GenerateMessage("Error", Globals.currentLanguage),
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // The libraries are imports, not optional extras: the game will not start without
+                // them, so a failure here has to stop the launch rather than be reported after it.
+                string extractError;
+                if (!GoFiles.EnsureExtracted(launcherExecutingPath, out extractError))
+                {
+                    MessageBox.Show("The GO libraries could not be unpacked:" + Environment.NewLine + Environment.NewLine + extractError,
+                        Messages.GenerateMessage("Error", Globals.currentLanguage),
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
             // Rename generals.exes
-            if (File.Exists("generals.exe") && (File.Exists("generals.ctr")))
+            if (exeToLaunch == "generals.exe" && File.Exists("generals.exe") && (File.Exists("generals.ctr")))
             {
                 try
                 {
@@ -1676,12 +1713,12 @@ namespace Contra
                 catch { }
             }
 
-            if (File.Exists("generals.exe"))
+            if (File.Exists(exeToLaunch))
             {
                 if (wbRunningDialogResultYes() == true)
                 {
                     Process generals = new Process();
-                    generals.StartInfo.FileName = "generals.exe";
+                    generals.StartInfo.FileName = exeToLaunch;
 
                     generals.StartInfo.Arguments = BuildGeneralsArguments();
 
@@ -1690,7 +1727,7 @@ namespace Contra
                     {
                         WindowState = FormWindowState.Normal;
                     };
-                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName("generals.exe");
+                    generals.StartInfo.WorkingDirectory = Path.GetDirectoryName(exeToLaunch);
                     WindowState = FormWindowState.Minimized;
                     try
                     {
@@ -1712,10 +1749,30 @@ namespace Contra
         {
             bool quickStart = QSCheckBox.Checked;
             bool windowed = WinCheckBox.Checked;
-            if (!quickStart && !windowed) return string.Empty;
-            if (quickStart && !windowed) return "-quickstart -nologo";
-            if (quickStart && windowed) return "-win -quickstart -nologo";
-            return "-win";
+
+            string args;
+            if (!quickStart && !windowed) args = string.Empty;
+            else if (quickStart && !windowed) args = "-quickstart -nologo";
+            else if (quickStart && windowed) args = "-win -quickstart -nologo";
+            else args = "-win";
+
+            if (GOCheckBox.Checked)
+            {
+                // A bare name here would be looked for under the user data folder, not beside the
+                // game -- see parseMod in CommandLine.cpp -- so the full path is what gets passed.
+                string mod = Path.Combine(launcherExecutingPath, GoModArchive);
+                args = (args.Length > 0 ? args + " " : string.Empty) + "-mod \"" + mod + "\"";
+            }
+
+            // A plain Direct3D 9 device instead of 9Ex, for setups that misbehave with 9Ex. The game
+            // keeps no setting for it -- it has to be passed on every launch -- and builds that do
+            // not know the option ignore it, so it is safe whichever exe is started.
+            if (D3D9CheckBox.Checked)
+            {
+                args = (args.Length > 0 ? args + " " : string.Empty) + "-d3d9";
+            }
+
+            return args;
         }
 
         internal static bool Url_open(string url)
@@ -1757,6 +1814,8 @@ namespace Contra
             RadioOrigQuotes.Checked = Properties.Settings.Default.VoNew;
             RadioLocQuotes.Checked = Properties.Settings.Default.VoStandard;
             QSCheckBox.Checked = Properties.Settings.Default.Quickstart;
+            GOCheckBox.Checked = Properties.Settings.Default.GoBuild;
+            D3D9CheckBox.Checked = Properties.Settings.Default.PlainD3D9;
             WinCheckBox.Checked = Properties.Settings.Default.Windowed;
             DefaultPics.Checked = Properties.Settings.Default.GenPicDef;
             GoofyPics.Checked = Properties.Settings.Default.GenPicGoo;
@@ -1800,6 +1859,8 @@ namespace Contra
             Properties.Settings.Default.VoNew = RadioOrigQuotes.Checked;
             Properties.Settings.Default.VoStandard = RadioLocQuotes.Checked;
             Properties.Settings.Default.Quickstart = QSCheckBox.Checked;
+            Properties.Settings.Default.GoBuild = GOCheckBox.Checked;
+            Properties.Settings.Default.PlainD3D9 = D3D9CheckBox.Checked;
             Properties.Settings.Default.Windowed = WinCheckBox.Checked;
             Properties.Settings.Default.GenPicDef = DefaultPics.Checked;
             Properties.Settings.Default.GenPicGoo = GoofyPics.Checked;
@@ -1932,58 +1993,6 @@ namespace Contra
             catch { }
         }
 
-        void gtwc_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            // Extract zip
-            string zipPath = launcherExecutingPath + @"\" + genToolFileName;
-
-            // To prevent crash
-            try
-            {
-                using (ZipArchive archive = ZipFile.OpenRead(zipPath))
-                {
-                    foreach (ZipArchiveEntry entry in archive.Entries.Where(a => a.FullName.Contains("d3d8.dll")))
-                    {
-                        entry.ExtractToFile(Path.Combine(launcherExecutingPath, entry.FullName), true);
-                    }
-                }
-            }
-            catch { }
-
-            try
-            {
-                File.Delete(genToolFileName);
-            }
-            catch { }
-
-            // Show a message when the patch download has completed
-            var gtLangText = new Dictionary<Tuple<string, string>, bool>
-                {
-                    { Tuple.Create("A new version of Gentool has been downloaded!", "Gentool update Complete"), Globals.GB_Checked},
-                    { Tuple.Create("Новая версия GenTool был загружен!", "Gentool обновление завершено"), Globals.RU_Checked},
-                    { Tuple.Create("Новий GenTool завантажено!", "Оновлення GenTool завершено"), Globals.UA_Checked},
-                    { Tuple.Create("Нова версия на GenTool беше изтегленa!", "Обновяването на GenTool е завършено"), Globals.BG_Checked},
-                    { Tuple.Create("Ein neuer GenTool wurde heruntergeladen!", "Aktualisierung GenTool abgeschlossen"), Globals.DE_Checked},
-                }.Single(l => l.Value).Key;
-            MessageBox.Show(new Form { TopMost = true }, gtLangText.Item1, gtLangText.Item2, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        public void DownloadGentool(string url)
-        {
-            try
-            {
-                WebClient gtwc = new WebClient();
-                gtwc.DownloadFileCompleted += new AsyncCompletedEventHandler(gtwc_DownloadCompleted);
-
-                //CheckIfFileIsAvailable(url);
-                //gtwc.OpenRead(url + genToolFileName);
-                //bytes_total = Convert.ToInt64(gtwc.ResponseHeaders["Content-Length"]);
-
-                gtwc.DownloadFileAsync(new Uri(url), launcherExecutingPath + @"\" + genToolFileName);
-            }
-            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
-        }
-
         public static Tuple<int, int> getScreenResolution() => Tuple.Create(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
         readonly int ScreenResolutionX = getScreenResolution().Item1;
         readonly int ScreenResolutionY = getScreenResolution().Item2;
@@ -2076,45 +2085,6 @@ namespace Contra
             {
                 // Log the exception but don't show it to avoid interrupting the user
                 System.Diagnostics.Debug.WriteLine($"UpdateLogic error: {ex.Message}");
-            }
-
-            string gtHash = null;
-            try
-            {
-                gtHash = CalculateMD5("d3d8.dll");
-            }
-            catch { }
-
-            if (isGentoolInstalled("d3d8.dll") && isGentoolOutdated("d3d8.dll", 79) || (gtHash == "70c28745f6e9a9a59cfa1be00df6836a" || gtHash == "13a13584d97922de92443631931d46c3"))
-            {
-                //try
-                //{
-                //    {
-                //        System.Threading.Thread demoThread =
-                //           new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcSafeGentool));
-                //        demoThread.Start();
-                //    }
-                //}
-                //catch (Exception ex) { MessageBox.Show(ex.ToString()); }
-
-                try
-                {
-                    using (WebClient client = new WebClient())
-                    {
-                        genToolFileName = client.DownloadString("http://www.gentool.net/download/patch");
-                        genToolFileName = genToolFileName.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)[1];
-
-                        //MessageBox.Show(genToolFileName);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                    return;
-                }
-
-                string gtURL = "http://www.gentool.net/download/" + genToolFileName;
-                DownloadGentool(gtURL);
             }
 
             // Cleanup old Launcher file after update
@@ -2243,16 +2213,6 @@ namespace Contra
                 //{
                 //    File.Move($"!{betaPrefix}_GameData.ctr", $"!{betaPrefix}_GameData.big");
                 //}
-                // Set default cam height
-                //try
-                //{
-                //    if (AspectRatio(ScreenResolutionX, ScreenResolutionY) == "16:9" && isGentoolInstalled("d3d8.dll"))
-                //    {
-                //        ChangeCamHeight();
-                //    }
-                //}
-                //catch { }
-
                 // Delete tinc vpn files
                 try
                 {
@@ -2387,21 +2347,12 @@ namespace Contra
                     MTheScore.Checked = true;
                 }
 
-                // Select default control bar and cameo size depending on screen aspect ratio and GenTool presence + version
+                // Select default control bar and cameo size depending on screen aspect ratio
                 if (AspectRatio(ScreenResolutionX, ScreenResolutionY) == "16:9")
                 {
-                    if (isGentoolInstalled("d3d8.dll") && !isGentoolOutdated("d3d8.dll", 85))
-                    {
-                        Properties.Settings.Default.ControlBarPro = true;
-                        Properties.Settings.Default.ControlBarContra = false;
-                        Properties.Settings.Default.ControlBarStandard = false;
-                    }
-                    else
-                    {
-                        Properties.Settings.Default.ControlBarPro = false;
-                        Properties.Settings.Default.ControlBarContra = true;
-                        Properties.Settings.Default.ControlBarStandard = false;
-                    }
+                    Properties.Settings.Default.ControlBarPro = true;
+                    Properties.Settings.Default.ControlBarContra = false;
+                    Properties.Settings.Default.ControlBarStandard = false;
                     Properties.Settings.Default.CameosDouble = true;
                     Properties.Settings.Default.CameosStandard = false;
                 }
@@ -2428,15 +2379,6 @@ namespace Contra
             //{
             //    Messages.GenerateMessageBox("W_NotFound_Contra009Final", Globals.currentLanguage);
             //}
-
-            // Check for Contra X Beta 2 Patch 1
-            if (betaPrefix == "ContraXBeta2" && !File.Exists($"!!{betaPrefix}_Patch1.ctr") && !File.Exists($"!!{betaPrefix}_Patch1.big"))
-            {
-                DialogResult dialogResult = MessageBox.Show(Messages.GenerateMessage("I_Patch1NotFound", Globals.currentLanguage),
-                    Messages.GenerateMessage("Information", Globals.currentLanguage), MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (dialogResult == DialogResult.Yes)
-                    Url_open("https://www.moddb.com/mods/contra/downloads");
-            }
 
             try
             {
@@ -2491,22 +2433,6 @@ namespace Contra
             //}
         }
 
-        public static bool isGentoolInstalled(string gentoolPath)
-        {
-            try
-            {
-                var size = GetFileVersionInfoSize(gentoolPath, out _);
-                if (size == 0) { throw new Win32Exception(); };
-                var bytes = new byte[size];
-                bool success = GetFileVersionInfo(gentoolPath, 0, size, bytes);
-                if (!success) { throw new Win32Exception(); }
-
-                VerQueryValue(bytes, @"\StringFileInfo\040904E4\ProductName", out IntPtr ptr, out _);
-                return Marshal.PtrToStringUni(ptr) == "GenTool";
-            }
-            catch { return false; }
-        }
-
         private void OptionsFlashTimer1_Tick(object sender, EventArgs e)
         {
             OptionsBtn.BackgroundImage = Properties.Resources._button_big_hover;
@@ -2535,66 +2461,9 @@ namespace Contra
             donateFlashTimer2.Enabled = false;
         }
 
-        public static bool isGentoolOutdated(string gentoolPath, int minVersion)
-        {
-            try
-            {
-                var size = GetFileVersionInfoSize(gentoolPath, out _);
-                if (size == 0) { throw new Win32Exception(); };
-                var bytes = new byte[size];
-                bool success = GetFileVersionInfo(gentoolPath, 0, size, bytes);
-                if (!success) { throw new Win32Exception(); }
 
-                // 040904E4 US English + CP_USASCII
-                VerQueryValue(bytes, @"\StringFileInfo\040904E4\ProductVersion", out IntPtr ptr, out _);
-                return int.Parse(Marshal.PtrToStringUni(ptr)) < minVersion;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-                return false;
-            }
-        }
-
-        // Beta2 detection and file prefix
-        public static string betaPrefix = "ContraXBeta";
-        private static bool isBeta2 = false;
-
-        static MainForm()
-        {
-            // 1. Check for any !ContraXBeta2_*.ctr or .big file in the current directory
-            bool foundBeta2File = Directory.GetFiles(Directory.GetCurrentDirectory(), "!ContraXBeta2_*.ctr").Length > 0 ||
-                                  Directory.GetFiles(Directory.GetCurrentDirectory(), "!ContraXBeta2_*.big").Length > 0;
-            if (foundBeta2File)
-            {
-                isBeta2 = true;
-                betaPrefix = "ContraXBeta2";
-                return;
-            }
-            // 2. Fallback: check for Beta2 in content of !ContraXBeta.big/.ctr
-            string[] filesToCheck = { $"!{betaPrefix}.big", $"!{betaPrefix}.ctr" };
-            foreach (var file in filesToCheck)
-            {
-                if (File.Exists(file))
-                {
-                    try
-                    {
-                        using (var reader = new StreamReader(file))
-                        {
-                            char[] buffer = new char[4096];
-                            int read = reader.Read(buffer, 0, buffer.Length);
-                            string content = new string(buffer, 0, read);
-                            if (content.Contains("Beta2"))
-                            {
-                                isBeta2 = true;
-                                betaPrefix = "ContraXBeta2";
-                                break;
-                            }
-                        }
-                    }
-                    catch { }
-                }
-            }
-        }
+        // The mod's archives are all named !ContraXBeta2_*. Beta 1 is no longer supported, so
+        // the prefix is fixed rather than detected from the files present.
+        public const string betaPrefix = "ContraXBeta2";
     }
 }
