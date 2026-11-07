@@ -50,20 +50,6 @@ namespace Contra
                 "World Builder не бе намерен.",
                 "World Builder wurde nicht gefunden."),
 
-            ["E_NotFound_GameDataP3"] = lang => ChooseByLanguage(lang,
-                "\"!ContraXBeta_GameData.big\" file not found!",
-                "Файл \"!ContraXBeta_GameData.big\" не найден!",
-                "Файл \"!ContraXBeta_GameData.big\" не знайдений!",
-                "Файлът \"!ContraXBeta_GameData.big\" не беше намерен!",
-                "\"!ContraXBeta_GameData.big\" nicht gefunden!"),
-
-            ["E_CloseGameDataP3"] = lang => ChooseByLanguage(lang,
-                "Please close !ContraXBeta_GameData.big in order to change camera height.",
-                "Пожалуйста, закройте !ContraXBeta_GameData.big, чтобы изменить высоту камеры.",
-                "Будь ласка, закрийте !ContraXBeta_GameData.big, щоб змінити висоту камери.",
-                "Моля, затворете !ContraXBeta_GameData.big, за да промените височината на камерата.",
-                "Bitte schließen Sie !ContraXBeta_GameData.big, um die Kamerahöhe zu ändern."),
-
             ["E_InvalidRes"] = lang => ChooseByLanguage(lang,
                 "This resolution is not valid.",
                 "Это разрешение экрана не является действительным.",
@@ -390,21 +376,8 @@ namespace Contra
                 "Предпочитанията за глас, език и горещи клавиши може да не се заредят правилно, тъй като World Builder е стартиран.\n\nИскате ли да стартирате играта все пак?",
                 "Stimmen der Einheit, Spielsprache und Hotkey-Einstellungen werden möglicherweise nicht richtig geladen, da World Builder ausgeführt wird.\n\nMöchten Sie das Spiel trotzdem starten?"),
             
-            ["W_GenToolNotInstalledOrNotUpToDate"] = lang => ChooseByLanguage(lang, 
-                "GenTool is not installed or not up to date. That means you will have a black line behind the Control Bar Pro.\n\nWould you like to visit https://www.gentool.net/ and install the latest version?\nIf not, we recommend you to select a different control bar for its proper display.",
-                "GenTool не установлен или не обновлен. Это означает, что вы увидите черную линию за панелью управления Pro.\n\nХотите посетить https://www.gentool.net/ и установить последнюю версию?\nЕсли нет, мы рекомендуем вам выбрать другую панель управления для ее правильного отображения.",
-                "GenTool не встановлено або не оновлено. Це означає, що ви побачите чорну лінію позаду Control Bar Pro.\n\nБажаєте відвідати https://www.gentool.net/ і встановити останню версію?\nЯкщо ні, рекомендуємо вибрати іншу панель керування для її належного відображення.",
-                "GenTool не е инсталиран или не е обновен. Това означава, че ще виждате черна линия зад Control Bar Pro.\n\nЖелаете ли да посетите https://www.gentool.net/ и да инсталирате последната версия?\nВ противен случай, препоръчваме Ви да изберете друга контролна лента за правилното й изображение.",
-                "GenTool ist nicht installiert oder nicht auf dem neuesten Stand. Das bedeutet, dass Sie hinter der Control Bar Pro eine schwarze Linie haben.\n\nMöchten Sie https://www.gentool.net/ besuchen und die neueste Version installieren?\nnWenn nicht, empfehlen wir Ihnen, für die korrekte Anzeige eine andere Steuerleiste auszuwählen."),
             
             ["I_GeneralsAlreadyRunning"] = lang => ChooseByLanguage(lang, "Generals.exe is already running.", "Generals.exe уже запущен.", "Generals.exe вже працює.", "Generals.exe е вече стартиран.", "Generals.exe ist bereits gestartet."),
-            
-            ["I_Patch1NotFound"] = lang => ChooseByLanguage(lang,
-                "Contra X Beta 2 Patch 1 is not installed.\n\nThis patch contains important updates and fixes for Contra X Beta 2.\n\nWould you like to visit the downloads page to get the latest patch?",
-                "Contra X Beta 2 Patch 1 не установлен.\n\nЭтот патч содержит важные обновления и исправления для Contra X Beta 2.\n\nХотите ли вы посетить страницу загрузок, чтобы получить последний патч?",
-                "Contra X Beta 2 Patch 1 не встановлений.\n\nЦей патч містить важливі оновлення та виправлення для Contra X Beta 2.\n\nЧи хочете ви відвідати сторінку завантажень, щоб отримати останній патч?",
-                "Contra X Beta 2 Patch 1 не е инсталиран.\n\nТози патч съдържа важни актуализации и корекции за Contra X Beta 2.\n\nИскате ли да посетите страницата за изтегляне, за да получите най-новия патч?",
-                "Contra X Beta 2 Patch 1 ist nicht installiert.\n\nDieser Patch enthält wichtige Updates und Fehlerbehebungen für Contra X Beta 2.\n\nMöchten Sie die Download-Seite besuchen, um den neuesten Patch zu erhalten?")
         };
 
         public static void GenerateMessageBox(string type, string lang)
